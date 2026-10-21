@@ -19,6 +19,7 @@ Scripts are parsed with `ast`, never imported.
 
 Usage: python -m spirit.tools.reuse_effects --set BW11 --dry-run
        python -m spirit.tools.reuse_effects --set BW11 [--prefer BW,DV] [--no-whole-card]
+       python -m spirit.tools.reuse_effects --set XY1 --ref-root ../Spirit-PTCGO-bw/spirit/game/scripts/cards
 """
 import argparse
 import ast
@@ -41,6 +42,25 @@ CORE = {"title", "game_text", "cost", "damage", "damage_operator", "ability_type
 def norm(text) -> str:
     return re.sub(r"\W+", "", str(text).lower().replace("\u00e9", "e"))
 
+
+# --loose: wording that changed between eras without changing the effect
+# (BW "the Defending Pokemon" vs XY+ "your opponent's Active Pokemon", the
+# gender-neutral rewrite, "Active Spot"). Numbers stay in the text, so a loose
+# match still requires identical damage/counter/card counts.
+LOOSE = [
+    (r"your opponent's active pok\u00e9mon", "the defending pok\u00e9mon"),
+    (r"your opponent's active pokemon", "the defending pok\u00e9mon"),
+    (r"\bhis or her\b", "their"), (r"\bhe or she\b", "they"), (r"\bhim or her\b", "them"),
+    (r"active spot", "active pok\u00e9mon"),
+    (r"\bthat pok\u00e9mon\b", "the defending pok\u00e9mon"),
+]
+
+
+def loose_norm(text) -> str:
+    t = str(text).lower()
+    for pat, rep in LOOSE:
+        t = re.sub(pat, rep, t)
+    return norm(t)
 
 def _lit(node, default=None):
     try:
@@ -105,12 +125,20 @@ class Script:
         return tuple(map(str, sig))
 
 
-def all_scripts(exclude: str) -> List[Script]:
+def all_scripts(exclude: str, extra_roots: Optional[List[str]] = None) -> List[Script]:
+    """Every script outside the target folder; extra_roots adds card trees from
+    other checkouts (read-only references, e.g. another branch's worktree)."""
     out = []
-    for code in sorted(os.listdir(CARDS_ROOT)):
-        folder = os.path.join(CARDS_ROOT, code)
-        if code in SKIP_DIRS or code == exclude or not os.path.isdir(folder):
-            continue
+    seen = set()
+    folders = []
+    for root in [CARDS_ROOT] + list(extra_roots or []):
+        for code in sorted(os.listdir(root)):
+            folder = os.path.join(root, code)
+            if code in SKIP_DIRS or code == exclude or code in seen or not os.path.isdir(folder):
+                continue
+            seen.add(code)
+            folders.append(folder)
+    for folder in folders:
         for name in sorted(os.listdir(folder)):
             if name.endswith(".py") and name != "__init__.py":
                 try:
@@ -158,7 +186,10 @@ class Transplant:
 
     def __init__(self, ref: Script, call: ast.Call):
         self.ref = ref
-        self.extra = [k for k in call.keywords if k.arg not in CORE]
+        self.extra = [k for k in call.keywords if k.arg not in CORE
+                      # An Attack's condition= gates the SOURCE card's
+                      # context (Rapid/Single Strike, tool-granted attacks).
+                      and not (k.arg == "condition" and getattr(call.func, "id", "") == "Attack")]
         used: Set[str] = set()
         for k in self.extra:
             used |= _names(k.value)
@@ -249,12 +280,22 @@ def main(argv: Optional[List[str]] = None) -> int:
     parser.add_argument("--no-whole-card", action="store_true", help="Skip the whole-card reprint pass.")
     parser.add_argument("--allow-mismatch", action="store_true",
                         help="Apply text matches even when the source hard-codes a different damage.")
+    parser.add_argument("--loose", action="store_true",
+                        help="Also match across era wording changes (Defending Pokemon / opponent's "
+                             "Active Pokemon, his or her / their); matches are tagged LOOSE.")
+    parser.add_argument("--ref-root", action="append", default=[], metavar="DIR",
+                        help="Extra card-script tree to use as reference (repeatable), e.g. "
+                             "../other-worktree/spirit/game/scripts/cards. Folders already present "
+                             "locally win; copied code must only use helpers this checkout has.")
     args = parser.parse_args(argv)
+    for root in args.ref_root:
+        if not os.path.isdir(root):
+            parser.error(f"--ref-root is not a directory: {root}")
     folder = os.path.join(CARDS_ROOT, args.set)
     if not os.path.isdir(folder):
         parser.error(f"unknown set folder: {args.set}")
     prefer = [p for p in args.prefer.split(",") if p] or [re.match(r"[A-Za-z]*", args.set).group(0) or args.set]
-    refs = [s for s in all_scripts(args.set) if s.card is not None]
+    refs = [s for s in all_scripts(args.set, args.ref_root) if s.card is not None]
     rank = _rank(prefer)
 
     targets = [Script(os.path.join(folder, n)) for n in sorted(os.listdir(folder))
@@ -284,6 +325,7 @@ def main(argv: Optional[List[str]] = None) -> int:
         targets = remaining
 
     index: Dict[str, List[Tuple[Script, ast.Call]]] = {}
+    loose_index: Dict[str, List[Tuple[Script, ast.Call]]] = {}
     for ref in refs:
         for call in _ability_calls(ref.tree):
             kw = {k.arg: k.value for k in call.keywords}
@@ -293,6 +335,8 @@ def main(argv: Optional[List[str]] = None) -> int:
             text = _lit(kw["game_text"])
             if text:
                 index.setdefault(norm(text), []).append((ref, call))
+                if args.loose:
+                    loose_index.setdefault(loose_norm(text), []).append((ref, call))
 
     for stub in targets:
         plans = []
@@ -304,6 +348,11 @@ def main(argv: Optional[List[str]] = None) -> int:
             text = _lit(kw.get("game_text").value if "game_text" in kw else None, "")
             candidates = [(r, c) for r, c in index.get(norm(text), [])
                           if getattr(c.func, "id", None) == call.func.id]
+            tag = ""
+            if not candidates and args.loose:
+                candidates = [(r, c) for r, c in loose_index.get(loose_norm(text), [])
+                              if getattr(c.func, "id", None) == call.func.id]
+                tag = " LOOSE"
             if not candidates:
                 misses += 1
                 print(f"MISS     {stub.stem} | {title} | {text[:90]}")
@@ -321,7 +370,7 @@ def main(argv: Optional[List[str]] = None) -> int:
                 continue
             note = f" (damage {plan.damage} -> {mine})" if mine != plan.damage else ""
             print(f"TEXT     {stub.stem} | {title} <- {ref.set_code}/{ref.stem}: "
-                  f"{plan.keyword_text(' ').replace(chr(10), ' ')[:110]}{note}")
+                  f"{plan.keyword_text(' ').replace(chr(10), ' ')[:110]}{note}{tag}")
             plans.append((kw["effect"], plan))
             text_hits += 1
         if plans and not args.dry_run:

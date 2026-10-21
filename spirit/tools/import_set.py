@@ -4,6 +4,7 @@ import re
 import sys
 import uuid
 import argparse
+import unicodedata
 import requests
 from typing import Dict, Any, List, Optional
 from concurrent.futures import ThreadPoolExecutor
@@ -72,7 +73,10 @@ STAGE_MAP = {
 }
 
 def clean_name(name: str) -> str:
-    return re.sub(r'[^a-zA-Z0-9]', '', name)
+    """ASCII stem for filenames: Flabébé -> Flabebe, Pokémon -> Pokemon."""
+    decomposed = unicodedata.normalize("NFKD", name or "")
+    ascii_only = decomposed.encode("ascii", "ignore").decode("ascii")
+    return re.sub(r'[^a-zA-Z0-9]', '', ascii_only)
 
 # Unique int collector numbers. Spirit keys cards (art bundle asset names,
 # "SET/number" deck refs, the starter index) by (set, int number), so every
@@ -130,6 +134,22 @@ def collector_number_int(number: Any) -> int:
         return NUMBER_MAP[raw]
     digits = re.sub(r"\D", "", raw)
     return int(digits) if digits else 0
+
+def stub_header(reason: str, rules: Optional[List[str]] = None) -> str:
+    """Module docstring marking a card (or effect) as intentionally stubbed."""
+    lines = [
+        "STUB: effect not implemented — do not guess mechanics.",
+        reason,
+    ]
+    if rules:
+        lines.append("")
+        lines.append("Card text:")
+        for rule in rules:
+            text = fix_text(rule).strip()
+            if text:
+                lines.append(f"  - {text}")
+    body = "\n".join(lines)
+    return f'"""{body}\n"""\n\n'
 
 def get_guid(card_id: str) -> str:
     return str(uuid.uuid5(uuid.NAMESPACE_DNS, f"spirit.ptcgo.{card_id}"))
@@ -216,6 +236,7 @@ def build_abilities_src(card: Dict[str, Any]) -> tuple:
             f"            title={py_str(fix_text(ability.get('name', '')))},",
             f"            game_text={py_str(fix_text(ability.get('text', '')))},",
             f"            ability_type={ability_type},",
+            "            # STUB: ability effect not implemented",
             "            effect=unimplemented,",
             "        ),",
         ])
@@ -233,6 +254,7 @@ def build_abilities_src(card: Dict[str, Any]) -> tuple:
             lines.append(f"            damage_operator={py_str(operator)},")
         if text:
             # Attacks with effect text stay playable (base damage only) until scripted.
+            lines.append("            # STUB: attack effect not implemented")
             lines.append("            effect=unimplemented,")
             uses_unimplemented = True
         lines.append("        ),")
@@ -272,9 +294,11 @@ def get_family_id(card: Dict[str, Any]) -> Optional[int]:
 def render_script(card: Dict[str, Any]) -> Optional[str]:
     """Renders the card definition script source for one API card dict."""
     supertype = card.get("supertype", "")
-    name = card.get("name", "Unknown")
-    number = collector_number_int(card.get("number", "0"))
+    name = fix_text(card.get("name", "Unknown"))
+    number_raw = card.get("number", "0")
+    number = collector_number_int(number_raw)
     safe_name = clean_name(name)
+    rules = [fix_text(r) for r in (card.get("rules") or []) if r]
 
     # Prepare script content
     rarity = map_rarity(card.get("rarity", "Common"))
@@ -311,7 +335,14 @@ def render_script(card: Dict[str, Any]) -> Optional[str]:
         if uses_ability_types:
             attr_imports += ", AbilityTypes"
 
-        content = f"""from spirit.game.data_utils import {imports}
+        header = ""
+        if uses_unimplemented:
+            header = stub_header(
+                f"{name} ({SET_CODE} #{number_raw}): one or more attacks/abilities use "
+                "effect=unimplemented until a matching prefab or known script exists."
+            )
+
+        content = f"""{header}from spirit.game.data_utils import {imports}
 from spirit.game.attributes import {attr_imports}
 
 card = PokemonCardDef(
@@ -381,7 +412,11 @@ card = PokemonCardDef(
                 "    # GAP: no AceSpecCardDef; ACE SPEC is a subtype flag only\n"
             )
 
-        content = f"""from spirit.game.data_utils import {trainer_class}, unimplemented
+        header = stub_header(
+            f"{name} ({SET_CODE} #{number_raw}): trainer effect stubbed.",
+            rules=rules,
+        )
+        content = f"""{header}from spirit.game.data_utils import {trainer_class}, unimplemented
 from spirit.game.attributes import {attr_imports}
 
 card = {trainer_class}(
@@ -394,7 +429,8 @@ card = {trainer_class}(
     collector_number={number},
     set_code="{SET_CODE}",
     rarity={rarity},
-{trainer_extra_kw}{ace_comment}    effect=unimplemented
+{trainer_extra_kw}{ace_comment}    # STUB: trainer effect not implemented
+    effect=unimplemented
 )
 """
     elif supertype == "Energy":
@@ -406,7 +442,21 @@ card = {trainer_class}(
                     energy_type = t_enum
                     break
 
-        content = f"""from spirit.game.data_utils import EnergyCardDef
+        header = ""
+        extra_lines = ""
+        # Known special energy with no conditional text beyond provides.
+        if name == "Double Colorless Energy":
+            extra_lines = (
+                "    provides=[[PokemonTypes.COLORLESS, PokemonTypes.COLORLESS]],\n"
+            )
+        elif is_special:
+            header = stub_header(
+                f"{name} ({SET_CODE} #{number_raw}): special energy provides/passive/attach "
+                "rules stubbed until matched to a known energy pattern.",
+                rules=rules,
+            )
+            extra_lines = "    # STUB: special energy mechanics not implemented\n"
+        content = f"""{header}from spirit.game.data_utils import EnergyCardDef
 from spirit.game.attributes import PokemonTypes, Rarities
 
 card = EnergyCardDef(
@@ -420,8 +470,8 @@ card = EnergyCardDef(
     set_code="{SET_CODE}",
     rarity={rarity},
     energy_type={energy_type},
-    is_special={is_special}
-)
+    is_special={is_special},
+{extra_lines})
 """
 
     return content or None
@@ -459,9 +509,8 @@ def main():
 
     JSON_PATH = args.json_path
     
-    # Determine the set code
-    # Preserve caller casing when --set-code is given (sets.json uses
-    # mixed-case names like Promo_BW / TwentiethAnn).
+    # Determine the set code. Preserve caller casing when --set-code is given
+    # (sets.json uses mixed-case names like Promo_BW / TwentiethAnn).
     if args.set_code:
         SET_CODE = args.set_code
     else:
