@@ -46,8 +46,34 @@ def subtypes_for(archetype_id: Optional[str]) -> List[str]:
 
 
 # Rule-box subtypes and the prizes an attacker takes for knocking one out.
-_MULTI_PRIZE_SUBTYPES = {"V": 2, "VSTAR": 2, "V-UNION": 3, "VMAX": 3, "GX": 2, "EX": 2}
-_RULE_BOX_SUBTYPES = set(_MULTI_PRIZE_SUBTYPES) | {"Radiant"}
+# TAG TEAM cards are also "GX"; prize_value takes the max, so they give 3.
+_MULTI_PRIZE_SUBTYPES = {"V": 2, "VSTAR": 2, "V-UNION": 3, "VMAX": 3, "GX": 2, "EX": 2,
+                         "TAG TEAM": 3}
+_RULE_BOX_SUBTYPES = set(_MULTI_PRIZE_SUBTYPES) | {"Radiant", "Prism Star"}
+
+PRISM_STAR_SUBTYPE = "Prism Star"
+ULTRA_BEAST_SUBTYPE = "Ultra Beast"
+TAG_TEAM_SUBTYPE = "TAG TEAM"
+
+
+def is_prism_star(archetype_id: Optional[str]) -> bool:
+    """Prism Star card (Pokemon, Trainer or Energy): 1 per name per deck and
+    it goes to the Lost Zone instead of the discard pile."""
+    return PRISM_STAR_SUBTYPE in subtypes_for(archetype_id)
+
+
+def is_ultra_beast(archetype_id: Optional[str]) -> bool:
+    return ULTRA_BEAST_SUBTYPE in subtypes_for(archetype_id)
+
+
+def is_tag_team(archetype_id: Optional[str]) -> bool:
+    return TAG_TEAM_SUBTYPE in subtypes_for(archetype_id)
+
+
+def looks_like_gx_attack(title: str, game_text: str) -> bool:
+    """SM GX attacks: title ends in 'GX' and the text carries the GX reminder."""
+    return (title or "").rstrip().endswith("GX") \
+        and "more than 1 GX attack" in (game_text or "")
 
 
 def is_pokemon_v(archetype_id: Optional[str]) -> bool:
@@ -284,10 +310,14 @@ class Attack(Ability):
         locks_next_turn: bool = False,
         condition: Optional[Callable] = None,
         usable_first_turn: bool = False,
-        usable_despite_conditions: bool = False
+        usable_despite_conditions: bool = False,
+        gx: Optional[bool] = None,
     ):
         super().__init__(title, game_text, ability_type, effect, vstar=vstar,
                          condition=condition)
+        # GX attack: once per game per player (shared with every GX attack).
+        # None = infer from the printed title/text.
+        self.gx = looks_like_gx_attack(title, game_text) if gx is None else bool(gx)
         self.cost = cost or {}
         self.damage = damage
         self.damage_operator = damage_operator

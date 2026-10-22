@@ -310,6 +310,12 @@ class Passive:
         as their manual attachment (Froslass Cursed Glare)."""
         return False
 
+    def blocks_gx_attacks(self, player_id: str, pokemon: PokemonEntity,
+                          carrier: BoardEntity) -> bool:
+        """True to forbid `player_id`'s `pokemon` using GX attacks ("your
+        opponent can't use any GX attacks")."""
+        return False
+
     def forces_coin_tails(self, player_id: str, carrier: BoardEntity) -> bool:
         """True when every coin `player_id` flips comes up tails (Cofagrigus
         Slap of Misfortune); covers effect flips and Checkup/attack flips."""
@@ -765,6 +771,15 @@ def energy_attach_blocked(board: BoardState, player_id: str, energy: BoardEntity
     """Whether a continuous passive forbids attaching `energy` from hand to `target`."""
     return any(
         passive.blocks_energy_attach(energy, player_id, target, carrier)
+        for passive, carrier in active_passives(board)
+    )
+
+
+def gx_attacks_blocked(board: BoardState, player_id: str,
+                       pokemon: PokemonEntity) -> bool:
+    """Whether a passive forbids `player_id`'s `pokemon` from using GX attacks."""
+    return any(
+        passive.blocks_gx_attacks(player_id, pokemon, carrier)
         for passive, carrier in active_passives(board)
     )
 

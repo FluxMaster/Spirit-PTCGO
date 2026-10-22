@@ -46,6 +46,7 @@ from .passives import (
     effective_retreat_cost,
     energy_provided_options,
     evolution_blocked,
+    gx_attacks_blocked,
     retreat_blocked,
     tool_slots_free,
     trainer_play_blocked,
@@ -115,6 +116,8 @@ class TurnState:
     used_named_abilities: Set[str] = field(default_factory=set)
     # Players who already used their once-per-game VSTAR Power.
     vstar_used: Set[str] = field(default_factory=set)
+    # Players who already used their once-per-game GX attack.
+    gx_used: Set[str] = field(default_factory=set)
     # (player_id, combined guid) per V-UNION already combined this game.
     vunions_assembled: Set[Tuple[str, str]] = field(default_factory=set)
     # (entity_id, ability_id) -> last turn number the attack stays locked
@@ -851,6 +854,10 @@ def _attack_entries(
             continue
         if definition is not None and definition.vstar \
                 and player_id in state.vstar_used:
+            continue
+        if definition is not None and getattr(definition, "gx", False) \
+                and (player_id in state.gx_used
+                     or gx_attacks_blocked(board, player_id, active)):
             continue
         # Attack usage restriction ("You can use this attack only if...").
         if definition is not None and definition.condition is not None \
