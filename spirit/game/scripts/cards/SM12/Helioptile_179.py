@@ -4,6 +4,8 @@ Helioptile (SM12 #179): one or more attacks/abilities use effect=unimplemented u
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm9 import tail_whip
+
 
 card = PokemonCardDef(
     guid="bad4ddc0-2bc6-59b5-a638-a304ff87bab2",
@@ -27,7 +29,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon can't attack during your opponent's next turn.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=tail_whip,
         ),
         Attack(
             title="Rear Kick",

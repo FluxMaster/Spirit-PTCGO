@@ -4,6 +4,13 @@ Dhelmise (SM12 #98): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.pokemon import electromagnetic_sonar
+
+
+async def feint(ctx):
+    """30. This attack's damage isn't affected by Resistance."""
+    await ctx.deal_damage(ignore_resistance=True)
+
 
 card = PokemonCardDef(
     guid="1c7c0d32-0a52-5669-909f-772c1cb84a48",
@@ -29,7 +36,7 @@ card = PokemonCardDef(
             game_text="Put a Trainer card from your discard pile into your hand.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=electromagnetic_sonar,
         ),
         Attack(
             title="Buster Swing",
@@ -37,7 +44,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 2, PokemonTypes.COLORLESS: 1},
             damage=100,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=feint,
         ),
     ],
 )

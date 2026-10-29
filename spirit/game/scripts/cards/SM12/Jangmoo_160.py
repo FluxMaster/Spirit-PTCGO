@@ -4,6 +4,8 @@ Jangmo-o (SM12 #160): one or more attacks/abilities use effect=unimplemented unt
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm7 import onix_rage
+
 
 card = PokemonCardDef(
     guid="ffb6dc4c-f316-5325-bf32-3045ed09cbd6",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             damage=20,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=onix_rage,
         ),
     ],
 )

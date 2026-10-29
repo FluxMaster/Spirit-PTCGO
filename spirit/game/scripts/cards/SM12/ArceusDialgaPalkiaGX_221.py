@@ -4,6 +4,9 @@ Arceus & Dialga & Palkia-GX (SM12 #221): one or more attacks/abilities use effec
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import search_attach_energy
+from spirit.game.card_effects.trainers import is_basic_energy_card
+
 
 card = PokemonCardDef(
     guid="4dd9ae87-aa07-5e9b-ad8a-ab4208612d4b",
@@ -28,7 +31,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1, PokemonTypes.METAL: 1, PokemonTypes.COLORLESS: 1},
             damage=150,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=search_attach_energy(predicate=is_basic_energy_card, count=3, distribute=True),
         ),
         Attack(
             title="Altered Creation-GX",

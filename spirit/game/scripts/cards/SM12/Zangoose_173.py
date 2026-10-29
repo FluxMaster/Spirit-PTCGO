@@ -4,6 +4,8 @@ Zangoose (SM12 #173): one or more attacks/abilities use effect=unimplemented unt
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import damage_per, damage_counters_on
+
 
 card = PokemonCardDef(
     guid="aa7f3c48-a833-5cb7-8e7c-71c247ee08c1",
@@ -34,7 +36,7 @@ card = PokemonCardDef(
             damage=20,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_per(damage_counters_on('defender'), 10, base=20),
         ),
     ],
 )

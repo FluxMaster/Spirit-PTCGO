@@ -4,6 +4,8 @@ Rowlet (SM12 #18): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import snipe_attack
+
 
 card = PokemonCardDef(
     guid="0bda0ae9-bfe0-57f2-8d69-b27cc0f77fd2",
@@ -27,7 +29,7 @@ card = PokemonCardDef(
             game_text="This attack does 10 damage to 1 of your opponent's Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.GRASS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=snipe_attack(10, pool='any', count=1),
         ),
     ],
 )

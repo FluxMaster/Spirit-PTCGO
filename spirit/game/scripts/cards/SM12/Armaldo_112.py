@@ -5,6 +5,12 @@ Armaldo (SM12 #112): one or more attacks/abilities use effect=unimplemented unti
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 
+
+async def feint(ctx):
+    """30. This attack's damage isn't affected by Resistance."""
+    await ctx.deal_damage(ignore_resistance=True)
+
+
 card = PokemonCardDef(
     guid="e51a8197-9b2e-5131-9fc4-b402a4562299",
     key="SM12",
@@ -38,7 +44,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 2},
             damage=100,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=feint,
         ),
     ],
 )

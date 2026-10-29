@@ -4,6 +4,8 @@ Weavile (SM12 #238): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import search_to_hand
+
 
 card = PokemonCardDef(
     guid="9aeb19bd-2374-5dc9-bdc3-69394e06c83b",
@@ -28,7 +30,7 @@ card = PokemonCardDef(
             game_text="Search your deck for up to 2 cards and put them into your hand. Then, shuffle your deck.",
             cost={PokemonTypes.DARKNESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=search_to_hand(count=2),
         ),
         Attack(
             title="Slashing Claw",

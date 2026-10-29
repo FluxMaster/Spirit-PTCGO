@@ -5,6 +5,12 @@ Gallade (SM12 #82): one or more attacks/abilities use effect=unimplemented until
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 
+
+async def shadow_cyclone(ctx):
+    await ctx.deal_damage()
+    await ctx.move_energy_freely([ctx.attacker], ctx.my_bench(), max_count=1)
+
+
 card = PokemonCardDef(
     guid="9320673a-0f92-59b9-be69-661b4d61ef63",
     key="SM12",
@@ -36,7 +42,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=120,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=shadow_cyclone,
         ),
     ],
 )

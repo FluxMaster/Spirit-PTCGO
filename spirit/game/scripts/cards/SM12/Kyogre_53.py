@@ -4,6 +4,9 @@ Kyogre (SM12 #53): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.hf import star_stream
+from spirit.game.card_effects.attacks_common import self_energy_discard_attack
+
 
 card = PokemonCardDef(
     guid="ea948ba6-e428-5fdf-bf2f-cfbae9ce72c0",
@@ -27,7 +30,7 @@ card = PokemonCardDef(
             game_text="Attach 2 Water Energy cards from your discard pile to 1 of your Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=star_stream,
         ),
         Attack(
             title="Swirling Waves",
@@ -35,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 2, PokemonTypes.COLORLESS: 2},
             damage=130,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=self_energy_discard_attack(count=1),
         ),
     ],
 )

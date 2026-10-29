@@ -4,6 +4,8 @@ Vaporeon (SM12 #42): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.support_common import heal_targets
+
 
 card = PokemonCardDef(
     guid="adc73d63-bac9-5b07-bfc2-6421dbca95a1",
@@ -36,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 2},
             damage=60,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=heal_targets(30, 'each_own'),
         ),
     ],
 )

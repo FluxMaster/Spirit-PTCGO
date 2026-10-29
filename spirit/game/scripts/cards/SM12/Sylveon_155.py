@@ -4,6 +4,8 @@ Sylveon (SM12 #155): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.passives_common import debuff_defender_attacks
+
 
 card = PokemonCardDef(
     guid="883c281a-30e0-5e08-a569-714076df30cc",
@@ -31,7 +33,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FAIRY: 1},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=debuff_defender_attacks(30),
         ),
         Attack(
             title="Beloved Pulse",

@@ -4,6 +4,9 @@ Alolan Sandslash (SM12 #138): one or more attacks/abilities use effect=unimpleme
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.passives_common import flip_protection
+from spirit.game.card_effects.attacks_common import bonus_if, has_tool
+
 
 card = PokemonCardDef(
     guid="13ff706b-481d-5264-a5ad-cd7326003b97",
@@ -31,7 +34,7 @@ card = PokemonCardDef(
             cost={},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_protection(prevent=True),
         ),
         Attack(
             title="Reinforced Needle",
@@ -40,7 +43,7 @@ card = PokemonCardDef(
             damage=60,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bonus_if(lambda ctx: ctx.attacker is not None and has_tool(ctx.attacker), 60),
         ),
     ],
 )

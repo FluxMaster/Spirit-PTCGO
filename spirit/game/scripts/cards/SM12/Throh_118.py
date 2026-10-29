@@ -4,6 +4,14 @@ Throh (SM12 #118): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.attributes import AttrID
+from spirit.game.card_effects.attacks_common import bonus_if
+
+
+def _bench_has_damage(ctx) -> bool:
+    return any(p.get_attribute(AttrID.HP, ctx.max_hp(p)) < ctx.max_hp(p)
+               for p in ctx.my_bench())
+
 
 card = PokemonCardDef(
     guid="ddcd5658-1aa7-58c2-998e-c21f725d3489",
@@ -29,7 +37,7 @@ card = PokemonCardDef(
             damage=30,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bonus_if(_bench_has_damage, 90),
         ),
     ],
 )

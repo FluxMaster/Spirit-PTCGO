@@ -4,6 +4,8 @@ Rotom (SM12 #86): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import discard_then_draw
+
 
 card = PokemonCardDef(
     guid="917d561d-60a3-55ef-9491-38c603d20c0a",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             game_text="Discard a card from your hand. If you do, draw 2 cards.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=discard_then_draw(1, 2, optional=True),
         ),
         Attack(
             title="Energy Assist",

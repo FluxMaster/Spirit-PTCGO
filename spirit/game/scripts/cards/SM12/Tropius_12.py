@@ -4,6 +4,9 @@ Tropius (SM12 #12): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import search_attach_energy, heal_attack
+from spirit.game.card_effects.trainers import is_grass_energy_card
+
 
 card = PokemonCardDef(
     guid="03265989-fea7-5e88-8357-1f0d19f47cb3",
@@ -27,7 +30,7 @@ card = PokemonCardDef(
             game_text="Search your deck for a Grass Energy card and attach it to 1 of your Pok\u00e9mon. Then, shuffle your deck.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=search_attach_energy(is_grass_energy_card, count=1),
         ),
         Attack(
             title="Leaf Drain",
@@ -35,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 1},
             damage=50,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=heal_attack(30),
         ),
     ],
 )

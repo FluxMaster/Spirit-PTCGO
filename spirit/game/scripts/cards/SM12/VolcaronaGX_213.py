@@ -4,6 +4,8 @@ Volcarona-GX (SM12 #213): one or more attacks/abilities use effect=unimplemented
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm4 import dread_storm_gx
+
 
 card = PokemonCardDef(
     guid="9d16a24b-56eb-5bcc-bd9b-16ae3d26e019",
@@ -43,7 +45,7 @@ card = PokemonCardDef(
             game_text="Discard an Energy from each of your opponent's Pok\u00e9mon. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.FIRE: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=dread_storm_gx,
         ),
     ],
 )

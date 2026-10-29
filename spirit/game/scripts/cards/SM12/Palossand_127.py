@@ -4,6 +4,9 @@ Palossand (SM12 #127): one or more attacks/abilities use effect=unimplemented un
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.passives_common import protect_next_turn
+from spirit.game.card_effects.sm5 import earthquake
+
 
 card = PokemonCardDef(
     guid="c296442c-57c4-5301-a6a3-1f647c84a71b",
@@ -29,7 +32,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=80,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=protect_next_turn(reduce=20),
         ),
         Attack(
             title="Earthquake",
@@ -37,7 +40,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 3},
             damage=150,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=earthquake,
         ),
     ],
 )

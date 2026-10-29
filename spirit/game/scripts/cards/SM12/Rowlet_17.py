@@ -4,6 +4,8 @@ Rowlet (SM12 #17): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.passives_common import flip_protection
+
 
 card = PokemonCardDef(
     guid="0297d438-ac2a-5e4c-92a3-8183adc17e6e",
@@ -27,7 +29,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, prevent all effects of attacks, including damage, done to this Pok\u00e9mon during your opponent's next turn.",
             cost={PokemonTypes.GRASS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_protection(prevent=True, effects_too=True),
         ),
         Attack(
             title="Tackle",

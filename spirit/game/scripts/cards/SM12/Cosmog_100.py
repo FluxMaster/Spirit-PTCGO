@@ -4,6 +4,9 @@ Cosmog (SM12 #100): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.passives_common import attack_effect_shield_passive
+from spirit.game.card_effects.attacks_common import flip_or_nothing
+
 
 card = PokemonCardDef(
     guid="3bae83c7-5b4d-57a0-ab30-3467901522a4",
@@ -27,7 +30,7 @@ card = PokemonCardDef(
             game_text="Prevent all effects of your opponent's attacks, except damage, done to this Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=attack_effect_shield_passive(),
         ),
         Attack(
             title="Surprise Attack",
@@ -35,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_or_nothing(),
         ),
     ],
 )

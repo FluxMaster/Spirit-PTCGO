@@ -4,6 +4,8 @@ Stoutland (SM12 #248): one or more attacks/abilities use effect=unimplemented un
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm8 import lava_burn
+
 
 card = PokemonCardDef(
     guid="ec801e44-e1c8-5c4c-be84-2b1cd245e141",
@@ -36,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=110,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=lava_burn,
         ),
     ],
 )

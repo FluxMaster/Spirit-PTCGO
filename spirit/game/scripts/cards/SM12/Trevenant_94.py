@@ -4,6 +4,18 @@ Trevenant (SM12 #94): one or more attacks/abilities use effect=unimplemented unt
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import opponent_switches
+from spirit.game.card_effects.sm8 import shadow_impact
+
+
+async def push_down(ctx):
+    await ctx.deal_damage()
+    opp_active = ctx.opponent_active()
+    if opp_active is None or not ctx.opponent_bench() or ctx.effects_blocked(opp_active):
+        return
+    if await ctx.ask_yes_no("Have your opponent switch their Active Pokémon with 1 of their Benched Pokémon?"):
+        await opponent_switches(ctx)
+
 
 card = PokemonCardDef(
     guid="e7873c60-5a14-59d1-8115-1a54b1a4dd38",
@@ -31,7 +43,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=push_down,
         ),
         Attack(
             title="Shadow Impact",
@@ -39,7 +51,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 2},
             damage=120,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=shadow_impact,
         ),
     ],
 )

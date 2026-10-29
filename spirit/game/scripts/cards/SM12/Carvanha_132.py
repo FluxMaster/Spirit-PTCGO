@@ -4,6 +4,8 @@ Carvanha (SM12 #132): one or more attacks/abilities use effect=unimplemented unt
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.passives_common import flip_protection
+
 
 card = PokemonCardDef(
     guid="1621fee9-9cdf-5f88-8c69-fe06b355908c",
@@ -30,7 +32,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.DARKNESS: 1},
             damage=10,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_protection(prevent=True, effects_too=True),
         ),
     ],
 )

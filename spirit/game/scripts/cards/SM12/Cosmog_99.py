@@ -4,6 +4,8 @@ Cosmog (SM12 #99): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm5 import evolve_self_from_deck
+
 
 card = PokemonCardDef(
     guid="d1224c0e-d598-5aa9-af7b-b5763b8ae3c4",
@@ -27,7 +29,7 @@ card = PokemonCardDef(
             game_text="Search your deck for a card that evolves from this Pok\u00e9mon and put it onto this Pok\u00e9mon to evolve it. Then, shuffle your deck.",
             cost={PokemonTypes.PSYCHIC: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=evolve_self_from_deck,
         ),
     ],
 )

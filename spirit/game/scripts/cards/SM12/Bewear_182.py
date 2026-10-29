@@ -4,6 +4,9 @@ Bewear (SM12 #182): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.passives_common import retreat_discount, is_in_active_spot
+from spirit.game.card_effects.attacks_common import flip_or_nothing
+
 
 card = PokemonCardDef(
     guid="e0fa0835-0507-57b9-8f4b-75cf45e3cc0e",
@@ -28,7 +31,7 @@ card = PokemonCardDef(
             game_text="As long as this Pok\u00e9mon is on your Bench, your Active Pok\u00e9mon's Retreat Cost is ColorlessColorless less.",
             ability_type=AbilityTypes.POKE_ABILITY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=retreat_discount(2, target_pred=lambda pokemon, carrier: pokemon.owning_player_id == carrier.owning_player_id and is_in_active_spot(pokemon) and (not is_in_active_spot(carrier))),
         ),
         Attack(
             title="Lariat",
@@ -36,7 +39,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=120,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_or_nothing(),
         ),
     ],
 )

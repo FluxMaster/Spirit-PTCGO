@@ -4,6 +4,8 @@ Oricorio-GX (SM12 #95): one or more attacks/abilities use effect=unimplemented u
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm3 import crossing_cut_gx
+
 
 card = PokemonCardDef(
     guid="b61f54af-5c81-5151-b735-aa976dbc4523",
@@ -42,7 +44,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 2},
             damage=100,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=crossing_cut_gx,
         ),
     ],
 )

@@ -4,6 +4,13 @@ Silvally-GX (SM12 #227): one or more attacks/abilities use effect=unimplemented 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import bonus_if
+from spirit.game.card_effects.sm8 import sublimation_gx
+
+
+def _supporter_played_this_turn(ctx):
+    return ctx.supporters_played_this_turn() > 0
+
 
 card = PokemonCardDef(
     guid="4f821d1a-0ced-5081-b387-6329644f5667",
@@ -37,14 +44,14 @@ card = PokemonCardDef(
             damage=50,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bonus_if(_supporter_played_this_turn, 70),
         ),
         Attack(
             title="Silver Knight-GX",
             game_text="If your opponent's Active Pok\u00e9mon is an Ultra Beast, it is Knocked Out. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.COLORLESS: 2},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=sublimation_gx,
         ),
     ],
 )

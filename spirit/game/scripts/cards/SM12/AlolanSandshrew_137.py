@@ -4,6 +4,8 @@ Alolan Sandshrew (SM12 #137): one or more attacks/abilities use effect=unimpleme
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import switch_self_attack
+
 
 card = PokemonCardDef(
     guid="6f5651e3-d4e0-531a-ad4b-59320c69d812",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             game_text="Switch this Pok\u00e9mon with 1 of your Benched Pok\u00e9mon.",
             cost={},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=switch_self_attack(),
         ),
         Attack(
             title="Metal Claw",

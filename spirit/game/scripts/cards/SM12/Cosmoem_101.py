@@ -4,6 +4,8 @@ Cosmoem (SM12 #101): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.passives_common import protect_next_turn
+
 
 card = PokemonCardDef(
     guid="5740da42-2ffe-5b54-abf5-da3cfd4c5e9d",
@@ -28,7 +30,7 @@ card = PokemonCardDef(
             game_text="During your opponent's next turn, this Pok\u00e9mon takes 40 less damage from attacks (after applying Weakness and Resistance).",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=protect_next_turn(reduce=40),
         ),
     ],
 )

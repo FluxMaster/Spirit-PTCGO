@@ -4,6 +4,8 @@ Oddish (SM12 #2): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import heal_targets
+
 
 card = PokemonCardDef(
     guid="a160415c-fdad-5c51-b8c4-ac26db0fad49",
@@ -27,7 +29,7 @@ card = PokemonCardDef(
             game_text="Heal 30 damage from 1 of your Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=heal_targets(30, 'choice'),
         ),
     ],
 )

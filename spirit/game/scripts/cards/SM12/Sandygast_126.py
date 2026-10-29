@@ -4,6 +4,20 @@ Sandygast (SM12 #126): one or more attacks/abilities use effect=unimplemented un
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+import random
+
+
+async def astonish(ctx):
+    """Choose a random card from the opponent's hand, reveal it, shuffle into their deck."""
+    await ctx.deal_damage()
+    opponent = ctx.opponent_id
+    hand = ctx.hand(opponent)
+    if not hand:
+        return
+    card = random.choice(hand)
+    await ctx.reveal_cards([card])
+    await ctx.shuffle_into_deck([card], player_id=opponent)
+
 
 card = PokemonCardDef(
     guid="b8fb602f-b84b-5317-90c8-4010da67b7c3",
@@ -28,7 +42,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1},
             damage=10,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=astonish,
         ),
         Attack(
             title="Hook",

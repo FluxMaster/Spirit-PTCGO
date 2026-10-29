@@ -4,6 +4,17 @@ Piplup (SM12 #239): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import lock_defender_attacks
+from spirit.game.session.effects import is_basic_pokemon
+
+
+async def tie_up(ctx):
+    """20. If the Defending Pokemon is a Basic Pokemon, it can't attack next turn."""
+    await ctx.deal_damage()
+    defender = ctx.defender
+    if defender is not None and is_basic_pokemon(defender):
+        lock_defender_attacks(ctx)
+
 
 card = PokemonCardDef(
     guid="9dad6f24-6d63-558e-b93e-d86b4b469117",
@@ -28,7 +39,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 3},
             damage=80,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=tie_up,
         ),
     ],
 )

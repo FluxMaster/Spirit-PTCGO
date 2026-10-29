@@ -4,6 +4,8 @@ Ultra Necrozma (SM12 #164): one or more attacks/abilities use effect=unimplement
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.pokemon import rock_crush
+
 
 card = PokemonCardDef(
     guid="5b28e8c3-8f98-589a-8c88-d7f4871047c1",
@@ -35,7 +37,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.METAL: 1},
             damage=170,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=rock_crush,
         ),
     ],
 )

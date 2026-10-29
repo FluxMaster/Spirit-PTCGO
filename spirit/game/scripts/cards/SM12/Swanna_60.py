@@ -4,6 +4,9 @@ Swanna (SM12 #60): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm9 import cheer_up
+from spirit.game.card_effects.attacks_common import self_energy_discard_attack
+
 
 card = PokemonCardDef(
     guid="017676c2-938c-5547-b84e-aa6a23c3c696",
@@ -30,7 +33,7 @@ card = PokemonCardDef(
             game_text="Attach an Energy card from your hand to 1 of your Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=cheer_up,
         ),
         Attack(
             title="Air Slash",
@@ -38,7 +41,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=70,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=self_energy_discard_attack(count=1),
         ),
     ],
 )

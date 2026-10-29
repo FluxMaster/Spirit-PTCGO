@@ -4,6 +4,10 @@ Kommo-o (SM12 #163): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import attach_from_discard
+from spirit.game.card_effects.trainers import is_basic_energy_card
+from spirit.game.card_effects.passives_common import is_in_active_spot
+
 
 card = PokemonCardDef(
     guid="a69e8a63-0267-5e30-bac2-c3566fcb2d2f",
@@ -29,7 +33,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1},
             damage=60,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=attach_from_discard(predicate=is_basic_energy_card, count=1, target=lambda p: not is_in_active_spot(p), prompt='Choose a basic Energy card to attach to a Benched Pokémon'),
         ),
         Attack(
             title="Scaly Uppercut",

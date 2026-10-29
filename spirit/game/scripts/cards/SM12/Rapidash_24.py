@@ -4,6 +4,8 @@ Rapidash (SM12 #24): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm8 import lava_burn
+
 
 card = PokemonCardDef(
     guid="2746ec32-f2d9-590a-acd4-5d39c57464fb",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 1},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=lava_burn,
         ),
         Attack(
             title="Flame Tail",

@@ -4,6 +4,10 @@ Sawsbuck (SM12 #16): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.data_utils import Activations
+from spirit.game.card_effects.support_common import draw_attack, switch_self_attack
+from spirit.game.card_effects.trainers import deck_nonempty
+
 
 card = PokemonCardDef(
     guid="bde1aa5b-59c7-51c9-8207-186abc447716",
@@ -28,7 +32,9 @@ card = PokemonCardDef(
             game_text="Once during your turn (before your attack), you may draw a card.",
             ability_type=AbilityTypes.POKE_ABILITY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=lambda board, player_id, pokemon=None: deck_nonempty(board, player_id),
+            effect=draw_attack(1),
         ),
         Attack(
             title="Bounce",
@@ -36,7 +42,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 1},
             damage=60,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=switch_self_attack(optional=True),
         ),
     ],
 )

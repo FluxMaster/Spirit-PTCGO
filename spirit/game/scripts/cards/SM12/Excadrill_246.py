@@ -4,6 +4,8 @@ Excadrill (SM12 #246): one or more attacks/abilities use effect=unimplemented un
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import mill_attack
+
 
 card = PokemonCardDef(
     guid="40f38cc0-958b-5e82-913b-0ed981e0c4d9",
@@ -38,7 +40,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1},
             damage=120,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=mill_attack(4, opponent=False),
         ),
     ],
 )

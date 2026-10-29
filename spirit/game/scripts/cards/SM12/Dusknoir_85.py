@@ -4,6 +4,8 @@ Dusknoir (SM12 #85): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm4 import psych_up
+
 
 card = PokemonCardDef(
     guid="8d0fe204-3170-5489-b132-47778a602f47",
@@ -38,7 +40,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 1},
             damage=60,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=psych_up,
         ),
     ],
 )

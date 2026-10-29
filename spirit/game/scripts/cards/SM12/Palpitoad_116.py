@@ -4,6 +4,8 @@ Palpitoad (SM12 #116): one or more attacks/abilities use effect=unimplemented un
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm4 import earthquake
+
 
 card = PokemonCardDef(
     guid="1fb698ea-0351-5b6b-b759-18ed1a2f3156",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1},
             damage=60,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=earthquake,
         ),
     ],
 )

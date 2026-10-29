@@ -5,6 +5,20 @@ Mimikyu (SM12 #245): one or more attacks/abilities use effect=unimplemented unti
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 
+
+async def night_footsteps(ctx):
+    """Choose 2 of your opponent's Pokemon and put 2 damage counters on each."""
+    candidates = ctx.opponent_pokemon_in_play()
+    if not candidates:
+        return
+    count = min(2, len(candidates))
+    targets = await ctx.choose_cards(
+        candidates, count, prompt="Choose 2 of your opponent's Pokémon"
+    )
+    for target in targets:
+        await ctx.deal_damage(20, target=target, apply_modifiers=False, as_counters=True)
+
+
 card = PokemonCardDef(
     guid="c7d75eda-57fe-5378-bb2c-782952e02d7e",
     key="SM12",
@@ -33,7 +47,7 @@ card = PokemonCardDef(
             game_text="Choose 2 of your opponent's Pok\u00e9mon and put 2 damage counters on each of them.",
             cost={PokemonTypes.PSYCHIC: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=night_footsteps,
         ),
     ],
 )

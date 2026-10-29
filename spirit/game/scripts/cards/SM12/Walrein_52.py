@@ -4,6 +4,8 @@ Walrein (SM12 #52): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import spread_damage
+
 
 card = PokemonCardDef(
     guid="f10f8ca1-5ae8-5bf9-94ea-5f579e3ff1cc",
@@ -37,7 +39,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 3},
             damage=120,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=spread_damage(10, also_base=True),
         ),
     ],
 )

@@ -5,6 +5,19 @@ Torkoal (SM12 #29): one or more attacks/abilities use effect=unimplemented until
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 
+
+async def axe_slash(ctx):
+    """Discard an Energy from this Pokémon. If you do, discard an Energy from your opponent's Active Pokémon."""
+    await ctx.deal_damage()
+    discarded = await ctx.discard_energy_from(ctx.attacker, 1)
+    if not discarded:
+        return
+    defender = ctx.opponent_active()
+    if defender is None or ctx.effects_blocked(defender):
+        return
+    await ctx.discard_energy_from(defender, 1)
+
+
 card = PokemonCardDef(
     guid="b4504442-a4ee-5c85-aa45-22a37c8b73f1",
     key="SM12",
@@ -35,7 +48,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 3},
             damage=100,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=axe_slash,
         ),
     ],
 )

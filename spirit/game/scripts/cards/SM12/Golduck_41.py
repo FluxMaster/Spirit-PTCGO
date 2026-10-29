@@ -5,6 +5,20 @@ Golduck (SM12 #41): one or more attacks/abilities use effect=unimplemented until
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 
+
+async def energy_loop(ctx):
+    """120. Put an Energy attached to this Pokémon into your hand."""
+    await ctx.deal_damage()
+    energies = ctx.attached_energies(ctx.source)
+    if not energies:
+        return
+    picks = await ctx.choose_cards(
+        energies, 1, minimum=1,
+        prompt="Choose an Energy card to put into your hand.",
+    )
+    await ctx.put_in_hand(picks, reveal=False)
+
+
 card = PokemonCardDef(
     guid="cabc2b1e-147a-561e-9c4a-83db8f57e9bc",
     key="SM12",
@@ -34,7 +48,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 1},
             damage=80,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=energy_loop,
         ),
     ],
 )

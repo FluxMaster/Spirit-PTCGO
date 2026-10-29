@@ -4,6 +4,8 @@ Entei (SM12 #28): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import bonus_if
+
 
 card = PokemonCardDef(
     guid="eee49976-7f08-517d-88a3-d74e996a40b4",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             damage=30,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bonus_if(lambda ctx: ctx.kos_suffered_last_turn() > 0, 90),
         ),
         Attack(
             title="Fire Mane",

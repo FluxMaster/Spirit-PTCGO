@@ -4,6 +4,9 @@ Seismitoad (SM12 #117): one or more attacks/abilities use effect=unimplemented u
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm7 import deck_has_cards, smooth_over
+from spirit.game.data_utils import Activations
+
 
 card = PokemonCardDef(
     guid="efcf3d74-4c16-5430-8be9-b5bd24a30fcc",
@@ -28,7 +31,9 @@ card = PokemonCardDef(
             game_text="Once during your turn (before your attack), you may search your deck for a card, shuffle your deck, then put that card on top of it.",
             ability_type=AbilityTypes.POKE_ABILITY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            effect=smooth_over,
+            condition=deck_has_cards,
         ),
         Attack(
             title="Tremulous Fist",

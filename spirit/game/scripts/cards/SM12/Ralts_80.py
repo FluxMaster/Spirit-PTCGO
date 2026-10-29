@@ -4,6 +4,8 @@ Ralts (SM12 #80): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import switch_self_attack
+
 
 card = PokemonCardDef(
     guid="1784be30-3a0a-52ad-b25b-98c57f57606d",
@@ -27,7 +29,7 @@ card = PokemonCardDef(
             game_text="Switch this Pok\u00e9mon with 1 of your Benched Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=switch_self_attack(),
         ),
         Attack(
             title="Ram",

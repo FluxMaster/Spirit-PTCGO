@@ -5,6 +5,12 @@ Golurk (SM12 #90): one or more attacks/abilities use effect=unimplemented until 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 
+
+async def feint(ctx):
+    """30. This attack's damage isn't affected by Resistance."""
+    await ctx.deal_damage(ignore_resistance=True)
+
+
 card = PokemonCardDef(
     guid="18ca5fa0-d9c5-51e3-b369-007cef785248",
     key="SM12",
@@ -31,7 +37,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 1},
             damage=40,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=feint,
         ),
         Attack(
             title="Fist of Antiquity",

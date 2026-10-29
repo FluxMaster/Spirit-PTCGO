@@ -4,6 +4,8 @@ Araquanid (SM12 #65): one or more attacks/abilities use effect=unimplemented unt
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm3 import screech
+
 
 card = PokemonCardDef(
     guid="cbd25aef-0f15-5cf1-a8b5-ba974beb7f00",
@@ -34,7 +36,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 2},
             damage=80,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=screech,
         ),
     ],
 )

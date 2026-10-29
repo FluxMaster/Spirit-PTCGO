@@ -4,6 +4,9 @@ Eevee (SM12 #166): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.session.effects import is_supporter_card
+from spirit.game.card_effects.support_common import search_to_hand
+
 
 card = PokemonCardDef(
     guid="4f2775c2-267d-59c2-a38e-4e0ecca0901e",
@@ -27,7 +30,7 @@ card = PokemonCardDef(
             game_text="Search your deck for a Supporter card, reveal it, and put it into your hand. Then, shuffle your deck.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=search_to_hand(is_supporter_card, count=1, reveal=True, prompt='Choose a Supporter card.'),
         ),
         Attack(
             title="Bite",

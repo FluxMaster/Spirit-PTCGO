@@ -4,6 +4,9 @@ Tangrowth (SM12 #6): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm5 import rocket_fall
+from spirit.game.card_effects.attacks_common import flip_damage
+
 
 card = PokemonCardDef(
     guid="11f1747b-b568-559d-b53a-a9f4a941b87c",
@@ -30,7 +33,7 @@ card = PokemonCardDef(
             damage=10,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=rocket_fall,
         ),
         Attack(
             title="Slam",
@@ -39,7 +42,7 @@ card = PokemonCardDef(
             damage=80,
             damage_operator="x",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(coins=2, per_heads=80),
         ),
     ],
 )

@@ -4,6 +4,8 @@ Togepi & Cleffa & Igglybuff-GX (SM12 #143): one or more attacks/abilities use ef
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_damage
+
 
 card = PokemonCardDef(
     guid="d6e369a2-16d2-52f5-87ec-6c754c526889",
@@ -31,7 +33,7 @@ card = PokemonCardDef(
             damage=120,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(until_tails=True, bonus_per_heads=30),
         ),
         Attack(
             title="Supreme Puff-GX",

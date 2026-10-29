@@ -4,6 +4,8 @@ Magnemite (SM12 #68): one or more attacks/abilities use effect=unimplemented unt
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm8 import smokescreen
+
 
 card = PokemonCardDef(
     guid="66fcc16c-907d-5ef5-a879-f0e1e60d5a96",
@@ -30,7 +32,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 1},
             damage=10,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=smokescreen,
         ),
     ],
 )

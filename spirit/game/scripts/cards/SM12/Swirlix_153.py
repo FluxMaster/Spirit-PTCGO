@@ -4,6 +4,8 @@ Swirlix (SM12 #153): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.passives_common import protect_next_turn
+
 
 card = PokemonCardDef(
     guid="c815f0f8-0fbd-55b0-a9dd-556f8fb642f8",
@@ -30,7 +32,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FAIRY: 1},
             damage=10,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=protect_next_turn(reduce=10),
         ),
     ],
 )

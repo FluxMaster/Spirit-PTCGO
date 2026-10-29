@@ -4,6 +4,9 @@ Ponyta (SM12 #23): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import search_to_hand
+from spirit.game.card_effects.trainers import is_basic_energy_card
+
 
 card = PokemonCardDef(
     guid="6afda5f3-13e8-58a7-98d4-a22c4a418d48",
@@ -27,7 +30,7 @@ card = PokemonCardDef(
             game_text="Search your deck for up to 2 basic Energy cards, reveal them, and put them into your hand. Then, shuffle your deck.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=search_to_hand(predicate=is_basic_energy_card, count=2, reveal=True),
         ),
         Attack(
             title="Flare",

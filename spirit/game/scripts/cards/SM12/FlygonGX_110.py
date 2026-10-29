@@ -4,6 +4,9 @@ Flygon-GX (SM12 #110): one or more attacks/abilities use effect=unimplemented un
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.gum import security_guard_passive
+from spirit.game.card_effects.attacks_common import ignore_effects_attack
+
 
 card = PokemonCardDef(
     guid="4403e893-9522-58ff-861b-7ce12ad80af5",
@@ -28,7 +31,7 @@ card = PokemonCardDef(
             game_text="As long as this Pok\u00e9mon is your Active Pok\u00e9mon, all of your Pok\u00e9mon take 30 less damage from your opponent's attacks (after applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_ABILITY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=security_guard_passive,
         ),
         Attack(
             title="Desert Hurricane",
@@ -45,7 +48,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 3},
             damage=220,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=ignore_effects_attack(),
         ),
     ],
 )

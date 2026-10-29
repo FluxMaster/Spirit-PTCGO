@@ -4,6 +4,8 @@ Tangela (SM12 #5): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm9 import toxic_secretion
+
 
 card = PokemonCardDef(
     guid="8ac702c1-fea6-5279-9e33-168f81800de5",
@@ -27,7 +29,7 @@ card = PokemonCardDef(
             game_text="Your opponent's Active Pok\u00e9mon is now Poisoned. Put 2 damage counters instead of 1 on that Pok\u00e9mon between turns.",
             cost={PokemonTypes.GRASS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=toxic_secretion,
         ),
     ],
 )
