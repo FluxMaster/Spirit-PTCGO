@@ -1,0 +1,44 @@
+"""STUB: effect not implemented — do not guess mechanics.
+Stantler (NEO1 #76): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
+"""
+
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+card = PokemonCardDef(
+    guid="7f745df1-ef57-55f6-ad8c-5d09643edd5e",
+    key="NEO1",
+    name="com.direwolfdigital.cake.data.archetypes.pokemon.Stantler.Name",
+    display_name="Stantler",
+    searchable_by=["Stantler", "Basic", "Stantler"],
+    subtypes=["Basic"],
+    collector_number=76,
+    set_code="NEO1",
+    rarity=Rarities.Common,
+    hp=60,
+    elements=[PokemonTypes.COLORLESS],
+    stage=PokemonStage.BASIC,
+    retreat_cost=2,
+    weakness_type=PokemonTypes.FIGHTING,
+    resistance_type=PokemonTypes.PSYCHIC,
+    family_id=234,
+    abilities=[
+        Attack(
+            title="Stomp",
+            game_text="Flip a coin. If heads, this attack does 20 damage plus 10 more damage; if tails, this attack does 20 damage.",
+            cost={PokemonTypes.COLORLESS: 2},
+            damage=20,
+            damage_operator="+",
+            # STUB: attack effect not implemented
+            effect=unimplemented,
+        ),
+        Attack(
+            title="Mystifying Horns",
+            game_text="Flip a coin. If heads, the Defending Pok\u00e9mon is now Confused.",
+            cost={PokemonTypes.COLORLESS: 3},
+            damage=20,
+            # STUB: attack effect not implemented
+            effect=unimplemented,
+        ),
+    ],
+)

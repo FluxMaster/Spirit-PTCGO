@@ -1,0 +1,39 @@
+"""STUB: effect not implemented — do not guess mechanics.
+Natu (NEO1 #67): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
+"""
+
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+card = PokemonCardDef(
+    guid="e8cb322d-8119-5f06-acd2-57639755e750",
+    key="NEO1",
+    name="com.direwolfdigital.cake.data.archetypes.pokemon.Natu.Name",
+    display_name="Natu",
+    searchable_by=["Natu", "Basic", "Natu"],
+    subtypes=["Basic"],
+    collector_number=67,
+    set_code="NEO1",
+    rarity=Rarities.Common,
+    hp=30,
+    elements=[PokemonTypes.PSYCHIC],
+    stage=PokemonStage.BASIC,
+    retreat_cost=0,
+    weakness_type=PokemonTypes.PSYCHIC,
+    resistance_type=PokemonTypes.FIGHTING,
+    family_id=177,
+    abilities=[
+        Attack(
+            title="Peck",
+            cost={PokemonTypes.COLORLESS: 1},
+            damage=10,
+        ),
+        Attack(
+            title="Telekinesis",
+            game_text="Choose 1 of your opponent's Pok\u00e9mon. This attack does 20 damage to that Pok\u00e9mon. Don't apply Weakness and Resistance for this attack. (Any other effects that would happen after applying Weakness and Resistance still happen.)",
+            cost={PokemonTypes.PSYCHIC: 2},
+            # STUB: attack effect not implemented
+            effect=unimplemented,
+        ),
+    ],
+)
