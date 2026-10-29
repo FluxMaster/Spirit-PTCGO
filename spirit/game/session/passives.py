@@ -142,6 +142,10 @@ class Passive:
     # Fires after `condition` is newly applied to `target` (Mirror Coat).
     after_condition_applied: Optional[Any] = None
 
+    # Optional awaitable: async (ctx, target, remaining_hp, carrier) -> None
+    # Fires after HP is written by damage/heal/set_damage_counters (Scram).
+    after_hp_changed: Optional[Any] = None
+
     def modify_damage_dealt(self, calc: DamageCalc, carrier: BoardEntity):
         """Attacker-side "does more/less damage" step (runs before W/R)."""
 
@@ -269,6 +273,11 @@ class Passive:
         Transformation, Memory Capsule); costs/locks still apply normally."""
         return []
 
+    def hides_printed_attacks(self, pokemon: PokemonEntity, carrier: BoardEntity) -> bool:
+        """True to hide `pokemon`'s printed Attacks while this passive is on
+        (Shapeshift: treat it as the attached Evolution instead)."""
+        return False
+
     def blocks_trainer_play(
         self, card: BoardEntity, player_id: str, carrier: BoardEntity
     ) -> bool:
@@ -298,6 +307,10 @@ class Passive:
         self, player_id: str, target: PokemonEntity, carrier: BoardEntity
     ) -> bool:
         """True to forbid `player_id` evolving `target` at all (Dracovish)."""
+        return False
+
+    def blocks_devolution(self, target: PokemonEntity, carrier: BoardEntity) -> bool:
+        """True to forbid devolving `target` (Shapeshift)."""
         return False
 
     def modify_burn_counters(
@@ -359,6 +372,13 @@ class Passive:
     ) -> bool:
         """True to coin-flip `attaching_player_id`'s manual energy attach
         (Slimy Room): tails discards the energy instead of attaching."""
+        return False
+
+    def taxes_trainer_play(
+        self, card: BoardEntity, player_id: str, carrier: BoardEntity
+    ) -> bool:
+        """True to coin-flip `player_id` playing Item/Supporter `card`
+        (Chaos Gym): tails cancels the play and the opponent may use it."""
         return False
 
     def requires_retreat_flip(self, pokemon: PokemonEntity, carrier: BoardEntity) -> bool:
@@ -851,6 +871,15 @@ def energy_attach_taxer(board: BoardState, attaching_player_id: str,
     return None
 
 
+def trainer_play_taxer(board: BoardState, player_id: str,
+                       card: BoardEntity) -> Optional[BoardEntity]:
+    """The carrier taxing this Item/Supporter play (Chaos Gym), or None."""
+    for passive, carrier in active_passives(board):
+        if passive.taxes_trainer_play(card, player_id, carrier):
+            return carrier
+    return None
+
+
 def retreat_flip_required(board: BoardState, pokemon: PokemonEntity) -> Optional[BoardEntity]:
     """The carrier requiring a coin flip to retreat `pokemon` (Mirage Stadium), or None."""
     for passive, carrier in active_passives(board):
@@ -893,6 +922,14 @@ def evolution_blocked(board: BoardState, player_id: str, target: PokemonEntity) 
     """Whether a passive forbids `player_id` evolving `target` (Dracovish)."""
     return any(
         passive.blocks_evolution(player_id, target, carrier)
+        for passive, carrier in active_passives(board)
+    )
+
+
+def devolution_blocked(board: BoardState, target: PokemonEntity) -> bool:
+    """Whether a passive forbids devolving `target` (Shapeshift)."""
+    return any(
+        passive.blocks_devolution(target, carrier)
         for passive, carrier in active_passives(board)
     )
 

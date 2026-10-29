@@ -78,6 +78,9 @@ from .constants import (
     TEXT_RETREAT_FLIP_CHECK,
     TEXT_RETREAT_FLIP_OK,
     TEXT_RETREAT_FLIP_FAILS,
+    TEXT_TRAINER_TAX_CHECK,
+    TEXT_TRAINER_TAX_OK,
+    TEXT_TRAINER_TAX_FAILS,
 )
 from spirit.network.message_names import OutboundMsg
 from spirit.game.session.sequence_packets import NestedSequence
@@ -97,7 +100,7 @@ from spirit.game.attributes import (
 )
 from spirit.game.content.definitions import with_sort_order
 from spirit.game.data_utils import (
-    ABILITIES_BY_ID, Ability, Activations, Triggers, def_for, prize_value,
+    ABILITIES_BY_ID, Ability, Attack, Activations, Triggers, def_for, prize_value,
     subtypes_for,
     is_baby_pokemon, unimplemented,
 )
@@ -133,6 +136,7 @@ from .passives import (
     retreat_discards_remaining_energy,
     retreat_energy_destination, retreat_flip_required,
     tool_attach_allowed, tool_slots_free, tool_suppressed,
+    trainer_play_taxer,
 )
 from .legal_actions import (
     ACTION_ATTACH_TOOL,
@@ -4473,7 +4477,15 @@ class GameSession:
         tool's granted_abilities (Forest Seal Stone), and passive-granted
         dynamic attacks (Ditto, Memory Capsule) deduped by title+text."""
         definition = def_for(pokemon.archetype_id)
-        entries = [a.to_dict() for a in (getattr(definition, "abilities", None) or [])]
+        hide_printed = any(
+            passive.hides_printed_attacks(pokemon, carrier)
+            for passive, carrier in active_passives(self.board_state)
+        )
+        printed = getattr(definition, "abilities", None) or []
+        entries = [
+            a.to_dict() for a in printed
+            if not (hide_printed and isinstance(a, Attack))
+        ]
         for child in pokemon.children:
             tool_def = def_for(child.archetype_id)
             grants = getattr(tool_def, "granted_abilities", None) or []
@@ -5221,7 +5233,8 @@ class GameSession:
 
         # Effect dialogs run after placement so both viewers see the card on
         # the trainer slot while the player decides.
-        ctx = await resolve_trainer_effect(self, player_id, card, play_target=play_target)
+        ctx = await self._resolve_taxed_trainer_effect(
+            player_id, card, play_target=play_target)
         logging.info(
             f"[Session {self.game_id}] {self.players[player_id].screen_name} "
             f"played trainer {card.entity_id}."
@@ -5251,6 +5264,55 @@ class GameSession:
             # The effect may have removed a Stadium / toggled capacity passives.
             await self.enforce_bench_capacity()
         return ctx is not None and ctx.ends_turn
+
+    async def _resolve_taxed_trainer_effect(self, player_id, card, play_target=None):
+        """Chaos Gym: flip before the Item/Supporter resolves; tails lets the
+        opponent use it instead. Returns the ctx of whoever resolved it."""
+        taxer = trainer_play_taxer(self.board_state, player_id, card)
+        if taxer is None:
+            return await resolve_trainer_effect(
+                self, player_id, card, play_target=play_target)
+        if await self._resolve_trainer_tax_flip(player_id, taxer):
+            return await resolve_trainer_effect(
+                self, player_id, card, play_target=play_target)
+        if card.get_attribute(AttrID.TRAINER_TYPE) == TrainerType.SUPPORTER.value:
+            self.turn_state.supporter_played = False
+        opponent_id = self._opponent_id(player_id)
+        if not opponent_id:
+            return None
+        probe = EffectContext(self, opponent_id, card, None)
+        probe.is_trainer_effect = True
+        name = getattr(def_for(card.archetype_id), "display_name", None) or "this card"
+        if not await probe.ask_yes_no(f"Use {name} instead?"):
+            return probe
+        return await resolve_trainer_effect(self, opponent_id, card)
+
+    async def _resolve_trainer_tax_flip(self, player_id: str, taxer) -> bool:
+        """Chaos Gym flip on an Item/Supporter play: heads (True) proceeds;
+        tails returns False so the original player cannot use the card."""
+        flip = random.choice([0, 1])
+        heads = flip == 0
+        self.stat_add(player_id, "headsflipped", 1 if heads else 0)
+        self.stat_add(player_id, "tailsflipped", 0 if heads else 1)
+        name = taxer.get_attribute(AttrID.NAME)
+        title = name.get("id", "") if isinstance(name, dict) else (name or "")
+        await self.send_game_sequence(
+            list(self.players.values()), GameSequence.POKE_ABILITY,
+            [self._build_msg(
+                OutboundMsg.MULTIPLE_COIN_FLIP_WITH_CONTEXT_EFFECT.value,
+                {
+                    "gameID": self.game_id,
+                    "resultLst": [flip],
+                    "title": {"id": title or TEXT_TRAINER_TAX_CHECK},
+                    "gameText": {"id": TEXT_TRAINER_TAX_OK if heads
+                                 else TEXT_TRAINER_TAX_FAILS},
+                    "source": taxer.entity_id,
+                    "targets": [taxer.entity_id],
+                },
+            )],
+        )
+        await self.choreo_pause(2.5)
+        return heads
 
     def _record_trainer_played(self, card):
         """Stamps the trainer into this turn's history ledger."""

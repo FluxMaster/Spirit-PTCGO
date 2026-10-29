@@ -53,6 +53,7 @@ from .passives import (
     carrier_pokemon,
     compute_damage,
     conditions_blocked,
+    devolution_blocked,
     discard_blocked,
     effective_bench_capacity,
     effective_max_hp,
@@ -476,6 +477,7 @@ class EffectContext:
             if is_attack:
                 self.session.stat_max(self.player_id, "biggestattack", dealt)
         self._queue_hp_update(target)
+        await self._fire_hp_changed(target, remaining)
 
         if remaining <= 0 and target not in self.knockouts:
             self.knockouts.append(target)
@@ -542,6 +544,7 @@ class EffectContext:
             },
         ))
         self._queue_hp_update(target)
+        await self._fire_hp_changed(target, current + healed)
         return healed
 
     async def apply_special_condition(
@@ -624,6 +627,13 @@ class EffectContext:
             hook = getattr(passive, "after_condition_applied", None)
             if hook is not None:
                 await hook(self, target, condition, carrier)
+
+    async def _fire_hp_changed(self, target: PokemonEntity, remaining: int):
+        """Poké-Power hooks that react to remaining HP (Scram)."""
+        for passive, carrier in active_passives(self.board):
+            hook = getattr(passive, "after_hp_changed", None)
+            if hook is not None:
+                await hook(self, target, remaining, carrier)
 
     async def cure_all_conditions(self, target: Optional[PokemonEntity]) -> bool:
         """Removes every Special Condition from `target` ("...it recovers from
@@ -1003,6 +1013,7 @@ class EffectContext:
         new_hp = max(0, self.max_hp(target) - counters * 10)
         target.set_attribute(AttrID.HP, new_hp)
         self._queue_hp_update(target)
+        await self._fire_hp_changed(target, new_hp)
         if new_hp <= 0 and target not in self.knockouts:
             self.knockouts.append(target)
 
@@ -1882,6 +1893,8 @@ class EffectContext:
         choreography first so the Devolve brackets land in order."""
         removed: List[CardEntity] = []
         if pokemon is None:
+            return removed
+        if devolution_blocked(self.board, pokemon):
             return removed
         await self.flush_choreography()
         top = pokemon
