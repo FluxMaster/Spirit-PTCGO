@@ -229,6 +229,15 @@ class CardEntity(BoardEntity):
                 root = root.parent
             if getattr(root, "prizes_face_up", False):
                 return False
+        if area_name == "hand" and viewer_id != self.owning_player_id:
+            root = self
+            while root.parent is not None:
+                root = root.parent
+            board = getattr(root, "board", None)
+            if board is not None:
+                from spirit.game.session.passives import hand_is_public
+                if hand_is_public(board, self.owning_player_id, viewer_id):
+                    return False
         if viewer_id != self.owning_player_id:
             return area_name not in self.PUBLIC_AREAS
         return area_name in self.HIDDEN_FROM_OWNER_AREAS
@@ -350,6 +359,8 @@ class BoardState:
         
         # Build Playmat Root Entity
         self.playmat = PlayMat()
+        # Backref so CardEntity.is_hidden_from can consult passives (Clairvoyance).
+        self.playmat.board = self
         
         # Internal cache map (entityID -> BoardEntity) for O(1) lookups
         self._entity_cache: Dict[str, BoardEntity] = {self.playmat.entity_id: self.playmat}
