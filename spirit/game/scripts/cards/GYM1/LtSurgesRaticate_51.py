@@ -4,6 +4,8 @@ Lt. Surge's Raticate (GYM1 #51): one or more attacks/abilities use effect=unimpl
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import super_fang
+
 
 card = PokemonCardDef(
     guid="789321b0-22b1-5cbf-9220-4e497c00a387",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             game_text="Does damage to the Defending Pok\u00e9mon equal to half the Defending Pok\u00e9mon's remaining HP (rounded up to the nearest 10).",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=super_fang,
         ),
     ],
 )

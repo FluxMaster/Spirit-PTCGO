@@ -4,6 +4,8 @@ Erika's Dragonair (GYM1 #4): one or more attacks/abilities use effect=unimplemen
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import blizzard
+
 
 card = PokemonCardDef(
     guid="dc66e67c-16b9-59d4-b1b5-88871fa43573",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=blizzard,
         ),
         Attack(
             title="Take Away",

@@ -4,6 +4,8 @@ Misty's Horsea (GYM1 #86): one or more attacks/abilities use effect=unimplemente
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import smokescreen_attack
+
 
 card = PokemonCardDef(
     guid="ae0681c2-189d-5479-83d1-687bb5597bc6",
@@ -33,7 +35,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 2},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=smokescreen_attack(),
         ),
     ],
 )

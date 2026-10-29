@@ -4,6 +4,9 @@ Misty's Shellder (GYM1 #89): one or more attacks/abilities use effect=unimplemen
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.attributes import SpecialConditions
+from spirit.game.card_effects.attacks_common import condition_attack, flip_or_nothing
+
 
 card = PokemonCardDef(
     guid="1410099d-4862-53de-a87f-dd134ca04340",
@@ -33,7 +36,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_or_nothing(then=condition_attack(SpecialConditions.PARALYZED)),
         ),
     ],
 )

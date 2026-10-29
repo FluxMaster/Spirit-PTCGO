@@ -4,6 +4,8 @@ Erika's Exeggutor (GYM1 #44): one or more attacks/abilities use effect=unimpleme
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import shuffle_hand_into_deck_draw
+
 
 card = PokemonCardDef(
     guid="c09f2525-56ec-5513-b58e-43a1a7b4db16",
@@ -28,7 +30,7 @@ card = PokemonCardDef(
             game_text="Shuffle your hand into your deck, then draw 5 cards.",
             cost={PokemonTypes.PSYCHIC: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=shuffle_hand_into_deck_draw(5),
         ),
         Attack(
             title="Stomp",
