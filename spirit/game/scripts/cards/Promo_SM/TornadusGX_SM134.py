@@ -1,8 +1,4 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Tornadus-GX (Promo_SM #SM134): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_damage
 from spirit.game.card_effects.hf import psycrush_gx
@@ -38,7 +34,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=90,
             damage_operator="+",
-            # STUB: attack effect not implemented
             effect=flip_damage(until_tails=True, bonus_per_heads=30),
         ),
         Attack(
@@ -46,7 +41,6 @@ card = PokemonCardDef(
             game_text="Discard all Energy from your opponent's Active Pok\u00e9mon. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.COLORLESS: 3},
             damage=130,
-            # STUB: attack effect not implemented
             effect=psycrush_gx,
         ),
     ],

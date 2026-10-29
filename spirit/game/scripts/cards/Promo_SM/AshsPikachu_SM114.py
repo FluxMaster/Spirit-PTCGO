@@ -1,8 +1,4 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Ash's Pikachu (Promo_SM #SM114): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_damage, self_energy_discard_attack
 
@@ -32,7 +28,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=20,
             damage_operator="x",
-            # STUB: attack effect not implemented
             effect=flip_damage(until_tails=True, per_heads=20),
         ),
         Attack(
@@ -40,7 +35,6 @@ card = PokemonCardDef(
             game_text="Discard all Energy from this Pok\u00e9mon.",
             cost={PokemonTypes.LIGHTNING: 3},
             damage=100,
-            # STUB: attack effect not implemented
             effect=self_energy_discard_attack(all_energy=True),
         ),
     ],

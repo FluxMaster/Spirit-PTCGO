@@ -1,8 +1,4 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Jangmo-o (Promo_SM #SM40): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.passives_common import flip_protection
 
@@ -28,7 +24,6 @@ card = PokemonCardDef(
             title="Iron Defense",
             game_text="Flip a coin. If heads, prevent all damage done to this Pok\u00e9mon by attacks during your opponent's next turn.",
             cost={PokemonTypes.FIGHTING: 1},
-            # STUB: attack effect not implemented
             effect=flip_protection(prevent=True),
         ),
         Attack(

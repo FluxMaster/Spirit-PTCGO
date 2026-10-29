@@ -1,8 +1,4 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Bruxish (Promo_SM #SM11): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.support_common import search_to_hand
 from spirit.game.card_effects.trainers import is_basic_energy_card
@@ -30,7 +26,6 @@ card = PokemonCardDef(
             title="Vivid Charge",
             game_text="Search your deck for up to 3 basic Energy cards, reveal them, and put them into your hand. Then, shuffle your deck.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=search_to_hand(is_basic_energy_card, count=3, reveal=True, prompt='Choose up to 3 basic Energy cards.'),
         ),
         Attack(
@@ -38,7 +33,6 @@ card = PokemonCardDef(
             game_text="This attack's damage isn't affected by any effects on your opponent's Active Pok\u00e9mon.",
             cost={PokemonTypes.WATER: 2, PokemonTypes.COLORLESS: 1},
             damage=90,
-            # STUB: attack effect not implemented
             effect=shred,
         ),
     ],

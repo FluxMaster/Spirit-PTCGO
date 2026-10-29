@@ -36,7 +36,6 @@ card = PokemonCardDef(
             game_text="This attack's damage isn't affected by Resistance.",
             cost={PokemonTypes.FIGHTING: 2, PokemonTypes.COLORLESS: 1},
             damage=110,
-            # STUB: attack effect not implemented
             effect=feint,
         ),
     ],

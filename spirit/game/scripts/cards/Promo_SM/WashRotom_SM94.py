@@ -30,7 +30,6 @@ card = PokemonCardDef(
             title="Wash Arrow",
             game_text="This attack does 50 damage to 1 of your opponent's Benched Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 2},
-            # STUB: attack effect not implemented
             effect=snipe_attack(50, pool='bench', count=1),
         ),
     ],

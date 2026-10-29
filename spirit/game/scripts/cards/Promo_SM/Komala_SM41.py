@@ -2,7 +2,6 @@ from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.attributes import AttrID
 from spirit.game.data_utils import Triggers
-
 from spirit.game.attributes import SpecialConditions, CLIENT_SPECIAL_CONDITION_NAMES
 from spirit.game.card_effects.passives_common import is_in_active_spot
 

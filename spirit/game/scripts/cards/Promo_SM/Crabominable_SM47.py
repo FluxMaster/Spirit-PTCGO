@@ -1,4 +1,4 @@
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_damage
 from spirit.game.card_effects.sm3 import gutsy_hammer
@@ -35,7 +35,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 3},
             damage=80,
             damage_operator="+",
-            # STUB: attack effect not implemented
             effect=flip_damage(coins=2, bonus_per_heads=40),
         ),
     ],

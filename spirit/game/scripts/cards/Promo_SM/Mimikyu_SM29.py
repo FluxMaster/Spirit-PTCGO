@@ -1,8 +1,4 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Mimikyu (Promo_SM #SM29): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import place_counters
 import random
@@ -40,14 +36,12 @@ card = PokemonCardDef(
             title="Haunt",
             game_text="Put 1 damage counter on your opponent's Active Pok\u00e9mon.",
             cost={PokemonTypes.PSYCHIC: 1},
-            # STUB: attack effect not implemented
             effect=place_counters(1, 'opponent_active'),
         ),
         Attack(
             title="Astonish",
             game_text="Choose a random card from your opponent's hand. Your opponent reveals that card and shuffles it into their deck.",
             cost={PokemonTypes.COLORLESS: 2},
-            # STUB: attack effect not implemented
             effect=astonish,
         ),
     ],

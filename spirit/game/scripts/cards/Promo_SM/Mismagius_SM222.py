@@ -1,8 +1,4 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Mismagius (Promo_SM #SM222): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.sm5 import psywave
 import random
@@ -46,7 +42,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 1},
             damage=20,
             damage_operator="x",
-            # STUB: attack effect not implemented
             effect=psywave,
         ),
         Attack(
@@ -54,7 +49,6 @@ card = PokemonCardDef(
             game_text="Choose a random card from your opponent's hand. Your opponent reveals that card and shuffles it into their deck.",
             cost={PokemonTypes.COLORLESS: 2},
             damage=40,
-            # STUB: attack effect not implemented
             effect=astonish,
         ),
     ],

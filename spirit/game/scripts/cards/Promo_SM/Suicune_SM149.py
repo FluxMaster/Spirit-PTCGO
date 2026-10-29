@@ -1,8 +1,4 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Suicune (Promo_SM #SM149): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.data_utils import Activations
 from spirit.game.card_effects.sm8 import frozen_flow, frozen_flow_condition
@@ -30,7 +26,6 @@ card = PokemonCardDef(
             title="Frozen Current",
             game_text="Once during your turn (before your attack), if this Pok\u00e9mon is your Active Pok\u00e9mon, you may have your opponent switch their Active Pok\u00e9mon with 1 of their Benched Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
             effect=frozen_flow,
             activation=Activations.ONCE_PER_TURN,
             condition=frozen_flow_condition,
@@ -40,7 +35,6 @@ card = PokemonCardDef(
             game_text="Heal 30 damage from this Pok\u00e9mon.",
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 2},
             damage=70,
-            # STUB: attack effect not implemented
             effect=heal_attack(30, target='self'),
         ),
     ],

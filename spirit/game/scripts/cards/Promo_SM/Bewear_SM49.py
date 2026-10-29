@@ -1,4 +1,4 @@
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
@@ -34,7 +34,6 @@ card = PokemonCardDef(
             game_text="This Pok\u00e9mon is now Confused.",
             cost={PokemonTypes.COLORLESS: 3},
             damage=120,
-            # STUB: attack effect not implemented
             effect=condition_attack(self_conditions=(SpecialConditions.CONFUSED,)),
         ),
     ],

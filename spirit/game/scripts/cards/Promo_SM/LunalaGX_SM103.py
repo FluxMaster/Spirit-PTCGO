@@ -1,8 +1,4 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Lunala-GX (Promo_SM #SM103): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.gum import break_burn
 
@@ -37,7 +33,6 @@ card = PokemonCardDef(
             game_text="Discard 2 Psychic Energy from this Pok\u00e9mon.",
             cost={PokemonTypes.PSYCHIC: 2, PokemonTypes.COLORLESS: 2},
             damage=200,
-            # STUB: attack effect not implemented
             effect=break_burn,
         ),
         Attack(
@@ -45,7 +40,6 @@ card = PokemonCardDef(
             game_text="(You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.PSYCHIC: 3, PokemonTypes.COLORLESS: 1},
             damage=250,
-            # STUB: attack effect not implemented
             effect=None,
         ),
     ],

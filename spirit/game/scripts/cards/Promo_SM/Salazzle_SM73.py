@@ -26,7 +26,6 @@ card = PokemonCardDef(
             title="Nasty Plot",
             game_text="Search your deck for up to 2 cards and put them into your hand. Then, shuffle your deck.",
             cost={PokemonTypes.PSYCHIC: 1},
-            # STUB: attack effect not implemented
             effect=search_to_hand(count=2),
         ),
         Attack(

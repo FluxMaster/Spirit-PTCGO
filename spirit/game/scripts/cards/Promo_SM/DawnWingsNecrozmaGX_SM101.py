@@ -38,7 +38,6 @@ card = PokemonCardDef(
             game_text="This attack's damage isn't affected by Resistance.",
             cost={PokemonTypes.PSYCHIC: 3},
             damage=120,
-            # STUB: attack effect not implemented
             effect=feint,
         ),
         Attack(

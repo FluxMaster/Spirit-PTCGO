@@ -30,7 +30,6 @@ card = PokemonCardDef(
             title="Amass",
             game_text="Search your deck for a basic Energy card and attach it to this Pok\u00e9mon. Then, shuffle your deck.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=search_attach_energy(predicate=is_basic_energy_card, count=1, to_self=True),
         ),
         Attack(
@@ -38,7 +37,6 @@ card = PokemonCardDef(
             game_text="Move an Energy from this Pok\u00e9mon to 1 of your Benched Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 3},
             damage=80,
-            # STUB: attack effect not implemented
             effect=shadow_cyclone,
         ),
     ],

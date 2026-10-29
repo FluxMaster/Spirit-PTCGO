@@ -1,8 +1,4 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Registeel (Promo_SM #SM75): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.support_common import attach_from_discard
 from spirit.game.card_effects.trainers import is_basic_energy_card
@@ -34,7 +30,6 @@ card = PokemonCardDef(
             game_text="Attach a basic Energy card from your discard pile to 1 of your Benched Pok\u00e9mon.",
             cost={PokemonTypes.METAL: 1},
             damage=30,
-            # STUB: attack effect not implemented
             effect=attach_from_discard(predicate=is_basic_energy_card, count=1, target=lambda p: not is_in_active_spot(p), prompt='Choose a basic Energy card to attach to a Benched Pokémon'),
         ),
         Attack(
@@ -42,7 +37,6 @@ card = PokemonCardDef(
             game_text="If Regice is on your Bench, heal 30 damage from this Pok\u00e9mon.",
             cost={PokemonTypes.METAL: 2, PokemonTypes.COLORLESS: 1},
             damage=90,
-            # STUB: attack effect not implemented
             effect=iron_hand,
         ),
     ],
