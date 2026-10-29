@@ -1,7 +1,3 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Incineroar (SL #17): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import bonus_if, self_energy_discard_attack
@@ -39,7 +35,6 @@ card = PokemonCardDef(
             game_text="Discard all Fire Energy from this Pok\u00e9mon.",
             cost={PokemonTypes.FIRE: 2, PokemonTypes.COLORLESS: 1},
             damage=180,
-            # STUB: attack effect not implemented
             effect=self_energy_discard_attack(all_energy=True, energy_type=PokemonTypes.FIRE),
         ),
     ],

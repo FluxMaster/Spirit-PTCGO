@@ -1,7 +1,3 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Shaymin (SL #7): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import bonus_if
@@ -29,7 +25,6 @@ card = PokemonCardDef(
             title="Flippity Flap",
             game_text="Shuffle your hand into your deck. Then, draw 6 cards.",
             cost={PokemonTypes.GRASS: 1},
-            # STUB: attack effect not implemented
             effect=shuffle_hand_into_deck_draw(6),
         ),
         Attack(
