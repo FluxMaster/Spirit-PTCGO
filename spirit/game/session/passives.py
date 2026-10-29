@@ -217,6 +217,10 @@ class Passive:
         """True to let `pokemon` attack even while Asleep/Paralyzed (Windup Arm)."""
         return False
 
+    def retreats_despite_conditions(self, pokemon: PokemonEntity, carrier: BoardEntity) -> bool:
+        """True to let `pokemon` retreat even while Asleep/Paralyzed (Escape Board)."""
+        return False
+
     def blocks_special_conditions(
         self, target: PokemonEntity, condition: Any, carrier: BoardEntity
     ) -> bool:
@@ -773,6 +777,14 @@ def can_attack_despite_conditions(board: BoardState, pokemon: PokemonEntity) -> 
     """Whether a passive lets `pokemon` attack while Asleep/Paralyzed."""
     return any(
         passive.attacks_despite_conditions(pokemon, carrier)
+        for passive, carrier in active_passives(board)
+    )
+
+
+def can_retreat_despite_conditions(board: BoardState, pokemon: PokemonEntity) -> bool:
+    """Whether a passive lets `pokemon` retreat while Asleep/Paralyzed."""
+    return any(
+        passive.retreats_despite_conditions(pokemon, carrier)
         for passive, carrier in active_passives(board)
     )
 

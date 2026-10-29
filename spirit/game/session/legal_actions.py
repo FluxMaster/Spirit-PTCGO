@@ -41,6 +41,7 @@ from .passives import (
     attacks_blocked,
     can_attack_despite_conditions,
     can_evolve_early,
+    can_retreat_despite_conditions,
     effective_attack_cost,
     effective_bench_capacity,
     effective_supporter_limit,
@@ -296,12 +297,14 @@ class TurnState:
         return self.turn_number <= self.attach_restrictions.get(entity_id, -1)
 
     def set_attack_flip_check(self, entity_id: str, through_turn: Optional[int] = None,
-                              title: str = ""):
-        """Requires a coin flip before `entity_id` attacks (tails = the attack
-        doesn't happen); default lifetime: through the opponent's next turn."""
+                              title: str = "", coins: int = 1):
+        """Requires coin flip(s) before `entity_id` attacks (any tails = the
+        attack doesn't happen); default lifetime: through the opponent's
+        next turn. `coins` > 1 is Sticky Smokescreen's two-coin check."""
         self.attack_flip_checks[entity_id] = (
             self.turn_number + 1 if through_turn is None else through_turn,
             title,
+            max(1, int(coins)),
         )
 
     def attack_flip_check(self, entity_id: str) -> Optional[str]:
@@ -310,6 +313,13 @@ class TurnState:
         if entry is not None and self.turn_number <= entry[0]:
             return entry[1]
         return None
+
+    def attack_flip_coins(self, entity_id: str) -> int:
+        """How many coins the smokescreen-family check flips (default 1)."""
+        entry = self.attack_flip_checks.get(entity_id)
+        if entry is not None and self.turn_number <= entry[0]:
+            return entry[2] if len(entry) > 2 else 1
+        return 1
 
     def may_evolve_target(self, entity_id: str) -> bool:
         """A Pokemon may evolve only if it has been in play since a previous
@@ -620,7 +630,9 @@ def compute_legal_actions(
     # Asleep/Paralyzed gates attacks per-attack (Attack(usable_despite_conditions)).
     immobilized = _active_immobilized(board, player_id)
     entries.extend(_attack_entries(board, state, player_id, game_id, immobilized))
-    if not immobilized:
+    active = board.active_pokemon(player_id)
+    if not immobilized or (
+            active is not None and can_retreat_despite_conditions(board, active)):
         entries.extend(_retreat_entry(board, state, player_id, game_id))
     # A turn kept alive past an attack (Fluffy Barrage's second strike) stays
     # in the attack phase: only attacking (or End Turn) remains legal.

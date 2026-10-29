@@ -778,15 +778,18 @@ class EffectContext:
 
     def require_attack_flip(self, target: Optional[PokemonEntity],
                             through_turn: Optional[int] = None,
-                            title: Optional[str] = None) -> None:
+                            title: Optional[str] = None,
+                            coins: int = 1) -> None:
         """Smokescreen: "if the Defending Pokemon tries to attack ... flip a
         coin. If tails, that attack doesn't happen" (default: through the
-        opponent's next turn; cleared when the target leaves the Active)."""
+        opponent's next turn; cleared when the target leaves the Active).
+        `coins` > 1 fails the attack if any coin is tails (Sticky Smokescreen)."""
         if target is None:
             return
         self.session.turn_state.set_attack_flip_check(
             target.entity_id, through_turn,
             title if title is not None else (self.ability.title if self.ability else ""),
+            coins=coins,
         )
 
     def ignore_own_target_effects(self, entity: PokemonEntity) -> None:

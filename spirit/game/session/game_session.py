@@ -5556,7 +5556,9 @@ class GameSession:
         # attack never happened for VSTAR usage or attack locks either.
         flip_title = self.turn_state.attack_flip_check(card.entity_id)
         if flip_title is not None:
-            if not await self._resolve_attack_attempt_flip(player_id, card, flip_title):
+            coins = self.turn_state.attack_flip_coins(card.entity_id)
+            if not await self._resolve_attack_attempt_flip(
+                    player_id, card, flip_title, coins=coins):
                 return True  # tails: the attack does not happen; the turn ends
 
         if ability is not None:
@@ -5594,22 +5596,24 @@ class GameSession:
         return True
 
     async def _resolve_attack_attempt_flip(self, player_id: str, attacker,
-                                           title: str) -> bool:
-        """Smokescreen-family flip before attacking: tails and the attack does
-        not happen (no damage, no lock/VSTAR bookkeeping; the turn still
+                                           title: str, coins: int = 1) -> bool:
+        """Smokescreen-family flip before attacking: any tails and the attack
+        does not happen (no damage, no lock/VSTAR bookkeeping; the turn still
         ends). PokeAbility bracket: M.s runs the L.x flip with no condition
-        pop-in (FlipToWakeUp would stamp the Asleep pop-in)."""
-        flip = flip_coin_for(self.board_state, player_id)
-        heads = flip == 0
-        self.stat_add(player_id, "headsflipped", 1 if heads else 0)
-        self.stat_add(player_id, "tailsflipped", 0 if heads else 1)
+        pop-in (FlipToWakeUp would stamp the Asleep pop-in). `coins` > 1 is
+        Sticky Smokescreen ("if either of them is tails")."""
+        n = max(1, int(coins))
+        flips = [flip_coin_for(self.board_state, player_id) for _ in range(n)]
+        heads = all(flip == 0 for flip in flips)
+        self.stat_add(player_id, "headsflipped", sum(1 for f in flips if f == 0))
+        self.stat_add(player_id, "tailsflipped", sum(1 for f in flips if f != 0))
         await self.send_game_sequence(
             list(self.players.values()), GameSequence.POKE_ABILITY,
             [self._build_msg(
                 OutboundMsg.MULTIPLE_COIN_FLIP_WITH_CONTEXT_EFFECT.value,
                 {
                     "gameID": self.game_id,
-                    "resultLst": [flip],
+                    "resultLst": flips,
                     "title": {"id": title or TEXT_ATTACK_FLIP_CHECK},
                     "gameText": {"id": TEXT_ATTACK_FLIP_PROCEEDS if heads
                                  else TEXT_ATTACK_FLIP_FAILS},
