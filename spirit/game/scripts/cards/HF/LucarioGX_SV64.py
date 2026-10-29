@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Lucario-GX (HF #SV64): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import damage_per, damage_counters_on
+from spirit.game.card_effects.sm6 import aura_strike
 
 card = PokemonCardDef(
     guid="34f9c7ff-a0ab-535b-b5b8-6e3dbf1c245c",
@@ -21,7 +19,7 @@ card = PokemonCardDef(
     retreat_cost=2,
     weakness_type=PokemonTypes.PSYCHIC,
     evolves_from="com.direwolfdigital.cake.data.archetypes.pokemon.Riolu.Name",
-    family_id=447,
+    family_id=448,
     abilities=[
         Attack(
             title="Aura Strike",
@@ -29,8 +27,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=aura_strike,
         ),
         Attack(
             title="Cyclone Kick",
@@ -43,8 +40,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=30,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_per(damage_counters_on('self'), 30),
         ),
     ],
 )

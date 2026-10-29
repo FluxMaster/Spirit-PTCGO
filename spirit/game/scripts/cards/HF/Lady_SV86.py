@@ -1,13 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Lady (HF #SV86): trainer effect stubbed.
-
-Card text:
-  - Search your deck for up to 4 basic Energy cards, reveal them, and put them into your hand. Then, shuffle your deck.
-  - You may play only 1 Supporter card during your turn (before your attack).
-"""
-
-from spirit.game.data_utils import SupporterCardDef, unimplemented
+from spirit.game.data_utils import SupporterCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.trainers import is_basic_energy_card
+from spirit.game.card_effects.support_common import search_to_hand
 
 card = SupporterCardDef(
     guid="9d694724-7791-5d1c-8ce0-343194d7b910",
@@ -19,6 +13,8 @@ card = SupporterCardDef(
     collector_number=155,
     set_code="HF",
     rarity=Rarities.RareUltra,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=search_to_hand(
+        is_basic_energy_card, count=4, reveal=True,
+        prompt="Choose up to 4 basic Energy cards.",
+    )
 )

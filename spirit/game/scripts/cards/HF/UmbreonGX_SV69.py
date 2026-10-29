@@ -1,9 +1,21 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Umbreon-GX (HF #SV69): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import switch_self_attack
+from spirit.game.card_effects.attacks_common import snipe_attack
+
+
+async def _dark_call(ctx):
+    """Discard 2 Energy from your opponent's Pokemon."""
+    pool = [e for p in ctx.opponent_pokemon_in_play() if not ctx.effects_blocked(p)
+            for e in ctx.attached_energies(p)]
+    if not pool:
+        return
+    n = min(2, len(pool))
+    picks = await ctx.choose_cards(pool, n, minimum=n,
+                                   prompt="Choose 2 Energy to discard from your opponent's Pokémon")
+    if picks:
+        await ctx.discard_cards(picks)
+
 
 card = PokemonCardDef(
     guid="83723176-c299-502d-9246-35b9e8828c59",
@@ -30,23 +42,20 @@ card = PokemonCardDef(
             game_text="You may switch this Pok\u00e9mon with 1 of your Benched Pok\u00e9mon.",
             cost={PokemonTypes.DARKNESS: 1},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=switch_self_attack(optional=True),
         ),
         Attack(
             title="Shadow Bullet",
             game_text="This attack does 30 damage to 1 of your opponent's Benched Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.DARKNESS: 1, PokemonTypes.COLORLESS: 2},
             damage=90,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=snipe_attack(30, also_base=True),
         ),
         Attack(
             title="Dark Call-GX",
             game_text="Discard 2 Energy from your opponent's Pok\u00e9mon. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.DARKNESS: 1, PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=_dark_call,
         ),
     ],
 )

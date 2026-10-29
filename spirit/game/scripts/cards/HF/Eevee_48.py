@@ -4,6 +4,14 @@ Eevee (HF #48): one or more attacks/abilities use effect=unimplemented until a m
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_damage
+
+
+async def pry(ctx):
+    """10 damage. Your opponent reveals their hand."""
+    await ctx.deal_damage()
+    await ctx.reveal_hand(of_player=ctx.opponent_id)
+
 
 card = PokemonCardDef(
     guid="3aac49cc-cc32-5933-84bf-25bb20be20b4",
@@ -27,7 +35,7 @@ card = PokemonCardDef(
             game_text="Your opponent reveals their hand.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=pry,
         ),
         Attack(
             title="Spin Tackle",
@@ -35,7 +43,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(tails_self_damage=10),
         ),
     ],
 )

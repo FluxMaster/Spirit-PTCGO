@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Guzzlord (HF #SV26): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm6 import lords_valley
 
 card = PokemonCardDef(
     guid="172aca00-a998-55ff-851e-ef48f9363c08",
@@ -29,8 +26,7 @@ card = PokemonCardDef(
             game_text="If you have exactly 2, 4, or 6 Prize cards remaining, discard the top 10 cards of your deck.",
             cost={PokemonTypes.DARKNESS: 4},
             damage=160,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=lords_valley,
         ),
     ],
 )

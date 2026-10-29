@@ -1,9 +1,11 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Voltorb (HF #SV13): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.attributes import SpecialConditions
+from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.sm7 import (
+    floating_electrons_passive,
+)
+
 
 card = PokemonCardDef(
     guid="0af6e08a-e7d2-57d1-bbe0-42bd45f60529",
@@ -28,8 +30,7 @@ card = PokemonCardDef(
             title="Floating Electrons",
             game_text="If this Pok\u00e9mon has any Energy attached to it, it has no Retreat Cost.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=floating_electrons_passive,
         ),
         Attack(
             title="Thunder Shock",
@@ -37,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(SpecialConditions.PARALYZED, flip=True),
         ),
     ],
 )

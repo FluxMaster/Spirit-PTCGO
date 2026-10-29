@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dartrix (HF #SV3): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import snipe_attack, flip_bonus
+
 
 card = PokemonCardDef(
     guid="d290428a-c848-5e65-958b-0458b78a5ef9",
@@ -27,8 +25,7 @@ card = PokemonCardDef(
             title="Sharp Blade Quill",
             game_text="This attack does 20 damage to 1 of your opponent's Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=snipe_attack(20, pool='any', count=1),
         ),
         Attack(
             title="Leaf Blade",
@@ -36,8 +33,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 2},
             damage=50,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_bonus(20),
         ),
     ],
 )

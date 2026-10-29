@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Kartana-GX (HF #SV73): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.support_common import remove_self_from_play
+from spirit.game.card_effects.sm4 import blade_gx, slice_off
+
 
 card = PokemonCardDef(
     guid="a6dc3316-048f-5078-86c1-2d19df322953",
@@ -28,8 +27,8 @@ card = PokemonCardDef(
             title="Slice Off",
             game_text="When you play this Pok\u00e9mon from your hand onto your Bench during your turn, you may discard a Special Energy from 1 of your opponent's Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=slice_off,
+            trigger=Triggers.ON_PLAY,
         ),
         Attack(
             title="Gale Blade",
@@ -37,14 +36,13 @@ card = PokemonCardDef(
             cost={PokemonTypes.METAL: 1, PokemonTypes.COLORLESS: 2},
             damage=70,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=remove_self_from_play('deck', optional=True),
         ),
         Attack(
             title="Blade-GX",
             game_text="Take a Prize card. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.METAL: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=blade_gx,
         ),
     ],
 )

@@ -1,13 +1,15 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Aether Paradise Conservation Area (HF #SV87): trainer effect stubbed.
+from spirit.game.data_utils import StadiumCardDef
+from spirit.game.attributes import AttrID, PokemonTypes, Rarities
+from spirit.game.card_effects.passives_common import takes_less_passive
+from spirit.game.session.effects import is_basic_pokemon
 
-Card text:
-  - Basic Grass and Basic Lightning Pokémon (both yours and your opponent's) take 30 less damage from the opponent's attacks (after applying Weakness and Resistance).
-  - This card stays in play when you play it. Discard this card if another Stadium card comes into play. If another card with the same name is in play, you can't play this card.
-"""
 
-from spirit.game.data_utils import StadiumCardDef, unimplemented
-from spirit.game.attributes import Rarities
+def _aether_protects(target, carrier):
+    if not is_basic_pokemon(target):
+        return False
+    types = target.get_attribute(AttrID.POKEMON_TYPES) or []
+    return PokemonTypes.GRASS.value in types or PokemonTypes.LIGHTNING.value in types
+
 
 card = StadiumCardDef(
     guid="cbac4046-2668-59a5-b542-d1518ce3bc41",
@@ -19,6 +21,5 @@ card = StadiumCardDef(
     collector_number=156,
     set_code="HF",
     rarity=Rarities.RareSecret,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    passive=takes_less_passive(30, protects=_aether_protects),
 )

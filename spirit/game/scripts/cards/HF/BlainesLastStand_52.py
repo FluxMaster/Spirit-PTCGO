@@ -1,14 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Blaine's Last Stand (HF #52): trainer effect stubbed.
-
-Card text:
-  - You can play this card only when it is the last card in your hand.
-  - Draw 2 cards for each Fire Pokémon you have in play.
-  - You may play only 1 Supporter card during your turn (before your attack).
-"""
-
-from spirit.game.data_utils import SupporterCardDef, unimplemented
+from spirit.game.data_utils import SupporterCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.dm import (
+    blaines_last_stand,
+    blaines_last_stand_condition,
+)
 
 card = SupporterCardDef(
     guid="2aa98f63-7db3-5bbc-ba5c-3c8b93c9da2a",
@@ -20,6 +15,6 @@ card = SupporterCardDef(
     collector_number=52,
     set_code="HF",
     rarity=Rarities.Rare,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=blaines_last_stand,
+    condition=blaines_last_stand_condition,
 )

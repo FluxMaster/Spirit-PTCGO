@@ -1,9 +1,23 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Banette-GX (HF #SV61): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm7 import (
+    shadow_chant,
+    shady_move,
+    shady_move_condition,
+)
+from spirit.game.data_utils import Activations
+
+
+async def _hollow_hunt(ctx):
+    """Put 3 cards from your discard pile into your hand."""
+    cards = list(ctx.discard_pile())
+    if not cards:
+        return
+    n = min(3, len(cards))
+    picks = await ctx.choose_cards(cards, n, minimum=n,
+                                   prompt="Choose 3 cards to put into your hand.")
+    await ctx.put_in_hand(picks, reveal=True)
+
 
 card = PokemonCardDef(
     guid="9c1eb693-20a3-5ae0-a1ac-1e1defea1eac",
@@ -29,8 +43,9 @@ card = PokemonCardDef(
             title="Shady Move",
             game_text="Once during your turn (before your attack), if this Pok\u00e9mon is your Active Pok\u00e9mon, you may move 1 damage counter from 1 Pok\u00e9mon to another Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=shady_move_condition,
+            effect=shady_move,
         ),
         Attack(
             title="Shadow Chant",
@@ -38,15 +53,14 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 1},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=shadow_chant,
         ),
         Attack(
             title="Tomb Hunt-GX",
             game_text="Put 3 cards from your discard pile into your hand. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.PSYCHIC: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=_hollow_hunt,
         ),
     ],
 )

@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Charizard-GX (HF #SV49): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import self_energy_discard_attack
+from spirit.game.card_effects.sm3 import raging_out_gx
+
 
 card = PokemonCardDef(
     guid="c5b08dc9-435b-5cd7-a5aa-55747bf26c87",
@@ -34,14 +33,13 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 3, PokemonTypes.COLORLESS: 2},
             damage=300,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=self_energy_discard_attack(count=3, energy_type=PokemonTypes.FIRE),
         ),
         Attack(
             title="Raging Out-GX",
             game_text="Discard the top 10 cards of your opponent's deck. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.FIRE: 1, PokemonTypes.COLORLESS: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=raging_out_gx,
         ),
     ],
 )

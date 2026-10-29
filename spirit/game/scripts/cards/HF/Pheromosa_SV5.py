@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Pheromosa (HF #SV5): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm6 import white_ray
 
 card = PokemonCardDef(
     guid="fba05b98-c61b-5a91-8ee5-bb7c531c69f5",
@@ -33,8 +30,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 2, PokemonTypes.COLORLESS: 1},
             damage=90,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=white_ray,
         ),
     ],
 )

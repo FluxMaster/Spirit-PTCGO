@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Kartana (HF #SV33): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm7 import (
+    divine_paper,
+)
 
 card = PokemonCardDef(
     guid="ee10c83a-5f4a-50c0-a8a6-b7ea63146a0a",
@@ -30,8 +29,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.METAL: 2},
             damage=40,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=divine_paper,
         ),
     ],
 )

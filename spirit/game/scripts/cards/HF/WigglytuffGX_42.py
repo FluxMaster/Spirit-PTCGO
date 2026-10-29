@@ -4,6 +4,9 @@ Wigglytuff-GX (HF #42): one or more attacks/abilities use effect=unimplemented u
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_damage
+from spirit.game.card_effects.sm3 import tapu_wilderness_gx
+
 
 card = PokemonCardDef(
     guid="99b4c70e-f439-56cb-bb8d-6b371d5bec05",
@@ -32,7 +35,7 @@ card = PokemonCardDef(
             damage=100,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(until_tails=True, bonus_per_heads=30),
         ),
         Attack(
             title="Lovely Star-GX",
@@ -40,7 +43,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FAIRY: 2, PokemonTypes.COLORLESS: 1},
             damage=130,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=tapu_wilderness_gx,
         ),
     ],
 )

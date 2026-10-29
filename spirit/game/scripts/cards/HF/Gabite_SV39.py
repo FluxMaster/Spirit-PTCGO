@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Gabite (HF #SV39): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm5 import evolve_self_from_deck
 
 card = PokemonCardDef(
     guid="cd6bfaf7-2a4a-58ce-9b4b-db09bc30a609",
@@ -27,8 +24,7 @@ card = PokemonCardDef(
             title="Ascension",
             game_text="Search your deck for a card that evolves from this Pok\u00e9mon and put it onto this Pok\u00e9mon to evolve it. Then, shuffle your deck.",
             cost={PokemonTypes.FIGHTING: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=evolve_self_from_deck,
         ),
         Attack(
             title="Slash",

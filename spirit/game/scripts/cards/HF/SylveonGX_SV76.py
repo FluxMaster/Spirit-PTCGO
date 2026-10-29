@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Sylveon-GX (HF #SV76): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.scripts.cards.SM2.SylveonGX_92 import plea_gx
+from spirit.game.card_effects.support_common import search_to_hand
 
 card = PokemonCardDef(
     guid="603c08e0-c22f-56eb-9015-09c48d51a19e",
@@ -23,14 +21,13 @@ card = PokemonCardDef(
     resistance_type=PokemonTypes.DARKNESS,
     resistance_amount=20,
     evolves_from="com.direwolfdigital.cake.data.archetypes.pokemon.Eevee.Name",
-    family_id=133,
+    family_id=700,
     abilities=[
         Attack(
             title="Magical Ribbon",
             game_text="Search your deck for up to 3 cards and put them into your hand. Then, shuffle your deck.",
             cost={PokemonTypes.FAIRY: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=search_to_hand(None, count=3, minimum=0, reveal=False, prompt='Choose up to 3 cards'),
         ),
         Attack(
             title="Fairy Wind",
@@ -41,8 +38,7 @@ card = PokemonCardDef(
             title="Plea-GX",
             game_text="Put 2 of your opponent's Benched Pok\u00e9mon and all cards attached to them into your opponent's hand. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.FAIRY: 1, PokemonTypes.COLORLESS: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=plea_gx,
         ),
     ],
 )

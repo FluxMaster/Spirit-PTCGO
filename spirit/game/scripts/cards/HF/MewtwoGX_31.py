@@ -4,6 +4,8 @@ Mewtwo-GX (HF #31): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm3 import queens_haze_gx
+
 
 card = PokemonCardDef(
     guid="bb5451c2-a51a-553f-b365-5f847e3595f1",
@@ -33,7 +35,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 2, PokemonTypes.COLORLESS: 1},
             damage=120,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=queens_haze_gx,
         ),
     ],
 )

@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Wimpod (HF #SV4): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm3 import WimpOutPassive
 
 card = PokemonCardDef(
     guid="af207316-8f78-5927-99cf-68153ba02ad1",
@@ -26,8 +23,7 @@ card = PokemonCardDef(
             title="Wimp Out",
             game_text="During your first turn, this Pok\u00e9mon has no Retreat Cost.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=WimpOutPassive(),
         ),
         Attack(
             title="Gnaw",

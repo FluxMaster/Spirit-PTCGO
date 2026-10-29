@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Guzzlord-GX (HF #SV71): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm4 import eat_sloppily, glutton_gx
 
 card = PokemonCardDef(
     guid="9a5af512-579c-5f12-98f1-71fac6cff9fa",
@@ -28,8 +25,7 @@ card = PokemonCardDef(
             title="Eat Sloppily",
             game_text="Discard the top 5 cards of your deck. If any of those cards are Energy cards, attach them to this Pok\u00e9mon.",
             cost={PokemonTypes.DARKNESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=eat_sloppily,
         ),
         Attack(
             title="Tyrannical Hole",
@@ -41,8 +37,7 @@ card = PokemonCardDef(
             game_text="If your opponent's Pok\u00e9mon is Knocked Out by damage from this attack, take 2 more Prize cards. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.DARKNESS: 5},
             damage=100,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=glutton_gx,
         ),
     ],
 )

@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Frogadier (HF #SV12): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm6 import gale_shuriken
+from spirit.game.data_utils import Triggers
 
 card = PokemonCardDef(
     guid="ed2b6c91-7d34-56ea-b690-7055094c6840",
@@ -27,8 +25,8 @@ card = PokemonCardDef(
             title="Gale Shuriken",
             game_text="When you play this Pok\u00e9mon from your hand to evolve 1 of your Pok\u00e9mon during your turn, you may put 2 damage counters on 1 of your opponent's Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=Triggers.ON_EVOLVE,
+            effect=gale_shuriken,
         ),
         Attack(
             title="Water Drip",

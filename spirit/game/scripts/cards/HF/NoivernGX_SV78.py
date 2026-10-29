@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Noivern-GX (HF #SV78): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import spread_damage
+from spirit.game.card_effects.sm3 import distort, sonic_volume
 
 card = PokemonCardDef(
     guid="16ab540e-d934-5220-8396-4bdf23a957be",
@@ -28,23 +26,20 @@ card = PokemonCardDef(
             game_text="Your opponent can't play any Item cards from their hand during their next turn.",
             cost={PokemonTypes.DARKNESS: 1, PokemonTypes.COLORLESS: 1},
             damage=50,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=distort,
         ),
         Attack(
             title="Sonic Volume",
             game_text="Your opponent can't play any Special Energy cards from their hand during their next turn.",
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.DARKNESS: 1, PokemonTypes.COLORLESS: 1},
             damage=120,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=sonic_volume,
         ),
         Attack(
             title="Boomburst-GX",
             game_text="This attack does 50 damage to each of your opponent's Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.) (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.DARKNESS: 1, PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=spread_damage(50, include_active=True),
         ),
     ],
 )

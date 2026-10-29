@@ -1,9 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Altaria-GX (HF #SV77): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.pokemon import shred
+from spirit.game.card_effects.dm import (
+    bright_tone,
+    euphoria_gx,
+)
 
 card = PokemonCardDef(
     guid="10972828-3b5f-5c92-9a08-5f123ee97416",
@@ -28,23 +29,20 @@ card = PokemonCardDef(
             game_text="During your opponent's next turn, prevent all damage done to this Pok\u00e9mon by attacks from Pok\u00e9mon-GX and Pok\u00e9mon-EX.",
             cost={PokemonTypes.FAIRY: 1, PokemonTypes.COLORLESS: 1},
             damage=50,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bright_tone,
         ),
         Attack(
             title="Sonic Edge",
             game_text="This attack's damage isn't affected by any effects on your opponent's Active Pok\u00e9mon.",
             cost={PokemonTypes.WATER: 1, PokemonTypes.FAIRY: 1, PokemonTypes.COLORLESS: 1},
             damage=110,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=shred,
         ),
         Attack(
             title="Euphoria-GX",
             game_text="Your opponent's Active Pok\u00e9mon is now Asleep. Heal all damage from all of your Pok\u00e9mon. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.FAIRY: 1, PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=euphoria_gx,
         ),
     ],
 )

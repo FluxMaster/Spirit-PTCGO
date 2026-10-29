@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Froakie (HF #SV11): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm6 import frubbles_passive
 
 card = PokemonCardDef(
     guid="09a170a7-3180-59c1-8efd-c665e32e697d",
@@ -26,8 +23,7 @@ card = PokemonCardDef(
             title="Frubbles",
             game_text="If this Pok\u00e9mon has any Water Energy attached to it, it has no Retreat Cost.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=frubbles_passive,
         ),
         Attack(
             title="Flop",
