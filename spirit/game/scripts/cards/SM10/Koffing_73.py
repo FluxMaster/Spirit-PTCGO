@@ -4,6 +4,9 @@ Koffing (SM10 #73): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.attributes import SpecialConditions
+from spirit.game.card_effects.attacks_common import condition_attack
+
 
 card = PokemonCardDef(
     guid="f9eed24d-ee0f-50fc-a53b-99de3e1925ee",
@@ -27,7 +30,7 @@ card = PokemonCardDef(
             game_text="Both Active Pok\u00e9mon are now Confused.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(SpecialConditions.CONFUSED, both_actives=True),
         ),
     ],
 )

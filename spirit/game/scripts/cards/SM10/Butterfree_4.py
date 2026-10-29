@@ -4,6 +4,9 @@ Butterfree (SM10 #4): one or more attacks/abilities use effect=unimplemented unt
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import search_attach_energy
+from spirit.game.card_effects.trainers import is_basic_energy_card
+
 
 card = PokemonCardDef(
     guid="a37d3dbb-9b64-5730-b815-4e50e972bc96",
@@ -28,7 +31,7 @@ card = PokemonCardDef(
             game_text="Search your deck for up to 3 basic Energy cards and attach them to your Pok\u00e9mon in any way you like. Then, shuffle your deck.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=search_attach_energy(predicate=is_basic_energy_card, count=3, distribute=True),
         ),
         Attack(
             title="Solar Beam",

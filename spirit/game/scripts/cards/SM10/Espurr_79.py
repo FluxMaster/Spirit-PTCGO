@@ -4,6 +4,24 @@ Espurr (SM10 #79): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.attributes import AttrID
+
+
+async def targeted_skewer(ctx):
+    """20 damage to a chosen opposing Benched Pokémon for each damage
+    counter already on it (no Weakness/Resistance for Benched Pokémon)."""
+    bench = ctx.opponent_bench()
+    if not bench:
+        return
+    target = await ctx.choose_pokemon(
+        bench, "Choose 1 of your opponent's Benched Pokémon"
+    )
+    if target is None:
+        return
+    counters = max(0, (ctx.max_hp(target) - target.get_attribute(AttrID.HP, 0)) // 10)
+    if counters:
+        await ctx.deal_damage(20 * counters, target=target, apply_modifiers=False)
+
 
 card = PokemonCardDef(
     guid="2d573c81-e7eb-53ef-aa27-b9eb56762665",
@@ -34,7 +52,7 @@ card = PokemonCardDef(
             game_text="This attack does 20 damage to 1 of your opponent's Benched Pok\u00e9mon for each damage counter on that Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 2},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=targeted_skewer,
         ),
     ],
 )

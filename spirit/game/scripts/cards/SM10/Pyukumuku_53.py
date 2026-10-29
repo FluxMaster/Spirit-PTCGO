@@ -4,6 +4,8 @@ Pyukumuku (SM10 #53): one or more attacks/abilities use effect=unimplemented unt
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import search_to_bench
+
 
 card = PokemonCardDef(
     guid="a47c2a69-d7cc-5a1e-988b-bca65b3f3d89",
@@ -27,7 +29,7 @@ card = PokemonCardDef(
             game_text="Search your deck for up to 2 Basic Pok\u00e9mon and put them onto your Bench. Then, shuffle your deck.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=search_to_bench(count=2),
         ),
         Attack(
             title="Surprise Fist",

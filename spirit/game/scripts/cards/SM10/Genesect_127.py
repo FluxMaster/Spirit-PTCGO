@@ -4,6 +4,8 @@ Genesect (SM10 #127): one or more attacks/abilities use effect=unimplemented unt
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm8 import wild_dash_passive
+
 
 card = PokemonCardDef(
     guid="3131e20f-7008-5449-93fb-2b9725436107",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             game_text="If your opponent has any Pok\u00e9mon-GX or Pok\u00e9mon-EX in play, this Pok\u00e9mon has no Retreat Cost.",
             ability_type=AbilityTypes.POKE_ABILITY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=wild_dash_passive,
         ),
         Attack(
             title="Splitting Beam",

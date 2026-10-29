@@ -4,6 +4,18 @@ Rhyperior (SM10 #95): one or more attacks/abilities use effect=unimplemented unt
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import lock_defender_attacks
+from spirit.game.session.effects import is_basic_pokemon
+from spirit.game.card_effects.sm5 import earthquake
+
+
+async def tie_up(ctx):
+    """20. If the Defending Pokemon is a Basic Pokemon, it can't attack next turn."""
+    await ctx.deal_damage()
+    defender = ctx.defender
+    if defender is not None and is_basic_pokemon(defender):
+        lock_defender_attacks(ctx)
+
 
 card = PokemonCardDef(
     guid="e7ad0cd1-6002-57e1-b350-8ec167f5c5ec",
@@ -29,7 +41,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 2},
             damage=90,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=tie_up,
         ),
         Attack(
             title="Break Ground",
@@ -37,7 +49,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 3},
             damage=160,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=earthquake,
         ),
     ],
 )

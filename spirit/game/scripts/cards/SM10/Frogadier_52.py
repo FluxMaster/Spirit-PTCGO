@@ -4,6 +4,15 @@ Frogadier (SM10 #52): one or more attacks/abilities use effect=unimplemented unt
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.passives_common import flip_prevent_damage_passive
+
+
+async def _afterimage_strike(ctx):
+    """40; during the opponent's next turn, flip to prevent attack damage."""
+    await ctx.deal_damage()
+    ctx.add_passive_through_opponents_turn(
+        ctx.attacker, flip_prevent_damage_passive("Afterimage Strike"))
+
 
 card = PokemonCardDef(
     guid="24dc1611-8aca-5c33-a2fc-9334540f46e3",
@@ -29,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=_afterimage_strike,
         ),
     ],
 )

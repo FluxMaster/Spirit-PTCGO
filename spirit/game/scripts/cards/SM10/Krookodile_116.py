@@ -4,6 +4,15 @@ Krookodile (SM10 #116): one or more attacks/abilities use effect=unimplemented u
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.attributes import AttrID
+from spirit.game.card_effects.attacks_common import damage_per
+from spirit.game.card_effects.pokemon import rock_crush
+
+
+def _defender_retreat_cost(ctx):
+    defender = ctx.defender
+    return int(defender.get_attribute(AttrID.RETREAT_COST) or 0) if defender else 0
+
 
 card = PokemonCardDef(
     guid="7538363f-aefc-5b7e-9c14-b81e792a3b2b",
@@ -32,7 +41,7 @@ card = PokemonCardDef(
             damage=50,
             damage_operator="x",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_per(_defender_retreat_cost, 50),
         ),
         Attack(
             title="Crunch",
@@ -40,7 +49,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.DARKNESS: 1, PokemonTypes.COLORLESS: 3},
             damage=100,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=rock_crush,
         ),
     ],
 )

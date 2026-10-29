@@ -4,6 +4,8 @@ Lickilicky (SM10 #153): one or more attacks/abilities use effect=unimplemented u
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_damage
+
 
 card = PokemonCardDef(
     guid="35f0fba4-117b-5a06-b9d3-e6a687beb71b",
@@ -38,7 +40,7 @@ card = PokemonCardDef(
             damage=60,
             damage_operator="x",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(coins=4, per_heads=60),
         ),
     ],
 )

@@ -4,6 +4,8 @@ Persian-GX (SM10 #227): one or more attacks/abilities use effect=unimplemented u
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm3 import crossing_cut_gx
+
 
 card = PokemonCardDef(
     guid="a688f499-5f84-5ff4-ac94-da699fd280b7",
@@ -45,7 +47,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=150,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=crossing_cut_gx,
         ),
     ],
 )

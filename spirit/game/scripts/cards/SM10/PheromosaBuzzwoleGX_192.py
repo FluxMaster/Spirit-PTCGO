@@ -4,6 +4,8 @@ Pheromosa & Buzzwole-GX (SM10 #192): one or more attacks/abilities use effect=un
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm8 import lava_burn
+
 
 card = PokemonCardDef(
     guid="24e0d674-9379-5ea1-adbb-c1dcfd5b3841",
@@ -28,7 +30,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=lava_burn,
         ),
         Attack(
             title="Elegant Sole",

@@ -4,6 +4,8 @@ Mew (SM10 #76): one or more attacks/abilities use effect=unimplemented until a m
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import place_counters
+
 
 card = PokemonCardDef(
     guid="46e5bb52-b8f8-5f91-8e4e-be8cdfcb4074",
@@ -34,7 +36,7 @@ card = PokemonCardDef(
             game_text="Put 3 damage counters on your opponent's Pok\u00e9mon in any way you like.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=place_counters(3, 'choose_any_opponent'),
         ),
     ],
 )

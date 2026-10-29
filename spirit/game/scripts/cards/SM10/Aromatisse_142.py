@@ -4,6 +4,31 @@ Aromatisse (SM10 #142): one or more attacks/abilities use effect=unimplemented u
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.attributes import SpecialConditions
+
+
+async def miracle_powder(ctx):
+    """30. Flip a coin. Heads: choose a Special Condition for the Defending Pokemon."""
+    await ctx.deal_damage()
+    if not (await ctx.flip_coins(1, "Miracle Powder"))[0]:
+        return
+    target = ctx.defender
+    if target is None:
+        return
+    idx = await ctx.choose(
+        "Choose a Special Condition", [name for name, _ in _CONDITION_CHOICES],
+    )
+    await ctx.apply_special_condition(target, _CONDITION_CHOICES[idx][1])
+
+
+_CONDITION_CHOICES = [
+    ("Asleep", SpecialConditions.ASLEEP),
+    ("Burned", SpecialConditions.BURNED),
+    ("Confused", SpecialConditions.CONFUSED),
+    ("Paralyzed", SpecialConditions.PARALYZED),
+    ("Poisoned", SpecialConditions.POISONED),
+]
+
 
 card = PokemonCardDef(
     guid="3308512b-144f-5897-b361-52c2859d5fcb",
@@ -38,7 +63,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=miracle_powder,
         ),
     ],
 )

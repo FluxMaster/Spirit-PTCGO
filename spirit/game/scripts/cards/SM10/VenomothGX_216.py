@@ -4,6 +4,8 @@ Venomoth-GX (SM10 #216): one or more attacks/abilities use effect=unimplemented 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.scripts.cards.SM2.DrampaGX_115 import big_wheel_gx
+
 
 card = PokemonCardDef(
     guid="a525e685-d90b-51af-9e84-ab13ee3b2d93",
@@ -38,7 +40,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=60,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=big_wheel_gx,
         ),
     ],
 )

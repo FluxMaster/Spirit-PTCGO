@@ -4,6 +4,8 @@ Marshadow & Machamp-GX (SM10 #221): one or more attacks/abilities use effect=uni
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import bonus_if
+
 
 card = PokemonCardDef(
     guid="5561c454-59c7-52bd-9892-c669c3db07c4",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             damage=30,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bonus_if(lambda ctx: ctx.kos_suffered_last_turn() > 0, 90),
         ),
         Attack(
             title="Hundred-Blows Impact",

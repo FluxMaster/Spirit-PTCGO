@@ -4,6 +4,9 @@ Zubat (SM10 #64): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.attributes import SpecialConditions
+from spirit.game.card_effects.attacks_common import condition_bonus_attack
+
 
 card = PokemonCardDef(
     guid="bd43abaa-c7e7-5626-889c-3b914a634d66",
@@ -36,7 +39,7 @@ card = PokemonCardDef(
             damage=20,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_bonus_attack(50, SpecialConditions.POISONED),
         ),
     ],
 )

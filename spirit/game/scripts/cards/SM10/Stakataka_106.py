@@ -5,6 +5,16 @@ Stakataka (SM10 #106): one or more attacks/abilities use effect=unimplemented un
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 
+
+async def deck_distiller(ctx):
+    heads = await ctx.flip_until_tails("Deck Distiller")
+    if heads <= 0:
+        return
+    top_cards = ctx.deck_top(heads, ctx.opponent_id)
+    if top_cards:
+        await ctx.discard_cards(top_cards)
+
+
 card = PokemonCardDef(
     guid="8ac69d94-5497-5873-8f74-ef8c1f8a831a",
     key="SM10",
@@ -35,7 +45,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 2, PokemonTypes.COLORLESS: 1},
             damage=110,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=deck_distiller,
         ),
     ],
 )

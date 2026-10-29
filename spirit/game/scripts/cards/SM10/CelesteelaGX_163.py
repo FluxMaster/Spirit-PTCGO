@@ -5,6 +5,12 @@ Celesteela-GX (SM10 #163): one or more attacks/abilities use effect=unimplemente
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 
+
+async def shadow_cyclone(ctx):
+    await ctx.deal_damage()
+    await ctx.move_energy_freely([ctx.attacker], ctx.my_bench(), max_count=1)
+
+
 card = PokemonCardDef(
     guid="3e9af494-3744-5417-afa2-b5b4856989af",
     key="SM10",
@@ -37,7 +43,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=110,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=shadow_cyclone,
         ),
         Attack(
             title="Discovery-GX",

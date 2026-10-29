@@ -4,6 +4,20 @@ Murkrow (SM10 #108): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+import random
+
+
+async def astonish(ctx):
+    """Choose a random card from the opponent's hand, reveal it, shuffle into their deck."""
+    await ctx.deal_damage()
+    opponent = ctx.opponent_id
+    hand = ctx.hand(opponent)
+    if not hand:
+        return
+    card = random.choice(hand)
+    await ctx.reveal_cards([card])
+    await ctx.shuffle_into_deck([card], player_id=opponent)
+
 
 card = PokemonCardDef(
     guid="ac1ebe31-8f62-5ded-8af8-317623c4031c",
@@ -29,7 +43,7 @@ card = PokemonCardDef(
             game_text="Choose a random card from your opponent's hand. Your opponent reveals that card and shuffles it into their deck.",
             cost={PokemonTypes.DARKNESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=astonish,
         ),
     ],
 )

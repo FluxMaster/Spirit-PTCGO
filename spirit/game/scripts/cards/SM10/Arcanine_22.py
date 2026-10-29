@@ -4,6 +4,8 @@ Arcanine (SM10 #22): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm4 import super_electromagnetic_tackle
+
 
 card = PokemonCardDef(
     guid="6fd3b827-ae03-5b34-b6fd-c569485c076c",
@@ -37,7 +39,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 4},
             damage=190,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=super_electromagnetic_tackle,
         ),
     ],
 )

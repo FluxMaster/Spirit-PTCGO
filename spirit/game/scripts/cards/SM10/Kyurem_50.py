@@ -4,6 +4,13 @@ Kyurem (SM10 #50): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.pokemon import energy_provides_type
+from spirit.game.card_effects.support_common import search_attach_energy
+
+
+def _is_water_energy(card):
+    return energy_provides_type(card, PokemonTypes.WATER.value)
+
 
 card = PokemonCardDef(
     guid="a3d4a1d7-629a-56ad-9a17-763a81d48713",
@@ -27,7 +34,7 @@ card = PokemonCardDef(
             game_text="Search your deck for a Water Energy card and attach it to this Pok\u00e9mon. Then, shuffle your deck.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=search_attach_energy(predicate=_is_water_energy, count=1, to_self=True),
         ),
         Attack(
             title="Hail Prison",

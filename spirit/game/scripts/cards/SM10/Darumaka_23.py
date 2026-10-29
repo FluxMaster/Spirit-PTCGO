@@ -4,6 +4,15 @@ Darumaka (SM10 #23): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.attributes import AttrID
+from spirit.game.card_effects.trainers import is_energy_card
+from spirit.game.card_effects.support_common import search_attach_energy
+
+
+def _is_fire_energy(card):
+    types = card.get_attribute(AttrID.POKEMON_TYPES) or []
+    return is_energy_card(card) and PokemonTypes.FIRE.value in types
+
 
 card = PokemonCardDef(
     guid="7c4f7edf-85ae-55f0-aff1-727541fb247a",
@@ -28,7 +37,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=search_attach_energy(predicate=_is_fire_energy, count=1, to_self=True),
         ),
         Attack(
             title="Flop",

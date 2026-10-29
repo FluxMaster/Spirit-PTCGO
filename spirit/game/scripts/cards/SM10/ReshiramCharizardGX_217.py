@@ -4,6 +4,8 @@ Reshiram & Charizard-GX (SM10 #217): one or more attacks/abilities use effect=un
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm7 import onix_rage
+
 
 card = PokemonCardDef(
     guid="7720d21e-e142-53ee-86c3-0d14745d68f6",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             damage=30,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=onix_rage,
         ),
         Attack(
             title="Flare Strike",
