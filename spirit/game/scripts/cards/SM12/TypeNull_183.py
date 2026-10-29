@@ -1,0 +1,34 @@
+"""STUB: effect not implemented — do not guess mechanics.
+Type: Null (SM12 #183): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
+"""
+
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+card = PokemonCardDef(
+    guid="a49ae1a7-2289-513e-a6e4-1d16e864ed2e",
+    key="SM12",
+    name="com.direwolfdigital.cake.data.archetypes.pokemon.TypeNull.Name",
+    display_name="Type: Null",
+    searchable_by=["Type: Null", "Basic", "TypeNull"],
+    subtypes=["Basic"],
+    collector_number=183,
+    set_code="SM12",
+    rarity=Rarities.Uncommon,
+    hp=110,
+    elements=[PokemonTypes.COLORLESS],
+    stage=PokemonStage.BASIC,
+    retreat_cost=2,
+    weakness_type=PokemonTypes.FIGHTING,
+    family_id=772,
+    abilities=[
+        Attack(
+            title="Air Slash",
+            game_text="Discard an Energy from this Pok\u00e9mon.",
+            cost={PokemonTypes.COLORLESS: 2},
+            damage=50,
+            # STUB: attack effect not implemented
+            effect=unimplemented,
+        ),
+    ],
+)

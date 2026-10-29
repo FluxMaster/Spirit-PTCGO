@@ -1,0 +1,40 @@
+"""STUB: effect not implemented — do not guess mechanics.
+Dartrix (SM12 #19): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
+"""
+
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+card = PokemonCardDef(
+    guid="b347109c-2609-57be-af91-cb89f1386eb0",
+    key="SM12",
+    name="com.direwolfdigital.cake.data.archetypes.pokemon.Dartrix.Name",
+    display_name="Dartrix",
+    searchable_by=["Dartrix", "Stage 1", "Dartrix"],
+    subtypes=["Stage 1"],
+    collector_number=19,
+    set_code="SM12",
+    rarity=Rarities.Uncommon,
+    hp=80,
+    elements=[PokemonTypes.GRASS],
+    stage=PokemonStage.STAGE1,
+    retreat_cost=1,
+    weakness_type=PokemonTypes.FIRE,
+    evolves_from="com.direwolfdigital.cake.data.archetypes.pokemon.Rowlet.Name",
+    family_id=722,
+    abilities=[
+        Attack(
+            title="Leafage",
+            cost={PokemonTypes.GRASS: 1},
+            damage=20,
+        ),
+        Attack(
+            title="Wing Flick",
+            game_text="Your opponent switches their Active Pok\u00e9mon with 1 of their Benched Pok\u00e9mon.",
+            cost={PokemonTypes.COLORLESS: 2},
+            damage=30,
+            # STUB: attack effect not implemented
+            effect=unimplemented,
+        ),
+    ],
+)

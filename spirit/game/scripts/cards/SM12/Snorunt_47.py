@@ -1,0 +1,35 @@
+"""STUB: effect not implemented — do not guess mechanics.
+Snorunt (SM12 #47): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
+"""
+
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+card = PokemonCardDef(
+    guid="3c422766-4f98-5032-8b7f-ddcccd1221c5",
+    key="SM12",
+    name="com.direwolfdigital.cake.data.archetypes.pokemon.Snorunt.Name",
+    display_name="Snorunt",
+    searchable_by=["Snorunt", "Basic", "Snorunt"],
+    subtypes=["Basic"],
+    collector_number=47,
+    set_code="SM12",
+    rarity=Rarities.Common,
+    hp=60,
+    elements=[PokemonTypes.WATER],
+    stage=PokemonStage.BASIC,
+    retreat_cost=2,
+    weakness_type=PokemonTypes.METAL,
+    family_id=361,
+    abilities=[
+        Attack(
+            title="Continuous Headbutt",
+            game_text="Flip a coin until you get tails. This attack does 20 damage for each heads.",
+            cost={PokemonTypes.WATER: 1},
+            damage=20,
+            damage_operator="x",
+            # STUB: attack effect not implemented
+            effect=unimplemented,
+        ),
+    ],
+)
