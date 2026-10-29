@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Sabrina's Kadabra (GYM2 #58): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import life_drain
+
 
 card = PokemonCardDef(
     guid="5041c89d-d67e-5617-88e5-f1984a0b85e6",
@@ -27,8 +25,7 @@ card = PokemonCardDef(
             title="Life Drain",
             game_text="Flip a coin. If heads, put a number of damage counters on the Defending Pok\u00e9mon so that its remaining HP are 10.",
             cost={PokemonTypes.PSYCHIC: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=life_drain,
         ),
         Attack(
             title="Psyshot",

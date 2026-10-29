@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Sabrina's Psyduck (GYM2 #99): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import random_esp
+
 
 card = PokemonCardDef(
     guid="1b873a8b-5a9e-5b84-b0bf-0f3a9fa33d17",
@@ -32,8 +30,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon is now Confused. If tails, this attack does no damage and Sabrina's Psyduck is now Confused.",
             cost={PokemonTypes.PSYCHIC: 1},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=random_esp,
         ),
     ],
 )

@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Lt. Surge's Electrode (GYM2 #52): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import flip_damage
+from spirit.game.card_effects.ecard import shock_blast
+
 
 card = PokemonCardDef(
     guid="ba6253d1-6666-51c7-bbe7-9e85025bb572",
@@ -26,9 +25,9 @@ card = PokemonCardDef(
         Ability(
             title="Shock Blast",
             game_text="If Lt. Surge's Electrode is your Active Pok\u00e9mon and gets damaged (even if it's Knocked Out), flip a coin. If tails, this power does 20 damage to each Active Pok\u00e9mon. This power works even if Lt. Surge's Electrode is already Asleep, Confused, or Paralyzed when it takes damage.",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            trigger=Triggers.ON_DAMAGED_BY_ATTACK,
+            effect=shock_blast,
         ),
         Attack(
             title="Power Ball",
@@ -36,8 +35,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 2, PokemonTypes.COLORLESS: 1},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(coins=3, bonus_per_heads=10),
         ),
     ],
 )

@@ -1,12 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Warp Point (GYM2 #126): trainer effect stubbed.
-
-Card text:
-  - If your opponent has any Benched Pokémon, he or she chooses 1 of them and switches it with his or her Active Pokémon, then, if you have any Benched Pokémon, you switch 1 of them with your Active Pokémon.
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.trainers import escape_rope, someone_has_bench
+
 
 card = ItemCardDef(
     guid="7a2778a7-31ec-5e8c-b37b-418e1b4e2274",
@@ -18,6 +13,6 @@ card = ItemCardDef(
     collector_number=126,
     set_code="GYM2",
     rarity=Rarities.Common,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    condition=someone_has_bench,
+    effect=escape_rope,
 )

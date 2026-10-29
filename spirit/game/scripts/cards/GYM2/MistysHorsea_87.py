@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Misty's Horsea (GYM2 #87): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import ink_spurt
+
 
 card = PokemonCardDef(
     guid="078b1ec3-58f9-5c41-9cb2-4aa629971728",
@@ -27,8 +25,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, whenever the Defending Pok\u00e9mon tries to attack, your opponent flips a coin. If tails, that attack does nothing. (This effect lasts until the Defending Pok\u00e9mon evolves or is Benched.)",
             cost={PokemonTypes.WATER: 2},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=ink_spurt,
         ),
     ],
 )

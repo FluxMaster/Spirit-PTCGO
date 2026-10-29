@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Misty's Golduck (GYM2 #12): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import discard_all_self_energy_on_tails, super_removal
+
 
 card = PokemonCardDef(
     guid="0e0a43f4-8ba6-59e0-bc8f-c3af58ad685c",
@@ -28,15 +26,13 @@ card = PokemonCardDef(
             game_text="Flip a coin. If tails, discard all Energy cards attached to Misty's Golduck.",
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 1},
             damage=40,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=discard_all_self_energy_on_tails(),
         ),
         Attack(
             title="Super Removal",
             game_text="Flip a coin. If heads, choose 1 Energy card attached to each of your opponent's Pok\u00e9mon that has any Energy cards and discard those Energy cards.",
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=super_removal,
         ),
     ],
 )

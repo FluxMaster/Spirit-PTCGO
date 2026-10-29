@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Sabrina's Gengar (GYM2 #29): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ecard import dark_wave
 
 
 card = PokemonCardDef(
@@ -30,15 +27,13 @@ card = PokemonCardDef(
             game_text="All Pok\u00e9mon Powers stop working until the end of your opponent's next turn.",
             cost={PokemonTypes.PSYCHIC: 2},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=dark_wave,
         ),
         Attack(
             title="Shadow Bind",
             game_text="The Defending Pok\u00e9mon can't retreat during your opponent's next turn.",
             cost={PokemonTypes.PSYCHIC: 3},
             damage=40,
-            # STUB: attack effect not implemented
             effect=condition_attack(no_retreat=True),
         ),
     ],

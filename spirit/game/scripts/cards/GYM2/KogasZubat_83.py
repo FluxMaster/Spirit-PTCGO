@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Koga's Zubat (GYM2 #83): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import group_attack
+
 
 card = PokemonCardDef(
     guid="4f37489b-c384-5b60-936e-b8cda63de5ba",
@@ -29,8 +27,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 1},
             damage=10,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=group_attack(),
         ),
     ],
 )

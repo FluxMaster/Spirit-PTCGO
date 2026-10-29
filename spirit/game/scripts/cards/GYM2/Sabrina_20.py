@@ -1,12 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Sabrina (GYM2 #20): trainer effect stubbed.
-
-Card text:
-  - Take all Energy cards attached to 1 of your Pokémon with Sabrina in its name and attach them to another 1 of your Pokémon with Sabrina in its name.
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ecard import sabrina, sabrina_condition
+
 
 card = ItemCardDef(
     guid="69ea82da-eaef-5520-9381-7ee0353710e6",
@@ -18,6 +13,6 @@ card = ItemCardDef(
     collector_number=20,
     set_code="GYM2",
     rarity=Rarities.RareHolo,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    condition=sabrina_condition,
+    effect=sabrina,
 )

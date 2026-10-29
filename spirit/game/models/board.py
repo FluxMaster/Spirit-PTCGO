@@ -222,6 +222,8 @@ class CardEntity(BoardEntity):
         zone; from its owner only while in a hidden-knowledge zone (deck/prizes)."""
         if viewer_id is None:
             return False
+        if self.get_attribute("_secret_plan_face_down"):
+            return True
         area_name = self._containing_area_name()
         if area_name == "prizePile":
             root = self

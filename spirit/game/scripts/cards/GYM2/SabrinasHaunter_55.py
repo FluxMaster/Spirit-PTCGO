@@ -1,11 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Sabrina's Haunter (GYM2 #55): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
-from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.attacks_common import condition_attack, flip_or_nothing, snipe_attack
 
 
 card = PokemonCardDef(
@@ -31,15 +27,16 @@ card = PokemonCardDef(
             game_text="The Defending Pok\u00e9mon is now Asleep.",
             cost={PokemonTypes.PSYCHIC: 2},
             damage=20,
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.ASLEEP),
         ),
         Attack(
             title="Shadow Attack",
             game_text="Flip a coin. If heads, and if your opponent has any Benched Pok\u00e9mon, choose 1 of them and this attack does 30 damage to it. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.PSYCHIC: 3},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_or_nothing(then=snipe_attack(
+                30, pool="bench",
+                prompt="Choose 1 of your opponent's Benched Pokémon",
+            )),
         ),
     ],
 )

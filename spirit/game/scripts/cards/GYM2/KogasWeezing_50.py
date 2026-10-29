@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Koga's Weezing (GYM2 #50): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.attributes import SpecialConditions
+from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ecard import spontaneous_explosion
+
 
 card = PokemonCardDef(
     guid="24289720-f6af-502d-82ba-c75df3b24668",
@@ -29,16 +29,15 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 2},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=spontaneous_explosion,
         ),
         Attack(
             title="Toxic Cloud",
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon is now Poisoned. It now takes 20 Poison damage instead of 10 after each player's turn (even if it was already Poisoned).",
             cost={PokemonTypes.GRASS: 2, PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(
+                SpecialConditions.POISONED, flip=True, counters=2),
         ),
     ],
 )

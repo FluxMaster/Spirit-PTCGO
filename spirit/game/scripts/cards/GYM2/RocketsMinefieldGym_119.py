@@ -1,13 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Rocket's Minefield Gym (GYM2 #119): trainer effect stubbed.
-
-Card text:
-  - This card stays in play after being played. Discard this card if another Stadium card comes into play.
-  - Whenever a player puts a Basic Pokémon onto his or her Bench from his or her hand, he or she flips a coin. If tails, put damage counters on that Pokémon.
-"""
-
-from spirit.game.data_utils import StadiumCardDef, unimplemented
+from spirit.game.data_utils import StadiumCardDef, Ability, Triggers
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ecard import rockets_minefield_gym_watch
+
 
 card = StadiumCardDef(
     guid="001174e4-1a40-5fb7-a678-f8555a7adb78",
@@ -19,6 +13,12 @@ card = StadiumCardDef(
     collector_number=119,
     set_code="GYM2",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    abilities=[
+        Ability(
+            title="Rocket's Minefield Gym",
+            game_text="Whenever a player puts a Basic Pok\u00e9mon onto his or her Bench from his or her hand, he or she flips a coin. If tails, put 2 damage counters on that Pok\u00e9mon.",
+            trigger=Triggers.ON_POKEMON_BENCHED,
+            effect=rockets_minefield_gym_watch,
+        ),
+    ],
 )

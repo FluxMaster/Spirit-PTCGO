@@ -1,12 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Max Revive (GYM2 #117): trainer effect stubbed.
-
-Card text:
-  - Discard 2 Energy cards from your hand in order to put 1 Basic Pokémon from your discard pile onto your Bench. (You can't play Max Revive if your Bench is full.)
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ecard import max_revive, max_revive_condition
+
 
 card = ItemCardDef(
     guid="6c06b163-7499-5f94-a0ca-80499d4f493b",
@@ -18,6 +13,6 @@ card = ItemCardDef(
     collector_number=117,
     set_code="GYM2",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    condition=max_revive_condition,
+    effect=max_revive,
 )

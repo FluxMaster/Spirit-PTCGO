@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Misty's Gyarados (GYM2 #13): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ecard import rebellion
+
 
 card = PokemonCardDef(
     guid="99577153-12c7-5f9b-a613-f389a7b0cbb9",
@@ -27,14 +25,13 @@ card = PokemonCardDef(
         Ability(
             title="Rebellion",
             game_text="Whenever Misty's Gyarados attacks, flip 2 coins. If both of them are tails, that attack does nothing. Instead, shuffle Misty's Gyarados and all cards attached to it into your deck. (This power works even if Misty's Gyarados is Confused.)",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
         ),
         Attack(
             title="Tidal Wave",
             cost={PokemonTypes.WATER: 4},
             damage=70,
+            effect=rebellion,
         ),
     ],
 )

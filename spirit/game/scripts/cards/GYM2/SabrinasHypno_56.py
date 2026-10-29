@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Sabrina's Hypno (GYM2 #56): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import damage_counters_on, flip_damage
+from spirit.game.card_effects.ecard import invigorate
+
 
 card = PokemonCardDef(
     guid="5c6b47fd-3ace-5ceb-b033-be1b8958bb0b",
@@ -27,8 +26,7 @@ card = PokemonCardDef(
             title="Invigorate",
             game_text="Choose 1 Basic Pok\u00e9mon in any player's discard pile. Put it onto that player's Bench. Put a number of damage counters on that Pok\u00e9mon equal to half its HP (rounded down to the nearest 10). (You can't put a Pok\u00e9mon on a Bench that's full.)",
             cost={PokemonTypes.PSYCHIC: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=invigorate,
         ),
         Attack(
             title="Pendulum Curse",
@@ -36,8 +34,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 2},
             damage=20,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(per_heads=20, coins_from=damage_counters_on("defender")),
         ),
     ],
 )

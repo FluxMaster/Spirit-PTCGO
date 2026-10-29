@@ -1,13 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Saffron City Gym (GYM2 #122): trainer effect stubbed.
-
-Card text:
-  - This card stays in play after being played. Discard this card if another Stadium card comes into play.
-  - As often as each player like during his or her turn (before attacking), that player may return 1 basic Energy card attached to 1 of his or her Pokémon with Sabrina in its name to his or her hand.
-"""
-
-from spirit.game.data_utils import StadiumCardDef, unimplemented
+from spirit.game.data_utils import StadiumCardDef, Ability, Activations
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ecard import (
+    saffron_city_gym,
+    saffron_city_gym_condition,
+)
+
 
 card = StadiumCardDef(
     guid="43d43b08-9d0f-5e3a-b4b0-68ad948ec074",
@@ -19,6 +16,11 @@ card = StadiumCardDef(
     collector_number=122,
     set_code="GYM2",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    ability=Ability(
+        title="Saffron City Gym",
+        game_text="As often as each player like during his or her turn (before attacking), that player may return 1 basic Energy card attached to 1 of his or her Pok\u00e9mon with Sabrina in its name to his or her hand.",
+        activation=Activations.UNLIMITED,
+        condition=saffron_city_gym_condition,
+        effect=saffron_city_gym,
+    ),
 )

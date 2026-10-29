@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Lt. Surge's Eevee (GYM2 #51): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import surprise
+
 
 card = PokemonCardDef(
     guid="7527019f-73f2-5d3f-987c-027cb08443d2",
@@ -27,8 +25,7 @@ card = PokemonCardDef(
             title="Surprise",
             game_text="Look at a random card from your opponent's hand. Your opponent shuffles that card into his or her deck.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=surprise,
         ),
         Attack(
             title="Scratch",

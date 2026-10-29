@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Misty's Psyduck (GYM2 #90): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import mistys_esp
+
 
 card = PokemonCardDef(
     guid="ae0a2be7-a475-5475-aa2a-d37dbe1682e2",
@@ -26,8 +24,7 @@ card = PokemonCardDef(
             title="ESP",
             game_text="Flip 3 coins. If exactly 1 is heads, draw a card. If exactly 2 are heads, this attack does 20 damage. If all 3 are heads, choose 1 of the Defending Pok\u00e9mon's attacks. Misty's Psyduck copies that attack except for its Energy costs. (No matter what type the Defending Pok\u00e9mon is, Misty's Psyduck's type is still Water.)",
             cost={PokemonTypes.PSYCHIC: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=mistys_esp,
         ),
     ],
 )

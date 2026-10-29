@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Lt. Surge's Jolteon (GYM2 #28): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import high_voltage, thunder_flare
+
 
 card = PokemonCardDef(
     guid="182f9fb9-7519-5117-baf6-9ce743df6989",
@@ -28,8 +26,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, your opponent can't play Trainer cards during his or her next turn.",
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=high_voltage,
         ),
         Attack(
             title="Thunder Flare",
@@ -37,8 +34,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 3},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=thunder_flare,
         ),
     ],
 )

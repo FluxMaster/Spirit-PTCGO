@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Sabrina's Jynx (GYM2 #57): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ecard import helping_hand
+
 
 card = PokemonCardDef(
     guid="b03b6648-0100-5d7e-91f5-dab760c60ea2",
@@ -26,16 +25,14 @@ card = PokemonCardDef(
             title="Helping Hand",
             game_text="Choose 1 of your opponent's Pok\u00e9mon. Remove any number of damage counters from that Pok\u00e9mon, then draw that many cards.",
             cost={PokemonTypes.PSYCHIC: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=helping_hand,
         ),
         Attack(
             title="Hug",
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon can't retreat during your opponent's next turn.",
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(no_retreat=True, flip=True),
         ),
     ],
 )

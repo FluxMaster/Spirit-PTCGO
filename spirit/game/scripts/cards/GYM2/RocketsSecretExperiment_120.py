@@ -1,12 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Rocket's Secret Experiment (GYM2 #120): trainer effect stubbed.
-
-Card text:
-  - Flip a coin. If heads, search your deck for any card and put it into your hand. Shuffle your deck afterward. If tails, you can't play Trainer cards until the end of your next turn.
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ecard import rockets_secret_experiment
+
 
 card = ItemCardDef(
     guid="1ae6d970-ac31-55fd-b0e0-24e7cfbd7f74",
@@ -18,6 +13,5 @@ card = ItemCardDef(
     collector_number=120,
     set_code="GYM2",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=rockets_secret_experiment,
 )

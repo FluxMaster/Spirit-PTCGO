@@ -1,12 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Sabrina's Psychic Control (GYM2 #121): trainer effect stubbed.
-
-Card text:
-  - Flip a coin. If heads, choose a Trainer card in your opponent's discard pile that isn't put in play (like PlusPower or Mysterious Fossil). You may use that card as if it were in your hand, if you do everything required in order to play that card (like discarding cards). The card stays in your opponent's discard pile.
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ecard import (
+    sabrinas_psychic_control,
+    sabrinas_psychic_control_condition,
+)
+
 
 card = ItemCardDef(
     guid="d334387e-605d-5ab3-8822-41daf02f21b4",
@@ -18,6 +16,6 @@ card = ItemCardDef(
     collector_number=121,
     set_code="GYM2",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    condition=sabrinas_psychic_control_condition,
+    effect=sabrinas_psychic_control,
 )

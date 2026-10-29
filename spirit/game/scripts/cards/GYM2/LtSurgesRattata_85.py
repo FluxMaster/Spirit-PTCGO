@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Lt. Surge's Rattata (GYM2 #85): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_bonus
+from spirit.game.card_effects.ecard import double_named_attack_next_turn
 
 
 card = PokemonCardDef(
@@ -29,8 +26,7 @@ card = PokemonCardDef(
             title="Focus Energy",
             game_text="During your next turn, Lt. Surge's Rattata's Quick Attack's base damage is doubled.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=double_named_attack_next_turn("Quick Attack", 10),
         ),
         Attack(
             title="Quick Attack",
@@ -38,7 +34,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
             effect=flip_bonus(20),
         ),
     ],

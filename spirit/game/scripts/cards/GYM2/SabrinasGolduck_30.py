@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Sabrina's Golduck (GYM2 #30): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_bonus
+from spirit.game.card_effects.ecard import damage_shift
 
 
 card = PokemonCardDef(
@@ -29,8 +26,7 @@ card = PokemonCardDef(
             title="Damage Shift",
             game_text="Move 1 damage counter from each of your Pok\u00e9mon that has any on it to the Defending Pok\u00e9mon. (Don't apply Weakness and Resistance.)",
             cost={PokemonTypes.PSYCHIC: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_shift,
         ),
         Attack(
             title="Water Spray",
@@ -38,7 +34,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 2},
             damage=20,
             damage_operator="+",
-            # STUB: attack effect not implemented
             effect=flip_bonus(20),
         ),
     ],

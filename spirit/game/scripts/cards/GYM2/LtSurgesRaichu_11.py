@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Lt. Surge's Raichu (GYM2 #11): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import kerzap, paralyze_or_recoil
+
 
 card = PokemonCardDef(
     guid="9e7965d2-f807-56de-9812-b5c24d5c41fa",
@@ -29,16 +27,14 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 2},
             damage=20,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=kerzap,
         ),
         Attack(
             title="Thundertackle",
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon is now Paralyzed. If tails, Lt. Surge's Raichu does 20 damage to itself.",
             cost={PokemonTypes.LIGHTNING: 2, PokemonTypes.COLORLESS: 2},
             damage=40,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=paralyze_or_recoil(20),
         ),
     ],
 )

@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Lt. Surge's Voltorb (GYM2 #86): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_damage
+
 
 card = PokemonCardDef(
     guid="0a68d9b5-d14f-5c65-a307-a557db78ab29",
@@ -27,8 +25,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If tails, Lt. Surge's Voltorb does 10 damage to itself.",
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(tails_self_damage=10),
         ),
     ],
 )
