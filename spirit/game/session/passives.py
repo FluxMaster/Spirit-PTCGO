@@ -297,6 +297,13 @@ class Passive:
         hooks and its once-per-turn abilities are off."""
         return False
 
+    def nullify_stadium_replacement(
+        self, incoming: BoardEntity, current: BoardEntity, carrier: BoardEntity
+    ) -> bool:
+        """True to discard `incoming` after discarding `current` without
+        putting the new Stadium into play (Chaotic Swell)."""
+        return False
+
     def granted_attacks(
         self, board: BoardState, pokemon: PokemonEntity, carrier: BoardEntity
     ) -> List[Any]:
@@ -876,6 +883,18 @@ def energy_attach_blocked(board: BoardState, player_id: str, energy: BoardEntity
     """Whether a continuous passive forbids attaching `energy` from hand to `target`."""
     return any(
         passive.blocks_energy_attach(energy, player_id, target, carrier)
+        for passive, carrier in active_passives(board)
+    )
+
+
+def stadium_nullifies_replacement(board: BoardState, incoming: BoardEntity) -> bool:
+    """Whether the Stadium in play discards a newly played Stadium with no effect."""
+    stadium_area = board.find_global_area("activeStadium")
+    current = stadium_area.children[0] if stadium_area and stadium_area.children else None
+    if current is None:
+        return False
+    return any(
+        passive.nullify_stadium_replacement(incoming, current, carrier)
         for passive, carrier in active_passives(board)
     )
 

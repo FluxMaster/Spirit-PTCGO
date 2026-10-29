@@ -123,6 +123,14 @@ class TurnState:
     # EVOLUTION_LOGIC_NAME values that may use a GX attack this turn even if
     # gx_used is set (Bonnie: Zygarde-GX).
     gx_unlocked: Set[str] = field(default_factory=set)
+    # Pokémon type values that may use a GX attack this turn even if gx_used
+    # is set (Misty & Lorelei: Water).
+    gx_unlocked_types: Set[int] = field(default_factory=set)
+    # Players who choose heads/tails for their next first coin this turn (Will).
+    will_choose_first_coin: Set[str] = field(default_factory=set)
+    # player_id -> hand size to shuffle down to at the end of that player's
+    # turn (Lillie's Full Force). Consumed by _fire_end_of_turn_triggers.
+    end_of_turn_shuffle_until: Dict[str, int] = field(default_factory=dict)
     # player_id -> turn number during which that player may attach any number
     # of Energy cards from hand (Dragonair "Dragon's Wish").
     unlimited_energy_attach: Dict[str, int] = field(default_factory=dict)
@@ -212,6 +220,8 @@ class TurnState:
         self.used_abilities = set()
         self.used_named_abilities = set()
         self.gx_unlocked = set()
+        self.gx_unlocked_types = set()
+        self.will_choose_first_coin = set()
         self.damage_modifiers = [
             m for m in self.damage_modifiers
             if getattr(m, "expires_after_turn", None) is not None
@@ -899,9 +909,11 @@ def _attack_entries(
                 and player_id in state.vstar_used:
             continue
         if definition is not None and getattr(definition, "gx", False):
+            types = active.get_attribute(AttrID.POKEMON_TYPES) or []
             unlocked = (
                 (active.get_attribute(AttrID.EVOLUTION_LOGIC_NAME) or "")
                 in state.gx_unlocked
+                or any(t in state.gx_unlocked_types for t in types)
             )
             if gx_attacks_blocked(board, player_id, active):
                 continue
