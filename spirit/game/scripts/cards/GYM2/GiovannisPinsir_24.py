@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Giovanni's Pinsir (GYM2 #24): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_bonus
+from spirit.game.card_effects.ecard import overhead_toss
 
 
 card = PokemonCardDef(
@@ -30,7 +27,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 1},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
             effect=flip_bonus(10),
         ),
         Attack(
@@ -38,8 +34,7 @@ card = PokemonCardDef(
             game_text="If you have any Benched Pok\u00e9mon, flip a coin. If tails, choose 1 of your Benched Pok\u00e9mon. This attack does 20 damage to that Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 2},
             damage=40,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=overhead_toss,
         ),
     ],
 )

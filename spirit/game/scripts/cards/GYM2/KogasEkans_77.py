@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Koga's Ekans (GYM2 #77): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.attributes import SpecialConditions
+from spirit.game.card_effects.attacks_common import condition_attack
+
 
 card = PokemonCardDef(
     guid="07f19b35-8498-5516-9e78-a69969cb2ee1",
@@ -27,8 +26,10 @@ card = PokemonCardDef(
             game_text="Flip 2 coins. If both are heads, the Defending Pok\u00e9mon is now Confused and Poisoned.",
             cost={PokemonTypes.GRASS: 1},
             damage=10,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(
+                SpecialConditions.CONFUSED, SpecialConditions.POISONED,
+                flip=True, coins=2, min_heads=2,
+            ),
         ),
     ],
 )

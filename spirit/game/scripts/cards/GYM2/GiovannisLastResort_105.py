@@ -1,12 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Giovanni's Last Resort (GYM2 #105): trainer effect stubbed.
-
-Card text:
-  - Remove all damage counters from 1 of your Pokémon with Giovanni in its name. Then discard your hand.
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ecard import (
+    giovannis_last_resort,
+    giovannis_last_resort_condition,
+)
+
 
 card = ItemCardDef(
     guid="b909f055-1be4-5d3c-9e67-d58121a16176",
@@ -18,6 +16,6 @@ card = ItemCardDef(
     collector_number=105,
     set_code="GYM2",
     rarity=Rarities.Rare,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    condition=giovannis_last_resort_condition,
+    effect=giovannis_last_resort,
 )

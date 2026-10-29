@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Giovanni's Nidoran ♂ (GYM2 #76): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_damage
+from spirit.game.card_effects.ecard import self_has_damage_counters
 
 
 card = PokemonCardDef(
@@ -30,7 +27,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
             damage_operator="x",
-            # STUB: attack effect not implemented
             effect=flip_damage(coins=2, per_heads=10),
         ),
         Attack(
@@ -38,8 +34,7 @@ card = PokemonCardDef(
             game_text="You can't use this attack unless Giovanni's Nidoran \u2642 has 2 or more damage counters on it.",
             cost={PokemonTypes.GRASS: 1},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            condition=self_has_damage_counters(2),
         ),
     ],
 )

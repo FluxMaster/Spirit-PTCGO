@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Brock's Graveler (GYM2 #34): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import detonate
+
 
 card = PokemonCardDef(
     guid="8d6896fd-ca91-5b8a-a503-8130a76dd5bd",
@@ -33,8 +31,7 @@ card = PokemonCardDef(
             game_text="Does 10 damage to each Pok\u00e9mon on each player's bench. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.) Brock's Graveler does 50 damage to itself. If there is a Stadium card in play, discard it.",
             cost={PokemonTypes.FIGHTING: 3},
             damage=50,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=detonate,
         ),
     ],
 )

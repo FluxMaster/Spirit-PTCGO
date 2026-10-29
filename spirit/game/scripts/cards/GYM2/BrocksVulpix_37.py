@@ -1,8 +1,4 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Brock's Vulpix (GYM2 #37): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack, snipe_attack
@@ -29,7 +25,6 @@ card = PokemonCardDef(
             title="Hypnotic Gaze",
             game_text="The Defending Pok\u00e9mon is now Asleep.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.ASLEEP),
         ),
         Attack(
@@ -37,7 +32,6 @@ card = PokemonCardDef(
             game_text="If your opponent has any Benched Pok\u00e9mon, choose 1 of them and this attack does 10 damage to it. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.FIRE: 2},
             damage=20,
-            # STUB: attack effect not implemented
             effect=snipe_attack(10, also_base=True),
         ),
     ],

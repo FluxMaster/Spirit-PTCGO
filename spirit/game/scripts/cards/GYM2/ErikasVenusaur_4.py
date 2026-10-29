@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Erika's Venusaur (GYM2 #4): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import snipe_attack
+from spirit.game.card_effects.ecard import growth
+
 
 card = PokemonCardDef(
     guid="576f0d0e-085e-5262-ba2b-5606bc1c2fd5",
@@ -27,16 +26,14 @@ card = PokemonCardDef(
             title="Growth",
             game_text="Flip a coin. If heads, you may attach up to 2 Grass Energy cards from your hand to Erika's Venusaur.",
             cost={PokemonTypes.GRASS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=growth,
         ),
         Attack(
             title="Wide Solarbeam",
             game_text="If your opponent has any Benched Pok\u00e9mon, choose 2 of them (or 1 if he or she only has 1). This attack does 20 damage to each of them. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.GRASS: 4},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=snipe_attack(20, count=2, also_base=True),
         ),
     ],
 )

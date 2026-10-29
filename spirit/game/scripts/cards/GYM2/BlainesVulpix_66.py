@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Blaine's Vulpix (GYM2 #66): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import call_will_o_the_wisp
+
 
 card = PokemonCardDef(
     guid="47e55e28-74d1-593f-a281-c43258c1019f",
@@ -31,8 +29,7 @@ card = PokemonCardDef(
             title="Call Will-o'-the-wisp",
             game_text="Flip 3 coins. For each heads, if you have a Fire Energy card in your discard pile, put it into your hand.",
             cost={PokemonTypes.FIRE: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=call_will_o_the_wisp,
         ),
     ],
 )

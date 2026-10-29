@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Blaine's Charizard (GYM2 #2): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import flame_jet, roaring_flames
+
 
 card = PokemonCardDef(
     guid="07718bc4-ef9a-5b3b-b8c3-a167193be606",
@@ -30,15 +28,13 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 1},
             damage=20,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=roaring_flames,
         ),
         Attack(
             title="Flame Jet",
             game_text="Flip a coin. If heads, choose 1 of your opponent's Pok\u00e9mon. This attack does 40 damage to that Pok\u00e9mon. Don't apply Weakness and Resistance for this attack. (Any other effects that would happen after applying Weakness and Resistance still happen.)",
             cost={PokemonTypes.FIRE: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flame_jet,
         ),
     ],
 )

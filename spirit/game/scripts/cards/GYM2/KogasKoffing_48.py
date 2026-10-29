@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Koga's Koffing (GYM2 #48): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import smokescreen_attack
+from spirit.game.card_effects.ecard import obscuring_gas
 
 
 card = PokemonCardDef(
@@ -29,7 +26,6 @@ card = PokemonCardDef(
             game_text="If the Defending Pok\u00e9mon tries to attack during your opponent's next turn, your opponent flips a coin. If tails, that attack does nothing.",
             cost={PokemonTypes.GRASS: 1},
             damage=10,
-            # STUB: attack effect not implemented
             effect=smokescreen_attack(),
         ),
         Attack(
@@ -37,8 +33,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, shuffle Koga's Koffing and all cards attached to it into your deck (after doing damage).",
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=obscuring_gas,
         ),
     ],
 )

@@ -1,12 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Fervor (GYM2 #124): trainer effect stubbed.
-
-Card text:
-  - Show the top 3 cards of your deck to all players. Put any Fire Energy cards there into your hand and discard the rest.
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ecard import fervor, has_cards_in_deck
+
 
 card = ItemCardDef(
     guid="952e2151-0c0c-5086-8a5d-323e6e1cdc2a",
@@ -18,6 +13,6 @@ card = ItemCardDef(
     collector_number=124,
     set_code="GYM2",
     rarity=Rarities.Common,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    condition=has_cards_in_deck,
+    effect=fervor,
 )

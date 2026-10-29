@@ -1,12 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Erika's Kindness (GYM2 #103): trainer effect stubbed.
-
-Card text:
-  - Remove 2 damage counters from each Pokémon (yours and your opponent's) with any damage counters on it. If a Pokémon has just 1 damage counter, remove it.
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ecard import erikas_kindness
+from spirit.game.card_effects.support_common import requires_damaged_pokemon
+
 
 card = ItemCardDef(
     guid="230115f3-ff70-5fa7-8020-3b524848fb72",
@@ -18,6 +14,6 @@ card = ItemCardDef(
     collector_number=103,
     set_code="GYM2",
     rarity=Rarities.Rare,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    condition=requires_damaged_pokemon(side="any"),
+    effect=erikas_kindness,
 )

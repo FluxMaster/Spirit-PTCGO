@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Blaine's Charmander (GYM2 #60): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import fireworks, has_typed_basic_energy
+
 
 card = PokemonCardDef(
     guid="53994bf9-c393-5009-9e93-76724811e7df",
@@ -27,8 +25,8 @@ card = PokemonCardDef(
             game_text="Use this attack only if there are any Fire Energy cards attached to Blaine's Charmander. Flip a coin. If tails, discard 1 of those cards.",
             cost={PokemonTypes.FIRE: 1},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            condition=has_typed_basic_energy(PokemonTypes.FIRE),
+            effect=fireworks,
         ),
     ],
 )

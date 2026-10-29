@@ -1,10 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Blaine's Doduo (GYM2 #61): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-from spirit.game.card_effects.attacks_common import flip_or_nothing
+from spirit.game.card_effects.attacks_common import (
+    damage_counters_on,
+    damage_per,
+    flip_or_nothing,
+)
 
 
 card = PokemonCardDef(
@@ -30,7 +30,6 @@ card = PokemonCardDef(
             game_text="Flip a coin. If tails, this attack does nothing.",
             cost={PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
             effect=flip_or_nothing(),
         ),
         Attack(
@@ -39,8 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=10,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_per(damage_counters_on("self"), 10),
         ),
     ],
 )

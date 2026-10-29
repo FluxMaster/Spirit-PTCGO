@@ -1,9 +1,11 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Erika's Paras (GYM2 #71): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
+from spirit.game.data_utils import PokemonCardDef, Attack
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, SpecialConditions
+from spirit.game.card_effects.attacks_common import (
+    condition_attack,
+    flip_or_nothing,
+    spread_damage,
+)
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 
 card = PokemonCardDef(
     guid="01bc1c3f-6d35-53d1-8c46-566c0ad3ac7c",
@@ -31,8 +33,10 @@ card = PokemonCardDef(
             title="Poison Spore",
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon is now Poisoned and this attack does 10 damage to each of your opponent's Benched Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.GRASS: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_or_nothing(then=condition_attack(
+                SpecialConditions.POISONED,
+                also=spread_damage(10),
+            )),
         ),
     ],
 )

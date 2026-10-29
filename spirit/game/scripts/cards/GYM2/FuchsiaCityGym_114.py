@@ -1,13 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Fuchsia City Gym (GYM2 #114): trainer effect stubbed.
-
-Card text:
-  - This card stays in play after being played. Discard this card if another Stadium card comes into play.
-  - Once during each player's turn (before attacking), that player may flip a coin. If heads, that player may shuffle 1 of his or her Pokémon in play with Koga in its name and any cards attached to it into his or her deck.
-"""
-
-from spirit.game.data_utils import StadiumCardDef, unimplemented
+from spirit.game.data_utils import StadiumCardDef, Ability, Activations
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ecard import (
+    fuchsia_city_gym,
+    fuchsia_city_gym_condition,
+)
+
 
 card = StadiumCardDef(
     guid="4115c0f1-efc5-53b0-b8a4-4b043ae81c7c",
@@ -19,6 +16,11 @@ card = StadiumCardDef(
     collector_number=114,
     set_code="GYM2",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    ability=Ability(
+        title="Fuchsia City Gym",
+        game_text="Once during each player's turn (before attacking), that player may flip a coin. If heads, that player may shuffle 1 of his or her Pok\u00e9mon in play with Koga in its name and any cards attached to it into his or her deck.",
+        activation=Activations.ONCE_PER_TURN,
+        condition=fuchsia_city_gym_condition,
+        effect=fuchsia_city_gym,
+    ),
 )

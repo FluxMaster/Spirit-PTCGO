@@ -1,9 +1,11 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Giovanni's Machop (GYM2 #72): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import (
+    damage_counters_on,
+    damage_per,
+    flip_or_nothing,
+)
+
 
 card = PokemonCardDef(
     guid="a31430b2-3a7d-5b1b-be01-9e607d89e2a1",
@@ -33,8 +35,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 2},
             damage=20,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_or_nothing(then=damage_per(damage_counters_on("self"), 20)),
         ),
     ],
 )

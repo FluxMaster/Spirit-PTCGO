@@ -1,8 +1,4 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Brock's Diglett (GYM2 #67): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_or_nothing, spread_damage
 
@@ -30,7 +26,6 @@ card = PokemonCardDef(
             game_text="Flip a coin. If tails, this attack does nothing.",
             cost={PokemonTypes.FIGHTING: 1},
             damage=20,
-            # STUB: attack effect not implemented
             effect=flip_or_nothing(),
         ),
         Attack(
@@ -38,8 +33,7 @@ card = PokemonCardDef(
             game_text="Does 10 damage to each of your own Benched Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 1},
             damage=40,
-            # STUB: attack effect not implemented
-            effect=spread_damage(10, side='mine', also_base=True),
+            effect=spread_damage(10, side="mine", also_base=True),
         ),
     ],
 )

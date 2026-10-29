@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Brock's Dugtrio (GYM2 #22): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.passives_common import protect_next_turn
+from spirit.game.card_effects.ecard import used_named_attack_last_turn
+
 
 card = PokemonCardDef(
     guid="d723e281-e8a5-5994-a922-cab886e22d34",
@@ -28,16 +27,14 @@ card = PokemonCardDef(
             title="Lie Low",
             game_text="All damage done to Brock's Dugtrio during your opponent's next turn is reduced by 20 (after applying Weakness and Resistance).",
             cost={PokemonTypes.FIGHTING: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=protect_next_turn(reduce=20),
         ),
         Attack(
             title="Earthdrill",
             game_text="This attack can't be used unless Brock's Dugtrio used its Lie Low attack last turn.",
             cost={PokemonTypes.FIGHTING: 2, PokemonTypes.COLORLESS: 1},
             damage=60,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            condition=used_named_attack_last_turn("Lie Low"),
         ),
     ],
 )

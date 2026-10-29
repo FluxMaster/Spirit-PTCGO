@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Giovanni's Magikarp (GYM2 #73): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_damage
+from spirit.game.card_effects.ecard import leek_slap, leek_slap_available
 
 
 card = PokemonCardDef(
@@ -29,8 +26,8 @@ card = PokemonCardDef(
             game_text="Flip a coin. If tails, this attack does nothing. Either way, you can't use this attack again as long as Giovanni's Magikarp stays in play (even putting Giovanni's Magikarp on the Bench won't let you use it again).",
             cost={PokemonTypes.WATER: 1},
             damage=40,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            condition=leek_slap_available,
+            effect=leek_slap,
         ),
         Attack(
             title="Flail Around",
@@ -38,7 +35,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 1},
             damage=10,
             damage_operator="x",
-            # STUB: attack effect not implemented
             effect=flip_damage(coins=3, per_heads=10),
         ),
     ],

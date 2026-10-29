@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Giovanni's Gyarados (GYM2 #5): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import dragon_tornado, summon_storm
+
 
 card = PokemonCardDef(
     guid="ea6135b6-a9d5-507b-bff8-9565ff30bb89",
@@ -28,16 +26,14 @@ card = PokemonCardDef(
             title="Summon Storm",
             game_text="Flip 2 coins. If both of them are heads, this attack does 20 damage to each other Pok\u00e9mon (even your own). Don't apply Weakness and Resistance for this attack.",
             cost={PokemonTypes.WATER: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=summon_storm,
         ),
         Attack(
             title="Dragon Tornado",
             game_text="Unless this attack Knocks Out the Defending Pok\u00e9mon, choose 1 of your opponent's Benched Pok\u00e9mon and switch it with the Defending Pok\u00e9mon.",
             cost={PokemonTypes.WATER: 2, PokemonTypes.COLORLESS: 2},
             damage=40,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=dragon_tornado,
         ),
     ],
 )

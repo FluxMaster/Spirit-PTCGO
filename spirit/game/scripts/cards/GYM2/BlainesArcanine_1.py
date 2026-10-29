@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Blaine's Arcanine (GYM2 #1): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import recoil_attack, self_energy_discard_attack
+from spirit.game.card_effects.ecard import has_typed_basic_energy
+
 
 card = PokemonCardDef(
     guid="8926bf44-ee31-5d6e-90db-05e4907c63dd",
@@ -28,16 +27,16 @@ card = PokemonCardDef(
             game_text="Blaine's Arcanine does 10 damage to itself.",
             cost={PokemonTypes.FIRE: 1, PokemonTypes.COLORLESS: 2},
             damage=40,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=recoil_attack(10),
         ),
         Attack(
             title="Firestorm",
             game_text="Discard 3 Fire Energy cards attached to Blaine's Arcanine in order to use this attack.",
             cost={PokemonTypes.FIRE: 4},
             damage=120,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            condition=has_typed_basic_energy(PokemonTypes.FIRE, 3),
+            effect=self_energy_discard_attack(
+                count=3, energy_type=PokemonTypes.FIRE),
         ),
     ],
 )

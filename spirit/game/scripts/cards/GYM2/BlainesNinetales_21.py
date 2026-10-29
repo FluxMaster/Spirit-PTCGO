@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Blaine's Ninetales (GYM2 #21): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ecard import burn_up, healing_fire
+
 
 card = PokemonCardDef(
     guid="4021253d-49c8-5b14-ba69-1e66afff701c",
@@ -26,17 +24,16 @@ card = PokemonCardDef(
         Ability(
             title="Healing Fire",
             game_text="Whenever you attach a Fire Energy card from your hand to Blaine's Ninetales, remove 1 damage counter from it, if it has any. This power stops working when Blaine's Ninetales is Asleep, Confused, or Paralyzed.",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            trigger=Triggers.ON_ENERGY_ATTACHED,
+            effect=healing_fire,
         ),
         Attack(
             title="Burn Up",
             game_text="Flip a coin. If tails, discard all Fire Energy cards attached to Blaine's Ninetales.",
             cost={PokemonTypes.FIRE: 2},
             damage=50,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=burn_up,
         ),
     ],
 )

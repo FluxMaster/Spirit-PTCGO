@@ -1,12 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Brock's Protection (GYM2 #101): trainer effect stubbed.
-
-Card text:
-  - Attach Brock's Protection to 1 of your Pokémon with Brock in its name. Energy cards attached to that Pokémon can't be removed by your opponent's attacks or Trainer cards. (This doesn't stop the rest of the attack or Trainer card from working normally.)
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ecard import (
+    brocks_protection, brocks_protection_condition, brocks_protection_passive,
+    brocks_protection_targets,
+)
+
 
 card = ItemCardDef(
     guid="9ed498bf-e15e-5592-9623-f8272c4bb34c",
@@ -18,6 +16,9 @@ card = ItemCardDef(
     collector_number=101,
     set_code="GYM2",
     rarity=Rarities.Rare,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    condition=brocks_protection_condition,
+    effect=brocks_protection,
+    play_targets=brocks_protection_targets,
+    play_target_prompt="Choose a Pokémon with Brock in its name",
 )
+card.passive = brocks_protection_passive

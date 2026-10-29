@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Erika's Ivysaur (GYM2 #41): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import flip_damage
+from spirit.game.card_effects.ecard import relaxing_scent
 
 
 card = PokemonCardDef(
@@ -28,9 +25,8 @@ card = PokemonCardDef(
         Ability(
             title="Relaxing Scent",
             game_text="As long as Erika's Ivysaur is your Active Pok\u00e9mon, whenever an attack (even your own) does damage to any Pok\u00e9mon (after applying Weakness and Resistance), that attack only does half the damage to that Pok\u00e9mon (rounded up to the nearest 10). (Any other effects of attacks still happen.) This power stops working while Erika's Ivysaur is Asleep, Confused, or Paralyzed.",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            passive=relaxing_scent,
         ),
         Attack(
             title="Double Razor Leaf",
@@ -38,7 +34,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 3},
             damage=40,
             damage_operator="x",
-            # STUB: attack effect not implemented
             effect=flip_damage(coins=2, per_heads=40),
         ),
     ],

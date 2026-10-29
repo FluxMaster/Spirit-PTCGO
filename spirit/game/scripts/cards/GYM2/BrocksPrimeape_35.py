@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Brock's Primeape (GYM2 #35): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ecard import mega_thrash, scram_passive
+
 
 card = PokemonCardDef(
     guid="181398b6-b27e-58c6-83d7-495697601bec",
@@ -26,17 +24,15 @@ card = PokemonCardDef(
         Ability(
             title="Scram",
             game_text="If Brock's Primeape ever has exactly 10 HP left, shuffle it and all cards attached to it into your deck. This power stops working while Brock's Primeape is Asleep, Confused, or Paralyzed.",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            passive=scram_passive,
         ),
         Attack(
             title="Mega Thrash",
             game_text="Brock's Primeape does 20 damage to itself. If there is a Stadium card in play, discard it.",
             cost={PokemonTypes.FIGHTING: 3},
             damage=60,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=mega_thrash,
         ),
     ],
 )

@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Erika's Jigglypuff (GYM2 #69): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import bonus_if, has_damage
+from spirit.game.card_effects.ecard import group_therapy
+
 
 card = PokemonCardDef(
     guid="ee03f4a5-557d-5a86-a733-a8ddc0b12f87",
@@ -27,8 +26,7 @@ card = PokemonCardDef(
             title="Group Therapy",
             game_text="You and your opponent remove 1 damage counter from each of your Pok\u00e9mon with damage counters on them.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=group_therapy,
         ),
         Attack(
             title="Pulled Punch",
@@ -36,8 +34,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=40,
             damage_operator="-",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bonus_if(has_damage(), -30),
         ),
     ],
 )

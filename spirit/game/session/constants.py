@@ -220,3 +220,8 @@ TEXT_ATTACH_TAX_DISCARD = "Discarded instead!"
 TEXT_RETREAT_FLIP_CHECK = "Retreat Check"
 TEXT_RETREAT_FLIP_OK = "Retreat proceeds!"
 TEXT_RETREAT_FLIP_FAILS = "Can't retreat this turn!"
+
+# Chaos Gym trainer-play flip texts.
+TEXT_TRAINER_TAX_CHECK = "Trainer Check"
+TEXT_TRAINER_TAX_OK = "Play proceeds!"
+TEXT_TRAINER_TAX_FAILS = "Can't play that card!"

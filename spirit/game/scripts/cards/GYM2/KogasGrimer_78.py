@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Koga's Grimer (GYM2 #78): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import sludge_grip
+
 
 card = PokemonCardDef(
     guid="48c0e814-29d6-5320-906d-ccd0cf961370",
@@ -26,8 +24,7 @@ card = PokemonCardDef(
             title="Sludge Grip",
             game_text="If your opponent has any Benched Pok\u00e9mon, flip a coin. If heads, choose 1 of your opponent's Benched Pok\u00e9mon and switch it with the Defending Pok\u00e9mon. The new Defending Pok\u00e9mon is now Poisoned.",
             cost={PokemonTypes.GRASS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=sludge_grip,
         ),
         Attack(
             title="Sludge Toss",

@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Erika's Clefairy (GYM2 #40): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import lunar_power
+
 
 card = PokemonCardDef(
     guid="e02d0e0e-7855-56e7-ad8f-0618f41b31ff",
@@ -27,8 +25,7 @@ card = PokemonCardDef(
             title="Lunar Power",
             game_text="Flip a coin. If heads, search your deck for a card that evolves from 1 of your Benched Pok\u00e9mon and put that card on that Pok\u00e9mon. (This counts as evolving that Pok\u00e9mon.) Shuffle your deck afterward.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=lunar_power,
         ),
         Attack(
             title="Moon Kick",

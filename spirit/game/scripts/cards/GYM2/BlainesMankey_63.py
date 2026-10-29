@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Blaine's Mankey (GYM2 #63): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_damage
+from spirit.game.card_effects.ecard import pranks
 
 
 card = PokemonCardDef(
@@ -28,8 +25,7 @@ card = PokemonCardDef(
             title="Pranks",
             game_text="Flip a coin. If heads, choose a card from your opponent's discard pile and put it on top of his or her deck.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=pranks,
         ),
         Attack(
             title="Fury Swipes",
@@ -37,7 +33,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1},
             damage=10,
             damage_operator="x",
-            # STUB: attack effect not implemented
             effect=flip_damage(coins=3, per_heads=10),
         ),
     ],

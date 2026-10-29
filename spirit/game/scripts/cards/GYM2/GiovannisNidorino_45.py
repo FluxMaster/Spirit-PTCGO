@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Giovanni's Nidorino (GYM2 #45): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import bonus_if, has_damage
+
 
 card = PokemonCardDef(
     guid="7b0beefa-273c-5ce7-8fad-86f9d246dbcd",
@@ -29,8 +27,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 2},
             damage=20,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bonus_if(has_damage("defender"), 20),
         ),
     ],
 )

@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Giovanni's Machoke (GYM2 #42): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
+from spirit.game.data_utils import PokemonCardDef, Attack
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, SpecialConditions
+from spirit.game.card_effects.attacks_common import condition_attack, flip_damage
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 
 card = PokemonCardDef(
     guid="4827f4e9-162c-56c0-a147-5eef63337b2f",
@@ -28,8 +26,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If tails, this attack does no damage to the Defending Pok\u00e9mon and Giovanni's Machoke does 100 damage to itself.",
             cost={PokemonTypes.FIGHTING: 1},
             damage=60,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(require_all=True, tails_self_damage=100),
         ),
         Attack(
             title="Headlock",
@@ -37,8 +34,9 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 2, PokemonTypes.COLORLESS: 1},
             damage=20,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(
+                SpecialConditions.PARALYZED, flip=True, heads_bonus_damage=20,
+            ),
         ),
     ],
 )

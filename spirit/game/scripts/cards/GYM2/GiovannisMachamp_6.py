@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Giovanni's Machamp (GYM2 #6): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import flip_damage
+from spirit.game.card_effects.ecard import fortitude_passive
+
 
 card = PokemonCardDef(
     guid="bd4974fb-b6b9-50a5-8343-336d2ced5a2a",
@@ -26,9 +25,8 @@ card = PokemonCardDef(
         Ability(
             title="Fortitude",
             game_text="If Giovanni's Machamp would be Knocked Out by an opponent's attack, flip a coin. If heads, Giovanni's Machamp is not Knocked Out and its remaining HP become 10 instead. This power can't be used if Giovanni's Machamp is already Asleep, Confused, or Paralyzed.",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            passive=fortitude_passive,
         ),
         Attack(
             title="Hurricane Punch",
@@ -36,8 +34,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 3, PokemonTypes.COLORLESS: 1},
             damage=30,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(coins=4, per_heads=30),
         ),
     ],
 )

@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Blaine's Rapidash (GYM2 #33): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import stamp
+
 
 card = PokemonCardDef(
     guid="1e60cb07-09f6-5466-9d7f-8e61acb839ac",
@@ -34,8 +32,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 1, PokemonTypes.COLORLESS: 2},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=stamp,
         ),
     ],
 )
