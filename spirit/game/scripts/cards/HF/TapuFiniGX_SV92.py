@@ -1,8 +1,7 @@
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.support_common import switch_self_attack
 from spirit.game.card_effects.sm3 import hydro_shot, tapu_storm_gx
-
 
 card = PokemonCardDef(
     guid="5e5d663a-415f-5a2c-b2d5-152eb4e086c5",
@@ -25,7 +24,6 @@ card = PokemonCardDef(
             game_text="You may switch this Pok\u00e9mon with 1 of your Benched Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
             effect=switch_self_attack(optional=True),
         ),
         Attack(

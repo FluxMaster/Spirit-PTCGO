@@ -1,10 +1,9 @@
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.passives_common import flip_protection
 from spirit.game.card_effects.sm7 import (
     twin_play,
 )
-
 
 card = PokemonCardDef(
     guid="39fbbc26-e55d-5d21-bb78-bd29a862bafd",
@@ -34,7 +33,6 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, prevent all effects of attacks, including damage, done to this Pok\u00e9mon during your opponent's next turn.",
             cost={PokemonTypes.COLORLESS: 2},
             damage=20,
-            # STUB: attack effect not implemented
             effect=flip_protection(prevent=True, effects_too=True),
         ),
     ],

@@ -6,7 +6,6 @@ from spirit.game.card_effects.sm7 import (
     floating_electrons_passive,
 )
 
-
 card = PokemonCardDef(
     guid="0af6e08a-e7d2-57d1-bbe0-42bd45f60529",
     key="HF",
@@ -37,7 +36,6 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, your opponent's Active Pok\u00e9mon is now Paralyzed.",
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.PARALYZED, flip=True),
         ),
     ],

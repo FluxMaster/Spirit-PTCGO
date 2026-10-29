@@ -1,4 +1,4 @@
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented, Activations
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.sm3 import fairy_energy_in_hand, infinite_force, secret_spring, twilight_gx
 

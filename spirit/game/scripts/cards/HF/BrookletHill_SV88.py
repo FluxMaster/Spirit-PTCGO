@@ -4,17 +4,14 @@ from spirit.game.card_effects.support_common import search_to_bench
 from spirit.game.card_effects.trainers import bench_has_room
 from spirit.game.session.effects import is_basic_pokemon
 
-
 def _is_basic_water_or_fighting(card):
     if not is_basic_pokemon(card):
         return False
     types = card.get_attribute(AttrID.POKEMON_TYPES) or []
     return PokemonTypes.WATER.value in types or PokemonTypes.FIGHTING.value in types
 
-
 def _brooklet_condition(board, player_id, pokemon=None):
     return bench_has_room(board, player_id)
-
 
 BROOKLET_HILL_ABILITY = Ability(
     title="Brooklet Hill",

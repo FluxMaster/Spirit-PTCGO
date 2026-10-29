@@ -3,17 +3,14 @@ from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, Ability
 from spirit.game.data_utils import Activations
 from spirit.game.card_effects.attacks_common import damage_per, count_energy
 
-
 def _instruct_condition(board, player_id, pokemon=None):
     hand = board.find_player_area(player_id, "hand")
     deck = board.find_player_area(player_id, "deck")
     return len(hand.children if hand else []) < 3 and bool(deck and deck.children)
 
-
 async def _instruct(ctx):
     """Draw cards until you have 3 cards in your hand."""
     await ctx.draw_until(3)
-
 
 card = PokemonCardDef(
     guid="66efa14d-1406-52dc-a6ea-b84b7dcc95e1",

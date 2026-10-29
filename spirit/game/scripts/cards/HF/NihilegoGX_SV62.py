@@ -3,7 +3,6 @@ from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, Ability
 from spirit.game.card_effects.attacks_common import condition_attack
 from spirit.game.card_effects.sm4 import empty_light, symbiont_gx
 
-
 card = PokemonCardDef(
     guid="37485203-2765-52f0-99e8-f8e65e9bd995",
     key="HF",
@@ -33,7 +32,6 @@ card = PokemonCardDef(
             game_text="The Defending Pok\u00e9mon can't retreat during your opponent's next turn.",
             cost={PokemonTypes.PSYCHIC: 3},
             damage=120,
-            # STUB: attack effect not implemented
             effect=condition_attack(no_retreat=True),
         ),
         Attack(

@@ -33,7 +33,6 @@ card = PokemonCardDef(
             game_text="Discard the top card of your opponent's deck.",
             cost={PokemonTypes.LIGHTNING: 2, PokemonTypes.COLORLESS: 1},
             damage=100,
-            # STUB: attack effect not implemented
             effect=mill_attack(1),
         ),
         Attack(

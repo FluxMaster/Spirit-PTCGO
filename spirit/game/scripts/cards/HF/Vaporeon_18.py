@@ -1,11 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Vaporeon (HF #18): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.support_common import heal_attack
-
 
 card = PokemonCardDef(
     guid="f2f7697a-e424-5ad4-9992-5b4a6ad88ce7",
@@ -35,7 +30,6 @@ card = PokemonCardDef(
             game_text="Heal 30 damage from this Pok\u00e9mon.",
             cost={PokemonTypes.WATER: 2, PokemonTypes.COLORLESS: 1},
             damage=80,
-            # STUB: attack effect not implemented
             effect=heal_attack(30, target='self'),
         ),
     ],

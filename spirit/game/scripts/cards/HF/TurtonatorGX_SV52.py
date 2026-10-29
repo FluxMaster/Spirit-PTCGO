@@ -1,9 +1,8 @@
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import self_energy_discard_attack
 from spirit.game.scripts.cards.SM2.TurtonatorGX_18 import nitro_tank_gx
 from spirit.game.scripts.cards.SWSH8.Turtonator_198 import shell_trap
-
 
 card = PokemonCardDef(
     guid="f6e36668-fc6b-5814-8f16-7e6d87f34f31",

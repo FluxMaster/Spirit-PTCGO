@@ -1,8 +1,7 @@
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.session.effects import is_pokemon_card
 from spirit.game.card_effects.support_common import search_to_hand
-
 
 card = PokemonCardDef(
     guid="32754a2a-9286-5424-b872-fb7414e77fae",
@@ -25,7 +24,6 @@ card = PokemonCardDef(
             title="Beacon",
             game_text="Search your deck for up to 2 Pok\u00e9mon, reveal them, and put them into your hand. Then, shuffle your deck.",
             cost={},
-            # STUB: attack effect not implemented
             effect=search_to_hand(is_pokemon_card, count=2, prompt='Choose up to 2 Pokémon to put into your hand.'),
         ),
         Attack(

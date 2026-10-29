@@ -3,7 +3,6 @@ from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, Ability
 from spirit.game.card_effects.support_common import remove_self_from_play
 from spirit.game.card_effects.sm4 import blade_gx, slice_off
 
-
 card = PokemonCardDef(
     guid="a6dc3316-048f-5078-86c1-2d19df322953",
     key="HF",
@@ -35,7 +34,6 @@ card = PokemonCardDef(
             game_text="You may shuffle this Pok\u00e9mon and all cards attached to it into your deck.",
             cost={PokemonTypes.METAL: 1, PokemonTypes.COLORLESS: 2},
             damage=70,
-            # STUB: attack effect not implemented
             effect=remove_self_from_play('deck', optional=True),
         ),
         Attack(

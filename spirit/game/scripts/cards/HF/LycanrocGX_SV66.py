@@ -3,7 +3,6 @@ from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, Ability
 from spirit.game.data_utils import Triggers
 from spirit.game.card_effects.attacks_common import damage_per, count_bench
 
-
 async def dark_signal(ctx):
     """When you play this Pokémon from your hand to evolve 1 of your Pokémon
     during your turn, you may switch 1 of your opponent's Benched Pokémon
@@ -19,7 +18,6 @@ async def dark_signal(ctx):
             bench, "Choose the opponent's new Active Pokémon"
         ) or bench[0]
         await ctx.switch_active(ctx.opponent_id, target)
-
 
 card = PokemonCardDef(
     guid="9fdb84c6-6d45-5362-8898-6ad65efa6a03",

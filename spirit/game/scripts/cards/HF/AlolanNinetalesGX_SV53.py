@@ -1,8 +1,7 @@
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import snipe_attack, self_energy_discard_attack
 from spirit.game.scripts.cards.SM2.AlolanNinetalesGX_22 import ice_path_gx
-
 
 card = PokemonCardDef(
     guid="eb75816d-3b97-50a8-9ac9-37fbf24b0d70",

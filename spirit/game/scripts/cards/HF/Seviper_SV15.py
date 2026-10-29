@@ -1,9 +1,8 @@
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
 from spirit.game.card_effects.sm3 import MorePoisonPassive
-
 
 card = PokemonCardDef(
     guid="7330079b-6b6c-5fd8-966c-c01453629801",
@@ -33,7 +32,6 @@ card = PokemonCardDef(
             game_text="Your opponent's Active Pok\u00e9mon is now Poisoned.",
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 2},
             damage=30,
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.POISONED),
         ),
     ],

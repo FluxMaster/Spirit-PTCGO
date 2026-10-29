@@ -1,7 +1,6 @@
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.passives_common import protect_next_turn
-
 
 card = PokemonCardDef(
     guid="e87ee88f-2352-551e-959b-b68a593ceae3",
@@ -25,7 +24,6 @@ card = PokemonCardDef(
             game_text="During your opponent's next turn, this Pok\u00e9mon takes 30 less damage from attacks (after applying Weakness and Resistance).",
             cost={PokemonTypes.COLORLESS: 2},
             damage=30,
-            # STUB: attack effect not implemented
             effect=protect_next_turn(reduce=30),
         ),
         Attack(

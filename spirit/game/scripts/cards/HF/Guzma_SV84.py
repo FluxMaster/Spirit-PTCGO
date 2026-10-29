@@ -1,4 +1,4 @@
-from spirit.game.data_utils import SupporterCardDef, unimplemented
+from spirit.game.data_utils import SupporterCardDef
 from spirit.game.attributes import Rarities
 from spirit.game.card_effects.sm3 import guzma, guzma_condition
 

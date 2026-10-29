@@ -1,7 +1,6 @@
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import snipe_attack, flip_bonus
-
 
 card = PokemonCardDef(
     guid="d290428a-c848-5e65-958b-0458b78a5ef9",

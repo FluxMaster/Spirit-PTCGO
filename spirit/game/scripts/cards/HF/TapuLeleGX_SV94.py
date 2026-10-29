@@ -4,7 +4,6 @@ from spirit.game.card_effects.pokemon import luminous_sign
 from spirit.game.data_utils import Triggers
 from spirit.game.scripts.cards.SM2.TapuLeleGX_60 import energy_drive, tapu_cure_gx
 
-
 card = PokemonCardDef(
     guid="5432bb9b-e396-5bac-a412-f288c463e4bf",
     key="HF",

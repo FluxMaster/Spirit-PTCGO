@@ -6,7 +6,6 @@ from spirit.game.content.definitions import evolves_from_chain
 from spirit.game.card_effects.trainers import is_basic_energy_card
 from spirit.game.card_effects.pokemon import energy_provides_type
 
-
 async def _energy_evolution(ctx):
     """Attaching a basic Energy from hand to this Pokemon on your turn: you may
     search for a card that evolves from it of that Energy's type and evolve."""
@@ -33,13 +32,11 @@ async def _energy_evolution(ctx):
         await ctx.evolve_pokemon(ctx.source, picks[0])
     await ctx.shuffle_deck()
 
-
 async def _quick_draw(ctx):
     """Flip a coin. If heads, draw a card."""
     results = await ctx.flip_coins(1, "Quick Draw")
     if results and results[0]:
         await ctx.draw_cards(1)
-
 
 card = PokemonCardDef(
     guid="7dbbbdaa-b374-5ce5-b724-4db0091367ae",

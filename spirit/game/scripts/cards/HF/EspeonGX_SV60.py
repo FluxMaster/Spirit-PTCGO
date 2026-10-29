@@ -1,9 +1,8 @@
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
 from spirit.game.card_effects.attacks_common import damage_per, count_energy, place_counters
-
 
 card = PokemonCardDef(
     guid="0adf5fc5-6789-55d6-b349-521505522dc1",

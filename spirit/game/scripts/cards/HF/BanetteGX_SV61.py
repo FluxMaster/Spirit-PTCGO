@@ -7,7 +7,6 @@ from spirit.game.card_effects.sm7 import (
 )
 from spirit.game.data_utils import Activations
 
-
 async def _hollow_hunt(ctx):
     """Put 3 cards from your discard pile into your hand."""
     cards = list(ctx.discard_pile())
@@ -17,7 +16,6 @@ async def _hollow_hunt(ctx):
     picks = await ctx.choose_cards(cards, n, minimum=n,
                                    prompt="Choose 3 cards to put into your hand.")
     await ctx.put_in_hand(picks, reveal=True)
-
 
 card = PokemonCardDef(
     guid="9c1eb693-20a3-5ae0-a1ac-1e1defea1eac",
@@ -59,7 +57,6 @@ card = PokemonCardDef(
             title="Tomb Hunt-GX",
             game_text="Put 3 cards from your discard pile into your hand. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.PSYCHIC: 1},
-            # STUB: attack effect not implemented
             effect=_hollow_hunt,
         ),
     ],

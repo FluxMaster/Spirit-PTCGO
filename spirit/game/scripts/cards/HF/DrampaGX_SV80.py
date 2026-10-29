@@ -1,9 +1,8 @@
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import discard_opponent_energy_attack
 from spirit.game.scripts.cards.SM2.DrampaGX_115 import _bench_has_damage, big_wheel_gx
 from spirit.game.card_effects.attacks_common import bonus_if
-
 
 card = PokemonCardDef(
     guid="23ea3af9-af92-5b01-836f-e6437ec97fa5",

@@ -1,10 +1,5 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Gyarados-GX (HF #16): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-
 
 card = PokemonCardDef(
     guid="a9bb3d2c-49fa-5d33-9f1e-ba8a70dc2a76",
@@ -34,7 +29,6 @@ card = PokemonCardDef(
             game_text="(You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.WATER: 3, PokemonTypes.COLORLESS: 1},
             damage=240,
-            # STUB: attack effect not implemented
             effect=None,
         ),
     ],

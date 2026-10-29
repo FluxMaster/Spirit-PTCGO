@@ -1,8 +1,7 @@
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.support_common import switch_self_attack
 from spirit.game.card_effects.attacks_common import snipe_attack
-
 
 async def _dark_call(ctx):
     """Discard 2 Energy from your opponent's Pokemon."""
@@ -15,7 +14,6 @@ async def _dark_call(ctx):
                                    prompt="Choose 2 Energy to discard from your opponent's Pokémon")
     if picks:
         await ctx.discard_cards(picks)
-
 
 card = PokemonCardDef(
     guid="83723176-c299-502d-9246-35b9e8828c59",

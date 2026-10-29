@@ -1,8 +1,7 @@
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.passives_common import protect_next_turn
 from spirit.game.card_effects.sm3 import crossing_cut_gx, first_impression
-
 
 card = PokemonCardDef(
     guid="4e98685d-ec68-549d-91df-7950acb6b5a5",
@@ -35,7 +34,6 @@ card = PokemonCardDef(
             game_text="During your opponent's next turn, this Pok\u00e9mon takes 20 less damage from attacks (after applying Weakness and Resistance).",
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 2},
             damage=100,
-            # STUB: attack effect not implemented
             effect=protect_next_turn(reduce=20),
         ),
         Attack(

@@ -1,4 +1,4 @@
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.scripts.cards.SM2.SylveonGX_92 import plea_gx
 from spirit.game.card_effects.support_common import search_to_hand

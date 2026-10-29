@@ -6,7 +6,6 @@ from spirit.game.card_effects.passives_common import is_in_active_spot
 from spirit.game.card_effects.attacks_common import damage_per, count_bench
 from spirit.game.card_effects.sm4 import gyro_unit_passive
 
-
 card = PokemonCardDef(
     guid="811e4082-6371-54ba-ad1b-bc3053e2b6bc",
     key="HF",
@@ -36,7 +35,6 @@ card = PokemonCardDef(
             game_text="Attach a basic Energy card from your discard pile to 1 of your Benched Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 3},
             damage=120,
-            # STUB: attack effect not implemented
             effect=attach_from_discard(predicate=is_basic_energy_card, count=1, target=lambda p: not is_in_active_spot(p), prompt='Choose a basic Energy card to attach to a Benched Pokémon'),
         ),
         Attack(
@@ -45,7 +43,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=50,
             damage_operator="x",
-            # STUB: attack effect not implemented
             effect=damage_per(count_bench('opponent'), 50),
         ),
     ],

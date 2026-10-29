@@ -6,7 +6,6 @@ from spirit.game.card_effects.sm7 import (
     danger_perception_passive,
 )
 
-
 card = PokemonCardDef(
     guid="26f1c7b3-6bbd-5cef-a394-1e76396bfc2d",
     key="HF",
@@ -38,7 +37,6 @@ card = PokemonCardDef(
             game_text="During your opponent's next turn, this Pok\u00e9mon takes 30 less damage from attacks (after applying Weakness and Resistance).",
             cost={PokemonTypes.METAL: 1, PokemonTypes.COLORLESS: 1},
             damage=80,
-            # STUB: attack effect not implemented
             effect=protect_next_turn(reduce=30),
         ),
         Attack(

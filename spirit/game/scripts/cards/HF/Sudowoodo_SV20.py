@@ -3,13 +3,11 @@ from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, Ability
 
 from spirit.game.session.passives import Passive
 
-
 class RoadblockPassive(Passive):
     def bench_capacity(self, player_id, carrier):
         if player_id == carrier.owning_player_id:
             return None
         return 4
-
 
 card = PokemonCardDef(
     guid="0e2ba384-a973-52f1-8865-8ae8af777779",

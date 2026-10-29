@@ -1,14 +1,12 @@
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import snipe_attack, lock_all_attacks
 from spirit.game.card_effects.sm4 import absorption_gx
-
 
 async def _freeze_shock(ctx):
     """Printed damage; this Pokemon can't attack during your next turn."""
     await ctx.deal_damage()
     lock_all_attacks(ctx, ctx.attacker)
-
 
 card = PokemonCardDef(
     guid="22cb715e-1f2d-5a88-8971-2cbc8274ab6f",
@@ -32,7 +30,6 @@ card = PokemonCardDef(
             game_text="This attack does 30 damage to 1 of your opponent's Benched Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.FIGHTING: 1},
             damage=30,
-            # STUB: attack effect not implemented
             effect=snipe_attack(30, also_base=True),
         ),
         Attack(
@@ -40,7 +37,6 @@ card = PokemonCardDef(
             game_text="This Pok\u00e9mon can't attack during your next turn.",
             cost={PokemonTypes.FIGHTING: 3},
             damage=160,
-            # STUB: attack effect not implemented
             effect=_freeze_shock,
         ),
         Attack(

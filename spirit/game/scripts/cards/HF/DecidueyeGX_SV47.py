@@ -2,7 +2,6 @@ from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.data_utils import Activations
 
-
 async def _feather_arrow(ctx):
     """Once during your turn: put 2 damage counters on 1 of your opponent's Pokemon."""
     pool = ctx.opponent_pokemon_in_play()
@@ -13,7 +12,6 @@ async def _feather_arrow(ctx):
     if target is not None:
         await ctx.place_damage_counters(2, [target])
 
-
 async def _hollow_hunt(ctx):
     """Put 3 cards from your discard pile into your hand."""
     cards = list(ctx.discard_pile())
@@ -23,7 +21,6 @@ async def _hollow_hunt(ctx):
     picks = await ctx.choose_cards(cards, n, minimum=n,
                                    prompt="Choose 3 cards to put into your hand.")
     await ctx.put_in_hand(picks, reveal=True)
-
 
 card = PokemonCardDef(
     guid="6a737033-557f-5193-8948-a756c287514b",
