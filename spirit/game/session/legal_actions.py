@@ -120,6 +120,9 @@ class TurnState:
     vstar_used: Set[str] = field(default_factory=set)
     # Players who already used their once-per-game GX attack.
     gx_used: Set[str] = field(default_factory=set)
+    # EVOLUTION_LOGIC_NAME values that may use a GX attack this turn even if
+    # gx_used is set (Bonnie: Zygarde-GX).
+    gx_unlocked: Set[str] = field(default_factory=set)
     # player_id -> turn number during which that player may attach any number
     # of Energy cards from hand (Dragonair "Dragon's Wish").
     unlimited_energy_attach: Dict[str, int] = field(default_factory=dict)
@@ -202,6 +205,7 @@ class TurnState:
         self.retreated = False
         self.used_abilities = set()
         self.used_named_abilities = set()
+        self.gx_unlocked = set()
         self.damage_modifiers = [
             m for m in self.damage_modifiers
             if getattr(m, "expires_after_turn", None) is not None
@@ -887,10 +891,15 @@ def _attack_entries(
         if definition is not None and definition.vstar \
                 and player_id in state.vstar_used:
             continue
-        if definition is not None and getattr(definition, "gx", False) \
-                and (player_id in state.gx_used
-                     or gx_attacks_blocked(board, player_id, active)):
-            continue
+        if definition is not None and getattr(definition, "gx", False):
+            unlocked = (
+                (active.get_attribute(AttrID.EVOLUTION_LOGIC_NAME) or "")
+                in state.gx_unlocked
+            )
+            if gx_attacks_blocked(board, player_id, active):
+                continue
+            if player_id in state.gx_used and not unlocked:
+                continue
         # Attack usage restriction ("You can use this attack only if...").
         if definition is not None and definition.condition is not None \
                 and not definition.condition(board, player_id, active):
