@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Rhydon (SM10 #94): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm10 import (
+    dirty_work,
+)
 
 card = PokemonCardDef(
     guid="25937b27-0785-5b2a-92af-adc314f9b2d2",
@@ -27,8 +27,7 @@ card = PokemonCardDef(
             title="Dirty Work",
             game_text="Discard the top card of your opponent's deck. If you played Giovanni's Exile from your hand during this turn, discard the top 5 cards instead.",
             cost={PokemonTypes.COLORLESS: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=dirty_work
         ),
         Attack(
             title="Horn Attack",

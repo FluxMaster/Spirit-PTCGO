@@ -1,9 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Charjabug (SM10 #58): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.sm10 import (
+    battery,
+    battery_condition,
+)
 
 card = PokemonCardDef(
     guid="587cec75-bfd7-5142-8958-c34001cf4c75",
@@ -29,8 +30,10 @@ card = PokemonCardDef(
             title="Battery",
             game_text="Once during your turn (before your attack), you may attach this card from your hand to 1 of your Vikavolt or Vikavolt-GX as a Special Energy card. This card provides 2 Lightning Energy only while it's attached to a Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            usable_from="hand",
+            condition=battery_condition,
+            effect=battery
         ),
         Attack(
             title="Pierce",

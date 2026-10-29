@@ -1,13 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Power Plant (SM10 #183): trainer effect stubbed.
-
-Card text:
-  - Pokémon-GX and Pokémon-EX in play (both yours and your opponent's) have no Abilities.
-  - This card stays in play when you play it. Discard this card if another Stadium card comes into play. If another card with the same name is in play, you can't play this card.
-"""
-
-from spirit.game.data_utils import StadiumCardDef, unimplemented
+from spirit.game.data_utils import StadiumCardDef
 from spirit.game.attributes import Rarities
+
+from spirit.game.card_effects.sm10 import (
+    power_plant_passive,
+)
 
 card = StadiumCardDef(
     guid="247b5520-cbb1-5b07-8890-00e4bf8b64a4",
@@ -19,6 +15,5 @@ card = StadiumCardDef(
     collector_number=183,
     set_code="SM10",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    passive=power_plant_passive
 )

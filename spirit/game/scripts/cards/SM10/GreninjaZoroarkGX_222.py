@@ -1,9 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Greninja & Zoroark-GX (SM10 #222): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm10 import (
+    dark_pulse,
+    dark_union_gx,
+)
 
 card = PokemonCardDef(
     guid="0b89b0a4-3cd9-57d5-99ab-e774099761f2",
@@ -30,15 +31,13 @@ card = PokemonCardDef(
             cost={PokemonTypes.DARKNESS: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=dark_pulse
         ),
         Attack(
             title="Dark Union-GX",
             game_text="Put 2 in any combination of Darkness Pok\u00e9mon-GX and Darkness Pok\u00e9mon-EX from your discard pile onto your Bench. If this Pok\u00e9mon has at least 1 extra Energy attached to it (in addition to this attack's cost), attach 2 Energy cards from your discard pile to each Pok\u00e9mon that you put onto your Bench in this way. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.DARKNESS: 1, PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=dark_union_gx
         ),
     ],
 )

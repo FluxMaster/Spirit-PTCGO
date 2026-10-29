@@ -1,14 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Molayne (SM10 #212): trainer effect stubbed.
-
-Card text:
-  - You can play this card only if you discard 2 Metal Energy cards from your hand.
-  - Shuffle a Trainer card from your discard pile into your deck.
-  - You may play only 1 Supporter card during your turn (before your attack).
-"""
-
-from spirit.game.data_utils import SupporterCardDef, unimplemented
+from spirit.game.data_utils import SupporterCardDef
 from spirit.game.attributes import Rarities
+
+from spirit.game.card_effects.sm10 import (
+    molayne,
+    molayne_condition,
+)
 
 card = SupporterCardDef(
     guid="4db8befe-b191-5726-a9b3-46d9ff359f7a",
@@ -20,6 +16,6 @@ card = SupporterCardDef(
     collector_number=212,
     set_code="SM10",
     rarity=Rarities.RareUltra,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    condition=molayne_condition,
+    effect=molayne
 )

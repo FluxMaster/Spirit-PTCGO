@@ -1,11 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Tangela (SM10 #16): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.support_common import gust_attack
-
 
 card = PokemonCardDef(
     guid="237d661f-0571-58a7-990b-70fde405120b",
@@ -28,7 +23,6 @@ card = PokemonCardDef(
             title="Tangle Drag",
             game_text="Switch 1 of your opponent's Benched Pok\u00e9mon with their Active Pok\u00e9mon.",
             cost={PokemonTypes.GRASS: 1},
-            # STUB: attack effect not implemented
             effect=gust_attack(),
         ),
         Attack(

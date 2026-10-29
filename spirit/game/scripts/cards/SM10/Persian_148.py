@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Persian (SM10 #148): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.sm10 import (
+    gathering_of_cats_passive,
+)
 
 card = PokemonCardDef(
     guid="175b7f6d-d24f-5ee6-8188-517d158fae07",
@@ -27,8 +27,7 @@ card = PokemonCardDef(
             title="Gathering of Cats",
             game_text="Ignore all Energy in the attack costs of each of your Pok\u00e9mon in play that has the Caturday attack.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=gathering_of_cats_passive
         ),
         Attack(
             title="Claw Slash",

@@ -1,14 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Fairy Charm Lightning (SM10 #172): trainer effect stubbed.
-
-Card text:
-  - Attach a Pokémon Tool to 1 of your Pokémon that doesn't already have a Pokémon Tool attached to it.
-  - Prevent all damage done to the Fairy Pokémon this card is attached to by attacks from your opponent's Lightning Pokémon-GX and Lightning Pokémon-EX.
-  - You may play as many Item cards as you like during your turn (before your attack).
-"""
-
-from spirit.game.data_utils import PokemonToolCardDef, unimplemented
+from spirit.game.data_utils import PokemonToolCardDef
 from spirit.game.attributes import Rarities
+
+from spirit.game.card_effects.sm10 import (
+    fairy_charm_lightning_passive,
+)
 
 card = PokemonToolCardDef(
     guid="bf0cb66a-2a98-516e-b038-bd443a6bfa7c",
@@ -20,6 +15,5 @@ card = PokemonToolCardDef(
     collector_number=172,
     set_code="SM10",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    passive=fairy_charm_lightning_passive
 )

@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dugtrio (SM10 #86): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm10 import (
+    home_ground,
+)
 
 card = PokemonCardDef(
     guid="6ad306bb-9cb7-5980-af76-4120b67107f4",
@@ -29,8 +29,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=home_ground
         ),
     ],
 )

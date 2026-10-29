@@ -1,9 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Sharpedo (SM10 #111): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.sm10 import (
+    bad_fangs,
+    greedy_evolution,
+)
 
 card = PokemonCardDef(
     guid="b34f5e7f-73d4-5fc4-9a3f-e40bcd583a0c",
@@ -29,8 +30,8 @@ card = PokemonCardDef(
             title="Greedy Evolution",
             game_text="When you play this Pok\u00e9mon from your hand to evolve 1 of your Pok\u00e9mon during your turn, you may look at the top 6 cards of your deck and attach any number of Darkness Energy cards you find there to this Pok\u00e9mon. Shuffle the other cards back into your deck.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=Triggers.ON_EVOLVE,
+            effect=greedy_evolution
         ),
         Attack(
             title="Bad Fangs",
@@ -38,8 +39,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=60,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bad_fangs
         ),
     ],
 )

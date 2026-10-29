@@ -1,13 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Crobat (SM10 #66): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.data_utils import Triggers
 from spirit.game.card_effects.sm3 import stance
 from spirit.game.card_effects.sm4 import severe_poison
-
 
 card = PokemonCardDef(
     guid="3539237a-40af-5b43-b834-4094f33d6b8a",
@@ -33,7 +28,6 @@ card = PokemonCardDef(
             title="Sound Veil",
             game_text="When you play this Pok\u00e9mon from your hand to evolve 1 of your Pok\u00e9mon during your turn, you may prevent all effects of your opponent's attacks, including damage, done to this Pok\u00e9mon until the end of your opponent's next turn.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
             trigger=Triggers.ON_EVOLVE,
             effect=stance,
         ),
@@ -42,7 +36,6 @@ card = PokemonCardDef(
             game_text="Your opponent's Active Pok\u00e9mon is now Poisoned. Put 4 damage counters instead of 1 on that Pok\u00e9mon between turns.",
             cost={PokemonTypes.COLORLESS: 3},
             damage=60,
-            # STUB: attack effect not implemented
             effect=severe_poison,
         ),
     ],

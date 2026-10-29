@@ -1,11 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Pyukumuku (SM10 #53): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.support_common import search_to_bench
 
+from spirit.game.card_effects.sm10 import (
+    surprise_fist,
+)
 
 card = PokemonCardDef(
     guid="a47c2a69-d7cc-5a1e-988b-bca65b3f3d89",
@@ -28,7 +27,6 @@ card = PokemonCardDef(
             title="Call for Family",
             game_text="Search your deck for up to 2 Basic Pok\u00e9mon and put them onto your Bench. Then, shuffle your deck.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=search_to_bench(count=2),
         ),
         Attack(
@@ -37,8 +35,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 2},
             damage=60,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=surprise_fist
         ),
     ],
 )

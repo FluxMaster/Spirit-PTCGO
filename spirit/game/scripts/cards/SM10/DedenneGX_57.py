@@ -1,9 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dedenne-GX (SM10 #57): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.sm10 import (
+    dedechange,
+    tingly_return_gx,
+)
 
 card = PokemonCardDef(
     guid="f3ddc3fc-cba3-5b83-af3b-6784927a8848",
@@ -28,8 +29,9 @@ card = PokemonCardDef(
             title="Dedechange",
             game_text="When you play this Pok\u00e9mon from your hand onto your Bench during your turn, you may discard your hand and draw 6 cards. You can't use more than 1 Dedechange Ability each turn.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=Triggers.ON_PLAY,
+            shared_once_per_turn="Dedechange",
+            effect=dedechange
         ),
         Attack(
             title="Static Shock",
@@ -41,8 +43,7 @@ card = PokemonCardDef(
             game_text="Your opponent's Active Pok\u00e9mon is now Paralyzed. Put this Pok\u00e9mon and all cards attached to it into your hand. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 1},
             damage=50,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=tingly_return_gx
         ),
     ],
 )

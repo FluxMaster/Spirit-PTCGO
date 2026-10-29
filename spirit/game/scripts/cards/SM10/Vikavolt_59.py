@@ -1,9 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Vikavolt (SM10 #59): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.sm10 import (
+    electricannon,
+    stealthy_body_passive,
+)
 
 card = PokemonCardDef(
     guid="f95a8fbe-8c31-57a7-bebf-37bda0203f3c",
@@ -29,8 +30,7 @@ card = PokemonCardDef(
             title="Stealthy Body",
             game_text="If there is any Stadium card in play, this Pok\u00e9mon has no Weakness.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=stealthy_body_passive
         ),
         Attack(
             title="Electricannon",
@@ -38,8 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 3, PokemonTypes.COLORLESS: 1},
             damage=120,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=electricannon
         ),
     ],
 )

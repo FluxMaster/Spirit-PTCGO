@@ -1,14 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Beast Bringer (SM10 #164): trainer effect stubbed.
-
-Card text:
-  - Attach a Pokémon Tool to 1 of your Pokémon that doesn't already have a Pokémon Tool attached to it.
-  - If you have exactly 6 Prize cards remaining, and if your opponent's Active Pokémon-GX or Pokémon-EX is Knocked Out by damage from an attack of the Ultra Beast this card is attached to, take 1 more Prize card.
-  - You may play as many Item cards as you like during your turn (before your attack).
-"""
-
-from spirit.game.data_utils import PokemonToolCardDef, unimplemented
+from spirit.game.data_utils import PokemonToolCardDef
 from spirit.game.attributes import Rarities
+
+from spirit.game.card_effects.sm10 import (
+    beast_bringer_passive,
+    is_ultra_beast_pokemon,
+)
 
 card = PokemonToolCardDef(
     guid="46315776-88a1-5d3a-93dc-43ae9ecb11d2",
@@ -20,6 +16,6 @@ card = PokemonToolCardDef(
     collector_number=164,
     set_code="SM10",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    passive=beast_bringer_passive,
+    attach_to=is_ultra_beast_pokemon
 )

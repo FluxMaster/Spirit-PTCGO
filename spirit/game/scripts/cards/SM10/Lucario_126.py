@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Lucario (SM10 #126): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm10 import (
+    rush_up,
+)
 
 card = PokemonCardDef(
     guid="1f361240-5eec-52ae-8aa7-dcb7be37d9f4",
@@ -36,8 +36,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.METAL: 2},
             damage=60,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=rush_up
         ),
     ],
 )

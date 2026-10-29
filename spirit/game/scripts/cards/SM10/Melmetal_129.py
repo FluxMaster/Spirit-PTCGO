@@ -1,9 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Melmetal (SM10 #129): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.sm10 import (
+    metal_eater,
+    metal_eater_condition,
+)
 
 card = PokemonCardDef(
     guid="8251380c-c6a8-513f-99e0-45f768a13a69",
@@ -29,8 +30,9 @@ card = PokemonCardDef(
             title="Metal Eater",
             game_text="Once during your turn (before your attack), you may discard a Metal Pok\u00e9mon from your hand. If you do, heal 100 damage from this Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=metal_eater_condition,
+            effect=metal_eater
         ),
         Attack(
             title="Heavy Impact",

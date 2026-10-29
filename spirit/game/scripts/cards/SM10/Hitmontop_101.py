@@ -1,9 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Hitmontop (SM10 #101): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm10 import (
+    finishing_combo,
+    finishing_combo_condition,
+)
 
 card = PokemonCardDef(
     guid="094b7234-d265-5106-9594-988bfaffbd3c",
@@ -26,8 +27,8 @@ card = PokemonCardDef(
             title="Finishing Combo",
             game_text="You can use this attack only if your Hitmonlee used Special Combo during your last turn. This attack does 60 damage to each of your opponent's Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.FIGHTING: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            condition=finishing_combo_condition,
+            effect=finishing_combo
         ),
         Attack(
             title="Spinning Attack",

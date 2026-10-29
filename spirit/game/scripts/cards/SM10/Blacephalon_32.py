@@ -1,9 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Blacephalon (SM10 #32): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm10 import (
+    blazer,
+    fireball_circus,
+)
 
 card = PokemonCardDef(
     guid="1402ef31-b7da-517d-a2c7-e8020c2e1d2a",
@@ -28,8 +29,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 1},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=blazer
         ),
         Attack(
             title="Fireball Circus",
@@ -37,8 +37,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 3},
             damage=50,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=fireball_circus
         ),
     ],
 )

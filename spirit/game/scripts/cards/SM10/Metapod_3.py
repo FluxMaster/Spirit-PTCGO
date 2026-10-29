@@ -1,9 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Metapod (SM10 #3): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.sm10 import (
+    flip_evolve_condition,
+    flip_evolve_from_deck,
+)
 
 card = PokemonCardDef(
     guid="0c9cf154-ed72-5e15-8355-7982f729e1af",
@@ -27,8 +28,9 @@ card = PokemonCardDef(
             title="Emerge",
             game_text="Once during your turn (before your attack), you may flip a coin. If heads, search your deck for a card that evolves from this Pok\u00e9mon and put it onto this Pok\u00e9mon to evolve it. Then, shuffle your deck.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=flip_evolve_condition,
+            effect=flip_evolve_from_deck
         ),
         Attack(
             title="Bug Bite",

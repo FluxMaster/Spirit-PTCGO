@@ -1,9 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Gloom (SM10 #7): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.sm10 import (
+    irresistible_aroma,
+    irresistible_aroma_condition,
+)
 
 card = PokemonCardDef(
     guid="3cb8c184-8750-5ad6-86d2-68ca37a48d5e",
@@ -27,8 +28,9 @@ card = PokemonCardDef(
             title="Irresistible Aroma",
             game_text="Once during your turn (before your attack), if your opponent's Bench isn't full, you may flip a coin. If heads, your opponent reveals their hand. Put a Basic Pok\u00e9mon you find there onto their Bench.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=irresistible_aroma_condition,
+            effect=irresistible_aroma
         ),
         Attack(
             title="Drool",

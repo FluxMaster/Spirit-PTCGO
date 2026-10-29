@@ -1,9 +1,11 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Honchkrow-GX (SM10 #109): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.sm10 import (
+    feather_storm,
+    ruler_of_the_night_passive,
+    unfair_gx,
+)
 
 card = PokemonCardDef(
     guid="374cf16f-d16f-5072-bd06-be30aaa30c4e",
@@ -29,23 +31,20 @@ card = PokemonCardDef(
             title="Ruler of the Night",
             game_text="As long as this Pok\u00e9mon is your Active Pok\u00e9mon, your opponent can't play any Pok\u00e9mon Tool, Special Energy, or Stadium cards from their hand.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=ruler_of_the_night_passive
         ),
         Attack(
             title="Feather Storm",
             game_text="This attack does 30 damage to 2 of your opponent's Benched Pok\u00e9mon-GX and Pok\u00e9mon-EX. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.DARKNESS: 1, PokemonTypes.COLORLESS: 2},
             damage=90,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=feather_storm
         ),
         Attack(
             title="Unfair-GX",
             game_text="Your opponent reveals their hand. Discard 2 cards from it. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.COLORLESS: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=unfair_gx
         ),
     ],
 )

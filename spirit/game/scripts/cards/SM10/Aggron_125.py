@@ -1,18 +1,12 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Aggron (SM10 #125): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.scripts.cards.SWSH8.Turtonator_198 import shell_trap
 from spirit.game.card_effects.attacks_common import lock_all_attacks
-
 
 async def _freeze_shock(ctx):
     """Printed damage; this Pokemon can't attack during your next turn."""
     await ctx.deal_damage()
     lock_all_attacks(ctx, ctx.attacker)
-
 
 card = PokemonCardDef(
     guid="182c6bcb-d68d-5ac7-8f88-7eb6c5a58392",
@@ -39,7 +33,6 @@ card = PokemonCardDef(
             game_text="During your opponent's next turn, if this Pok\u00e9mon is damaged by an attack (even if this Pok\u00e9mon is Knocked Out), put 8 damage counters on the Attacking Pok\u00e9mon.",
             cost={PokemonTypes.METAL: 1, PokemonTypes.COLORLESS: 2},
             damage=80,
-            # STUB: attack effect not implemented
             effect=shell_trap,
         ),
         Attack(
@@ -47,7 +40,6 @@ card = PokemonCardDef(
             game_text="This Pok\u00e9mon can't attack during your next turn.",
             cost={PokemonTypes.METAL: 1, PokemonTypes.COLORLESS: 3},
             damage=160,
-            # STUB: attack effect not implemented
             effect=_freeze_shock,
         ),
     ],

@@ -1,9 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Weezing (SM10 #74): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.sm10 import (
+    detention_gas,
+    splattering_sludge,
+)
 
 card = PokemonCardDef(
     guid="b2282a57-9921-59b8-a03a-13ef30e29e20",
@@ -27,16 +28,15 @@ card = PokemonCardDef(
             title="Detention Gas",
             game_text="As long as this Pok\u00e9mon is your Active Pok\u00e9mon, put 1 damage counter on each of your opponent's Basic Pok\u00e9mon between turns.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=Triggers.BETWEEN_TURNS,
+            effect=detention_gas
         ),
         Attack(
             title="Splattering Sludge",
             game_text="This attack does 20 damage to each of your opponent's Benched Pok\u00e9mon that has any damage counters on it. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.COLORLESS: 2},
             damage=40,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=splattering_sludge
         ),
     ],
 )

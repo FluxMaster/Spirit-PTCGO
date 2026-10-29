@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Cubone (SM10 #90): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm10 import (
+    focus_energy,
+)
 
 card = PokemonCardDef(
     guid="cd95008b-2d6e-54ee-92e2-f612b7df9181",
@@ -26,8 +26,7 @@ card = PokemonCardDef(
             title="Focus Energy",
             game_text="During your next turn, this Pok\u00e9mon's Beat attack's base damage is 80.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=focus_energy
         ),
         Attack(
             title="Beat",

@@ -1,9 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Spiritomb (SM10 #112): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.sm10 import (
+    anguish_cry,
+    building_spite,
+)
 
 card = PokemonCardDef(
     guid="c1ebf1a3-23d0-5f5e-bdc6-be1feb50ebe8",
@@ -25,8 +26,8 @@ card = PokemonCardDef(
             title="Building Spite",
             game_text="Once during your turn (before your attack), you may put 1 damage counter on this Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            effect=building_spite
         ),
         Attack(
             title="Anguish Cry",
@@ -34,8 +35,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.DARKNESS: 1},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=anguish_cry
         ),
     ],
 )

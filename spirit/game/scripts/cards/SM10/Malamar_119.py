@@ -1,11 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Malamar (SM10 #119): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import mill_attack
 
+from spirit.game.card_effects.sm10 import (
+    hypnotic_reign,
+)
 
 card = PokemonCardDef(
     guid="1bc0cca6-d0b6-50b6-991c-0566a8b15203",
@@ -31,15 +30,13 @@ card = PokemonCardDef(
             title="Hypnotic Reign",
             game_text="Your opponent reveals their hand. You may discard a Pok\u00e9mon you find there and use one of that Pok\u00e9mon's non-GX attacks as this attack.",
             cost={PokemonTypes.DARKNESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=hypnotic_reign
         ),
         Attack(
             title="Dark Pressure",
             game_text="Discard the top card of your opponent's deck.",
             cost={PokemonTypes.DARKNESS: 1, PokemonTypes.COLORLESS: 2},
             damage=80,
-            # STUB: attack effect not implemented
             effect=mill_attack(1),
         ),
     ],

@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Haunter (SM10 #69): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm10 import (
+    sinister_fog,
+)
 
 card = PokemonCardDef(
     guid="cc6b944c-d902-51e2-bf31-fae4b6d2c03e",
@@ -29,8 +29,7 @@ card = PokemonCardDef(
             title="Sinister Fog",
             game_text="Your opponent's Active Pok\u00e9mon is now Poisoned. Put 1 damage counter on each of your opponent's Benched Pok\u00e9mon.",
             cost={PokemonTypes.PSYCHIC: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=sinister_fog
         ),
     ],
 )

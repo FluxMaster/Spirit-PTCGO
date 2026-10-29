@@ -1,11 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Incineroar (SM10 #29): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import self_energy_discard_attack
 
+from spirit.game.card_effects.sm10 import (
+    strong_cheer_passive,
+)
 
 card = PokemonCardDef(
     guid="ff86edea-6d3c-59e6-9f37-795e495299b1",
@@ -29,15 +28,13 @@ card = PokemonCardDef(
             title="Strong Cheer",
             game_text="Your Pok\u00e9mon's attacks do 30 more damage to your opponent's Active Pok\u00e9mon (before applying Weakness and Resistance). You can't apply more than 1 Strong Cheer Ability at a time.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=strong_cheer_passive
         ),
         Attack(
             title="Flamethrower",
             game_text="Discard an Energy from this Pok\u00e9mon.",
             cost={PokemonTypes.FIRE: 1, PokemonTypes.COLORLESS: 1},
             damage=90,
-            # STUB: attack effect not implemented
             effect=self_energy_discard_attack(count=1),
         ),
     ],

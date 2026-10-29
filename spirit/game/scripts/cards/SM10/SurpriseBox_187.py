@@ -1,13 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Surprise Box (SM10 #187): trainer effect stubbed.
-
-Card text:
-  - Put a card from your opponent's discard pile into their hand.
-  - You may play as many Item cards as you like during your turn (before your attack).
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+
+from spirit.game.card_effects.sm10 import (
+    surprise_box,
+    surprise_box_condition,
+)
 
 card = ItemCardDef(
     guid="9c5d0692-2693-5f40-8d83-cdc30271655c",
@@ -19,6 +16,6 @@ card = ItemCardDef(
     collector_number=187,
     set_code="SM10",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    condition=surprise_box_condition,
+    effect=surprise_box
 )

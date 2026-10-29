@@ -1,13 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Ultra Forest Kartenvoy (SM10 #188): trainer effect stubbed.
-
-Card text:
-  - During this turn, damage from your Ultra Beasts' attacks isn't affected by any effects on your opponent's Active Pokémon.
-  - You may play only 1 Supporter card during your turn (before your attack).
-"""
-
-from spirit.game.data_utils import SupporterCardDef, unimplemented
+from spirit.game.data_utils import SupporterCardDef
 from spirit.game.attributes import Rarities
+
+from spirit.game.card_effects.sm10 import (
+    ultra_forest_kartenvoy,
+    ultra_forest_kartenvoy_condition,
+)
 
 card = SupporterCardDef(
     guid="fe8c8dc0-70d8-5b82-a12b-981517ad54e0",
@@ -19,6 +16,6 @@ card = SupporterCardDef(
     collector_number=188,
     set_code="SM10",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    condition=ultra_forest_kartenvoy_condition,
+    effect=ultra_forest_kartenvoy
 )

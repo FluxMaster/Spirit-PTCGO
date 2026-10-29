@@ -1,9 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Hypno (SM10 #72): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.sm10 import (
+    hypnotic_pendulum,
+    stir_the_brain,
+)
 
 card = PokemonCardDef(
     guid="2e7a4809-2123-5799-abd2-5e0b562a923e",
@@ -27,8 +28,8 @@ card = PokemonCardDef(
             title="Hypnotic Pendulum",
             game_text="When your opponent's Active Pok\u00e9mon is Knocked Out, flip a coin. If heads, choose which of your opponent's Benched Pok\u00e9mon becomes their new Active Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=Triggers.ON_OPPONENT_KNOCKED_OUT,
+            effect=hypnotic_pendulum
         ),
         Attack(
             title="Stir the Brain",
@@ -36,8 +37,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 2},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=stir_the_brain
         ),
     ],
 )

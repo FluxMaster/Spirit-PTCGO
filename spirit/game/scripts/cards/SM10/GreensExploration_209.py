@@ -1,14 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Green's Exploration (SM10 #209): trainer effect stubbed.
-
-Card text:
-  - You can play this card only if you have no Pokémon with Abilities in play.
-  - Search your deck for up to 2 Trainer cards, reveal them, and put them into your hand. Then, shuffle your deck.
-  - You may play only 1 Supporter card during your turn (before your attack).
-"""
-
-from spirit.game.data_utils import SupporterCardDef, unimplemented
+from spirit.game.data_utils import SupporterCardDef
 from spirit.game.attributes import Rarities
+
+from spirit.game.card_effects.sm10 import (
+    greens_exploration,
+    greens_exploration_condition,
+)
 
 card = SupporterCardDef(
     guid="73897bc6-10ad-52d5-a622-e1ef9b811e14",
@@ -20,6 +16,6 @@ card = SupporterCardDef(
     collector_number=209,
     set_code="SM10",
     rarity=Rarities.RareUltra,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    condition=greens_exploration_condition,
+    effect=greens_exploration
 )

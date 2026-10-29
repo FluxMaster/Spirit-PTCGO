@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Seaking (SM10 #49): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm10 import (
+    enhanced_horn,
+)
 
 card = PokemonCardDef(
     guid="805079e2-8ca3-56b6-8e02-f97ecb9a8c5f",
@@ -29,8 +29,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1},
             damage=30,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=enhanced_horn
         ),
     ],
 )

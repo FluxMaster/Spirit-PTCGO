@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Purugly (SM10 #160): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm10 import (
+    stray_cat_dash,
+)
 
 card = PokemonCardDef(
     guid="bb94895c-3773-56d7-9d79-4960275a582a",
@@ -28,8 +28,7 @@ card = PokemonCardDef(
             game_text="Discard a random card from your opponent's hand. If this Pok\u00e9mon evolved from Glameow during this turn, discard 2 cards instead of 1.",
             cost={PokemonTypes.COLORLESS: 2},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=stray_cat_dash
         ),
         Attack(
             title="Lunge Out",

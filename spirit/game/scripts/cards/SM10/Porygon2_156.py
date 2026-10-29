@@ -1,11 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Porygon2 (SM10 #156): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.support_common import draw_attack
-
 
 card = PokemonCardDef(
     guid="33a9a059-7a4a-5c2e-a967-0af08635e406",
@@ -29,7 +24,6 @@ card = PokemonCardDef(
             title="Double Draw",
             game_text="Draw 2 cards.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=draw_attack(2),
         ),
         Attack(

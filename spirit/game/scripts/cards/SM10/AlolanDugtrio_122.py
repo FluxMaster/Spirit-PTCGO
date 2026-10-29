@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Alolan Dugtrio (SM10 #122): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.sm10 import (
+    hair_wall_passive,
+)
 
 card = PokemonCardDef(
     guid="1105f2ee-f27b-5bb1-8de2-5d266fcfb7bc",
@@ -29,8 +29,7 @@ card = PokemonCardDef(
             title="Hair Wall",
             game_text="Your Metal Pok\u00e9mon take 10 less damage from your opponent's attacks (after applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=hair_wall_passive
         ),
         Attack(
             title="Hammer In",

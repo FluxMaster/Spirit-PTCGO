@@ -1,15 +1,11 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Metal Core Barrier (SM10 #232): trainer effect stubbed.
-
-Card text:
-  - Attach a Pokémon Tool to 1 of your Pokémon that doesn't already have a Pokémon Tool attached to it.
-  - If this card is attached to 1 of your Pokémon, discard it at the end of your opponent's turn.
-  - The Metal Pokémon this card is attached to takes 70 less damage from your opponent's attacks (after applying Weakness and Resistance).
-  - You may play as many Item cards as you like during your turn (before your attack).
-"""
-
-from spirit.game.data_utils import PokemonToolCardDef, unimplemented
+from spirit.game.data_utils import PokemonToolCardDef
 from spirit.game.attributes import Rarities
+
+from spirit.game.card_effects.sm10 import (
+    METAL_CORE_BARRIER_ABILITY,
+    is_metal_pokemon,
+    metal_core_barrier_passive,
+)
 
 card = PokemonToolCardDef(
     guid="cef2d1c4-371e-5489-b6dd-f1246929f4a2",
@@ -21,6 +17,7 @@ card = PokemonToolCardDef(
     collector_number=232,
     set_code="SM10",
     rarity=Rarities.RareSecret,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    passive=metal_core_barrier_passive,
+    granted_abilities=[METAL_CORE_BARRIER_ABILITY],
+    attach_to=is_metal_pokemon
 )

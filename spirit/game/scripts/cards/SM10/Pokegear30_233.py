@@ -1,13 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Pokégear 3.0 (SM10 #233): trainer effect stubbed.
-
-Card text:
-  - Look at the top 7 cards of your deck. You may reveal a Supporter card you find there and put it into your hand. Shuffle the other cards back into your deck.
-  - You may play as many Item cards as you like during your turn (before your attack).
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+
+from spirit.game.card_effects.sm10 import (
+    pokegear_30,
+)
 
 card = ItemCardDef(
     guid="8f3ad3e8-9bdd-5b40-8edb-aa91e9897856",
@@ -19,6 +15,5 @@ card = ItemCardDef(
     collector_number=233,
     set_code="SM10",
     rarity=Rarities.RareSecret,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=pokegear_30
 )

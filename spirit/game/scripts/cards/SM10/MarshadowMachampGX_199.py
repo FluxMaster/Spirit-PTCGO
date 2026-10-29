@@ -1,11 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Marshadow & Machamp-GX (SM10 #199): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import bonus_if
 
+from spirit.game.card_effects.sm10 import (
+    acme_of_heroism_gx,
+)
 
 card = PokemonCardDef(
     guid="79c6908e-9f6f-54ea-9a1f-bc102ef42f8d",
@@ -30,7 +29,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
             effect=bonus_if(lambda ctx: ctx.kos_suffered_last_turn() > 0, 90),
         ),
         Attack(
@@ -43,8 +41,7 @@ card = PokemonCardDef(
             game_text="If this Pok\u00e9mon has at least 1 extra Energy attached to it (in addition to this attack's cost), and if it would be Knocked Out by damage from an opponent's attack during their next turn, it is not Knocked Out, and its remaining HP becomes 10. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.FIGHTING: 2, PokemonTypes.COLORLESS: 1},
             damage=200,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=acme_of_heroism_gx
         ),
     ],
 )

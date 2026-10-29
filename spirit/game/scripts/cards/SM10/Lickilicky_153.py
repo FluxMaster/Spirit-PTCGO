@@ -1,11 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Lickilicky (SM10 #153): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_damage
 
+from spirit.game.card_effects.sm10 import (
+    eat_up,
+)
 
 card = PokemonCardDef(
     guid="35f0fba4-117b-5a06-b9d3-e6a687beb71b",
@@ -30,8 +29,7 @@ card = PokemonCardDef(
             game_text="Before doing damage, discard all Pok\u00e9mon Tool cards from your opponent's Active Pok\u00e9mon. If you discarded a Pok\u00e9mon Tool card in this way, heal all damage from this Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 2},
             damage=40,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=eat_up
         ),
         Attack(
             title="Tonguenado",
@@ -39,7 +37,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=60,
             damage_operator="x",
-            # STUB: attack effect not implemented
             effect=flip_damage(coins=4, per_heads=60),
         ),
     ],

@@ -1,16 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Golem (SM10 #89): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.sm6 import sky_drop
-
 
 async def feint(ctx):
     """30. This attack's damage isn't affected by Resistance."""
     await ctx.deal_damage(ignore_resistance=True)
-
 
 card = PokemonCardDef(
     guid="5baa0a77-707b-5cd2-a34b-b4083084936f",
@@ -35,7 +29,6 @@ card = PokemonCardDef(
             game_text="This attack's damage isn't affected by Resistance.",
             cost={PokemonTypes.COLORLESS: 3},
             damage=100,
-            # STUB: attack effect not implemented
             effect=feint,
         ),
         Attack(
@@ -44,7 +37,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 3},
             damage=180,
             damage_operator="-",
-            # STUB: attack effect not implemented
             effect=sky_drop,
         ),
     ],

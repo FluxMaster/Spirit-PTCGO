@@ -1,9 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Stunfisk (SM10 #56): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm10 import (
+    electric_trap,
+    raging_thunder,
+)
 
 card = PokemonCardDef(
     guid="c144199a-8426-52a9-b940-7fc41a93b7ce",
@@ -29,8 +30,7 @@ card = PokemonCardDef(
             game_text="This attack does 10 damage to 1 of your Benched Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.COLORLESS: 1},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=raging_thunder
         ),
         Attack(
             title="Electric Trap",
@@ -38,8 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=30,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=electric_trap
         ),
     ],
 )

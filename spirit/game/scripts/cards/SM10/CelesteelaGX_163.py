@@ -1,15 +1,14 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Celesteela-GX (SM10 #163): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 
+from spirit.game.card_effects.sm10 import (
+    discovery_gx,
+    force_canceler_passive,
+)
 
 async def shadow_cyclone(ctx):
     await ctx.deal_damage()
     await ctx.move_energy_freely([ctx.attacker], ctx.my_bench(), max_count=1)
-
 
 card = PokemonCardDef(
     guid="3e9af494-3744-5417-afa2-b5b4856989af",
@@ -34,23 +33,20 @@ card = PokemonCardDef(
             title="Force Canceler",
             game_text="As long as this Pok\u00e9mon is your Active Pok\u00e9mon, prevent all effects of your opponent's GX attacks, including damage, done to your Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=force_canceler_passive
         ),
         Attack(
             title="Power Cyclone",
             game_text="Move an Energy from this Pok\u00e9mon to 1 of your Benched Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 3},
             damage=110,
-            # STUB: attack effect not implemented
             effect=shadow_cyclone,
         ),
         Attack(
             title="Discovery-GX",
             game_text="Count your Prize cards and put them into your hand. Then, take that many cards from the top of your deck and put them face down as your Prize cards. If you don't have that many cards in your deck, this attack does nothing. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=discovery_gx
         ),
     ],
 )

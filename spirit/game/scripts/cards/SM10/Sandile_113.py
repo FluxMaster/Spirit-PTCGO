@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Sandile (SM10 #113): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.sm10 import (
+    intimidating_fang_passive,
+)
 
 card = PokemonCardDef(
     guid="babf7cc5-90d1-525f-a2a0-a800549319e9",
@@ -28,8 +28,7 @@ card = PokemonCardDef(
             title="Intimidating Fang",
             game_text="As long as this Pok\u00e9mon is your Active Pok\u00e9mon, your opponent's Active Pok\u00e9mon's attacks do 20 less damage (before applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=intimidating_fang_passive
         ),
         Attack(
             title="Gnaw",

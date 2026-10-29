@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Togekiss (SM10 #138): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.sm10 import (
+    fairy_feast,
+)
 
 card = PokemonCardDef(
     guid="1bb6993e-eabf-51e3-8c02-72c981c5005c",
@@ -29,8 +29,8 @@ card = PokemonCardDef(
             title="Fairy Feast",
             game_text="Once during your turn (before your attack), you may heal 30 damage from each of your Fairy Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            effect=fairy_feast
         ),
         Attack(
             title="Magical Shot",

@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dewgong (SM10 #45): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm10 import (
+    dual_blizzard,
+)
 
 card = PokemonCardDef(
     guid="183f0780-c36a-5d81-949e-a786247261c4",
@@ -32,8 +32,7 @@ card = PokemonCardDef(
             title="Dual Blizzard",
             game_text="Discard 2 Energy from this Pok\u00e9mon. This attack does 60 damage to 2 of your opponent's Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.COLORLESS: 3},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=dual_blizzard
         ),
     ],
 )

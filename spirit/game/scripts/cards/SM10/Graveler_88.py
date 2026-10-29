@@ -1,11 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Graveler (SM10 #88): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import recoil_attack
-
 
 card = PokemonCardDef(
     guid="2e80b51c-ee92-5ce3-a07f-87e389b70e49",
@@ -35,7 +30,6 @@ card = PokemonCardDef(
             game_text="This Pok\u00e9mon does 30 damage to itself.",
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 3},
             damage=90,
-            # STUB: attack effect not implemented
             effect=recoil_attack(30),
         ),
     ],

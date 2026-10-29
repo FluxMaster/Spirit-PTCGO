@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Gastly (SM10 #67): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.sm10 import (
+    swelling_spite,
+)
 
 card = PokemonCardDef(
     guid="b850b6dc-c7ae-5d88-81b4-9ecd394541f2",
@@ -28,8 +28,8 @@ card = PokemonCardDef(
             title="Swelling Spite",
             game_text="When this Pok\u00e9mon is Knocked Out, search your deck for up to 2 Haunter and put them onto your Bench. Then, shuffle your deck.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=Triggers.ON_KNOCKED_OUT,
+            effect=swelling_spite
         ),
         Attack(
             title="Will-O-Wisp",

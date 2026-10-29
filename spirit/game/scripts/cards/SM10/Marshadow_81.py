@@ -1,9 +1,11 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Marshadow (SM10 #81): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.sm10 import (
+    red_knuckles,
+    resetting_hole,
+    resetting_hole_condition,
+)
 
 card = PokemonCardDef(
     guid="a904f2ff-10bd-58f9-a800-fd6cfd5e66d2",
@@ -28,8 +30,9 @@ card = PokemonCardDef(
             title="Resetting Hole",
             game_text="Once during your turn (before your attack), if this Pok\u00e9mon is on your Bench, you may discard any Stadium card in play. If you do, discard this Pok\u00e9mon and all cards attached to it.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=resetting_hole_condition,
+            effect=resetting_hole
         ),
         Attack(
             title="Red Knuckles",
@@ -37,8 +40,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=red_knuckles
         ),
     ],
 )

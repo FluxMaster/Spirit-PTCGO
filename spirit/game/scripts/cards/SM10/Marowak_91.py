@@ -1,9 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Marowak (SM10 #91): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm10 import (
+    assault_boom,
+    bone_rush,
+)
 
 card = PokemonCardDef(
     guid="0553685d-34ad-527a-afd0-e0aa35647894",
@@ -29,8 +30,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1},
             damage=50,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bone_rush
         ),
         Attack(
             title="Assault Boom",
@@ -38,8 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=70,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=assault_boom
         ),
     ],
 )

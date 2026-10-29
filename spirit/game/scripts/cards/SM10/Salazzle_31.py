@@ -1,9 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Salazzle (SM10 #31): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.sm10 import (
+    roast_reveal,
+    roast_reveal_condition,
+)
 
 card = PokemonCardDef(
     guid="2a543306-198c-5c30-8f52-a16b1773083f",
@@ -27,8 +28,9 @@ card = PokemonCardDef(
             title="Roast Reveal",
             game_text="Once during your turn (before your attack), you may discard a Fire Energy card from your hand. If you do, draw 3 cards.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=roast_reveal_condition,
+            effect=roast_reveal
         ),
         Attack(
             title="Combustion",

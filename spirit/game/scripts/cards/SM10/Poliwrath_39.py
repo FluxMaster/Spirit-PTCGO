@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Poliwrath (SM10 #39): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm10 import (
+    swirly_rush,
+)
 
 card = PokemonCardDef(
     guid="f974eca8-f5cc-5dc1-b146-bc1efba802c7",
@@ -34,8 +34,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 2},
             damage=90,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=swirly_rush
         ),
     ],
 )

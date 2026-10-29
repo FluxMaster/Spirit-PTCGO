@@ -1,10 +1,5 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Golbat (SM10 #65): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-
 
 async def gulp_down(ctx):
     """Heal from this Pokémon the same amount of damage you did to your
@@ -12,7 +7,6 @@ async def gulp_down(ctx):
     dealt = await ctx.deal_damage()
     if dealt > 0:
         await ctx.heal(dealt, ctx.attacker)
-
 
 card = PokemonCardDef(
     guid="8f7ea39d-6329-5a3b-b0f0-95bd335e814a",
@@ -44,7 +38,6 @@ card = PokemonCardDef(
             game_text="Heal from this Pok\u00e9mon the same amount of damage you did to your opponent's Active Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 3},
             damage=40,
-            # STUB: attack effect not implemented
             effect=gulp_down,
         ),
     ],

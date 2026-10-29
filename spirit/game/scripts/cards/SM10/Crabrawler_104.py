@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Crabrawler (SM10 #104): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm10 import (
+    knuckle_blast,
+)
 
 card = PokemonCardDef(
     guid="ef13290a-c858-522b-9f23-405e5aa0804e",
@@ -33,8 +33,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 2},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=knuckle_blast
         ),
     ],
 )

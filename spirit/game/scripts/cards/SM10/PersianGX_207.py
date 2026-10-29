@@ -1,11 +1,12 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Persian-GX (SM10 #207): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.sm3 import crossing_cut_gx
 
+from spirit.game.card_effects.sm10 import (
+    cat_walk,
+    cat_walk_condition,
+    vengeance,
+)
 
 card = PokemonCardDef(
     guid="ec5dc6f3-5200-59b0-b512-9ca34482c518",
@@ -29,8 +30,10 @@ card = PokemonCardDef(
             title="Cat Walk",
             game_text="Once during your turn (before your attack), if 1 of your Pok\u00e9mon-GX or Pok\u00e9mon-EX was Knocked Out during your opponent's last turn, you may search your deck for up to 2 cards and put them into your hand. Then, shuffle your deck. You can't use more than 1 Cat Walk Ability each turn.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            shared_once_per_turn="Cat Walk",
+            condition=cat_walk_condition,
+            effect=cat_walk
         ),
         Attack(
             title="Vengeance",
@@ -38,15 +41,13 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=vengeance
         ),
         Attack(
             title="Slash Back-GX",
             game_text="Switch this Pok\u00e9mon with 1 of your Benched Pok\u00e9mon. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.COLORLESS: 3},
             damage=150,
-            # STUB: attack effect not implemented
             effect=crossing_cut_gx,
         ),
     ],

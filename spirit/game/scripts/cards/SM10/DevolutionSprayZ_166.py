@@ -1,13 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Devolution Spray Z (SM10 #166): trainer effect stubbed.
-
-Card text:
-  - Devolve 1 of your evolved Pokémon by shuffling any number of Evolution cards on it into your deck. (That Pokémon can't evolve this turn.)
-  - You may play as many Item cards as you like during your turn (before your attack).
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+
+from spirit.game.card_effects.sm10 import (
+    devolution_spray_z,
+    devolution_spray_z_condition,
+)
 
 card = ItemCardDef(
     guid="cd6aad16-2ac2-5568-a8d3-098477c3d15d",
@@ -19,6 +16,6 @@ card = ItemCardDef(
     collector_number=166,
     set_code="SM10",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    condition=devolution_spray_z_condition,
+    effect=devolution_spray_z
 )

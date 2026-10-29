@@ -1,9 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Caterpie (SM10 #2): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.sm10 import (
+    flip_evolve_condition,
+    flip_evolve_from_deck,
+)
 
 card = PokemonCardDef(
     guid="4c4d98f5-8a0c-570d-bb56-ae453fae85f5",
@@ -26,8 +27,9 @@ card = PokemonCardDef(
             title="Pupate",
             game_text="Once during your turn (before your attack), you may flip a coin. If heads, search your deck for a card that evolves from this Pok\u00e9mon and put it onto this Pok\u00e9mon to evolve it. Then, shuffle your deck.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=flip_evolve_condition,
+            effect=flip_evolve_from_deck
         ),
         Attack(
             title="Hook",

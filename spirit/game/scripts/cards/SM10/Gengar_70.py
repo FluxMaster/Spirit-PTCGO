@@ -1,12 +1,11 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Gengar (SM10 #70): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
 
+from spirit.game.card_effects.sm10 import (
+    shadow_pain,
+)
 
 card = PokemonCardDef(
     guid="1c982c04-d12c-5920-9f5e-90683eaf2ed4",
@@ -32,15 +31,14 @@ card = PokemonCardDef(
             title="Shadow Pain",
             game_text="When you play this Pok\u00e9mon from your hand to evolve 1 of your Pok\u00e9mon during your turn, you may put 6 damage counters on your opponent's Pok\u00e9mon-GX and Pok\u00e9mon-EX in any way you like.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=Triggers.ON_EVOLVE,
+            effect=shadow_pain
         ),
         Attack(
             title="Twilight Poison",
             game_text="Your opponent's Active Pok\u00e9mon is now Asleep and Poisoned.",
             cost={PokemonTypes.COLORLESS: 3},
             damage=70,
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.ASLEEP, SpecialConditions.POISONED),
         ),
     ],

@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Grubbin (SM10 #18): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm10 import (
+    electrical_signal,
+)
 
 card = PokemonCardDef(
     guid="a64627b2-85d7-531a-a58a-372a8a26bba5",
@@ -26,8 +26,7 @@ card = PokemonCardDef(
             title="Electrical Signal",
             game_text="Search your deck for up to 2 Lightning Pok\u00e9mon, reveal them, and put them into your hand. Then, shuffle your deck.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=electrical_signal
         ),
         Attack(
             title="Corkscrew Punch",

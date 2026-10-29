@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Diglett (SM10 #85): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.sm10 import (
+    underground_work_passive,
+)
 
 card = PokemonCardDef(
     guid="ddc7579d-839f-58e3-ba41-3267bea5d941",
@@ -26,8 +26,7 @@ card = PokemonCardDef(
             title="Underground Work",
             game_text="If you discard this Pok\u00e9mon with the effect of Giovanni's Exile, discard the top card of your opponent's deck.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=underground_work_passive
         ),
         Attack(
             title="Hook",

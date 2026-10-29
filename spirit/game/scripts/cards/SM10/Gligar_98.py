@@ -1,9 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Gligar (SM10 #98): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.sm10 import (
+    free_flight_passive,
+    shinobi_strike,
+)
 
 card = PokemonCardDef(
     guid="41dd81cd-a20b-5daf-aabc-87d1a0075647",
@@ -26,8 +27,7 @@ card = PokemonCardDef(
             title="Free Flight",
             game_text="If this Pok\u00e9mon has no Energy attached to it, it has no Retreat Cost.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=free_flight_passive
         ),
         Attack(
             title="Shinobi Strike",
@@ -35,8 +35,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=shinobi_strike
         ),
     ],
 )

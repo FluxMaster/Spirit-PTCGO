@@ -1,11 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Slowpoke (SM10 #42): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.passives_common import debuff_defender_attacks
-
 
 card = PokemonCardDef(
     guid="d170c8ad-2025-5850-aa89-306485591f31",
@@ -28,7 +23,6 @@ card = PokemonCardDef(
             title="Growl",
             game_text="During your opponent's next turn, the Defending Pok\u00e9mon's attacks do 20 less damage (before applying Weakness and Resistance).",
             cost={PokemonTypes.WATER: 1},
-            # STUB: attack effect not implemented
             effect=debuff_defender_attacks(20),
         ),
         Attack(

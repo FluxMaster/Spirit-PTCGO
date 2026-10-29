@@ -1,12 +1,11 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Whimsicott-GX (SM10 #206): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.passives_common import flip_prevent_damage_passive
 from spirit.game.scripts.cards.SM2.MetagrossGX_85 import algorithm_gx
 
+from spirit.game.card_effects.sm10 import (
+    energy_blow,
+)
 
 card = PokemonCardDef(
     guid="1cc5d91c-af5f-530b-bf87-09a4a2933148",
@@ -32,7 +31,6 @@ card = PokemonCardDef(
             title="Fluffy Cotton",
             game_text="If any damage is done to this Pok\u00e9mon by attacks, flip a coin. If heads, prevent that damage.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
             passive=flip_prevent_damage_passive('Evasion Jutsu'),
         ),
         Attack(
@@ -41,14 +39,12 @@ card = PokemonCardDef(
             cost={PokemonTypes.FAIRY: 1},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=energy_blow
         ),
         Attack(
             title="Toy Box-GX",
             game_text="Search your deck for up to 5 cards and put them into your hand. Then, shuffle your deck. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.FAIRY: 1},
-            # STUB: attack effect not implemented
             effect=algorithm_gx,
         ),
     ],

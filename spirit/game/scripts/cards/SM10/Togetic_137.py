@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Togetic (SM10 #137): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm10 import (
+    energy_present,
+)
 
 card = PokemonCardDef(
     guid="f50a07e6-3713-589d-8877-ceeb2328fd5e",
@@ -29,8 +29,7 @@ card = PokemonCardDef(
             title="Energy Present",
             game_text="Attach an Energy card from your hand to 1 of your Benched Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=energy_present
         ),
         Attack(
             title="Magical Shot",

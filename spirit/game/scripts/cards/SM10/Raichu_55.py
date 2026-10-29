@@ -1,9 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Raichu (SM10 #55): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm10 import (
+    never_give_up,
+    never_give_up_condition,
+)
 
 card = PokemonCardDef(
     guid="f36c2443-640f-52c0-9e14-74f76d8a88f2",
@@ -29,8 +30,8 @@ card = PokemonCardDef(
             title="Never Give Up",
             game_text="You can use this attack only if you have at least 3 more Prize cards remaining than your opponent. Attach all Lightning Energy cards from your discard pile to your Pok\u00e9mon in any way you like.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            condition=never_give_up_condition,
+            effect=never_give_up
         ),
         Attack(
             title="Head Bolt",

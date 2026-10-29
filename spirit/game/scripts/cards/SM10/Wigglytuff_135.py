@@ -1,12 +1,11 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Wigglytuff (SM10 #135): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
 
+from spirit.game.card_effects.sm10 import (
+    orb_polish,
+)
 
 card = PokemonCardDef(
     guid="d555f65a-2691-58e2-acc4-aff5434cfa75",
@@ -32,15 +31,13 @@ card = PokemonCardDef(
             title="Orb Polish",
             game_text="Put 3 Energy cards from your discard pile into your hand.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=orb_polish
         ),
         Attack(
             title="Sleepy Ball",
             game_text="Your opponent's Active Pok\u00e9mon is now Asleep.",
             cost={PokemonTypes.COLORLESS: 3},
             damage=80,
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.ASLEEP),
         ),
     ],

@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Porygon (SM10 #154): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm10 import (
+    digicharge,
+)
 
 card = PokemonCardDef(
     guid="61274a62-2f5d-50c6-9fe9-68bbdc015626",
@@ -26,8 +26,7 @@ card = PokemonCardDef(
             title="Digicharge",
             game_text="Flip 3 coins. For each heads, search your deck for an Energy card, reveal it, and put it into your hand. Then, shuffle your deck.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=digicharge
         ),
         Attack(
             title="Sharp Point",
