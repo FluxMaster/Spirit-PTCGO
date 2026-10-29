@@ -59,11 +59,13 @@ from .passives import (
     effective_max_hp,
     effective_pokemon_types,
     energy_removal_blocked,
+    attached_energy_discard_destination,
     healing_blocked,
     supporter_effect_replacement,
     trainer_effects_blocked,
     trainer_play_discard_cost,
     hand_is_public,
+    switch_blocked,
 )
 
 # CakeAttackEffect's damageType is a string array of client type names.
@@ -1498,6 +1500,23 @@ class EffectContext:
         await self._move_to_public_pile(cards, "lostZone")
 
     async def _move_to_public_pile(self, cards: List[CardEntity], area_name: str):
+        if area_name == "discard":
+            redirected = []
+            remaining = []
+            for card in cards:
+                owner = card.owning_player_id or self.player_id
+                if owner != self.player_id and discard_blocked(self.board, card):
+                    continue
+                source = getattr(card, "parent", None)
+                dest = attached_energy_discard_destination(
+                    self.board, card, self.player_id, source)
+                if dest == "hand":
+                    redirected.append(card)
+                else:
+                    remaining.append(card)
+            if redirected:
+                await self.put_in_hand(redirected, reveal=True)
+            cards = remaining
         departed = set()
         for card in cards:
             if card.entity_id in departed:
@@ -2065,6 +2084,8 @@ class EffectContext:
         bench_area = board.find_player_area(player_id, "bench")
         old_active = board.active_pokemon(player_id)
         if not active_area or not bench_area or old_active is None:
+            return False
+        if switch_blocked(board, old_active):
             return False
         if new_active not in bench_area.children:
             return False
