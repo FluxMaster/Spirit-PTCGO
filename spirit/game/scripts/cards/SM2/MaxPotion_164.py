@@ -1,13 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Max Potion (SM2 #164): trainer effect stubbed.
-
-Card text:
-  - Heal all damage from 1 of your Pokémon. If you do, discard all Energy from that Pokémon.
-  - You may play as many Item cards as you like during your turn (before your attack).
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.support_common import requires_damaged_pokemon
+from spirit.game.scripts.cards.SM2.MaxPotion_128 import max_potion
 
 card = ItemCardDef(
     guid="1f4063bc-ee32-5b49-ac6e-fdba8fd60247",
@@ -19,6 +13,6 @@ card = ItemCardDef(
     collector_number=164,
     set_code="SM2",
     rarity=Rarities.RareSecret,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    condition=requires_damaged_pokemon(),
+    effect=max_potion,
 )

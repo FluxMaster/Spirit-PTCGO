@@ -1,13 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Enhanced Hammer (SM2 #162): trainer effect stubbed.
-
-Card text:
-  - Discard a Special Energy from 1 of your opponent's Pokémon.
-  - You may play as many Item cards as you like during your turn (before your attack).
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.trainers import opponent_has_special_energy
+from spirit.game.scripts.cards.SM2.EnhancedHammer_124 import enhanced_hammer
 
 card = ItemCardDef(
     guid="170fe1d6-bba9-5ee6-93d8-f20687db8f5c",
@@ -19,6 +13,6 @@ card = ItemCardDef(
     collector_number=162,
     set_code="SM2",
     rarity=Rarities.RareSecret,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    condition=opponent_has_special_energy,
+    effect=enhanced_hammer,
 )

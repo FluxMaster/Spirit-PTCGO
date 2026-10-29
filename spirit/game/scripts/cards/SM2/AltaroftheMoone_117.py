@@ -1,13 +1,19 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Altar of the Moone (SM2 #117): trainer effect stubbed.
+from spirit.game.data_utils import StadiumCardDef
+from spirit.game.attributes import PokemonTypes, Rarities
+from spirit.game.card_effects.pokemon import energy_provides_type
+from spirit.game.session.passives import Passive
 
-Card text:
-  - The Retreat Cost of each Pokémon (both yours and your opponent's) that has any Psychic or Darkness Energy attached to it is ColorlessColorless less.
-  - This card stays in play when you play it. Discard this card if another Stadium card comes into play. If another card with the same name is in play, you can't play this card.
-"""
 
-from spirit.game.data_utils import StadiumCardDef, unimplemented
-from spirit.game.attributes import Rarities
+class AltaroftheMoonePassive(Passive):
+    """Retreat cost -2 for any Pokemon with Psychic or Darkness Energy attached."""
+
+    def modify_retreat_cost(self, cost, pokemon, carrier, board):
+        for child in pokemon.children:
+            if energy_provides_type(child, PokemonTypes.PSYCHIC.value) \
+                    or energy_provides_type(child, PokemonTypes.DARKNESS.value):
+                return max(0, cost - 2)
+        return cost
+
 
 card = StadiumCardDef(
     guid="b1d91432-5568-55f2-bd79-723bd0422afe",
@@ -19,6 +25,5 @@ card = StadiumCardDef(
     collector_number=117,
     set_code="SM2",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    passive=AltaroftheMoonePassive(),
 )

@@ -1,13 +1,12 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Altar of the Sunne (SM2 #118): trainer effect stubbed.
+from spirit.game.data_utils import StadiumCardDef
+from spirit.game.attributes import AttrID, PokemonTypes, Rarities
+from spirit.game.card_effects.passives_common import no_weakness_passive
 
-Card text:
-  - Fire Pokémon and Metal Pokémon (both yours and your opponent's) have no Weakness.
-  - This card stays in play when you play it. Discard this card if another Stadium card comes into play. If another card with the same name is in play, you can't play this card.
-"""
 
-from spirit.game.data_utils import StadiumCardDef, unimplemented
-from spirit.game.attributes import Rarities
+def _is_fire_or_metal(target, carrier):
+    types = target.get_attribute(AttrID.POKEMON_TYPES) or []
+    return PokemonTypes.FIRE.value in types or PokemonTypes.METAL.value in types
+
 
 card = StadiumCardDef(
     guid="28c092f5-d671-5e44-9cd2-70284abb38a9",
@@ -19,6 +18,5 @@ card = StadiumCardDef(
     collector_number=118,
     set_code="SM2",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    passive=no_weakness_passive(protects=_is_fire_or_metal),
 )

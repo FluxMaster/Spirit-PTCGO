@@ -1,13 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Field Blower (SM2 #163): trainer effect stubbed.
-
-Card text:
-  - Choose up to 2 in any combination of Pokémon Tool cards and Stadium cards in play (yours or your opponent's) and discard them.
-  - You may play as many Item cards as you like during your turn (before your attack).
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.scripts.cards.SM2.FieldBlower_125 import field_blower, field_blower_playable
 
 card = ItemCardDef(
     guid="872fae20-13e1-5379-a9e1-e929439f68e4",
@@ -19,6 +12,6 @@ card = ItemCardDef(
     collector_number=163,
     set_code="SM2",
     rarity=Rarities.RareSecret,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    condition=field_blower_playable,
+    effect=field_blower,
 )
