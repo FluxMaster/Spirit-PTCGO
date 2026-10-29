@@ -2,8 +2,9 @@
 Shining Jirachi (SL #42): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sl import stellar_reign
 
 card = PokemonCardDef(
     guid="6e4c15e7-296e-5570-a9ae-2dde1126dc1f",
@@ -27,8 +28,7 @@ card = PokemonCardDef(
             game_text="If your opponent's Active Pok\u00e9mon is an evolved Pok\u00e9mon, devolve it by putting all of the Evolution cards on it into your opponent's hand.",
             cost={PokemonTypes.PSYCHIC: 1},
             damage=10,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=stellar_reign,
         ),
     ],
 )

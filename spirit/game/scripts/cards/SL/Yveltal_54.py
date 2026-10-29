@@ -2,9 +2,10 @@
 Yveltal (SL #54): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-from spirit.game.card_effects.support_common import switch_self_attack
+from spirit.game.card_effects.sl import is_benched, is_basic_darkness_energy
+from spirit.game.card_effects.support_common import attach_from_discard, switch_self_attack
 
 
 card = PokemonCardDef(
@@ -39,8 +40,10 @@ card = PokemonCardDef(
             game_text="Attach a Darkness Energy card from your discard pile to 1 of your Benched Pok\u00e9mon.",
             cost={PokemonTypes.DARKNESS: 1, PokemonTypes.COLORLESS: 2},
             damage=90,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=attach_from_discard(
+                is_basic_darkness_energy, count=1, target=is_benched,
+                prompt="Choose a Darkness Energy card to attach",
+            ),
         ),
     ],
 )

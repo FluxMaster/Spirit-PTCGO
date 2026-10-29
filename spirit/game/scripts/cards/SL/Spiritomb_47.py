@@ -2,9 +2,10 @@
 Spiritomb (SL #47): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import place_counters
+from spirit.game.card_effects.sl import cursed_whirlpool_passive
 
 
 card = PokemonCardDef(
@@ -27,8 +28,7 @@ card = PokemonCardDef(
             title="Cursed Whirlpool",
             game_text="As long as this Pok\u00e9mon is your Active Pok\u00e9mon, your opponent's Active Pok\u00e9mon can't retreat.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=cursed_whirlpool_passive,
         ),
         Attack(
             title="Cursed Drop",

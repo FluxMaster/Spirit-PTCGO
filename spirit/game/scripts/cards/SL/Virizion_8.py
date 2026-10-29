@@ -2,9 +2,10 @@
 Virizion (SL #8): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import snipe_attack
+from spirit.game.card_effects.sl import wrapped_in_wind
 
 
 card = PokemonCardDef(
@@ -29,8 +30,7 @@ card = PokemonCardDef(
             game_text="You may attach a basic Energy card from your hand to this Pok\u00e9mon.",
             cost={PokemonTypes.GRASS: 1},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=wrapped_in_wind,
         ),
         Attack(
             title="Pike",

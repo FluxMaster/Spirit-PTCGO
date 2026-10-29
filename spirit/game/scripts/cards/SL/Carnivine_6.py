@@ -2,9 +2,10 @@
 Carnivine (SL #6): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.pokemon import rock_crush
+from spirit.game.card_effects.sl import flick_poison
 
 
 card = PokemonCardDef(
@@ -28,8 +29,7 @@ card = PokemonCardDef(
             title="Flick Poison",
             game_text="Switch 1 of your opponent's Benched Pok\u00e9mon with their Active Pok\u00e9mon. The new Active Pok\u00e9mon is now Poisoned.",
             cost={PokemonTypes.GRASS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flick_poison,
         ),
         Attack(
             title="Crunch",

@@ -2,8 +2,11 @@
 Keldeo (SL #26): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import count_bench, damage_per
+from spirit.game.card_effects.support_common import recover_from_discard
+from spirit.game.session.effects import is_water_pokemon
 
 card = PokemonCardDef(
     guid="176a9ad7-f2d2-5efa-a0dd-908db043d265",
@@ -26,8 +29,10 @@ card = PokemonCardDef(
             title="Bail Out",
             game_text="Put a Water Pok\u00e9mon from your discard pile into your hand.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=recover_from_discard(
+                is_water_pokemon, count=1,
+                prompt="Choose a Water Pokémon to put into your hand",
+            ),
         ),
         Attack(
             title="Resolute Blade",
@@ -35,8 +40,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 2},
             damage=20,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_per(count_bench("opponent"), 20, base=20),
         ),
     ],
 )

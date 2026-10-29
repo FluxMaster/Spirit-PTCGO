@@ -2,8 +2,10 @@
 Plusle (SL #33): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import bonus_if
+from spirit.game.card_effects.sl import minun_on_bench
 
 card = PokemonCardDef(
     guid="d77734e9-0084-5a36-a63e-25d5a483d010",
@@ -30,8 +32,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 1},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bonus_if(minun_on_bench, 50),
         ),
     ],
 )

@@ -2,8 +2,10 @@
 Shining Genesect (SL #9): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import count_energy, damage_per
+from spirit.game.card_effects.sl import energy_reload, energy_reload_condition
 
 card = PokemonCardDef(
     guid="c2ab2388-8d93-5255-9415-d669e729b781",
@@ -26,8 +28,9 @@ card = PokemonCardDef(
             title="Energy Reload",
             game_text="Once during your turn (before your attack), you may move a Grass Energy from 1 of your other Pok\u00e9mon to this Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=energy_reload_condition,
+            effect=energy_reload,
         ),
         Attack(
             title="Gaia Blaster",
@@ -35,8 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=50,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_per(count_energy("self", PokemonTypes.GRASS), 20, base=50),
         ),
     ],
 )

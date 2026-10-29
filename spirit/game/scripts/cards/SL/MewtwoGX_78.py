@@ -2,8 +2,9 @@
 Mewtwo-GX (SL #78): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import count_energy, damage_per, ignore_effects_attack
 from spirit.game.card_effects.support_common import heal_attack
 
 
@@ -30,8 +31,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 1},
             damage=30,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_per(count_energy(), 30),
         ),
         Attack(
             title="Super Absorption",
@@ -46,8 +46,7 @@ card = PokemonCardDef(
             game_text="This attack's damage isn't affected by any effects on your opponent's Active Pok\u00e9mon. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.PSYCHIC: 3},
             damage=200,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=ignore_effects_attack(),
         ),
     ],
 )

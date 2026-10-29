@@ -2,8 +2,9 @@
 Croconaw (SL #19): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sl import plunge, plunge_condition
 
 card = PokemonCardDef(
     guid="e2394dde-b4e7-5a80-9554-43e1aed781ae",
@@ -27,8 +28,9 @@ card = PokemonCardDef(
             title="Plunge",
             game_text="Once during your turn (before your attack), if this Pok\u00e9mon is on your Bench, you may move all Energy from your Active Pok\u00e9mon to this Pok\u00e9mon. If you do, switch it with your Active Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=plunge_condition,
+            effect=plunge,
         ),
         Attack(
             title="Bite",

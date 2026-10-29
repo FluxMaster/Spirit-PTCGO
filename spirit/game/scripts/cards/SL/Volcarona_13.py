@@ -2,8 +2,9 @@
 Volcarona (SL #13): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sl import heat_cyclone, heat_cyclone_condition
 
 card = PokemonCardDef(
     guid="358e25b7-fe8c-5daf-b70e-9f5b65369acf",
@@ -27,8 +28,9 @@ card = PokemonCardDef(
             title="Heat Cyclone",
             game_text="Once during your turn (before your attack), you may have your opponent switch their Active Pok\u00e9mon with 1 of their Benched Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=heat_cyclone_condition,
+            effect=heat_cyclone,
         ),
         Attack(
             title="Heat Blast",

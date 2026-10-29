@@ -33,7 +33,7 @@ card = PokemonCardDef(
             damage=20,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=damage_per(damage_counters_on('self'), 10, base=10),
+            effect=damage_per(damage_counters_on('self'), 10, base=20),
         ),
         Attack(
             title="Storm Blade",

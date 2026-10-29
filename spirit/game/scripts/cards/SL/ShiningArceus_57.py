@@ -2,9 +2,10 @@
 Shining Arceus (SL #57): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import damage_all_opponents
+from spirit.game.card_effects.sl import fabled_defense_passive
 
 
 card = PokemonCardDef(
@@ -28,8 +29,7 @@ card = PokemonCardDef(
             title="Fabled Defense",
             game_text="As long as this Pok\u00e9mon is your Active Pok\u00e9mon, prevent all damage done to your Benched Pok\u00e9mon by your opponent's attacks.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=fabled_defense_passive,
         ),
         Attack(
             title="Ultimate Arrow",

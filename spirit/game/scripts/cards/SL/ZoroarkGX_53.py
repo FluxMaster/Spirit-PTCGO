@@ -2,8 +2,12 @@
 Zoroark-GX (SL #53): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import count_in_play, damage_per
+from spirit.game.card_effects.sl import trickster_gx
+from spirit.game.card_effects.support_common import discard_then_draw
+from spirit.game.card_effects.trainers import hand_size_at_least
 
 card = PokemonCardDef(
     guid="4fd9300e-2597-5cea-8938-459910907059",
@@ -29,8 +33,9 @@ card = PokemonCardDef(
             title="Trade",
             game_text="Once during your turn (before your attack), you may discard a card from your hand. If you do, draw 2 cards.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=lambda board, player_id, pokemon=None: hand_size_at_least(1)(board, player_id),
+            effect=discard_then_draw(1, 2, optional=False, prompt="Discard a card from your hand"),
         ),
         Attack(
             title="Riotous Beating",
@@ -38,15 +43,13 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=20,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_per(count_in_play("mine"), 20),
         ),
         Attack(
             title="Trickster-GX",
             game_text="Choose 1 of your opponent's Pok\u00e9mon's attacks and use it as this attack. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.DARKNESS: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=trickster_gx,
         ),
     ],
 )

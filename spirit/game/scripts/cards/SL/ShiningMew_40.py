@@ -2,8 +2,9 @@
 Shining Mew (SL #40): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import search_attach_energy
 
 card = PokemonCardDef(
     guid="be5b16f5-2943-537f-b351-3546df61a896",
@@ -26,8 +27,7 @@ card = PokemonCardDef(
             title="Legendary Guidance",
             game_text="Search your deck for up to 2 Energy cards and attach them to your Pok\u00e9mon in any way you like. Then, shuffle your deck.",
             cost={PokemonTypes.PSYCHIC: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=search_attach_energy(count=2, distribute=True),
         ),
         Attack(
             title="Beam",
