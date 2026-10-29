@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Gible (SM5 #97): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm5 import rock_hiding_passive
 
 card = PokemonCardDef(
     guid="88988863-e2e8-5588-89a6-39afe03d6f3b",
@@ -26,8 +23,7 @@ card = PokemonCardDef(
             title="Rock Hiding",
             game_text="If this Pok\u00e9mon has any Fighting Energy attached to it, it has no Retreat Cost.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=rock_hiding_passive,
         ),
         Attack(
             title="Gnaw",

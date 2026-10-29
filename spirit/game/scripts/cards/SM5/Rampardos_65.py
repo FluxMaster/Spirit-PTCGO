@@ -1,19 +1,13 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Rampardos (SM5 #65): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import bonus_if, active_is
 from spirit.game.session.effects import is_evolution_pokemon, is_basic_pokemon
-
 
 async def oppressing_sandstorm(ctx):
     """If your opponent's Active Pokemon is a Basic Pokemon, it is Knocked Out."""
     defender = ctx.defender
     if defender is not None and is_basic_pokemon(defender):
         await ctx.knock_out(defender)
-
 
 card = PokemonCardDef(
     guid="11f0b89a-1a36-56bf-b13e-d0e0b89868f1",

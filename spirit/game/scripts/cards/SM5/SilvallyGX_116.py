@@ -6,7 +6,6 @@ from spirit.game.card_effects.passives_common import is_in_active_spot
 from spirit.game.card_effects.attacks_common import damage_per, count_bench
 from spirit.game.card_effects.sm4 import gyro_unit_passive
 
-
 card = PokemonCardDef(
     guid="1c3c3b37-48bf-5710-9236-5e0bf0de430e",
     key="SM5",

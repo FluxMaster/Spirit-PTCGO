@@ -1,15 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Lucario (SM5 #67): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
-
+from spirit.game.card_effects.sm5 import precognitive_aura, precognitive_aura_condition
 
 async def feint(ctx):
     """30. This attack's damage isn't affected by Resistance."""
     await ctx.deal_damage(ignore_resistance=True)
-
 
 card = PokemonCardDef(
     guid="2f52a45a-a088-5d7a-a390-535f5a69fb53",
@@ -33,8 +28,9 @@ card = PokemonCardDef(
             title="Precognitive Aura",
             game_text="Once during your turn (before your attack), if you have Garchomp in play, you may search your deck for a card and put it into your hand. Then, shuffle your deck.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=precognitive_aura,
+            activation=Activations.ONCE_PER_TURN,
+            condition=precognitive_aura_condition,
         ),
         Attack(
             title="Missile Jab",

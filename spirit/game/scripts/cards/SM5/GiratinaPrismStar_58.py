@@ -1,11 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Giratina {*} (SM5 #58): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import self_energy_discard_attack
-
+from spirit.game.card_effects.sm5 import chaotic_star
 
 card = PokemonCardDef(
     guid="f6b0e098-bcc1-5e0e-b063-388ca18fff76",
@@ -30,8 +26,8 @@ card = PokemonCardDef(
             title="Chaotic Star",
             game_text="When you play this Pok\u00e9mon from your hand onto your Bench during your turn, you may attach 2 Psychic Energy cards from your hand to it.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=chaotic_star,
+            trigger=Triggers.ON_PLAY,
         ),
         Attack(
             title="Crisis Dive",

@@ -1,11 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Bastiodon (SM5 #85): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.support_common import opponent_switches
-
+from spirit.game.card_effects.sm5 import earthen_shield_passive
 
 async def push_down(ctx):
     await ctx.deal_damage()
@@ -14,7 +10,6 @@ async def push_down(ctx):
         return
     if await ctx.ask_yes_no("Have your opponent switch their Active Pokémon with 1 of their Benched Pokémon?"):
         await opponent_switches(ctx)
-
 
 card = PokemonCardDef(
     guid="be6c11c6-bc94-5e1a-8a69-97275e9dee01",
@@ -40,8 +35,7 @@ card = PokemonCardDef(
             title="Earthen Shield",
             game_text="Prevent all damage done to your Metal Pok\u00e9mon by attacks from your opponent's Pok\u00e9mon that have any Special Energy attached to them.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=earthen_shield_passive,
         ),
         Attack(
             title="Push Down",

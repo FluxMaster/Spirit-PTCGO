@@ -1,11 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Luxio (SM5 #47): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.sm3 import distort
-
 
 card = PokemonCardDef(
     guid="387ddc17-18c8-52f9-95fd-961113650380",

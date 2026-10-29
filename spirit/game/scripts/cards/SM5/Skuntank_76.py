@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Skuntank (SM5 #76): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm5 import sticky_smokescreen
 
 card = PokemonCardDef(
     guid="f6e008a9-2e61-5d03-a4b8-9faccc145355",
@@ -30,8 +27,7 @@ card = PokemonCardDef(
             game_text="If the Defending Pok\u00e9mon tries to attack during your opponent's next turn, your opponent flips 2 coins. If either of them is tails, that attack does nothing.",
             cost={PokemonTypes.DARKNESS: 1, PokemonTypes.COLORLESS: 1},
             damage=50,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=sticky_smokescreen,
         ),
         Attack(
             title="Hammer In",

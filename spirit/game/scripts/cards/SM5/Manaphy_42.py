@@ -1,12 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Manaphy (SM5 #42): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
-
+from spirit.game.card_effects.sm5 import deep_currents
 
 card = PokemonCardDef(
     guid="bbfbda70-3391-599b-b509-a7b2376aa4a9",
@@ -29,8 +25,7 @@ card = PokemonCardDef(
             title="Deep Currents",
             game_text="Shuffle 5 Water Energy cards from your discard pile into your deck.",
             cost={PokemonTypes.WATER: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=deep_currents,
         ),
         Attack(
             title="Water Pulse",

@@ -1,11 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Drampa (SM5 #117): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import damage_per, damage_counters_on, mill_attack
-
 
 card = PokemonCardDef(
     guid="68cbe2c5-02a3-509f-a036-e9588c38366d",

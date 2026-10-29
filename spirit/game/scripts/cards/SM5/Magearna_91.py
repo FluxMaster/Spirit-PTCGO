@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Magearna (SM5 #91): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm5 import change_clothes, change_clothes_condition
 
 card = PokemonCardDef(
     guid="324844c4-059e-5c54-9f8e-d1ea1336dbad",
@@ -28,8 +25,9 @@ card = PokemonCardDef(
             title="Change Clothes",
             game_text="Once during your turn (before your attack), you may put a Pok\u00e9mon Tool card attached to 1 of your Pok\u00e9mon into your hand.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=change_clothes,
+            activation=Activations.ONCE_PER_TURN,
+            condition=change_clothes_condition,
         ),
         Attack(
             title="Rolling Attack",

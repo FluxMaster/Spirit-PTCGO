@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Magmortar (SM5 #19): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm5 import fire_blaster, incandescent_body
 
 card = PokemonCardDef(
     guid="679f52f2-3f31-550a-918b-c0604261ed3b",
@@ -27,8 +24,8 @@ card = PokemonCardDef(
             title="Incandescent Body",
             game_text="If this Pok\u00e9mon is your Active Pok\u00e9mon and is damaged by an opponent's attack (even if this Pok\u00e9mon is Knocked Out), the Attacking Pok\u00e9mon is now Burned.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=incandescent_body,
+            trigger=Triggers.ON_DAMAGED_BY_ATTACK,
         ),
         Attack(
             title="Fire Blaster",
@@ -36,8 +33,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 2, PokemonTypes.COLORLESS: 1},
             damage=80,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=fire_blaster,
         ),
     ],
 )

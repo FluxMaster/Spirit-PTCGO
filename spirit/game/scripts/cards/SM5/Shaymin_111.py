@@ -1,11 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Shaymin (SM5 #111): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.support_common import search_to_bench
-
 
 card = PokemonCardDef(
     guid="42ee43eb-f53a-5e8c-9e6a-dfaa3839c00e",

@@ -1,12 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Pheromosa-GX (SM5 #158): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
-
+from spirit.game.card_effects.sm5 import beauty_gx
 
 card = PokemonCardDef(
     guid="25858464-1f53-5807-90a3-16380820a150",
@@ -30,8 +26,7 @@ card = PokemonCardDef(
             game_text="If you go first, you can use this attack on your first turn.",
             cost={PokemonTypes.GRASS: 1},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            usable_first_turn=True,
         ),
         Attack(
             title="Cruel Spike",
@@ -47,8 +42,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 2},
             damage=50,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=beauty_gx,
         ),
     ],
 )

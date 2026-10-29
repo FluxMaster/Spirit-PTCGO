@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Roselia (SM5 #4): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm5 import petal_dance
 
 card = PokemonCardDef(
     guid="87334f26-1ea0-5f44-a1ee-8fd46c67092e",
@@ -28,8 +25,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=petal_dance,
         ),
     ],
 )

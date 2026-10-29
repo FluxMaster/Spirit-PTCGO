@@ -1,12 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Pachirisu (SM5 #49): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
-
+from spirit.game.card_effects.sm5 import snuggly_generator
 
 card = PokemonCardDef(
     guid="c40d1739-36d7-5b6c-b434-5af818973c07",
@@ -31,8 +27,7 @@ card = PokemonCardDef(
             title="Snuggly Generator",
             game_text="For each of your Benched Pok\u00e9mon that has the Nuzzle attack, search your deck for a Lightning Energy card and attach it to that Pok\u00e9mon. Then, shuffle your deck.",
             cost={PokemonTypes.LIGHTNING: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=snuggly_generator,
         ),
         Attack(
             title="Nuzzle",

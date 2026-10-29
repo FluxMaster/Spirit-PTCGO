@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Celesteela-GX (SM5 #144): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm5 import blaster_gx, rocket_fall
 
 card = PokemonCardDef(
     guid="76bcfbdd-46af-5ecf-b2b3-29dedc6f4948",
@@ -30,8 +27,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.METAL: 1, PokemonTypes.COLORLESS: 2},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=rocket_fall,
         ),
         Attack(
             title="Moon Press",
@@ -43,8 +39,7 @@ card = PokemonCardDef(
             game_text="Turn all of your Prize cards face up. (Those Prize cards remain face up for the rest of the game.) (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.METAL: 1, PokemonTypes.COLORLESS: 3},
             damage=180,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=blaster_gx,
         ),
     ],
 )

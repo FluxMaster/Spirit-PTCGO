@@ -1,17 +1,12 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Solgaleo {*} (SM5 #89): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import lock_all_attacks
-
+from spirit.game.card_effects.sm5 import radiant_star
 
 async def _freeze_shock(ctx):
     """Printed damage; this Pokemon can't attack during your next turn."""
     await ctx.deal_damage()
     lock_all_attacks(ctx, ctx.attacker)
-
 
 card = PokemonCardDef(
     guid="e19ba5d0-52ba-5cee-8118-9660c7dd2974",
@@ -36,8 +31,7 @@ card = PokemonCardDef(
             title="Radiant Star",
             game_text="For each of your opponent's Pok\u00e9mon in play, attach a Metal Energy card from your discard pile to your Pok\u00e9mon in any way you like.",
             cost={PokemonTypes.METAL: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=radiant_star,
         ),
         Attack(
             title="Corona Impact",

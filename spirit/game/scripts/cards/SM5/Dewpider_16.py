@@ -1,12 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dewpider (SM5 #16): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
-
 
 card = PokemonCardDef(
     guid="52d6443c-a1b4-5f2b-911f-89e4d99ff7a2",

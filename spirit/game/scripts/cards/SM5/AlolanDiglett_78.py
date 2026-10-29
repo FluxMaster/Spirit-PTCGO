@@ -1,11 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Alolan Diglett (SM5 #78): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_damage
-
 
 card = PokemonCardDef(
     guid="4260dc37-927a-5b0d-be8a-706098d82077",

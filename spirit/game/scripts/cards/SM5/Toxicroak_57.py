@@ -1,12 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Toxicroak (SM5 #57): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
-
+from spirit.game.card_effects.sm5 import exact_revenge
 
 card = PokemonCardDef(
     guid="0b5c9e57-0c4d-5eaa-9f66-113895bd6fb8",
@@ -40,8 +36,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=50,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=exact_revenge,
         ),
     ],
 )

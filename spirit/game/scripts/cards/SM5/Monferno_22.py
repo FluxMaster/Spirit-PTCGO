@@ -1,12 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Monferno (SM5 #22): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
-
 
 card = PokemonCardDef(
     guid="7cebbf17-86e7-5464-87e8-38b479fa40f4",

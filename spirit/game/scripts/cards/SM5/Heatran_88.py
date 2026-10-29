@@ -1,12 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Heatran (SM5 #88): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.passives_common import protect_next_turn
 from spirit.game.card_effects.attacks_common import self_energy_discard_attack
-
 
 card = PokemonCardDef(
     guid="5ee7ec24-7452-5c86-9a64-c1cea892eedb",

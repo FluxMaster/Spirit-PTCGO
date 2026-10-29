@@ -6,10 +6,8 @@ from spirit.game.card_effects.support_common import search_attach_energy
 from spirit.game.card_effects.trainers import player_has_bench
 from spirit.game.card_effects.pokemon import is_energy_card
 
-
 def _ultra_road_condition(board, player_id, pokemon=None):
     return player_has_bench(board, player_id)
-
 
 async def _ultra_road(ctx):
     """Switch your Active Pokemon with 1 of your Benched Pokemon."""
@@ -20,7 +18,6 @@ async def _ultra_road(ctx):
         bench, "Choose your new Active Pokémon")
     if target is not None:
         await ctx.switch_active(ctx.player_id, target)
-
 
 card = PokemonCardDef(
     guid="9c73b1ce-a8e0-5249-97a0-146515847faa",

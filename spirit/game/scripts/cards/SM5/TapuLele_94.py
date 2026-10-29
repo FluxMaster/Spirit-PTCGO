@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Tapu Lele (SM5 #94): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm5 import magical_swap, psywave
 
 card = PokemonCardDef(
     guid="6619d4c4-c003-5621-94af-589af3744202",
@@ -30,15 +27,13 @@ card = PokemonCardDef(
             cost={PokemonTypes.FAIRY: 1},
             damage=20,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=psywave,
         ),
         Attack(
             title="Magical Swap",
             game_text="Move any number of damage counters on your opponent's Pok\u00e9mon to their other Pok\u00e9mon in any way you like.",
             cost={PokemonTypes.FAIRY: 1, PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=magical_swap,
         ),
     ],
 )

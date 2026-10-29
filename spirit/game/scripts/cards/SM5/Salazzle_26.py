@@ -1,12 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Salazzle (SM5 #26): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
-
+from spirit.game.card_effects.sm5 import hunters_nails
 
 card = PokemonCardDef(
     guid="bba7b667-3cdf-5c22-be11-0492d79b2f82",
@@ -39,8 +35,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 1, PokemonTypes.COLORLESS: 1},
             damage=60,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=hunters_nails,
         ),
     ],
 )

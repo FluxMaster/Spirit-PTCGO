@@ -1,11 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Yanma (SM5 #2): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.passives_common import flip_protection
-
 
 card = PokemonCardDef(
     guid="0f29050d-1e58-540a-976f-41dee49e91c2",

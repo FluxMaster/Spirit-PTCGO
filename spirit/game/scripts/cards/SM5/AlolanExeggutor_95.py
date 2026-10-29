@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Alolan Exeggutor (SM5 #95): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm5 import draco_meteor_barrage_effect, exeggutors_paradise
 
 card = PokemonCardDef(
     guid="7dcb0f53-ac35-5ade-8acd-2ac3a5277296",
@@ -27,8 +24,7 @@ card = PokemonCardDef(
             title="Exeggutor's Paradise",
             game_text="For each of your Benched Exeggcute, search your deck for an Alolan Exeggutor or Alolan Exeggutor-GX and put it onto that Exeggcute to evolve it. Then, shuffle your deck.",
             cost={},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=exeggutors_paradise,
         ),
         Attack(
             title="Draco Meteor Barrage",
@@ -36,8 +32,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 2},
             damage=80,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=draco_meteor_barrage_effect,
         ),
     ],
 )

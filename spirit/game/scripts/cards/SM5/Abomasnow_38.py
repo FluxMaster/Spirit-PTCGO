@@ -1,8 +1,4 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Abomasnow (SM5 #38): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.data_utils import Triggers
 from spirit.game.attributes import AttrID, SpecialConditions
@@ -10,11 +6,9 @@ from spirit.game.card_effects.support_common import attach_from_discard
 from spirit.game.card_effects.pokemon import is_energy_card
 from spirit.game.card_effects.attacks_common import condition_attack
 
-
 def _is_water_energy(card):
     types = card.get_attribute(AttrID.POKEMON_TYPES) or []
     return is_energy_card(card) and PokemonTypes.WATER.value in types
-
 
 card = PokemonCardDef(
     guid="76d9a03d-497e-5c7b-9acf-5ffe9b39c5d2",

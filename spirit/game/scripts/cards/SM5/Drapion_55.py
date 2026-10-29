@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Drapion (SM5 #55): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm5 import dangerous_stinger
 
 card = PokemonCardDef(
     guid="047eb8eb-d88d-586b-bd41-6a7207604b9c",
@@ -28,8 +25,7 @@ card = PokemonCardDef(
             game_text="Your opponent's Active Pok\u00e9mon is now Paralyzed and Poisoned.",
             cost={PokemonTypes.PSYCHIC: 4},
             damage=100,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=dangerous_stinger,
         ),
     ],
 )

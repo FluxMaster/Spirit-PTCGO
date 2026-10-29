@@ -1,11 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Chimchar (SM5 #21): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_damage
-
 
 card = PokemonCardDef(
     guid="b3ccb1b5-52ed-5315-8c63-c9939240357e",

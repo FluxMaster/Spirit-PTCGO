@@ -1,11 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Carnivine (SM5 #12): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.support_common import heal_attack
-
+from spirit.game.card_effects.sm5 import loom_over
 
 card = PokemonCardDef(
     guid="7474acc6-a814-562c-af73-96de2f2aa9b8",
@@ -38,8 +34,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 2},
             damage=90,
             damage_operator="-",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=loom_over,
         ),
     ],
 )

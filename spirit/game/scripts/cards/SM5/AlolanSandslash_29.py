@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Alolan Sandslash (SM5 #29): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm5 import spike_armor
 
 card = PokemonCardDef(
     guid="67c0133f-be9a-5d06-be51-48e52fbcd206",
@@ -28,8 +25,7 @@ card = PokemonCardDef(
             game_text="During your opponent's next turn, if this Pok\u00e9mon is damaged by an attack (even if this Pok\u00e9mon is Knocked Out), put 6 damage counters on the Attacking Pok\u00e9mon.",
             cost={},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=spike_armor,
         ),
         Attack(
             title="Frost Breath",

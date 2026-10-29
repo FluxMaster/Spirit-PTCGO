@@ -1,12 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Shaymin (SM5 #15): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
-
+from spirit.game.card_effects.sm5 import coax
 
 card = PokemonCardDef(
     guid="07600d7c-4553-5fd7-8c2f-d1919c13bab4",
@@ -29,8 +25,7 @@ card = PokemonCardDef(
             title="Coax",
             game_text="Search your deck for up to 3 Basic Pok\u00e9mon of different types and put them onto your Bench. Then, shuffle your deck.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=coax,
         ),
         Attack(
             title="Soothing Scent",

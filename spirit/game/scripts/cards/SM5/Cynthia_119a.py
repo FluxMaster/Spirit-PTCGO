@@ -1,13 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Cynthia (SM5 #119a): trainer effect stubbed.
-
-Card text:
-  - Shuffle your hand into your deck. Then, draw 6 cards.
-  - You may play only 1 Supporter card during your turn (before your attack).
-"""
-
-from spirit.game.data_utils import SupporterCardDef, unimplemented
+from spirit.game.data_utils import SupporterCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.sm5 import cynthia
 
 card = SupporterCardDef(
     guid="64b75b5f-83c1-573e-865f-8cf13b9f667e",
@@ -19,6 +12,5 @@ card = SupporterCardDef(
     collector_number=174,
     set_code="SM5",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=cynthia,
 )

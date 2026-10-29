@@ -1,11 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Cherubi (SM5 #10): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_or_nothing
-
 
 card = PokemonCardDef(
     guid="e0026fb8-701e-5f8b-9d11-c1f7748faa88",

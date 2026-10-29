@@ -1,15 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Passimian (SM5 #70): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
-
+from spirit.game.card_effects.sm5 import PowerHuddlePassive
 
 async def feint(ctx):
     """30. This attack's damage isn't affected by Resistance."""
     await ctx.deal_damage(ignore_resistance=True)
-
 
 card = PokemonCardDef(
     guid="0e8b2e70-f5fe-5c93-9a9e-2afc21c8fca7",
@@ -32,8 +27,7 @@ card = PokemonCardDef(
             title="Power Huddle",
             game_text="As long as this Pok\u00e9mon is on your Bench, your Passimian's attacks do 30 more damage to your opponent's Active Evolution Pok\u00e9mon (before applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=PowerHuddlePassive(),
         ),
         Attack(
             title="Rock Hurl",

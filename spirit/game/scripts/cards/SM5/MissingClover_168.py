@@ -1,11 +1,5 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Missing Clover (SM5 #168): trainer effect stubbed.
-
-Card text:
-  - You may play 4 Missing Clover cards at once.
-• If you played 1 card, look at the top card of your deck.
-• If you played 4 cards, take a Prize card. (This effect works one time for 4 cards.)
-  - You may play as many Item cards as you like during your turn (before your attack).
+"""STUB: playing 4 copies at once is not an engine action.
+Missing Clover (SM5 #168): look at top (1 copy) / take a Prize (4 copies).
 """
 
 from spirit.game.data_utils import ItemCardDef, unimplemented
@@ -21,6 +15,6 @@ card = ItemCardDef(
     collector_number=168,
     set_code="SM5",
     rarity=Rarities.RareSecret,
-    # STUB: trainer effect not implemented
+    # STUB: play-4-at-once Item mode is not supported
     effect=unimplemented
 )

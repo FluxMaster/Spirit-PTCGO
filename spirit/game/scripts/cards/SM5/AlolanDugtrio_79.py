@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Alolan Dugtrio (SM5 #79): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm5 import gold_rush
 
 card = PokemonCardDef(
     guid="5d5fad42-62dc-5759-80f5-7e35ef694438",
@@ -31,8 +28,7 @@ card = PokemonCardDef(
             cost={},
             damage=30,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=gold_rush,
         ),
     ],
 )

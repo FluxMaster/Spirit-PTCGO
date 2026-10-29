@@ -1,10 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Torterra (SM5 #9): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-
+from spirit.game.card_effects.sm5 import earthquake
 
 async def gulp_down(ctx):
     """Heal from this Pokémon the same amount of damage you did to your
@@ -12,7 +8,6 @@ async def gulp_down(ctx):
     dealt = await ctx.deal_damage()
     if dealt > 0:
         await ctx.heal(dealt, ctx.attacker)
-
 
 card = PokemonCardDef(
     guid="7be2ac2d-67b6-5121-a8b4-9270342f853b",
@@ -45,8 +40,7 @@ card = PokemonCardDef(
             game_text="This attack does 20 damage to each of your Benched Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.GRASS: 3, PokemonTypes.COLORLESS: 1},
             damage=180,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=earthquake,
         ),
     ],
 )

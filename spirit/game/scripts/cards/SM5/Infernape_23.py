@@ -1,12 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Infernape (SM5 #23): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
-
+from spirit.game.card_effects.sm5 import FlamingFighterPassive
 
 card = PokemonCardDef(
     guid="e46a6c66-e819-52d3-bfac-81a5792faba4",
@@ -30,8 +26,7 @@ card = PokemonCardDef(
             title="Flaming Fighter",
             game_text="Put 6 damage counters instead of 2 on your opponent's Burned Pok\u00e9mon between turns.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=FlamingFighterPassive(),
         ),
         Attack(
             title="Burst Punch",

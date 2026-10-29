@@ -1,15 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dawn Wings Necrozma-GX (SM5 #63): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
-
+from spirit.game.card_effects.sm5 import invasion, invasion_condition, moons_eclipse_gx, more_prizes_remaining
 
 async def feint(ctx):
     """30. This attack's damage isn't affected by Resistance."""
     await ctx.deal_damage(ignore_resistance=True)
-
 
 card = PokemonCardDef(
     guid="ee6bbd7f-995c-5bbd-882c-e39a870148d6",
@@ -34,8 +29,9 @@ card = PokemonCardDef(
             title="Invasion",
             game_text="Once during your turn (before your attack), if this Pok\u00e9mon is on your Bench, you may switch it with your Active Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=invasion,
+            activation=Activations.ONCE_PER_TURN,
+            condition=invasion_condition,
         ),
         Attack(
             title="Dark Flash",
@@ -50,8 +46,8 @@ card = PokemonCardDef(
             game_text="You can use this attack only if you have more Prize cards remaining than your opponent. Prevent all effects of attacks, including damage, done to this Pok\u00e9mon during your opponent's next turn. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.PSYCHIC: 3},
             damage=180,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=moons_eclipse_gx,
+            condition=more_prizes_remaining,
         ),
     ],
 )

@@ -1,11 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Buneary (SM5 #106): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.sm4 import ink_spit
-
 
 card = PokemonCardDef(
     guid="25e48237-e65b-58ab-8494-1a2a090d6853",

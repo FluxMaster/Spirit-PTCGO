@@ -1,11 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Drifblim (SM5 #52): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.support_common import gust_attack
-
+from spirit.game.card_effects.sm5 import damage_transport
 
 card = PokemonCardDef(
     guid="374dfbce-7a08-51d1-b288-a7020b16f202",
@@ -31,8 +27,7 @@ card = PokemonCardDef(
             title="Damage Transport",
             game_text="Move 4 damage counters from each of your Pok\u00e9mon to your opponent's Active Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_transport,
         ),
         Attack(
             title="Wind Wheel",

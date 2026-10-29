@@ -1,12 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Bronzor (SM5 #86): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
-
 
 card = PokemonCardDef(
     guid="485eaaab-eb73-5753-b9d6-ac6b153d1d67",

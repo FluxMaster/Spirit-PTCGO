@@ -1,11 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Sneasel (SM5 #73): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_bonus
-
+from spirit.game.card_effects.sm5 import go_second_first_turn, sneaky_smash
 
 card = PokemonCardDef(
     guid="ea678464-7edc-5785-8fcb-f3767294d4bd",
@@ -30,8 +26,8 @@ card = PokemonCardDef(
             title="Sneaky Smash",
             game_text="You can use this attack only if you go second, and only on your first turn. Discard an Energy from 1 of your opponent's Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=sneaky_smash,
+            condition=go_second_first_turn,
         ),
         Attack(
             title="Ambush",

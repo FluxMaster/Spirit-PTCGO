@@ -1,12 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Shiinotic (SM5 #93): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
-
+from spirit.game.card_effects.sm5 import illuminate
 
 card = PokemonCardDef(
     guid="7c23401d-1ab9-568d-ba28-2ffa24535624",
@@ -32,8 +28,8 @@ card = PokemonCardDef(
             title="Illuminate",
             game_text="Once during your turn (before your attack), you may search your deck for a Fairy Pok\u00e9mon, reveal it, and put it into your hand. Then, shuffle your deck.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=illuminate,
+            activation=Activations.ONCE_PER_TURN,
         ),
         Attack(
             title="Flickering Spores",

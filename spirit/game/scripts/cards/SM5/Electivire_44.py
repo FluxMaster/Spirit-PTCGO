@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Electivire (SM5 #44): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm5 import steel_short
 
 card = PokemonCardDef(
     guid="b9444f54-62bd-5774-a79e-1633067c05dc",
@@ -30,8 +27,7 @@ card = PokemonCardDef(
             game_text="If your opponent's Active Pok\u00e9mon is a Metal Pok\u00e9mon, it is now Paralyzed.",
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 2},
             damage=60,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=steel_short,
         ),
         Attack(
             title="Volt Knuckle",

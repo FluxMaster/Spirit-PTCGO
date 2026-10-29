@@ -1,11 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Fan Rotom (SM5 #110): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import damage_all_opponents
-
+from spirit.game.card_effects.sm5 import RotoMotorPassive
 
 card = PokemonCardDef(
     guid="0fad44c1-06e9-52f1-baa3-52393f1103fc",
@@ -30,8 +26,7 @@ card = PokemonCardDef(
             title="Roto Motor",
             game_text="If you have 9 or more Pok\u00e9mon Tool cards in your discard pile, ignore all Energy in the attack cost of each of this Pok\u00e9mon's attacks.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=RotoMotorPassive(),
         ),
         Attack(
             title="Spinning Fan",

@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Cherrim (SM5 #11): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm5 import weather_guard_passive
 
 card = PokemonCardDef(
     guid="afd2fde3-1be2-5b36-bb61-595e7a85f6a7",
@@ -27,8 +24,7 @@ card = PokemonCardDef(
             title="Weather Guard",
             game_text="Your Grass Pok\u00e9mon have no Weakness.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=weather_guard_passive,
         ),
         Attack(
             title="Seed Bomb",

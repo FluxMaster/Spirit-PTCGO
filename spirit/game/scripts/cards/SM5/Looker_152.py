@@ -1,13 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Looker (SM5 #152): trainer effect stubbed.
-
-Card text:
-  - Draw 3 cards from the bottom of your deck.
-  - You may play only 1 Supporter card during your turn (before your attack).
-"""
-
-from spirit.game.data_utils import SupporterCardDef, unimplemented
+from spirit.game.data_utils import SupporterCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.sm5 import looker, looker_condition
 
 card = SupporterCardDef(
     guid="acf75027-5b78-53db-9607-969dc32f0e29",
@@ -19,6 +12,6 @@ card = SupporterCardDef(
     collector_number=152,
     set_code="SM5",
     rarity=Rarities.RareUltra,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    condition=looker_condition,
+    effect=looker,
 )

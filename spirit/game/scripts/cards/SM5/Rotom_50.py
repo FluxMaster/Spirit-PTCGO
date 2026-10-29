@@ -1,17 +1,12 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Rotom (SM5 #50): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import lock_all_attacks
-
+from spirit.game.card_effects.sm5 import RotoMotorPassive
 
 async def _freeze_shock(ctx):
     """Printed damage; this Pokemon can't attack during your next turn."""
     await ctx.deal_damage()
     lock_all_attacks(ctx, ctx.attacker)
-
 
 card = PokemonCardDef(
     guid="8578c6fe-328d-5de0-bf5a-c67090072aa6",
@@ -36,8 +31,7 @@ card = PokemonCardDef(
             title="Roto Motor",
             game_text="If you have 9 or more Pok\u00e9mon Tool cards in your discard pile, ignore all Energy in the attack cost of each of this Pok\u00e9mon's attacks.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=RotoMotorPassive(),
         ),
         Attack(
             title="Plasma Slice",

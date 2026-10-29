@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Lickilicky (SM5 #103): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm5 import dangerous_lick
 
 card = PokemonCardDef(
     guid="2d7d3958-08aa-5173-8113-7c43a6ed6a64",
@@ -29,8 +26,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=50,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=dangerous_lick,
         ),
         Attack(
             title="Rolling Tackle",

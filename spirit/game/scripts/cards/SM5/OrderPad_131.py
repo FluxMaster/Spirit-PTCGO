@@ -1,13 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Order Pad (SM5 #131): trainer effect stubbed.
-
-Card text:
-  - Flip a coin. If heads, search your deck for an Item card, reveal it, and put it into your hand. Then, shuffle your deck.
-  - You may play as many Item cards as you like during your turn (before your attack).
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.sm5 import order_pad
 
 card = ItemCardDef(
     guid="ea39c280-408d-597b-9a7d-d7586e5ea8e2",
@@ -19,6 +12,5 @@ card = ItemCardDef(
     collector_number=131,
     set_code="SM5",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=order_pad,
 )

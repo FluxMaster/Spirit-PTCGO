@@ -1,13 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Gardenia (SM5 #124): trainer effect stubbed.
-
-Card text:
-  - Heal 80 damage from 1 of your Pokémon that has any Grass Energy attached to it.
-  - You may play only 1 Supporter card during your turn (before your attack).
-"""
-
-from spirit.game.data_utils import SupporterCardDef, unimplemented
+from spirit.game.data_utils import SupporterCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.sm5 import gardenia, gardenia_condition
 
 card = SupporterCardDef(
     guid="54942e2f-c703-50ee-b634-7b23d5a46a45",
@@ -19,6 +12,6 @@ card = SupporterCardDef(
     collector_number=124,
     set_code="SM5",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    condition=gardenia_condition,
+    effect=gardenia,
 )

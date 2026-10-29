@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Hippopotas (SM5 #68): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm5 import eleventh_hour_tackle
 
 card = PokemonCardDef(
     guid="c3f8fc4f-0293-54fb-861c-ea4b1a8e4b51",
@@ -28,8 +25,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 2},
             damage=50,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=eleventh_hour_tackle,
         ),
     ],
 )

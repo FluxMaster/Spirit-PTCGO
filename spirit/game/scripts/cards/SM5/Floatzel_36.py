@@ -1,11 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Floatzel (SM5 #36): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.passives_common import flip_protection
-
+from spirit.game.card_effects.sm5 import aqua_blast
 
 card = PokemonCardDef(
     guid="175b5dfa-ad52-5915-aaf9-51dec39249f4",
@@ -38,8 +34,7 @@ card = PokemonCardDef(
             game_text="Discard a Water Energy from this Pok\u00e9mon.",
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 1},
             damage=80,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=aqua_blast,
         ),
     ],
 )

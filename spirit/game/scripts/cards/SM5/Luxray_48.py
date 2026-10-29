@@ -1,11 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Luxray (SM5 #48): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.sl import IntimidatingPatternPassive
-
+from spirit.game.card_effects.sm5 import volt_bolt
 
 card = PokemonCardDef(
     guid="6164397e-2c24-53b7-8b59-0e53f63d5759",
@@ -38,8 +34,7 @@ card = PokemonCardDef(
             title="Volt Bolt",
             game_text="Discard all Lightning Energy from this Pok\u00e9mon. This attack does 150 damage to 1 of your opponent's Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.LIGHTNING: 2, PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=volt_bolt,
         ),
     ],
 )

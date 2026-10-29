@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Lunala {*} (SM5 #62): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm5 import full_moon_star, psystorm
 
 card = PokemonCardDef(
     guid="674560c8-db58-5bb9-8cf6-db0b0322f7e9",
@@ -28,8 +25,7 @@ card = PokemonCardDef(
             title="Full Moon Star",
             game_text="For each of your opponent's Pok\u00e9mon in play, attach a Psychic Energy card from your discard pile to your Pok\u00e9mon in any way you like.",
             cost={PokemonTypes.PSYCHIC: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=full_moon_star,
         ),
         Attack(
             title="Psystorm",
@@ -37,8 +33,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 4},
             damage=20,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=psystorm,
         ),
     ],
 )

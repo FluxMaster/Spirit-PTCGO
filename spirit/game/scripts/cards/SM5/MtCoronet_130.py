@@ -1,13 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Mt. Coronet (SM5 #130): trainer effect stubbed.
-
-Card text:
-  - Once during each player's turn, that player may put 2 Metal Energy cards from their discard pile into their hand.
-  - This card stays in play when you play it. Discard this card if another Stadium card comes into play. If another card with the same name is in play, you can't play this card.
-"""
-
-from spirit.game.data_utils import StadiumCardDef, unimplemented
+from spirit.game.data_utils import StadiumCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.sm5 import MT_CORONET_ABILITY
 
 card = StadiumCardDef(
     guid="a5e0c70a-ae34-542b-bbab-8a774b4b9348",
@@ -19,6 +12,5 @@ card = StadiumCardDef(
     collector_number=130,
     set_code="SM5",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    ability=MT_CORONET_ABILITY,
 )

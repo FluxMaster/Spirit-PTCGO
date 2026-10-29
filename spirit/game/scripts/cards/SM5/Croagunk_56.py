@@ -1,10 +1,5 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Croagunk (SM5 #56): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-
 
 async def cut_down(ctx):
     """Printed damage; flip a coin, heads: discard an Energy from the opponent's Active."""
@@ -19,7 +14,6 @@ async def cut_down(ctx):
         target, 1,
         prompt="Choose an Energy to discard from the Defending Pokémon.",
     )
-
 
 card = PokemonCardDef(
     guid="0c331173-0a0d-53e0-9082-c0aa73d4ec06",

@@ -1,12 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Weavile (SM5 #74): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
-
+from spirit.game.card_effects.sm5 import evil_admonition
 
 card = PokemonCardDef(
     guid="640bec7c-421b-5945-a6cc-b4afdb6f4d50",
@@ -42,8 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.DARKNESS: 1},
             damage=50,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=evil_admonition,
         ),
     ],
 )

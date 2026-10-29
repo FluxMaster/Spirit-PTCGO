@@ -1,17 +1,11 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Yungoos (SM5 #112): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import recoil_attack
-
 
 async def pry(ctx):
     """10 damage. Your opponent reveals their hand."""
     await ctx.deal_damage()
     await ctx.reveal_hand(of_player=ctx.opponent_id)
-
 
 card = PokemonCardDef(
     guid="997e7741-ae6e-57ac-a1cc-bd0902057f6d",

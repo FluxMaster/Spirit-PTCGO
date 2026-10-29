@@ -1,11 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Alolan Sandshrew (SM5 #28): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_damage
-
 
 card = PokemonCardDef(
     guid="43b9752a-f1c7-5c97-beb0-92be9ad0166d",

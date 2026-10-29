@@ -1,13 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Mars (SM5 #154): trainer effect stubbed.
-
-Card text:
-  - Draw 2 cards. If you do, discard a random card from your opponent's hand.
-  - You may play only 1 Supporter card during your turn (before your attack).
-"""
-
-from spirit.game.data_utils import SupporterCardDef, unimplemented
+from spirit.game.data_utils import SupporterCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.sm5 import mars
 
 card = SupporterCardDef(
     guid="2b5f706d-5c17-508e-b7c9-48a40b8f2162",
@@ -19,6 +12,5 @@ card = SupporterCardDef(
     collector_number=154,
     set_code="SM5",
     rarity=Rarities.RareUltra,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=mars,
 )

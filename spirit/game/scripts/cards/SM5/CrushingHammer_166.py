@@ -2,7 +2,6 @@ from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
 from spirit.game.card_effects.trainers import opponent_has_energy_attached
 
-
 async def crushing_hammer(ctx):
     """Flip a coin. If heads, discard an Energy from 1 of your opponent's Pokémon."""
     results = await ctx.flip_coins(1, "Crushing Hammer")
@@ -15,7 +14,6 @@ async def crushing_hammer(ctx):
     if target is None:
         return
     await ctx.discard_energy_from(target, 1)
-
 
 card = ItemCardDef(
     guid="adb6d1e9-6299-5b7f-9858-1741ca85655d",

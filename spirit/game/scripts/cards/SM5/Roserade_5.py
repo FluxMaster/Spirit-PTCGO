@@ -1,11 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Roserade (SM5 #5): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.sl import flick_poison
-
+from spirit.game.card_effects.sm5 import flower_tornado
 
 card = PokemonCardDef(
     guid="37bbfdde-b51d-5b3d-ba27-a23422f3e125",
@@ -37,8 +33,7 @@ card = PokemonCardDef(
             game_text="Move any number of Grass Energy from your Pok\u00e9mon to your other Pok\u00e9mon in any way you like.",
             cost={PokemonTypes.GRASS: 2, PokemonTypes.COLORLESS: 1},
             damage=100,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flower_tornado,
         ),
     ],
 )

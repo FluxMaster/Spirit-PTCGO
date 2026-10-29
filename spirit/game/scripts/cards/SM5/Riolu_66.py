@@ -1,11 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Riolu (SM5 #66): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.passives_common import flip_protection
-
 
 card = PokemonCardDef(
     guid="f37a6cdc-553b-5935-ab9b-8cc3e8723f4c",

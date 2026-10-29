@@ -1,19 +1,13 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Araquanid (SM5 #17): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.attributes import AttrID
 from spirit.game.card_effects.passives_common import prevent_damage_when
-
 
 def _heatproof_pred(calc, carrier):
     if calc.target is not carrier:
         return False
     types = calc.attacker.get_attribute(AttrID.POKEMON_TYPES) or []
     return PokemonTypes.FIRE.value in types
-
 
 card = PokemonCardDef(
     guid="f5cd6102-f5ff-5f45-aca0-5463ac76eb4f",

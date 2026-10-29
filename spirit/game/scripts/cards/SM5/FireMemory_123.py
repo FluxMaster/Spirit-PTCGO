@@ -1,14 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Fire Memory (SM5 #123): trainer effect stubbed.
-
-Card text:
-  - Attach a Pokémon Tool to 1 of your Pokémon that doesn't already have a Pokémon Tool attached to it.
-  - The Silvally-GX this card is attached to is a Fire Pokémon.
-  - You may play as many Item cards as you like during your turn (before your attack).
-"""
-
-from spirit.game.data_utils import PokemonToolCardDef, unimplemented
-from spirit.game.attributes import Rarities
+from spirit.game.data_utils import PokemonToolCardDef
+from spirit.game.attributes import PokemonTypes, Rarities
+from spirit.game.card_effects.sm4 import MemoryTypePassive
 
 card = PokemonToolCardDef(
     guid="8afdad31-00e1-5bda-8783-d78c6d984f70",
@@ -20,6 +12,5 @@ card = PokemonToolCardDef(
     collector_number=123,
     set_code="SM5",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    passive=MemoryTypePassive(PokemonTypes.FIRE),
 )

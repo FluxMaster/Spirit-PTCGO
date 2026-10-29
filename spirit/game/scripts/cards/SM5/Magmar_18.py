@@ -1,11 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Magmar (SM5 #18): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import mill_attack, self_energy_discard_attack
-
 
 card = PokemonCardDef(
     guid="4950c8e0-5ef0-5623-9065-c0b976a2f7f2",

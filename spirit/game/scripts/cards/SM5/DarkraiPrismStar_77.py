@@ -1,12 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Darkrai {*} (SM5 #77): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
-
+from spirit.game.card_effects.sm5 import nightmare_star
 
 card = PokemonCardDef(
     guid="407ce2d8-ce50-5543-a1bb-7c4d89ade0bf",
@@ -31,8 +27,8 @@ card = PokemonCardDef(
             title="Nightmare Star",
             game_text="When you play this Pok\u00e9mon from your hand onto your Bench during your turn, you may attach 2 Darkness Energy cards from your hand to it.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=nightmare_star,
+            trigger=Triggers.ON_PLAY,
         ),
         Attack(
             title="Abyssal Sleep",

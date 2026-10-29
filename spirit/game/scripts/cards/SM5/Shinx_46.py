@@ -1,12 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Shinx (SM5 #46): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.pokemon import is_lightning_energy
 from spirit.game.card_effects.support_common import search_attach_energy
-
 
 card = PokemonCardDef(
     guid="d33f1e04-f1d0-5dc6-bdf0-f3ce27e7c7e3",

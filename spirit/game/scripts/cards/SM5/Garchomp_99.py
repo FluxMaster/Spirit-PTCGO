@@ -1,11 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Garchomp (SM5 #99): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import snipe_attack
-
+from spirit.game.card_effects.sm5 import royal_blades
 
 card = PokemonCardDef(
     guid="4605e27b-d85b-53f5-8684-b4f57ee0ac7e",
@@ -38,8 +34,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 2},
             damage=100,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=royal_blades,
         ),
     ],
 )
