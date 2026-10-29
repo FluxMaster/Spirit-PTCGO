@@ -1,12 +1,5 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Switch (SM7 #147): trainer effect stubbed.
-
-Card text:
-  - Switch your Active Pokémon with 1 of your Benched Pokémon.
-  - You may play as many Item cards as you like during your turn (before your attack).
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.card_effects.trainers import switch, player_has_bench, play_targets
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
 
 card = ItemCardDef(
@@ -19,6 +12,9 @@ card = ItemCardDef(
     collector_number=147,
     set_code="SM7",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=switch,
+    play_targets=play_targets(opponent=False, bench_only=True),
+    play_target_prompt="",
+    condition=player_has_bench
 )
+

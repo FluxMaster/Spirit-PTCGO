@@ -4,6 +4,9 @@ Lombre (SM7 #37): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm6 import frubbles_passive
+from spirit.game.card_effects.attacks_common import flip_bonus
+
 
 card = PokemonCardDef(
     guid="411ab3d7-ad26-50ea-8877-83edc7e8a53f",
@@ -28,7 +31,7 @@ card = PokemonCardDef(
             game_text="If this Pok\u00e9mon has any Water Energy attached to it, it has no Retreat Cost.",
             ability_type=AbilityTypes.POKE_ABILITY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=frubbles_passive,
         ),
         Attack(
             title="Ambush",
@@ -37,7 +40,7 @@ card = PokemonCardDef(
             damage=20,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_bonus(20),
         ),
     ],
 )

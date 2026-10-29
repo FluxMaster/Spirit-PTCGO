@@ -4,6 +4,8 @@ Swampert (SM7 #35): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm5 import hydro_pressure
+
 
 card = PokemonCardDef(
     guid="c924747e-8a7c-565f-8799-9b93a52e61e6",
@@ -37,7 +39,7 @@ card = PokemonCardDef(
             damage=80,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=hydro_pressure,
         ),
     ],
 )

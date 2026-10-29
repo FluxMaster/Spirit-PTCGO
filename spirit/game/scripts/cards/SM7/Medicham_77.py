@@ -4,6 +4,8 @@ Medicham (SM7 #77): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import recoil_attack
+
 
 card = PokemonCardDef(
     guid="8afd4280-bf03-5254-a077-01f4651ad80e",
@@ -38,7 +40,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 2},
             damage=90,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=recoil_attack(30),
         ),
     ],
 )

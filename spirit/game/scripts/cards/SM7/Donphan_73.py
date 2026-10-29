@@ -4,6 +4,21 @@ Donphan (SM7 #73): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import damage_per, damage_counters_on
+from spirit.game.card_effects.support_common import opponent_switches
+
+
+async def gyro_ball(ctx):
+    """Switch self with a Benched Pokemon; if you do, the opponent switches too."""
+    await ctx.deal_damage()
+    bench = ctx.my_bench()
+    if not bench:
+        return
+    target = await ctx.choose_pokemon(bench, "Choose your new Active Pokémon")
+    await ctx.switch_active(ctx.player_id, target or bench[0])
+    await ctx.flush_choreography()
+    await opponent_switches(ctx)
+
 
 card = PokemonCardDef(
     guid="453667a2-65e5-5f80-b9b4-77d6e6f90e5a",
@@ -30,7 +45,7 @@ card = PokemonCardDef(
             damage=10,
             damage_operator="x",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_per(damage_counters_on('self'), 10),
         ),
         Attack(
             title="Rapid Spin",
@@ -38,7 +53,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 2},
             damage=50,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=gyro_ball,
         ),
     ],
 )

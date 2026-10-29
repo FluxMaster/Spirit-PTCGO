@@ -4,6 +4,8 @@ Minior (SM7 #83): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import ignore_effects_attack
+
 
 card = PokemonCardDef(
     guid="62782593-fb01-574b-8fbc-fe20a14a2f4a",
@@ -35,7 +37,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=ignore_effects_attack(ignore_weakness=True, ignore_resistance=True),
         ),
     ],
 )

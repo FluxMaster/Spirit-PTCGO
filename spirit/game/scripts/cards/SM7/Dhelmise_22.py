@@ -4,6 +4,22 @@ Dhelmise (SM7 #22): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import lock_all_attacks
+
+
+async def gulp_down(ctx):
+    """Heal from this Pokémon the same amount of damage you did to your
+    opponent's Active Pokémon."""
+    dealt = await ctx.deal_damage()
+    if dealt > 0:
+        await ctx.heal(dealt, ctx.attacker)
+
+
+async def _freeze_shock(ctx):
+    """Printed damage; this Pokemon can't attack during your next turn."""
+    await ctx.deal_damage()
+    lock_all_attacks(ctx, ctx.attacker)
+
 
 card = PokemonCardDef(
     guid="831941b3-97dd-533e-83a7-0a302c2f5b6c",
@@ -28,7 +44,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=gulp_down,
         ),
         Attack(
             title="Powerful Spin",
@@ -36,7 +52,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 2, PokemonTypes.COLORLESS: 1},
             damage=130,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=_freeze_shock,
         ),
     ],
 )

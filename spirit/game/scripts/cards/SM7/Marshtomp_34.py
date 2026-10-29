@@ -4,6 +4,8 @@ Marshtomp (SM7 #34): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import snipe_attack
+
 
 card = PokemonCardDef(
     guid="cad8d07f-0484-5ce0-bd1a-41e8df987f5d",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=snipe_attack(20, also_base=True),
         ),
         Attack(
             title="Surf",

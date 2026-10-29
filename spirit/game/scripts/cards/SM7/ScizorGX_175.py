@@ -4,6 +4,8 @@ Scizor-GX (SM7 #175): one or more attacks/abilities use effect=unimplemented unt
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.passives_common import protect_next_turn
+
 
 card = PokemonCardDef(
     guid="6967f7c4-e4a8-51c8-96a8-aa6d6c1018cb",
@@ -38,7 +40,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.METAL: 1, PokemonTypes.COLORLESS: 1},
             damage=80,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=protect_next_turn(reduce=30),
         ),
         Attack(
             title="Cross-Cut-GX",

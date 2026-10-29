@@ -4,6 +4,21 @@ Blaziken-GX (SM7 #170): one or more attacks/abilities use effect=unimplemented u
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import self_energy_discard_attack
+
+
+async def _dark_call(ctx):
+    """Discard 2 Energy from your opponent's Pokemon."""
+    pool = [e for p in ctx.opponent_pokemon_in_play() if not ctx.effects_blocked(p)
+            for e in ctx.attached_energies(p)]
+    if not pool:
+        return
+    n = min(2, len(pool))
+    picks = await ctx.choose_cards(pool, n, minimum=n,
+                                   prompt="Choose 2 Energy to discard from your opponent's Pokémon")
+    if picks:
+        await ctx.discard_cards(picks)
+
 
 card = PokemonCardDef(
     guid="7c0dd37d-2e34-5824-ab48-57401bb7f4f0",
@@ -34,14 +49,14 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 2, PokemonTypes.COLORLESS: 1},
             damage=210,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=self_energy_discard_attack(count=2, energy_type=PokemonTypes.FIRE),
         ),
         Attack(
             title="Blaze Out-GX",
             game_text="Discard 2 Energy from your opponent's Pok\u00e9mon. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.FIRE: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=_dark_call,
         ),
     ],
 )

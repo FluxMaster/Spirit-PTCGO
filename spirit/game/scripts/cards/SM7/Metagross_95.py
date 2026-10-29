@@ -4,6 +4,8 @@ Metagross (SM7 #95): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.passives_common import boost_own_next_turn
+
 
 card = PokemonCardDef(
     guid="a31e42b5-278a-524c-bd41-cf606835636e",
@@ -38,7 +40,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.METAL: 1},
             damage=60,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=boost_own_next_turn(60, attack_title='Meteor Mash'),
         ),
     ],
 )

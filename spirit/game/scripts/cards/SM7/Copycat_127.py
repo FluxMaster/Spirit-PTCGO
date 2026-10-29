@@ -1,13 +1,14 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Copycat (SM7 #127): trainer effect stubbed.
-
-Card text:
-  - Shuffle your hand into your deck. Then, draw a card for each card in your opponent's hand.
-  - You may play only 1 Supporter card during your turn (before your attack).
-"""
-
-from spirit.game.data_utils import SupporterCardDef, unimplemented
+from spirit.game.data_utils import SupporterCardDef
 from spirit.game.attributes import Rarities
+
+
+async def copycat(ctx):
+    """Shuffle your hand into your deck. Draw a card for each card in your opponent's hand."""
+    await ctx.shuffle_into_deck(ctx.hand(), ctx.player_id)
+    count = ctx.hand_size(ctx.opponent_id)
+    if count > 0:
+        await ctx.draw_cards(count)
+
 
 card = SupporterCardDef(
     guid="7ba71e38-118d-5a54-b9f5-7c81dff6dcc5",
@@ -19,6 +20,5 @@ card = SupporterCardDef(
     collector_number=127,
     set_code="SM7",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=copycat
 )

@@ -4,6 +4,8 @@ Masquerain (SM7 #16): one or more attacks/abilities use effect=unimplemented unt
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_damage
+
 
 card = PokemonCardDef(
     guid="14cf6cc5-f0c3-5b26-8e82-58a213f3c7fe",
@@ -37,7 +39,7 @@ card = PokemonCardDef(
             damage=40,
             damage_operator="x",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(coins=4, per_heads=40),
         ),
     ],
 )

@@ -4,6 +4,8 @@ Lunala (SM7 #70): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm5 import psychic_60_plus
+
 
 card = PokemonCardDef(
     guid="50280326-6540-5fd4-9c09-e71bd2617609",
@@ -39,7 +41,7 @@ card = PokemonCardDef(
             damage=80,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=psychic_60_plus,
         ),
     ],
 )

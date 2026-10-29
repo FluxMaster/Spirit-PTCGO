@@ -4,6 +4,9 @@ Huntail (SM7 #42): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import condition_attack, bonus_if, active_is
+from spirit.game.session.effects import is_basic_pokemon
+
 
 card = PokemonCardDef(
     guid="7c2fdd98-9ac4-5c64-a516-715bf4bbacda",
@@ -29,7 +32,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(no_retreat=True),
         ),
         Attack(
             title="Dangerous Bite",
@@ -38,7 +41,7 @@ card = PokemonCardDef(
             damage=40,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bonus_if(active_is(is_basic_pokemon), 80),
         ),
     ],
 )

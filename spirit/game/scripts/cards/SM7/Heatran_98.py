@@ -4,6 +4,8 @@ Heatran (SM7 #98): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import recoil_attack
+
 
 card = PokemonCardDef(
     guid="acad9cb7-a5d7-5c8a-800e-53148f171664",
@@ -37,7 +39,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.METAL: 1, PokemonTypes.COLORLESS: 3},
             damage=120,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=recoil_attack(30),
         ),
     ],
 )

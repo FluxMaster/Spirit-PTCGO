@@ -5,6 +5,18 @@ Banette-GX (SM7 #157): one or more attacks/abilities use effect=unimplemented un
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 
+
+async def _hollow_hunt(ctx):
+    """Put 3 cards from your discard pile into your hand."""
+    cards = list(ctx.discard_pile())
+    if not cards:
+        return
+    n = min(3, len(cards))
+    picks = await ctx.choose_cards(cards, n, minimum=n,
+                                   prompt="Choose 3 cards to put into your hand.")
+    await ctx.put_in_hand(picks, reveal=True)
+
+
 card = PokemonCardDef(
     guid="fa143c89-71ca-5c18-9560-86e46ee3a5d5",
     key="SM7",
@@ -46,7 +58,7 @@ card = PokemonCardDef(
             game_text="Put 3 cards from your discard pile into your hand. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.PSYCHIC: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=_hollow_hunt,
         ),
     ],
 )

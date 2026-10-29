@@ -4,6 +4,8 @@ Vigoroth (SM7 #114): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_damage, damage_per, damage_counters_on
+
 
 card = PokemonCardDef(
     guid="3d95a882-2f3b-5a28-9778-017bed04b412",
@@ -30,7 +32,7 @@ card = PokemonCardDef(
             damage=20,
             damage_operator="x",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(coins=3, per_heads=20),
         ),
         Attack(
             title="Rage",
@@ -39,7 +41,7 @@ card = PokemonCardDef(
             damage=20,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_per(damage_counters_on('self'), 10, base=20),
         ),
     ],
 )

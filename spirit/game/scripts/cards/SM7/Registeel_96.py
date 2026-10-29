@@ -4,6 +4,8 @@ Registeel (SM7 #96): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.passives_common import takes_less_passive
+
 
 card = PokemonCardDef(
     guid="25435822-4b51-5a8e-a431-fad35991f19a",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             game_text="This Pok\u00e9mon takes 20 less damage from attacks (after applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_ABILITY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=takes_less_passive(20),
         ),
         Attack(
             title="Silver Fist",

@@ -4,6 +4,21 @@ Gorebyss (SM7 #43): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.passives_common import prevent_damage_when
+from spirit.game.session.effects import is_evolution_pokemon
+from spirit.game.session.passives import carrier_pokemon
+
+
+async def frost_wall(ctx):
+    """30. During your opponent's next turn, prevent all damage done to this
+    Pokemon by attacks from Evolution Pokemon."""
+    await ctx.deal_damage()
+    passive = prevent_damage_when(
+        lambda calc, carrier: carrier_pokemon(carrier) is calc.target
+        and is_evolution_pokemon(calc.attacker)
+    )
+    ctx.add_passive_through_opponents_turn(ctx.attacker, passive)
+
 
 card = PokemonCardDef(
     guid="8ddfec3c-156a-5d10-9ef1-1f2f0691f531",
@@ -29,7 +44,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=frost_wall,
         ),
     ],
 )

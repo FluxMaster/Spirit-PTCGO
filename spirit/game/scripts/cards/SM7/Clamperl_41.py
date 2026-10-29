@@ -4,6 +4,8 @@ Clamperl (SM7 #41): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm5 import EvolutionaryAdvantagePassive
+
 
 card = PokemonCardDef(
     guid="f7a2a775-fbb3-513c-a33e-4b6f600c34a1",
@@ -27,7 +29,7 @@ card = PokemonCardDef(
             game_text="If you go second, this Pok\u00e9mon can evolve during your first turn.",
             ability_type=AbilityTypes.POKE_ABILITY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=EvolutionaryAdvantagePassive(),
         ),
         Attack(
             title="Sparkling Pearl",

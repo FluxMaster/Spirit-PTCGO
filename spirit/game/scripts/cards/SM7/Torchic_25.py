@@ -4,6 +4,8 @@ Torchic (SM7 #25): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import self_energy_discard_attack
+
 
 card = PokemonCardDef(
     guid="33a81ed5-46d3-5728-a06d-39e8ed9de650",
@@ -28,7 +30,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 1},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=self_energy_discard_attack(count=1),
         ),
     ],
 )
