@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Silcoon (EX1 #43): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ex import flip_reduce_damage_passive
+
 
 card = PokemonCardDef(
     guid="2cddef95-acb3-5638-8482-2252fcf3e04a",
@@ -27,16 +26,14 @@ card = PokemonCardDef(
             title="Hard Cocoon",
             game_text="During your opponent's turn, if Silcoon would be damaged by an opponent's attack (after applying Weakness and Resistance), flip a coin. If heads, reduce that damage by 30.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=flip_reduce_damage_passive(30, title="Hard Cocoon"),
         ),
         Attack(
             title="Gooey Thread",
             game_text="The Defending Pok\u00e9mon can't retreat until the end of your opponent's next turn.",
             cost={PokemonTypes.GRASS: 1},
             damage=10,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(no_retreat=True),
         ),
     ],
 )

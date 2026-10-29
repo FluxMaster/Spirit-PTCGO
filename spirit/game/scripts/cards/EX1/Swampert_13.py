@@ -1,9 +1,12 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Swampert (EX1 #13): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
+from spirit.game.attributes import (
+    PokemonTypes, PokemonStage, Rarities, AbilityTypes, SpecialConditions,
+)
+from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ex import attach_from_hand, poke_power_condition
+from spirit.game.card_effects.support_common import requires_hand
+from spirit.game.card_effects.trainers import is_water_energy_card
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 
 card = PokemonCardDef(
     guid="da920ce6-4f2f-531b-ab6e-ca41e2f462ad",
@@ -27,16 +30,20 @@ card = PokemonCardDef(
             title="Water Call",
             game_text="Once during your turn (before your attack), you may attach a Water Energy card from your hand to your Active Pok\u00e9mon. This power can't be used if Swampert is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=poke_power_condition(
+                requires_hand(is_water_energy_card, exclude_self=False)),
+            effect=attach_from_hand(
+                is_water_energy_card, target="active",
+                prompt="Choose a Water Energy card to attach.",
+            ),
         ),
         Attack(
             title="Hypno Splash",
             game_text="The Defending Pok\u00e9mon is now Asleep.",
             cost={PokemonTypes.WATER: 2, PokemonTypes.COLORLESS: 2},
             damage=50,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(SpecialConditions.ASLEEP),
         ),
     ],
 )

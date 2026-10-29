@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Grovyle (EX1 #32): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import natural_cure_on_attach
+
 
 card = PokemonCardDef(
     guid="fcafe523-c4cc-5d51-a046-0551b60467e5",
@@ -28,8 +26,8 @@ card = PokemonCardDef(
             title="Natural Cure",
             game_text="When you attach a Grass Energy card from your hand to Grovyle, remove all Special Conditions from Grovyle.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=Triggers.ON_ENERGY_ATTACHED,
+            effect=natural_cure_on_attach(PokemonTypes.GRASS),
         ),
         Attack(
             title="Slash",

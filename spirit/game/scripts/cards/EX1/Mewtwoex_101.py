@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Mewtwo ex (EX1 #101): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import attach_from_discard
+
 
 card = PokemonCardDef(
     guid="df9111d0-e6db-58f3-83c0-925ced43cc33",
@@ -26,8 +24,7 @@ card = PokemonCardDef(
             title="Energy Absorption",
             game_text="Attach up to 2 Energy cards from your discard pile to Mewtwo ex.",
             cost={PokemonTypes.PSYCHIC: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=attach_from_discard(count=2, minimum=0, target="self"),
         ),
         Attack(
             title="Psyburn",

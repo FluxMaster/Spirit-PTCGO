@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Pelipper (EX1 #19): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import (
+    heal_equal_to_damage,
+    increased_base_damage_next_turn,
+)
 
 card = PokemonCardDef(
     guid="d11a5f29-5f0b-51b2-b348-77e3a8c9cc05",
@@ -28,8 +28,7 @@ card = PokemonCardDef(
             title="Stockpile",
             game_text="During your next turn, Spit Up's base damage is 70 instead of 30, and Swallow's base damage is 60 instead of 20.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=increased_base_damage_next_turn(("Spit Up", 40), ("Swallow", 40)),
         ),
         Attack(
             title="Spit Up",
@@ -41,8 +40,7 @@ card = PokemonCardDef(
             game_text="After your attack, remove from Pelipper the number of damage counters equal to the damage you did to the Defending Pok\u00e9mon. If Pelipper has fewer damage counters than that, remove all of them.",
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 2},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=heal_equal_to_damage(),
         ),
     ],
 )

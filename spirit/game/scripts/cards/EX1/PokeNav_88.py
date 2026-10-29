@@ -1,12 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-PokéNav (EX1 #88): trainer effect stubbed.
-
-Card text:
-  - Look at the top 3 cards of your deck, and choose a Basic Pokémon, Evolution card, or Energy card. Show it to your opponent and put it into your hand. Put the 2 other cards back on top of your deck in any order.
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ex import poke_nav
+from spirit.game.card_effects.trainers import deck_nonempty
+
 
 card = ItemCardDef(
     guid="1aea3327-5b65-5f73-a3ca-bd2822bd2c45",
@@ -18,6 +14,6 @@ card = ItemCardDef(
     collector_number=88,
     set_code="EX1",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    condition=deck_nonempty,
+    effect=poke_nav,
 )

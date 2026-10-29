@@ -1,9 +1,11 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Marshtomp (EX1 #41): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import natural_cure_on_attach
+
+
+async def aqua_sonic(ctx):
+    await ctx.deal_damage(ignore_resistance=True)
+
 
 card = PokemonCardDef(
     guid="18ada343-4fae-5009-b63a-dfea89075e46",
@@ -27,16 +29,15 @@ card = PokemonCardDef(
             title="Natural Cure",
             game_text="When you attach a Water Energy card from your hand to Marshtomp, remove all Special Conditions from Marshtomp.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=Triggers.ON_ENERGY_ATTACHED,
+            effect=natural_cure_on_attach(PokemonTypes.WATER),
         ),
         Attack(
             title="Aqua Sonic",
             game_text="This attack's damage is not affected by Resistance.",
             cost={PokemonTypes.COLORLESS: 2},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=aqua_sonic,
         ),
     ],
 )

@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Chansey ex (EX1 #96): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import recoil_attack
+from spirit.game.card_effects.ex import heal_each_except_user
+
 
 card = PokemonCardDef(
     guid="2b304fea-68c3-5572-be63-9ae9068a5e22",
@@ -26,16 +25,14 @@ card = PokemonCardDef(
             title="Healing Egg",
             game_text="Remove 2 damage counters (1 if there is only 1) from each of your Pok\u00e9mon. Remove no damage counters from Chansey ex.",
             cost={PokemonTypes.COLORLESS: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=heal_each_except_user(20),
         ),
         Attack(
             title="Double-edge",
             game_text="Chansey ex does 60 damage to itself.",
             cost={PokemonTypes.COLORLESS: 3},
             damage=80,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=recoil_attack(60),
         ),
     ],
 )

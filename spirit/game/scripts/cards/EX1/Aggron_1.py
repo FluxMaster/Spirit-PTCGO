@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Aggron (EX1 #1): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import (
+    damage_counters_on, damage_per, flip_damage, flip_or_nothing,
+)
+
 
 card = PokemonCardDef(
     guid="0af1e14c-e1c9-50f4-8169-cd350d50a3dc",
@@ -30,8 +30,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_or_nothing(then=damage_per(damage_counters_on("self"), per=10)),
         ),
         Attack(
             title="Mega Punch",
@@ -44,8 +43,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.METAL: 2, PokemonTypes.COLORLESS: 3},
             damage=70,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(coins=2, per_heads=70),
         ),
     ],
 )

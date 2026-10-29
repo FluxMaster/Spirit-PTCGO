@@ -1,12 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Energy Removal 2 (EX1 #80): trainer effect stubbed.
-
-Card text:
-  - Flip a coin. If heads, choose 1 Energy card attached to 1 of your opponent's Pokémon and discard it.
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.trainers import (
+    flip_discard_opponent_energy,
+    opponent_has_energy_attached,
+)
+
 
 card = ItemCardDef(
     guid="1e441269-b8be-54c4-8d06-1123d4c5722b",
@@ -18,6 +16,6 @@ card = ItemCardDef(
     collector_number=80,
     set_code="EX1",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    condition=opponent_has_energy_attached,
+    effect=flip_discard_opponent_energy("Energy Removal 2"),
 )

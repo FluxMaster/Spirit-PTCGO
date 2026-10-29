@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Poochyena (EX1 #64): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import flip_discard_random_from_opponent_hand
+
 
 card = PokemonCardDef(
     guid="8948c21e-ddf8-56a7-a276-73d2cbd5d469",
@@ -27,8 +25,7 @@ card = PokemonCardDef(
             title="Knock Off",
             game_text="Flip a coin. If heads, choose 1 card from your opponent's hand without looking and discard it.",
             cost={PokemonTypes.DARKNESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_discard_random_from_opponent_hand(),
         ),
         Attack(
             title="Rear Kick",

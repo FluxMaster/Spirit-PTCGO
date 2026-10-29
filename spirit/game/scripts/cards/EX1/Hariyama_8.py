@@ -1,9 +1,13 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Hariyama (EX1 #8): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import bonus_if
+from spirit.game.card_effects.ex import defender_is_ex
+
+
+async def super_slap_push(ctx):
+    """Does 20 damage to each Defending Pok\u00e9mon (no printed damage)."""
+    await ctx.deal_damage(20)
+
 
 card = PokemonCardDef(
     guid="6b8940a4-b5e4-558d-b0d6-f8ce9a9ed8ec",
@@ -27,8 +31,8 @@ card = PokemonCardDef(
             title="Super Slap Push",
             game_text="Does 20 damage to each Defending Pok\u00e9mon.",
             cost={PokemonTypes.FIGHTING: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            damage=0,
+            effect=super_slap_push,
         ),
         Attack(
             title="Mega Throw",
@@ -36,8 +40,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 2},
             damage=40,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bonus_if(defender_is_ex, 40),
         ),
     ],
 )

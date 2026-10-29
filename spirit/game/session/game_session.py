@@ -2157,7 +2157,7 @@ class GameSession:
         ko_triggers: List[Tuple[PokemonEntity, str, Ability, bool]] = []
         for pokemon in ctx.knockouts:
             owner_id = pokemon.owning_player_id
-            if owner_id is None or ability_locked(self.board_state, pokemon):
+            if owner_id is None:
                 continue
             was_active = self.board_state.active_pokemon(owner_id) is pokemon
             for entry in pokemon.get_attribute(AttrID.PIE_ABILITIES) or []:
@@ -2165,8 +2165,11 @@ class GameSession:
                     continue
                 ability_id = entry.get("abilityID")
                 ability = ABILITIES_BY_ID.get(ability_id) if ability_id else None
-                if ability is not None and ability.has_trigger(Triggers.ON_KNOCKED_OUT):
-                    ko_triggers.append((pokemon, owner_id, ability, was_active))
+                if ability is None or not ability.has_trigger(Triggers.ON_KNOCKED_OUT):
+                    continue
+                if ability_locked(self.board_state, pokemon, ability):
+                    continue
+                ko_triggers.append((pokemon, owner_id, ability, was_active))
 
         # Special-energy leave-play hooks (Gift Energy's draw) snapshotted with
         # the KO'd carrier before any stack moves; run only for attack KOs.
@@ -2224,7 +2227,6 @@ class GameSession:
             for ally in self.board_state.pokemon_in_play(owner_id):
                 if ally is pokemon or ally in ctx.knockouts:
                     continue
-                locked = ability_locked(self.board_state, ally)
                 for entry in ally.get_attribute(AttrID.PIE_ABILITIES) or []:
                     if not isinstance(entry, dict):
                         continue
@@ -2232,7 +2234,8 @@ class GameSession:
                     if ability is None \
                             or not ability.has_trigger(Triggers.ON_ALLY_KNOCKED_OUT):
                         continue
-                    if locked and not ability.is_granted:
+                    if ability_locked(self.board_state, ally, ability) \
+                            and not ability.is_granted:
                         continue
                     ally_triggers.append(
                         (ally, owner_id, ability, pokemon, ko_from_attack))

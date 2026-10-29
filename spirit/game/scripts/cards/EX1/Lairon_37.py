@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Lairon (EX1 #37): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_damage, spread_damage
+
 
 card = PokemonCardDef(
     guid="22ae1d68-7f10-5b36-bfe3-bc4bf61327d5",
@@ -29,8 +27,7 @@ card = PokemonCardDef(
             game_text="Does 10 damage to each Benched Pok\u00e9mon (both yours and your opponent's). (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.METAL: 1},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=spread_damage(10, side="both", also_base=True),
         ),
         Attack(
             title="One-Two Strike",
@@ -38,8 +35,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 4},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(coins=2, bonus_per_heads=20),
         ),
     ],
 )

@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Sceptile (EX1 #11): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import lizard_poison
+
 
 card = PokemonCardDef(
     guid="b7a7f4d8-9fab-51ce-9ee5-3db836cc9497",
@@ -29,8 +27,7 @@ card = PokemonCardDef(
             game_text="If 1 Energy is attached to Sceptile, the Defending Pok\u00e9mon is now Asleep. If 2 Energy is attached to Sceptile, the Defending Pok\u00e9mon is now Poisoned. If 3 Energy is attached to Sceptile, the Defending Pok\u00e9mon is now Asleep and Poisoned. If 4 or more Energy is attached to Sceptile, the Defending Pok\u00e9mon is now Asleep, Burned, and Poisoned.",
             cost={PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=lizard_poison(),
         ),
         Attack(
             title="Solarbeam",

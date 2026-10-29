@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Delcatty (EX1 #29): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import attach_from_discard
+from spirit.game.card_effects.ex import extra_energy_damage
+
 
 card = PokemonCardDef(
     guid="622a0ecd-7195-5de7-82d1-4deb35caaf1f",
@@ -28,8 +27,7 @@ card = PokemonCardDef(
             game_text="Attach 1 Energy card from your discard pile to your Active Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=attach_from_discard(),
         ),
         Attack(
             title="Cannonball",
@@ -37,8 +35,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=extra_energy_damage(10, base=30),
         ),
     ],
 )

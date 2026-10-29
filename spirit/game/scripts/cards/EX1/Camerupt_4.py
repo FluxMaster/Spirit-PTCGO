@@ -1,9 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Camerupt (EX1 #4): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import snipe_attack
+from spirit.game.card_effects.ex import (
+    attached_basic_energy_at_least, discard_basic_energy_attack,
+)
+
 
 card = PokemonCardDef(
     guid="fd6392f4-4dc9-5b89-aabc-2f40433f4a94",
@@ -28,16 +29,15 @@ card = PokemonCardDef(
             game_text="Choose 1 of your opponent's Benched Pok\u00e9mon. This attack does 10 damage to that Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.FIRE: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=snipe_attack(10, also_base=True),
         ),
         Attack(
             title="Fire Spin",
             game_text="Discard 2 basic Energy cards attached to Camerupt or this attack does nothing.",
             cost={PokemonTypes.FIRE: 2, PokemonTypes.COLORLESS: 2},
             damage=100,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            condition=attached_basic_energy_at_least(2),
+            effect=discard_basic_energy_attack(2),
         ),
     ],
 )

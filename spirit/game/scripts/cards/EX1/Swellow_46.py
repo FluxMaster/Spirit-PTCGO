@@ -1,9 +1,18 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Swellow (EX1 #46): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import poke_power_condition
+from spirit.game.card_effects.passives_common import is_in_active_spot
+from spirit.game.card_effects.support_common import gust_attack
+from spirit.game.card_effects.trainers import opponent_has_bench
+
+
+def _drive_off_ok(board, player_id, pokemon=None):
+    return (
+        pokemon is not None
+        and is_in_active_spot(pokemon)
+        and opponent_has_bench(board, player_id)
+    )
+
 
 card = PokemonCardDef(
     guid="4e959480-78cf-5cbc-ab9f-95b59b39c193",
@@ -28,8 +37,9 @@ card = PokemonCardDef(
             title="Drive Off",
             game_text="Once during your turn (before your attack), if Swellow is your Active Pok\u00e9mon, you may switch 1 of the Defending Pok\u00e9mon with 1 of your opponent's Benched Pok\u00e9mon. Your opponent picks the Benched Pok\u00e9mon to switch. This power can't be used if Swellow is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=poke_power_condition(_drive_off_ok),
+            effect=gust_attack(damage_before=0, opponent_chooses=True),
         ),
         Attack(
             title="Wing Attack",

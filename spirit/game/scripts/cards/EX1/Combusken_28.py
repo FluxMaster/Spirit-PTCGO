@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Combusken (EX1 #28): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import flip_or_nothing
+from spirit.game.card_effects.ex import natural_cure_on_attach
 
 
 card = PokemonCardDef(
@@ -29,15 +26,14 @@ card = PokemonCardDef(
             title="Natural Cure",
             game_text="When you attach a Fire Energy card from your hand to Combusken, remove all Special Conditions from Combusken.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=Triggers.ON_ENERGY_ATTACHED,
+            effect=natural_cure_on_attach(PokemonTypes.FIRE),
         ),
         Attack(
             title="Lunge",
             game_text="Flip a coin. If tails, this attack does nothing.",
             cost={PokemonTypes.COLORLESS: 2},
             damage=50,
-            # STUB: attack effect not implemented
             effect=flip_or_nothing(),
         ),
     ],

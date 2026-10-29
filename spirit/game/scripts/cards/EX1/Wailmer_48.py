@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Wailmer (EX1 #48): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import rest_attack
+from spirit.game.card_effects.ex import extra_energy_damage
+
 
 card = PokemonCardDef(
     guid="c76c129c-3f5f-5ec2-8457-8ec3a171809f",
@@ -26,8 +25,7 @@ card = PokemonCardDef(
             title="Rest",
             game_text="Remove all Special Conditions and 4 damage counters from Wailmer (all if there are less than 4). Wailmer is now Asleep.",
             cost={PokemonTypes.COLORLESS: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=rest_attack(4),
         ),
         Attack(
             title="Water Gun",
@@ -35,8 +33,9 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=extra_energy_damage(
+                10, base=20, extra_cap=2, energy_type=PokemonTypes.WATER,
+            ),
         ),
     ],
 )

@@ -1,9 +1,12 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Slaking (EX1 #12): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import (
+    attached_basic_energy_at_least,
+    discard_basic_energy_attack,
+    lock_own_attacks,
+    opponent_poke_power_lock,
+)
+
 
 card = PokemonCardDef(
     guid="05ba3cf9-5324-5441-be6f-1d585275a3db",
@@ -27,16 +30,15 @@ card = PokemonCardDef(
             title="Lazy",
             game_text="As long as Slaking is your Active Pok\u00e9mon, your opponent's Pok\u00e9mon can't use any Pok\u00e9-Powers.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=opponent_poke_power_lock(),
         ),
         Attack(
             title="Critical Move",
             game_text="Discard a basic Energy card attached to Slaking or this attack does nothing. Slaking can't attack during your next turn.",
             cost={PokemonTypes.COLORLESS: 4},
             damage=100,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            condition=attached_basic_energy_at_least(1),
+            effect=discard_basic_energy_attack(1, also=lock_own_attacks),
         ),
     ],
 )

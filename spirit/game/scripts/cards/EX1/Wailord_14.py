@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Wailord (EX1 #14): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import recoil_attack
+
 
 card = PokemonCardDef(
     guid="6495c703-f896-5de9-ad57-aee498df6790",
@@ -28,8 +26,7 @@ card = PokemonCardDef(
             game_text="Wailord does 20 damage to itself.",
             cost={PokemonTypes.COLORLESS: 3},
             damage=50,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=recoil_attack(20),
         ),
         Attack(
             title="Surf",

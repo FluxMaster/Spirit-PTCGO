@@ -1,9 +1,13 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Sharpedo (EX1 #22): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import discard_for_bonus
+from spirit.game.card_effects.ex import rough_skin
+from spirit.game.card_effects.pokemon import energy_provides_type
+
+
+def _is_darkness_energy(card):
+    return energy_provides_type(card, PokemonTypes.DARKNESS.value)
+
 
 card = PokemonCardDef(
     guid="c713de78-d71a-5718-8850-543fb3483b56",
@@ -27,8 +31,8 @@ card = PokemonCardDef(
             title="Rough Skin",
             game_text="If Sharpedo is your Active Pok\u00e9mon and is damaged by an opponent's attack (even if Sharpedo is Knocked Out), put 2 damage counters on the Attacking Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=Triggers.ON_DAMAGED_BY_ATTACK,
+            effect=rough_skin(2),
         ),
         Attack(
             title="Dark Slash",
@@ -36,8 +40,10 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 2},
             damage=40,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=discard_for_bonus(
+                source="self-energy", predicate=_is_darkness_energy, flat=30,
+                prompt="You may discard a Darkness Energy card",
+            ),
         ),
     ],
 )

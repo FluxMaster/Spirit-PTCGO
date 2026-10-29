@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Phanpy (EX1 #62): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.data_utils import PokemonCardDef, Attack
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, SpecialConditions
+from spirit.game.card_effects.attacks_common import condition_attack, flip_or_nothing
 
 card = PokemonCardDef(
     guid="9750173e-0783-5898-a10c-6c8d73ae628b",
@@ -31,8 +28,8 @@ card = PokemonCardDef(
             title="Trembler",
             game_text="Flip a coin. If heads, this attack does 10 damage to each Defending Pok\u00e9mon, and each Defending Pok\u00e9mon is now Paralyzed.",
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_or_nothing(
+                then=condition_attack(SpecialConditions.PARALYZED, damage=10)),
         ),
     ],
 )

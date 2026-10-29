@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Kirlia (EX1 #34): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import discard_opponent_energy_attack
+
 
 card = PokemonCardDef(
     guid="f9d94055-baf0-562d-8fbd-1f31ec87cf88",
@@ -28,8 +26,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, discard 1 Energy card attached to the Defending Pok\u00e9mon.",
             cost={PokemonTypes.PSYCHIC: 1},
             damage=10,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=discard_opponent_energy_attack(flip=True),
         ),
         Attack(
             title="Super Psy",
