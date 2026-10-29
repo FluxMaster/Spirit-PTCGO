@@ -4,6 +4,8 @@ Regigigas (SM4 #84): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm3 import bedrock_breaker
+
 
 card = PokemonCardDef(
     guid="971f3507-0cac-50dd-85fb-5d9e8ce52ade",
@@ -35,7 +37,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 5},
             damage=160,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bedrock_breaker,
         ),
     ],
 )

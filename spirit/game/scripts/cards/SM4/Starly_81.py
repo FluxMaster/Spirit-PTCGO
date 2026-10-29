@@ -5,6 +5,13 @@ Starly (SM4 #81): one or more attacks/abilities use effect=unimplemented until a
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 
+
+async def pry(ctx):
+    """10 damage. Your opponent reveals their hand."""
+    await ctx.deal_damage()
+    await ctx.reveal_hand(of_player=ctx.opponent_id)
+
+
 card = PokemonCardDef(
     guid="16575380-dc2a-5ad4-a4d9-c5db0cc2c234",
     key="SM4",
@@ -29,7 +36,7 @@ card = PokemonCardDef(
             game_text="Your opponent reveals their hand.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=pry,
         ),
         Attack(
             title="Flap",

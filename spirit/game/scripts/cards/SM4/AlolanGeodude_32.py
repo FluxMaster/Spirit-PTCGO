@@ -4,6 +4,8 @@ Alolan Geodude (SM4 #32): one or more attacks/abilities use effect=unimplemented
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.passives_common import flip_protection
+
 
 card = PokemonCardDef(
     guid="ab525caf-19e5-56d4-9a69-aaa0156e3f40",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, prevent all damage done to this Pok\u00e9mon by attacks during your opponent's next turn.",
             cost={},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_protection(prevent=True),
         ),
         Attack(
             title="Tackle",

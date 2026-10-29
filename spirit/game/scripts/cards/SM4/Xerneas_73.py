@@ -4,6 +4,9 @@ Xerneas (SM4 #73): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.session.effects import is_supporter_card
+from spirit.game.card_effects.support_common import search_to_hand
+
 
 card = PokemonCardDef(
     guid="a533657e-2f90-5a8f-8ba6-6199f518f53c",
@@ -29,7 +32,7 @@ card = PokemonCardDef(
             game_text="Search your deck for a Supporter card, reveal it, and put it into your hand. Then, shuffle your deck.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=search_to_hand(is_supporter_card, count=1, reveal=True, prompt='Choose a Supporter card.'),
         ),
         Attack(
             title="Bright Horns",

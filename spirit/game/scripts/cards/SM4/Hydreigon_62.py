@@ -5,6 +5,24 @@ Hydreigon (SM4 #62): one or more attacks/abilities use effect=unimplemented unti
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 
+
+async def radiating_heat(ctx):
+    """20 damage. You may discard an Energy from this Pokémon; if you do,
+    discard an Energy from the opponent's Active Pokémon."""
+    await ctx.deal_damage()
+    if not ctx.attached_energies(ctx.attacker):
+        return
+    if not await ctx.ask_yes_no("Discard an Energy from this Pokémon?"):
+        return
+    discarded = await ctx.discard_energy_from(ctx.attacker, 1)
+    if not discarded:
+        return
+    defender = ctx.defender
+    if defender is not None and ctx.attached_energies(defender) \
+            and not ctx.effects_blocked(defender):
+        await ctx.discard_energy_from(defender, 1)
+
+
 card = PokemonCardDef(
     guid="9133ec9a-4f4c-5867-a2a0-6f7fcc8f349c",
     key="SM4",
@@ -38,7 +56,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.DARKNESS: 2, PokemonTypes.COLORLESS: 1},
             damage=120,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=radiating_heat,
         ),
     ],
 )

@@ -4,6 +4,11 @@ Silvally-GX (SM4 #119): one or more attacks/abilities use effect=unimplemented u
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.support_common import attach_from_discard
+from spirit.game.card_effects.trainers import is_basic_energy_card
+from spirit.game.card_effects.passives_common import is_in_active_spot
+from spirit.game.card_effects.attacks_common import damage_per, count_bench
+
 
 card = PokemonCardDef(
     guid="c4fa85e6-181a-5772-a84c-bc56b3e71f78",
@@ -36,7 +41,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=120,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=attach_from_discard(predicate=is_basic_energy_card, count=1, target=lambda p: not is_in_active_spot(p), prompt='Choose a basic Energy card to attach to a Benched Pokémon'),
         ),
         Attack(
             title="Rebel-GX",
@@ -45,7 +50,7 @@ card = PokemonCardDef(
             damage=50,
             damage_operator="x",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_per(count_bench('opponent'), 50),
         ),
     ],
 )

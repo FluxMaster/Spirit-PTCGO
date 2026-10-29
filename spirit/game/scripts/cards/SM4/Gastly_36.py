@@ -4,6 +4,8 @@ Gastly (SM4 #36): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import place_counters
+
 
 card = PokemonCardDef(
     guid="f6d913ce-e56a-5fa7-81cd-d9f36d2ec730",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             game_text="Put 1 damage counter on 1 of your opponent's Pok\u00e9mon.",
             cost={PokemonTypes.PSYCHIC: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=place_counters(1, 'choose_any_opponent'),
         ),
     ],
 )

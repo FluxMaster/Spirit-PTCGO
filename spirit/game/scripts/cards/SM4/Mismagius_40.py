@@ -4,6 +4,8 @@ Mismagius (SM4 #40): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import damage_per, count_hand
+
 
 card = PokemonCardDef(
     guid="b6518f64-af46-5cf4-b65c-491ae7f14d06",
@@ -40,7 +42,7 @@ card = PokemonCardDef(
             damage=20,
             damage_operator="x",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_per(count_hand('opponent'), 20),
         ),
     ],
 )

@@ -4,6 +4,9 @@ Bewear (SM4 #56): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import bonus_if, active_is
+from spirit.game.session.effects import is_evolution_pokemon
+
 
 card = PokemonCardDef(
     guid="d39573d3-372f-5739-a302-9eaa257cd1ba",
@@ -37,7 +40,7 @@ card = PokemonCardDef(
             damage=60,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bonus_if(active_is(is_evolution_pokemon), 60),
         ),
     ],
 )

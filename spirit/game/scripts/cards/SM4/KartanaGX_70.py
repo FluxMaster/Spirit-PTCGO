@@ -4,6 +4,8 @@ Kartana-GX (SM4 #70): one or more attacks/abilities use effect=unimplemented unt
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.support_common import remove_self_from_play
+
 
 card = PokemonCardDef(
     guid="d4c98528-3aa2-5568-81ea-dd2ab97c2504",
@@ -37,7 +39,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.METAL: 1, PokemonTypes.COLORLESS: 2},
             damage=70,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=remove_self_from_play('deck', optional=True),
         ),
         Attack(
             title="Blade-GX",

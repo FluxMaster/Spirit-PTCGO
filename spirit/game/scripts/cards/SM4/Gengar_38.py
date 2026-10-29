@@ -4,6 +4,21 @@ Gengar (SM4 #38): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.data_utils import Triggers
+from spirit.game.attributes import SpecialConditions
+from spirit.game.card_effects.attacks_common import condition_attack
+
+
+async def biting_whirlpool(ctx):
+    """Whenever your opponent attaches an Energy card from their hand to 1 of
+    their Pokémon, put 2 damage counters on that Pokémon."""
+    if ctx.attaching_player_id == ctx.player_id:
+        return
+    receiver = ctx.energy_receiver
+    if receiver is None:
+        return
+    await ctx.deal_damage(20, target=receiver, apply_modifiers=False, as_counters=True)
+
 
 card = PokemonCardDef(
     guid="59311da7-6924-52e8-a9ea-7a5eb66844c7",
@@ -30,7 +45,8 @@ card = PokemonCardDef(
             game_text="Whenever your opponent attaches an Energy card from their hand to 1 of their Pok\u00e9mon, put 2 damage counters on that Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=Triggers.ON_ENERGY_ATTACHED,
+            effect=biting_whirlpool,
         ),
         Attack(
             title="Fade to Black",
@@ -38,7 +54,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 2},
             damage=70,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(SpecialConditions.CONFUSED),
         ),
     ],
 )

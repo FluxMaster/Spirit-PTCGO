@@ -4,6 +4,8 @@ Escavalier (SM4 #69): one or more attacks/abilities use effect=unimplemented unt
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_damage, recoil_attack
+
 
 card = PokemonCardDef(
     guid="613a8daa-3797-579e-adab-554fed120ad1",
@@ -32,7 +34,7 @@ card = PokemonCardDef(
             damage=30,
             damage_operator="x",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(coins=3, per_heads=30),
         ),
         Attack(
             title="Iron Tackle",
@@ -40,7 +42,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.METAL: 2, PokemonTypes.COLORLESS: 1},
             damage=130,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=recoil_attack(30),
         ),
     ],
 )

@@ -4,6 +4,14 @@ Buzzwole-GX (SM4 #57): one or more attacks/abilities use effect=unimplemented un
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import snipe_attack, lock_all_attacks
+
+
+async def _freeze_shock(ctx):
+    """Printed damage; this Pokemon can't attack during your next turn."""
+    await ctx.deal_damage()
+    lock_all_attacks(ctx, ctx.attacker)
+
 
 card = PokemonCardDef(
     guid="77809d35-dd4e-58b8-8f2d-6f3d231ff067",
@@ -28,7 +36,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=snipe_attack(30),
         ),
         Attack(
             title="Knuckle Impact",
@@ -36,7 +44,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 3},
             damage=160,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=_freeze_shock,
         ),
         Attack(
             title="Absorption-GX",
