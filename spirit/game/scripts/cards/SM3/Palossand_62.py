@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Palossand (SM3 #62): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.sm3 import dust_storm
 
 
 card = PokemonCardDef(
@@ -40,8 +37,7 @@ card = PokemonCardDef(
             game_text="Discard all cards from both Active Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 4},
             damage=100,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=dust_storm,
         ),
     ],
 )

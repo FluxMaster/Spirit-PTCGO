@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Marshadow-GX (SM3 #80): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import damage_per
+from spirit.game.card_effects.sm3 import ShadowHuntPassive, count_basic_energy
 
 card = PokemonCardDef(
     guid="85eb436e-6c07-5662-95ac-fed61aa9a98e",
@@ -26,8 +24,7 @@ card = PokemonCardDef(
             title="Shadow Hunt",
             game_text="This Pok\u00e9mon can use the attacks of any Basic Pok\u00e9mon in your discard pile. (You still need the necessary Energy to use each attack.)",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=ShadowHuntPassive(),
         ),
         Attack(
             title="Beatdown",
@@ -40,8 +37,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1},
             damage=50,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_per(count_basic_energy, 50),
         ),
     ],
 )

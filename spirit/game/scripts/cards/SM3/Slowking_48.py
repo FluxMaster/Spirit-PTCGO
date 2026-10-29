@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Slowking (SM3 #48): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.support_common import search_to_hand
+from spirit.game.card_effects.sm3 import UnarmedPassive
 
 
 card = PokemonCardDef(
@@ -24,6 +21,7 @@ card = PokemonCardDef(
     weakness_type=PokemonTypes.PSYCHIC,
     evolves_from="com.direwolfdigital.cake.data.archetypes.pokemon.Slowpoke.Name",
     family_id=199,
+    passive=UnarmedPassive(),
     abilities=[
         Attack(
             title="Drift Ashore",
@@ -37,8 +35,6 @@ card = PokemonCardDef(
             game_text="If you have no cards in your hand, ignore all Energy in this attack's cost.",
             cost={PokemonTypes.PSYCHIC: 3},
             damage=110,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
         ),
     ],
 )

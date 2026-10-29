@@ -1,11 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Heatmor (SM3 #24): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.sm3 import odor_sleuth
 
 
 card = PokemonCardDef(
@@ -29,8 +26,7 @@ card = PokemonCardDef(
             title="Odor Sleuth",
             game_text="Flip 2 coins. For each heads, put a card from your discard pile into your hand.",
             cost={PokemonTypes.COLORLESS: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=odor_sleuth,
         ),
         Attack(
             title="Searing Flame",

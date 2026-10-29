@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Kingdra (SM3 #31): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm3 import brine, tornado_shot
 
 card = PokemonCardDef(
     guid="acdd92d7-712e-5077-986a-6aadf034cf11",
@@ -27,16 +24,14 @@ card = PokemonCardDef(
             title="Brine",
             game_text="This attack does 90 damage to 1 of your opponent's Pok\u00e9mon that has any damage counters on it. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.WATER: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=brine,
         ),
         Attack(
             title="Tornado Shot",
             game_text="Discard a Water Energy from this Pok\u00e9mon. This attack does 30 damage to 1 of your opponent's Benched Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.WATER: 1},
             damage=90,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=tornado_shot,
         ),
     ],
 )

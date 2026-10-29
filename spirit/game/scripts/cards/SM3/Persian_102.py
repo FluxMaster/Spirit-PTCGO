@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Persian (SM3 #102): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm3 import screech
 
 card = PokemonCardDef(
     guid="b7979e3c-c5f5-5ef7-a981-226bc3ee5f4d",
@@ -27,8 +24,7 @@ card = PokemonCardDef(
             title="Screech",
             game_text="During your next turn, the Defending Pok\u00e9mon takes 60 more damage from attacks (after applying Weakness and Resistance).",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=screech,
         ),
         Attack(
             title="Slash",

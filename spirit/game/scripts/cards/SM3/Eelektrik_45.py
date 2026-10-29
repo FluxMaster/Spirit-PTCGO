@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Eelektrik (SM3 #45): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm3 import small_appetite
 
 card = PokemonCardDef(
     guid="71a8385f-185a-50c2-a839-514416507464",
@@ -30,8 +27,7 @@ card = PokemonCardDef(
             game_text="If your opponent's Active Pok\u00e9mon's maximum HP is 100 or more, this attack does nothing.",
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 1},
             damage=50,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=small_appetite,
         ),
     ],
 )

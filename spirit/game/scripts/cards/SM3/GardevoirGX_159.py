@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Gardevoir-GX (SM3 #159): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm3 import fairy_energy_in_hand, infinite_force, secret_spring, twilight_gx
 
 card = PokemonCardDef(
     guid="a2abb940-8138-53d0-b7e2-5061df82c4ba",
@@ -29,8 +26,9 @@ card = PokemonCardDef(
             title="Secret Spring",
             game_text="Once during your turn (before your attack), you may attach a Fairy Energy card from your hand to 1 of your Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=fairy_energy_in_hand,
+            effect=secret_spring,
         ),
         Attack(
             title="Infinite Force",
@@ -38,15 +36,13 @@ card = PokemonCardDef(
             cost={PokemonTypes.FAIRY: 1},
             damage=30,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=infinite_force,
         ),
         Attack(
             title="Twilight-GX",
             game_text="Shuffle 10 cards from your discard pile into your deck. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.FAIRY: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=twilight_gx,
         ),
     ],
 )

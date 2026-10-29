@@ -1,11 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Noctowl (SM3 #107): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.sm3 import night_raid
 
 
 card = PokemonCardDef(
@@ -41,8 +38,7 @@ card = PokemonCardDef(
             game_text="Your opponent reveals their hand. Discard a Pok\u00e9mon from it.",
             cost={PokemonTypes.COLORLESS: 3},
             damage=70,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=night_raid,
         ),
     ],
 )

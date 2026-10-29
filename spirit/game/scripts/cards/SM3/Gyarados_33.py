@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Gyarados (SM3 #33): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm3 import splash_burn, venting_anger
 
 card = PokemonCardDef(
     guid="65f8452b-3c24-5642-bbcf-e640120f922c",
@@ -29,16 +26,14 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=50,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=venting_anger,
         ),
         Attack(
             title="Splash Burn",
             game_text="This attack does 30 damage to each of your Benched Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.WATER: 2, PokemonTypes.COLORLESS: 2},
             damage=160,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=splash_burn,
         ),
     ],
 )

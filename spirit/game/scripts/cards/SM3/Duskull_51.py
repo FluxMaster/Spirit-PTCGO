@@ -1,7 +1,3 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Duskull (SM3 #51): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.session.effects import is_basic_pokemon

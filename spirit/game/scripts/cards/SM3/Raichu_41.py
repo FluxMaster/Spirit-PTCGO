@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Raichu (SM3 #41): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import recoil_attack
+from spirit.game.card_effects.sm3 import evoshock
 
 
 card = PokemonCardDef(
@@ -31,8 +28,8 @@ card = PokemonCardDef(
             title="Evoshock",
             game_text="When you play this Pok\u00e9mon from your hand to evolve 1 of your Pok\u00e9mon during your turn, you may leave your opponent's Active Pok\u00e9mon Paralyzed.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=Triggers.ON_EVOLVE,
+            effect=evoshock,
         ),
         Attack(
             title="Volt Tackle",

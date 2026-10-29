@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Salazzle-GX (SM3 #25): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm3 import queens_haze_gx
+from spirit.game.card_effects.attacks_common import count_prizes_taken, damage_per
 
 card = PokemonCardDef(
     guid="f401f972-c7a7-5ca9-b16c-7edaa04a5e00",
@@ -29,8 +27,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 2},
             damage=50,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_per(count_prizes_taken(), 50),
         ),
         Attack(
             title="Heat Blast",
@@ -41,8 +38,7 @@ card = PokemonCardDef(
             title="Queen's Haze-GX",
             game_text="Discard all Energy from your opponent's Active Pok\u00e9mon. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.FIRE: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=queens_haze_gx,
         ),
     ],
 )

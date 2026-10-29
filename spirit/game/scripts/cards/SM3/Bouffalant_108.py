@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Bouffalant (SM3 #108): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.passives_common import protect_next_turn
+from spirit.game.card_effects.sm3 import knock_over
 
 
 card = PokemonCardDef(
@@ -37,8 +34,7 @@ card = PokemonCardDef(
             game_text="You may discard any Stadium card in play.",
             cost={PokemonTypes.COLORLESS: 3},
             damage=80,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=knock_over,
         ),
     ],
 )

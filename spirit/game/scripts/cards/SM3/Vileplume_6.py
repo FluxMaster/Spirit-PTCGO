@@ -1,11 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Vileplume (SM3 #6): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.sm3 import DisgustingPollenPassive
 
 
 card = PokemonCardDef(
@@ -30,8 +27,7 @@ card = PokemonCardDef(
             title="Disgusting Pollen",
             game_text="As long as this Pok\u00e9mon is your Active Pok\u00e9mon, your opponent's Basic Pok\u00e9mon can't attack.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=DisgustingPollenPassive(),
         ),
         Attack(
             title="Downer Shock",

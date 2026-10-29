@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Azumarill (SM3 #35): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm3 import ThickFatPassive
 
 card = PokemonCardDef(
     guid="578219dd-cc6d-58b2-ae32-acc4ec3ffab3",
@@ -27,8 +24,7 @@ card = PokemonCardDef(
             title="Thick Fat",
             game_text="This Pok\u00e9mon takes 30 less damage from the attacks of your opponent's Fire or Water Pok\u00e9mon (after applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=ThickFatPassive(),
         ),
         Attack(
             title="Waterfall",

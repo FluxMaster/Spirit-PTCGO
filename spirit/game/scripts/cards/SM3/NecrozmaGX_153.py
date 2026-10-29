@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Necrozma-GX (SM3 #153): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm3 import LightsEndPassive, black_ray_gx, prismatic_burst
 
 card = PokemonCardDef(
     guid="88ac58b9-eca6-5a88-b4f0-78c6ac200656",
@@ -26,8 +23,7 @@ card = PokemonCardDef(
             title="Light's End",
             game_text="Prevent all damage done to this Pok\u00e9mon by attacks from Colorless Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=LightsEndPassive(),
         ),
         Attack(
             title="Prismatic Burst",
@@ -35,15 +31,13 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=prismatic_burst,
         ),
         Attack(
             title="Black Ray-GX",
             game_text="This attack does 100 damage to each of your opponent's Pok\u00e9mon-GX and Pok\u00e9mon-EX. This damage isn't affected by Weakness or Resistance. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.COLORLESS: 3},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=black_ray_gx,
         ),
     ],
 )

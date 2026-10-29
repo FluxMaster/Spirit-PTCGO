@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Alolan Muk-GX (SM3 #84): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.pokemon import rock_crush
+from spirit.game.card_effects.sm3 import chemical_breath, tri_hazard_gx
 
 
 card = PokemonCardDef(
@@ -33,8 +30,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.DARKNESS: 1, PokemonTypes.COLORLESS: 2},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=chemical_breath,
         ),
         Attack(
             title="Crunch",
@@ -48,8 +44,7 @@ card = PokemonCardDef(
             title="Tri Hazard-GX",
             game_text="Switch 1 of your opponent's Benched Pok\u00e9mon with their Active Pok\u00e9mon. The new Active Pok\u00e9mon is now Burned, Paralyzed, and Poisoned. (You can't use more than 1 GX attack in a game.)",
             cost={},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=tri_hazard_gx,
         ),
     ],
 )

@@ -1,13 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Guzma (SM3 #115): trainer effect stubbed.
-
-Card text:
-  - Switch 1 of your opponent's Benched Pokémon with their Active Pokémon. If you do, switch your Active Pokémon with 1 of your Benched Pokémon.
-  - You may play only 1 Supporter card during your turn (before your attack).
-"""
-
 from spirit.game.data_utils import SupporterCardDef, unimplemented
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.sm3 import guzma, guzma_condition
 
 card = SupporterCardDef(
     guid="8f333679-c841-521d-bafc-83f4529c1f97",
@@ -19,6 +12,5 @@ card = SupporterCardDef(
     collector_number=115,
     set_code="SM3",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
-)
+    condition=guzma_condition,
+    effect=guzma,)

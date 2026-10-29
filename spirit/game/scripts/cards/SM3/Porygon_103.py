@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Porygon (SM3 #103): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm3 import code_check
 
 card = PokemonCardDef(
     guid="bc5a7d8c-1f6c-5d49-9c4b-1684733dc165",
@@ -26,8 +23,7 @@ card = PokemonCardDef(
             title="Code Check",
             game_text="Look at 1 of your opponent's face-down Prize cards.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=code_check,
         ),
         Attack(
             title="Beam",

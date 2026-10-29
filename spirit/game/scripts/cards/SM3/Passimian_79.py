@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Passimian (SM3 #79): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm3 import intentional_grounding
 
 card = PokemonCardDef(
     guid="b381e864-d1b3-560c-bfc0-7f1eca539c60",
@@ -32,8 +29,7 @@ card = PokemonCardDef(
             game_text="Discard a Pok\u00e9mon Tool card from your hand. If you don't, this attack does nothing.",
             cost={PokemonTypes.FIGHTING: 2},
             damage=90,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=intentional_grounding,
         ),
     ],
 )

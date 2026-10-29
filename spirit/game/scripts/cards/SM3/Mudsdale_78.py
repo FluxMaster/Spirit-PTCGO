@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Mudsdale (SM3 #78): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.support_common import gust_attack
+from spirit.game.card_effects.sm3 import vigorous_dash
 
 
 card = PokemonCardDef(
@@ -38,8 +35,7 @@ card = PokemonCardDef(
             game_text="This Pok\u00e9mon does 30 damage to itself. This attack does 30 damage to 1 of your opponent's Benched Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 3},
             damage=130,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=vigorous_dash,
         ),
     ],
 )

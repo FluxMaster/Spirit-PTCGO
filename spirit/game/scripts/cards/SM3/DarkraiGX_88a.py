@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Darkrai-GX (SM3 #88a): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm3 import dead_end_gx, restoration, restoration_condition
 
 
 async def feint(ctx):
@@ -34,8 +31,10 @@ card = PokemonCardDef(
             title="Restoration",
             game_text="Once during your turn (before your attack), if this Pok\u00e9mon is in your discard pile, you may put it onto your Bench. Then, attach a Darkness Energy card from your discard pile to this Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            usable_from="discard",
+            activation=Activations.ONCE_PER_TURN,
+            condition=restoration_condition,
+            effect=restoration,
         ),
         Attack(
             title="Dark Cleave",
@@ -49,8 +48,7 @@ card = PokemonCardDef(
             title="Dead End-GX",
             game_text="If your opponent's Active Pok\u00e9mon is affected by a Special Condition, that Pok\u00e9mon is Knocked Out. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.DARKNESS: 2, PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=dead_end_gx,
         ),
     ],
 )

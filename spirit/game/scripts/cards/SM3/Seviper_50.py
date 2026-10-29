@@ -1,11 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Seviper (SM3 #50): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.sm3 import MorePoisonPassive
 
 
 card = PokemonCardDef(
@@ -29,8 +26,7 @@ card = PokemonCardDef(
             title="More Poison",
             game_text="Put 1 more damage counter on your opponent's Poisoned Pok\u00e9mon between turns.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=MorePoisonPassive(),
         ),
         Attack(
             title="Venomous Fang",

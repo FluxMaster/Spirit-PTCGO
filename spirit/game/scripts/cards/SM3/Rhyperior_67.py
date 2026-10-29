@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Rhyperior (SM3 #67): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.data_utils import Triggers
+from spirit.game.card_effects.sm3 import rock_wrecker
 
 
 async def mountain_roasting(ctx):
@@ -44,8 +41,7 @@ card = PokemonCardDef(
             game_text="This attack's damage isn't affected by Weakness or Resistance. This Pok\u00e9mon can't attack during your next turn.",
             cost={PokemonTypes.FIGHTING: 2, PokemonTypes.COLORLESS: 2},
             damage=170,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=rock_wrecker,
         ),
     ],
 )

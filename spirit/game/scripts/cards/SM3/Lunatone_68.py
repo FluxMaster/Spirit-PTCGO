@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Lunatone (SM3 #68): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm3 import LunatoneHealBlockPassive
 
 card = PokemonCardDef(
     guid="77d25720-a1b6-5d76-b35c-6d5af1bf7c5a",
@@ -26,8 +23,7 @@ card = PokemonCardDef(
             title="Heal Block",
             game_text="If you have Solrock in play, Pok\u00e9mon (both yours and your opponent's) can't be healed.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=LunatoneHealBlockPassive(),
         ),
         Attack(
             title="Lunar Blast",

@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dusclops (SM3 #52): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_bonus
+from spirit.game.card_effects.sm3 import night_roam
 
 
 card = PokemonCardDef(
@@ -31,8 +28,7 @@ card = PokemonCardDef(
             title="Night Roam",
             game_text="Put 1 damage counter on each Pok\u00e9mon (both yours and your opponent's).",
             cost={PokemonTypes.PSYCHIC: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=night_roam,
         ),
         Attack(
             title="Ambush",

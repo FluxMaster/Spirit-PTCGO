@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Eelektross (SM3 #46): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.sm3 import vacuum_bolt
 
 
 card = PokemonCardDef(
@@ -41,8 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 2, PokemonTypes.COLORLESS: 1},
             damage=80,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=vacuum_bolt,
         ),
     ],
 )

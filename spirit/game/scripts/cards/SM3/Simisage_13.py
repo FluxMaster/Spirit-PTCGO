@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Simisage (SM3 #13): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm3 import leaf_supply
 
 card = PokemonCardDef(
     guid="b43d89e0-b5f5-5398-8989-25496b83bcc8",
@@ -33,8 +30,7 @@ card = PokemonCardDef(
             game_text="You may attach a Grass Energy card from your hand to 1 of your Pok\u00e9mon.",
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 1},
             damage=50,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=leaf_supply,
         ),
     ],
 )

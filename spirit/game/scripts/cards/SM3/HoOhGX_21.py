@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Ho-Oh-GX (SM3 #21): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import snipe_attack
+from spirit.game.card_effects.sm3 import eternal_flame_gx
 
 
 card = PokemonCardDef(
@@ -38,15 +35,13 @@ card = PokemonCardDef(
             game_text="This Pok\u00e9mon can't use Phoenix Burn during your next turn.",
             cost={PokemonTypes.FIRE: 3, PokemonTypes.COLORLESS: 1},
             damage=180,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            locks_next_turn=True,
         ),
         Attack(
             title="Eternal Flame-GX",
             game_text="Put 3 in any combination of Fire Pok\u00e9mon-GX or Fire Pok\u00e9mon-EX from your discard pile onto your Bench. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.FIRE: 1, PokemonTypes.COLORLESS: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=eternal_flame_gx,
         ),
     ],
 )

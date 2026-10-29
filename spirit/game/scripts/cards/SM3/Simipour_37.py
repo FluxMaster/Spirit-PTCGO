@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Simipour (SM3 #37): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm3 import aqua_reflect
 
 card = PokemonCardDef(
     guid="87e8242e-f083-5fca-8b2a-950f028a5b71",
@@ -33,8 +30,7 @@ card = PokemonCardDef(
             game_text="Move a Water Energy from this Pok\u00e9mon to 1 of your Benched Pok\u00e9mon.",
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 1},
             damage=50,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=aqua_reflect,
         ),
     ],
 )

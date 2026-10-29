@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Weavile (SM3 #86): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm3 import rule_of_evil
 
 card = PokemonCardDef(
     guid="2d45d205-a8f6-5227-be9b-aa2b360fe157",
@@ -29,8 +26,7 @@ card = PokemonCardDef(
             title="Rule of Evil",
             game_text="This attack does 60 damage to each Pok\u00e9mon that has an Ability (both yours and your opponent's). (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=rule_of_evil,
         ),
         Attack(
             title="Slash",

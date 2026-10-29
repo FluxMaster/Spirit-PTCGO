@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Simisear (SM3 #23): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm3 import flare_recharge
 
 card = PokemonCardDef(
     guid="a2f347ee-eb37-5730-87d3-a39b21d40bdb",
@@ -33,8 +30,7 @@ card = PokemonCardDef(
             game_text="Attach a Fire Energy card from your discard pile to 1 of your Benched Pok\u00e9mon.",
             cost={PokemonTypes.FIRE: 1, PokemonTypes.COLORLESS: 1},
             damage=50,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flare_recharge,
         ),
     ],
 )

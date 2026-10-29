@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Crabominable (SM3 #74): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_damage
+from spirit.game.card_effects.sm3 import gutsy_hammer
 
 
 card = PokemonCardDef(
@@ -30,8 +27,7 @@ card = PokemonCardDef(
             game_text="This Pok\u00e9mon does 10 damage to itself for each damage counter on it.",
             cost={PokemonTypes.FIGHTING: 1},
             damage=80,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=gutsy_hammer,
         ),
         Attack(
             title="Double Stomp",

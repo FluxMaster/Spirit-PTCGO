@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Ribombee (SM3 #96): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm3 import honey_gather
 
 card = PokemonCardDef(
     guid="5eb538e9-6f74-5fae-bc56-ee138817a1bf",
@@ -29,8 +26,8 @@ card = PokemonCardDef(
             title="Honey Gather",
             game_text="Once during your turn (before your attack), you may search your deck for up to 2 basic Energy cards, reveal them, and put them into your hand. Then, shuffle your deck.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            effect=honey_gather,
         ),
         Attack(
             title="Pollen Shot",

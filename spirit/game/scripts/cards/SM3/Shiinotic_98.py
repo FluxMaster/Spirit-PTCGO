@@ -1,11 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Shiinotic (SM3 #98): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.sm3 import strength_sap
 
 
 card = PokemonCardDef(
@@ -33,8 +30,7 @@ card = PokemonCardDef(
             game_text="Heal from this Pok\u00e9mon 30 damage times the amount of Energy attached to your opponent's Active Pok\u00e9mon.",
             cost={PokemonTypes.FAIRY: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=strength_sap,
         ),
         Attack(
             title="Sleep Pulse",

@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Tapu Fini-GX (SM3 #152): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.support_common import switch_self_attack
+from spirit.game.card_effects.sm3 import hydro_shot, tapu_storm_gx
 
 
 card = PokemonCardDef(
@@ -35,15 +32,13 @@ card = PokemonCardDef(
             title="Hydro Shot",
             game_text="Discard 2 Water Energy from this Pok\u00e9mon. This attack does 120 damage to 1 of your opponent's Pok\u00e9mon. (Don't apply Weakness or Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.WATER: 2, PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=hydro_shot,
         ),
         Attack(
             title="Tapu Storm-GX",
             game_text="Shuffle your opponent's Active Pok\u00e9mon and all cards attached to it into their deck. If your opponent has no Benched Pok\u00e9mon, this attack does nothing. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.WATER: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=tapu_storm_gx,
         ),
     ],
 )

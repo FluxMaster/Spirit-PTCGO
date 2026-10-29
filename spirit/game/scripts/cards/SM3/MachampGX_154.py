@@ -1,11 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Machamp-GX (SM3 #154): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import bonus_if, active_is
 from spirit.game.session.effects import is_evolution_pokemon
+from spirit.game.card_effects.sm3 import bedrock_breaker, muscle_punch_gx
 
 
 card = PokemonCardDef(
@@ -40,16 +37,14 @@ card = PokemonCardDef(
             game_text="Discard any Stadium card in play.",
             cost={PokemonTypes.FIGHTING: 3},
             damage=130,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bedrock_breaker,
         ),
         Attack(
             title="Muscle Punch-GX",
             game_text="This attack's damage isn't affected by Resistance. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.FIGHTING: 3},
             damage=180,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=muscle_punch_gx,
         ),
     ],
 )

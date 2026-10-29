@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Alolan Rattata (SM3 #81): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.passives_common import boost_own_next_turn
 
 card = PokemonCardDef(
     guid="4c72c830-0b7e-5cde-802f-6fb1cd53adc3",
@@ -28,8 +25,7 @@ card = PokemonCardDef(
             title="Focus Energy",
             game_text="During your next turn, this Pok\u00e9mon's Bite attack's base damage is 60.",
             cost={},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=boost_own_next_turn(50, attack_title='Bite'),
         ),
         Attack(
             title="Bite",

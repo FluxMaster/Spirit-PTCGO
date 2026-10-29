@@ -1,13 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Super Scoop Up (SM3 #166): trainer effect stubbed.
-
-Card text:
-  - Flip a coin. If heads, put 1 of your Pokémon and all cards attached to it into your hand.
-  - You may play as many Item cards as you like during your turn (before your attack).
-"""
-
 from spirit.game.data_utils import ItemCardDef, unimplemented
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.sm3 import super_scoop_up
 
 card = ItemCardDef(
     guid="38b6a143-0c08-5332-9763-2699e6c81e27",
@@ -19,6 +12,4 @@ card = ItemCardDef(
     collector_number=166,
     set_code="SM3",
     rarity=Rarities.RareSecret,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
-)
+    effect=super_scoop_up,)

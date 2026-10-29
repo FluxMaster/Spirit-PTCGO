@@ -1,14 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Bodybuilding Dumbbells (SM3 #161): trainer effect stubbed.
-
-Card text:
-  - Attach a Pokémon Tool to 1 of your Pokémon that doesn't already have a Pokémon Tool attached to it.
-  - The Stage 1 Pokémon this card is attached to gets +40 HP.
-  - You may play as many Item cards as you like during your turn (before your attack).
-"""
-
 from spirit.game.data_utils import PokemonToolCardDef, unimplemented
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.passives_common import hp_bonus_tool
+from spirit.game.card_effects.sm3 import is_stage1
 
 card = PokemonToolCardDef(
     guid="8f065d6b-55c4-5e65-b3a2-e52cc29ebf22",
@@ -20,6 +13,4 @@ card = PokemonToolCardDef(
     collector_number=161,
     set_code="SM3",
     rarity=Rarities.RareSecret,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
-)
+    passive=hp_bonus_tool(40, holder_pred=is_stage1),)

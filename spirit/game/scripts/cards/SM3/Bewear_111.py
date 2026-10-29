@@ -1,11 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Bewear (SM3 #111): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.sm3 import mix_up
 
 
 card = PokemonCardDef(
@@ -30,8 +27,7 @@ card = PokemonCardDef(
             title="Mix-Up",
             game_text="Flip a coin. If heads, discard the top 3 cards of your opponent's deck.",
             cost={PokemonTypes.COLORLESS: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=mix_up,
         ),
         Attack(
             title="Tantrum",
