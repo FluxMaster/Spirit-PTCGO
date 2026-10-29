@@ -4,6 +4,8 @@ Electabuzz (NEO1 #33): one or more attacks/abilities use effect=unimplemented un
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import swift
+
 
 card = PokemonCardDef(
     guid="5b752be2-7eee-56d2-af9b-025179f5b44a",
@@ -33,7 +35,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 3},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=swift,
         ),
     ],
 )

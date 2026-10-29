@@ -4,6 +4,8 @@ Piloswine (NEO1 #44): one or more attacks/abilities use effect=unimplemented unt
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import blizzard
+
 
 card = PokemonCardDef(
     guid="f564dd7d-db2a-520e-b605-c60af99ffb9f",
@@ -38,7 +40,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 3},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=blizzard,
         ),
     ],
 )

@@ -4,6 +4,10 @@ Seadra (NEO1 #48): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.attributes import SpecialConditions
+from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ecard import mud_splash
+
 
 card = PokemonCardDef(
     guid="2aceece1-3aa2-50b8-b24f-7fc9898b0d6a",
@@ -29,7 +33,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1},
             damage=10,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(SpecialConditions.PARALYZED, flip=True),
         ),
         Attack(
             title="Mud Splash",
@@ -37,7 +41,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 2},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=mud_splash,
         ),
     ],
 )
