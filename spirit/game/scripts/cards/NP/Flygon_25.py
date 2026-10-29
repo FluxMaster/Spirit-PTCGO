@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Flygon (NP #25): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ex import flip_or_nothing_paralyze
+
 
 card = PokemonCardDef(
     guid="b392d8ea-3ac2-5132-b54b-3eca07806411",
@@ -20,7 +19,6 @@ card = PokemonCardDef(
     stage=PokemonStage.STAGE2,
     retreat_cost=2,
     weakness_type=PokemonTypes.COLORLESS,
-    resistance_type=PokemonTypes.LIGHTNING,
     evolves_from="com.direwolfdigital.cake.data.archetypes.pokemon.Vibrava.Name",
     family_id=330,
     abilities=[
@@ -29,16 +27,14 @@ card = PokemonCardDef(
             game_text="The Defending Pok\u00e9mon can't retreat until the end of your opponent's next turn.",
             cost={PokemonTypes.COLORLESS: 2},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(no_retreat=True),
         ),
         Attack(
             title="Dragonbreath",
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon is now Paralyzed. If tails, this attack does nothing.",
             cost={PokemonTypes.GRASS: 1, PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 2},
             damage=80,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_or_nothing_paralyze(),
         ),
     ],
 )

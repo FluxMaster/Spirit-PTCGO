@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Meowth (NP #13): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import plunder_trainers
+
 
 card = PokemonCardDef(
     guid="d697907c-6a9c-5d63-87b4-d5f303df594a",
@@ -27,8 +25,7 @@ card = PokemonCardDef(
             game_text="Before doing damage, discard all Trainer cards attached to the Defending Pok\u00e9mon (before they affect the damage.).",
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=plunder_trainers(),
         ),
         Attack(
             title="Scratch",

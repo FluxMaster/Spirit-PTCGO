@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Torchic (NP #6): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import flip_tails_discard_energy
+
 
 card = PokemonCardDef(
     guid="b1c23d87-f336-5063-8c16-cf298046cd0c",
@@ -32,8 +30,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If tails, discard a Fire Energy card attached to Torchic.",
             cost={PokemonTypes.FIRE: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_tails_discard_energy(PokemonTypes.FIRE),
         ),
     ],
 )

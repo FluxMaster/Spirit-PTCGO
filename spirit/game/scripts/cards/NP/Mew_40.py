@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Mew (NP #40): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import damage_per, count_energy
+from spirit.game.card_effects.ex import devolution_beam
+
 
 card = PokemonCardDef(
     guid="a9f56ea5-9718-5dc3-99c9-2c97a104a3ba",
@@ -28,15 +27,13 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_per(count_energy("defender"), per=10),
         ),
         Attack(
             title="Devolution Beam",
             game_text="Flip a coin. If heads, choose 1 of either player's Evolved Pok\u00e9mon, remove the highest stage Evolution card from that Pok\u00e9mon, and put it into that player's hand.",
             cost={PokemonTypes.PSYCHIC: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=devolution_beam,
         ),
     ],
 )

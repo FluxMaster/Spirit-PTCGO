@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Treecko (NP #16): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import flip_heal_self
+
 
 card = PokemonCardDef(
     guid="2c4fd901-00af-53d3-b2cd-f3e60eecf7b0",
@@ -33,8 +31,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, remove 1 damage counter from Treecko.",
             cost={PokemonTypes.GRASS: 1},
             damage=10,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_heal_self(10),
         ),
     ],
 )

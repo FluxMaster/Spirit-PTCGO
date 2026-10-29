@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Torchic (NP #17): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import self_energy_discard_attack
+
 
 card = PokemonCardDef(
     guid="e77ea29d-217c-5c0c-923f-192f3c194dff",
@@ -27,8 +25,8 @@ card = PokemonCardDef(
             game_text="Discard a Fire Energy card attached to Torchic.",
             cost={PokemonTypes.FIRE: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=self_energy_discard_attack(
+                count=1, energy_type=PokemonTypes.FIRE),
         ),
     ],
 )

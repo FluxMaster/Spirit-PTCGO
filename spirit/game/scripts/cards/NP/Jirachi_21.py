@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Jirachi (NP #21): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import damage_per, count_energy
+from spirit.game.card_effects.ex import discard_self_energy_draw
+
 
 card = PokemonCardDef(
     guid="931b5c37-b64f-52ab-881a-d5806b66fe0d",
@@ -26,8 +25,7 @@ card = PokemonCardDef(
             title="The Third Eye",
             game_text="Discard an Energy card attached to Jirachi and draw 3 cards.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=discard_self_energy_draw(3),
         ),
         Attack(
             title="Psywave",
@@ -35,8 +33,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 1},
             damage=10,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_per(count_energy("defender"), per=10),
         ),
     ],
 )

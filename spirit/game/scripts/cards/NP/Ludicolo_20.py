@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Ludicolo (NP #20): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import flip_damage
+from spirit.game.card_effects.ex import rain_dish
+
 
 card = PokemonCardDef(
     guid="f9275fc7-2e9d-5a01-baf7-b21cf13f9a3c",
@@ -27,8 +26,8 @@ card = PokemonCardDef(
             title="Rain Dish",
             game_text="At any time between turns, remove 1 damage counter from Ludicolo.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=Triggers.BETWEEN_TURNS,
+            effect=rain_dish(),
         ),
         Attack(
             title="Fury Swipes",
@@ -36,8 +35,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 2},
             damage=30,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(coins=3, per_heads=30),
         ),
     ],
 )
