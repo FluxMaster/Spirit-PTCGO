@@ -146,6 +146,11 @@ class Passive:
     # Fires after HP is written by damage/heal/set_damage_counters (Scram).
     after_hp_changed: Optional[Any] = None
 
+    # Optional awaitable: async (ctx, attaching_player_id, energy, receiver,
+    # carrier) -> None. Fires after a manual (or counts_as_attachment) Energy
+    # attach from hand (Crobat Triggered Poison).
+    after_energy_attached: Optional[Any] = None
+
     def modify_damage_dealt(self, calc: DamageCalc, carrier: BoardEntity):
         """Attacker-side "does more/less damage" step (runs before W/R)."""
 
@@ -352,6 +357,12 @@ class Passive:
         """True to keep `card` from being discarded by an opponent's effect."""
         return False
 
+    def blocks_discard_pile_effects(self, source_kind: str, carrier: BoardEntity) -> bool:
+        """True to forbid attacks/Pokémon Powers from moving cards that sit
+        in a discard pile (Parasect Allergic Pollen). `source_kind` is
+        'attack' or 'ability'."""
+        return False
+
     def blocks_trainer_effects(
         self, affected_player_id: str, trainer_card: BoardEntity,
         trainer_type: Any, carrier: BoardEntity,
@@ -362,6 +373,23 @@ class Passive:
         card's effects (Dew Guard); trainer_type is the TrainerType value.
         affected_entity is the primitive's direct object (None for
         player-level effects like draws/hand shuffles)."""
+        return False
+
+    def blocks_own_trainer_effects(
+        self, affected_player_id: str, trainer_card: BoardEntity,
+        trainer_type: Any, carrier: BoardEntity,
+        affected_entity: Optional[BoardEntity] = None,
+        board: Optional["BoardState"] = None,
+    ) -> bool:
+        """True to shield `affected_entity` from the owner's own Trainer
+        cards other than Stadiums (Legendary Body)."""
+        return False
+
+    def discards_attached_trainers(
+        self, pokemon: PokemonEntity, carrier: BoardEntity
+    ) -> bool:
+        """True to discard Trainer cards attached to `pokemon` while this
+        power is active (Legendary Body)."""
         return False
 
     def replace_supporter_effect(
@@ -837,6 +865,25 @@ def discard_blocked(board: BoardState, card: BoardEntity) -> bool:
     """Whether a passive protects `card` from an opponent-caused discard."""
     return any(
         passive.blocks_discard(card, carrier)
+        for passive, carrier in active_passives(board)
+    )
+
+
+def holder_discards_attached_trainers(
+    board: BoardState, pokemon: PokemonEntity
+) -> bool:
+    """Whether a passive discards Trainer cards attached to `pokemon`."""
+    return any(
+        passive.discards_attached_trainers(pokemon, carrier)
+        for passive, carrier in active_passives(board)
+    )
+
+
+def discard_pile_effects_blocked(board: BoardState, source_kind: str) -> bool:
+    """Whether a passive forbids attacks/Pokémon Powers from affecting
+    cards in discard piles (Parasect Allergic Pollen)."""
+    return any(
+        passive.blocks_discard_pile_effects(source_kind, carrier)
         for passive, carrier in active_passives(board)
     )
 
