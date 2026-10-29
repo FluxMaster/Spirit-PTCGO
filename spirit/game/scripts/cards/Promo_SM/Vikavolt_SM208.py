@@ -1,0 +1,45 @@
+"""STUB: effect not implemented — do not guess mechanics.
+Vikavolt (Promo_SM #SM208): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
+"""
+
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+card = PokemonCardDef(
+    guid="061ac64c-5ca1-57cb-a0af-610ad9b2f227",
+    key="Promo_SM",
+    name="com.direwolfdigital.cake.data.archetypes.pokemon.Vikavolt.Name",
+    display_name="Vikavolt",
+    searchable_by=["Vikavolt", "Stage 2", "Vikavolt"],
+    subtypes=["Stage 2"],
+    collector_number=208,
+    set_code="Promo_SM",
+    rarity=Rarities.RarePromo,
+    hp=150,
+    elements=[PokemonTypes.LIGHTNING],
+    stage=PokemonStage.STAGE2,
+    retreat_cost=2,
+    weakness_type=PokemonTypes.FIGHTING,
+    resistance_type=PokemonTypes.METAL,
+    resistance_amount=20,
+    evolves_from="com.direwolfdigital.cake.data.archetypes.pokemon.Charjabug.Name",
+    family_id=738,
+    abilities=[
+        Ability(
+            title="Stealthy Body",
+            game_text="If there is any Stadium card in play, this Pok\u00e9mon has no Weakness.",
+            ability_type=AbilityTypes.POKE_ABILITY,
+            # STUB: ability effect not implemented
+            effect=unimplemented,
+        ),
+        Attack(
+            title="Electricannon",
+            game_text="You may discard all Lightning Energy from this Pok\u00e9mon. If you do, this attack does 100 more damage.",
+            cost={PokemonTypes.LIGHTNING: 4},
+            damage=120,
+            damage_operator="+",
+            # STUB: attack effect not implemented
+            effect=unimplemented,
+        ),
+    ],
+)
