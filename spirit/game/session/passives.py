@@ -193,6 +193,18 @@ class Passive:
         """True to shield `target` from opponents' attack EFFECTS (not damage)."""
         return False
 
+    def blocks_attack_effects_from(
+        self, target: PokemonEntity, attacker: Optional[PokemonEntity],
+        carrier: BoardEntity,
+    ) -> bool:
+        """Attacker-aware effect shield (Alolan Ninetales vs GX/EX). Defaults
+        to blocks_attack_effects when the attacker is unknown."""
+        return self.blocks_attack_effects(target, carrier)
+
+    def blocks_attacks(self, pokemon: PokemonEntity, carrier: BoardEntity) -> bool:
+        """True to forbid `pokemon` from attacking (Vileplume Disgusting Pollen)."""
+        return False
+
     def blocks_abilities(self, pokemon: PokemonEntity, carrier: BoardEntity) -> bool:
         """True to turn off `pokemon`'s Abilities (Path to the Peak style)."""
         return False
@@ -420,6 +432,13 @@ class Passive:
     ) -> int:
         """Damage healed from a Pokemon `player_id` just evolved from hand
         (Wyndon Stadium)."""
+        return 0
+
+    def damage_counters_on_evolve(
+        self, evolved: PokemonEntity, pre_evolution: BoardEntity,
+        player_id: str, carrier: BoardEntity,
+    ) -> int:
+        """Damage counters put on a Pokemon just evolved from hand (Po Town)."""
         return 0
 
     def trainer_play_flip(self, card: BoardEntity, player_id: str,
@@ -718,10 +737,19 @@ def effective_max_hp(board: BoardState, pokemon: PokemonEntity) -> int:
     return printed + bonus
 
 
-def attack_effects_blocked(board: BoardState, target: PokemonEntity) -> bool:
+def attack_effects_blocked(board: BoardState, target: PokemonEntity,
+                           attacker: Optional[PokemonEntity] = None) -> bool:
     """Whether a passive shields `target` from opposing attack effects."""
     return any(
-        passive.blocks_attack_effects(target, carrier)
+        passive.blocks_attack_effects_from(target, attacker, carrier)
+        for passive, carrier in active_passives(board)
+    )
+
+
+def attacks_blocked(board: BoardState, pokemon: PokemonEntity) -> bool:
+    """Whether a passive forbids `pokemon` from attacking (Disgusting Pollen)."""
+    return any(
+        passive.blocks_attacks(pokemon, carrier)
         for passive, carrier in active_passives(board)
     )
 
@@ -846,6 +874,15 @@ def evolve_heal_amount(board: BoardState, evolved: PokemonEntity,
     """Damage healed from a Pokemon just evolved from hand (Wyndon Stadium)."""
     return sum(
         passive.heal_on_evolve(evolved, pre_evolution, player_id, carrier)
+        for passive, carrier in active_passives(board)
+    )
+
+
+def evolve_damage_counters(board: BoardState, evolved: PokemonEntity,
+                           pre_evolution: BoardEntity, player_id: str) -> int:
+    """Damage counters put on a Pokemon just evolved from hand (Po Town)."""
+    return sum(
+        passive.damage_counters_on_evolve(evolved, pre_evolution, player_id, carrier)
         for passive, carrier in active_passives(board)
     )
 

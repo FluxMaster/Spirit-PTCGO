@@ -38,6 +38,7 @@ from .passives import (
     ability_locked,
     stadium_suppressed,
     energy_attach_blocked,
+    attacks_blocked,
     can_attack_despite_conditions,
     can_evolve_early,
     effective_attack_cost,
@@ -834,6 +835,8 @@ def _attack_entries(
     """Usable attacks of the Active Pokemon (energy requirement met)."""
     active = board.active_pokemon(player_id)
     if not active:
+        return []
+    if attacks_blocked(board, active):
         return []
     # A passive (Windup Arm) can exempt the whole Pokemon from the gate.
     if immobilized and can_attack_despite_conditions(board, active):
