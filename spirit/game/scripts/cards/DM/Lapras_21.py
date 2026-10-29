@@ -1,11 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Lapras (DM #21): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import snipe_attack
-
+from spirit.game.card_effects.dm import (
+    lapras_hydro_pump,
+)
 
 card = PokemonCardDef(
     guid="d82eb6fb-ea70-5a1f-b893-d6dc299a43fe",
@@ -29,7 +27,6 @@ card = PokemonCardDef(
             game_text="This attack does 20 damage to 1 of your opponent's Benched Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.WATER: 1},
             damage=20,
-            # STUB: attack effect not implemented
             effect=snipe_attack(20, also_base=True),
         ),
         Attack(
@@ -38,8 +35,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=70,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=lapras_hydro_pump,
         ),
     ],
 )

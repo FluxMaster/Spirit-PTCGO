@@ -1,11 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Quagsire (DM #26): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.sm5 import hydro_pressure
-
+from spirit.game.card_effects.dm import (
+    wash_out,
+    wash_out_condition,
+)
 
 card = PokemonCardDef(
     guid="9ecb7535-5245-5f5f-b056-c3f30abea386",
@@ -29,8 +28,9 @@ card = PokemonCardDef(
             title="Wash Out",
             game_text="As often as you like during your turn (before your attack), you may move a Water Energy from 1 of your Benched Pok\u00e9mon to your Active Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.UNLIMITED,
+            condition=wash_out_condition,
+            effect=wash_out,
         ),
         Attack(
             title="Hydro Pump",
@@ -38,7 +38,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=60,
             damage_operator="+",
-            # STUB: attack effect not implemented
             effect=hydro_pressure,
         ),
     ],

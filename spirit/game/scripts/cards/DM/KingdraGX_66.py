@@ -1,11 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Kingdra-GX (DM #66): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.support_common import switch_self_attack
-
+from spirit.game.card_effects.dm import (
+    kingdra_hydro_pump,
+    maelstrom_gx,
+)
 
 card = PokemonCardDef(
     guid="9c590acf-1b94-50cf-976f-a92835d5a012",
@@ -31,23 +30,20 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=kingdra_hydro_pump,
         ),
         Attack(
             title="Reverse Thrust",
             game_text="Switch this Pok\u00e9mon with 1 of your Benched Pok\u00e9mon.",
             cost={PokemonTypes.WATER: 1},
             damage=30,
-            # STUB: attack effect not implemented
             effect=switch_self_attack(),
         ),
         Attack(
             title="Maelstrom-GX",
             game_text="This attack does 40 damage to each of your opponent's Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.) (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.WATER: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=maelstrom_gx,
         ),
     ],
 )

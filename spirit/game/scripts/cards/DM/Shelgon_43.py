@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Shelgon (DM #43): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.dm import (
+    energy_guard_passive,
+)
 
 card = PokemonCardDef(
     guid="40c412be-a53f-5d70-85b0-c8b26461de78",
@@ -27,8 +26,7 @@ card = PokemonCardDef(
             title="Energy Guard",
             game_text="If this Pok\u00e9mon has any basic Energy attached to it, it takes 20 less damage from attacks (after applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=energy_guard_passive,
         ),
         Attack(
             title="Rollout",

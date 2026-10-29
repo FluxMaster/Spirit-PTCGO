@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Wishiwashi (DM #31): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.dm import (
+    meet_up_passive,
+)
 
 card = PokemonCardDef(
     guid="1da33261-ee3b-512f-874e-13f25519c5ae",
@@ -26,8 +25,7 @@ card = PokemonCardDef(
             title="Meet Up",
             game_text="Your Wishiwashi-GX in play get +20 HP, and their attacks do 20 more damage to your opponent's Active Pok\u00e9mon (before applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=meet_up_passive,
         ),
         Attack(
             title="Water Gun",

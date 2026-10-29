@@ -1,12 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Torchic (DM #4): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
-
 
 card = PokemonCardDef(
     guid="d4627ff9-8564-5a90-8596-dbb09e555c57",
@@ -29,7 +24,6 @@ card = PokemonCardDef(
             title="Singe",
             game_text="Flip a coin. If heads, your opponent's Active Pok\u00e9mon is now Burned.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.BURNED, flip=True),
         ),
     ],

@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Drampa (DM #51): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.dm import (
+    dragon_wisdom,
+)
 
 card = PokemonCardDef(
     guid="bc682941-5896-5c07-a4ec-2f6e5772e2c4",
@@ -27,8 +26,7 @@ card = PokemonCardDef(
             game_text="Attach a basic Energy card from your discard pile to 1 of your Dragon Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=dragon_wisdom,
         ),
         Attack(
             title="Hyper Voice",

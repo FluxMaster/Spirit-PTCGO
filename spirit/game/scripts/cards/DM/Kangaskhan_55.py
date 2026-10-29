@@ -1,12 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Kangaskhan (DM #55): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.support_common import draw_attack
 from spirit.game.card_effects.attacks_common import flip_bonus
-
 
 card = PokemonCardDef(
     guid="9db6f2df-2e7a-5305-857e-387f02e87c2b",
@@ -29,7 +24,6 @@ card = PokemonCardDef(
             title="Fetch",
             game_text="Draw a card.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=draw_attack(1),
         ),
         Attack(
@@ -43,7 +37,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=60,
             damage_operator="+",
-            # STUB: attack effect not implemented
             effect=flip_bonus(30),
         ),
     ],

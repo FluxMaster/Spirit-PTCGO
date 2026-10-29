@@ -1,11 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Kommo-o (DM #54): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.passives_common import protect_next_turn
-
+from spirit.game.card_effects.dm import (
+    raging_uppercut,
+)
 
 card = PokemonCardDef(
     guid="f29b8957-fccd-5b55-86b5-5c3d66b28add",
@@ -30,7 +28,6 @@ card = PokemonCardDef(
             game_text="During your opponent's next turn, this Pok\u00e9mon takes 30 less damage from attacks (after applying Weakness and Resistance).",
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 1},
             damage=60,
-            # STUB: attack effect not implemented
             effect=protect_next_turn(reduce=30),
         ),
         Attack(
@@ -39,8 +36,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 2},
             damage=90,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=raging_uppercut,
         ),
     ],
 )

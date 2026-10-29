@@ -1,11 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Charizard (DM #3): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import self_energy_discard_attack
-
+from spirit.game.card_effects.dm import (
+    resolute_flame_passive,
+)
 
 card = PokemonCardDef(
     guid="4c75e6fc-b291-52df-aa1b-3c8d56a13dd1",
@@ -29,15 +27,13 @@ card = PokemonCardDef(
             title="Resolute Flame",
             game_text="This Pok\u00e9mon's attacks do 30 more damage to your opponent's Active Pok\u00e9mon for each of their Pok\u00e9mon-GX and Pok\u00e9mon-EX in play.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=resolute_flame_passive,
         ),
         Attack(
             title="Fiery Blast",
             game_text="Discard an Energy from this Pok\u00e9mon.",
             cost={PokemonTypes.FIRE: 2, PokemonTypes.COLORLESS: 1},
             damage=130,
-            # STUB: attack effect not implemented
             effect=self_energy_discard_attack(count=1),
         ),
     ],

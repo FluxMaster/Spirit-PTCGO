@@ -1,13 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Wela Volcano Park (DM #63): trainer effect stubbed.
-
-Card text:
-  - Whenever a player flips a coin for the Special Condition Burned between turns, that Special Condition isn't removed even if the result is heads.
-  - This card stays in play when you play it. Discard this card if another Stadium card comes into play. If another card with the same name is in play, you can't play this card.
-"""
-
-from spirit.game.data_utils import StadiumCardDef, unimplemented
+from spirit.game.data_utils import StadiumCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.dm import wela_volcano_park_passive
 
 card = StadiumCardDef(
     guid="dd8595de-b606-5d37-94d8-ce36fbed6758",
@@ -19,6 +12,5 @@ card = StadiumCardDef(
     collector_number=63,
     set_code="DM",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    passive=wela_volcano_park_passive,
 )

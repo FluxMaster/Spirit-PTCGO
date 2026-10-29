@@ -1,11 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Salazzle (DM #14): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import self_energy_discard_attack
-
+from spirit.game.card_effects.dm import (
+    ring_of_fire,
+)
 
 card = PokemonCardDef(
     guid="3c8aacd0-88cc-5a28-957b-6e87bdbe3f6e",
@@ -30,15 +28,13 @@ card = PokemonCardDef(
             game_text="Your opponent's Active Pok\u00e9mon is now Burned. It can't retreat during your opponent's next turn.",
             cost={PokemonTypes.FIRE: 1},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=ring_of_fire,
         ),
         Attack(
             title="Flamethrower",
             game_text="Discard an Energy from this Pok\u00e9mon.",
             cost={PokemonTypes.FIRE: 1, PokemonTypes.COLORLESS: 1},
             damage=80,
-            # STUB: attack effect not implemented
             effect=self_energy_discard_attack(count=1),
         ),
     ],

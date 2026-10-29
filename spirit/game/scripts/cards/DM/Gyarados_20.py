@@ -1,11 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Gyarados (DM #20): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.sm3 import knock_over
-
+from spirit.game.card_effects.dm import (
+    commotion,
+)
 
 card = PokemonCardDef(
     guid="5614ad3d-1e7e-5573-a7e0-079ff8785fe4",
@@ -29,15 +27,14 @@ card = PokemonCardDef(
             title="Commotion",
             game_text="If this Pok\u00e9mon is your Active Pok\u00e9mon and is damaged by an opponent's attack (even if this Pok\u00e9mon is Knocked Out), put 2 damage counters on each of your Benched Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=Triggers.ON_DAMAGED_BY_ATTACK,
+            effect=commotion,
         ),
         Attack(
             title="Wild Tail",
             game_text="You may discard any Stadium card in play.",
             cost={PokemonTypes.WATER: 2, PokemonTypes.COLORLESS: 1},
             damage=160,
-            # STUB: attack effect not implemented
             effect=knock_over,
         ),
     ],

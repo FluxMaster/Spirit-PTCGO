@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Turtonator (DM #50): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.dm import (
+    explosive_jet,
+)
 
 card = PokemonCardDef(
     guid="be18cf41-d9be-5af8-b7fa-c9ee1c4d775d",
@@ -28,8 +27,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 3},
             damage=50,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=explosive_jet,
         ),
     ],
 )

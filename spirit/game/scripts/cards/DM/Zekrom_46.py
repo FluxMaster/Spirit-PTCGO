@@ -1,11 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Zekrom (DM #46): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.pokemon import shred
-
+from spirit.game.card_effects.dm import (
+    bolt_strike,
+)
 
 card = PokemonCardDef(
     guid="f1ee8565-5428-5f43-aadd-e9d823c3f386",
@@ -29,7 +27,6 @@ card = PokemonCardDef(
             game_text="This attack's damage isn't affected by any effects on your opponent's Active Pok\u00e9mon.",
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 2},
             damage=70,
-            # STUB: attack effect not implemented
             effect=shred,
         ),
         Attack(
@@ -37,8 +34,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If tails, this Pok\u00e9mon does 50 damage to itself.",
             cost={PokemonTypes.LIGHTNING: 2, PokemonTypes.COLORLESS: 2},
             damage=150,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bolt_strike,
         ),
     ],
 )

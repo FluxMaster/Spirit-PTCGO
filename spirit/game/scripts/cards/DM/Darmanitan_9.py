@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Darmanitan (DM #9): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.dm import (
+    darmani_hands,
+    heat_assist,
+)
 
 card = PokemonCardDef(
     guid="fa48510e-6146-5674-9c87-0778335176a2",
@@ -27,8 +27,7 @@ card = PokemonCardDef(
             title="Heat Assist",
             game_text="Attach up to 3 Fire Energy cards from your hand to your Pok\u00e9mon in any way you like.",
             cost={PokemonTypes.FIRE: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=heat_assist,
         ),
         Attack(
             title="Darmani-Hands",
@@ -36,8 +35,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 2, PokemonTypes.COLORLESS: 1},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=darmani_hands,
         ),
     ],
 )

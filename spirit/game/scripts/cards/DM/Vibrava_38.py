@@ -1,11 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Vibrava (DM #38): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.pokemon import shred
-
 
 card = PokemonCardDef(
     guid="2c5cd9c7-030b-5e38-aed9-defdee760755",
@@ -30,7 +25,6 @@ card = PokemonCardDef(
             game_text="This attack's damage isn't affected by any effects on your opponent's Active Pok\u00e9mon.",
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 1},
             damage=50,
-            # STUB: attack effect not implemented
             effect=shred,
         ),
     ],

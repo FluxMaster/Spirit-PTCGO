@@ -2,7 +2,6 @@ from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.sm4 import weed_out, weed_out_condition
 
-
 async def radiating_heat(ctx):
     """20 damage. You may discard an Energy from this Pokémon; if you do,
     discard an Energy from the opponent's Active Pokémon."""
@@ -53,7 +52,6 @@ card = PokemonCardDef(
             game_text="You may discard an Energy from this Pok\u00e9mon. If you do, discard an Energy from your opponent's Active Pok\u00e9mon.",
             cost={PokemonTypes.DARKNESS: 2, PokemonTypes.COLORLESS: 1},
             damage=120,
-            # STUB: attack effect not implemented
             effect=radiating_heat,
         ),
     ],
