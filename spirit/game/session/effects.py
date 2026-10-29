@@ -2259,10 +2259,11 @@ class EffectContext:
         return taken or []
 
     async def put_in_prizes(self, cards: List[CardEntity],
-                            player_id: Optional[str] = None) -> int:
-        """Puts hand cards face down into the player's empty Prize slots
-        (Peonia): queues the moves, AttributesReset re-hides (the owner knows
-        the faces) and the pile's gap refresh; returns how many were placed."""
+                            player_id: Optional[str] = None,
+                            append: bool = False) -> int:
+        """Puts cards face down into Prize slots. Default fills empty slots
+        within prizes_dealt (Peonia). append=True adds new slots beyond the
+        current deal (Nihilego-GX Symbiont-GX) and bumps prizes_dealt."""
         pid = player_id or self.player_id
         session = self.session
         prize_area = self.board.find_player_area(pid, "prizePile")
@@ -2271,10 +2272,17 @@ class EffectContext:
         dealt = self.board.prizes_dealt.get(pid, 0)
         occupied = {c.board_slot if c.board_slot is not None else i
                     for i, c in enumerate(prize_area.children)}
-        slots = [s for s in range(dealt) if s not in occupied]
+        if append:
+            start = max(dealt, (max(occupied) + 1) if occupied else 0)
+            slots = list(range(start, start + len(cards)))
+        else:
+            slots = [s for s in range(dealt) if s not in occupied]
         placed = 0
         for card in cards:
-            slot = slots.pop(0) if slots else dealt + placed
+            if append:
+                slot = slots[placed] if placed < len(slots) else start + placed
+            else:
+                slot = slots.pop(0) if slots else dealt + placed
             if not self.board.move_card(card.entity_id, prize_area.entity_id, slot):
                 continue
             self._queue(session._entity_moved_msg(
@@ -2284,6 +2292,9 @@ class EffectContext:
                         bracket=GameSequence.GROUPED_MOVE.value)
             placed += 1
         if placed:
+            if append:
+                self.board.prizes_dealt[pid] = max(
+                    self.board.prizes_dealt.get(pid, 0), dealt + placed)
             self._queue(session._refresh_prize_gaps(pid, prize_area),
                         bracket=GameSequence.GROUPED_MOVE.value)
         return placed

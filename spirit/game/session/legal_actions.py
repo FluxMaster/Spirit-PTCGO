@@ -483,9 +483,11 @@ def compute_legal_actions(
                 if getattr(def_for(card.archetype_id), "unplayable_from_hand", False):
                     continue  # Shedinja: enters play only via an effect
                 # Fossils stay Item cards in hand: Item locks gate the bench play.
+                # Heavy Rock-GX / Bell of Silence also lock Basic Pokemon plays.
+                if state.play_locked(player_id, card):
+                    continue
                 if card.get_attribute(AttrID.TRAINER_TYPE) is not None \
-                        and (state.play_locked(player_id, card)
-                             or trainer_play_blocked(board, player_id, card)):
+                        and trainer_play_blocked(board, player_id, card):
                     continue
                 if bench_has_space:
                     # The bench area is the drop target; without it the drag
@@ -497,6 +499,8 @@ def compute_legal_actions(
                     ))
                 continue
 
+            if state.play_locked(player_id, card):
+                continue  # Heavy Rock-GX / Bell of Silence lock evolve-from-hand
             evolves_from = card.get_attribute(AttrID.EVOLUTION_LOGIC_FROM)
             if not evolves_from:
                 continue

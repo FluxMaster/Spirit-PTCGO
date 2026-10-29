@@ -441,6 +441,13 @@ class Passive:
         """Damage counters put on a Pokemon just evolved from hand (Po Town)."""
         return 0
 
+    def keeps_conditions_on_evolve(
+        self, pokemon: PokemonEntity, carrier: BoardEntity
+    ) -> bool:
+        """True to keep Special Conditions on `pokemon` when it evolves or
+        devolves (Sea of Nothingness)."""
+        return False
+
     def trainer_play_flip(self, card: BoardEntity, player_id: str,
                           carrier: BoardEntity) -> Optional[str]:
         """A coin title when `player_id` must flip as they play `card` from
@@ -883,6 +890,14 @@ def evolve_damage_counters(board: BoardState, evolved: PokemonEntity,
     """Damage counters put on a Pokemon just evolved from hand (Po Town)."""
     return sum(
         passive.damage_counters_on_evolve(evolved, pre_evolution, player_id, carrier)
+        for passive, carrier in active_passives(board)
+    )
+
+
+def keeps_conditions_on_evolve(board: BoardState, pokemon: PokemonEntity) -> bool:
+    """Whether a stadium/passive keeps Special Conditions through evolve/devolve."""
+    return any(
+        passive.keeps_conditions_on_evolve(pokemon, carrier)
         for passive, carrier in active_passives(board)
     )
 
