@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Gligar (SM2 #67): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import snipe_attack
 
 card = PokemonCardDef(
     guid="0768f8ee-51a2-52df-b182-32e0e685e729",
@@ -26,8 +23,7 @@ card = PokemonCardDef(
             title="Double Shot",
             game_text="This attack does 10 damage to 2 of your opponent's Benched Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.FIGHTING: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=snipe_attack(10, count=2),
         ),
     ],
 )

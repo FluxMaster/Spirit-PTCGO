@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Goomy (SM2 #94): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.data_utils import PokemonCardDef, Attack
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, SpecialConditions
+from spirit.game.card_effects.attacks_common import condition_attack
 
 card = PokemonCardDef(
     guid="c25b4e9d-433d-5709-b0ed-6ce2342c8fc6",
@@ -26,8 +23,7 @@ card = PokemonCardDef(
             title="Bubble",
             game_text="Flip a coin. If head, your opponent's Active Pok\u00e9mon is now Paralyzed.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(SpecialConditions.PARALYZED, flip=True),
         ),
         Attack(
             title="Tackle",

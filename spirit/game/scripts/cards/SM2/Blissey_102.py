@@ -1,9 +1,19 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Blissey (SM2 #102): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.data_utils import Triggers
+from spirit.game.card_effects.attacks_common import recoil_attack
+
+from spirit.game.data_utils import Triggers
+
+
+async def fresh_egg(ctx):
+    """On evolve: you may heal 80 damage from your Active Pokémon."""
+    active = ctx.my_active()
+    if active is None:
+        return
+    if await ctx.ask_yes_no("Heal 80 damage from your Active Pokémon?"):
+        await ctx.heal(80, active)
+
 
 card = PokemonCardDef(
     guid="6f97857b-63e5-5c68-b272-8b84b9539a6d",
@@ -27,16 +37,15 @@ card = PokemonCardDef(
             title="Fresh Egg",
             game_text="When you play this Pok\u00e9mon from your hand to evolve 1 of your Pok\u00e9mon during your turn, you may heal 80 damage from your Active Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=Triggers.ON_EVOLVE,
+            effect=fresh_egg,
         ),
         Attack(
             title="Double-Edge",
             game_text="This Pok\u00e9mon does 80 damage to itself.",
             cost={PokemonTypes.COLORLESS: 4},
             damage=160,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=recoil_attack(80),
         ),
     ],
 )

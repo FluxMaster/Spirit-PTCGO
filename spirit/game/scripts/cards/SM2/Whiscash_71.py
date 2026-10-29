@@ -1,11 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Whiscash (SM2 #71): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.attacks_common import mill_scaled_damage
+from spirit.game.card_effects.trainers import is_energy_card
 
 
 card = PokemonCardDef(
@@ -31,7 +29,6 @@ card = PokemonCardDef(
             game_text="Your opponent's Active Pok\u00e9mon is now Asleep.",
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 2},
             damage=60,
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.ASLEEP),
         ),
         Attack(
@@ -40,8 +37,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 3},
             damage=100,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=mill_scaled_damage(3, 100, is_energy_card),
         ),
     ],
 )

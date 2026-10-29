@@ -1,10 +1,29 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Vanilluxe (SM2 #35): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import damage_all_opponents
+from spirit.game.attributes import PokemonTypes
+
+
+from spirit.game.card_effects.pokemon import energy_provides_type
+from spirit.game.attributes import SpecialConditions
+
+
+async def frozen_breath(ctx):
+    """80 damage; you may discard 2 Water Energy to Paralyze."""
+    await ctx.deal_damage()
+    waters = [
+        e for e in ctx.attached_energies(ctx.attacker)
+        if energy_provides_type(e, PokemonTypes.WATER.value)
+    ]
+    if len(waters) < 2:
+        return
+    picks = await ctx.choose_cards(
+        waters, 2, minimum=0,
+        prompt="You may discard 2 Water Energy to Paralyze",
+    )
+    if len(picks) == 2:
+        await ctx.discard_cards(picks)
+        await ctx.apply_special_condition(ctx.defender, SpecialConditions.PARALYZED)
 
 
 card = PokemonCardDef(
@@ -29,7 +48,6 @@ card = PokemonCardDef(
             title="Hail",
             game_text="This attack does 20 damage to each of your opponent's Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.WATER: 1},
-            # STUB: attack effect not implemented
             effect=damage_all_opponents(20),
         ),
         Attack(
@@ -37,8 +55,7 @@ card = PokemonCardDef(
             game_text="You may discard 2 Water Energy from this Pok\u00e9mon. If you do, your opponent's Active Pok\u00e9mon is now Paralyzed.",
             cost={PokemonTypes.WATER: 3},
             damage=80,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=frozen_breath,
         ),
     ],
 )

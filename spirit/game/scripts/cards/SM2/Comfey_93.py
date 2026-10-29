@@ -1,9 +1,39 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Comfey (SM2 #93): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.attributes import PokemonTypes
+from spirit.game.data_utils import Triggers
+
+from spirit.game.card_effects.pokemon import energy_provides_type
+from spirit.game.card_effects.passives_common import condition_immunity_passive
+from spirit.game.models.board import BoardState
+
+
+def _fairy_energy_immune(target, carrier):
+    if target.owning_player_id != carrier.owning_player_id:
+        return False
+    return any(energy_provides_type(e, PokemonTypes.FAIRY.value)
+               for e in BoardState.attached_energies(target))
+
+
+async def flower_shield(ctx):
+    """Cure Special Conditions on your Pokémon that have Fairy Energy."""
+    if ctx.energy_receiver is not None:
+        targets = [ctx.energy_receiver]
+    else:
+        targets = ctx.my_pokemon_in_play()
+    for pokemon in targets:
+        if pokemon is None or pokemon.owning_player_id != ctx.player_id:
+            continue
+        if any(energy_provides_type(e, PokemonTypes.FAIRY.value)
+               for e in ctx.attached_energies(pokemon)):
+            await ctx.cure_all_conditions(pokemon)
+
+
+async def sweet_kiss(ctx):
+    """30 damage; the opponent draws a card."""
+    await ctx.deal_damage()
+    await ctx.draw_cards(1, ctx.opponent_id)
+
 
 card = PokemonCardDef(
     guid="21fcddc6-697c-5923-b9b1-3d7e21e78f49",
@@ -28,16 +58,15 @@ card = PokemonCardDef(
             title="Flower Shield",
             game_text="Each of your Pok\u00e9mon that has any Fairy Energy attached to it can't be affected by any Special Conditions. Remove any Special Conditions affecting those Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=(Triggers.ON_PLAY, Triggers.ON_ENERGY_ATTACHED), passive=condition_immunity_passive(protects=_fairy_energy_immune),
+            effect=flower_shield,
         ),
         Attack(
             title="Sweet Kiss",
             game_text="Your opponent draws a card.",
             cost={PokemonTypes.FAIRY: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=sweet_kiss,
         ),
     ],
 )

@@ -1,11 +1,16 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Victreebel (SM2 #3): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
+
+
+async def stick_and_absorb(ctx):
+    """80 damage; heal 20; the Defending Pokémon can't retreat next turn."""
+    await ctx.deal_damage()
+    await ctx.heal(20, ctx.attacker)
+    defender = ctx.defender
+    if defender is not None and not ctx.effects_blocked(defender):
+        ctx.lock_retreat(defender)
 
 
 card = PokemonCardDef(
@@ -31,7 +36,6 @@ card = PokemonCardDef(
             game_text="Your opponent's Active Pok\u00e9mon is now Burned, Confused, and Poisoned.",
             cost={PokemonTypes.GRASS: 1},
             damage=20,
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.BURNED, SpecialConditions.CONFUSED, SpecialConditions.POISONED),
         ),
         Attack(
@@ -39,8 +43,7 @@ card = PokemonCardDef(
             game_text="Heal 20 damage from this Pok\u00e9mon. The Defending Pok\u00e9mon can't retreat during your opponent's next turn.",
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 2},
             damage=80,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=stick_and_absorb,
         ),
     ],
 )

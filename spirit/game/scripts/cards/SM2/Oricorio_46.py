@@ -1,9 +1,13 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Oricorio (SM2 #46): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.passives_common import apply_own_next_turn_boost
+
+
+async def feather_dance(ctx):
+    """Next turn, Pom-Pom Punch's base damage is 100 (printed 20, so +80)."""
+    await apply_own_next_turn_boost(ctx, 80, attack_title="Pom-Pom Punch")
+
 
 card = PokemonCardDef(
     guid="69d3848d-e1e6-5534-afe4-69d1d8117bf0",
@@ -28,8 +32,7 @@ card = PokemonCardDef(
             title="Feather Dance",
             game_text="During your next turn, this Pok\u00e9mon's Pom-Pom Punch attack's base damage is 100.",
             cost={PokemonTypes.LIGHTNING: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=feather_dance,
         ),
         Attack(
             title="Pom-Pom Punch",

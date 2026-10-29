@@ -1,10 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Alolan Sandslash (SM2 #20): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.support_common import switch_self_attack
+from spirit.game.data_utils import Activations
+from spirit.game.card_effects.support_common import draw_attack
+from spirit.game.card_effects.trainers import deck_nonempty
 
 
 card = PokemonCardDef(
@@ -29,15 +28,14 @@ card = PokemonCardDef(
             title="Slush Rush",
             game_text="Once during your turn (before your attack), you may draw a card.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN, condition=lambda board, player_id, pokemon=None: deck_nonempty(board, player_id),
+            effect=draw_attack(1),
         ),
         Attack(
             title="Smash Turn",
             game_text="Switch this Pok\u00e9mon with 1 of your Benched Pok\u00e9mon.",
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 2},
             damage=50,
-            # STUB: attack effect not implemented
             effect=switch_self_attack(),
         ),
     ],

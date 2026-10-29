@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Lunala (SM2 #61): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import damage_per, count_energy
 
 
 async def earthen_boom(ctx):
@@ -37,15 +34,13 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 1},
             damage=40,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_per(count_energy('self', PokemonTypes.PSYCHIC), 40),
         ),
         Attack(
             title="Wings of the Moone",
             game_text="Move all Energy from this Pok\u00e9mon to your Benched Pok\u00e9mon in any way you like.",
             cost={PokemonTypes.PSYCHIC: 3},
             damage=130,
-            # STUB: attack effect not implemented
             effect=earthen_boom,
         ),
     ],

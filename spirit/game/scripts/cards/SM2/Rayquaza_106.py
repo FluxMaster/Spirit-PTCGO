@@ -1,9 +1,31 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Rayquaza (SM2 #106): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.trainers import is_basic_energy_card
+from spirit.game.card_effects.support_common import distribute_energy
+
+
+async def turbo_storm(ctx):
+    """30 damage; attach 2 basic Energy from discard to 1 Benched Pokémon."""
+    await ctx.deal_damage()
+    bench = ctx.my_bench()
+    if not bench:
+        return
+    pool = [c for c in ctx.discard_pile() if is_basic_energy_card(c)]
+    if not pool:
+        return
+    picks = await ctx.choose_cards(
+        pool, 2, minimum=0,
+        prompt="Choose up to 2 basic Energy cards to attach",
+    )
+    if not picks:
+        return
+    target = await ctx.choose_pokemon(bench, "Choose a Benched Pokémon to attach the Energy to")
+    if target is None:
+        return
+    for energy in picks:
+        await ctx.attach_energy(energy, target)
+
 
 card = PokemonCardDef(
     guid="21a380f8-2e94-5d73-ba05-0437b7d1e237",
@@ -29,8 +51,7 @@ card = PokemonCardDef(
             game_text="Attach 2 basic Energy cards from your discard pile to 1 of your Benched Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 2},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=turbo_storm,
         ),
         Attack(
             title="Dragon Claw",

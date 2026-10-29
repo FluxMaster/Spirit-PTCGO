@@ -1,9 +1,13 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Machamp (SM2 #65): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import damage_per, recoil_attack
+
+from spirit.game.card_effects.attacks_common import damage_per, recoil_attack
+
+
+def _opponent_prizes_taken_last_turn(ctx):
+    return ctx.session.turn_state.prizes_taken_last_turn.get(ctx.opponent_id, 0)
+
 
 card = PokemonCardDef(
     guid="84cb8e69-31ff-5d86-90d2-a31a2479c23b",
@@ -29,16 +33,14 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 2},
             damage=20,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_per(_opponent_prizes_taken_last_turn, 80, base=20),
         ),
         Attack(
             title="Submission",
             game_text="This Pok\u00e9mon does 30 damage to itself.",
             cost={PokemonTypes.FIGHTING: 3},
             damage=150,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=recoil_attack(30),
         ),
     ],
 )

@@ -1,10 +1,19 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Delibird (SM2 #26): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_or_nothing
+
+
+async def all_the_presents(ctx):
+    """Flip until tails; for each heads you may search your deck for a card."""
+    heads = await ctx.flip_until_tails("All the Presents")
+    if heads <= 0:
+        return
+    picks = await ctx.search_deck(
+        None, count=heads, minimum=0,
+        prompt="Choose cards to put into your hand",
+    )
+    await ctx.put_in_hand(picks, reveal=False)
+    await ctx.shuffle_deck()
 
 
 card = PokemonCardDef(
@@ -28,15 +37,13 @@ card = PokemonCardDef(
             title="All the Presents",
             game_text="Flip a coin until you get tails. For each heads, you may search your deck for a card and put it into your hand. Then, shuffle your deck.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=all_the_presents,
         ),
         Attack(
             title="Surprise Attack",
             game_text="Flip a coin. If tails, this attack does nothing.",
             cost={PokemonTypes.WATER: 1},
             damage=40,
-            # STUB: attack effect not implemented
             effect=flip_or_nothing(),
         ),
     ],

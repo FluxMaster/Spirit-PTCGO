@@ -1,10 +1,12 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Wishiwashi-GX (SM2 #38): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import discard_opponent_energy_attack
+
+
+async def blue_surge_gx(ctx):
+    """220 damage, then move all Energy from this Pokémon to the Bench."""
+    await ctx.deal_damage()
+    await ctx.move_energy_freely([ctx.attacker], ctx.my_bench())
 
 
 card = PokemonCardDef(
@@ -34,7 +36,6 @@ card = PokemonCardDef(
             game_text="Discard a Special Energy from your opponent's Active Pok\u00e9mon.",
             cost={PokemonTypes.WATER: 3, PokemonTypes.COLORLESS: 2},
             damage=120,
-            # STUB: attack effect not implemented
             effect=discard_opponent_energy_attack(special_only=True),
         ),
         Attack(
@@ -42,8 +43,7 @@ card = PokemonCardDef(
             game_text="Move all Energy from this Pok\u00e9mon to your Benched Pok\u00e9mon in any way you like. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.WATER: 3, PokemonTypes.COLORLESS: 2},
             damage=220,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=blue_surge_gx,
         ),
     ],
 )

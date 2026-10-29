@@ -1,11 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Tapu Lele-GX (SM2 #137): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.pokemon import luminous_sign
 from spirit.game.data_utils import Triggers
+from spirit.game.scripts.cards.SM2.TapuLeleGX_60 import energy_drive, tapu_cure_gx
 
 
 card = PokemonCardDef(
@@ -28,7 +25,6 @@ card = PokemonCardDef(
             title="Wonder Tag",
             game_text="When you play this Pok\u00e9mon from your hand onto your Bench during your turn, you may search your deck for a Supporter card, reveal it, and put it into your hand. Then, shuffle your deck.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
             trigger=Triggers.ON_PLAY,
             effect=luminous_sign,
         ),
@@ -38,15 +34,13 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=20,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=energy_drive,
         ),
         Attack(
             title="Tapu Cure-GX",
             game_text="Heal all damage from 2 of your Benched Pok\u00e9mon. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.PSYCHIC: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=tapu_cure_gx,
         ),
     ],
 )

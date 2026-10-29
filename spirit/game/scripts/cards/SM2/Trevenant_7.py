@@ -1,10 +1,19 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Trevenant (SM2 #7): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.support_common import heal_attack
+
+
+from spirit.game.session.effects import is_trainer_card
+
+
+async def poltergeist(ctx):
+    """Reveal the opponent's hand; 30 damage per Trainer card there."""
+    hand = list(ctx.hand(ctx.opponent_id))
+    if hand:
+        await ctx.reveal_hand(ctx.opponent_id, ctx.player_id)
+    n = sum(1 for c in hand if is_trainer_card(c))
+    if n > 0:
+        await ctx.deal_damage(30 * n)
 
 
 card = PokemonCardDef(
@@ -31,15 +40,13 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=30,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=poltergeist,
         ),
         Attack(
             title="Horn Leech",
             game_text="Heal 30 damage from this Pok\u00e9mon.",
             cost={PokemonTypes.GRASS: 2, PokemonTypes.COLORLESS: 1},
             damage=90,
-            # STUB: attack effect not implemented
             effect=heal_attack(30, target='self'),
         ),
     ],

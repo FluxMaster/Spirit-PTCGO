@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Beldum (SM2 #83): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import self_energy_discard_attack
 
 card = PokemonCardDef(
     guid="ba8af9a8-5ee3-5554-b158-20986424c333",
@@ -29,8 +26,7 @@ card = PokemonCardDef(
             game_text="Discard a Metal Energy from this Pok\u00e9mon.",
             cost={PokemonTypes.METAL: 1},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=self_energy_discard_attack(count=1, energy_type=PokemonTypes.METAL),
         ),
     ],
 )

@@ -1,10 +1,13 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Gothitelle (SM2 #54): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.support_common import gust_attack
+
+
+from spirit.game.card_effects.attacks_common import count_energy, bonus_if
+
+
+def _equal_energy(ctx):
+    return count_energy()(ctx) == count_energy("defender")(ctx)
 
 
 card = PokemonCardDef(
@@ -29,7 +32,6 @@ card = PokemonCardDef(
             title="Tractorbeam",
             game_text="Switch 1 of your opponent's Benched Pok\u00e9mon with their Active Pok\u00e9mon. This attack does 30 damage to the new Active Pok\u00e9mon.",
             cost={PokemonTypes.PSYCHIC: 1},
-            # STUB: attack effect not implemented
             effect=gust_attack(damage_to_new_active=30),
         ),
         Attack(
@@ -38,8 +40,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 1},
             damage=50,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bonus_if(_equal_energy, 80),
         ),
     ],
 )

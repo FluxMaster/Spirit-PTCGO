@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Wimpod (SM2 #8): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import remove_self_from_play
 
 card = PokemonCardDef(
     guid="caf1a7a7-b02e-58a1-b667-90a5a142ca1c",
@@ -26,8 +23,7 @@ card = PokemonCardDef(
             title="Scamper Away",
             game_text="Shuffle this Pok\u00e9mon and all cards attached to it into your deck.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=remove_self_from_play("deck"),
         ),
         Attack(
             title="Ram",

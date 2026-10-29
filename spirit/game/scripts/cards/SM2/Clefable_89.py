@@ -1,11 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Clefable (SM2 #89): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.passives_common import boost_own_next_turn
 
 
 card = PokemonCardDef(
@@ -33,7 +30,6 @@ card = PokemonCardDef(
             game_text="Your opponent's Active Pok\u00e9mon is now Asleep.",
             cost={PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.ASLEEP),
         ),
         Attack(
@@ -41,8 +37,7 @@ card = PokemonCardDef(
             game_text="During your next turn, this Pok\u00e9mon's Meteor Mash attack does 60 more damage (before applying Weakness and Resistance).",
             cost={PokemonTypes.FAIRY: 1, PokemonTypes.COLORLESS: 2},
             damage=60,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=boost_own_next_turn(60, attack_title='Meteor Mash'),
         ),
     ],
 )

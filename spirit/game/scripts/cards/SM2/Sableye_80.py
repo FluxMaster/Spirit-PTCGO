@@ -1,9 +1,13 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Sableye (SM2 #80): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.session.effects import is_supporter_card
+
+
+async def limitation(ctx):
+    """The opponent can't play Supporters during their next turn."""
+    ctx.lock_plays(ctx.opponent_id, is_supporter_card)
+
 
 card = PokemonCardDef(
     guid="09e05357-b17a-5abc-a537-0aec6c5dd546",
@@ -25,8 +29,7 @@ card = PokemonCardDef(
             title="Limitation",
             game_text="Your opponent can't play any Supporter cards from their hand during their next turn.",
             cost={PokemonTypes.DARKNESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=limitation,
         ),
         Attack(
             title="Scratch",

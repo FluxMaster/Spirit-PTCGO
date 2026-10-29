@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Garbodor (SM2 #51): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import damage_per, count_discard
+from spirit.game.session.effects import is_item_card
 
 
 async def cut_down(ctx):
@@ -45,15 +43,13 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 1},
             damage=20,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_per(count_discard('opponent', is_item_card), 20),
         ),
         Attack(
             title="Acid Spray",
             game_text="Flip a coin. If heads, discard an Energy from your opponent's Active Pok\u00e9mon.",
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 2},
             damage=70,
-            # STUB: attack effect not implemented
             effect=cut_down,
         ),
     ],

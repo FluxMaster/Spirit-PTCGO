@@ -1,11 +1,16 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Castform (SM2 #105): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.attributes import AttrID, TrainerType
+from spirit.game.card_effects.support_common import search_to_hand
+
+
+from spirit.game.attributes import TrainerType
+
+
+def _is_stadium_card(card):
+    return card.get_attribute(AttrID.TRAINER_TYPE) == TrainerType.STADIUM.value
 
 
 card = PokemonCardDef(
@@ -29,15 +34,13 @@ card = PokemonCardDef(
             title="Weather Teller",
             game_text="Search your deck for up to 2 Stadium cards, reveal them, and put them into your hand. Then, shuffle your deck.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=search_to_hand(_is_stadium_card, count=2, minimum=0, prompt='Choose up to 2 Stadium cards'),
         ),
         Attack(
             title="Water Pulse",
             game_text="Your opponent's Active Pok\u00e9mon is now Asleep.",
             cost={PokemonTypes.COLORLESS: 2},
             damage=30,
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.ASLEEP),
         ),
     ],

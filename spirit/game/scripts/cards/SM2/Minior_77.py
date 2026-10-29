@@ -1,9 +1,14 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Minior (SM2 #77): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import ignore_effects_attack
+
+
+async def cosmicsplosion(ctx):
+    """190 damage, then this Pokémon is Knocked Out."""
+    await ctx.deal_damage()
+    if ctx.attacker is not None:
+        await ctx.knock_out(ctx.attacker)
+
 
 card = PokemonCardDef(
     guid="70be3724-5c22-57f9-81ee-932975cd9864",
@@ -29,16 +34,14 @@ card = PokemonCardDef(
             game_text="This attack's damage isn't affected by Weakness, Resistance, or any other effects on your opponent's Active Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=ignore_effects_attack(ignore_weakness=True, ignore_resistance=True),
         ),
         Attack(
             title="Cosmicsplosion",
             game_text="This Pok\u00e9mon is Knocked Out.",
             cost={PokemonTypes.FIGHTING: 3},
             damage=190,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=cosmicsplosion,
         ),
     ],
 )

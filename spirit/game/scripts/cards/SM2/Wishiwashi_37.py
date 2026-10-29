@@ -1,10 +1,35 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Wishiwashi (SM2 #37): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import snipe_attack
+from spirit.game.attributes import AttrID
+
+
+from spirit.game.data_utils import subtypes_for, Activations
+from spirit.game.session.effects import is_pokemon_card
+
+
+def _is_wishiwashi_gx(card):
+    return (
+        is_pokemon_card(card)
+        and card.get_attribute(AttrID.EVOLUTION_LOGIC_NAME) == "Wishiwashi"
+        and "GX" in subtypes_for(card.archetype_id)
+    )
+
+
+def schooling_condition(board, player_id, pokemon=None):
+    hand = board.find_player_area(player_id, "hand")
+    return bool(hand) and any(_is_wishiwashi_gx(c) for c in hand.children)
+
+
+async def schooling(ctx):
+    """Switch this Pokémon with a Wishiwashi-GX in your hand."""
+    candidates = [c for c in ctx.hand() if _is_wishiwashi_gx(c)]
+    picks = await ctx.choose_cards(
+        candidates, 1, minimum=1,
+        prompt="Choose a Wishiwashi-GX to switch with this Pokémon",
+    )
+    if picks:
+        await ctx.identity_swap(ctx.source, picks[0], destination="hand")
 
 
 card = PokemonCardDef(
@@ -28,14 +53,13 @@ card = PokemonCardDef(
             title="Schooling",
             game_text="Once during your turn (before your attack), you may switch this Pok\u00e9mon with a Wishiwashi-GX in your hand. Any attached cards, damage counters, Special Conditions, turns in play, and any other effects remain on the new Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN, condition=schooling_condition,
+            effect=schooling,
         ),
         Attack(
             title="Sharpshooting",
             game_text="This attack does 10 damage to 1 of your opponent's Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.WATER: 1},
-            # STUB: attack effect not implemented
             effect=snipe_attack(10, pool='any', count=1),
         ),
     ],

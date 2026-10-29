@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Metagross-GX (SM2 #139): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.scripts.cards.SM2.MetagrossGX_85 import geotech_system, geotech_condition, algorithm_gx
+from spirit.game.data_utils import Activations
 
 card = PokemonCardDef(
     guid="7fd15780-e4f3-5966-b11e-3c6118a53140",
@@ -29,23 +27,22 @@ card = PokemonCardDef(
             title="Geotech System",
             game_text="Once during your turn (before your attack), you may attach a Psychic or Metal Energy card from your discard pile to your Active Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN, condition=geotech_condition,
+            effect=geotech_system,
         ),
         Attack(
             title="Giga Hammer",
             game_text="This Pok\u00e9mon can't use Giga Hammer during your next turn.",
             cost={PokemonTypes.METAL: 2, PokemonTypes.COLORLESS: 1},
             damage=150,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            locks_next_turn=True,
+            effect=None,
         ),
         Attack(
             title="Algorithm-GX",
             game_text="Search your deck for up to 5 cards and put them into your hand. Then, shuffle your deck. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=algorithm_gx,
         ),
     ],
 )

@@ -1,9 +1,23 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Sylveon-GX (SM2 #92): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import search_to_hand
+
+from spirit.game.session.effects import full_stack
+
+
+async def plea_gx(ctx):
+    """Put 2 of the opponent's Benched Pokémon (and attachments) into their hand."""
+    bench = ctx.opponent_bench()
+    if not bench:
+        return
+    take = min(2, len(bench))
+    picks = await ctx.choose_cards(
+        bench, take, minimum=take,
+        prompt="Choose Benched Pokémon to put into your opponent's hand",
+    )
+    for target in picks:
+        await ctx.put_in_hand(full_stack(target), reveal=False)
+
 
 card = PokemonCardDef(
     guid="6a757103-0d9c-5b9b-a823-253de6f56311",
@@ -29,8 +43,7 @@ card = PokemonCardDef(
             title="Magical Ribbon",
             game_text="Search your deck for up to 3 cards and put them into your hand. Then, shuffle your deck.",
             cost={PokemonTypes.FAIRY: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=search_to_hand(None, count=3, minimum=0, reveal=False, prompt='Choose up to 3 cards'),
         ),
         Attack(
             title="Fairy Wind",
@@ -41,8 +54,7 @@ card = PokemonCardDef(
             title="Plea-GX",
             game_text="Put 2 of your opponent's Benched Pok\u00e9mon and all cards attached to them into your opponent's hand. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.FAIRY: 1, PokemonTypes.COLORLESS: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=plea_gx,
         ),
     ],
 )

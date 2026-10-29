@@ -1,9 +1,15 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Pancham (SM2 #72): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.attacks_common import damage_counters_on
+
+
+async def karate_chop(ctx):
+    """60 minus 10 per damage counter on this Pokémon."""
+    amount = max(0, 60 - 10 * damage_counters_on()(ctx))
+    if amount > 0:
+        await ctx.deal_damage(amount)
+
 
 card = PokemonCardDef(
     guid="9e9a0d3a-69a9-5740-9bc4-092a722a693e",
@@ -28,8 +34,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 2},
             damage=60,
             damage_operator="-",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=karate_chop,
         ),
     ],
 )

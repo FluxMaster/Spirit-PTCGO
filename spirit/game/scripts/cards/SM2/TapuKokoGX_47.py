@@ -1,9 +1,30 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Tapu Koko-GX (SM2 #47): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.attributes import PokemonTypes
+from spirit.game.card_effects.attacks_common import damage_per, count_energy
+
+from spirit.game.card_effects.pokemon import energy_provides_type
+from spirit.game.data_utils import Triggers
+
+
+async def aero_trail(ctx):
+    """On play to Bench: move any Lightning Energy here; if you do, switch."""
+    if not await ctx.ask_yes_no(
+        "Move any number of Lightning Energy to this Pokémon and switch it into the Active Spot?"
+    ):
+        return
+    moved = await ctx.move_energy_freely(
+        [p for p in ctx.my_pokemon_in_play() if p is not ctx.source],
+        [ctx.source],
+        predicate=lambda e: energy_provides_type(e, PokemonTypes.LIGHTNING.value),
+        prompt="Choose Lightning Energy to move to this Pokémon",
+    )
+    if not moved:
+        return
+    if ctx.source is ctx.my_active():
+        return
+    await ctx.switch_active(ctx.player_id, ctx.source)
+
 
 card = PokemonCardDef(
     guid="e0c45b58-9cbd-5949-a2f7-b7165d785e39",
@@ -25,8 +46,8 @@ card = PokemonCardDef(
             title="Aero Trail",
             game_text="When you play this Pok\u00e9mon from your hand onto your Bench during your turn, you may move any number of Lightning Energy from your other Pok\u00e9mon to this Pok\u00e9mon. If you do, switch this Pok\u00e9mon with your Active Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=Triggers.ON_PLAY,
+            effect=aero_trail,
         ),
         Attack(
             title="Sky-High Claws",
@@ -39,8 +60,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 2, PokemonTypes.COLORLESS: 1},
             damage=50,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_per(count_energy('opponent'), 50),
         ),
     ],
 )

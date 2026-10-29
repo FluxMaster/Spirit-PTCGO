@@ -1,9 +1,16 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Alolan Geodude (SM2 #40): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.passives_common import retreat_free_when
+
+async def rock_polish(ctx):
+    """During your next turn, this Pokémon has no Retreat Cost."""
+    from spirit.game.card_effects.passives_common import retreat_free_when
+    from spirit.game.session.passives import carrier_pokemon
+    ctx.add_passive_through_own_next_turn(
+        ctx.attacker,
+        retreat_free_when(lambda p, c: p is carrier_pokemon(c)),
+    )
+
 
 card = PokemonCardDef(
     guid="e3dce8e1-3a60-5d48-a096-2faff6b24550",
@@ -28,8 +35,7 @@ card = PokemonCardDef(
             title="Rock Polish",
             game_text="During your next turn, this Pok\u00e9mon has no Retreat Cost.",
             cost={},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=rock_polish,
         ),
         Attack(
             title="Rollout",

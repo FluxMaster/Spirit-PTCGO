@@ -1,10 +1,30 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Machoke (SM2 #64): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import flip_bonus
+from spirit.game.attributes import AttrID
+
+
+from spirit.game.session.passives import Passive, carrier_pokemon
+from spirit.game.card_effects.passives_common import is_in_active_spot
+
+
+def _own_benched(target, carrier):
+    if target.owning_player_id != carrier.owning_player_id:
+        return False
+    parent = getattr(target, "parent", None)
+    return bool(parent) and parent.get_attribute(AttrID.NAME) == "bench"
+
+
+class DauntingPosePassive(Passive):
+    def prevents_damage(self, calc, carrier):
+        if not (calc.is_attack and calc.is_opposing):
+            return False
+        return _own_benched(calc.target, carrier)
+
+    def prevents_damage_counters(self, target, carrier, source_player_id=None):
+        if source_player_id == carrier.owning_player_id:
+            return False
+        return _own_benched(target, carrier)
 
 
 card = PokemonCardDef(
@@ -29,8 +49,8 @@ card = PokemonCardDef(
             title="Daunting Pose",
             game_text="Prevent all damage done to your Benched Pok\u00e9mon by your opponent's attacks. Your opponent's attacks and Abilities can't put damage counters on your Benched Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=DauntingPosePassive(),
+            effect=None,
         ),
         Attack(
             title="Cross Chop",
@@ -38,7 +58,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 2},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
             effect=flip_bonus(30),
         ),
     ],

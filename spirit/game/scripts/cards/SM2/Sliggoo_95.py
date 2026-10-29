@@ -1,9 +1,14 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Sliggoo (SM2 #95): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.attributes import AttrID
+from spirit.game.card_effects.support_common import search_to_bench
+
+from spirit.game.session.effects import is_pokemon_card
+
+
+def _is_sliggoo(card):
+    return is_pokemon_card(card) and card.get_attribute(AttrID.EVOLUTION_LOGIC_NAME) == "Sliggoo"
+
 
 card = PokemonCardDef(
     guid="43f84e89-6638-5b82-a7d2-68f883faa2ab",
@@ -27,8 +32,7 @@ card = PokemonCardDef(
             title="Division",
             game_text="Search your deck for up to 2 Sliggoo and put them onto your Bench. Then, shuffle your deck.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=search_to_bench(_is_sliggoo, count=2, prompt='Choose up to 2 Sliggoo'),
         ),
         Attack(
             title="Tackle",

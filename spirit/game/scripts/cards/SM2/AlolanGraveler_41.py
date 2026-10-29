@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Alolan Graveler (SM2 #41): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import snipe_attack
+from spirit.game.card_effects.attacks_common import flip_damage
 
 
 card = PokemonCardDef(
@@ -33,15 +30,13 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 2},
             damage=50,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(bonus=20, tails_self_damage=20),
         ),
         Attack(
             title="Electrobullet",
             game_text="This attack does 20 damage to 1 of your opponent's Benched Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.LIGHTNING: 3, PokemonTypes.COLORLESS: 1},
             damage=80,
-            # STUB: attack effect not implemented
             effect=snipe_attack(20, also_base=True),
         ),
     ],

@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Mudsdale (SM2 #76): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import bonus_if, has_tool, recoil_attack
 
 card = PokemonCardDef(
     guid="12595a18-c8e6-56a7-9705-1882f175a9a9",
@@ -29,16 +26,14 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 2, PokemonTypes.COLORLESS: 1},
             damage=60,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bonus_if(lambda ctx: ctx.attacker is not None and has_tool(ctx.attacker), 60),
         ),
         Attack(
             title="High Horsepower",
             game_text="This Pok\u00e9mon does 40 damage to itself.",
             cost={PokemonTypes.FIGHTING: 3, PokemonTypes.COLORLESS: 1},
             damage=180,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=recoil_attack(40),
         ),
     ],
 )

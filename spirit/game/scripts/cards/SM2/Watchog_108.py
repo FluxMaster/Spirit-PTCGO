@@ -1,10 +1,23 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Watchog (SM2 #108): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_damage
+
+
+async def scrutinize(ctx):
+    """Look at the top 2 of the opponent's deck; discard 1, put the other back."""
+    top = list(ctx.deck_top(2, ctx.opponent_id))
+    if not top:
+        return
+    picks = await ctx.choose_cards(
+        top, 1, minimum=1, display_cards=top,
+        prompt="Choose a card to discard",
+    )
+    if not picks:
+        return
+    await ctx.discard_cards(picks)
+    rest = [c for c in top if c not in picks]
+    for card in rest:
+        await ctx.put_on_top_of_deck(card)
 
 
 card = PokemonCardDef(
@@ -29,8 +42,7 @@ card = PokemonCardDef(
             title="Scrutinize",
             game_text="Look at the top 2 cards of your opponent's deck, discard 1 of them, and put the other card back.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=scrutinize,
         ),
         Attack(
             title="Slam",
@@ -38,7 +50,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=60,
             damage_operator="x",
-            # STUB: attack effect not implemented
             effect=flip_damage(coins=2, per_heads=60),
         ),
     ],

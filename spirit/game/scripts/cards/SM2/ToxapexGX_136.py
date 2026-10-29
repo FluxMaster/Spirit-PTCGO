@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Toxapex-GX (SM2 #136): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.attributes import SpecialConditions
+from spirit.game.card_effects.attacks_common import flip_damage, condition_attack
+from spirit.game.card_effects.passives_common import protect_next_turn
 
 card = PokemonCardDef(
     guid="b7c6814c-c7cd-57a1-9082-dea3499e2443",
@@ -29,23 +28,20 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 1},
             damage=30,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(4, per_heads=30),
         ),
         Attack(
             title="Super Intense Poison",
             game_text="Your opponent's Active Pok\u00e9mon is now Poisoned. Put 10 damage counters instead of 1 on that Pok\u00e9mon between turns.",
             cost={PokemonTypes.PSYCHIC: 3},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(SpecialConditions.POISONED, counters=10, damage=0),
         ),
         Attack(
             title="Total Shelter-GX",
             game_text="Prevent all effects of attacks, including damage, done to this Pok\u00e9mon during your opponent's next turn. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.PSYCHIC: 3},
             damage=150,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=protect_next_turn(prevent=True, effects_too=True),
         ),
     ],
 )

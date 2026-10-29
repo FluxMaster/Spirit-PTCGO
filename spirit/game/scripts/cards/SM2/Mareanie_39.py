@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Mareanie (SM2 #39): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import recover_from_discard
+from spirit.game.session.effects import is_pokemon_card
 
 card = PokemonCardDef(
     guid="69cc4221-e5ce-5117-bde6-9124d404682b",
@@ -26,8 +24,7 @@ card = PokemonCardDef(
             title="Bail Out",
             game_text="Put a Pok\u00e9mon from your discard pile into your hand.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=recover_from_discard(is_pokemon_card, count=1, minimum=0, prompt='Choose a Pokémon to put into your hand'),
         ),
         Attack(
             title="Rain Splash",

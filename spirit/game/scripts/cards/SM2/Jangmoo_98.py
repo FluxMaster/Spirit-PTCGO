@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Jangmo-o (SM2 #98): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.passives_common import takes_less_passive
 
 card = PokemonCardDef(
     guid="d78d62ac-9aa9-5f7c-b13d-0350a5685cba",
@@ -26,8 +23,7 @@ card = PokemonCardDef(
             title="Bulletproof",
             game_text="This Pok\u00e9mon takes 10 less damage from attacks (after applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=takes_less_passive(10),
         ),
         Attack(
             title="Dragon Claw",

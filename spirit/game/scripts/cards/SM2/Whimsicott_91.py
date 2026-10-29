@@ -1,9 +1,22 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Whimsicott (SM2 #91): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.session.passives import Passive
+
+
+class WagesOfFluffPassive(Passive):
+    def modify_prizes_for_knockout(self, pokemon, ctx, count, carrier):
+        if pokemon is carrier:
+            return count + 2
+        return count
+
+
+async def wages_of_fluff(ctx):
+    """If the Defending Pokémon is KO'd during your next turn, take 2 more prizes."""
+    defender = ctx.defender
+    if defender is not None:
+        ctx.add_passive_through_own_next_turn(defender, WagesOfFluffPassive())
+
 
 card = PokemonCardDef(
     guid="e4459670-cc29-58e9-82a2-e010e4fceba2",
@@ -29,8 +42,7 @@ card = PokemonCardDef(
             title="The Wages of Fluff",
             game_text="If the Defending Pok\u00e9mon is Knocked Out during your next turn, take 2 more Prize cards.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=wages_of_fluff,
         ),
         Attack(
             title="Fairy Wind",

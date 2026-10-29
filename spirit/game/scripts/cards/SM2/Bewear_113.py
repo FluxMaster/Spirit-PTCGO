@@ -1,10 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Bewear (SM2 #113): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.data_utils import Triggers
+from spirit.game.card_effects.attacks_common import bonus_if
+from spirit.game.session.effects import is_basic_pokemon
 
 
 async def drastic_draw(ctx):
@@ -35,7 +33,6 @@ card = PokemonCardDef(
             title="Rake It In",
             game_text="When you play this Pok\u00e9mon from your hand to evolve 1 of your Pok\u00e9mon during your turn, you may draw 3 cards.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
             trigger=Triggers.ON_EVOLVE,
             effect=drastic_draw,
         ),
@@ -45,8 +42,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=60,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bonus_if(lambda ctx: ctx.defender is not None and is_basic_pokemon(ctx.defender), 60),
         ),
     ],
 )

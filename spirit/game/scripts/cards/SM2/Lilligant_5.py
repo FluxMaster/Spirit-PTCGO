@@ -1,10 +1,14 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Lilligant (SM2 #5): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import damage_all_opponents
+from spirit.game.card_effects.attacks_common import flip_damage
+
+
+from spirit.game.attributes import SpecialConditions
+
+
+async def _confuse_self(ctx):
+    await ctx.apply_special_condition(ctx.attacker, SpecialConditions.CONFUSED)
 
 
 card = PokemonCardDef(
@@ -29,7 +33,6 @@ card = PokemonCardDef(
             title="Petal Blizzard",
             game_text="This attack does 10 damage to each of your opponent's Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=damage_all_opponents(10),
         ),
         Attack(
@@ -38,8 +41,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 1},
             damage=40,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(3, per_heads=40, also=_confuse_self),
         ),
     ],
 )

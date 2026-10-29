@@ -1,9 +1,19 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Alolan Golem (SM2 #42): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_damage, count_energy
+from spirit.game.session.passives import effective_retreat_cost
+
+from spirit.game.session.passives import effective_retreat_cost
+
+
+async def heavy_slam(ctx):
+    """200 minus 30 for each Colorless in the Defending Pokémon's Retreat Cost."""
+    defender = ctx.defender
+    cost = effective_retreat_cost(ctx.board, defender) if defender is not None else 0
+    amount = max(0, 200 - 30 * cost)
+    if amount > 0:
+        await ctx.deal_damage(amount)
+
 
 card = PokemonCardDef(
     guid="03206966-be57-51e2-b229-a5130ecf4455",
@@ -31,8 +41,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 2},
             damage=80,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(coins_from=count_energy('self', PokemonTypes.LIGHTNING), per_heads=80),
         ),
         Attack(
             title="Heavy Slam",
@@ -40,8 +49,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 3},
             damage=200,
             damage_operator="-",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=heavy_slam,
         ),
     ],
 )

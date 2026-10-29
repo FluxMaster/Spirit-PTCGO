@@ -1,10 +1,20 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Salazzle (SM2 #16): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import self_energy_discard_attack
+from spirit.game.data_utils import Triggers
+
+
+from spirit.game.attributes import SpecialConditions
+
+
+async def hot_poison(ctx):
+    """On evolve: you may Burn and Poison the opponent's Active."""
+    defender = ctx.opponent_active()
+    if defender is None:
+        return
+    if await ctx.ask_yes_no("Leave the opponent's Active Pokémon Burned and Poisoned?"):
+        await ctx.apply_special_condition(defender, SpecialConditions.BURNED)
+        await ctx.apply_special_condition(defender, SpecialConditions.POISONED)
 
 
 card = PokemonCardDef(
@@ -29,15 +39,14 @@ card = PokemonCardDef(
             title="Hot Poison",
             game_text="When you play this Pok\u00e9mon from your hand to evolve 1 of your Pok\u00e9mon during your turn, you may leave your opponent's Active Pok\u00e9mon Burned and Poisoned.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=Triggers.ON_EVOLVE,
+            effect=hot_poison,
         ),
         Attack(
             title="Flamethrower",
             game_text="Discard an Energy from this Pok\u00e9mon.",
             cost={PokemonTypes.FIRE: 1, PokemonTypes.COLORLESS: 2},
             damage=90,
-            # STUB: attack effect not implemented
             effect=self_energy_discard_attack(count=1),
         ),
     ],

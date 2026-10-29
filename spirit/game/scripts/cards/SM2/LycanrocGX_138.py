@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Lycanroc-GX (SM2 #138): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.data_utils import Triggers
+from spirit.game.card_effects.attacks_common import damage_per, count_bench
 
 
 async def dark_signal(ctx):
@@ -46,7 +43,6 @@ card = PokemonCardDef(
             title="Bloodthirsty Eyes",
             game_text="When you play this Pok\u00e9mon from your hand to evolve 1 of your Pok\u00e9mon during your turn, you may switch 1 of your opponent's Benched Pok\u00e9mon with their Active Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
             trigger=Triggers.ON_EVOLVE,
             effect=dark_signal,
         ),
@@ -61,8 +57,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 1},
             damage=50,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_per(count_bench('opponent'), 50),
         ),
     ],
 )
