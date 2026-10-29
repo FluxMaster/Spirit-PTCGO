@@ -88,6 +88,8 @@ class DamageCalc:
         )
         self.resistance_applies = True
         self.resistance_reduction = RESISTANCE_REDUCTION
+        # Rewritable by modify_resistance hooks (Conversion 2 overrides).
+        self.resist_type = target.get_attribute(AttrID.RESISTANCE_TYPES)
         self.weakness_hit = False
         self.resistance_hit = False
         self.prevented = False
@@ -620,8 +622,7 @@ def compute_damage(
         if calc.weakness_applies and any(t in calc.weak_types for t in attacker_types):
             calc.weakness_hit = True
             calc.amount *= calc.weakness_multiplier
-        resist_type = target.get_attribute(AttrID.RESISTANCE_TYPES)
-        if calc.resistance_applies and resist_type in attacker_types:
+        if calc.resistance_applies and calc.resist_type in attacker_types:
             calc.resistance_hit = True
             calc.amount = max(0, calc.amount - calc.resistance_reduction)
 
