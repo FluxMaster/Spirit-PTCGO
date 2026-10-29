@@ -235,6 +235,19 @@ class Passive:
         """Area name replacing "discard" for a knocked-out Pokemon (e.g. "lostZone")."""
         return None
 
+    def knockout_whole_stack(self, pokemon: PokemonEntity, carrier: BoardEntity) -> bool:
+        """True to send attached Energy/Tools to knockout_destination with the
+        Pokemon (Tyranitar Lost Out); Lost City leaves attachments in discard."""
+        return False
+
+    def allows_second_energy_attach(
+        self, pokemon: PokemonEntity, carrier: BoardEntity
+    ) -> bool:
+        """True to let the owner attach a second Energy from hand to `pokemon`
+        this turn after the first manual attach (Primarina Harmonics; Alpha
+        Growth uses the ancient-trait check instead)."""
+        return False
+
     def modify_prizes_for_knockout(
         self, pokemon: PokemonEntity, ctx: Any, count: int, carrier: BoardEntity
     ) -> int:
