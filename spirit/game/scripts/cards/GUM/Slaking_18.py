@@ -1,8 +1,4 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Slaking (GUM #18): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.support_common import gust_attack
 
@@ -30,7 +26,6 @@ card = PokemonCardDef(
             game_text="Your opponent switches their Active Pok\u00e9mon with 1 of their Benched Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 4},
             damage=150,
-            # STUB: attack effect not implemented
             effect=gust_attack(opponent_chooses=True),
         ),
     ],

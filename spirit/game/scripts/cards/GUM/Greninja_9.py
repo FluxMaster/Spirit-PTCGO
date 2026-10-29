@@ -1,8 +1,4 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Greninja (GUM #9): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.passives_common import flip_prevent_damage_passive
 from spirit.game.card_effects.attacks_common import snipe_attack
@@ -30,14 +26,12 @@ card = PokemonCardDef(
             title="Evasion Jutsu",
             game_text="If any damage is done to this Pok\u00e9mon by attacks, flip a coin. If heads, prevent that damage.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            passive=flip_prevent_damage_passive('Primate Dexterity'),
+            passive=flip_prevent_damage_passive("Evasion Jutsu"),
         ),
         Attack(
             title="Furious Shurikens",
             game_text="This attack does 50 damage to 2 of your opponent's Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.WATER: 2},
-            # STUB: attack effect not implemented
             effect=snipe_attack(50, pool='any', count=2),
         ),
     ],

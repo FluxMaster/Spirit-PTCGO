@@ -1,11 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Machamp (GUM #13): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_bonus
-
+from spirit.game.card_effects.gum import directing_traffic
 
 card = PokemonCardDef(
     guid="85415617-8a62-5b13-9658-15f45dd96bee",
@@ -29,8 +25,7 @@ card = PokemonCardDef(
             title="Directing Traffic",
             game_text="Look at the top 5 cards of your deck and put them back in any order.",
             cost={PokemonTypes.FIGHTING: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=directing_traffic,
         ),
         Attack(
             title="Cross Chop",
@@ -38,7 +33,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 2},
             damage=80,
             damage_operator="+",
-            # STUB: attack effect not implemented
             effect=flip_bonus(60),
         ),
     ],

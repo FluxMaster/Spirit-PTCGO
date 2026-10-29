@@ -1,8 +1,4 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Detective Pikachu (GUM #10): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_or_nothing
 
@@ -36,7 +32,6 @@ card = PokemonCardDef(
             title="Scout",
             game_text="Your opponent reveals their hand.",
             cost={PokemonTypes.LIGHTNING: 1},
-            # STUB: attack effect not implemented
             effect=pry,
         ),
         Attack(
@@ -44,7 +39,6 @@ card = PokemonCardDef(
             game_text="Flip a coin. If tails, this attack does nothing.",
             cost={PokemonTypes.COLORLESS: 3},
             damage=80,
-            # STUB: attack effect not implemented
             effect=flip_or_nothing(),
         ),
     ],
