@@ -1,0 +1,35 @@
+"""STUB: effect not implemented — do not guess mechanics.
+Pancham (SM6 #65): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
+"""
+
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+card = PokemonCardDef(
+    guid="a5544e39-b8dd-5185-a899-2b3d4ae30510",
+    key="SM6",
+    name="com.direwolfdigital.cake.data.archetypes.pokemon.Pancham.Name",
+    display_name="Pancham",
+    searchable_by=["Pancham", "Basic", "Pancham"],
+    subtypes=["Basic"],
+    collector_number=65,
+    set_code="SM6",
+    rarity=Rarities.Common,
+    hp=70,
+    elements=[PokemonTypes.FIGHTING],
+    stage=PokemonStage.BASIC,
+    retreat_cost=2,
+    weakness_type=PokemonTypes.PSYCHIC,
+    family_id=674,
+    abilities=[
+        Attack(
+            title="Act Tough",
+            game_text="If this Pok\u00e9mon has any Darkness Energy attached to it, this attack does 30 more damage.",
+            cost={PokemonTypes.FIGHTING: 1},
+            damage=10,
+            damage_operator="+",
+            # STUB: attack effect not implemented
+            effect=unimplemented,
+        ),
+    ],
+)
