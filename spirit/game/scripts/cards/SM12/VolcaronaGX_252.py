@@ -5,6 +5,7 @@ Volcarona-GX (SM12 #252): one or more attacks/abilities use effect=unimplemented
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.sm4 import dread_storm_gx
+from spirit.game.card_effects.sm12 import backfire
 
 
 card = PokemonCardDef(
@@ -37,8 +38,7 @@ card = PokemonCardDef(
             game_text="Put 2 Fire Energy attached to this Pok\u00e9mon into your hand.",
             cost={PokemonTypes.FIRE: 2, PokemonTypes.COLORLESS: 1},
             damage=160,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=backfire,
         ),
         Attack(
             title="Massive Heat Wave-GX",

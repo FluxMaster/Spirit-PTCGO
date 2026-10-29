@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Ursaring (SM12 #172): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm12 import heavy_hold
 
 card = PokemonCardDef(
     guid="cc0e4034-e960-5ef7-913c-232050f9c3b0",
@@ -33,8 +30,7 @@ card = PokemonCardDef(
             game_text="The Defending Pok\u00e9mon can't attack during your opponent's next turn.",
             cost={PokemonTypes.COLORLESS: 4},
             damage=120,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=heavy_hold,
         ),
     ],
 )

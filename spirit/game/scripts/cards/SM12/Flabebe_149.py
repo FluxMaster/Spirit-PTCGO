@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Flabébé (SM12 #149): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm12 import floral_invitation
 
 card = PokemonCardDef(
     guid="b4b5492e-5a85-596e-a73b-f59989cb4ea2",
@@ -28,8 +25,7 @@ card = PokemonCardDef(
             title="Floral Invitation",
             game_text="Search your deck for up to 2 Fairy Pok\u00e9mon, reveal them, and put them into your hand. Then, shuffle your deck.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=floral_invitation,
         ),
     ],
 )

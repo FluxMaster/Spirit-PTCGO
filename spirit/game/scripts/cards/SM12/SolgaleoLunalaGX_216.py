@@ -27,8 +27,7 @@ card = PokemonCardDef(
             game_text="This Pok\u00e9mon can't use Cosmic Burn during your next turn.",
             cost={PokemonTypes.PSYCHIC: 3, PokemonTypes.COLORLESS: 1},
             damage=230,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            locks_next_turn=True,
         ),
         Attack(
             title="Light of the Protector-GX",

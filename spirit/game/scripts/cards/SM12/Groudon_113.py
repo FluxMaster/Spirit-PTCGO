@@ -4,6 +4,7 @@ Groudon (SM12 #113): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm12 import drought
 
 card = PokemonCardDef(
     guid="f4ff99db-4fb7-53ab-b766-6f6372b14eb3",
@@ -26,8 +27,7 @@ card = PokemonCardDef(
             title="Drought",
             game_text="Attach up to 2 Fighting Energy cards from your hand to 1 of your Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=drought,
         ),
         Attack(
             title="Trembling Ground",

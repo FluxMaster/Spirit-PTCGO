@@ -1,11 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Swoobat (SM12 #88): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.sm12 import charming_stamp
 
 
 card = PokemonCardDef(
@@ -39,8 +36,7 @@ card = PokemonCardDef(
             title="Charming Stamp",
             game_text="Your opponent chooses 1 of their own Pok\u00e9mon. This attack does 90 damage to that Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.PSYCHIC: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=charming_stamp,
         ),
     ],
 )

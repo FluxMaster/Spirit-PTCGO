@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Pawniard (SM12 #134): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm12 import bag_slash
 
 card = PokemonCardDef(
     guid="10b07387-8bdc-5903-b366-c12bb05b46e8",
@@ -28,8 +25,7 @@ card = PokemonCardDef(
             title="Bag Slash",
             game_text="Your opponent reveals their hand. Discard an Item card you find there.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bag_slash,
         ),
         Attack(
             title="Sting",

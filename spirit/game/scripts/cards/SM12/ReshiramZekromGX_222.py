@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Reshiram & Zekrom-GX (SM12 #222): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm12 import fabled_flarebolts, cross_break_gx
 
 card = PokemonCardDef(
     guid="7216af11-582f-5557-a420-1ed782222f57",
@@ -28,15 +25,13 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 1, PokemonTypes.LIGHTNING: 1},
             damage=90,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=fabled_flarebolts,
         ),
         Attack(
             title="Cross Break-GX",
             game_text="This attack does 170 damage to 1 of your opponent's Benched Pok\u00e9mon. If you played N's Resolve from your hand during this turn, this attack also does 170 damage to 1 of your opponent's other Benched Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.) (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.FIRE: 2, PokemonTypes.LIGHTNING: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=cross_break_gx,
         ),
     ],
 )

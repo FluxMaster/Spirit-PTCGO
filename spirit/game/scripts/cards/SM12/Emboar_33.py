@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Emboar (SM12 #33): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm12 import explosive_fire_dance
 
 card = PokemonCardDef(
     guid="74d642b2-9344-5bc4-8e8e-f32f77fe4d28",
@@ -27,8 +24,8 @@ card = PokemonCardDef(
             title="Explosive Fire Dance",
             game_text="When you play this Pok\u00e9mon from your hand to evolve 1 of your Pok\u00e9mon during your turn, you may look at the top 8 cards of your deck and attach any number of basic Energy cards you find there to your Pok\u00e9mon in any way you like. Shuffle the other cards back into your deck.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=Triggers.ON_EVOLVE,
+            effect=explosive_fire_dance,
         ),
         Attack(
             title="Heat Blast",

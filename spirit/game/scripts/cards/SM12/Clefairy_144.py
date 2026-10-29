@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Clefairy (SM12 #144): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm12 import doll_swap
 
 card = PokemonCardDef(
     guid="ead9f49e-226a-58e2-b480-f7f7d936a287",
@@ -29,8 +26,7 @@ card = PokemonCardDef(
             game_text="Put this Pok\u00e9mon and all cards attached to it into your hand. If you do, you may play Lillie's Pok\u00e9 Doll from your hand as your new Active Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 3},
             damage=60,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=doll_swap,
         ),
     ],
 )

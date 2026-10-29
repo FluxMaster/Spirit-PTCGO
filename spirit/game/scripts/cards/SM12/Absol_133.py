@@ -4,6 +4,7 @@ Absol (SM12 #133): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm12 import dirty_throw
 
 card = PokemonCardDef(
     guid="e4d739c2-e074-5eaa-a27f-781ac857c687",
@@ -36,8 +37,7 @@ card = PokemonCardDef(
             game_text="Discard a card from your hand. If you can't discard a card, this attack does nothing.",
             cost={PokemonTypes.DARKNESS: 1, PokemonTypes.COLORLESS: 1},
             damage=70,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=dirty_throw,
         ),
     ],
 )

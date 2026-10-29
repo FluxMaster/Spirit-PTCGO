@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Ambipom (SM12 #170): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.support_common import draw_attack
+from spirit.game.card_effects.sm12 import bye_bye_throw
 
 
 card = PokemonCardDef(
@@ -38,8 +35,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=60,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bye_bye_throw,
         ),
     ],
 )

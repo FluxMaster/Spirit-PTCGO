@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Torkoal (SM12 #237): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm12 import fire_fling
 
 
 async def axe_slash(ctx):
@@ -39,8 +36,7 @@ card = PokemonCardDef(
             title="Fire Fling",
             game_text="Put 4 Fire Energy cards from your discard pile into your hand.",
             cost={PokemonTypes.FIRE: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=fire_fling,
         ),
         Attack(
             title="Kindle",

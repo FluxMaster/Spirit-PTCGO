@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Solgaleo (SM12 #142): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import self_energy_discard_attack
+from spirit.game.card_effects.sm12 import armor_of_the_sunne_passive
 
 
 card = PokemonCardDef(
@@ -31,8 +28,7 @@ card = PokemonCardDef(
             title="Armor of the Sunne",
             game_text="If you have Lunala in play, your Solgaleo and Lunala take 50 less damage from your opponent's attacks (after applying Weakness and Resistance). You can't apply more than 1 Armor of the Sunne Ability at a time.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=armor_of_the_sunne_passive,
         ),
         Attack(
             title="Sol Fangs",

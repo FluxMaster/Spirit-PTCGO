@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Hakamo-o (SM12 #162): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm12 import fighters_roar_passive
 
 card = PokemonCardDef(
     guid="78f6eef0-1817-562c-8bb3-03eb508e1757",
@@ -27,8 +24,7 @@ card = PokemonCardDef(
             title="Fighter's Roar",
             game_text="If your opponent's Active Pok\u00e9mon is a Pok\u00e9mon-GX or Pok\u00e9mon-EX, this Pok\u00e9mon can evolve during the turn you play it.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=fighters_roar_passive,
         ),
         Attack(
             title="Dragonslice",

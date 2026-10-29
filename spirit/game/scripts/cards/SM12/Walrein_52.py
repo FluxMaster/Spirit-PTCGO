@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Walrein (SM12 #52): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import spread_damage
+from spirit.game.card_effects.sm12 import cold_snap, cold_snap_condition
 
 
 card = PokemonCardDef(
@@ -30,8 +27,8 @@ card = PokemonCardDef(
             game_text="Your opponent can't play any Trainer cards from their hand during their next turn. If 1 of your Pok\u00e9mon used Cold Snap during your last turn, this attack can't be used.",
             cost={PokemonTypes.WATER: 1},
             damage=60,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            condition=cold_snap_condition,
+            effect=cold_snap,
         ),
         Attack(
             title="Blizzard",

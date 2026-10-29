@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Lycanroc (SM12 #124): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.sm8 import special_blow
+from spirit.game.card_effects.sm12 import boiling_blood_passive
 
 
 card = PokemonCardDef(
@@ -29,8 +26,7 @@ card = PokemonCardDef(
             title="Boiling Blood",
             game_text="If your opponent has any Pok\u00e9mon-GX or Pok\u00e9mon-EX in play, this Pok\u00e9mon's attacks cost ColorlessColorlessColorless less.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=boiling_blood_passive,
         ),
         Attack(
             title="Voltage Claw",

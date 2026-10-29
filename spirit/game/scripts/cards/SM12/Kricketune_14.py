@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Kricketune (SM12 #14): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm12 import improvisational_performance
 
 card = PokemonCardDef(
     guid="16e73573-403f-52b4-9338-b7ad9c5e7134",
@@ -29,8 +26,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=improvisational_performance,
         ),
     ],
 )

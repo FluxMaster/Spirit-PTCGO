@@ -4,6 +4,7 @@ Vileplume-GX (SM12 #211): one or more attacks/abilities use effect=unimplemented
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm12 import allergic_explosion_gx
 
 card = PokemonCardDef(
     guid="99fbf53d-58fb-5aad-87a4-b1feb415ae25",
@@ -44,8 +45,7 @@ card = PokemonCardDef(
             game_text="Your opponent's Active Pok\u00e9mon is now Burned, Paralyzed, and Poisoned. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.GRASS: 1},
             damage=50,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=allergic_explosion_gx,
         ),
     ],
 )

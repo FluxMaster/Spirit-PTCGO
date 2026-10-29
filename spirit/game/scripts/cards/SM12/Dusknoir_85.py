@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dusknoir (SM12 #85): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.sm4 import psych_up
+from spirit.game.card_effects.sm12 import grim_marking
 
 
 card = PokemonCardDef(
@@ -31,8 +28,8 @@ card = PokemonCardDef(
             title="Grim Marking",
             game_text="If this Pok\u00e9mon is your Active Pok\u00e9mon and is Knocked Out by damage from an opponent's attack, put 4 damage counters on your opponent's Pok\u00e9mon in any way you like.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=Triggers.ON_KNOCKED_OUT,
+            effect=grim_marking,
         ),
         Attack(
             title="Psych Up",

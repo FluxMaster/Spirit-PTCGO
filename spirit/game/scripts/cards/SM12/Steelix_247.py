@@ -4,6 +4,7 @@ Steelix (SM12 #247): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm12 import iron_tail
 
 card = PokemonCardDef(
     guid="fcfc70cf-1510-5c59-8f69-f9df2b9896e3",
@@ -40,8 +41,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.METAL: 1, PokemonTypes.COLORLESS: 3},
             damage=100,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=iron_tail,
         ),
     ],
 )

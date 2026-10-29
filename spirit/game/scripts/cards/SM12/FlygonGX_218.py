@@ -1,11 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Flygon-GX (SM12 #218): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.gum import security_guard_passive
 from spirit.game.card_effects.attacks_common import ignore_effects_attack
+from spirit.game.card_effects.sm12 import desert_hurricane
 
 
 card = PokemonCardDef(
@@ -39,8 +36,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 3},
             damage=120,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=desert_hurricane,
         ),
         Attack(
             title="Sonic Edge-GX",

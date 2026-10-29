@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Rotom (SM12 #86): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.support_common import discard_then_draw
+from spirit.game.card_effects.sm12 import energy_assist
 
 
 card = PokemonCardDef(
@@ -37,8 +34,7 @@ card = PokemonCardDef(
             title="Energy Assist",
             game_text="Attach 2 basic Energy cards from your discard pile to your Benched Pok\u00e9mon in any way you like.",
             cost={PokemonTypes.PSYCHIC: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=energy_assist,
         ),
     ],
 )

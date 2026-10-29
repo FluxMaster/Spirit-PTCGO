@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Prinplup (SM12 #55): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm12 import direct_dive
 
 card = PokemonCardDef(
     guid="1a35beb6-44ca-5af8-9158-4487a85afaec",
@@ -32,8 +29,7 @@ card = PokemonCardDef(
             title="Direct Dive",
             game_text="Discard all Energy from this Pok\u00e9mon. This attack does 100 damage to 1 of your opponent's Benched Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.WATER: 3},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=direct_dive,
         ),
     ],
 )

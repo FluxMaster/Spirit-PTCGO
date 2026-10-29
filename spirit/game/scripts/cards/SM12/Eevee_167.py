@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Eevee (SM12 #167): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm12 import follow_my_tail
 
 card = PokemonCardDef(
     guid="95711bbe-b0f8-5496-aa9a-63056073366d",
@@ -26,8 +23,7 @@ card = PokemonCardDef(
             title="Follow My Tail",
             game_text="Search your deck for any number of Eevee and Eevee-GX and put them onto your Bench. Then, shuffle your deck.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=follow_my_tail,
         ),
         Attack(
             title="Tackle",

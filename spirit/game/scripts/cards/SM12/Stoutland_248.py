@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Stoutland (SM12 #248): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.sm8 import lava_burn
+from spirit.game.card_effects.sm12 import arf_arf_bark
 
 
 card = PokemonCardDef(
@@ -29,8 +26,8 @@ card = PokemonCardDef(
             title="Arf Arf Bark",
             game_text="When you play this Pok\u00e9mon from your hand to evolve 1 of your Pok\u00e9mon during your turn, you may discard an Energy from your opponent's Active Pok\u00e9mon. If this Pok\u00e9mon is your Active Pok\u00e9mon and is Knocked Out by damage from an opponent's attack, you may discard an Energy from your opponent's Active Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=(Triggers.ON_EVOLVE, Triggers.ON_KNOCKED_OUT),
+            effect=arf_arf_bark,
         ),
         Attack(
             title="Overrun",

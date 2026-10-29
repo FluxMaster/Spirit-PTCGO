@@ -4,6 +4,7 @@ Charizard & Braixen-GX (SM12 #22): one or more attacks/abilities use effect=unim
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm12 import brilliant_flare
 
 card = PokemonCardDef(
     guid="607629bb-04a5-541a-abbd-a8f8d270aebd",
@@ -27,8 +28,7 @@ card = PokemonCardDef(
             game_text="You may search your deck for up to 3 cards and put them into your hand. Then, shuffle your deck.",
             cost={PokemonTypes.FIRE: 3, PokemonTypes.COLORLESS: 1},
             damage=180,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=brilliant_flare,
         ),
         Attack(
             title="Crimson Flame Pillar-GX",

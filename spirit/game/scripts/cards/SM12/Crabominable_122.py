@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Crabominable (SM12 #122): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.passives_common import takes_less_passive
+from spirit.game.card_effects.sm12 import freezing_punch
 
 
 card = PokemonCardDef(
@@ -38,8 +35,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 2, PokemonTypes.COLORLESS: 1},
             damage=80,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=freezing_punch,
         ),
     ],
 )

@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Blacephalon (SM12 #104): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm12 import fireworks_bomb
 
 card = PokemonCardDef(
     guid="ff3625f9-4917-562c-a624-94d6a13b5a89",
@@ -28,8 +25,7 @@ card = PokemonCardDef(
             title="Fireworks Bomb",
             game_text="Put 4 damage counters on your opponent's Pok\u00e9mon in any way you like. If your opponent has exactly 3 Prize cards remaining, put 12 damage counters on them instead.",
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=fireworks_bomb,
         ),
     ],
 )

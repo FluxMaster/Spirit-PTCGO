@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Mimikyu (SM12 #245): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm12 import impersonation, impersonation_condition
 
 
 async def night_footsteps(ctx):
@@ -39,8 +36,8 @@ card = PokemonCardDef(
             title="Impersonation",
             game_text="Discard a Supporter card from your hand. If you do, use the effect of that card as the effect of this attack.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            condition=impersonation_condition,
+            effect=impersonation,
         ),
         Attack(
             title="Mischievous Hands",
