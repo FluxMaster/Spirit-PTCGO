@@ -1,0 +1,51 @@
+"""STUB: effect not implemented — do not guess mechanics.
+Gardevoir & Sylveon-GX (SM10 #204): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
+"""
+
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+card = PokemonCardDef(
+    guid="6c5fef68-9357-5b07-855e-77c998e5d451",
+    key="SM10",
+    name="com.direwolfdigital.cake.data.archetypes.pokemon.GardevoirSylveonGX.Name",
+    display_name="Gardevoir & Sylveon-GX",
+    searchable_by=["Gardevoir & Sylveon-GX", "Basic", "TAG TEAM", "GX", "GardevoirSylveonGX"],
+    subtypes=["Basic", "TAG TEAM", "GX"],
+    collector_number=204,
+    set_code="SM10",
+    rarity=Rarities.RareUltra,
+    hp=260,
+    elements=[PokemonTypes.FAIRY],
+    stage=PokemonStage.BASIC,
+    retreat_cost=2,
+    weakness_type=PokemonTypes.METAL,
+    resistance_type=PokemonTypes.DARKNESS,
+    resistance_amount=20,
+    family_id=282,
+    abilities=[
+        Attack(
+            title="Fairy Song",
+            game_text="Search your deck for up to 2 Fairy Energy cards and attach them to your Benched Pok\u00e9mon in any way you like. Then, shuffle your deck.",
+            cost={PokemonTypes.COLORLESS: 1},
+            # STUB: attack effect not implemented
+            effect=unimplemented,
+        ),
+        Attack(
+            title="Kaleidostorm",
+            game_text="Move any number of Energy from your Pok\u00e9mon to your other Pok\u00e9mon in any way you like.",
+            cost={PokemonTypes.FAIRY: 2, PokemonTypes.COLORLESS: 1},
+            damage=150,
+            # STUB: attack effect not implemented
+            effect=unimplemented,
+        ),
+        Attack(
+            title="Magical Miracle-GX",
+            game_text="If this Pok\u00e9mon has at least 3 extra Fairy Energy attached to it (in addition to this attack's cost), your opponent shuffles their hand into their deck. (You can't use more than 1 GX attack in a game.)",
+            cost={PokemonTypes.FAIRY: 3},
+            damage=200,
+            # STUB: attack effect not implemented
+            effect=unimplemented,
+        ),
+    ],
+)

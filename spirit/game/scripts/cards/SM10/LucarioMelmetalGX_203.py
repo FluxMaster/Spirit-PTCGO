@@ -1,0 +1,48 @@
+"""STUB: effect not implemented — do not guess mechanics.
+Lucario & Melmetal-GX (SM10 #203): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
+"""
+
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+card = PokemonCardDef(
+    guid="ddaef2b8-c8af-5125-8590-bcb773747037",
+    key="SM10",
+    name="com.direwolfdigital.cake.data.archetypes.pokemon.LucarioMelmetalGX.Name",
+    display_name="Lucario & Melmetal-GX",
+    searchable_by=["Lucario & Melmetal-GX", "Basic", "TAG TEAM", "GX", "LucarioMelmetalGX"],
+    subtypes=["Basic", "TAG TEAM", "GX"],
+    collector_number=203,
+    set_code="SM10",
+    rarity=Rarities.RareUltra,
+    hp=260,
+    elements=[PokemonTypes.METAL],
+    stage=PokemonStage.BASIC,
+    retreat_cost=3,
+    weakness_type=PokemonTypes.FIRE,
+    resistance_type=PokemonTypes.PSYCHIC,
+    resistance_amount=20,
+    family_id=448,
+    abilities=[
+        Attack(
+            title="Steel Fist",
+            game_text="Search your deck for a Metal Energy card and attach it to this Pok\u00e9mon. Then, shuffle your deck.",
+            cost={PokemonTypes.COLORLESS: 2},
+            damage=50,
+            # STUB: attack effect not implemented
+            effect=unimplemented,
+        ),
+        Attack(
+            title="Heavy Impact",
+            cost={PokemonTypes.METAL: 2, PokemonTypes.COLORLESS: 2},
+            damage=150,
+        ),
+        Attack(
+            title="Full Metal Wall-GX",
+            game_text="For the rest of this game, your Metal Pok\u00e9mon take 30 less damage from your opponent's attacks (after applying Weakness and Resistance). If this Pok\u00e9mon has at least 1 extra Energy attached to it (in addition to this attack's cost), discard all Energy from your opponent's Active Pok\u00e9mon. (You can't use more than 1 GX attack in a game.)",
+            cost={PokemonTypes.COLORLESS: 1},
+            # STUB: attack effect not implemented
+            effect=unimplemented,
+        ),
+    ],
+)

@@ -1,0 +1,40 @@
+"""STUB: effect not implemented — do not guess mechanics.
+Kingler (SM10 #47): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
+"""
+
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+card = PokemonCardDef(
+    guid="455f532a-c761-56ba-ae32-bf3584e1b610",
+    key="SM10",
+    name="com.direwolfdigital.cake.data.archetypes.pokemon.Kingler.Name",
+    display_name="Kingler",
+    searchable_by=["Kingler", "Stage 1", "Kingler"],
+    subtypes=["Stage 1"],
+    collector_number=47,
+    set_code="SM10",
+    rarity=Rarities.Rare,
+    hp=130,
+    elements=[PokemonTypes.WATER],
+    stage=PokemonStage.STAGE1,
+    retreat_cost=4,
+    weakness_type=PokemonTypes.GRASS,
+    evolves_from="com.direwolfdigital.cake.data.archetypes.pokemon.Krabby.Name",
+    family_id=98,
+    abilities=[
+        Attack(
+            title="Bubble Beam",
+            game_text="Flip a coin. If heads, your opponent's Active Pok\u00e9mon is now Paralyzed.",
+            cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 2},
+            damage=80,
+            # STUB: attack effect not implemented
+            effect=unimplemented,
+        ),
+        Attack(
+            title="Massive Rend",
+            cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 3},
+            damage=130,
+        ),
+    ],
+)

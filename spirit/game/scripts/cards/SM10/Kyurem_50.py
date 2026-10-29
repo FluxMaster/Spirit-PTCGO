@@ -1,0 +1,41 @@
+"""STUB: effect not implemented — do not guess mechanics.
+Kyurem (SM10 #50): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
+"""
+
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+card = PokemonCardDef(
+    guid="a3d4a1d7-629a-56ad-9a17-763a81d48713",
+    key="SM10",
+    name="com.direwolfdigital.cake.data.archetypes.pokemon.Kyurem.Name",
+    display_name="Kyurem",
+    searchable_by=["Kyurem", "Basic", "Kyurem"],
+    subtypes=["Basic"],
+    collector_number=50,
+    set_code="SM10",
+    rarity=Rarities.RareHolo,
+    hp=130,
+    elements=[PokemonTypes.WATER],
+    stage=PokemonStage.BASIC,
+    retreat_cost=2,
+    weakness_type=PokemonTypes.METAL,
+    family_id=646,
+    abilities=[
+        Attack(
+            title="Call Forth Cold",
+            game_text="Search your deck for a Water Energy card and attach it to this Pok\u00e9mon. Then, shuffle your deck.",
+            cost={PokemonTypes.COLORLESS: 1},
+            # STUB: attack effect not implemented
+            effect=unimplemented,
+        ),
+        Attack(
+            title="Hail Prison",
+            game_text="Discard 2 Water Energy from this Pok\u00e9mon. Your opponent's Active Pok\u00e9mon is now Paralyzed.",
+            cost={PokemonTypes.WATER: 2, PokemonTypes.COLORLESS: 1},
+            damage=110,
+            # STUB: attack effect not implemented
+            effect=unimplemented,
+        ),
+    ],
+)

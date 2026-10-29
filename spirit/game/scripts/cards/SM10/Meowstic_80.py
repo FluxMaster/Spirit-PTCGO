@@ -1,0 +1,42 @@
+"""STUB: effect not implemented — do not guess mechanics.
+Meowstic (SM10 #80): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
+"""
+
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+card = PokemonCardDef(
+    guid="6e6806fa-14f9-5fdc-84fb-459099d0e9a1",
+    key="SM10",
+    name="com.direwolfdigital.cake.data.archetypes.pokemon.Meowstic.Name",
+    display_name="Meowstic",
+    searchable_by=["Meowstic", "Stage 1", "Meowstic"],
+    subtypes=["Stage 1"],
+    collector_number=80,
+    set_code="SM10",
+    rarity=Rarities.Rare,
+    hp=90,
+    elements=[PokemonTypes.PSYCHIC],
+    stage=PokemonStage.STAGE1,
+    retreat_cost=1,
+    weakness_type=PokemonTypes.PSYCHIC,
+    evolves_from="com.direwolfdigital.cake.data.archetypes.pokemon.Espurr.Name",
+    family_id=677,
+    abilities=[
+        Attack(
+            title="Caturday",
+            game_text="Draw 3 cards. If you do, this Pok\u00e9mon is now Asleep.",
+            cost={PokemonTypes.COLORLESS: 1},
+            # STUB: attack effect not implemented
+            effect=unimplemented,
+        ),
+        Attack(
+            title="Perplexing Eyes",
+            game_text="The Defending Pok\u00e9mon's Weakness is now Psychic until the end of your next turn. (The amount of Weakness doesn't change.)",
+            cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 2},
+            damage=70,
+            # STUB: attack effect not implemented
+            effect=unimplemented,
+        ),
+    ],
+)

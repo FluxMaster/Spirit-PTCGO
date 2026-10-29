@@ -1,0 +1,44 @@
+"""STUB: effect not implemented — do not guess mechanics.
+Venomoth-GX (SM10 #216): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
+"""
+
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+card = PokemonCardDef(
+    guid="a525e685-d90b-51af-9e84-ab13ee3b2d93",
+    key="SM10",
+    name="com.direwolfdigital.cake.data.archetypes.pokemon.VenomothGX.Name",
+    display_name="Venomoth-GX",
+    searchable_by=["Venomoth-GX", "Stage 1", "GX", "VenomothGX"],
+    subtypes=["Stage 1", "GX"],
+    collector_number=216,
+    set_code="SM10",
+    rarity=Rarities.RareRainbow,
+    hp=200,
+    elements=[PokemonTypes.GRASS],
+    stage=PokemonStage.STAGE1,
+    retreat_cost=1,
+    weakness_type=PokemonTypes.FIRE,
+    evolves_from="com.direwolfdigital.cake.data.archetypes.pokemon.Venonat.Name",
+    family_id=48,
+    abilities=[
+        Attack(
+            title="Shinobi Mastery",
+            game_text="If you played Koga's Trap from your hand during this turn, this attack does 90 more damage. If you played Janine from your hand during this turn, prevent all damage done to this Pok\u00e9mon by attacks from Basic Pok\u00e9mon during your opponent's next turn.",
+            cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 2},
+            damage=110,
+            damage_operator="+",
+            # STUB: attack effect not implemented
+            effect=unimplemented,
+        ),
+        Attack(
+            title="Ten-Card Return-GX",
+            game_text="Shuffle your hand into your deck. Then, draw 10 cards. (You can't use more than 1 GX attack in a game.)",
+            cost={PokemonTypes.COLORLESS: 1},
+            damage=60,
+            # STUB: attack effect not implemented
+            effect=unimplemented,
+        ),
+    ],
+)
