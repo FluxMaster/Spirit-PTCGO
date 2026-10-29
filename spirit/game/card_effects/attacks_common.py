@@ -355,6 +355,20 @@ def bonus_if(cond_fn, bonus: int, base: Optional[int] = None,
     return effect
 
 
+def conditions_if(cond_fn, *conditions, also=None):
+    """Printed damage; apply `conditions` to the Defending Pokémon when
+    cond_fn(ctx) holds (Extra Poison)."""
+    async def effect(ctx):
+        if _printed(ctx) > 0:
+            await ctx.deal_damage()
+        if cond_fn(ctx):
+            for condition in conditions:
+                await ctx.apply_special_condition(ctx.defender, condition)
+        if also is not None:
+            await also(ctx)
+    return effect
+
+
 def active_is(pred):
     """cond_fn: the opponent's Active exists and matches `pred(pokemon)`."""
     def cond(ctx) -> bool:
@@ -392,6 +406,20 @@ def defender_has_condition(condition):
         return d is not None and \
             name in (d.get_attribute(AttrID.SPECIAL_CONDITIONS) or [])
     return cond
+
+
+def defender_has_any_condition(ctx) -> bool:
+    """cond_fn: the Defending Pokémon has at least one Special Condition."""
+    d = ctx.defender
+    return bool(d and d.get_attribute(AttrID.SPECIAL_CONDITIONS))
+
+
+def defender_has_special_energy(ctx) -> bool:
+    """cond_fn: the Defending Pokémon has a Special Energy card attached."""
+    d = ctx.defender
+    return d is not None and any(
+        is_special_energy(e) for e in ctx.attached_energies(d)
+    )
 
 
 def named_in_play(*names, side: str = "mine", require_all: bool = False):
@@ -625,6 +653,19 @@ def lock_all_attacks(ctx, pokemon):
     turn (Cross Fusion Strike's blanket self-lock)."""
     for entry in _attack_ability_entries(pokemon):
         ctx.session.turn_state.lock_attack(pokemon.entity_id, entry["abilityID"])
+
+
+def cant_attack_next_turn(also=None):
+    """Printed damage; this Pokémon can't attack during your next turn
+    (Lazy Punch)."""
+    async def effect(ctx):
+        if _printed(ctx) > 0:
+            await ctx.deal_damage()
+        if ctx.attacker is not None:
+            lock_all_attacks(ctx, ctx.attacker)
+        if also is not None:
+            await also(ctx)
+    return effect
 
 
 def lock_defender_attacks(ctx, defender=None) -> bool:
