@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Rocket's Snorlax (GYM1 #33): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.attributes import SpecialConditions
+from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ecard import restless_sleep
+
 
 card = PokemonCardDef(
     guid="6d82795a-7961-5867-8190-60f83e050bb9",
@@ -26,17 +26,16 @@ card = PokemonCardDef(
         Ability(
             title="Restless Sleep",
             game_text="If your opponent's attack does damage to Rocket's Snorlax and Rocket's Snorlax is already Asleep (even if it's Knocked Out), this power does 20 damage to the attacking Pok\u00e9mon.",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            trigger=Triggers.ON_DAMAGED_BY_ATTACK,
+            effect=restless_sleep,
         ),
         Attack(
             title="Collapse",
             game_text="Rocket's Snorlax is now Asleep (after doing damage).",
             cost={PokemonTypes.COLORLESS: 3},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(self_conditions=(SpecialConditions.ASLEEP,)),
         ),
     ],
 )

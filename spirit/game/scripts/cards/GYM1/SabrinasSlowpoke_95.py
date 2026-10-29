@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Sabrina's Slowpoke (GYM1 #95): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.attributes import SpecialConditions
+from spirit.game.card_effects.attacks_common import condition_attack
+
 
 card = PokemonCardDef(
     guid="21589e07-d566-5b8a-a5d9-1c03bc4e8d4e",
@@ -27,8 +26,7 @@ card = PokemonCardDef(
             game_text="Sabrina's Slowpoke is now Asleep (after doing damage).",
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(self_conditions=(SpecialConditions.ASLEEP,)),
         ),
     ],
 )

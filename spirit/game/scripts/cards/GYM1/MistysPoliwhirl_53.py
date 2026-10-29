@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Misty's Poliwhirl (GYM1 #53): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import count_energy, flip_damage
+from spirit.game.card_effects.ecard import removal_pulse
+
 
 card = PokemonCardDef(
     guid="c4c37128-2a13-538e-8941-71685ab1fcb5",
@@ -28,8 +27,7 @@ card = PokemonCardDef(
             game_text="If the Defending Pok\u00e9mon has any Energy cards attached to it, flip a coin. If heads, choose 1 of those Energy cards and discard it.",
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=removal_pulse,
         ),
         Attack(
             title="Water Punch",
@@ -37,8 +35,10 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(
+                coins_from=count_energy("self", energy_type=PokemonTypes.WATER),
+                bonus_per_heads=10,
+            ),
         ),
     ],
 )

@@ -275,6 +275,13 @@ class Passive:
         """True to forbid `player_id` playing `card` from hand (Vileplume)."""
         return False
 
+    def trainer_play_tax(
+        self, card: BoardEntity, player_id: str, carrier: BoardEntity
+    ) -> int:
+        """Extra hand cards `player_id` must discard to play `card`
+        (No Removal Gym: Energy Removal / Super Energy Removal cost 2)."""
+        return 0
+
     def reveals_hand(
         self, owner_id: str, viewer_id: str, carrier: BoardEntity
     ) -> bool:
@@ -739,6 +746,17 @@ def trainer_play_blocked(board: BoardState, player_id: str, card: BoardEntity) -
         passive.blocks_trainer_play(card, player_id, carrier)
         for passive, carrier in active_passives(board)
     )
+
+
+def trainer_play_discard_cost(
+    board: BoardState, player_id: str, card: BoardEntity
+) -> int:
+    """Extra hand cards required to play `card` (No Removal Gym); highest wins."""
+    values = [
+        n for passive, carrier in active_passives(board)
+        for n in [passive.trainer_play_tax(card, player_id, carrier)] if n
+    ]
+    return max(values) if values else 0
 
 
 def hand_is_public(board: BoardState, owner_id: str, viewer_id: str) -> bool:

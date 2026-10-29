@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Lt. Surge's Raichu (GYM1 #28): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import self_energy_discard_attack
+from spirit.game.card_effects.ecard import has_energy_cards_attached
+
 
 card = PokemonCardDef(
     guid="279f9d86-d3d4-529e-a724-ca2e2fc6bf56",
@@ -33,8 +32,8 @@ card = PokemonCardDef(
             game_text="Discard all Energy cards attached to Lt. Surge's Raichu in order to use this attack.",
             cost={PokemonTypes.LIGHTNING: 4},
             damage=100,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            condition=has_energy_cards_attached(),
+            effect=self_energy_discard_attack(all_energy=True, before_damage=True),
         ),
     ],
 )

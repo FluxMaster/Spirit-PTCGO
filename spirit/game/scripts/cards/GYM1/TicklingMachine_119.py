@@ -1,12 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Tickling Machine (GYM1 #119): trainer effect stubbed.
-
-Card text:
-  - Flip a coin. If heads, your opponent sets aside all the cards in his or her hand face down. Nobody may look at those cards. At the end of your opponent's next turn, your opponent puts those cards back into his or her hand. If tails, your turn ends immediately (you can't attack this turn).
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ecard import tickling_machine
+
 
 card = ItemCardDef(
     guid="c7315377-2a14-5f14-bc97-679102ca9c77",
@@ -18,6 +13,5 @@ card = ItemCardDef(
     collector_number=119,
     set_code="GYM1",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=tickling_machine,
 )

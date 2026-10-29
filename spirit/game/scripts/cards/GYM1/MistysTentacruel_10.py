@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Misty's Tentacruel (GYM1 #10): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.attributes import SpecialConditions
+from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ecard import flee_passive
+
 
 card = PokemonCardDef(
     guid="875b2037-ddf0-52b4-8bec-f453f0b0dd9b",
@@ -26,17 +26,18 @@ card = PokemonCardDef(
         Ability(
             title="Flee",
             game_text="If an attack does damage to Misty's Tentacruel while it's your Active Pok\u00e9mon, you may switch it with 1 of your Benched Pok\u00e9mon, which prevents all other effects of that attack on Misty's Tentacruel. This power can't be used if Misty's Tentacruel is already Asleep, Confused, or Paralyzed.",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            passive=flee_passive,
         ),
         Attack(
             title="Jellyfish Poison",
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon is now Poisoned. If tails, the Defending Pok\u00e9mon is now Confused.",
             cost={PokemonTypes.WATER: 2, PokemonTypes.COLORLESS: 2},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(
+                SpecialConditions.POISONED, flip=True,
+                tails_conditions=(SpecialConditions.CONFUSED,),
+            ),
         ),
     ],
 )

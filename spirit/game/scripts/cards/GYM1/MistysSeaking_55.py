@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Misty's Seaking (GYM1 #55): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import mud_splash
+
 
 card = PokemonCardDef(
     guid="29df19e3-2103-5eb9-a0ef-bc75fcb85bf0",
@@ -33,8 +31,7 @@ card = PokemonCardDef(
             game_text="If your opponent has any Benched Pok\u00e9mon, choose 1 of them and flip a coin. If heads, this attack does 10 damage to that Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.WATER: 2},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=mud_splash,
         ),
     ],
 )

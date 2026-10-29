@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Rocket's Moltres (GYM1 #12): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ecard import fire_wall, rebirth
+
 
 card = PokemonCardDef(
     guid="d5dc16c6-4ff1-5f70-81ee-37514343962c",
@@ -25,17 +23,16 @@ card = PokemonCardDef(
         Ability(
             title="Rebirth",
             game_text="When Rocket's Moltres is Knocked Out, you may return it to your hand after discarding it. This power can't be used if Rocket's Moltres is Asleep, Confused, or Paralyzed when it is Knocked Out.",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            trigger=(Triggers.ON_DAMAGED_BY_ATTACK, Triggers.ON_KNOCKED_OUT),
+            effect=rebirth,
         ),
         Attack(
             title="Fire Wall",
             game_text="If an attack does damage to Rocket's Moltres during your opponent's next turn (even if Rocket's Moltres is Knocked Out), Rocket's Moltres attacks your opponent's Active Pok\u00e9mon for 10 damage. (Apply Weakness and Resistance.)",
             cost={PokemonTypes.FIRE: 3},
             damage=40,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=fire_wall,
         ),
     ],
 )

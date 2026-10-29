@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Rocket's Scyther (GYM1 #13): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import shadow_images
+
 
 card = PokemonCardDef(
     guid="64d754fc-771b-574a-ad65-d46cf8495603",
@@ -27,8 +25,7 @@ card = PokemonCardDef(
             title="Shadow Images",
             game_text="Whenever Rocket's Scyther is attacked, your opponent flips a coin. If tails, that attack does no damage to Rocket's Scyther. (Any other effects of the attack still happen.) This effect lasts until Rocket's Scyther takes damage (or is Benched or is evolved).",
             cost={PokemonTypes.GRASS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=shadow_images,
         ),
         Attack(
             title="Blinding Scythe",

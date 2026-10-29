@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Sabrina's Abra (GYM1 #91): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import has_typed_basic_energy, return_energy_attack
+
 
 card = PokemonCardDef(
     guid="e2aceb25-afa1-561b-a9cd-4aa70a9d2f67",
@@ -27,8 +25,8 @@ card = PokemonCardDef(
             game_text="Return a Psychic Energy card attached to Sabrina's Abra to your hand in order to use this attack.",
             cost={PokemonTypes.PSYCHIC: 1},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            condition=has_typed_basic_energy(PokemonTypes.PSYCHIC),
+            effect=return_energy_attack(PokemonTypes.PSYCHIC),
         ),
     ],
 )

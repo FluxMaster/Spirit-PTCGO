@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Sabrina's Drowzee (GYM1 #92): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import suggestion
+
 
 card = PokemonCardDef(
     guid="411e8871-3016-5191-a93f-69ed9b7c8bac",
@@ -26,8 +24,7 @@ card = PokemonCardDef(
             title="Suggestion",
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon can't attack during your opponent's next turn.",
             cost={PokemonTypes.PSYCHIC: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=suggestion,
         ),
         Attack(
             title="Headbutt",

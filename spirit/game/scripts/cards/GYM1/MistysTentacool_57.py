@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Misty's Tentacool (GYM1 #57): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import crystal_beam
+
 
 card = PokemonCardDef(
     guid="85fd551b-2b87-5bde-a43c-a8eaad784c4d",
@@ -27,8 +25,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, your opponent can't attach Energy cards to the Defending Pok\u00e9mon during his or her next turn.",
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=crystal_beam,
         ),
     ],
 )

@@ -1,12 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-The Rocket's Trap (GYM1 #19): trainer effect stubbed.
-
-Card text:
-  - Flip a coin. If heads, choose up to 3 cards at random from your opponent's hand (don't look at them). Your opponent shuffles those cards into his or her deck.
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ecard import the_rockets_trap
+
 
 card = ItemCardDef(
     guid="1edcdd0e-f7ce-5a0d-8e37-2d7fc33d7699",
@@ -18,6 +13,5 @@ card = ItemCardDef(
     collector_number=19,
     set_code="GYM1",
     rarity=Rarities.RareHolo,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=the_rockets_trap,
 )

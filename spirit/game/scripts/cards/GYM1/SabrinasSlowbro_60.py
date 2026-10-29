@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Sabrina's Slowbro (GYM1 #60): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import naptime
+
 
 card = PokemonCardDef(
     guid="76576e32-656d-500c-b0cb-d4f6ab355c4c",
@@ -27,16 +25,14 @@ card = PokemonCardDef(
             title="Naptime",
             game_text="Flip a coin. If heads, remove 3 damage counters from Sabrina's Slowbro and Sabrina's Slowbro is now Asleep. If Sabrina's Slowbro has fewer damage counters than that, remove all of them.",
             cost={PokemonTypes.PSYCHIC: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=naptime,
         ),
         Attack(
             title="Screaming Headbutt",
             game_text="You can't use this attack during your next turn.",
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 2},
             damage=40,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            locks_next_turn=True,
         ),
     ],
 )

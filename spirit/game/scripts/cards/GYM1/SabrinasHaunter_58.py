@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Sabrina's Haunter (GYM1 #58): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import night_spirits
+
 
 card = PokemonCardDef(
     guid="f7790d66-0ef9-5899-8d9d-ef052733d58d",
@@ -29,8 +27,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 2},
             damage=30,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=night_spirits,
         ),
     ],
 )

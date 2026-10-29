@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Sabrina's Venomoth (GYM1 #34): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.attributes import SpecialConditions
+from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ecard import healing_pollen
+
 
 card = PokemonCardDef(
     guid="db11af23-94ef-54c3-a57d-4d2a9732a82f",
@@ -28,16 +28,15 @@ card = PokemonCardDef(
             title="Healing Pollen",
             game_text="Flip 3 coins. For each heads, remove 1 damage counter from each of your Pok\u00e9mon. If a Pok\u00e9mon has fewer damage counters than the number of heads, remove all of them.",
             cost={PokemonTypes.GRASS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=healing_pollen,
         ),
         Attack(
             title="Sonic Distortion",
             game_text="Flip 2 coins. If 1 or both of them are heads, the Defending Pok\u00e9mon is now Confused.",
             cost={PokemonTypes.PSYCHIC: 1},
             damage=10,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(
+                SpecialConditions.CONFUSED, flip=True, coins=2, min_heads=1),
         ),
     ],
 )
