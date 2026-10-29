@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Steelix (ECARD2 #H23): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import earth_rift, iron_smash
+
 
 card = PokemonCardDef(
     guid="a081662b-c889-5784-8bf5-d9b1b6b5e939",
@@ -29,8 +27,7 @@ card = PokemonCardDef(
             game_text="This attack does 10 damage to each of your opponent's Benched Pok\u00e9mon. (Don't apply Weakness or Resistance for Benched Pok\u00e9mon.) Then, flip a coin. If tails, this attack can't be used during your next turn.",
             cost={PokemonTypes.COLORLESS: 2},
             damage=10,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=earth_rift,
         ),
         Attack(
             title="Iron Smash",
@@ -38,8 +35,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.METAL: 2, PokemonTypes.COLORLESS: 2},
             damage=50,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=iron_smash,
         ),
     ],
 )

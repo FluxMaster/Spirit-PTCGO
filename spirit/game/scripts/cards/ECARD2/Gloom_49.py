@@ -1,9 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Gloom (ECARD2 #49): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
+from spirit.game.attributes import (
+    PokemonTypes, PokemonStage, Rarities, AbilityTypes, SpecialConditions,
+)
+from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ecard import EnervatingPollenPassive
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 
 card = PokemonCardDef(
     guid="108db136-a829-5465-9247-cf98a552f9cc",
@@ -27,16 +28,14 @@ card = PokemonCardDef(
             title="Enervating Pollen",
             game_text="As long as Gloom is in play, Resistance on each player's Active Pok\u00e9mon only reduces damage by 10.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=EnervatingPollenPassive(),
         ),
         Attack(
             title="Sleep Sap",
             game_text="Both the Defending Pok\u00e9mon and Gloom are now Asleep (after doing damage).",
             cost={PokemonTypes.COLORLESS: 2},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(SpecialConditions.ASLEEP, both_actives=True),
         ),
     ],
 )

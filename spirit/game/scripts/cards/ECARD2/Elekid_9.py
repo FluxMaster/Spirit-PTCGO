@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Elekid (ECARD2 #9): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import energy_kick
+
 
 card = PokemonCardDef(
     guid="bda34a9e-e50d-5194-abd9-7dd6b864794d",
@@ -25,8 +23,7 @@ card = PokemonCardDef(
             title="Energy Kick",
             game_text="Flip a coin. If heads, choose an Energy card attached to the Defending Pok\u00e9mon. Your opponent moves that card to 1 of his or her other Pok\u00e9mon. (If your opponent has no Benched Pok\u00e9mon, this attack does nothing.)",
             cost={PokemonTypes.LIGHTNING: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=energy_kick,
         ),
     ],
 )

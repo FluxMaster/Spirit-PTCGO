@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Mareep (ECARD2 #93): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.pokemon import energy_provides_type
+from spirit.game.card_effects.support_common import attach_from_discard
+from spirit.game.card_effects.trainers import is_basic_energy_card
+
 
 card = PokemonCardDef(
     guid="1df13bfb-b45f-59b5-a381-777658fa6bc2",
@@ -26,8 +26,12 @@ card = PokemonCardDef(
             title="Charge",
             game_text="Attach 1 Lightning Energy card from your discard pile to Mareep.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=attach_from_discard(
+                predicate=lambda c: is_basic_energy_card(c)
+                and energy_provides_type(c, PokemonTypes.LIGHTNING.value),
+                count=1, target="self",
+                prompt="Choose a Lightning Energy card to attach to Mareep",
+            ),
         ),
         Attack(
             title="Tail Slap",

@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Ariados (ECARD2 #3): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.attributes import SpecialConditions
+from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ecard import GlueySlimePassive
+
 
 card = PokemonCardDef(
     guid="370bd3e7-60bc-57b3-b279-5022090621a8",
@@ -27,8 +27,7 @@ card = PokemonCardDef(
             title="Gluey Slime",
             game_text="As long as Ariados is in play, each player must pay an additional Colorless to retreat his or her Active Pok\u00e9mon. Gluey Slime can't make a player pay more than an additional Colorless to retreat a Pok\u00e9mon, even if there is more than 1 Ariados in play.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=GlueySlimePassive(),
         ),
         Attack(
             title="Spider Force",
@@ -36,8 +35,10 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(
+                flip=True, heads_bonus_damage=10,
+                tails_conditions=(SpecialConditions.PARALYZED,),
+            ),
         ),
     ],
 )

@@ -1,13 +1,13 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Forest Guardian (ECARD2 #123): trainer effect stubbed.
-
-Card text:
-  - You can play only one Supporter card each turn. When you play this card, put it next to your Active Pokémon. When your turn ends, discard this card.
-  - Shuffle your deck. Then, look at the top 7 cards of your deck. Choose 1 of those cards and put it into your hand. Shuffle the rest into your deck afterward.
-"""
-
-from spirit.game.data_utils import SupporterCardDef, unimplemented
+from spirit.game.data_utils import SupporterCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.support_common import look_at_top
+
+
+async def forest_guardian(ctx):
+    """Shuffle, then look at the top 7 and take 1; shuffle the rest."""
+    await ctx.shuffle_deck()
+    await look_at_top(7, take=1)(ctx)
+
 
 card = SupporterCardDef(
     guid="7b04c584-4115-5f15-a26d-bca587ffea4e",
@@ -19,6 +19,5 @@ card = SupporterCardDef(
     collector_number=123,
     set_code="ECARD2",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=forest_guardian,
 )

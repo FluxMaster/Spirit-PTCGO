@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Bellossom (ECARD2 #H5): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import flip_damage
+from spirit.game.card_effects.ecard import flower_supplement, flower_supplement_condition
 
 
 card = PokemonCardDef(
@@ -30,8 +27,9 @@ card = PokemonCardDef(
             title="Flower Supplement",
             game_text="Once during your turn (before your attack), you may flip a coin. If heads, attach 1 basic Energy card from your hand to 1 of your Benched Pok\u00e9mon. This power can't be used if Bellossom is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=flower_supplement_condition,
+            effect=flower_supplement,
         ),
         Attack(
             title="Knife Leaf",
@@ -39,7 +37,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 2, PokemonTypes.COLORLESS: 1},
             damage=30,
             damage_operator="x",
-            # STUB: attack effect not implemented
             effect=flip_damage(coins=3, per_heads=30),
         ),
     ],

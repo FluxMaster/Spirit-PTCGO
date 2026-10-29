@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Rapidash (ECARD2 #31): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.passives_common import flip_protection
+from spirit.game.card_effects.ecard import gallop
+
 
 card = PokemonCardDef(
     guid="ddf9eebe-4abd-5e5d-aea6-60d2aa2cb648",
@@ -28,8 +27,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, during your opponent's next turn, prevent all effects of attacks, including damage, done to Rapidash.",
             cost={PokemonTypes.COLORLESS: 2},
             damage=10,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_protection(prevent=True, effects_too=True),
         ),
         Attack(
             title="Gallop",
@@ -37,8 +35,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 1, PokemonTypes.COLORLESS: 2},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=gallop,
         ),
     ],
 )

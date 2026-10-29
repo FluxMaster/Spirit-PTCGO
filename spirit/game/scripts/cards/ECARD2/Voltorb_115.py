@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Voltorb (ECARD2 #115): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import swift
+
 
 card = PokemonCardDef(
     guid="55d86fc6-1e6d-5abf-b30c-d29c1e684d44",
@@ -27,8 +25,7 @@ card = PokemonCardDef(
             game_text="This attack's damage isn't affected by Weakness, Resistance, Pok\u00e9-Powers, Pok\u00e9-Bodies, or any other effects on the Defending Pok\u00e9mon.",
             cost={PokemonTypes.LIGHTNING: 1},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=swift,
         ),
     ],
 )

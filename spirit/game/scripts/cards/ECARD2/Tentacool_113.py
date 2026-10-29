@@ -1,11 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Tentacool (ECARD2 #113): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ecard import has_typed_basic_energy, recover_discarding_energy
 
 
 card = PokemonCardDef(
@@ -29,15 +26,14 @@ card = PokemonCardDef(
             title="Poison Sting",
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon is now Poisoned.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.POISONED, flip=True),
         ),
         Attack(
             title="Recover",
             game_text="Discard 1 Water Energy card attached to Tentacool in order to use this attack. Remove all damage counters from Tentacool.",
             cost={PokemonTypes.WATER: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            condition=has_typed_basic_energy(PokemonTypes.WATER),
+            effect=recover_discarding_energy(PokemonTypes.WATER),
         ),
     ],
 )

@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Aipom (ECARD2 #67): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_or_nothing, snipe_attack
+from spirit.game.card_effects.ecard import skedaddle
+
 
 card = PokemonCardDef(
     guid="8533a5d7-415c-57fd-aaad-77bd5193eed0",
@@ -26,16 +25,14 @@ card = PokemonCardDef(
             title="Stretch Tail",
             game_text="Flip a coin. If heads, choose 1 of your opponent's Benched Pok\u00e9mon and this attack does 10 damage to it. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_or_nothing(then=snipe_attack(10)),
         ),
         Attack(
             title="Skedaddle",
             game_text="Return Aipom and all basic Energy cards attached to it to your hand. If you have no Benched Pok\u00e9mon, this attack does nothing.",
             cost={PokemonTypes.COLORLESS: 2},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=skedaddle,
         ),
     ],
 )

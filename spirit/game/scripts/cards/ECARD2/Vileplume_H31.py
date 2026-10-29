@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Vileplume (ECARD2 #H31): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.attributes import SpecialConditions
+from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ecard import addictive_pollen
+
 
 card = PokemonCardDef(
     guid="fc4491f7-a5d4-5100-b2a5-21d350f8cf27",
@@ -27,16 +27,19 @@ card = PokemonCardDef(
             title="Poison Scent",
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon is now Poisoned and Confused. If tails, the Defending Pok\u00e9mon is now Poisoned and Asleep.",
             cost={PokemonTypes.GRASS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(
+                SpecialConditions.CONFUSED,
+                flip=True,
+                always_conditions=(SpecialConditions.POISONED,),
+                tails_conditions=(SpecialConditions.ASLEEP,),
+            ),
         ),
         Attack(
             title="Addictive Pollen",
             game_text="Flip a coin. If heads, your opponent can't play Supporter cards during his or her next turn.",
             cost={PokemonTypes.COLORLESS: 3},
             damage=40,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=addictive_pollen,
         ),
     ],
 )

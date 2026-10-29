@@ -1,11 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Jynx (ECARD2 #18): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
-from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.attacks_common import (
+    condition_attack, damage_counters_on, damage_per,
+)
 
 
 card = PokemonCardDef(
@@ -31,15 +29,13 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 1},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_per(damage_counters_on("defender"), per=10, base=10),
         ),
         Attack(
             title="Confuse Ray",
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon is now Confused.",
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 2},
             damage=20,
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.CONFUSED, flip=True),
         ),
     ],

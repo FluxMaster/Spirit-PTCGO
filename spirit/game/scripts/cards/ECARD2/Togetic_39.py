@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Togetic (ECARD2 #39): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ecard import (
+    copy_defending_attack, miracle_shift, miracle_shift_condition,
+)
+
 
 card = PokemonCardDef(
     guid="f0a5d72b-bfdc-5acd-92e2-3f9b0d34d1b0",
@@ -28,15 +28,15 @@ card = PokemonCardDef(
             title="Miracle Shift",
             game_text="Once during your turn (before your attack), discard a basic Energy card attached to 1 of your Pok\u00e9mon. Then, choose a basic Energy card from your discard pile and attach it to that Pok\u00e9mon. This power can't be used if Togetic is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=miracle_shift_condition,
+            effect=miracle_shift,
         ),
         Attack(
             title="Mini-Metronome",
             game_text="Flip a coin. If heads, choose 1 of the Defending Pok\u00e9mon's attacks. Mini-Metronome copies that attack except for its Energy cost. (You must still do anything else required in order to use that attack.) (No matter what type the Defending Pok\u00e9mon is, Togetic is still Colorless.) Togetic performs that attack.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=copy_defending_attack(require_energy=False, flip=True),
         ),
     ],
 )

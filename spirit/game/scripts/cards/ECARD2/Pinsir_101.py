@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Pinsir (ECARD2 #101): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-from spirit.game.card_effects.attacks_common import flip_or_nothing
+from spirit.game.attributes import SpecialConditions
+from spirit.game.card_effects.attacks_common import condition_attack, flip_or_nothing
 
 
 card = PokemonCardDef(
@@ -29,15 +26,13 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon is now Paralyzed. If tails, this attack does nothing.",
             cost={PokemonTypes.COLORLESS: 2},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_or_nothing(then=condition_attack(SpecialConditions.PARALYZED)),
         ),
         Attack(
             title="Super Slice",
             game_text="Flip 2 coins. If either of them is tails, this attack does nothing.",
             cost={PokemonTypes.GRASS: 2, PokemonTypes.COLORLESS: 1},
             damage=90,
-            # STUB: attack effect not implemented
             effect=flip_or_nothing(coins=2),
         ),
     ],

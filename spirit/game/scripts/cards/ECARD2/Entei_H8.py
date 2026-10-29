@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Entei (ECARD2 #H8): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ecard import burning_fang, pure_body_on_energy_attached
+
 
 card = PokemonCardDef(
     guid="2068263f-51c9-5835-aedd-4cd4e74dbd99",
@@ -26,16 +24,15 @@ card = PokemonCardDef(
             title="Pure Body",
             game_text="To attach a Fire Energy card from your hand to Entei, you must discard an Energy card attached to Entei. (Attach the Fire Energy, and then discard an Energy from Entei.)",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=Triggers.ON_ENERGY_ATTACHED,
+            effect=pure_body_on_energy_attached(PokemonTypes.FIRE),
         ),
         Attack(
             title="Burning Fang",
             game_text="You may flip a coin. If heads, discard a Fire Energy card attached to Entei and the Defending Pok\u00e9mon is now Burned.",
             cost={PokemonTypes.FIRE: 1, PokemonTypes.COLORLESS: 2},
             damage=40,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=burning_fang,
         ),
     ],
 )

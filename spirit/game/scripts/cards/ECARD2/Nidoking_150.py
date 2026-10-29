@@ -1,11 +1,24 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Nidoking (ECARD2 #150): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
-from spirit.game.attributes import SpecialConditions
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
+from spirit.game.attributes import (
+    PokemonTypes, PokemonStage, Rarities, AbilityTypes, SpecialConditions,
+)
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ecard import (
+    CrystalTypePassive, crystal_type_on_energy_attached,
+)
+
+
+async def rolling_thunder(ctx):
+    """50 to Active; flip: heads 10 to each opp bench, tails 10 to each own bench."""
+    await ctx.deal_damage()
+    results = await ctx.flip_coins(1, "Rolling Thunder")
+    heads = bool(results and results[0])
+    if heads:
+        for poke in ctx.opponent_bench():
+            await ctx.deal_damage(10, target=poke, apply_modifiers=False)
+    else:
+        for poke in ctx.my_bench():
+            await ctx.deal_damage(10, target=poke, apply_modifiers=False)
 
 
 card = PokemonCardDef(
@@ -30,24 +43,25 @@ card = PokemonCardDef(
             title="Crystal Type",
             game_text="Whenever you attach a Grass, Lightning, or Fire basic Energy card from your hand to Nidoking, Nidoking's type (color) becomes the same as that Energy card type until the end of the turn.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=CrystalTypePassive(),
+            trigger=Triggers.ON_ENERGY_ATTACHED,
+            effect=crystal_type_on_energy_attached(
+                PokemonTypes.GRASS, PokemonTypes.LIGHTNING, PokemonTypes.FIRE,
+            ),
         ),
         Attack(
             title="Poison Horn",
-            game_text="The Defending Pok\u00e9mon is now Poisoned.",
+            game_text="The Defending Pokémon is now Poisoned.",
             cost={PokemonTypes.GRASS: 2, PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.POISONED),
         ),
         Attack(
             title="Rolling Thunder",
-            game_text="Flip a coin, If heads, this attack does 10 damage to each of your opponent's Benched Pok\u00e9mon. If tails, this attack does 10 damage to each of your Benched Pok\u00e9mon. (Don't apply Weakness or Resistance for Benched Pok\u00e9mon.)",
+            game_text="Flip a coin, If heads, this attack does 10 damage to each of your opponent's Benched Pokémon. If tails, this attack does 10 damage to each of your Benched Pokémon. (Don't apply Weakness or Resistance for Benched Pokémon.)",
             cost={PokemonTypes.LIGHTNING: 2, PokemonTypes.FIGHTING: 2},
             damage=50,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=rolling_thunder,
         ),
     ],
 )

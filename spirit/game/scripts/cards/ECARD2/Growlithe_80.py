@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Growlithe (ECARD2 #80): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_bonus
+from spirit.game.card_effects.support_common import gust_attack
+
 
 card = PokemonCardDef(
     guid="9025802a-9d62-539e-934f-c6b8a7f0617e",
@@ -26,8 +25,7 @@ card = PokemonCardDef(
             title="Roar",
             game_text="If your opponent has any Benched Pok\u00e9mon, he or she chooses 1 of them and switches the Defending Pok\u00e9mon with it.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=gust_attack(opponent_chooses=True),
         ),
         Attack(
             title="Firebreathing",
@@ -35,8 +33,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 1},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_bonus(10),
         ),
     ],
 )

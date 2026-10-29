@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Eevee (ECARD2 #75): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_or_nothing
+from spirit.game.card_effects.support_common import search_attach_energy
 
 
 card = PokemonCardDef(
@@ -28,15 +25,13 @@ card = PokemonCardDef(
             title="Charge Up",
             game_text="Flip a coin. If heads, search your deck for an Energy card and attach it to Eevee. Shuffle your deck afterward.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_or_nothing(then=search_attach_energy(to_self=True)),
         ),
         Attack(
             title="Lunge",
             game_text="Flip a coin. If tails, this attack does nothing.",
             cost={PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
             effect=flip_or_nothing(),
         ),
     ],

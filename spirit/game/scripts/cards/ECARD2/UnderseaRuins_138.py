@@ -1,13 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Undersea Ruins (ECARD2 #138): trainer effect stubbed.
-
-Card text:
-  - This card stays in play when you play it. Discard this card if another Stadium card comes into play.
-  - Once during each player's turn (before attacking), that player may flip a coin. If heads, that player chooses 1 of his or her Evolved Pokémon in play and discards the top Evolution card from that Pokémon, devolving it.
-"""
-
-from spirit.game.data_utils import StadiumCardDef, unimplemented
+from spirit.game.data_utils import StadiumCardDef, Ability, Activations
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ecard import undersea_ruins, undersea_ruins_condition
+
 
 card = StadiumCardDef(
     guid="940dd877-bbd8-5fd1-ab4d-9590a4579952",
@@ -19,6 +13,11 @@ card = StadiumCardDef(
     collector_number=138,
     set_code="ECARD2",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    ability=Ability(
+        title="Undersea Ruins",
+        game_text="Once during each player's turn (before attacking), that player may flip a coin. If heads, that player chooses 1 of his or her Evolved Pokémon in play and discards the top Evolution card from that Pokémon, devolving it.",
+        activation=Activations.ONCE_PER_TURN,
+        condition=undersea_ruins_condition,
+        effect=undersea_ruins,
+    ),
 )

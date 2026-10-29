@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Exeggutor (ECARD2 #13): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import count_energy, flip_damage
+from spirit.game.card_effects.ecard import count_benched_energy
+
 
 card = PokemonCardDef(
     guid="d733dc1c-edce-5933-a2e9-50797edcec0f",
@@ -29,8 +28,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=20,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(coins_from=count_energy("self"), per_heads=20),
         ),
         Attack(
             title="Lateral Eggsplosion",
@@ -38,8 +36,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 2},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(coins_from=count_benched_energy, bonus_per_heads=10),
         ),
     ],
 )

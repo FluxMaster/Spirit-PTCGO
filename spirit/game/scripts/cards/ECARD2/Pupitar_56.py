@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Pupitar (ECARD2 #56): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_damage
+
 
 card = PokemonCardDef(
     guid="7b6762a2-2048-53cc-b7d9-5ac09a7841f0",
@@ -29,8 +27,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(bonus=10, tails_self_damage=10),
         ),
     ],
 )

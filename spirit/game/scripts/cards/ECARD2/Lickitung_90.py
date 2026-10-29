@@ -1,11 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Lickitung (ECARD2 #90): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
-from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.attacks_common import condition_attack, snipe_attack
 
 
 card = PokemonCardDef(
@@ -29,15 +25,13 @@ card = PokemonCardDef(
             title="Long Tongue",
             game_text="Choose 1 of your opponent's Pok\u00e9mon in play. This attack does 10 damage to that Pok\u00e9mon. Don't apply Weakness and Resistance.",
             cost={PokemonTypes.COLORLESS: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=snipe_attack(10, pool="any", apply_modifiers=False),
         ),
         Attack(
             title="Body Slam",
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon is now Paralyzed.",
             cost={PokemonTypes.COLORLESS: 3},
             damage=20,
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.PARALYZED, flip=True),
         ),
     ],

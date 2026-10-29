@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Sneasel (ECARD2 #110): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_or_nothing
+from spirit.game.card_effects.ecard import rob
 
 
 card = PokemonCardDef(
@@ -29,15 +26,13 @@ card = PokemonCardDef(
             title="Rob",
             game_text="Look at your opponent's hand. Choose all Technical Machine and Pok\u00e9mon Tool cards there and put them into his or her deck. Your opponent shuffles the deck afterward.",
             cost={PokemonTypes.DARKNESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=rob,
         ),
         Attack(
             title="Claw",
             game_text="Flip a coin. If tails this attack does nothing.",
             cost={PokemonTypes.COLORLESS: 2},
             damage=30,
-            # STUB: attack effect not implemented
             effect=flip_or_nothing(),
         ),
     ],

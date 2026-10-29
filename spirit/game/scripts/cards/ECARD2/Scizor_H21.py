@@ -1,9 +1,11 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Scizor (ECARD2 #H21): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
+from spirit.game.attributes import (
+    PokemonTypes, PokemonStage, Rarities, AbilityTypes, SpecialConditions,
+)
+from spirit.game.card_effects.attacks_common import count_energy, flip_damage
+from spirit.game.card_effects.passives_common import condition_immunity_passive
+from spirit.game.card_effects.ecard import snatch
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 
 card = PokemonCardDef(
     guid="608c4aa7-d8bb-50ef-87dc-54f774dada8f",
@@ -27,16 +29,14 @@ card = PokemonCardDef(
             title="Poison Resistance",
             game_text="Scizor can't be Poisoned.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=condition_immunity_passive(SpecialConditions.POISONED),
         ),
         Attack(
             title="Snatch",
             game_text="Before doing damage, you may choose 1 of your opponent's Benched Pok\u00e9mon with no damage counters on it and switch the Defending Pok\u00e9mon with it.",
             cost={PokemonTypes.METAL: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=snatch,
         ),
         Attack(
             title="Heavy Metal",
@@ -44,8 +44,10 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(
+                coins_from=count_energy("self", PokemonTypes.METAL),
+                bonus_per_heads=20,
+            ),
         ),
     ],
 )

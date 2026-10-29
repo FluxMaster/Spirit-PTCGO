@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Tyranitar (ECARD2 #40): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import destructive_roar, gigacrush
+
 
 card = PokemonCardDef(
     guid="a7808f95-09f3-5de1-bfa0-4fba59d9532e",
@@ -28,8 +26,7 @@ card = PokemonCardDef(
             title="Destructive Roar",
             game_text="Flip a coin. If heads, discard 1 Energy card attached to 1 of your opponent's Pok\u00e9mon.",
             cost={PokemonTypes.DARKNESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=destructive_roar,
         ),
         Attack(
             title="Tail Slap",
@@ -41,8 +38,7 @@ card = PokemonCardDef(
             game_text="Each player discards the top 3 cards from his or her deck.",
             cost={PokemonTypes.DARKNESS: 2, PokemonTypes.COLORLESS: 3},
             damage=60,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=gigacrush,
         ),
     ],
 )

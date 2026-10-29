@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Smoochum (ECARD2 #61): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import count_energy, flip_damage
+
 
 card = PokemonCardDef(
     guid="0e797485-d5c0-5805-a2c2-f8e488965d8e",
@@ -27,8 +25,10 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 1},
             damage=10,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(
+                coins_from=count_energy("defender", cards=True),
+                per_heads=10,
+            ),
         ),
     ],
 )

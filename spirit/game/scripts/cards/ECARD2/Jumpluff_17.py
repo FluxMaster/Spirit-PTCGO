@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Jumpluff (ECARD2 #17): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import flip_damage
+from spirit.game.card_effects.ecard import FluffPassive
+
 
 card = PokemonCardDef(
     guid="48e6ffb8-999c-5937-87a0-e8a8545ea5e1",
@@ -28,8 +27,7 @@ card = PokemonCardDef(
             title="Fluff",
             game_text="During your opponent's turn, if Jumpluff would be damaged or affected by an opponent's attack and it already has at least 1 damage counter on it, flip a coin. If heads, prevent all effects of that attack (including damage).",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=FluffPassive(),
         ),
         Attack(
             title="Cotton Punch",
@@ -37,8 +35,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1},
             damage=30,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(coins=2, per_heads=30),
         ),
     ],
 )

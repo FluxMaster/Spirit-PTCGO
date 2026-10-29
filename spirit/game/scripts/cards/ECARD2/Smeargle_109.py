@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Smeargle (ECARD2 #109): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-from spirit.game.card_effects.attacks_common import flip_damage
+from spirit.game.data_utils import PokemonCardDef, Attack
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, SpecialConditions
+from spirit.game.card_effects.attacks_common import condition_attack, flip_damage
+from spirit.game.card_effects.support_common import switch_self_attack
 
 
 card = PokemonCardDef(
@@ -28,8 +25,10 @@ card = PokemonCardDef(
             title="Paint Trick",
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon is now Confused. Then, choose 1 of your Benched Pok\u00e9mon and switch Smeargle with it.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(
+                SpecialConditions.CONFUSED, flip=True,
+                also=switch_self_attack(),
+            ),
         ),
         Attack(
             title="Doublslap",
@@ -37,7 +36,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=20,
             damage_operator="x",
-            # STUB: attack effect not implemented
             effect=flip_damage(coins=2, per_heads=20),
         ),
     ],

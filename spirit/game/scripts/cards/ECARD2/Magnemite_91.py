@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Magnemite (ECARD2 #91): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import flip_damage
+from spirit.game.card_effects.ecard import ConductiveBodyPassive
+
 
 card = PokemonCardDef(
     guid="10ff4330-f434-522c-a68f-dc52fb34f170",
@@ -26,8 +25,7 @@ card = PokemonCardDef(
             title="Conductive Body",
             game_text="You pay Colorless less to retreat Magnemite for each Magnemite on your Bench.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=ConductiveBodyPassive(),
         ),
         Attack(
             title="Magnetic Bomb",
@@ -35,8 +33,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(bonus=10, require_all=True, tails_self_damage=10),
         ),
     ],
 )

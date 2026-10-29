@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Tyrogue (ECARD2 #63): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import (
+    discard_opponent_energy_attack, flip_or_nothing,
+)
+
 
 card = PokemonCardDef(
     guid="ca352581-af62-5bd2-96ac-46e534f66ecf",
@@ -26,8 +26,8 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, discard a Special Energy card attached to the Defending Pok\u00e9mon. If tails, this attack does nothing.",
             cost={PokemonTypes.FIGHTING: 1},
             damage=10,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_or_nothing(
+                then=discard_opponent_energy_attack(special_only=True)),
         ),
     ],
 )

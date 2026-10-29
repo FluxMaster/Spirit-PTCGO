@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Porygon (ECARD2 #103): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import data_sort
+
 
 card = PokemonCardDef(
     guid="dadcc4c7-f0e0-5d0e-b18b-f756e95e456c",
@@ -26,8 +24,7 @@ card = PokemonCardDef(
             title="Data Sort",
             game_text="Flip a coin. If heads, choose a Trainer card from your discard pile, show it to your opponent, and then shuffle it into your deck.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=data_sort,
         ),
         Attack(
             title="Peck",

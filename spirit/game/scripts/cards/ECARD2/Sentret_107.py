@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Sentret (ECARD2 #107): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_damage
+from spirit.game.card_effects.ecard import spy
 
 
 card = PokemonCardDef(
@@ -28,8 +25,7 @@ card = PokemonCardDef(
             title="Spy",
             game_text="Look at the top 3 cards of your opponent's deck. Put them back in the same order.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=spy,
         ),
         Attack(
             title="Double Scratch",
@@ -37,7 +33,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
             damage_operator="x",
-            # STUB: attack effect not implemented
             effect=flip_damage(coins=2, per_heads=10),
         ),
     ],

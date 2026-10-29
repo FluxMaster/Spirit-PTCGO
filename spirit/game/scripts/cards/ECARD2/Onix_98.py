@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Onix (ECARD2 #98): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import count_energy, flip_damage
+
 
 card = PokemonCardDef(
     guid="eaacf081-692e-559c-a638-cf1056082586",
@@ -28,8 +26,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(coins_from=count_energy("self"), per_heads=20),
         ),
     ],
 )

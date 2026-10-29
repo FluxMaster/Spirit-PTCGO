@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Mr. Mime (ECARD2 #95): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ecard import EnergyBarrierPassive, no_weakness_or_resistance
+
 
 card = PokemonCardDef(
     guid="d1af4165-d5de-5294-90ed-9c13c60f410c",
@@ -26,16 +24,14 @@ card = PokemonCardDef(
             title="Energy Barrier",
             game_text="If Mr. Mime would be damaged by an attack, reduce that damage by 10 for each basic Energy card attached to Mr. Mime. The maximum amount of damage that can be reduced by Energy Barrier is 20.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=EnergyBarrierPassive(),
         ),
         Attack(
             title="Mind Shock",
             game_text="Don't apply Weakness and Resistance.",
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=no_weakness_or_resistance,
         ),
     ],
 )

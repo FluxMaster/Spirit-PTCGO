@@ -1,13 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Traveling Salesman (ECARD2 #137): trainer effect stubbed.
-
-Card text:
-  - You can play only one Supporter card each turn. When you play this card, put it next to your Active Pokémon. When your turn ends, discard this card.
-  - Search your deck for up to 2 Technical Machine and/or Pokémon Tool cards, show them to your opponent, and then put them into your hand. Shuffle your deck afterward.
-"""
-
-from spirit.game.data_utils import SupporterCardDef, unimplemented
+from spirit.game.data_utils import SupporterCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.support_common import search_to_hand
+from spirit.game.card_effects.ecard import is_tm_or_tool
+
 
 card = SupporterCardDef(
     guid="c0fe7623-f237-5205-a417-776add2aaa3b",
@@ -19,6 +14,8 @@ card = SupporterCardDef(
     collector_number=137,
     set_code="ECARD2",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=search_to_hand(
+        is_tm_or_tool, count=2, minimum=0, reveal=True,
+        prompt="Choose up to 2 Technical Machine and/or Pokémon Tool cards.",
+    ),
 )

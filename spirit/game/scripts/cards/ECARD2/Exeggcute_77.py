@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Exeggcute (ECARD2 #77): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_damage
+from spirit.game.card_effects.ecard import energy_support
+
 
 card = PokemonCardDef(
     guid="945ea286-0679-5eb1-8b8b-5c6b83457cc0",
@@ -28,15 +27,13 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(until_tails=True, per_heads=10),
         ),
         Attack(
             title="Energy Support",
             game_text="Flip a coin. If heads, search your deck for a Psychic Energy card and attach it to 1 of your Benched Pok\u00e9mon. Shuffle your deck afterward.",
             cost={PokemonTypes.PSYCHIC: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=energy_support(PokemonTypes.PSYCHIC),
         ),
     ],
 )

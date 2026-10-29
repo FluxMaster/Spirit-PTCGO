@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Houndour (ECARD2 #87): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import feint_attack
+
 
 card = PokemonCardDef(
     guid="afb64241-7b9c-5037-8f31-fbfddc1d2192",
@@ -27,8 +25,7 @@ card = PokemonCardDef(
             title="Feint Attack",
             game_text="Choose 1 of your opponent's Pok\u00e9mon. This attack does 20 damage to that Pok\u00e9mon. This attack's damage isn't affected by Weakness, Resistance, Pok\u00e9-Powers, Pok\u00e9-Bodies, or any other effects on that Pok\u00e9mon.",
             cost={PokemonTypes.DARKNESS: 1, PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=feint_attack,
         ),
     ],
 )

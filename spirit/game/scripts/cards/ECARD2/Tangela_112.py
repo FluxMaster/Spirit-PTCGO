@@ -1,9 +1,15 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Tangela (ECARD2 #112): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_damage, lock_defender_attacks
+
+
+async def tickling_vines(ctx):
+    """Printed damage; heads, the Defending Pokémon can't attack next turn."""
+    await ctx.deal_damage()
+    results = await ctx.flip_coins(1, "Tickling Vines")
+    if results and results[0]:
+        lock_defender_attacks(ctx)
+
 
 card = PokemonCardDef(
     guid="14de2b62-9629-5e23-85d1-20e564c8577b",
@@ -28,8 +34,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon can't attack during your opponent's next turn.",
             cost={PokemonTypes.COLORLESS: 2},
             damage=10,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=tickling_vines,
         ),
         Attack(
             title="Double Kick",
@@ -37,8 +42,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 2},
             damage=30,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(coins=2, per_heads=30),
         ),
     ],
 )

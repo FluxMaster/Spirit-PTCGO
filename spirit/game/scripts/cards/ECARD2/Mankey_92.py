@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Mankey (ECARD2 #92): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import damage_counters_on, damage_per
+from spirit.game.card_effects.ecard import mug
+
 
 card = PokemonCardDef(
     guid="5136d365-81cd-56f3-8844-5864583b824e",
@@ -27,8 +26,7 @@ card = PokemonCardDef(
             game_text="Before doing damage, discard all Trainer cards attached to the Defending Pok\u00e9mon.",
             cost={PokemonTypes.FIGHTING: 1},
             damage=10,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=mug,
         ),
         Attack(
             title="Rage",
@@ -36,8 +34,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_per(damage_counters_on("self"), per=10, base=10),
         ),
     ],
 )

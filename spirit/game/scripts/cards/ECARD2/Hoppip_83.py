@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Hoppip (ECARD2 #83): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import recoil_attack
+from spirit.game.card_effects.ecard import LightweightPassive
+
 
 card = PokemonCardDef(
     guid="bcc853a4-0628-5409-bb36-863ba8e600f0",
@@ -27,16 +26,14 @@ card = PokemonCardDef(
             title="Lightweight",
             game_text="You pay Colorless less to retreat Hoppip for each Grass Energy attached to it.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=LightweightPassive(),
         ),
         Attack(
             title="Careless Tackle",
             game_text="Hoppip does 10 damage to itself.",
             cost={PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=recoil_attack(10),
         ),
     ],
 )

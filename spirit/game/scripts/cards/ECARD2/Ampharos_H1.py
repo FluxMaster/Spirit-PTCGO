@@ -1,11 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Ampharos (ECARD2 #H1): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ecard import reflect_energy
 
 
 card = PokemonCardDef(
@@ -31,7 +28,6 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon is now Paralyzed.",
             cost={PokemonTypes.LIGHTNING: 1},
             damage=20,
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.PARALYZED, flip=True),
         ),
         Attack(
@@ -39,8 +35,7 @@ card = PokemonCardDef(
             game_text="If you have any Benched Pok\u00e9mon and if there are any basic Energy cards attached to Ampharos, take 1 of those Energy cards and attach it to 1 of those Pok\u00e9mon.",
             cost={PokemonTypes.LIGHTNING: 2, PokemonTypes.COLORLESS: 1},
             damage=50,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=reflect_energy,
         ),
     ],
 )

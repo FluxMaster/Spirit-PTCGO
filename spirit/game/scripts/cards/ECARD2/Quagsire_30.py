@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Quagsire (ECARD2 #30): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_damage
+from spirit.game.card_effects.ecard import unused_energy_bonus
+
 
 card = PokemonCardDef(
     guid="80aea1eb-1b75-5532-b0bf-539e6fd1bcc1",
@@ -29,8 +28,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1},
             damage=20,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=unused_energy_bonus(per=10, cap=20, energy_type=PokemonTypes.WATER),
         ),
         Attack(
             title="Slam",
@@ -38,8 +36,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 4},
             damage=50,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(coins=2, per_heads=50),
         ),
     ],
 )

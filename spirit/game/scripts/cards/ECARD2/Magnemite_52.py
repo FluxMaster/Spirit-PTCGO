@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Magnemite (ECARD2 #52): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import gust_attack
+
 
 card = PokemonCardDef(
     guid="bf421227-7d36-543d-87b1-bb59ee5fbc2c",
@@ -27,8 +25,7 @@ card = PokemonCardDef(
             title="Attract",
             game_text="Choose 1 of your opponent's Benched Pok\u00e9mon and switch the Defending Pok\u00e9mon with it.",
             cost={PokemonTypes.METAL: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=gust_attack(damage_before=0),
         ),
         Attack(
             title="Tackle",

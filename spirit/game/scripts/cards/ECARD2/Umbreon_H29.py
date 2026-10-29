@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Umbreon (ECARD2 #H29): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ecard import dark_moon, dark_moon_condition
 
 
 card = PokemonCardDef(
@@ -30,15 +27,15 @@ card = PokemonCardDef(
             title="Dark Moon",
             game_text="As long as Umbreon is your Active Pok\u00e9mon and has a Darkness Energy attached to it, once during your turn (before your attack), you may look at your opponent's hand. Choose from it a number of cards up to the number of Darkness Energy attached to Umbreon and shuffle them into your opponent's deck. Your opponent then draws the same number of cards from his or her deck. This power can't be used if Umbreon is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=dark_moon_condition,
+            effect=dark_moon,
         ),
         Attack(
             title="Shadow Bind",
             game_text="The Defending Pok\u00e9mon can't retreat during your opponent's next turn.",
             cost={PokemonTypes.COLORLESS: 3},
             damage=30,
-            # STUB: attack effect not implemented
             effect=condition_attack(no_retreat=True),
         ),
     ],

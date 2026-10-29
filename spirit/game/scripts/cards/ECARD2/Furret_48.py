@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Furret (ECARD2 #48): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ecard import scavenger_hunt, scavenger_hunt_condition
+
 
 card = PokemonCardDef(
     guid="e6f61d38-b1ff-51f2-9ff6-d46ccd908fb7",
@@ -27,8 +25,9 @@ card = PokemonCardDef(
             title="Scavenger Hunt",
             game_text="Once during your turn (before your attack), you may put 2 cards from your hand into your deck. Then, search your deck for an Energy card, show it to your opponent, and put it into your hand. Shuffle your deck afterward. This power can't be used if Furret is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=scavenger_hunt_condition,
+            effect=scavenger_hunt,
         ),
         Attack(
             title="Spinning Attack",

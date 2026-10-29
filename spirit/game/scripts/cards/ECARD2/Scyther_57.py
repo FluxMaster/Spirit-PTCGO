@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Scyther (ECARD2 #57): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-from spirit.game.card_effects.attacks_common import flip_damage
+from spirit.game.card_effects.attacks_common import bonus_if, active_is, flip_damage
+from spirit.game.session.effects import is_evolution_pokemon
 
 
 card = PokemonCardDef(
@@ -30,7 +27,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1},
             damage=10,
             damage_operator="x",
-            # STUB: attack effect not implemented
             effect=flip_damage(coins=2, per_heads=10),
         ),
         Attack(
@@ -39,8 +35,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=20,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bonus_if(active_is(is_evolution_pokemon), 20),
         ),
     ],
 )

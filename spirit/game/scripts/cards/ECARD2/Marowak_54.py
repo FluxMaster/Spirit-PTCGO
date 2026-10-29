@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Marowak (ECARD2 #54): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_damage
+from spirit.game.card_effects.ecard import triple_bone
+
 
 card = PokemonCardDef(
     guid="42f0aad6-eb05-5635-8d5e-1d0602c70fa3",
@@ -28,8 +27,7 @@ card = PokemonCardDef(
             title="Triple Bone",
             game_text="Choose 1 of your opponent's Benched Pok\u00e9mon. Flip 3 coins. This attack does 10 damage times the number of heads to that Pok\u00e9mon. Don't apply Weakness and Resistance.",
             cost={PokemonTypes.COLORLESS: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=triple_bone,
         ),
         Attack(
             title="Bone Rush",
@@ -37,8 +35,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 2},
             damage=50,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(until_tails=True, per_heads=50),
         ),
     ],
 )

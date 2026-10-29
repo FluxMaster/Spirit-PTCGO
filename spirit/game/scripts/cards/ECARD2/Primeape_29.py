@@ -1,9 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Primeape (ECARD2 #29): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import (
+    damage_counters_on, damage_per, recoil_attack,
+)
+from spirit.game.card_effects.support_common import opponent_switches
+
 
 card = PokemonCardDef(
     guid="3a19d9fe-cfd3-53e9-a721-c65aa0b67499",
@@ -29,16 +30,14 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 1},
             damage=40,
             damage_operator="-",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_per(damage_counters_on("self"), -10, base=40),
         ),
         Attack(
             title="Sudden Charge",
             game_text="Primeape does 10 damage to itself. Then, your opponent switches the Defending Pok\u00e9mon with 1 of his or her Benched Pok\u00e9mon, if any.",
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 2},
             damage=40,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=recoil_attack(10, also=opponent_switches),
         ),
     ],
 )

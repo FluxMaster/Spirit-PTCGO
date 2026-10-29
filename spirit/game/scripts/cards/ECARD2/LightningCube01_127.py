@@ -14,8 +14,8 @@ async def discharge(ctx):
     if not lightning:
         return
     await ctx.discard_cards(lightning)
-    await ctx.flip_coins(len(lightning))
-    heads = ctx.last_flip_heads
+    results = await ctx.flip_coins(len(lightning), "Discharge")
+    heads = sum(1 for r in results if r)
     if heads:
         await ctx.deal_damage(amount=40 * heads)
 

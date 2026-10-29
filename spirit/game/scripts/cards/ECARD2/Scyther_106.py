@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Scyther (ECARD2 #106): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import swift
+
 
 card = PokemonCardDef(
     guid="07f3aac4-6f72-54b8-8f82-3d6991febe45",
@@ -33,8 +31,7 @@ card = PokemonCardDef(
             game_text="This attack's damage isn't affected by Weakness, Resistance, Pok\u00e9-Powers, Pok\u00e9-Bodies, or any other effects on the Defending Pok\u00e9mon.",
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=swift,
         ),
     ],
 )

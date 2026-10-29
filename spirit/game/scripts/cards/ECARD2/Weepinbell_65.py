@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Weepinbell (ECARD2 #65): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_damage
+from spirit.game.card_effects.ecard import attach_hand_energy
+from spirit.game.card_effects.trainers import is_grass_energy_card
+
 
 card = PokemonCardDef(
     guid="d46ed157-78ac-5743-83e7-cb8ab3263108",
@@ -27,8 +27,8 @@ card = PokemonCardDef(
             title="Growth",
             game_text="Attach up to 2 Grass Energy cards from your hand to Weepinbell.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=attach_hand_energy(
+                count=2, predicate=is_grass_energy_card, minimum=0),
         ),
         Attack(
             title="Double Razor Leaf",
@@ -36,8 +36,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(coins=2, per_heads=30),
         ),
     ],
 )

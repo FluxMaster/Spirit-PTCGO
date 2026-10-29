@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Slowpoke (ECARD2 #108): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import recover_from_discard
+from spirit.game.card_effects.ecard import is_pokemon_or_basic_energy
+
 
 card = PokemonCardDef(
     guid="7b95c05f-c148-56a7-9497-e32e09704e1a",
@@ -26,8 +25,11 @@ card = PokemonCardDef(
             title="Fishing Tail",
             game_text="Search your discard pile for a Baby Pok\u00e9mon, Basic Pok\u00e9mon, Evolution card, or basic Energy card, show it to your opponent, and then put it into your hand.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=recover_from_discard(
+                predicate=is_pokemon_or_basic_energy, count=1, minimum=1,
+                reveal=True,
+                prompt="Choose a Baby Pokémon, Basic Pokémon, Evolution card, or basic Energy card",
+            ),
         ),
         Attack(
             title="Bite",

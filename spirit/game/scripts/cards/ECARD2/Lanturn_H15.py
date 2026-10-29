@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Lanturn (ECARD2 #H15): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ecard import (
+    electric_tackle, ion_coating, ion_coating_condition,
+)
+
 
 card = PokemonCardDef(
     guid="6d19165d-2cf8-5870-b8e8-42b1c2bc3f12",
@@ -27,8 +27,9 @@ card = PokemonCardDef(
             title="Ion Coating",
             game_text="You may use this power once during each of your turns (before your attack). All Lightning Energy attached to your Active Pok\u00e9mon becomes Water Energy for the rest of the turn. (This effect ends if your Active Pok\u00e9mon retreats or is returned to your hand.) This power can't be used if Lanturn is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=ion_coating_condition,
+            effect=ion_coating,
         ),
         Attack(
             title="Electric Tackle",
@@ -36,8 +37,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=20,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=electric_tackle,
         ),
     ],
 )

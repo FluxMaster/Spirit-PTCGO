@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dodrio (ECARD2 #46): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_damage
+from spirit.game.card_effects.ecard import peck_attack
 
 
 card = PokemonCardDef(
@@ -32,15 +29,13 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
             damage_operator="x",
-            # STUB: attack effect not implemented
             effect=flip_damage(coins=3, per_heads=10),
         ),
         Attack(
             title="Peck Attack",
             game_text="Flip 2 coins. If 1 of them is heads, this attack does 20 damage. If both are heads, this attack does 50 damage. If both are tails, the Defending Pok\u00e9mon is now Confused.",
             cost={PokemonTypes.COLORLESS: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=peck_attack,
         ),
     ],
 )

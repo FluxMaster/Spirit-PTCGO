@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Electrode (ECARD2 #8): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ecard import (
+    super_dynamo, super_dynamo_condition, swift,
+)
+
 
 card = PokemonCardDef(
     guid="119f5397-70a9-5710-aa8e-327a1ff07126",
@@ -27,16 +27,16 @@ card = PokemonCardDef(
             title="Super Dynamo",
             game_text="Once during your turn (before your attack), if Electrode is your Active Pok\u00e9mon, you may flip a coin. If heads, choose a Lightning Energy card from your discard pile and attach it to 1 of your Pok\u00e9mon. This power can't be used if Electrode is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=super_dynamo_condition,
+            effect=super_dynamo,
         ),
         Attack(
             title="Swift",
             game_text="This attack's damage isn't affected by Weakness, Resistance, Pok\u00e9-Powers, Pok\u00e9-Bodies, or any other effects on the Defending Pok\u00e9mon.",
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=swift,
         ),
     ],
 )

@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Slowking (ECARD2 #H22): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import bursting_hand, shuffle_attack
+
 
 card = PokemonCardDef(
     guid="eb636a8e-22fb-540d-b17b-82c1912cafc4",
@@ -29,16 +27,14 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bursting_hand,
         ),
         Attack(
             title="Shuffle Attack",
             game_text="Look at a number of cards on top of your opponent's deck equal to the number of Energy cards attached to the Defending Pok\u00e9mon. Put those cards in any order, and then put them back on top of your opponent's deck.",
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 2},
             damage=40,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=shuffle_attack,
         ),
     ],
 )

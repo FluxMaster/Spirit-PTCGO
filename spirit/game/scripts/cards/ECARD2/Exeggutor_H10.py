@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Exeggutor (ECARD2 #H10): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import called_shot, super_eggsplosion
+
 
 card = PokemonCardDef(
     guid="3ea27f84-0a24-5353-885e-3fa46b61f53d",
@@ -29,15 +27,13 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=40,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=super_eggsplosion,
         ),
         Attack(
             title="Called Shot",
             game_text="Choose 1 of your opponent's Benched Pok\u00e9mon. This attack does 10 damage times the amount of Grass Energy attached to Exeggutor. (Don't apply Weakness or Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.GRASS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=called_shot,
         ),
     ],
 )

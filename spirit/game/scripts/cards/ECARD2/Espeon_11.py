@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Espeon (ECARD2 #11): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import damage_counters_on, flip_damage
+from spirit.game.card_effects.ecard import energy_return, energy_return_condition
+
 
 card = PokemonCardDef(
     guid="3c48063d-9c89-55e6-8191-e3bcf6211ba6",
@@ -27,8 +26,9 @@ card = PokemonCardDef(
             title="Energy Return",
             game_text="As often as you like during your turn (before your attack), choose an Energy card attached to 1 of your Pok\u00e9mon and return it to your hand. This power can't be used if Espeon is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.UNLIMITED,
+            condition=energy_return_condition,
+            effect=energy_return,
         ),
         Attack(
             title="Damage Blast",
@@ -36,8 +36,8 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 2},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(
+                coins_from=damage_counters_on("defender"), bonus_per_heads=10),
         ),
     ],
 )

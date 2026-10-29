@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Slowbro (ECARD2 #33): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.passives_common import takes_less_passive
+from spirit.game.card_effects.ecard import is_basic_non_baby, unused_energy_bonus
+
 
 card = PokemonCardDef(
     guid="4a25dcee-27f1-5865-98a7-6ca10ed17dcd",
@@ -27,8 +26,7 @@ card = PokemonCardDef(
             title="Dense Body",
             game_text="Any damage done to Slowbro by attacks from Basic Pok\u00e9mon (excluding Baby Pok\u00e9mon) is reduced by 20.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=takes_less_passive(20, attacker_pred=is_basic_non_baby),
         ),
         Attack(
             title="Energy Cannon",
@@ -36,8 +34,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=unused_energy_bonus(per=10, cap=20),
         ),
     ],
 )

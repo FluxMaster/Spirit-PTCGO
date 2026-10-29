@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Chansey (ECARD2 #69): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import recoil_attack
+
 
 card = PokemonCardDef(
     guid="47ed61ec-c3a3-51fa-9ae8-b8e678693827",
@@ -32,8 +30,7 @@ card = PokemonCardDef(
             game_text="Chansey does 40 damage to itself.",
             cost={PokemonTypes.COLORLESS: 3},
             damage=40,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=recoil_attack(40),
         ),
     ],
 )

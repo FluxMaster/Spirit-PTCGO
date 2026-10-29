@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Ninetales (ECARD2 #H19): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.attributes import SpecialConditions
+from spirit.game.card_effects.attacks_common import condition_bonus_attack
+from spirit.game.card_effects.ecard import miracle_tail
+
 
 card = PokemonCardDef(
     guid="200b1d9f-294e-575c-b124-cfb1e74e61cf",
@@ -28,8 +28,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, choose a Special Condition (Asleep, Burned, Confused, Paralyzed, or Poisoned). The Defending Pok\u00e9mon is now affected by that Special Condition.",
             cost={PokemonTypes.FIRE: 1},
             damage=10,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=miracle_tail,
         ),
         Attack(
             title="Roasting Heat",
@@ -37,8 +36,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 1, PokemonTypes.COLORLESS: 2},
             damage=40,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_bonus_attack(20, SpecialConditions.BURNED),
         ),
     ],
 )

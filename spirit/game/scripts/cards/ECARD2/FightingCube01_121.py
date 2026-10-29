@@ -12,8 +12,8 @@ async def violent_rage(ctx):
     counters = max(0, (max_hp - hp) // 10)
     if counters <= 0:
         return
-    await ctx.flip_coins(counters)
-    heads = ctx.last_flip_heads
+    results = await ctx.flip_coins(counters, "Violent Rage")
+    heads = sum(1 for r in results if r)
     if heads:
         await ctx.deal_damage(amount=10 * heads)
 

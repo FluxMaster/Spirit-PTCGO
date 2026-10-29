@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Vulpix (ECARD2 #116): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import collect_energy_from_discard
+
 
 card = PokemonCardDef(
     guid="0a52a06b-67cb-52c8-a8e0-d91a3974fcb0",
@@ -27,8 +25,7 @@ card = PokemonCardDef(
             game_text="If there are any Fire Energy cards in your discard pile, flip a coin. If heads, attach 1 of them to Vulpix.",
             cost={PokemonTypes.FIRE: 1},
             damage=10,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=collect_energy_from_discard(PokemonTypes.FIRE),
         ),
     ],
 )

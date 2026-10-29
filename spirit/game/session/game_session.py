@@ -122,9 +122,10 @@ from .effects import (
 from .passives import (
     ability_locked, active_passives, active_to_bench_counters,
     burn_recovery_blocked, effective_bench_capacity, effective_max_hp,
-    effective_retreat_cost, energy_attach_taxer, evolve_heal_amount,
-    granted_extra_attacks, retreat_energy_destination, tool_slots_free,
-    tool_suppressed,
+    effective_retreat_cost, energy_attach_blocked, energy_attach_taxer,
+    evolve_heal_amount,
+    granted_extra_attacks, retreat_discards_remaining_energy,
+    retreat_energy_destination, tool_slots_free, tool_suppressed,
 )
 from .legal_actions import (
     ACTION_ATTACH_TOOL,
@@ -4202,6 +4203,12 @@ class GameSession:
                 f"attach to {target_id}; re-offering."
             )
             return
+        if energy_attach_blocked(self.board_state, player_id, card, target):
+            logging.warning(
+                f"[Session {self.game_id}] Energy {card.entity_id} attach to "
+                f"{target_id} blocked by a Poké-Body; re-offering."
+            )
+            return
 
         # Slimy Room tax: the flip runs before anything else; tails discards
         # the energy instead of attaching -- per the card text this does NOT
@@ -5271,6 +5278,7 @@ class GameSession:
         self.turn_state.became_active_turn[new_active.entity_id] = \
             self.turn_state.turn_number
         await self._apply_active_to_bench_counters(player_id, card)
+        await self._apply_retreat_energy_discard(player_id, card)
         await self.fire_move_to_active_triggers(new_active)
         # An Active-spot change can flip suppression passives (Tool Jammer).
         await self.resync_effective_max_hp()
@@ -5286,6 +5294,16 @@ class GameSession:
         await self._flush_effect_runs(ctx)
         if ctx.knockouts:
             await self.resolve_knockouts(ctx)
+
+    async def _apply_retreat_energy_discard(self, player_id, pokemon):
+        """Suction Cups: remaining Energy on a retreated Pokémon is discarded."""
+        if not retreat_discards_remaining_energy(self.board_state, pokemon):
+            return
+        if not self.board_state.attached_energies(pokemon):
+            return
+        ctx = EffectContext(self, player_id, pokemon, None)
+        await ctx.discard_energy_from(pokemon, 99)
+        await self._flush_effect_runs(ctx)
 
     async def _execute_attack(self, player_id, card, entry) -> bool:
         """Resolves an attack through the effect engine; attacking ends the turn."""

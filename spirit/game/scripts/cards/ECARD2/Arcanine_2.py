@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Arcanine (ECARD2 #2): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ecard import ExtremeSpeedPassive, fire_blow
+
 
 card = PokemonCardDef(
     guid="4d6e3711-4a8f-5eaf-b91b-34cf6ec45d07",
@@ -27,8 +25,7 @@ card = PokemonCardDef(
             title="Extreme Speed",
             game_text="You pay Colorless less to retreat Arcanine for each Energy attached to it.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=ExtremeSpeedPassive(),
         ),
         Attack(
             title="Fire Blow",
@@ -36,8 +33,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=fire_blow,
         ),
     ],
 )

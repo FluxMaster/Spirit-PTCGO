@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Drowzee (ECARD2 #74): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import sleep_inducer
+
 
 card = PokemonCardDef(
     guid="e60793a7-3d0e-5cce-b59c-24cf9648d1c5",
@@ -26,8 +24,7 @@ card = PokemonCardDef(
             title="Sleep Inducer",
             game_text="Flip a coin. If heads, choose 1 of your opponent's Benched Pok\u00e9mon and switch the Defending Pok\u00e9mon with it. The new Defending Pok\u00e9mon is now Asleep.",
             cost={PokemonTypes.PSYCHIC: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=sleep_inducer(flip=True),
         ),
         Attack(
             title="Tackle",

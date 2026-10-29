@@ -41,6 +41,7 @@ from .passives import (
     effective_attack_cost,
     effective_bench_capacity,
     effective_retreat_cost,
+    energy_attach_blocked,
     energy_provided_options,
     evolution_blocked,
     retreat_blocked,
@@ -509,6 +510,7 @@ def compute_legal_actions(
                 p.entity_id for p in in_play
                 if (attach_to is None or attach_to(p))
                 and not state.attach_restricted(p.entity_id)
+                and not energy_attach_blocked(board, player_id, card, p)
                 and (not state.energy_attached
                      or p.entity_id == state.alpha_growth_target)
             ]

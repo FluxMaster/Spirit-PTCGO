@@ -1,9 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Skiploom (ECARD2 #60): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
+from spirit.game.attributes import (
+    PokemonTypes, PokemonStage, Rarities, AbilityTypes, SpecialConditions,
+)
+from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ecard import LightweightPassive
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 
 card = PokemonCardDef(
     guid="811bb64c-e7ab-5260-a96c-1ea040a2df47",
@@ -28,8 +29,7 @@ card = PokemonCardDef(
             title="Lightweight",
             game_text="You pay Colorless less to retreat Skiploom for each Grass Energy attached to it.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=LightweightPassive(),
         ),
         Attack(
             title="Break Powder",
@@ -37,8 +37,11 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(
+                flip=True,
+                heads_bonus_damage=20,
+                tails_conditions=(SpecialConditions.ASLEEP,),
+            ),
         ),
     ],
 )

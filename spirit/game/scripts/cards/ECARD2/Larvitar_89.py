@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Larvitar (ECARD2 #89): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_bonus
+from spirit.game.card_effects.ecard import mountain_eater
+
 
 card = PokemonCardDef(
     guid="e306e820-df8e-5b93-b1e1-9aa109130c17",
@@ -26,8 +25,7 @@ card = PokemonCardDef(
             title="Mountain Eater",
             game_text="Your opponent discards the top card from his or her deck. Then you remove a damage counter from Larvitar.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=mountain_eater,
         ),
         Attack(
             title="Rising Lunge",
@@ -35,8 +33,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_bonus(10),
         ),
     ],
 )

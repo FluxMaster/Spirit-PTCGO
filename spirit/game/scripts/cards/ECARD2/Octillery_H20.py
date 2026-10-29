@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Octillery (ECARD2 #H20): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import smokescreen_attack
+from spirit.game.card_effects.ecard import SuctionCupsPassive
+
 
 card = PokemonCardDef(
     guid="702e9606-27c0-5c9c-844b-90f954b36b86",
@@ -27,16 +26,14 @@ card = PokemonCardDef(
             title="Suction Cups",
             game_text="As long as Octillery is your Active Pok\u00e9mon, whenever the Defending Pok\u00e9mon retreats, discard all Energy cards attached to the Defending Pok\u00e9mon when it goes to the Bench.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=SuctionCupsPassive(),
         ),
         Attack(
             title="Smokescreen",
             game_text="If the Defending Pok\u00e9mon tries to attack during your opponent's next turn, your opponent flips a coin. If tails, that attack does nothing.",
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 2},
             damage=40,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=smokescreen_attack(),
         ),
     ],
 )
