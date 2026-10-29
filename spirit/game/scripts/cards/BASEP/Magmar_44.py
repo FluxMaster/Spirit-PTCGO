@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Magmar (BASEP #44): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import burning_fire
+
 
 card = PokemonCardDef(
     guid="da1bf7db-3f6b-5328-9e2b-536f3efb13b1",
@@ -28,8 +26,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 1},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=burning_fire,
         ),
         Attack(
             title="Magma Punch",

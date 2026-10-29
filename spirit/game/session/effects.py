@@ -56,6 +56,7 @@ from .passives import (
     devolution_blocked,
     discard_blocked,
     discard_pile_effects_blocked,
+    discard_to_hand_blocked,
     effective_bench_capacity,
     effective_max_hp,
     effective_pokemon_types,
@@ -350,6 +351,27 @@ class EffectContext:
         logging.info(
             f"[Effects {self.game_id}] Discard-pile move of {card.entity_id} "
             f"blocked by Allergic Pollen."
+        )
+        return True
+
+    def _discard_to_hand_source_kind(self) -> str:
+        if self.is_trainer_effect:
+            return "trainer"
+        if self.is_attack_effect():
+            return "attack"
+        if self.is_ability_effect():
+            return "ability"
+        return "other"
+
+    def _discard_to_hand_blocked(self, card) -> bool:
+        """True when a stadium/passive keeps `card` in discard instead of hand."""
+        if not self._in_discard_pile(card):
+            return False
+        if not discard_to_hand_blocked(self.board, self._discard_to_hand_source_kind()):
+            return False
+        logging.info(
+            f"[Effects {self.game_id}] Discard-to-hand move of {card.entity_id} "
+            f"blocked by Pokémon Tower."
         )
         return True
 
@@ -1364,7 +1386,9 @@ class EffectContext:
             hand = self.board.find_player_area(owner, "hand")
             if not hand:
                 continue
-            if self._energy_removal_blocked(card) or self._discard_pile_move_blocked(card):
+            if (self._energy_removal_blocked(card)
+                    or self._discard_pile_move_blocked(card)
+                    or self._discard_to_hand_blocked(card)):
                 continue
             if isinstance(card, CompositePokemonEntity):
                 departed.update(self._queue_composite_departure(card, hand, cards))

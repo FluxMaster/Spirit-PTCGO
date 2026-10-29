@@ -375,6 +375,12 @@ class Passive:
         'attack' or 'ability'."""
         return False
 
+    def blocks_discard_to_hand(self, source_kind: str, carrier: BoardEntity) -> bool:
+        """True to keep a discard-pile card in discard instead of moving it
+        into its owner's hand (Pokémon Tower). `source_kind` is 'attack',
+        'ability', 'trainer', or 'other'."""
+        return False
+
     def blocks_trainer_effects(
         self, affected_player_id: str, trainer_card: BoardEntity,
         trainer_type: Any, carrier: BoardEntity,
@@ -896,6 +902,15 @@ def discard_pile_effects_blocked(board: BoardState, source_kind: str) -> bool:
     cards in discard piles (Parasect Allergic Pollen)."""
     return any(
         passive.blocks_discard_pile_effects(source_kind, carrier)
+        for passive, carrier in active_passives(board)
+    )
+
+
+def discard_to_hand_blocked(board: BoardState, source_kind: str) -> bool:
+    """Whether a passive keeps discard-pile cards from moving into a hand
+    (Pokémon Tower)."""
+    return any(
+        passive.blocks_discard_to_hand(source_kind, carrier)
         for passive, carrier in active_passives(board)
     )
 

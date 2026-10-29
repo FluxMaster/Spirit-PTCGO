@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Pichu (BASEP #35): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import is_baby_card
+from spirit.game.card_effects.support_common import requires_bench_space, search_to_bench
+
 
 card = PokemonCardDef(
     guid="637e27da-7edd-503d-8def-448aeae88927",
@@ -25,8 +24,11 @@ card = PokemonCardDef(
             title="Let's Play!",
             game_text="Search your deck for a Baby Pok\u00e9mon card and put it onto your Bench. Shuffle your deck afterward. (You can't use this attack if your Bench is full.)",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            condition=requires_bench_space(),
+            effect=search_to_bench(
+                predicate=is_baby_card,
+                prompt="Choose a Baby Pokémon to put onto your Bench.",
+            ),
         ),
     ],
 )

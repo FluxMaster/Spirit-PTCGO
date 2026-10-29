@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Electabuzz (BASEP #46): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import lightning_bolt, lightning_rod
+
 
 card = PokemonCardDef(
     guid="531c9b8c-8446-5459-8543-447297314392",
@@ -26,16 +24,14 @@ card = PokemonCardDef(
             title="Lightning Rod",
             game_text="Choose 1 of your opponent's Pok\u00e9mon and put a Lightning Rod marker on it. (A Pok\u00e9mon can have only 1 Lightning Rod marker on it at a time.)",
             cost={PokemonTypes.LIGHTNING: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=lightning_rod,
         ),
         Attack(
             title="Lightning Bolt",
             game_text="This attack does 20 damage to any Pok\u00e9mon with a Lightning Rod marker on it. Apply Weakness and Resistance.",
             cost={PokemonTypes.LIGHTNING: 2},
             damage=10,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=lightning_bolt,
         ),
     ],
 )

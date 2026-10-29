@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Cool Porygon (BASEP #15): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_damage
+from spirit.game.card_effects.ecard import texture_magic
 
 
 card = PokemonCardDef(
@@ -29,8 +26,7 @@ card = PokemonCardDef(
             title="Texture Magic",
             game_text="You may change Cool Porygon's Resistance to a type of your choice other than Colorless. If the Defending Pok\u00e9mon has a Weakness, you may change it to a type of your choice other than Colorless. (Benching either Pok\u00e9mon ends the effect on that Pok\u00e9mon.)",
             cost={PokemonTypes.COLORLESS: 3},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=texture_magic,
         ),
         Attack(
             title="3-D Attack",
@@ -38,7 +34,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=20,
             damage_operator="x",
-            # STUB: attack effect not implemented
             effect=flip_damage(coins=3, per_heads=20),
         ),
     ],

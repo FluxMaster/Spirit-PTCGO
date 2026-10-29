@@ -1,10 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dragonite (BASEP #5): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import flip_or_nothing
+from spirit.game.card_effects.ecard import (
+    all_conditions, has_cards_in_deck, no_special_conditions, special_delivery,
+)
 
 
 card = PokemonCardDef(
@@ -28,16 +27,16 @@ card = PokemonCardDef(
         Ability(
             title="Special Delivery",
             game_text="Once during your turn (before your attack), you may draw a card. If you do, choose a card from your hand and put it on top of your deck. This power can't be used if Dragonite is Asleep, Confused, or Paralyzed.",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            activation=Activations.ONCE_PER_TURN,
+            condition=all_conditions(no_special_conditions, has_cards_in_deck),
+            effect=special_delivery,
         ),
         Attack(
             title="Supersonic Flight",
             game_text="Flip a coin. If tails, this attack does nothing.",
             cost={PokemonTypes.COLORLESS: 3},
             damage=60,
-            # STUB: attack effect not implemented
             effect=flip_or_nothing(),
         ),
     ],

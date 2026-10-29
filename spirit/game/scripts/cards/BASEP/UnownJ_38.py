@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Unown [J] (BASEP #38): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ecard import unown_join, unown_join_condition
+
 
 card = PokemonCardDef(
     guid="f03b235b-acf4-577c-bd1a-c40df717f790",
@@ -25,9 +23,10 @@ card = PokemonCardDef(
         Ability(
             title="[Join]",
             game_text="Once during your turn (before your attack), if you have Unown [J], Unown [O], Unown [I], and Unown Dragon on your Bench, you may search your deck for a Basic Pok\u00e9mon or Evolution card. Show that card to your opponent, then put it into your hand. Shuffle your deck afterward.",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            activation=Activations.ONCE_PER_TURN,
+            condition=unown_join_condition,
+            effect=unown_join,
         ),
         Attack(
             title="Hidden Power",

@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Smeargle (BASEP #32): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import paint
+
 
 card = PokemonCardDef(
     guid="049db089-5280-58a1-8287-62e31784c601",
@@ -27,8 +25,7 @@ card = PokemonCardDef(
             title="Paint",
             game_text="Flip a coin. If heads, choose a type (other than Colorless) and put a Coloring counter on the Defending Pok\u00e9mon. That Pok\u00e9mon is now the type you chose. If it already had a Coloring counter, remove the old one. If tails, this attack does nothing.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=paint,
         ),
     ],
 )

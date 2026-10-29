@@ -1,9 +1,12 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Ho-oh (BASEP #52): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+
+async def sacred_wing(ctx):
+    """Flip: heads 60, tails 20 (Sacred Wing)."""
+    results = await ctx.flip_coins(1, "Sacred Wing")
+    await ctx.deal_damage(60 if results and results[0] else 20)
+
 
 card = PokemonCardDef(
     guid="85fb2b2f-ba11-51d6-8379-a116872c1f50",
@@ -28,8 +31,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If tails, this attack's base damage is 20 instead of 60.",
             cost={PokemonTypes.FIRE: 2, PokemonTypes.COLORLESS: 2},
             damage=60,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=sacred_wing,
         ),
     ],
 )

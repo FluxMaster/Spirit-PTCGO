@@ -4102,6 +4102,19 @@ class GameSession:
             await self._fire_triggered_abilities(
                 player_id, ally, Triggers.ON_ALLY_EVOLVED, ctx_setup=_setup)
 
+    async def _fire_pokemon_evolved_triggers(self, evolution_card, pre_evolution):
+        """ON_POKEMON_EVOLVED for every other in-play Pokemon on BOTH sides
+        after any evolution (Eevee Chain Reaction)."""
+        def _setup(c):
+            c.evolved_pokemon = evolution_card
+            c.evolved_from = pre_evolution
+        for pid in self._turn_order():
+            for poked in list(self.board_state.pokemon_in_play(pid)):
+                if poked is evolution_card:
+                    continue
+                await self._fire_triggered_abilities(
+                    pid, poked, Triggers.ON_POKEMON_EVOLVED, ctx_setup=_setup)
+
     async def _fire_end_of_turn_triggers(self, active_id: str):
         """END_OF_TURN for the turn player's in-play Pokemon, after their turn
         ends and before the checkup (Radiant Venusaur's Sunny Bloom).
@@ -4996,6 +5009,9 @@ class GameSession:
         # Resonant Evolution); deck-sourced ones aren't "played from hand".
         if not from_zone_intro:
             await self._fire_ally_evolved_triggers(player_id, card, target)
+        # Any evolution (hand or deck) notifies other in-play Pokemon
+        # (Eevee Chain Reaction).
+        await self._fire_pokemon_evolved_triggers(card, target)
         # Tucking the pre-evolution can switch off a capacity-raising ability.
         await self.enforce_bench_capacity()
         return True

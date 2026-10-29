@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-_____'s Pikachu (BASEP #24): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import birthday_surprise
+
 
 card = PokemonCardDef(
     guid="6f844409-f4d8-545e-88c2-77085f51b2ff",
@@ -28,8 +26,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 2},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=birthday_surprise,
         ),
     ],
 )

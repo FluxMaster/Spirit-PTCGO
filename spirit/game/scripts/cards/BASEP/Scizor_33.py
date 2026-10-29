@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Scizor (BASEP #33): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_damage
+from spirit.game.card_effects.ecard import cant_attack_this_pokemon
+
 
 card = PokemonCardDef(
     guid="9fcb5c26-89a1-5f00-8d2f-2cecc43bb8f7",
@@ -28,8 +27,7 @@ card = PokemonCardDef(
             title="Leer",
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon can't attack Scizor during your opponent's next turn. (Benching either Pok\u00e9mon ends this effect.)",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=cant_attack_this_pokemon,
         ),
         Attack(
             title="Metal Pincer",
@@ -37,8 +35,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.METAL: 1, PokemonTypes.COLORLESS: 2},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(until_tails=True, bonus_per_heads=10),
         ),
     ],
 )

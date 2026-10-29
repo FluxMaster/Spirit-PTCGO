@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Moltres (BASEP #21): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import hyper_flame
+
 
 card = PokemonCardDef(
     guid="55792970-2f0a-51dd-9759-78188de43b81",
@@ -27,8 +25,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, discard 1 Fire Energy card attached to Moltres. If tails, discard all Energy cards attached to Moltres. If you can't discard Energy cards, this attack does nothing.",
             cost={PokemonTypes.FIRE: 3},
             damage=60,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=hyper_flame,
         ),
     ],
 )

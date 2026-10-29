@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Snorlax (BASEP #49): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ecard import roll_over, snorlax_guard_passive
+
 
 card = PokemonCardDef(
     guid="f8589435-6dc1-5a25-aa2b-8f556aba1562",
@@ -26,17 +24,15 @@ card = PokemonCardDef(
         Ability(
             title="Guard",
             game_text="As long as Snorlax is your Active Pok\u00e9mon, the Defending Pok\u00e9mon can't Retreat. This power stops working when Snorlax is affected by a Special Condition.",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            passive=snorlax_guard_passive,
         ),
         Attack(
             title="Roll Over",
             game_text="Snorlax is now Asleep. Flip a coin. If heads, the Defending Pok\u00e9mon is now Asleep.",
             cost={PokemonTypes.COLORLESS: 4},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=roll_over,
         ),
     ],
 )

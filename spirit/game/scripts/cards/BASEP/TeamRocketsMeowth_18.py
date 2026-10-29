@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Team Rocket's Meowth (BASEP #18): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import count_in_play, flip_damage
+
 
 card = PokemonCardDef(
     guid="fb39866f-97e4-5d09-bfc8-8209a92272ef",
@@ -27,8 +25,11 @@ card = PokemonCardDef(
             title="Miraculous Comeback",
             game_text="Flip a number of coins equal to the number of Pok\u00e9mon in play. This attack does 10 damage times the number of heads. Then Team Rocket's Meowth does 10 damage times the number of tails to itself.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(
+                coins_from=count_in_play(side="both"),
+                per_heads=10,
+                per_tails_self=10,
+            ),
         ),
     ],
 )

@@ -1,11 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dark Persian (BASEP #17): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ecard import tempt
 
 
 card = PokemonCardDef(
@@ -31,15 +28,13 @@ card = PokemonCardDef(
             title="Tempt",
             game_text="If your opponent has any Benched Pok\u00e9mon, flip a coin. If heads, choose 1 of your opponent's Benched Pok\u00e9mon and switch it with the Defending Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=tempt,
         ),
         Attack(
             title="Poison Claws",
             game_text="Flip a coin. if heads, the Defending Pok\u00e9mon is now Poisoned.",
             cost={PokemonTypes.COLORLESS: 2},
             damage=10,
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.POISONED, flip=True),
         ),
     ],

@@ -146,6 +146,9 @@ class Triggers:
     # Another of the owner's Pokemon evolved via a hand-played evolution card
     # (Eevee "Resonant Evolution"); ctx carries evolved_pokemon / evolved_from.
     ON_ALLY_EVOLVED = "on_ally_evolved"
+    # Any Pokémon just evolved (Eevee "Chain Reaction"); fires on every other
+    # in-play Pokémon on both sides. ctx carries evolved_pokemon / evolved_from.
+    ON_POKEMON_EVOLVED = "on_pokemon_evolved"
     # Fires for each of the turn player's in-play Pokemon after their turn
     # ends, before the checkup (Radiant Venusaur "Sunny Bloom").
     END_OF_TURN = "end_of_turn"

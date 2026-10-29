@@ -1,9 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Suicune (BASEP #53): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
+from spirit.game.attributes import (
+    PokemonTypes, PokemonStage, Rarities, AbilityTypes, SpecialConditions,
+)
+from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ecard import pure_body_on_energy_attached
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 
 card = PokemonCardDef(
     guid="8abe54fc-7a18-5239-bf97-6f3241c1504b",
@@ -26,8 +27,8 @@ card = PokemonCardDef(
             title="Pure Body",
             game_text="To attach a Water Energy card from your hand to Suicune, you must discard an Energy card attached to Suicune. (Attach the Water Energy, and then discard an Energy card from Suicune.)",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=Triggers.ON_ENERGY_ATTACHED,
+            effect=pure_body_on_energy_attached(PokemonTypes.WATER),
         ),
         Attack(
             title="Hypno Wave",
@@ -35,8 +36,11 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 2},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(
+                flip=True,
+                heads_bonus_damage=20,
+                tails_conditions=(SpecialConditions.ASLEEP,),
+            ),
         ),
     ],
 )

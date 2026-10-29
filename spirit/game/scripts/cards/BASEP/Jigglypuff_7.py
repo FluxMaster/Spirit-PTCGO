@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Jigglypuff (BASEP #7): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import recoil_attack
+from spirit.game.card_effects.support_common import heal_attack
+
 
 card = PokemonCardDef(
     guid="96f5f79c-cd2c-5da3-951e-096602a6a9b3",
@@ -27,16 +26,14 @@ card = PokemonCardDef(
             title="First Aid",
             game_text="Remove 1 damage counter from Jigglypuff.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=heal_attack(10),
         ),
         Attack(
             title="Double-edge",
             game_text="Jigglypuff does 20 damage to itself.",
             cost={PokemonTypes.COLORLESS: 3},
             damage=40,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=recoil_attack(20),
         ),
     ],
 )

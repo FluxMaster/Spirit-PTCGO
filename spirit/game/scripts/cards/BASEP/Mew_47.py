@@ -1,11 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Mew (BASEP #47): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ecard import neutral_shield_passive
 
 
 card = PokemonCardDef(
@@ -28,16 +25,14 @@ card = PokemonCardDef(
         Ability(
             title="Neutral Shield",
             game_text="Prevent all effects of attacks, including damage, done to Mew by Evolved Pok\u00e9mon. You can't use this power if Mew is Asleep, Confused, or Paralyzed.",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            passive=neutral_shield_passive,
         ),
         Attack(
             title="Psyshock",
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon is now Confused.",
             cost={PokemonTypes.PSYCHIC: 1},
             damage=10,
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.CONFUSED, flip=True),
         ),
     ],
