@@ -4,6 +4,8 @@ Gyarados (DM #20): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm3 import knock_over
+
 
 card = PokemonCardDef(
     guid="5614ad3d-1e7e-5573-a7e0-079ff8785fe4",
@@ -36,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 2, PokemonTypes.COLORLESS: 1},
             damage=160,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=knock_over,
         ),
     ],
 )

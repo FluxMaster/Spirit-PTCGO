@@ -1,9 +1,24 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Hydreigon (DM #33): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm4 import weed_out, weed_out_condition
+
+
+async def radiating_heat(ctx):
+    """20 damage. You may discard an Energy from this Pokémon; if you do,
+    discard an Energy from the opponent's Active Pokémon."""
+    await ctx.deal_damage()
+    if not ctx.attached_energies(ctx.attacker):
+        return
+    if not await ctx.ask_yes_no("Discard an Energy from this Pokémon?"):
+        return
+    discarded = await ctx.discard_energy_from(ctx.attacker, 1)
+    if not discarded:
+        return
+    defender = ctx.defender
+    if defender is not None and ctx.attached_energies(defender) \
+            and not ctx.effects_blocked(defender):
+        await ctx.discard_energy_from(defender, 1)
+
 
 card = PokemonCardDef(
     guid="0ce390b2-5ae0-531d-9a13-d927e11a289c",
@@ -23,14 +38,15 @@ card = PokemonCardDef(
     resistance_type=PokemonTypes.PSYCHIC,
     resistance_amount=20,
     evolves_from="com.direwolfdigital.cake.data.archetypes.pokemon.Zweilous.Name",
-    family_id=635,
+    family_id=633,
     abilities=[
         Ability(
             title="Weed Out",
             game_text="Once during your turn (before your attack), you may choose 3 of your Benched Pok\u00e9mon. Then, discard your other Benched Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=weed_out,
+            activation=Activations.ONCE_PER_TURN,
+            condition=weed_out_condition,
         ),
         Attack(
             title="Dark Destruction",
@@ -38,7 +54,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.DARKNESS: 2, PokemonTypes.COLORLESS: 1},
             damage=120,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=radiating_heat,
         ),
     ],
 )

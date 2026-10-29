@@ -4,6 +4,9 @@ White Kyurem-GX (DM #74): one or more attacks/abilities use effect=unimplemented
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.pokemon import shred
+from spirit.game.card_effects.attacks_common import bonus_if, has_damage
+
 
 card = PokemonCardDef(
     guid="61b7cccf-6774-5560-97b3-f60e75cb4353",
@@ -28,7 +31,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 1},
             damage=40,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=shred,
         ),
         Attack(
             title="Raging Blade",
@@ -37,7 +40,7 @@ card = PokemonCardDef(
             damage=80,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bonus_if(has_damage('self'), 80),
         ),
         Attack(
             title="Dragon Nova-GX",

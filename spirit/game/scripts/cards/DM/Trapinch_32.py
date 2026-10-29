@@ -4,6 +4,8 @@ Trapinch (DM #32): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm4 import earthquake
+
 
 card = PokemonCardDef(
     guid="dc177a17-d948-5b9d-a70f-4ec9cb0c5879",
@@ -28,7 +30,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=earthquake,
         ),
     ],
 )

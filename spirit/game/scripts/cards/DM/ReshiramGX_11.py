@@ -4,6 +4,9 @@ Reshiram-GX (DM #11): one or more attacks/abilities use effect=unimplemented unt
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.attributes import SpecialConditions
+from spirit.game.card_effects.attacks_common import condition_attack
+
 
 card = PokemonCardDef(
     guid="c0f627f3-f402-52fe-a634-e646864e3409",
@@ -35,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 3, PokemonTypes.COLORLESS: 1},
             damage=110,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(SpecialConditions.BURNED),
         ),
         Attack(
             title="Vermilion-GX",
