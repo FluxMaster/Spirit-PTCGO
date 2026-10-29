@@ -4,6 +4,8 @@ Absol (SM9 #88): one or more attacks/abilities use effect=unimplemented until a 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm5 import rocket_fall
+
 
 card = PokemonCardDef(
     guid="7611cbed-f87c-5eb4-aef0-387aca6979bb",
@@ -38,7 +40,7 @@ card = PokemonCardDef(
             damage=30,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=rocket_fall,
         ),
     ],
 )

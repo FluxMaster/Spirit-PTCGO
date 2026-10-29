@@ -4,6 +4,9 @@ Galvantula (SM9 #48): one or more attacks/abilities use effect=unimplemented unt
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm6 import unnerve_passive
+from spirit.game.card_effects.support_common import recover_from_discard
+
 
 card = PokemonCardDef(
     guid="a7912887-0c65-5e2b-a970-db7dd46e39e2",
@@ -30,7 +33,7 @@ card = PokemonCardDef(
             game_text="Whenever your opponent plays an Item or Supporter card from their hand, prevent all effects of that card done to this Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=unnerve_passive,
         ),
         Attack(
             title="Spider Thread",
@@ -38,7 +41,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 1},
             damage=40,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=recover_from_discard(count=1, minimum=1, reveal=False, to='hand'),
         ),
     ],
 )

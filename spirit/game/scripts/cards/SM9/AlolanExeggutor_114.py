@@ -4,6 +4,8 @@ Alolan Exeggutor (SM9 #114): one or more attacks/abilities use effect=unimplemen
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm6 import tropical_shake
+
 
 card = PokemonCardDef(
     guid="7bb7e325-76f1-5b00-8b21-2f5ea1024c1b",
@@ -30,7 +32,7 @@ card = PokemonCardDef(
             damage=20,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=tropical_shake,
         ),
     ],
 )

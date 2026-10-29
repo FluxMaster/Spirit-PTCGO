@@ -4,6 +4,8 @@ Alolan Grimer (SM9 #83): one or more attacks/abilities use effect=unimplemented 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm7 import reactive_poison
+
 
 card = PokemonCardDef(
     guid="33014c67-8b4b-5d3f-9293-d759b7543095",
@@ -31,7 +33,7 @@ card = PokemonCardDef(
             damage=20,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=reactive_poison,
         ),
     ],
 )

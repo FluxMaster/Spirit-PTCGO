@@ -4,6 +4,15 @@ Gengar & Mimikyu-GX (SM9 #164): one or more attacks/abilities use effect=unimple
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.session.effects import is_trainer_card
+
+
+async def poltergeist(ctx):
+    """Opponent reveals their hand; 50 damage for each Trainer card found there."""
+    cards = await ctx.reveal_hand(of_player=ctx.opponent_id)
+    count = sum(1 for c in cards if is_trainer_card(c))
+    await ctx.deal_damage(50 * count)
+
 
 card = PokemonCardDef(
     guid="0e709ba6-b716-5e20-8bf2-9fbe816319f6",
@@ -31,7 +40,7 @@ card = PokemonCardDef(
             damage=50,
             damage_operator="x",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=poltergeist,
         ),
         Attack(
             title="Horror House-GX",

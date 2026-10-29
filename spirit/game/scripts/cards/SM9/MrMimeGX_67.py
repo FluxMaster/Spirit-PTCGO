@@ -4,6 +4,9 @@ Mr. Mime-GX (SM9 #67): one or more attacks/abilities use effect=unimplemented un
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm7 import breakdown
+from spirit.game.card_effects.sm3 import tapu_wilderness_gx
+
 
 card = PokemonCardDef(
     guid="95906460-8d77-58a0-9319-1d042c35e2fc",
@@ -33,14 +36,14 @@ card = PokemonCardDef(
             game_text="For each card in your opponent's hand, put 1 damage counter on their Active Pok\u00e9mon.",
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=breakdown,
         ),
         Attack(
             title="Life Trick-GX",
             game_text="Heal all damage from this Pok\u00e9mon. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=tapu_wilderness_gx,
         ),
     ],
 )

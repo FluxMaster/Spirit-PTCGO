@@ -4,6 +4,8 @@ Aegislash (SM9 #109): one or more attacks/abilities use effect=unimplemented unt
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.pokemon import shred
+
 
 card = PokemonCardDef(
     guid="6371dd55-a0be-5958-8525-ea3254ad694c",
@@ -38,7 +40,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.METAL: 1, PokemonTypes.COLORLESS: 2},
             damage=100,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=shred,
         ),
     ],
 )

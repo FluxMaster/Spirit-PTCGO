@@ -4,6 +4,8 @@ Hoopa-GX (SM9 #96): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import search_to_hand
+
 
 card = PokemonCardDef(
     guid="6f696557-513d-50de-a317-db6e3bae8921",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             game_text="Search your deck for up to 2 cards and put them into your hand. Then, shuffle your deck.",
             cost={PokemonTypes.DARKNESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=search_to_hand(count=2),
         ),
         Attack(
             title="Dark Strike",

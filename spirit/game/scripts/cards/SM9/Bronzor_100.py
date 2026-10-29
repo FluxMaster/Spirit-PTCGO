@@ -4,6 +4,8 @@ Bronzor (SM9 #100): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm5 import EvolutionaryAdvantagePassive
+
 
 card = PokemonCardDef(
     guid="207eb06d-7d65-5de1-a084-16aa2e76cf25",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             game_text="If you go second, this Pok\u00e9mon can evolve during your first turn.",
             ability_type=AbilityTypes.POKE_ABILITY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=EvolutionaryAdvantagePassive(),
         ),
         Attack(
             title="Tackle",

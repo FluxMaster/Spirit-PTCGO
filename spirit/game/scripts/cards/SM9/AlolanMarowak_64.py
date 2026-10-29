@@ -4,6 +4,10 @@ Alolan Marowak (SM9 #64): one or more attacks/abilities use effect=unimplemented
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import search_attach_energy
+from spirit.game.card_effects.trainers import is_basic_energy_card
+from spirit.game.card_effects.sm6 import alolan_club
+
 
 card = PokemonCardDef(
     guid="759db410-b0c5-55ea-b2c8-b619c162a9f1",
@@ -30,7 +34,7 @@ card = PokemonCardDef(
             game_text="Search your deck for up to 2 basic Energy cards and attach them to your Pok\u00e9mon in any way you like. Then, shuffle your deck.",
             cost={},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=search_attach_energy(is_basic_energy_card, count=2),
         ),
         Attack(
             title="Alolan Club",
@@ -39,7 +43,7 @@ card = PokemonCardDef(
             damage=20,
             damage_operator="x",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=alolan_club,
         ),
     ],
 )
