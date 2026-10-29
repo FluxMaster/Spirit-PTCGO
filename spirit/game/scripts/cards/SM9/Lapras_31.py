@@ -1,12 +1,11 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Lapras (SM9 #31): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
 
+from spirit.game.card_effects.sm9 import (
+    hydro_pump,
+)
 
 card = PokemonCardDef(
     guid="f23e8993-1d3e-5730-8f62-fc614b5f380c",
@@ -29,7 +28,6 @@ card = PokemonCardDef(
             title="Confuse Ray",
             game_text="Your opponent's Active Pok\u00e9mon is now Confused.",
             cost={PokemonTypes.WATER: 1},
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.CONFUSED),
         ),
         Attack(
@@ -38,8 +36,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=hydro_pump,
         ),
     ],
 )

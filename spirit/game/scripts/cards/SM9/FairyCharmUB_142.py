@@ -1,14 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Fairy Charm UB (SM9 #142): trainer effect stubbed.
-
-Card text:
-  - Attach a Pokémon Tool to 1 of your Pokémon that doesn't already have a Pokémon Tool attached to it.
-  - Prevent all damage done to the Fairy Pokémon this card is attached to by attacks from your opponent's Ultra Beast Pokémon-GX and Ultra Beast Pokémon-EX.
-  - You may play as many Item cards as you like during your turn (before your attack).
-"""
-
-from spirit.game.data_utils import PokemonToolCardDef, unimplemented
+from spirit.game.data_utils import PokemonToolCardDef
 from spirit.game.attributes import Rarities
+
+from spirit.game.card_effects.sm9 import (
+    fairy_charm_ub_passive,
+    is_fairy_pokemon,
+)
 
 card = PokemonToolCardDef(
     guid="69cc2e46-9d61-5ccf-8927-f5264056f8c5",
@@ -20,6 +16,6 @@ card = PokemonToolCardDef(
     collector_number=142,
     set_code="SM9",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
-)
+            passive=fairy_charm_ub_passive,
+            attach_to=is_fairy_pokemon,
+        )

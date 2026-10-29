@@ -1,11 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dratini (SM9 #117): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.passives_common import attack_effect_shield_passive
-
 
 card = PokemonCardDef(
     guid="4a074075-eedf-56a5-bcd1-bf357e5a79e5",
@@ -28,7 +23,6 @@ card = PokemonCardDef(
             title="Defensive Scales",
             game_text="Prevent all effects of your opponent's attacks, except damage, done to this Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
             passive=attack_effect_shield_passive(),
         ),
         Attack(

@@ -1,11 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Tyranitar (SM9 #85): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import damage_all_opponents
 
+from spirit.game.card_effects.sm9 import (
+    bite_off,
+)
 
 card = PokemonCardDef(
     guid="b284770e-abbc-55aa-b656-96db7728735b",
@@ -31,7 +30,6 @@ card = PokemonCardDef(
             title="Spinning Tail",
             game_text="This attack does 30 damage to each of your opponent's Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.DARKNESS: 1, PokemonTypes.COLORLESS: 2},
-            # STUB: attack effect not implemented
             effect=damage_all_opponents(30),
         ),
         Attack(
@@ -40,8 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.DARKNESS: 1, PokemonTypes.COLORLESS: 3},
             damage=130,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bite_off,
         ),
     ],
 )

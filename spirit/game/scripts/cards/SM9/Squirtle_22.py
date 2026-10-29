@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Squirtle (SM9 #22): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.sm9 import (
+    floating_shell_passive,
+)
 
 card = PokemonCardDef(
     guid="459e0540-fbe5-5e35-a287-95ceb797cca4",
@@ -26,8 +26,7 @@ card = PokemonCardDef(
             title="Floating Shell",
             game_text="If you have a Stadium card in play, this Pok\u00e9mon has no Retreat Cost.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=floating_shell_passive,
         ),
         Attack(
             title="Water Gun",

@@ -1,16 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Mankey (SM9 #71): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-
 
 async def pry(ctx):
     """10 damage. Your opponent reveals their hand."""
     await ctx.deal_damage()
     await ctx.reveal_hand(of_player=ctx.opponent_id)
-
 
 card = PokemonCardDef(
     guid="bd69c7fa-6f23-513c-ad2b-1583b98e7f6b",
@@ -33,7 +27,6 @@ card = PokemonCardDef(
             title="Scout",
             game_text="Your opponent reveals their hand.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=pry,
         ),
         Attack(

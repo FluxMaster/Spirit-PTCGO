@@ -1,11 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Absol (SM9 #88): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.sm5 import rocket_fall
 
+from spirit.game.card_effects.sm9 import (
+    dark_ambition_passive,
+)
 
 card = PokemonCardDef(
     guid="7611cbed-f87c-5eb4-aef0-387aca6979bb",
@@ -30,8 +29,7 @@ card = PokemonCardDef(
             title="Dark Ambition",
             game_text="If your opponent's Active Pok\u00e9mon is a Basic Pok\u00e9mon, its Retreat Cost is Colorless more.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=dark_ambition_passive,
         ),
         Attack(
             title="Shadow Seeker",
@@ -39,7 +37,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.DARKNESS: 1, PokemonTypes.COLORLESS: 2},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
             effect=rocket_fall,
         ),
     ],

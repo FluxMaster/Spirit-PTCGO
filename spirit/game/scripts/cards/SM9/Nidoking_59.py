@@ -1,9 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Nidoking (SM9 #59): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm9 import (
+    drag_off,
+    kings_drum,
+)
 
 card = PokemonCardDef(
     guid="af30bdb0-142d-5b3f-a4a1-339772faa9e1",
@@ -27,8 +28,7 @@ card = PokemonCardDef(
             title="Drag Off",
             game_text="Switch 1 of your opponent's Benched Pok\u00e9mon with their Active Pok\u00e9mon. This attack does 50 damage to the new Active Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=drag_off,
         ),
         Attack(
             title="King's Drum",
@@ -36,8 +36,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 2},
             damage=100,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=kings_drum,
         ),
     ],
 )

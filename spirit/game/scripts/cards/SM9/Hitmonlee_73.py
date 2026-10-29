@@ -1,9 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Hitmonlee (SM9 #73): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm9 import (
+    special_combo,
+    special_combo_condition,
+)
 
 card = PokemonCardDef(
     guid="f5a73bf0-2177-5d56-a790-93306f9af33b",
@@ -26,8 +27,8 @@ card = PokemonCardDef(
             title="Special Combo",
             game_text="You can use this attack only if your Hitmonchan used Hit and Run during your last turn. This attack does 90 damage to 1 of your opponent's Benched Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.FIGHTING: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=special_combo,
+            condition=special_combo_condition,
         ),
         Attack(
             title="Mega Kick",

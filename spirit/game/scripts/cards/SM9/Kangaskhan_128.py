@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Kangaskhan (SM9 #128): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm9 import (
+    fast_evolution,
+)
 
 card = PokemonCardDef(
     guid="b1718f66-4d78-5397-a715-9ec8f848f48a",
@@ -26,8 +26,7 @@ card = PokemonCardDef(
             title="Fast Evolution",
             game_text="Search your deck for up to 2 Evolution Pok\u00e9mon, reveal them, and put them into your hand. Then, shuffle your deck.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=fast_evolution,
         ),
         Attack(
             title="Mega Punch",

@@ -1,11 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Zeraora (SM9 #52): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import recoil_attack
-
 
 card = PokemonCardDef(
     guid="915e07ed-86b4-5077-bb2f-9088aa1fc2df",
@@ -36,7 +31,6 @@ card = PokemonCardDef(
             game_text="This Pok\u00e9mon does 20 damage to itself.",
             cost={PokemonTypes.LIGHTNING: 2, PokemonTypes.COLORLESS: 1},
             damage=120,
-            # STUB: attack effect not implemented
             effect=recoil_attack(20),
         ),
     ],

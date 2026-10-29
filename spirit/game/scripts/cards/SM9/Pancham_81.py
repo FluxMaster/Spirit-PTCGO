@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Pancham (SM9 #81): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm9 import (
+    arm_thrust,
+)
 
 card = PokemonCardDef(
     guid="3100c5ac-7e89-5f7f-bc85-0a945da7ba6c",
@@ -27,8 +27,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, discard an Energy from your opponent's Active Pok\u00e9mon. If tails, this attack does nothing.",
             cost={PokemonTypes.COLORLESS: 2},
             damage=40,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=arm_thrust,
         ),
     ],
 )

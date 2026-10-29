@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Psyduck (SM9 #26): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm9 import (
+    headache,
+)
 
 card = PokemonCardDef(
     guid="fce62ac9-a6bb-5f8c-bd83-b42f94190728",
@@ -27,8 +27,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, your opponent can't play any Trainer cards from their hand during their next turn.",
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=headache,
         ),
     ],
 )

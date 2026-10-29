@@ -1,20 +1,14 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Bronzong (SM9 #101): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.attributes import AttrID, SpecialConditions
 from spirit.game.card_effects.passives_common import prevent_damage_when
 from spirit.game.card_effects.attacks_common import condition_attack
-
 
 def _heatproof_pred(calc, carrier):
     if calc.target is not carrier:
         return False
     types = calc.attacker.get_attribute(AttrID.POKEMON_TYPES) or []
     return PokemonTypes.FIRE.value in types
-
 
 card = PokemonCardDef(
     guid="d98d6d80-dcc4-523f-b673-17385ca0c634",
@@ -40,7 +34,6 @@ card = PokemonCardDef(
             title="Heatproof",
             game_text="Prevent all damage done to this Pok\u00e9mon by attacks from your opponent's Fire Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
             passive=prevent_damage_when(_heatproof_pred),
         ),
         Attack(
@@ -48,7 +41,6 @@ card = PokemonCardDef(
             game_text="Your opponent's Active Pok\u00e9mon is now Confused.",
             cost={PokemonTypes.METAL: 1, PokemonTypes.COLORLESS: 2},
             damage=70,
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.CONFUSED),
         ),
     ],

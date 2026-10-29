@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Zangoose (SM9 #132): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm9 import (
+    head_hunt,
+)
 
 card = PokemonCardDef(
     guid="845c743e-7f31-5e26-8869-586f36daea1d",
@@ -26,8 +26,7 @@ card = PokemonCardDef(
             title="Head Hunt",
             game_text="Look at the top 6 cards of your deck, reveal any number of Pok\u00e9mon you find there, and put them into your hand. Discard the other cards.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=head_hunt,
         ),
         Attack(
             title="Slash",

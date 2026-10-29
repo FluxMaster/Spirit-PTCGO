@@ -1,11 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Alolan Golem (SM9 #37): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import self_energy_discard_attack
 
+from spirit.game.card_effects.sm9 import (
+    electromagnetic_bomb,
+)
 
 card = PokemonCardDef(
     guid="14d44cd7-52c2-5dee-ae52-20dcae095fba",
@@ -33,15 +32,13 @@ card = PokemonCardDef(
             cost={},
             damage=20,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=electromagnetic_bomb,
         ),
         Attack(
             title="Super Zap Cannon",
             game_text="Discard 2 Energy from this Pok\u00e9mon.",
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 4},
             damage=190,
-            # STUB: attack effect not implemented
             effect=self_energy_discard_attack(count=2),
         ),
     ],

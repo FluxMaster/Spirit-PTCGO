@@ -1,11 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Nidoran ♀ (SM9 #54): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.support_common import search_to_bench
-
 
 card = PokemonCardDef(
     guid="bd889646-bb56-5b51-ad60-d97572b69d1f",
@@ -28,7 +23,6 @@ card = PokemonCardDef(
             title="Call for Family",
             game_text="Search your deck for a Basic Pok\u00e9mon and put it onto your Bench. Then, shuffle your deck.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=search_to_bench(),
         ),
         Attack(

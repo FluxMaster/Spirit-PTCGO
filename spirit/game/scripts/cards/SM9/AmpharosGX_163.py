@@ -1,9 +1,11 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Ampharos-GX (SM9 #163): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm9 import (
+    electrical_gx,
+    impact_bolt,
+    power_recharge,
+)
 
 card = PokemonCardDef(
     guid="be4bec4f-622d-58b4-b871-e4edc53d15bb",
@@ -30,23 +32,20 @@ card = PokemonCardDef(
             game_text="Put all Electropower cards from your discard pile into your hand.",
             cost={PokemonTypes.LIGHTNING: 1},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=power_recharge,
         ),
         Attack(
             title="Impact Bolt",
             game_text="Discard all Lightning Energy from this Pok\u00e9mon.",
             cost={PokemonTypes.LIGHTNING: 2},
             damage=150,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=impact_bolt,
         ),
         Attack(
             title="Electrical-GX",
             game_text="Search your deck for up to 7 Pok\u00e9mon, reveal them, and put them into your hand. Then, shuffle your deck. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.LIGHTNING: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=electrical_gx,
         ),
     ],
 )

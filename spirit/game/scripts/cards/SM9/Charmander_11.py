@@ -1,11 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Charmander (SM9 #11): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import damage_per, damage_counters_on
-
 
 card = PokemonCardDef(
     guid="04d2bdf3-d089-51b9-9e88-6477bd189b19",
@@ -35,7 +30,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=20,
             damage_operator="x",
-            # STUB: attack effect not implemented
             effect=damage_per(damage_counters_on('self'), 20),
         ),
     ],

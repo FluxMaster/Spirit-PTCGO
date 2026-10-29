@@ -1,11 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Skarmory (SM9 #98): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.passives_common import protect_next_turn
 
+from spirit.game.card_effects.sm9 import (
+    calm_strike,
+)
 
 card = PokemonCardDef(
     guid="58b8f101-6945-50d1-9b81-3e71a4ff2bb0",
@@ -32,15 +31,13 @@ card = PokemonCardDef(
             cost={PokemonTypes.METAL: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=calm_strike,
         ),
         Attack(
             title="Steel Wing",
             game_text="During your opponent's next turn, this Pok\u00e9mon takes 30 less damage from attacks (after applying Weakness and Resistance).",
             cost={PokemonTypes.METAL: 2, PokemonTypes.COLORLESS: 1},
             damage=90,
-            # STUB: attack effect not implemented
             effect=protect_next_turn(reduce=30),
         ),
     ],

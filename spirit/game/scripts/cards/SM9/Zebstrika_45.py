@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Zebstrika (SM9 #45): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm9 import (
+    raid,
+)
 
 card = PokemonCardDef(
     guid="06756061-e0cd-5f97-86b4-971b0fbdbb68",
@@ -31,8 +31,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=raid,
         ),
         Attack(
             title="Mach Bolt",

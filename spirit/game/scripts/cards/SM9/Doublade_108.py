@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Doublade (SM9 #108): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm9 import (
+    tool_drop,
+)
 
 card = PokemonCardDef(
     guid="c9b70f64-7452-579f-bd30-dc6410097577",
@@ -31,8 +31,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=30,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=tool_drop,
         ),
     ],
 )

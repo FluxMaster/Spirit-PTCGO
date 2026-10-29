@@ -1,11 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Cosmog (SM9 #69): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.sm4 import submerge_passive
-
 
 card = PokemonCardDef(
     guid="bdd4b3c7-7dc5-5631-9afe-63c89914d814",
@@ -28,7 +23,6 @@ card = PokemonCardDef(
             title="Cosmic Guard",
             game_text="As long as this Pok\u00e9mon is on your Bench, prevent all damage done to this Pok\u00e9mon by attacks (both yours and your opponent's).",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
             passive=submerge_passive,
         ),
         Attack(

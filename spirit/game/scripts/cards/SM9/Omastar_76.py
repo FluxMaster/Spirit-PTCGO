@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Omastar (SM9 #76): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.sm9 import (
+    fossil_bind_passive,
+)
 
 card = PokemonCardDef(
     guid="ce08bdcc-1f1e-5c74-8b16-147aa1636218",
@@ -27,8 +27,7 @@ card = PokemonCardDef(
             title="Fossil Bind",
             game_text="As long as you have fewer Pok\u00e9mon in play than your opponent, they can't play any Item cards from their hand.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=fossil_bind_passive,
         ),
         Attack(
             title="Bite",

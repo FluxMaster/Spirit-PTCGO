@@ -1,9 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Nidoqueen (SM9 #56): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.sm9 import (
+    power_lariat,
+    queens_call,
+)
 
 card = PokemonCardDef(
     guid="cd2c4904-8953-5713-8a0e-a6674adf89ad",
@@ -27,8 +28,8 @@ card = PokemonCardDef(
             title="Queen's Call",
             game_text="Once during your turn (before your attack), you may search your deck for a Pok\u00e9mon that isn't a Pok\u00e9mon-GX or Pok\u00e9mon-EX, reveal it, and put it into your hand. Then, shuffle your deck.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=queens_call,
+            activation=Activations.ONCE_PER_TURN,
         ),
         Attack(
             title="Power Lariat",
@@ -36,8 +37,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=power_lariat,
         ),
     ],
 )

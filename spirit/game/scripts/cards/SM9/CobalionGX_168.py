@@ -1,9 +1,12 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Cobalion-GX (SM9 #168): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.sm9 import (
+    dueling_saber,
+    iron_rule_gx,
+    metal_symbol_cure,
+    metal_symbol_passive,
+)
 
 card = PokemonCardDef(
     guid="b88f6f49-9fb8-58c8-bd16-6691656072e9",
@@ -28,8 +31,9 @@ card = PokemonCardDef(
             title="Metal Symbol",
             game_text="Each of your Pok\u00e9mon that has any Metal Energy attached to it can't be affected by any Special Conditions. Remove any Special Conditions affecting those Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=metal_symbol_cure,
+            passive=metal_symbol_passive,
+            trigger=Triggers.BETWEEN_TURNS,
         ),
         Attack(
             title="Dueling Saber",
@@ -37,15 +41,13 @@ card = PokemonCardDef(
             cost={PokemonTypes.METAL: 2},
             damage=50,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=dueling_saber,
         ),
         Attack(
             title="Iron Rule-GX",
             game_text="During your opponent's next turn, their Pok\u00e9mon can't attack. (This includes Pok\u00e9mon that come into play on that turn.) (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=iron_rule_gx,
         ),
     ],
 )

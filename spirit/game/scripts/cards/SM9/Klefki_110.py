@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Klefki (SM9 #110): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.sm9 import (
+    key_of_secrets_passive,
+)
 
 card = PokemonCardDef(
     guid="f4ade3fa-949f-54cf-8748-0c7b02f21da5",
@@ -28,8 +28,7 @@ card = PokemonCardDef(
             title="Key of Secrets",
             game_text="Each of your Metal Pok\u00e9mon's Resistance is now -40.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=key_of_secrets_passive,
         ),
         Attack(
             title="Ram",

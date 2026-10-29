@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Spiritomb (SM9 #89): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm9 import (
+    spirit_compressor,
+)
 
 card = PokemonCardDef(
     guid="1df63159-b445-5e30-8634-2f284739a8be",
@@ -25,8 +25,7 @@ card = PokemonCardDef(
             title="Spirit Compressor",
             game_text="Search your deck for up to 4 Pok\u00e9mon and discard them. Then, shuffle your deck.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=spirit_compressor,
         ),
         Attack(
             title="Spooky Shot",

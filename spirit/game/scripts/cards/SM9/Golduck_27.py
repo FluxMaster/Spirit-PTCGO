@@ -1,11 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Golduck (SM9 #27): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.data_utils import def_for
 
+from spirit.game.card_effects.sm9 import (
+    swim,
+)
 
 async def amnesia(ctx):
     """20 damage; lock 1 of the Defending Pokémon's attacks next turn."""
@@ -25,7 +24,6 @@ async def amnesia(ctx):
         return
     _, chosen = picked
     ctx.session.turn_state.lock_attack(defender.entity_id, chosen.ability_id)
-
 
 card = PokemonCardDef(
     guid="51e3e283-ad71-5908-bf1b-c774aad9bd48",
@@ -50,7 +48,6 @@ card = PokemonCardDef(
             game_text="Choose 1 of your opponent's Active Pok\u00e9mon's attacks. That Pok\u00e9mon can't use that attack during your opponent's next turn.",
             cost={PokemonTypes.WATER: 1},
             damage=20,
-            # STUB: attack effect not implemented
             effect=amnesia,
         ),
         Attack(
@@ -58,8 +55,7 @@ card = PokemonCardDef(
             game_text="If any of your opponent's Pok\u00e9mon have any Water Energy attached to them, you may do 90 damage to 1 of your opponent's Benched Pok\u00e9mon instead of their Active Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.COLORLESS: 3},
             damage=90,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=swim,
         ),
     ],
 )

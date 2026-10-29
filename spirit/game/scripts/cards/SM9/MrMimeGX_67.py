@@ -1,12 +1,11 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Mr. Mime-GX (SM9 #67): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.sm7 import breakdown
 from spirit.game.card_effects.sm3 import tapu_wilderness_gx
 
+from spirit.game.card_effects.sm9 import (
+    magic_odds_passive,
+)
 
 card = PokemonCardDef(
     guid="95906460-8d77-58a0-9319-1d042c35e2fc",
@@ -28,21 +27,18 @@ card = PokemonCardDef(
             title="Magic Odds",
             game_text="Prevent all damage done to this Pok\u00e9mon by your opponent's attacks if that damage is exactly 10, 30, 50, 70, 90, 110, 130, 150, 170, 190, 210, 230, or 250.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=magic_odds_passive,
         ),
         Attack(
             title="Breakdown",
             game_text="For each card in your opponent's hand, put 1 damage counter on their Active Pok\u00e9mon.",
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=breakdown,
         ),
         Attack(
             title="Life Trick-GX",
             game_text="Heal all damage from this Pok\u00e9mon. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=tapu_wilderness_gx,
         ),
     ],

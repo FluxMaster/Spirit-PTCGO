@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Pidgeotto (SM9 #123): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.sm9 import (
+    air_mail,
+)
 
 card = PokemonCardDef(
     guid="70565aac-edee-51da-83e4-9484ace6fc70",
@@ -29,8 +29,8 @@ card = PokemonCardDef(
             title="Air Mail",
             game_text="Once during your turn (before your attack), you may look at the top 2 cards of your deck and put 1 of them into your hand. Put the other card on the bottom of your deck.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=air_mail,
+            activation=Activations.ONCE_PER_TURN,
         ),
         Attack(
             title="Gust",

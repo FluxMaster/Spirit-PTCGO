@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Tauros (SM9 #129): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm9 import (
+    raging_herd,
+)
 
 card = PokemonCardDef(
     guid="1e68ed63-df71-5fa1-9044-c774da4f5e70",
@@ -28,8 +28,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=raging_herd,
         ),
     ],
 )

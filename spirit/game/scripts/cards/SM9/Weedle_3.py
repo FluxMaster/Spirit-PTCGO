@@ -1,11 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Weedle (SM9 #3): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import recoil_attack
-
 
 card = PokemonCardDef(
     guid="544c7e35-36e2-5e2d-868c-48a14500bac1",
@@ -29,7 +24,6 @@ card = PokemonCardDef(
             game_text="This Pok\u00e9mon does 10 damage to itself.",
             cost={PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
             effect=recoil_attack(10),
         ),
     ],

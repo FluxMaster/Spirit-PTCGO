@@ -1,11 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Gyarados (SM9 #30): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.pokemon import rock_crush
 
+from spirit.game.card_effects.sm9 import (
+    distilled_blast,
+)
 
 card = PokemonCardDef(
     guid="be02dc4d-b413-58ae-a6be-8a468d5d093a",
@@ -31,15 +30,13 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=distilled_blast,
         ),
         Attack(
             title="Hyper Beam",
             game_text="Discard an Energy from your opponent's Active Pok\u00e9mon.",
             cost={PokemonTypes.WATER: 3},
             damage=100,
-            # STUB: attack effect not implemented
             effect=rock_crush,
         ),
     ],

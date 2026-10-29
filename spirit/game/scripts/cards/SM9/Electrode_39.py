@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Electrode (SM9 #39): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.sm9 import (
+    electro_shaker,
+)
 
 card = PokemonCardDef(
     guid="2e3c23d8-07e6-5371-866d-e031c78cce54",
@@ -29,8 +29,8 @@ card = PokemonCardDef(
             title="Electro Shaker",
             game_text="When you play this Pok\u00e9mon from your hand to evolve 1 of your Pok\u00e9mon during your turn, you may move any number of Lightning Energy from your Pok\u00e9mon to your other Pok\u00e9mon in any way you like.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=electro_shaker,
+            trigger=Triggers.ON_EVOLVE,
         ),
         Attack(
             title="Speed Ball",

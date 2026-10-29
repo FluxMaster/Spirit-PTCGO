@@ -1,11 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Alolan Ninetales (SM9 #111): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.sm3 import LuminousBarrierPassive
-
 
 card = PokemonCardDef(
     guid="6b110e54-7146-5ca9-aca7-357a5b43bbf0",
@@ -29,7 +24,6 @@ card = PokemonCardDef(
             title="Luminous Barrier",
             game_text="Prevent all effects of attacks, including damage, done to this Pok\u00e9mon by your opponent's Pok\u00e9mon-GX or Pok\u00e9mon-EX.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
             passive=LuminousBarrierPassive(),
         ),
         Attack(

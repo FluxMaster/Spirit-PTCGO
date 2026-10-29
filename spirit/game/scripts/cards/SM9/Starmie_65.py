@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Starmie (SM9 #65): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm9 import (
+    strange_wave,
+)
 
 card = PokemonCardDef(
     guid="7a5868f6-066e-5020-9c40-ebbb7e6303f1",
@@ -28,8 +28,7 @@ card = PokemonCardDef(
             game_text="Search your deck for up to 3 in any combination of Water and Psychic Energy cards and attach them to 1 of your Benched Pok\u00e9mon. Then, shuffle your deck.",
             cost={PokemonTypes.COLORLESS: 1},
             damage=40,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=strange_wave,
         ),
     ],
 )

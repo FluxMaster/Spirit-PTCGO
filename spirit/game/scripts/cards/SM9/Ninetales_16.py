@@ -1,9 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Ninetales (SM9 #16): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.sm9 import (
+    nine_temptations,
+    nine_temptations_condition,
+)
 
 card = PokemonCardDef(
     guid="78e8fadb-5980-5e90-a120-eeb55a6fe1f7",
@@ -27,8 +28,9 @@ card = PokemonCardDef(
             title="Nine Temptations",
             game_text="Once during your turn (before your attack), you may discard 2 Fire Energy cards from your hand. If you do, switch 1 of your opponent's Benched Pok\u00e9mon with their Active Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=nine_temptations,
+            activation=Activations.ONCE_PER_TURN,
+            condition=nine_temptations_condition,
         ),
         Attack(
             title="Flame Tail",

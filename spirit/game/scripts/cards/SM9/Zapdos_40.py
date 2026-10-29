@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Zapdos (SM9 #40): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm9 import (
+    thunderous_assault,
+)
 
 card = PokemonCardDef(
     guid="7b6ae8b6-fe76-509a-a07e-541ece60992c",
@@ -30,8 +30,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 1},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=thunderous_assault,
         ),
     ],
 )

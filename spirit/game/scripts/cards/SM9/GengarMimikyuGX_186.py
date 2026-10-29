@@ -1,18 +1,16 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Gengar & Mimikyu-GX (SM9 #186): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.session.effects import is_trainer_card
 
+from spirit.game.card_effects.sm9 import (
+    horror_house_gx,
+)
 
 async def poltergeist(ctx):
     """Opponent reveals their hand; 50 damage for each Trainer card found there."""
     cards = await ctx.reveal_hand(of_player=ctx.opponent_id)
     count = sum(1 for c in cards if is_trainer_card(c))
     await ctx.deal_damage(50 * count)
-
 
 card = PokemonCardDef(
     guid="d98cfd62-8837-5c7c-88bb-080175cc5d75",
@@ -39,15 +37,13 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 2},
             damage=50,
             damage_operator="x",
-            # STUB: attack effect not implemented
             effect=poltergeist,
         ),
         Attack(
             title="Horror House-GX",
             game_text="Your opponent can't play any cards from their hand during their next turn. If this Pok\u00e9mon has at least 1 extra Psychic Energy attached to it (in addition to this attack's cost), each player draws cards until they have 7 cards in their hand. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.PSYCHIC: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=horror_house_gx,
         ),
     ],
 )

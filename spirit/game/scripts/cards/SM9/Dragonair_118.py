@@ -1,11 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dragonair (SM9 #118): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.sm6 import twister
-
 
 card = PokemonCardDef(
     guid="dced25fb-b04e-5fd0-9f65-2c70acb8d800",
@@ -30,7 +25,6 @@ card = PokemonCardDef(
             game_text="Flip 2 coins. For each heads, discard an Energy from your opponent's Active Pok\u00e9mon. If both of them are tails, this attack does nothing.",
             cost={PokemonTypes.WATER: 1, PokemonTypes.LIGHTNING: 1},
             damage=30,
-            # STUB: attack effect not implemented
             effect=twister,
         ),
     ],

@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Poochyena (SM9 #86): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm9 import (
+    howl_in_the_dark,
+)
 
 card = PokemonCardDef(
     guid="64cf4760-8218-5075-96db-d5c762360bb6",
@@ -28,8 +28,7 @@ card = PokemonCardDef(
             title="Howl in the Dark",
             game_text="Search your deck for up to 2 Darkness Pok\u00e9mon, reveal them, and put them into your hand. Then, shuffle your deck.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=howl_in_the_dark,
         ),
         Attack(
             title="Bite",

@@ -1,11 +1,11 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Beedrill (SM9 #5): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import recoil_attack
 
+from spirit.game.card_effects.sm9 import (
+    destiny_stinger,
+    destiny_stinger_condition,
+)
 
 card = PokemonCardDef(
     guid="3c736293-103f-5ea5-a330-9f920bcc2033",
@@ -29,15 +29,14 @@ card = PokemonCardDef(
             title="Destiny Stinger",
             game_text="You can use this attack only if this Pok\u00e9mon has any damage counters on it. Both Active Pok\u00e9mon are Knocked Out.",
             cost={PokemonTypes.GRASS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=destiny_stinger,
+            condition=destiny_stinger_condition,
         ),
         Attack(
             title="Reckless Charge",
             game_text="This Pok\u00e9mon does 10 damage to itself.",
             cost={PokemonTypes.COLORLESS: 2},
             damage=90,
-            # STUB: attack effect not implemented
             effect=recoil_attack(10),
         ),
     ],

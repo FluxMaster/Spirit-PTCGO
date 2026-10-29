@@ -1,12 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Mimikyu (SM9 #112): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.support_common import draw_attack
 from spirit.game.data_utils import def_for
-
 
 async def copycat(ctx):
     """Copy the opponent's last non-GX attack."""
@@ -25,7 +20,6 @@ async def copycat(ctx):
     if chosen is None or getattr(chosen, "gx", False):
         return
     await ctx.use_attack(chosen)
-
 
 card = PokemonCardDef(
     guid="ac6573fa-7d65-5f9c-97a4-47282f97c1ca",
@@ -47,14 +41,12 @@ card = PokemonCardDef(
             title="Filch",
             game_text="Draw 2 cards.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=draw_attack(2),
         ),
         Attack(
             title="Copycat",
             game_text="If your opponent's Pok\u00e9mon used an attack that isn't a GX attack during their last turn, use it as this attack.",
             cost={PokemonTypes.FAIRY: 1, PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=copycat,
         ),
     ],

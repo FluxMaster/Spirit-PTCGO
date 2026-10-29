@@ -1,13 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Nanu (SM9 #179): trainer effect stubbed.
-
-Card text:
-  - Choose a Basic Darkness Pokémon in your discard pile. Switch it with 1 of your Pokémon in play. Any attached cards, damage counters, Special Conditions, turns in play, and any other effects remain on the new Pokémon.
-  - You may play only 1 Supporter card during your turn (before your attack).
-"""
-
-from spirit.game.data_utils import SupporterCardDef, unimplemented
+from spirit.game.data_utils import SupporterCardDef
 from spirit.game.attributes import Rarities
+
+from spirit.game.card_effects.sm9 import (
+    nanu,
+    nanu_condition,
+)
 
 card = SupporterCardDef(
     guid="6663cb21-4d5e-5fd4-b1c6-d4ca4913a512",
@@ -19,6 +16,6 @@ card = SupporterCardDef(
     collector_number=179,
     set_code="SM9",
     rarity=Rarities.RareUltra,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
-)
+    effect=nanu,
+            condition=nanu_condition,
+        )

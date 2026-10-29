@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Bisharp (SM9 #105): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm9 import (
+    single_lunge,
+)
 
 card = PokemonCardDef(
     guid="8b403eb7-ffb5-57ee-9357-a5110b65dc4a",
@@ -31,8 +31,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.METAL: 1},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=single_lunge,
         ),
         Attack(
             title="Power Edge",

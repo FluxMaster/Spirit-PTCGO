@@ -1,11 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Blastoise (SM9 #25): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import recoil_attack
 
+from spirit.game.card_effects.sm9 import (
+    powerful_squall,
+)
 
 card = PokemonCardDef(
     guid="efe4757a-12fc-59b7-b4df-26e5c4195fa3",
@@ -29,15 +28,14 @@ card = PokemonCardDef(
             title="Powerful Squall",
             game_text="Once during your turn (before your attack), you may look at the top 6 cards of your deck and attach any number of Water Energy cards you find there to your Pok\u00e9mon in any way you like. Shuffle the other cards back into your deck.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=powerful_squall,
+            activation=Activations.ONCE_PER_TURN,
         ),
         Attack(
             title="Hydro Tackle",
             game_text="This Pok\u00e9mon does 30 damage to itself.",
             cost={PokemonTypes.WATER: 3},
             damage=150,
-            # STUB: attack effect not implemented
             effect=recoil_attack(30),
         ),
     ],

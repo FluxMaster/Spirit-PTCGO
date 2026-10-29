@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Mareep (SM9 #41): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm9 import (
+    shock_bolt,
+)
 
 card = PokemonCardDef(
     guid="b1cd917c-062c-53b0-8925-cf3951b0a31a",
@@ -29,8 +29,7 @@ card = PokemonCardDef(
             game_text="Discard all Lightning Energy from this Pok\u00e9mon.",
             cost={PokemonTypes.LIGHTNING: 1},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=shock_bolt,
         ),
     ],
 )

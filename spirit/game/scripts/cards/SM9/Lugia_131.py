@@ -1,12 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Lugia (SM9 #131): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.trainers import is_basic_energy_card
 from spirit.game.card_effects.support_common import search_attach_energy
-
 
 card = PokemonCardDef(
     guid="266133a8-d4b2-5e19-8295-2012a15d0ee9",
@@ -32,7 +27,6 @@ card = PokemonCardDef(
             game_text="Search your deck for a basic Energy card and attach it to this Pok\u00e9mon. Then, shuffle your deck.",
             cost={PokemonTypes.COLORLESS: 1},
             damage=30,
-            # STUB: attack effect not implemented
             effect=search_attach_energy(predicate=is_basic_energy_card, count=1, to_self=True),
         ),
         Attack(

@@ -1,13 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Alolan Geodude (SM9 #35): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.pokemon import is_lightning_energy
 from spirit.game.card_effects.support_common import search_attach_energy
 from spirit.game.card_effects.attacks_common import flip_or_nothing
-
 
 card = PokemonCardDef(
     guid="ca9c6e56-7353-5a60-a98d-7e832eec54ee",
@@ -32,7 +27,6 @@ card = PokemonCardDef(
             title="Charge",
             game_text="Search your deck for up to 2 Lightning Energy cards and attach them to this Pok\u00e9mon. Then, shuffle your deck.",
             cost={},
-            # STUB: attack effect not implemented
             effect=search_attach_energy(predicate=is_lightning_energy, count=2, to_self=True, prompt='Choose up to 2 Lightning Energy cards to attach.'),
         ),
         Attack(
@@ -40,7 +34,6 @@ card = PokemonCardDef(
             game_text="Flip a coin. If tails, this attack does nothing.",
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 2},
             damage=50,
-            # STUB: attack effect not implemented
             effect=flip_or_nothing(),
         ),
     ],

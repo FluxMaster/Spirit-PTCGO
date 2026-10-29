@@ -1,13 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Return Label (SM9 #153): trainer effect stubbed.
-
-Card text:
-  - Put a card from your opponent's discard pile on the bottom of their deck.
-  - You may play as many Item cards as you like during your turn (before your attack).
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+
+from spirit.game.card_effects.sm9 import (
+    return_label,
+    return_label_condition,
+)
 
 card = ItemCardDef(
     guid="c60ee87a-7414-5475-ab8f-29dfa49dd9bb",
@@ -19,6 +16,6 @@ card = ItemCardDef(
     collector_number=153,
     set_code="SM9",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
-)
+    effect=return_label,
+            condition=return_label_condition,
+        )

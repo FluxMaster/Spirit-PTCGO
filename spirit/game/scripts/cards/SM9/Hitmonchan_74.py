@@ -1,11 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Hitmonchan (SM9 #74): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.support_common import switch_self_attack
-
 
 card = PokemonCardDef(
     guid="89e485d1-dcda-56de-ba57-ec4d8d8cca96",
@@ -29,7 +24,6 @@ card = PokemonCardDef(
             game_text="You may switch this Pok\u00e9mon with 1 of your Benched Pok\u00e9mon.",
             cost={PokemonTypes.FIGHTING: 1},
             damage=30,
-            # STUB: attack effect not implemented
             effect=switch_self_attack(optional=True),
         ),
         Attack(

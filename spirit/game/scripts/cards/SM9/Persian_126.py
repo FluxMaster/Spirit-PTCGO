@@ -1,11 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Persian (SM9 #126): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_bonus
 
+from spirit.game.card_effects.sm9 import (
+    make_em_pay,
+)
 
 card = PokemonCardDef(
     guid="2250323f-e071-50cd-bc8c-647a8fea7add",
@@ -30,8 +29,7 @@ card = PokemonCardDef(
             game_text="If your opponent has 4 or more cards in their hand, they reveal their hand. Discard cards you find there until your opponent has exactly 4 cards in their hand.",
             cost={PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=make_em_pay,
         ),
         Attack(
             title="Sharp Claws",
@@ -39,7 +37,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
             effect=flip_bonus(60),
         ),
     ],

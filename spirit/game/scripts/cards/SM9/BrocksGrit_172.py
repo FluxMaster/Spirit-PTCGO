@@ -1,13 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Brock's Grit (SM9 #172): trainer effect stubbed.
-
-Card text:
-  - Shuffle 6 in any combination of Pokémon and basic Energy cards from your discard pile into your deck.
-  - You may play only 1 Supporter card during your turn (before your attack).
-"""
-
-from spirit.game.data_utils import SupporterCardDef, unimplemented
+from spirit.game.data_utils import SupporterCardDef
 from spirit.game.attributes import Rarities
+
+from spirit.game.card_effects.sm9 import (
+    brocks_grit,
+    brocks_grit_condition,
+)
 
 card = SupporterCardDef(
     guid="76a5e6ca-7405-5fcb-9e4d-29d4da35c255",
@@ -19,6 +16,6 @@ card = SupporterCardDef(
     collector_number=172,
     set_code="SM9",
     rarity=Rarities.RareUltra,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
-)
+    effect=brocks_grit,
+            condition=brocks_grit_condition,
+        )

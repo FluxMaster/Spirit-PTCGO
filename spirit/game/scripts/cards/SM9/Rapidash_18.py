@@ -1,13 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Rapidash (SM9 #18): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
 from spirit.game.card_effects.passives_common import flip_protection
-
 
 card = PokemonCardDef(
     guid="e58b82df-2798-5552-805e-817c4d3a8e63",
@@ -32,7 +27,6 @@ card = PokemonCardDef(
             game_text="Your opponent's Active Pok\u00e9mon is now Burned.",
             cost={PokemonTypes.FIRE: 1},
             damage=20,
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.BURNED),
         ),
         Attack(
@@ -40,7 +34,6 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, prevent all effects of attacks, including damage, done to this Pok\u00e9mon during your opponent's next turn.",
             cost={PokemonTypes.FIRE: 2},
             damage=60,
-            # STUB: attack effect not implemented
             effect=flip_protection(prevent=True, effects_too=True),
         ),
     ],

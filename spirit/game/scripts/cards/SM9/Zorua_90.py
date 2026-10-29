@@ -1,11 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Zorua (SM9 #90): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.support_common import switch_self_attack
-
 
 card = PokemonCardDef(
     guid="b2572356-1e67-5f2b-9634-a6d79faeeba7",
@@ -30,7 +25,6 @@ card = PokemonCardDef(
             title="Hide in Shadows",
             game_text="Switch this Pok\u00e9mon with 1 of your Benched Pok\u00e9mon.",
             cost={PokemonTypes.DARKNESS: 1},
-            # STUB: attack effect not implemented
             effect=switch_self_attack(),
         ),
     ],

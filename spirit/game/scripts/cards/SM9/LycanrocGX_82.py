@@ -1,9 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Lycanroc-GX (SM9 #82): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.sm9 import (
+    splintered_shards_gx,
+    twilight_eyes,
+)
 
 card = PokemonCardDef(
     guid="df0ae499-28a3-51ed-8379-4122a38bd2d4",
@@ -27,8 +28,8 @@ card = PokemonCardDef(
             title="Twilight Eyes",
             game_text="When you play this Pok\u00e9mon from your hand to evolve 1 of your Pok\u00e9mon during your turn, you may discard an Energy attached to your opponent's Active Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=twilight_eyes,
+            trigger=Triggers.ON_EVOLVE,
         ),
         Attack(
             title="Accelerock",
@@ -41,8 +42,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1},
             damage=30,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=splintered_shards_gx,
         ),
     ],
 )

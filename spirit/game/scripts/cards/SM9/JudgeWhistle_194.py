@@ -1,15 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Judge Whistle (SM9 #194): trainer effect stubbed.
-
-Card text:
-  - Choose 1:
-• Draw a card
-• Put a Judge card from your discard pile into your hand.
-  - You may play as many Item cards as you like during your turn (before your attack).
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+
+from spirit.game.card_effects.sm9 import (
+    judge_whistle,
+    judge_whistle_condition,
+)
 
 card = ItemCardDef(
     guid="86f89d7a-66b7-5155-bf49-5f7aa8fe4274",
@@ -21,6 +16,6 @@ card = ItemCardDef(
     collector_number=194,
     set_code="SM9",
     rarity=Rarities.RareSecret,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
-)
+    effect=judge_whistle,
+            condition=judge_whistle_condition,
+        )

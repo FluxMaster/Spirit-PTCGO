@@ -1,11 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Zoroark (SM9 #91): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.support_common import gust_attack
 
+from spirit.game.card_effects.sm9 import (
+    night_punishment,
+)
 
 card = PokemonCardDef(
     guid="6d740858-c383-5382-ba60-02a661354e67",
@@ -31,7 +30,6 @@ card = PokemonCardDef(
             title="Taunt",
             game_text="Switch 1 of your opponent's Benched Pok\u00e9mon with their Active Pok\u00e9mon.",
             cost={PokemonTypes.DARKNESS: 1},
-            # STUB: attack effect not implemented
             effect=gust_attack(),
         ),
         Attack(
@@ -40,8 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.DARKNESS: 1, PokemonTypes.COLORLESS: 2},
             damage=20,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=night_punishment,
         ),
     ],
 )

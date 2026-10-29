@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dragonite (SM9 #119): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.sm9 import (
+    fast_call,
+)
 
 card = PokemonCardDef(
     guid="cf269941-0622-594a-ac6d-40d9a360f303",
@@ -27,8 +27,8 @@ card = PokemonCardDef(
             title="Fast Call",
             game_text="Once during your turn (before your attack), you may search your deck for a Supporter card, reveal it, and put it into your hand. Then, shuffle your deck.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=fast_call,
+            activation=Activations.ONCE_PER_TURN,
         ),
         Attack(
             title="Dragon Claw",

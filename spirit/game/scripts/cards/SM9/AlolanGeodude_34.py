@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Alolan Geodude (SM9 #34): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm9 import (
+    self_destruct,
+)
 
 card = PokemonCardDef(
     guid="64fd77a7-b873-51bb-b307-99412f31c437",
@@ -29,8 +29,7 @@ card = PokemonCardDef(
             game_text="This Pok\u00e9mon does 60 damage to itself.",
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 1},
             damage=60,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=self_destruct,
         ),
     ],
 )

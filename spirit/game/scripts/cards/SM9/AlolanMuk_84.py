@@ -1,12 +1,11 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Alolan Muk (SM9 #84): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
 
+from spirit.game.card_effects.sm9 import (
+    adventurous_appetite,
+)
 
 card = PokemonCardDef(
     guid="46cb2411-6c65-543e-902d-886182c2807a",
@@ -32,15 +31,14 @@ card = PokemonCardDef(
             title="Adventurous Appetite",
             game_text="When you play this Pok\u00e9mon from your hand to evolve 1 of your Pok\u00e9mon during your turn, you may look at the top 6 cards of your opponent's deck and discard any number of Item cards you find there. Your opponent shuffles the other cards back into their deck.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=adventurous_appetite,
+            trigger=Triggers.ON_EVOLVE,
         ),
         Attack(
             title="Gunk Shot",
             game_text="Your opponent's Active Pok\u00e9mon is now Poisoned.",
             cost={PokemonTypes.DARKNESS: 1, PokemonTypes.COLORLESS: 2},
             damage=80,
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.POISONED),
         ),
     ],

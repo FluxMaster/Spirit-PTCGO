@@ -1,13 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Pokémon Communication (SM9 #196): trainer effect stubbed.
-
-Card text:
-  - Reveal a Pokémon from your hand and put it into your deck. If you do, search your deck for a Pokémon, reveal it, and put it into your hand. Then, shuffle your deck.
-  - You may play as many Item cards as you like during your turn (before your attack).
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+
+from spirit.game.card_effects.sm9 import (
+    pokemon_communication,
+    pokemon_communication_condition,
+)
 
 card = ItemCardDef(
     guid="681c1ae2-9c08-5a42-a565-e968bb722190",
@@ -19,6 +16,6 @@ card = ItemCardDef(
     collector_number=196,
     set_code="SM9",
     rarity=Rarities.RareSecret,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
-)
+    effect=pokemon_communication,
+            condition=pokemon_communication_condition,
+        )

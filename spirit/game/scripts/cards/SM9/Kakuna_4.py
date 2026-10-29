@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Kakuna (SM9 #4): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.sm9 import (
+    grass_cushion_passive,
+)
 
 card = PokemonCardDef(
     guid="2952964d-7666-591e-bf4a-0a3a34687020",
@@ -27,8 +27,7 @@ card = PokemonCardDef(
             title="Grass Cushion",
             game_text="If this Pok\u00e9mon has any Grass Energy attached to it, it takes 30 less damage from attacks (after applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=grass_cushion_passive,
         ),
         Attack(
             title="Bug Bite",

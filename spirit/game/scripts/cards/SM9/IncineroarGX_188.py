@@ -1,11 +1,11 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Incineroar-GX (SM9 #188): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import discard_opponent_energy_attack
 
+from spirit.game.card_effects.sm9 import (
+    darkest_tornado_gx,
+    scar_charge,
+)
 
 card = PokemonCardDef(
     guid="1868fd1b-cda7-561c-a986-e93701a853d5",
@@ -31,15 +31,14 @@ card = PokemonCardDef(
             title="Scar Charge",
             game_text="Once during your turn (before your attack), you may put 3 damage counters on this Pok\u00e9mon. If you do, search your deck for up to 3 Darkness Energy cards and attach them to this Pok\u00e9mon. Then, shuffle your deck.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=scar_charge,
+            activation=Activations.ONCE_PER_TURN,
         ),
         Attack(
             title="Crushing Punch",
             game_text="Discard a Special Energy from your opponent's Active Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 3},
             damage=130,
-            # STUB: attack effect not implemented
             effect=discard_opponent_energy_attack(special_only=True),
         ),
         Attack(
@@ -48,8 +47,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=darkest_tornado_gx,
         ),
     ],
 )

@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Nidorina (SM9 #55): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm9 import (
+    family_rescue,
+)
 
 card = PokemonCardDef(
     guid="28900f36-a579-5dab-aba3-fdcb11e12add",
@@ -27,8 +27,7 @@ card = PokemonCardDef(
             title="Family Rescue",
             game_text="Shuffle 5 Psychic Pok\u00e9mon from your discard pile into your deck.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=family_rescue,
         ),
         Attack(
             title="Bite",

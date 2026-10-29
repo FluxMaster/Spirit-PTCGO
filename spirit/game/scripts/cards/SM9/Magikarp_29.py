@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Magikarp (SM9 #29): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm9 import (
+    enter_the_dragon,
+)
 
 card = PokemonCardDef(
     guid="e4773ca4-cd2f-5aa4-8799-fed93cab74ab",
@@ -26,8 +26,7 @@ card = PokemonCardDef(
             title="Enter the Dragon",
             game_text="Flip a coin. If heads, put a card that evolves from this Pok\u00e9mon from your discard pile onto this Pok\u00e9mon to evolve it.",
             cost={PokemonTypes.WATER: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=enter_the_dragon,
         ),
     ],
 )

@@ -1,11 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Latias & Latios-GX (SM9 #190): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import self_energy_discard_attack
 
+from spirit.game.card_effects.sm9 import (
+    aero_unit_gx,
+)
 
 card = PokemonCardDef(
     guid="b308ef49-32f4-5e98-be8a-d2cab1daf973",
@@ -29,15 +28,13 @@ card = PokemonCardDef(
             game_text="Discard 3 Energy from this Pok\u00e9mon.",
             cost={PokemonTypes.WATER: 1, PokemonTypes.PSYCHIC: 2, PokemonTypes.COLORLESS: 1},
             damage=240,
-            # STUB: attack effect not implemented
             effect=self_energy_discard_attack(count=3),
         ),
         Attack(
             title="Aero Unit-GX",
             game_text="Attach 5 basic Energy cards from your discard pile to your Pok\u00e9mon in any way you like. If this Pok\u00e9mon has at least 1 extra Energy attached to it (in addition to this attack's cost), prevent all effects of attacks, including damage, done to it during your opponent's next turn. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.PSYCHIC: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=aero_unit_gx,
         ),
     ],
 )

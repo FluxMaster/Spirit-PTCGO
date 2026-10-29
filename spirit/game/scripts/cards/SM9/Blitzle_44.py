@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Blitzle (SM9 #44): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm9 import (
+    delivery_dash,
+)
 
 card = PokemonCardDef(
     guid="58f360e3-44b7-5db3-bfc5-74d591461a37",
@@ -28,8 +28,7 @@ card = PokemonCardDef(
             title="Delivery Dash",
             game_text="Search your deck for up to 2 Electropower cards, reveal them, and put them into your hand. Then, shuffle your deck.",
             cost={PokemonTypes.LIGHTNING: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=delivery_dash,
         ),
         Attack(
             title="Zap Kick",

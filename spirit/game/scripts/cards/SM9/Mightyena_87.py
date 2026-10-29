@@ -1,16 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Mightyena (SM9 #87): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import discard_random_from_hand
-
 
 async def knock_off(ctx):
     await ctx.deal_damage()
     await discard_random_from_hand(ctx, player_id=ctx.opponent_id, count=1)
-
 
 card = PokemonCardDef(
     guid="77b5d91a-ea5f-5357-8c77-fb39f379aa69",
@@ -42,7 +36,6 @@ card = PokemonCardDef(
             game_text="Discard a random card from your opponent's hand.",
             cost={PokemonTypes.COLORLESS: 2},
             damage=50,
-            # STUB: attack effect not implemented
             effect=knock_off,
         ),
     ],

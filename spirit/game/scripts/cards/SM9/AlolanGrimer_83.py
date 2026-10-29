@@ -1,11 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Alolan Grimer (SM9 #83): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.sm7 import reactive_poison
-
 
 card = PokemonCardDef(
     guid="33014c67-8b4b-5d3f-9293-d759b7543095",
@@ -32,7 +27,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=20,
             damage_operator="+",
-            # STUB: attack effect not implemented
             effect=reactive_poison,
         ),
     ],
