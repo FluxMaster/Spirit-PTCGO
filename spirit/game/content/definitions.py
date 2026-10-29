@@ -183,6 +183,10 @@ class Triggers:
     # effect (Amoonguss "Surprise Spores"); fires via the acting ctx's
     # deferred_actions, after that effect's choreography flushes.
     ON_DISCARDED_FROM_HAND = "on_discarded_from_hand"
+    # The OPPOSING player's Active retreated (Toxapex "Toxic Spikes"); fires
+    # for each in-play Pokemon of the retreating player's opponent after the
+    # swap; ctx carries retreating_player_id / retreated_pokemon / new_active.
+    ON_OPPONENT_RETREAT = "on_opponent_retreat"
 
 
 class Activations:

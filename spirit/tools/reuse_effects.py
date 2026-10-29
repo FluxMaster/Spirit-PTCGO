@@ -217,6 +217,11 @@ class Transplant:
                 for alias in node.names:
                     if (alias.asname or alias.name) in all_used:
                         self.imports.append((node.module, alias.name, alias.asname))
+            elif isinstance(node, ast.Import):
+                # Bare `import random` (Astonish): module "" renders as `import name`.
+                for alias in node.names:
+                    if (alias.asname or alias.name).split(".")[0] in all_used:
+                        self.imports.append(("", alias.name, alias.asname))
         self.damage = _lit({k.arg: k.value for k in call.keywords}.get("damage"), 0)
 
     def hardcodes_damage(self, text: str) -> bool:
@@ -248,7 +253,8 @@ def apply_transplants(stub: Script, plans: List[Tuple[ast.keyword, Transplant]])
     tree = ast.parse(src)
     defined = {n.name for n in tree.body if isinstance(n, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef))}
     defined |= {t.id for n in tree.body if isinstance(n, ast.Assign) for t in n.targets if isinstance(t, ast.Name)}
-    imported = {(a.asname or a.name) for n in tree.body if isinstance(n, ast.ImportFrom) for a in n.names}
+    imported = {(a.asname or a.name) for n in tree.body if isinstance(n, (ast.ImportFrom, ast.Import))
+                for a in n.names}
     imports: Dict[str, List[str]] = {}
     defs: List[str] = []
     for _kw, plan in plans:
@@ -263,7 +269,9 @@ def apply_transplants(stub: Script, plans: List[Tuple[ast.keyword, Transplant]])
                 defined.add(name)
                 defs.append(code)
     head, tail = src.split("\ncard = ", 1)
-    import_lines = "".join(f"from {m} import {', '.join(n)}\n" for m, n in imports.items())
+    import_lines = "".join(
+        "".join(f"import {x}\n" for x in n) if not m else f"from {m} import {', '.join(n)}\n"
+        for m, n in imports.items())
     defs_text = ("\n\n" + "\n\n\n".join(defs) + "\n") if defs else ""
     return head.rstrip("\n") + "\n" + import_lines + defs_text + "\n\ncard = " + tail
 
