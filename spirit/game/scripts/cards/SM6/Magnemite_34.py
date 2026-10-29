@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Magnemite (SM6 #34): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm6 import searching_magnet
 
 card = PokemonCardDef(
     guid="3e83f226-b7a9-5da7-9c01-c759cf101cd0",
@@ -28,8 +25,7 @@ card = PokemonCardDef(
             title="Searching Magnet",
             game_text="Search your deck for up to 3 Lightning Energy cards, reveal them, and put them into your hand. Then, shuffle your deck.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=searching_magnet,
         ),
         Attack(
             title="Tackle",

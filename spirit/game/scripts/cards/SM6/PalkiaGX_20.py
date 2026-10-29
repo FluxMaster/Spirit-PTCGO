@@ -1,11 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Palkia-GX (SM6 #20): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.sm5 import spatial_control, hydro_pressure, zero_vanish_gx
-
 
 card = PokemonCardDef(
     guid="77e6c1a8-ccaa-5077-9228-18122ec96190",
@@ -28,7 +23,6 @@ card = PokemonCardDef(
             title="Spatial Control",
             game_text="Move any number of Energy from your Benched Pok\u00e9mon to this Pok\u00e9mon.",
             cost={PokemonTypes.WATER: 1},
-            # STUB: attack effect not implemented
             effect=spatial_control,
         ),
         Attack(
@@ -37,7 +31,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=60,
             damage_operator="+",
-            # STUB: attack effect not implemented
             effect=hydro_pressure,
         ),
         Attack(
@@ -45,7 +38,6 @@ card = PokemonCardDef(
             game_text="Shuffle all Energy from each of your opponent's Pok\u00e9mon into their deck. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.WATER: 3, PokemonTypes.COLORLESS: 2},
             damage=150,
-            # STUB: attack effect not implemented
             effect=zero_vanish_gx,
         ),
     ],

@@ -1,12 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Empoleon (SM6 #81): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.sm5 import total_command
 from spirit.game.card_effects.pokemon import rock_crush
-
 
 card = PokemonCardDef(
     guid="b7f863e1-1bcc-5a93-a590-4103ec9ef783",
@@ -34,7 +29,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.METAL: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
             damage_operator="x",
-            # STUB: attack effect not implemented
             effect=total_command,
         ),
         Attack(
@@ -42,7 +36,6 @@ card = PokemonCardDef(
             game_text="Discard an Energy from your opponent's Active Pok\u00e9mon.",
             cost={PokemonTypes.METAL: 2, PokemonTypes.COLORLESS: 1},
             damage=90,
-            # STUB: attack effect not implemented
             effect=rock_crush,
         ),
     ],

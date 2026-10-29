@@ -1,10 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Yveltal-GX (SM6 #124): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-
+from spirit.game.card_effects.sm6 import doom_count_gx
 
 async def gulp_down(ctx):
     """Heal from this Pokémon the same amount of damage you did to your
@@ -13,11 +9,9 @@ async def gulp_down(ctx):
     if dealt > 0:
         await ctx.heal(dealt, ctx.attacker)
 
-
 async def sonic_boom(ctx):
     """40. This attack's damage isn't affected by Weakness or Resistance."""
     await ctx.deal_damage(apply_modifiers=False)
-
 
 card = PokemonCardDef(
     guid="9f7b9735-52db-54d1-8236-20b05bb0c7bd",
@@ -43,7 +37,6 @@ card = PokemonCardDef(
             game_text="Heal from this Pok\u00e9mon the same amount of damage you did to your opponent's Active Pok\u00e9mon.",
             cost={PokemonTypes.DARKNESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
             effect=gulp_down,
         ),
         Attack(
@@ -51,15 +44,13 @@ card = PokemonCardDef(
             game_text="This attack's damage isn't affected by Weakness or Resistance.",
             cost={PokemonTypes.COLORLESS: 3},
             damage=100,
-            # STUB: attack effect not implemented
             effect=sonic_boom,
         ),
         Attack(
             title="Doom Count-GX",
             game_text="If your opponent's Active Pok\u00e9mon has exactly 4 damage counters on it, that Pok\u00e9mon is Knocked Out. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.DARKNESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=doom_count_gx,
         ),
     ],
 )

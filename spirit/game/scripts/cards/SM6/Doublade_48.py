@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Doublade (SM6 #48): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm6 import curse_of_the_blade
 
 card = PokemonCardDef(
     guid="46ed545f-af43-56fd-8a97-5b50ae3a418e",
@@ -29,8 +26,7 @@ card = PokemonCardDef(
             title="Curse of the Blade",
             game_text="Put 3 damage counters on each of your opponent's Pok\u00e9mon that has a Pok\u00e9mon Tool card attached to it.",
             cost={PokemonTypes.PSYCHIC: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=curse_of_the_blade,
         ),
     ],
 )

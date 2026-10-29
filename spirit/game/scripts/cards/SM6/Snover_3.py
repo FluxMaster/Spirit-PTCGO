@@ -1,11 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Snover (SM6 #3): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.sm5 import ice_shard
-
 
 card = PokemonCardDef(
     guid="7fafa0ec-4ea1-5453-9710-073353b79460",
@@ -30,7 +25,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
             damage_operator="+",
-            # STUB: attack effect not implemented
             effect=ice_shard,
         ),
     ],

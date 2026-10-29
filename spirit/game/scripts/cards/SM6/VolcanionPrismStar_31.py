@@ -1,11 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Volcanion {*} (SM6 #31): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import spread_damage
-
+from spirit.game.card_effects.sm6 import jet_geyser, jet_geyser_condition
 
 card = PokemonCardDef(
     guid="976c1a05-3eeb-5d87-9bc2-3d3ee0553b67",
@@ -28,15 +24,15 @@ card = PokemonCardDef(
             title="Jet Geyser",
             game_text="Once during your turn (before your attack), you may discard a Water Energy card from your hand. If you do, your opponent switches their Active Pok\u00e9mon with 1 of their Benched Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=jet_geyser_condition,
+            effect=jet_geyser,
         ),
         Attack(
             title="Sauna Blast",
             game_text="This attack does 20 damage to each of your opponent's Benched Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.WATER: 3},
             damage=100,
-            # STUB: attack effect not implemented
             effect=spread_damage(20, side='opponent'),
         ),
     ],

@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Hawlucha (SM6 #70): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm6 import sky_drop
 
 card = PokemonCardDef(
     guid="081037d2-91b4-5ff8-9219-5ac667e6b939",
@@ -35,8 +32,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=80,
             damage_operator="-",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=sky_drop,
         ),
     ],
 )

@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Bergmite (SM6 #29): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm6 import break_open
 
 card = PokemonCardDef(
     guid="3622cb19-ccbd-52da-a2e9-4a0de845d097",
@@ -27,8 +24,7 @@ card = PokemonCardDef(
             game_text="If your opponent has a Stadium card in play, discard it. If you do, your opponent's Active Pok\u00e9mon is now Paralyzed.",
             cost={PokemonTypes.WATER: 1},
             damage=10,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=break_open,
         ),
     ],
 )

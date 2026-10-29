@@ -1,13 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dialga-GX (SM6 #138): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.support_common import draw_until_effect
 from spirit.game.card_effects.pokemon import shred
 from spirit.game.card_effects.sm5 import timeless_gx
-
 
 card = PokemonCardDef(
     guid="056dffcc-3689-5f3e-b5ae-89fe31b9aed2",
@@ -32,7 +27,6 @@ card = PokemonCardDef(
             title="Overclock",
             game_text="Draw cards until you have 6 cards in your hand.",
             cost={PokemonTypes.METAL: 1},
-            # STUB: attack effect not implemented
             effect=draw_until_effect(6),
         ),
         Attack(
@@ -40,7 +34,6 @@ card = PokemonCardDef(
             game_text="This attack's damage isn't affected by any effects on your opponent's Active Pok\u00e9mon.",
             cost={PokemonTypes.METAL: 1, PokemonTypes.COLORLESS: 2},
             damage=80,
-            # STUB: attack effect not implemented
             effect=shred,
         ),
         Attack(
@@ -48,7 +41,6 @@ card = PokemonCardDef(
             game_text="Take another turn after this one. (Skip the between-turns step.) (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.METAL: 3, PokemonTypes.COLORLESS: 2},
             damage=150,
-            # STUB: attack effect not implemented
             effect=timeless_gx,
         ),
     ],

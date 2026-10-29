@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Espurr (SM6 #44): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm6 import energy_teaser
 
 card = PokemonCardDef(
     guid="dd29f874-9089-5313-b5ae-4195353fd6d1",
@@ -26,8 +23,7 @@ card = PokemonCardDef(
             title="Energy Teaser",
             game_text="Move an Energy from 1 of your opponent's Benched Pok\u00e9mon to another of their Pok\u00e9mon.",
             cost={PokemonTypes.PSYCHIC: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=energy_teaser,
         ),
     ],
 )

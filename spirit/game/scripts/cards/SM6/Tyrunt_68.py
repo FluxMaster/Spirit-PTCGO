@@ -1,10 +1,5 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Tyrunt (SM6 #68): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-
 
 async def cut_down(ctx):
     """Printed damage; flip a coin, heads: discard an Energy from the opponent's Active."""
@@ -19,7 +14,6 @@ async def cut_down(ctx):
         target, 1,
         prompt="Choose an Energy to discard from the Defending Pokémon.",
     )
-
 
 card = PokemonCardDef(
     guid="5fba4b1b-fc09-54c5-9e3a-e2c92968a90d",
@@ -44,7 +38,6 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, discard an Energy from your opponent's Active Pok\u00e9mon.",
             cost={PokemonTypes.FIGHTING: 1},
             damage=20,
-            # STUB: attack effect not implemented
             effect=cut_down,
         ),
         Attack(

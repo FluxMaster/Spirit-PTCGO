@@ -1,14 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Aurorus (SM6 #28): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.passives_common import prevent_damage_when
 from spirit.game.session.effects import is_evolution_pokemon
 from spirit.game.session.passives import carrier_pokemon
 from spirit.game.card_effects.attacks_common import lock_all_attacks
-
 
 async def frost_wall(ctx):
     """30. During your opponent's next turn, prevent all damage done to this
@@ -20,12 +15,10 @@ async def frost_wall(ctx):
     )
     ctx.add_passive_through_opponents_turn(ctx.attacker, passive)
 
-
 async def _freeze_shock(ctx):
     """Printed damage; this Pokemon can't attack during your next turn."""
     await ctx.deal_damage()
     lock_all_attacks(ctx, ctx.attacker)
-
 
 card = PokemonCardDef(
     guid="c66198bb-0758-5ea0-88e1-5a44c749b9f6",
@@ -50,7 +43,6 @@ card = PokemonCardDef(
             game_text="During your opponent's next turn, prevent all damage done to this Pok\u00e9mon by attacks from Evolution Pok\u00e9mon.",
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 2},
             damage=50,
-            # STUB: attack effect not implemented
             effect=frost_wall,
         ),
         Attack(
@@ -58,7 +50,6 @@ card = PokemonCardDef(
             game_text="This Pok\u00e9mon can't attack during your next turn.",
             cost={PokemonTypes.WATER: 2, PokemonTypes.COLORLESS: 2},
             damage=150,
-            # STUB: attack effect not implemented
             effect=_freeze_shock,
         ),
     ],

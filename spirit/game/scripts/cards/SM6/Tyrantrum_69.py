@@ -1,11 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Tyrantrum (SM6 #69): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.pokemon import rock_crush
-
+from spirit.game.card_effects.sm6 import tyrannical_heart_passive
 
 card = PokemonCardDef(
     guid="b231c794-64fc-50fc-bab7-7d5da60f6b04",
@@ -29,15 +25,13 @@ card = PokemonCardDef(
             title="Tyrannical Heart",
             game_text="As long as you don't have more Pok\u00e9mon in play than your opponent, this Pok\u00e9mon's attacks do 60 more damage (before applying Weakness and Resistance), and it takes 30 less damage from attacks (after applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=tyrannical_heart_passive,
         ),
         Attack(
             title="Crunch",
             game_text="Discard an Energy from your opponent's Active Pok\u00e9mon.",
             cost={PokemonTypes.FIGHTING: 2, PokemonTypes.COLORLESS: 1},
             damage=100,
-            # STUB: attack effect not implemented
             effect=rock_crush,
         ),
     ],

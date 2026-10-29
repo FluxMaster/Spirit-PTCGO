@@ -1,13 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Crasher Wake (SM6 #129): trainer effect stubbed.
-
-Card text:
-  - Discard 2 Water Energy cards from your hand. If you do, search your deck for up to 2 cards and put them into your hand. Then, shuffle your deck.
-  - You may play only 1 Supporter card during your turn (before your attack).
-"""
-
-from spirit.game.data_utils import SupporterCardDef, unimplemented
+from spirit.game.data_utils import SupporterCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.sm6 import crasher_wake, crasher_wake_condition
 
 card = SupporterCardDef(
     guid="807f8cdd-a4a5-5433-b4e7-063c48cb3744",
@@ -19,6 +12,6 @@ card = SupporterCardDef(
     collector_number=129,
     set_code="SM6",
     rarity=Rarities.RareUltra,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    condition=crasher_wake_condition,
+    effect=crasher_wake,
 )

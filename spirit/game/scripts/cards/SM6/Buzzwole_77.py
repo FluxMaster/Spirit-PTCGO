@@ -1,11 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Buzzwole (SM6 #77): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_damage
-
+from spirit.game.card_effects.sm6 import sledgehammer
 
 card = PokemonCardDef(
     guid="ce1d0cc1-e95b-54da-8aa2-f2824ca75797",
@@ -30,8 +26,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=sledgehammer,
         ),
         Attack(
             title="Swing Around",
@@ -39,7 +34,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 2, PokemonTypes.COLORLESS: 1},
             damage=80,
             damage_operator="+",
-            # STUB: attack effect not implemented
             effect=flip_damage(coins=2, bonus_per_heads=20),
         ),
     ],

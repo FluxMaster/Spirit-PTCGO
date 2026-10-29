@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Zygarde (SM6 #71): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm6 import earthen_aura_passive, peace_maker
 
 card = PokemonCardDef(
     guid="b60037e7-5ddf-5ac5-a84d-5584c9e79514",
@@ -26,8 +23,7 @@ card = PokemonCardDef(
             title="Earthen Aura",
             game_text="Damage from this Pok\u00e9mon's attacks isn't affected by Weakness or Resistance.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=earthen_aura_passive,
         ),
         Attack(
             title="Peace Maker",
@@ -35,8 +31,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=peace_maker,
         ),
     ],
 )

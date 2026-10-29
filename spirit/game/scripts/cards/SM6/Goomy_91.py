@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Goomy (SM6 #91): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm6 import sticky_membrane_passive
 
 card = PokemonCardDef(
     guid="6d9a9a21-781e-5fb4-9ee8-06a1c2c0a703",
@@ -26,8 +23,7 @@ card = PokemonCardDef(
             title="Sticky Membrane",
             game_text="As long as this Pok\u00e9mon is your Active Pok\u00e9mon, your opponent's Pok\u00e9mon's attacks cost Colorless more.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=sticky_membrane_passive,
         ),
         Attack(
             title="Ram",

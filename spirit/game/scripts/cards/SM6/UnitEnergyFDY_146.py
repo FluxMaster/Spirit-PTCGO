@@ -1,13 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Unit Energy {F}{D}{Y} (SM6 #146): special energy provides/passive/attach rules stubbed until matched to a known energy pattern.
-
-Card text:
-  - This card provides Colorless Energy.
-  - While this card is attached to a Pokémon, it provides Fighting, Darkness, and Fairy Energy but provides only 1 Energy at a time.
-"""
-
 from spirit.game.data_utils import EnergyCardDef
 from spirit.game.attributes import PokemonTypes, Rarities
+from spirit.game.card_effects.sm6 import UNIT_ENERGY_FDY
 
 card = EnergyCardDef(
     guid="f2afe5b0-5b2c-5c33-9e77-101b595436ad",
@@ -21,5 +14,5 @@ card = EnergyCardDef(
     rarity=Rarities.RareSecret,
     energy_type=PokemonTypes.COLORLESS,
     is_special=True,
-    # STUB: special energy mechanics not implemented
+    provides=UNIT_ENERGY_FDY,
 )

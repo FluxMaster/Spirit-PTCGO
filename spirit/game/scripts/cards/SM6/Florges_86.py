@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Florges (SM6 #86): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm6 import mist_guard, wondrous_gift
 
 card = PokemonCardDef(
     guid="9692db09-a72d-573f-a910-379b826a0b5b",
@@ -29,16 +26,15 @@ card = PokemonCardDef(
             title="Wondrous Gift",
             game_text="Once during your turn (before your attack), you may flip a coin. If heads, put an Item card from your discard pile on top of your deck.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            effect=wondrous_gift,
         ),
         Attack(
             title="Mist Guard",
             game_text="Prevent all damage done to this Pok\u00e9mon by attacks from Dragon Pok\u00e9mon during your opponent's next turn.",
             cost={PokemonTypes.FAIRY: 2, PokemonTypes.COLORLESS: 1},
             damage=70,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=mist_guard,
         ),
     ],
 )

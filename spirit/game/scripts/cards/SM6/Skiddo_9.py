@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Skiddo (SM6 #9): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm6 import growth
 
 card = PokemonCardDef(
     guid="951cd7a4-7557-5e6c-8636-311ade4a0bc5",
@@ -26,8 +23,7 @@ card = PokemonCardDef(
             title="Growth",
             game_text="Attach a Grass Energy card from your hand to this Pok\u00e9mon.",
             cost={PokemonTypes.GRASS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=growth,
         ),
         Attack(
             title="Razor Leaf",

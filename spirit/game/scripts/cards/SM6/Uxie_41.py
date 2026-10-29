@@ -1,11 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Uxie (SM6 #41): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.data_utils import def_for
-
 
 async def amnesia(ctx):
     """20 damage; lock 1 of the Defending Pokémon's attacks next turn."""
@@ -25,7 +20,6 @@ async def amnesia(ctx):
         return
     _, chosen = picked
     ctx.session.turn_state.lock_attack(defender.entity_id, chosen.ability_id)
-
 
 card = PokemonCardDef(
     guid="20cf65c6-5492-5e6c-8d7d-e2a448e9ce21",
@@ -49,7 +43,6 @@ card = PokemonCardDef(
             game_text="Choose 1 of your opponent's Active Pok\u00e9mon's attacks. That Pok\u00e9mon can't use that attack during your opponent's next turn.",
             cost={PokemonTypes.PSYCHIC: 1},
             damage=30,
-            # STUB: attack effect not implemented
             effect=amnesia,
         ),
     ],

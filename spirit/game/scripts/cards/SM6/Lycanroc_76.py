@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Lycanroc (SM6 #76): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm6 import dangerous_rogue
 
 card = PokemonCardDef(
     guid="b5d5fa86-40d8-51f4-bf3f-90ba2030310a",
@@ -29,8 +26,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=dangerous_rogue,
         ),
         Attack(
             title="Accelerock",

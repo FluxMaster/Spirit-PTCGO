@@ -1,11 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Gogoat (SM6 #10): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import recoil_attack
-
+from spirit.game.card_effects.sm6 import milk_drink
 
 card = PokemonCardDef(
     guid="f24a1753-8ab7-5141-8f99-0346c941d334",
@@ -29,15 +25,13 @@ card = PokemonCardDef(
             title="Milk Drink",
             game_text="Flip 2 coins. For each heads, heal 40 damage from this Pok\u00e9mon.",
             cost={PokemonTypes.GRASS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=milk_drink,
         ),
         Attack(
             title="Double-Edge",
             game_text="This Pok\u00e9mon does 30 damage to itself.",
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 2},
             damage=120,
-            # STUB: attack effect not implemented
             effect=recoil_attack(30),
         ),
     ],

@@ -1,15 +1,11 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Goodra (SM6 #94): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import bonus_if
-
+from spirit.game.card_effects.sm6 import hydration
+from spirit.game.data_utils import Triggers
 
 def _healed_this_turn(ctx):
     return ctx.attacker.entity_id in ctx.session.turn_state.healed_entities
-
 
 card = PokemonCardDef(
     guid="c07a378f-e7bb-5dde-90e3-de9e09e1ebc1",
@@ -33,8 +29,8 @@ card = PokemonCardDef(
             title="Hydration",
             game_text="Whenever you attach a Water Energy card from your hand to this Pok\u00e9mon, heal 20 damage from it.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=Triggers.ON_ENERGY_ATTACHED,
+            effect=hydration,
         ),
         Attack(
             title="Soaking Horn",
@@ -42,7 +38,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1, PokemonTypes.FAIRY: 1, PokemonTypes.COLORLESS: 1},
             damage=80,
             damage_operator="+",
-            # STUB: attack effect not implemented
             effect=bonus_if(_healed_this_turn, 80),
         ),
     ],

@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Scatterbug (SM6 #5): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm6 import abnormal_outbreak
+from spirit.game.card_effects.sm5 import go_second_first_turn
 
 card = PokemonCardDef(
     guid="b9556713-cd9e-5f74-9e89-d77af5546aca",
@@ -26,8 +24,9 @@ card = PokemonCardDef(
             title="Abnormal Outbreak",
             game_text="You can use this Ability only if you go second. Once during your first turn (before your attack), you may search your deck for a Spewpa and a Vivillon, reveal them, and put them into your hand. Then, shuffle your deck.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=go_second_first_turn,
+            effect=abnormal_outbreak,
         ),
         Attack(
             title="Tackle",

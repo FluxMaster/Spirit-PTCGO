@@ -1,13 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Mysterious Treasure (SM6 #113): trainer effect stubbed.
-
-Card text:
-  - Discard a card from your hand. If you do, search your deck for a Psychic or Dragon Pokémon, reveal it, and put it into your hand. Then, shuffle your deck.
-  - You may play as many Item cards as you like during your turn (before your attack).
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.sm6 import mysterious_treasure, mysterious_treasure_condition
 
 card = ItemCardDef(
     guid="e4c0fe58-9836-570d-8aa9-22fd1452d245",
@@ -19,6 +12,6 @@ card = ItemCardDef(
     collector_number=113,
     set_code="SM6",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    condition=mysterious_treasure_condition,
+    effect=mysterious_treasure,
 )

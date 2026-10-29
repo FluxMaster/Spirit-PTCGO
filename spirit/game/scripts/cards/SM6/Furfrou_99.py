@@ -1,16 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Furfrou (SM6 #99): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-
 
 async def _return(ctx):
     await ctx.deal_damage()
     if await ctx.ask_yes_no("Draw cards until you have 5 cards in your hand?"):
         await ctx.draw_until(5)
-
 
 card = PokemonCardDef(
     guid="382c1054-c839-5fd1-afc1-6f04f5714e2e",
@@ -34,7 +28,6 @@ card = PokemonCardDef(
             game_text="You may draw cards until you have 5 cards in your hand.",
             cost={PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
             effect=_return,
         ),
     ],

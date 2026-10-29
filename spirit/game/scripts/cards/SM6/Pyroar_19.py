@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Pyroar (SM6 #19): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm6 import dominating_fangs, unnerve_passive
 
 card = PokemonCardDef(
     guid="6bfdb52f-dfa8-55ac-b30f-066f05fea919",
@@ -27,8 +24,7 @@ card = PokemonCardDef(
             title="Unnerve",
             game_text="Whenever your opponent plays an Item or Supporter card from their hand, prevent all effects of that card done to this Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=unnerve_passive,
         ),
         Attack(
             title="Dominating Fangs",
@@ -36,8 +32,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 1, PokemonTypes.COLORLESS: 2},
             damage=80,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=dominating_fangs,
         ),
     ],
 )

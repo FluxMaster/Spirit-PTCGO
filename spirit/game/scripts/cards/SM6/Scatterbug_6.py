@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Scatterbug (SM6 #6): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm6 import ultra_evolution
 
 card = PokemonCardDef(
     guid="e89f38b7-eb50-56bb-99f4-ccd6aeaedfef",
@@ -26,8 +23,7 @@ card = PokemonCardDef(
             title="Ultra Evolution",
             game_text="Flip a coin. If heads, search your deck for Vivillon and put it onto this Scatterbug to evolve it. Then, shuffle your deck.",
             cost={PokemonTypes.GRASS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=ultra_evolution,
         ),
     ],
 )

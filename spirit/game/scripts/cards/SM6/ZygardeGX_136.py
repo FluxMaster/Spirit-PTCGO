@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Zygarde-GX (SM6 #136): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm6 import cell_connector, verdict_gx
 
 card = PokemonCardDef(
     guid="0f174a06-6f85-571b-9afd-7fb9ff915229",
@@ -27,8 +24,7 @@ card = PokemonCardDef(
             game_text="Attach 2 Fighting Energy cards from your discard pile to this Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 2},
             damage=50,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=cell_connector,
         ),
         Attack(
             title="Land's Wrath",
@@ -40,8 +36,7 @@ card = PokemonCardDef(
             game_text="Prevent all damage done to this Pok\u00e9mon by attacks from Pok\u00e9mon-GX and Pok\u00e9mon-EX during your opponent's next turn. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.FIGHTING: 2, PokemonTypes.COLORLESS: 2},
             damage=150,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=verdict_gx,
         ),
     ],
 )

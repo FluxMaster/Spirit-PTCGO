@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Avalugg (SM6 #30): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm6 import frozen_ground
 
 card = PokemonCardDef(
     guid="35208b21-1177-5a3c-b4e4-f5f7b75275dc",
@@ -28,8 +25,7 @@ card = PokemonCardDef(
             game_text="Your opponent can't play any Stadium cards from their hand during their next turn.",
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 2},
             damage=80,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=frozen_ground,
         ),
         Attack(
             title="Skull Bash",

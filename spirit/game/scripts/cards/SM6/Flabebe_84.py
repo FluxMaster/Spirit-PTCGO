@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Flabébé (SM6 #84): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm6 import secret_blessings
 
 card = PokemonCardDef(
     guid="0fc4bb96-0d3a-5359-84bb-4ff9a78da586",
@@ -28,8 +25,7 @@ card = PokemonCardDef(
             title="Secret Blessings",
             game_text="Shuffle 3 in any combination of Pok\u00e9mon and basic Energy cards from your discard pile into your deck.",
             cost={PokemonTypes.FAIRY: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=secret_blessings,
         ),
     ],
 )

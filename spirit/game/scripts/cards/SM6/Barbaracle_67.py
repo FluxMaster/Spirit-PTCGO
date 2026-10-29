@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Barbaracle (SM6 #67): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm6 import seven_shock
 
 card = PokemonCardDef(
     guid="cd53a0bf-11f7-53fe-a913-3e3b45c0caae",
@@ -28,8 +25,7 @@ card = PokemonCardDef(
             game_text="If you have exactly 7 cards in your hand, your opponent's Active Pok\u00e9mon is now Paralyzed.",
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=seven_shock,
         ),
         Attack(
             title="Claw Slash",

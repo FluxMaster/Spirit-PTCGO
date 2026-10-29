@@ -1,11 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Diggersby (SM6 #98): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.sm4 import continuous_headbutt
-
+from spirit.game.card_effects.sm6 import mountaintop_mining
 
 card = PokemonCardDef(
     guid="d5b8d245-967d-5bda-b520-55bb2cbd135a",
@@ -31,8 +27,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=60,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=mountaintop_mining,
         ),
         Attack(
             title="Rock Cannon",
@@ -40,7 +35,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 4},
             damage=80,
             damage_operator="x",
-            # STUB: attack effect not implemented
             effect=continuous_headbutt,
         ),
     ],

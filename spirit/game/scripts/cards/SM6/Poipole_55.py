@@ -1,12 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Poipole (SM6 #55): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
-
+from spirit.game.card_effects.sm6 import knockout_reviver
 
 card = PokemonCardDef(
     guid="9f8dc0ec-2669-54f8-96b9-8cd29a0b1ef2",
@@ -29,15 +25,13 @@ card = PokemonCardDef(
             title="Spit Poison",
             game_text="Your opponent's Active Pok\u00e9mon is now Poisoned.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.POISONED),
         ),
         Attack(
             title="Knockout Reviver",
             game_text="During your opponent's next turn, if this Pok\u00e9mon is Knocked Out, your opponent can't take any Prize cards for it.",
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=knockout_reviver,
         ),
     ],
 )

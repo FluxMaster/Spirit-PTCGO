@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Magnezone (SM6 #36): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm6 import magnetic_circuit, magnetic_circuit_condition
 
 card = PokemonCardDef(
     guid="71d4698d-0498-5190-9885-3c93551368c4",
@@ -29,16 +26,16 @@ card = PokemonCardDef(
             title="Magnetic Circuit",
             game_text="As often as you like during your turn (before your attack), you may attach a Lightning Energy card from your hand to 1 of your Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.UNLIMITED,
+            condition=magnetic_circuit_condition,
+            effect=magnetic_circuit,
         ),
         Attack(
             title="Zap Cannon",
             game_text="This Pok\u00e9mon can't use Zap Cannon during your next turn.",
             cost={PokemonTypes.LIGHTNING: 3, PokemonTypes.COLORLESS: 1},
             damage=130,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            locks_next_turn=True,
         ),
     ],
 )
