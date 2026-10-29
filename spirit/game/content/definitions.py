@@ -714,10 +714,16 @@ class PokemonToolCardDef(TrainerCardDef):
                  granted_abilities: Optional[List[Ability]] = None,
                  attach_to: Optional[Callable] = None,
                  on_carrier_knocked_out: Optional[Any] = None,
-                 attach_to_opponent: bool = False, **kwargs):
+                 attach_to_opponent: bool = False,
+                 return_to_hand_when_discarded_from_play: bool = False,
+                 **kwargs):
         kwargs['trainer_type'] = TrainerType.POKEMON_TOOL
         super().__init__(**kwargs)
         self.passive = passive
+        # Recycle Energy / U-Turn Board: discarded from play -> owner's hand.
+        self.return_to_hand_when_discarded_from_play = (
+            return_to_hand_when_discarded_from_play
+        )
         # Team Flare Hyper Gear: attaches to the OPPONENT's Pokemon; the card
         # keeps its owner (home_player_id) and returns to its owner's discard
         # pile when it leaves that Pokemon for any reason.
@@ -765,6 +771,9 @@ class EnergyCardDef(CardDefinition):
                         Pokemon this card is attached to, attach this card from
                         your discard pile to that Pokemon after attacking"
                         (Burning Energy).
+    return_to_hand_when_discarded_from_play -- "If this card is discarded from
+                        play, put it into your hand instead of the discard pile"
+                        (Recycle Energy, U-Turn Board).
     """
     def __init__(
         self,
@@ -787,6 +796,7 @@ class EnergyCardDef(CardDefinition):
         discard_unless_attach_to: bool = False,
         discard_end_of_attach_turn: bool = False,
         reattach_after_own_attack: bool = False,
+        return_to_hand_when_discarded_from_play: bool = False,
         display_name: Optional[str] = None,
         searchable_by: Optional[List[str]] = None,
         subtypes: Optional[List[str]] = None,
@@ -807,6 +817,9 @@ class EnergyCardDef(CardDefinition):
         self.discard_unless_attach_to = discard_unless_attach_to
         self.discard_end_of_attach_turn = discard_end_of_attach_turn
         self.reattach_after_own_attack = reattach_after_own_attack
+        self.return_to_hand_when_discarded_from_play = (
+            return_to_hand_when_discarded_from_play
+        )
 
         options = [[t.value for t in option] for option in provides] \
             if provides else [[energy_type.value]]
