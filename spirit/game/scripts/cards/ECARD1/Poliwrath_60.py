@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Poliwrath (ECARD1 #60): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import count_energy, flip_damage
+from spirit.game.card_effects.ecard import plunge, plunge_condition
+
 
 card = PokemonCardDef(
     guid="abf292fb-c50a-54eb-818c-f56e9113c60c",
@@ -27,8 +26,9 @@ card = PokemonCardDef(
             title="Plunge",
             game_text="Once during your turn (before your attack), if Poliwrath is on your Bench, you may flip a coin. If heads, take all Energy cards attached to your Active Pok\u00e9mon, if any, and attach them to Poliwrath. Then switch Poliwrath with your Active Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=plunge_condition,
+            effect=plunge,
         ),
         Attack(
             title="Water Punch",
@@ -36,8 +36,10 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 2, PokemonTypes.COLORLESS: 2},
             damage=40,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(
+                coins_from=count_energy("self", energy_type=PokemonTypes.WATER),
+                bonus_per_heads=10,
+            ),
         ),
     ],
 )

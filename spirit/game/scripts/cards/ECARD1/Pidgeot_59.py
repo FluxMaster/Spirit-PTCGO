@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Pidgeot (ECARD1 #59): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import flip_bonus
+from spirit.game.card_effects.ecard import beating_wings, beating_wings_condition
+
 
 card = PokemonCardDef(
     guid="6e275006-a1ca-5b6a-a426-c0a3b59708da",
@@ -28,8 +27,9 @@ card = PokemonCardDef(
             title="Beating Wings",
             game_text="Once during your turn (before your attack), if Pidgeot is your Active Pok\u00e9mon, you may shuffle 1 of your Benched Pok\u00e9mon and all cards attached to it into your deck. This power can't be used if Pidgeot is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=beating_wings_condition,
+            effect=beating_wings,
         ),
         Attack(
             title="Sharp Beak",
@@ -37,8 +37,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=20,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_bonus(30),
         ),
     ],
 )

@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Charizard (ECARD1 #40): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ecard import (
+    burning_energy, burning_energy_condition, scorching_whirlwind,
+)
+
 
 card = PokemonCardDef(
     guid="ac0e2ac7-e683-5d88-b489-cd061be062ec",
@@ -27,16 +27,16 @@ card = PokemonCardDef(
             title="Burning Energy",
             game_text="Once during your turn (before your attack), you may turn all basic Energy attached to all of your Pok\u00e9mon into Fire Energy for the rest of the turn. This power can't be used if Charizard is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=burning_energy_condition,
+            effect=burning_energy,
         ),
         Attack(
             title="Scorching Whirlwind",
             game_text="Flip 2 coins. If 1 of them is tails, discard 2 Energy cards attached to Charizard. If both are tails, discard all Energy cards attached to Charizard.",
             cost={PokemonTypes.FIRE: 4},
             damage=120,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=scorching_whirlwind,
         ),
     ],
 )

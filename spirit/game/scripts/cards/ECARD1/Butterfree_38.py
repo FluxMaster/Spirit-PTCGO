@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Butterfree (ECARD1 #38): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ecard import (
+    miraculous_powder, miraculous_powder_condition, spiral_drain,
+)
+
 
 card = PokemonCardDef(
     guid="3b93eb8d-510b-59e0-b1b2-d3b37f3ef988",
@@ -27,16 +27,16 @@ card = PokemonCardDef(
             title="Miraculous Powder",
             game_text="Once during your turn (before your attack), you may remove all Special Conditions from your Active Pok\u00e9mon. This power can't be used if Butterfree is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=miraculous_powder_condition,
+            effect=miraculous_powder,
         ),
         Attack(
             title="Spiral Drain",
             game_text="Flip a coin. If heads, remove 2 damage counters from Butterfree.",
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 2},
             damage=40,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=spiral_drain,
         ),
     ],
 )

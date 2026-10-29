@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Ninetales (ECARD1 #57): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, SpecialConditions
+from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ecard import ethereal_flame
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 
 card = PokemonCardDef(
     guid="a050a0a0-b781-5449-97b5-500576c8aa38",
@@ -27,15 +26,14 @@ card = PokemonCardDef(
             title="Mislead",
             game_text="Flip 2 coins. If either of them is heads, the Defending Pok\u00e9mon is now Confused.",
             cost={PokemonTypes.FIRE: 1, PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(
+                SpecialConditions.CONFUSED, flip=True, coins=2, min_heads=1),
         ),
         Attack(
             title="Ethereal Flame",
             game_text="Discard all Fire Energy cards attached to Ninetales. This attack does 30 damage plus 20 more damage for each card discarded this way.",
             cost={PokemonTypes.COLORLESS: 3},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=ethereal_flame,
         ),
     ],
 )

@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Magby (ECARD1 #52): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import energy_catch
+
 
 card = PokemonCardDef(
     guid="c36fafde-da70-547d-a3e6-596f8adf4b32",
@@ -25,8 +23,7 @@ card = PokemonCardDef(
             title="Energy Catch",
             game_text="Flip a coin. If heads, put a basic Energy card from your discard pile into your hand.",
             cost={PokemonTypes.FIRE: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=energy_catch,
         ),
     ],
 )

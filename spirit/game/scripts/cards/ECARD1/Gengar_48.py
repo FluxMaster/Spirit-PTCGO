@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Gengar (ECARD1 #48): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.support_common import switch_self_attack
+from spirit.game.card_effects.ecard import chaos_move, chaos_move_condition
+
 
 card = PokemonCardDef(
     guid="a840f406-11ce-5b82-9d23-801af01c3de4",
@@ -28,16 +27,16 @@ card = PokemonCardDef(
             title="Chaos Move",
             game_text="Once during your turn (before your attack), if your opponent has 3 or fewer Prizes, you may move 1 damage counter from 1 Pok\u00e9mon (yours or your opponent's) to another (even if it would Knock Out the other Pok\u00e9mon). This power can't be used if Gengar is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=chaos_move_condition,
+            effect=chaos_move,
         ),
         Attack(
             title="Hide in Shadows",
             game_text="Switch Gengar with 1 of your Benched Pok\u00e9mon, if any.",
             cost={PokemonTypes.PSYCHIC: 2, PokemonTypes.COLORLESS: 1},
             damage=40,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=switch_self_attack(),
         ),
     ],
 )
