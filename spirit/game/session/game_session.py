@@ -4188,6 +4188,19 @@ class GameSession:
         await self._fire_stadium_triggers(
             benching_player_id, Triggers.ON_POKEMON_BENCHED, _setup)
 
+    async def fire_retreat_triggers(self, pokemon):
+        """ON_RETREAT for every in-play Pokemon on BOTH sides after a retreat
+        (Dark Dugtrio Sinkhole observes the opponent; Vine Pull is the
+        retreater itself). ctx.retreated_pokemon is the Pokemon that left
+        Active. A Spikemuth-style KO removes the retreater from play first,
+        so Vine Pull does not fire in that case."""
+        def _setup(c):
+            c.retreated_pokemon = pokemon
+        for pid in self._turn_order():
+            for poked in list(self.board_state.pokemon_in_play(pid)):
+                await self._fire_triggered_abilities(
+                    pid, poked, Triggers.ON_RETREAT, ctx_setup=_setup)
+
     async def fire_move_to_active_triggers(self, pokemon):
         """ON_MOVE_TO_ACTIVE (Cinderace Libero), at most once per entity per
         turn regardless of how often it re-enters the Active spot."""
@@ -5348,11 +5361,7 @@ class GameSession:
         await self._apply_active_to_bench_counters(player_id, card)
         await self._apply_retreat_energy_discard(player_id, card)
         await self.fire_move_to_active_triggers(new_active)
-        # Vine Pull: only while the retreated Pokemon is still in play
-        # (Spikemuth-style bench counters may have just Knocked it Out).
-        if card in self.board_state.pokemon_in_play(player_id):
-            await self._fire_triggered_abilities(
-                player_id, card, Triggers.ON_RETREAT)
+        await self.fire_retreat_triggers(card)
         # An Active-spot change can flip suppression passives (Tool Jammer).
         await self.resync_effective_max_hp()
 
