@@ -4,6 +4,8 @@ Roserade (SM5 #5): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sl import flick_poison
+
 
 card = PokemonCardDef(
     guid="37bbfdde-b51d-5b3d-ba27-a23422f3e125",
@@ -28,7 +30,7 @@ card = PokemonCardDef(
             game_text="Switch 1 of your opponent's Benched Pok\u00e9mon with their Active Pok\u00e9mon. The new Active Pok\u00e9mon is now Poisoned.",
             cost={PokemonTypes.GRASS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flick_poison,
         ),
         Attack(
             title="Flower Tornado",

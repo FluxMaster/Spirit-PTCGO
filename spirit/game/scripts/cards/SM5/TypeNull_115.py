@@ -4,6 +4,8 @@ Type: Null (SM5 #115): one or more attacks/abilities use effect=unimplemented un
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import bonus_if, has_damage
+
 
 card = PokemonCardDef(
     guid="31eca897-3558-5602-bc5a-04b3276dd8d0",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             damage=30,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bonus_if(has_damage(), 30),
         ),
         Attack(
             title="Headbang",

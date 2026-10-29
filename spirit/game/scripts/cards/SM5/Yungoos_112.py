@@ -4,6 +4,14 @@ Yungoos (SM5 #112): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import recoil_attack
+
+
+async def pry(ctx):
+    """10 damage. Your opponent reveals their hand."""
+    await ctx.deal_damage()
+    await ctx.reveal_hand(of_player=ctx.opponent_id)
+
 
 card = PokemonCardDef(
     guid="997e7741-ae6e-57ac-a1cc-bd0902057f6d",
@@ -27,7 +35,7 @@ card = PokemonCardDef(
             game_text="Your opponent reveals their hand.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=pry,
         ),
         Attack(
             title="Take Down",
@@ -35,7 +43,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=recoil_attack(10),
         ),
     ],
 )

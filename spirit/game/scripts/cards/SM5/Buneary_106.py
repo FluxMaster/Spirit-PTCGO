@@ -4,6 +4,8 @@ Buneary (SM5 #106): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm4 import ink_spit
+
 
 card = PokemonCardDef(
     guid="25e48237-e65b-58ab-8494-1a2a090d6853",
@@ -27,7 +29,7 @@ card = PokemonCardDef(
             game_text="If the Defending Pok\u00e9mon tries to attack during your opponent's next turn, your opponent flips a coin. If tails, that attack does nothing.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=ink_spit,
         ),
         Attack(
             title="Skip",

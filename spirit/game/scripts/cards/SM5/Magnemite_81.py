@@ -4,6 +4,8 @@ Magnemite (SM5 #81): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm4 import submerge_passive
+
 
 card = PokemonCardDef(
     guid="c2737020-8a6e-5c13-8cc2-a3a25e1b91ed",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             game_text="As long as this Pok\u00e9mon is on your Bench, prevent all damage done to this Pok\u00e9mon by attacks (both yours and your opponent's).",
             ability_type=AbilityTypes.POKE_ABILITY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=submerge_passive,
         ),
         Attack(
             title="Ram",

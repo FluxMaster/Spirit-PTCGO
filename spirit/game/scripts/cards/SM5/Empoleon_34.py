@@ -4,6 +4,8 @@ Empoleon (SM5 #34): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.pokemon import rock_crush
+
 
 card = PokemonCardDef(
     guid="fc43d57c-6329-53c5-a644-11bc08431812",
@@ -38,7 +40,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 2, PokemonTypes.COLORLESS: 1},
             damage=90,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=rock_crush,
         ),
     ],
 )

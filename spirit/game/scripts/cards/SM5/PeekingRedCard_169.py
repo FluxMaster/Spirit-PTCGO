@@ -1,13 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Peeking Red Card (SM5 #169): trainer effect stubbed.
-
-Card text:
-  - Your opponent reveals their hand. You may have your opponent count the cards in their hand, shuffle those cards into their deck, then draw that many cards.
-  - You may play as many Item cards as you like during your turn (before your attack).
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.sm4 import peeking_red_card
 
 card = ItemCardDef(
     guid="a6084b29-e8d0-5287-93c4-1d2c316dfec4",
@@ -19,6 +12,5 @@ card = ItemCardDef(
     collector_number=169,
     set_code="SM5",
     rarity=Rarities.RareSecret,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=peeking_red_card,
 )

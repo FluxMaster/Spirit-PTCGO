@@ -4,6 +4,16 @@ Rampardos (SM5 #65): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import bonus_if, active_is
+from spirit.game.session.effects import is_evolution_pokemon, is_basic_pokemon
+
+
+async def oppressing_sandstorm(ctx):
+    """If your opponent's Active Pokemon is a Basic Pokemon, it is Knocked Out."""
+    defender = ctx.defender
+    if defender is not None and is_basic_pokemon(defender):
+        await ctx.knock_out(defender)
+
 
 card = PokemonCardDef(
     guid="11f0b89a-1a36-56bf-b13e-d0e0b89868f1",
@@ -30,14 +40,14 @@ card = PokemonCardDef(
             damage=60,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bonus_if(active_is(is_evolution_pokemon), 60),
         ),
         Attack(
             title="Wild Crash",
             game_text="If your opponent's Active Pok\u00e9mon is a Basic Pok\u00e9mon, it is Knocked Out.",
             cost={PokemonTypes.FIGHTING: 3},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=oppressing_sandstorm,
         ),
     ],
 )

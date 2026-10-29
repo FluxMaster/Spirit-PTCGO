@@ -1,9 +1,11 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Silvally-GX (SM5 #116): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.support_common import attach_from_discard
+from spirit.game.card_effects.trainers import is_basic_energy_card
+from spirit.game.card_effects.passives_common import is_in_active_spot
+from spirit.game.card_effects.attacks_common import damage_per, count_bench
+from spirit.game.card_effects.sm4 import gyro_unit_passive
+
 
 card = PokemonCardDef(
     guid="1c3c3b37-48bf-5710-9236-5e0bf0de430e",
@@ -27,8 +29,7 @@ card = PokemonCardDef(
             title="Gyro Unit",
             game_text="Your Basic Pok\u00e9mon in play have no Retreat Cost.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=gyro_unit_passive,
         ),
         Attack(
             title="Turbo Drive",
@@ -36,7 +37,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=120,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=attach_from_discard(predicate=is_basic_energy_card, count=1, target=lambda p: not is_in_active_spot(p), prompt='Choose a basic Energy card to attach to a Benched Pokémon'),
         ),
         Attack(
             title="Rebel-GX",
@@ -45,7 +46,7 @@ card = PokemonCardDef(
             damage=50,
             damage_operator="x",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_per(count_bench('opponent'), 50),
         ),
     ],
 )

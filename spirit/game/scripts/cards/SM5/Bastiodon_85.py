@@ -4,6 +4,17 @@ Bastiodon (SM5 #85): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.support_common import opponent_switches
+
+
+async def push_down(ctx):
+    await ctx.deal_damage()
+    opp_active = ctx.opponent_active()
+    if opp_active is None or not ctx.opponent_bench() or ctx.effects_blocked(opp_active):
+        return
+    if await ctx.ask_yes_no("Have your opponent switch their Active Pokémon with 1 of their Benched Pokémon?"):
+        await opponent_switches(ctx)
+
 
 card = PokemonCardDef(
     guid="be6c11c6-bc94-5e1a-8a69-97275e9dee01",
@@ -38,7 +49,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.METAL: 2, PokemonTypes.COLORLESS: 1},
             damage=110,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=push_down,
         ),
     ],
 )

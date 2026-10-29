@@ -4,6 +4,8 @@ Luxio (SM5 #47): one or more attacks/abilities use effect=unimplemented until a 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm3 import distort
+
 
 card = PokemonCardDef(
     guid="387ddc17-18c8-52f9-95fd-961113650380",
@@ -31,7 +33,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=distort,
         ),
     ],
 )

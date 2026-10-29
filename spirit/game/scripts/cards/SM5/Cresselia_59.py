@@ -4,6 +4,8 @@ Cresselia (SM5 #59): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm4 import psychic_70_plus
+
 
 card = PokemonCardDef(
     guid="b83047d5-eae9-597e-b58a-4886a011b896",
@@ -36,7 +38,7 @@ card = PokemonCardDef(
             damage=60,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=psychic_70_plus,
         ),
     ],
 )

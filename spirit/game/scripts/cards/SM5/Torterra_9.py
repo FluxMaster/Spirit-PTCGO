@@ -5,6 +5,15 @@ Torterra (SM5 #9): one or more attacks/abilities use effect=unimplemented until 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 
+
+async def gulp_down(ctx):
+    """Heal from this Pokémon the same amount of damage you did to your
+    opponent's Active Pokémon."""
+    dealt = await ctx.deal_damage()
+    if dealt > 0:
+        await ctx.heal(dealt, ctx.attacker)
+
+
 card = PokemonCardDef(
     guid="7be2ac2d-67b6-5121-a8b4-9270342f853b",
     key="SM5",
@@ -29,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 2, PokemonTypes.COLORLESS: 1},
             damage=50,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=gulp_down,
         ),
         Attack(
             title="Earthquake",

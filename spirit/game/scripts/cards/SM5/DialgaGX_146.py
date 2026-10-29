@@ -4,6 +4,9 @@ Dialga-GX (SM5 #146): one or more attacks/abilities use effect=unimplemented unt
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import draw_until_effect
+from spirit.game.card_effects.pokemon import shred
+
 
 card = PokemonCardDef(
     guid="07d5d4e7-a6a8-59f9-95d1-06eb97c87389",
@@ -27,7 +30,7 @@ card = PokemonCardDef(
             game_text="Draw cards until you have 6 cards in your hand.",
             cost={PokemonTypes.METAL: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=draw_until_effect(6),
         ),
         Attack(
             title="Shred",
@@ -35,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.METAL: 1, PokemonTypes.COLORLESS: 2},
             damage=80,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=shred,
         ),
         Attack(
             title="Timeless-GX",

@@ -4,6 +4,8 @@ Shaymin (SM5 #111): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import search_to_bench
+
 
 card = PokemonCardDef(
     guid="42ee43eb-f53a-5e8c-9e6a-dfaa3839c00e",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             game_text="Search your deck for up to 2 Basic Pok\u00e9mon and put them onto your Bench. Then, shuffle your deck.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=search_to_bench(count=2),
         ),
         Attack(
             title="Glide",

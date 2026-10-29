@@ -5,6 +5,12 @@ Dawn Wings Necrozma-GX (SM5 #63): one or more attacks/abilities use effect=unimp
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 
+
+async def feint(ctx):
+    """30. This attack's damage isn't affected by Resistance."""
+    await ctx.deal_damage(ignore_resistance=True)
+
+
 card = PokemonCardDef(
     guid="ee6bbd7f-995c-5bbd-882c-e39a870148d6",
     key="SM5",
@@ -37,7 +43,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 3},
             damage=120,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=feint,
         ),
         Attack(
             title="Moon's Eclipse-GX",

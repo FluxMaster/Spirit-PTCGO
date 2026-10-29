@@ -4,6 +4,8 @@ Drampa (SM5 #117): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import damage_per, damage_counters_on, mill_attack
+
 
 card = PokemonCardDef(
     guid="68cbe2c5-02a3-509f-a036-e9588c38366d",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             damage=20,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_per(damage_counters_on('self'), 10, base=20),
         ),
         Attack(
             title="Dragon Pulse",
@@ -37,7 +39,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=100,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=mill_attack(2, opponent=False),
         ),
     ],
 )

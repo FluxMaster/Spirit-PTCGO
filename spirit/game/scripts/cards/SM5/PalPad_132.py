@@ -1,12 +1,5 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Pal Pad (SM5 #132): trainer effect stubbed.
-
-Card text:
-  - Shuffle 2 Supporter cards from your discard pile into your deck.
-  - You may play as many Item cards as you like during your turn (before your attack).
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.card_effects.trainers import has_supporter_in_discard, pal_pad
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
 
 card = ItemCardDef(
@@ -19,6 +12,6 @@ card = ItemCardDef(
     collector_number=132,
     set_code="SM5",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=pal_pad,
+    condition=has_supporter_in_discard
 )

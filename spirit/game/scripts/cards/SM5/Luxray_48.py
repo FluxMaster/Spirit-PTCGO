@@ -4,6 +4,8 @@ Luxray (SM5 #48): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sl import IntimidatingPatternPassive
+
 
 card = PokemonCardDef(
     guid="6164397e-2c24-53b7-8b59-0e53f63d5759",
@@ -30,7 +32,7 @@ card = PokemonCardDef(
             game_text="As long as this Pok\u00e9mon is your Active Pok\u00e9mon, your opponent's Active Pok\u00e9mon's attacks do 30 less damage (before applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_ABILITY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=IntimidatingPatternPassive(),
         ),
         Attack(
             title="Volt Bolt",

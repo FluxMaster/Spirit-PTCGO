@@ -4,6 +4,8 @@ Garchomp (SM5 #99): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import snipe_attack
+
 
 card = PokemonCardDef(
     guid="4605e27b-d85b-53f5-8684-b4f57ee0ac7e",
@@ -28,7 +30,7 @@ card = PokemonCardDef(
             game_text="This attack does 50 damage to 1 of your opponent's Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.COLORLESS: 2},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=snipe_attack(50, pool='any', count=1),
         ),
         Attack(
             title="Royal Blades",
