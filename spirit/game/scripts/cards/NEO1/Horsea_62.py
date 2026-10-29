@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Horsea (NEO1 #62): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import bonus_if
+from spirit.game.card_effects.ecard import took_damage_last_turn
+
 
 card = PokemonCardDef(
     guid="1e4129f2-e9e2-5d3b-aae3-0f29095945b6",
@@ -28,8 +27,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 2},
             damage=20,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bonus_if(took_damage_last_turn, 10),
         ),
     ],
 )

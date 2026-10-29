@@ -1,12 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Pokémon March (NEO1 #102): trainer effect stubbed.
-
-Card text:
-  - Your opponent may search his or her deck for 1 Basic Pokémon card and put it onto his or her Bench. Then, you may search your deck for 1 Basic Pokémon card and put it onto your Bench. Then, each player shuffles his or her deck. (A player can't do any of this if his or her Bench is full.)
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ecard import pokemon_march
+
 
 card = ItemCardDef(
     guid="fa51c915-8eac-504b-86a9-c5f695a61cbe",
@@ -18,6 +13,5 @@ card = ItemCardDef(
     collector_number=102,
     set_code="NEO1",
     rarity=Rarities.Common,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=pokemon_march
 )

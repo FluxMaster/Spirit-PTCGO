@@ -1,9 +1,11 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Flaaffy (NEO1 #34): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import (
+    discard_all_typed_energy_flip_damage,
+    electric_current,
+    has_typed_basic_energy,
+)
+
 
 card = PokemonCardDef(
     guid="aa6d46eb-fd75-5062-80e8-d40366530f37",
@@ -29,16 +31,16 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 1},
             damage=30,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            condition=has_typed_basic_energy(PokemonTypes.LIGHTNING),
+            effect=discard_all_typed_energy_flip_damage(
+                PokemonTypes.LIGHTNING, 30),
         ),
         Attack(
             title="Electric Current",
             game_text="Take 1 Lightning Energy cards attached to Flaaffy and attach it to 1 of your Benched Pok\u00e9mon. If you have no Benched Pok\u00e9mon, discard that Energy card.",
             cost={PokemonTypes.LIGHTNING: 2},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=electric_current,
         ),
     ],
 )

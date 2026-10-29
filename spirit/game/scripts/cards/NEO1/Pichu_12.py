@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Pichu (NEO1 #12): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import zzzap
+
 
 card = PokemonCardDef(
     guid="dfd6bca4-26a3-5a22-8942-b7a0181dd6bb",
@@ -25,8 +23,7 @@ card = PokemonCardDef(
             title="Zzzap",
             game_text="Does 20 damage to each Pok\u00e9mon in play that has a Pok\u00e9mon Power. Don't apply Weakness and Resistance.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=zzzap,
         ),
     ],
 )

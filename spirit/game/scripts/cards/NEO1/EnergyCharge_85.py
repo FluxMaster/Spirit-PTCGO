@@ -1,12 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Energy Charge (NEO1 #85): trainer effect stubbed.
-
-Card text:
-  - Flip a coin. If heads, shuffle up to 2 Energy cards from your discard pile into your deck.
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.support_common import requires_discard
+from spirit.game.card_effects.trainers import is_energy_card
+from spirit.game.card_effects.ecard import energy_charge_item
+
 
 card = ItemCardDef(
     guid="1b0c3704-6d95-58ed-b892-a29de4a0ae54",
@@ -18,6 +15,6 @@ card = ItemCardDef(
     collector_number=85,
     set_code="NEO1",
     rarity=Rarities.Rare,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    condition=requires_discard(is_energy_card),
+    effect=energy_charge_item,
 )

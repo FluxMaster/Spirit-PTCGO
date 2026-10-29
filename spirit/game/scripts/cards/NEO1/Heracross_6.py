@@ -1,10 +1,12 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Heracross (NEO1 #6): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import flip_or_nothing
+from spirit.game.card_effects.ecard import (
+    all_conditions,
+    boost_named_attack_this_turn,
+    no_special_conditions,
+    remaining_hp_at_most,
+)
 
 
 card = PokemonCardDef(
@@ -27,16 +29,16 @@ card = PokemonCardDef(
         Ability(
             title="Final Blow",
             game_text="If Heracross's remaining HP are 20 or less, you may make its Megahorn attack's base damage 120 instead of 60. This power can't be used if Heracross is Asleep, Confused, or Paralyzed.",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            activation=Activations.ONCE_PER_TURN,
+            condition=all_conditions(no_special_conditions, remaining_hp_at_most(20)),
+            effect=boost_named_attack_this_turn("Megahorn", 60),
         ),
         Attack(
             title="Megahorn",
             game_text="Flip a coin. If tails, this attack does nothing.",
             cost={PokemonTypes.GRASS: 3},
             damage=60,
-            # STUB: attack effect not implemented
             effect=flip_or_nothing(),
         ),
     ],

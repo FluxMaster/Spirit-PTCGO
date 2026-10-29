@@ -197,6 +197,11 @@ class Passive:
         """True to forbid `pokemon` from retreating (Octolock, Flygon)."""
         return False
 
+    def blocks_switch(self, pokemon: PokemonEntity, carrier: BoardEntity) -> bool:
+        """True to forbid `pokemon` being switched out of the Active spot by
+        an attack, Pokémon Power, or Trainer effect (Jaw Clamp)."""
+        return False
+
     def attacks_despite_conditions(self, pokemon: PokemonEntity, carrier: BoardEntity) -> bool:
         """True to let `pokemon` attack even while Asleep/Paralyzed (Windup Arm)."""
         return False
@@ -399,6 +404,15 @@ class Passive:
     ) -> Optional[str]:
         """Player-area name replacing "discard" for `energy` paid for
         `pokemon`'s retreat (Skaters' Park sends basic Energy to "hand")."""
+        return None
+
+    def energy_discard_destination(
+        self, energy: BoardEntity, mover_player_id: str, source,
+        carrier: BoardEntity,
+    ) -> Optional[str]:
+        """Area name replacing "discard" when `mover_player_id` discards
+        attached `energy` from `source` (a Pokémon). None = normal discard.
+        Knock Out discards never consult this (they skip discard_cards)."""
         return None
 
     def counters_on_active_to_bench(
@@ -728,6 +742,14 @@ def retreat_blocked(board: BoardState, pokemon: PokemonEntity) -> bool:
     )
 
 
+def switch_blocked(board: BoardState, pokemon: PokemonEntity) -> bool:
+    """Whether a passive forbids `pokemon` being switched out of Active."""
+    return any(
+        passive.blocks_switch(pokemon, carrier)
+        for passive, carrier in active_passives(board)
+    )
+
+
 def can_attack_despite_conditions(board: BoardState, pokemon: PokemonEntity) -> bool:
     """Whether a passive lets `pokemon` attack while Asleep/Paralyzed."""
     return any(
@@ -904,6 +926,19 @@ def retreat_energy_destination(board: BoardState, pokemon: PokemonEntity,
     (Skaters' Park), or None for the normal discard."""
     for passive, carrier in active_passives(board):
         dest = passive.retreat_cost_destination(pokemon, energy, carrier)
+        if dest is not None:
+            return dest
+    return None
+
+
+def attached_energy_discard_destination(
+    board: BoardState, energy: BoardEntity, mover_player_id: str, source,
+) -> Optional[str]:
+    """First non-None area a passive redirects an attached-energy discard to
+    (Ecogym returns non-Colorless Energy to "hand"), or None for discard."""
+    for passive, carrier in active_passives(board):
+        dest = passive.energy_discard_destination(
+            energy, mover_player_id, source, carrier)
         if dest is not None:
             return dest
     return None

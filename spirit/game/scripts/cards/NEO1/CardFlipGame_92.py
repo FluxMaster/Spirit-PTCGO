@@ -1,12 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Card-Flip Game (NEO1 #92): trainer effect stubbed.
-
-Card text:
-  - Choose 1 of your opponent's face-down Prizes. Guess whether it is an Energy card, a Trainer card, or a Pokémon (Basic or Evolution) card. Flip the card face up (and leave it face up). If you guessed right, draw 2 cards.
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ecard import card_flip_game, card_flip_game_condition
+
 
 card = ItemCardDef(
     guid="c32d115b-99f9-5088-b666-b13c677efff8",
@@ -18,6 +13,6 @@ card = ItemCardDef(
     collector_number=92,
     set_code="NEO1",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=card_flip_game,
+    condition=card_flip_game_condition,
 )

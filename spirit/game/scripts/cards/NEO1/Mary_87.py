@@ -1,12 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Mary (NEO1 #87): trainer effect stubbed.
-
-Card text:
-  - Draw 2 cards. Then, shuffle 2 cards from your hand into your deck.
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ecard import mary, mary_playable
+
 
 card = ItemCardDef(
     guid="0c3ceeb5-261d-59f2-b81a-a9ba9351e29d",
@@ -18,6 +13,6 @@ card = ItemCardDef(
     collector_number=87,
     set_code="NEO1",
     rarity=Rarities.Rare,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    condition=mary_playable,
+    effect=mary,
 )

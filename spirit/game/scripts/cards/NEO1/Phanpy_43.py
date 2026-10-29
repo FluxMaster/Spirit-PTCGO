@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Phanpy (NEO1 #43): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import endure
+
 
 card = PokemonCardDef(
     guid="8a20a4f6-59b4-5264-8888-527b8792f042",
@@ -32,8 +30,7 @@ card = PokemonCardDef(
             title="Endure",
             game_text="Flip a coin. If heads, then if, during your opponent's next turn, Phanpy would be Knocked Out by an attack, Phanpy isn't Knocked Out and its remaining HP become 10 instead.",
             cost={PokemonTypes.FIGHTING: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=endure,
         ),
     ],
 )

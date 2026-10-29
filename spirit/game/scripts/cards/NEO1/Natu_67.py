@@ -1,8 +1,4 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Natu (NEO1 #67): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import snipe_attack
 
@@ -34,7 +30,6 @@ card = PokemonCardDef(
             title="Telekinesis",
             game_text="Choose 1 of your opponent's Pok\u00e9mon. This attack does 20 damage to that Pok\u00e9mon. Don't apply Weakness and Resistance for this attack. (Any other effects that would happen after applying Weakness and Resistance still happen.)",
             cost={PokemonTypes.PSYCHIC: 2},
-            # STUB: attack effect not implemented
             effect=snipe_attack(20, pool='any', apply_modifiers=False, prompt="Choose 1 of your opponent's Pokémon"),
         ),
     ],

@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Chikorita (NEO1 #53): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import deflector
+
 
 card = PokemonCardDef(
     guid="60dd2002-1bf9-5aca-840c-c2e6bdb028e6",
@@ -31,8 +29,7 @@ card = PokemonCardDef(
             title="Deflector",
             game_text="During your opponent's next turn, whenever Chikorita takes damage, divide that damage in half (rounded down to the nearest 10). (Any other effects still happen.)",
             cost={PokemonTypes.GRASS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=deflector,
         ),
     ],
 )

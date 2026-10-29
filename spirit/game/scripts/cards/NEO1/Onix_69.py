@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Onix (NEO1 #69): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import damage_counters_on, damage_per
+from spirit.game.card_effects.ecard import screech
+
 
 card = PokemonCardDef(
     guid="0d99234c-2dc1-5542-9789-517a9c4dc85b",
@@ -26,8 +25,7 @@ card = PokemonCardDef(
             title="Screech",
             game_text="Until the end of your next turn, if an attack damages the Defending Pok\u00e9mon (after applying Weakness and Resistance), that attack does 20 more damage to the Defending Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=screech(),
         ),
         Attack(
             title="Rage",
@@ -35,8 +33,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 2},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_per(damage_counters_on("self"), 10, base=10),
         ),
     ],
 )

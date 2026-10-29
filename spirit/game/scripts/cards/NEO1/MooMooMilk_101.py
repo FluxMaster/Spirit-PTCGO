@@ -1,12 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Moo-Moo Milk (NEO1 #101): trainer effect stubbed.
-
-Card text:
-  - Choose 1 of your Pokémon. Flip 2 coins. Remove 2 damage counters times the number of heads from that Pokémon. If the Pokémon has fewer damage counters than that, remove all of them.
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ecard import neo_moomoo_milk
+from spirit.game.card_effects.support_common import requires_damaged_pokemon
+
 
 card = ItemCardDef(
     guid="c8e3c6c2-8e83-583f-b734-d1f8d5c117da",
@@ -18,6 +14,6 @@ card = ItemCardDef(
     collector_number=101,
     set_code="NEO1",
     rarity=Rarities.Common,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    condition=requires_damaged_pokemon(),
+    effect=neo_moomoo_milk,
 )

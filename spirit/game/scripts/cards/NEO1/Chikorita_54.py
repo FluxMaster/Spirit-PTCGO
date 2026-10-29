@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Chikorita (NEO1 #54): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import growl
+
 
 card = PokemonCardDef(
     guid="eb51c94d-4ab4-5d2c-8f62-411dff2cc2cf",
@@ -26,8 +24,7 @@ card = PokemonCardDef(
             title="Growl",
             game_text="If the Defending Pok\u00e9mon attacks Chikorita during your opponent's next turn, any damage done to Chikorita is reduced by 10 (before applying Weakness and Resistance). (Benching or evolving either Pok\u00e9mon ends this effect.)",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=growl,
         ),
         Attack(
             title="Razor Leaf",

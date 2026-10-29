@@ -1,12 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Bill's Teleporter (NEO1 #91): trainer effect stubbed.
-
-Card text:
-  - Flip a coin. If heads, draw 4 cards.
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ecard import flip_draw, has_cards_in_deck
+
 
 card = ItemCardDef(
     guid="47e96095-de5b-5f8d-8798-45ccfed56b02",
@@ -18,6 +13,6 @@ card = ItemCardDef(
     collector_number=91,
     set_code="NEO1",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    condition=has_cards_in_deck,
+    effect=flip_draw(4),
 )

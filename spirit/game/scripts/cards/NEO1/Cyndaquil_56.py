@@ -1,10 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Cyndaquil (NEO1 #56): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-from spirit.game.card_effects.ecard import swift
+from spirit.game.card_effects.ecard import cant_attack_this_pokemon, swift
 
 
 card = PokemonCardDef(
@@ -28,15 +24,13 @@ card = PokemonCardDef(
             title="Leer",
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon can't attack Cyndaquil during your opponent's next turn. (Benching or evolving either Pok\u00e9mon ends this effect.)",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=cant_attack_this_pokemon,
         ),
         Attack(
             title="Swift",
             game_text="This attack's damage isn't affected by Weakness, Resistance, Pok\u00e9mon Powers, or any other effects on the Defending Pok\u00e9mon.",
             cost={PokemonTypes.FIRE: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
             effect=swift,
         ),
     ],

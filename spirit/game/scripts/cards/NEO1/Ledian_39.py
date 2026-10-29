@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Ledian (NEO1 #39): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import baton_pass
+
 
 card = PokemonCardDef(
     guid="02f01cb0-530d-5e84-8550-4e848b40082c",
@@ -29,8 +27,7 @@ card = PokemonCardDef(
             game_text="If you have any Grass Pok\u00e9mon on your Bench, remove all Grass Energy cards from Ledian and attach them to 1 of those Pok\u00e9mon, then switch Ledian with that Pok\u00e9mon.",
             cost={PokemonTypes.GRASS: 2},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=baton_pass,
         ),
     ],
 )

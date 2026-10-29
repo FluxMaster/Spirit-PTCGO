@@ -1,12 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-New Pokédex (NEO1 #95): trainer effect stubbed.
-
-Card text:
-  - Shuffle your deck. Then, look at up to 5 cards from the top of your deck and rearrange them as you like.
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ecard import has_cards_in_deck, new_pokedex
+
 
 card = ItemCardDef(
     guid="a6380331-b72d-51d8-9539-ff06e088b34a",
@@ -18,6 +13,6 @@ card = ItemCardDef(
     collector_number=95,
     set_code="NEO1",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    condition=has_cards_in_deck,
+    effect=new_pokedex,
 )

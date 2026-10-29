@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Murkrow (NEO1 #24): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import feint_attack, mean_look
+
 
 card = PokemonCardDef(
     guid="ee10d2d4-ae84-5618-aec0-e02cb301056b",
@@ -26,15 +24,13 @@ card = PokemonCardDef(
             title="Mean Look",
             game_text="The Defending Pok\u00e9mon can't retreat as long as Murkrow remains your Active Pok\u00e9mon. (Benching or evolving either Pok\u00e9mon ends this effect.)",
             cost={PokemonTypes.DARKNESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=mean_look,
         ),
         Attack(
             title="Feint Attack",
             game_text="Choose 1 of your opponent's Pok\u00e9mon. This attack does 20 damage to that Pok\u00e9mon. This attack's damage isn't affected by Weakness, Resistance, Pok\u00e9mon Powers, or any other effects on the Defending Pok\u00e9mon.",
             cost={PokemonTypes.DARKNESS: 1, PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=feint_attack,
         ),
     ],
 )

@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Marill (NEO1 #66): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.passives_common import flip_protection
+from spirit.game.card_effects.ecard import paralyze_or_recoil
+
 
 card = PokemonCardDef(
     guid="7759dcf0-ceef-5275-9036-07d7157bfbbb",
@@ -26,16 +25,14 @@ card = PokemonCardDef(
             title="Defense Curl",
             game_text="Flip a coin. If heads, prevent all damage done to Marill during your opponent's next turn. (Any other effects of attacks still happen.)",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_protection(prevent=True),
         ),
         Attack(
             title="Bubble Bomb",
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon is now Paralyzed. If tails, Marill does 10 damage to itself.",
             cost={PokemonTypes.WATER: 2},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=paralyze_or_recoil(10),
         ),
     ],
 )

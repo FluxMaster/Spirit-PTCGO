@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Hoppip (NEO1 #61): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import call_for_family_condition, named_basic
+from spirit.game.card_effects.support_common import search_to_bench
+
 
 card = PokemonCardDef(
     guid="5c757800-83a1-5340-bddc-67e2eafc9e80",
@@ -32,8 +31,11 @@ card = PokemonCardDef(
             title="Sprout",
             game_text="Search your deck for a Basic Pok\u00e9mon named Hoppip and put it onto your Bench. Shuffle your deck afterward. (You can't use this attack if your Bench is full.)",
             cost={PokemonTypes.GRASS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            condition=call_for_family_condition,
+            effect=search_to_bench(
+                named_basic("Hoppip"),
+                prompt="Choose a Basic Pokémon named Hoppip to put onto your Bench.",
+            ),
         ),
     ],
 )

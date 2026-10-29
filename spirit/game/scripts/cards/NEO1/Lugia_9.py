@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Lugia (NEO1 #9): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import elemental_blast, elemental_blast_condition
+
 
 card = PokemonCardDef(
     guid="7abadedb-5330-5ea2-ae16-d81c462a0e7b",
@@ -28,8 +26,8 @@ card = PokemonCardDef(
             game_text="Discard a Fire Energy card, a Water Energy card, and a Lightning Energy card attached to Lugia in order to use this attack.",
             cost={PokemonTypes.FIRE: 1, PokemonTypes.WATER: 1, PokemonTypes.LIGHTNING: 1},
             damage=90,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            condition=elemental_blast_condition,
+            effect=elemental_blast,
         ),
     ],
 )

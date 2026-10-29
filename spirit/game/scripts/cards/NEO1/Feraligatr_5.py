@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Feraligatr (NEO1 #5): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ecard import downpour, downpour_condition, riptide
+
 
 card = PokemonCardDef(
     guid="7bd86a11-5a2e-5f07-bc9e-2f9740e412bf",
@@ -26,9 +24,10 @@ card = PokemonCardDef(
         Ability(
             title="Downpour",
             game_text="As often as you like during your turn (before your attack), you may discard a Water Energy card from your hand. This power can't be used if Feraligatr is Asleep, Confused, or Paralyzed.",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            activation=Activations.UNLIMITED,
+            condition=downpour_condition,
+            effect=downpour,
         ),
         Attack(
             title="Riptide",
@@ -36,8 +35,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 3},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=riptide,
         ),
     ],
 )

@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Feraligatr (NEO1 #4): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import damage_counters_on, flip_damage
+from spirit.game.card_effects.ecard import berserk
+
 
 card = PokemonCardDef(
     guid="1491ffc0-426d-5360-9dff-4fc550e3e49e",
@@ -26,9 +25,9 @@ card = PokemonCardDef(
         Ability(
             title="Berserk",
             game_text="When you play Feraligatr from your hand, flip a coin. If heads, discard the top 5 cards from your opponent's deck. If tails, discard the top 5 cards from your deck.",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            trigger=Triggers.ON_EVOLVE,
+            effect=berserk,
         ),
         Attack(
             title="Chomp",
@@ -36,8 +35,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 4},
             damage=50,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(bonus_per_heads=10, coins_from=damage_counters_on("self")),
         ),
     ],
 )

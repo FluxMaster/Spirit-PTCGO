@@ -226,6 +226,8 @@ class CardEntity(BoardEntity):
             return True
         area_name = self._containing_area_name()
         if area_name == "prizePile":
+            if self.get_attribute("_prize_face_up"):
+                return False
             root = self
             while root.parent is not None:
                 root = root.parent

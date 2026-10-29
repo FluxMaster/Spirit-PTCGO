@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Ariados (NEO1 #27): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import poison_bite, spider_web
+
 
 card = PokemonCardDef(
     guid="e3339b7a-a22b-5bdf-a091-089125437f2f",
@@ -27,16 +25,14 @@ card = PokemonCardDef(
             title="Spider Web",
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon can't retreat. (Benching or evolving that Pok\u00e9mon ends this effect.)",
             cost={PokemonTypes.GRASS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=spider_web,
         ),
         Attack(
             title="Poison Bite",
             game_text="If this attack damages the Defending Pok\u00e9mon, the Defending Pok\u00e9mon is now Poisoned and you remove a number of damage counters from Ariados equal to half that damage (rounded up to the nearest 10). If Ariados has fewer damage counters than that, remove all of them.",
             cost={PokemonTypes.GRASS: 3},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=poison_bite,
         ),
     ],
 )

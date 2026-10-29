@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Magby (NEO1 #23): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import sputter
+
 
 card = PokemonCardDef(
     guid="c51b10ef-f6a3-5e55-be9b-393d622dd1fd",
@@ -26,8 +24,7 @@ card = PokemonCardDef(
             game_text="All Pok\u00e9mon Powers stop working until the end of your next turn.",
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=sputter,
         ),
     ],
 )
