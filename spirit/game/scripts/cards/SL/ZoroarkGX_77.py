@@ -1,7 +1,3 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Zoroark-GX (SL #77): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import count_in_play, damage_per

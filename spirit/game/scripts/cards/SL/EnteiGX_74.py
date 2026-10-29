@@ -1,7 +1,3 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Entei-GX (SL #74): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions

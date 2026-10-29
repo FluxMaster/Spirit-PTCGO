@@ -1,7 +1,3 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Mewtwo-GX (SL #72): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import count_energy, damage_per, ignore_effects_attack
