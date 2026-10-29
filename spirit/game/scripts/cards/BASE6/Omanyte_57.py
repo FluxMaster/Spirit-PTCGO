@@ -1,10 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Omanyte (BASE6 #57): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
-from spirit.game.card_effects.ecard import unused_energy_bonus
+from spirit.game.card_effects.ecard import ClairvoyancePassive, unused_energy_bonus
 
 
 card = PokemonCardDef(
@@ -28,9 +24,8 @@ card = PokemonCardDef(
         Ability(
             title="Clairvoyance",
             game_text="Your opponent plays with his or her hand face up. This power stops working while Omanyte is affected by a Special Condition.",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            passive=ClairvoyancePassive(),
         ),
         Attack(
             title="Water Gun",
@@ -38,7 +33,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
             effect=unused_energy_bonus(10, 20, energy_type=PokemonTypes.WATER),
         ),
     ],

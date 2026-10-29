@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Butterfree (BASE6 #21): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import mega_drain
+from spirit.game.card_effects.support_common import gust_attack
+
 
 card = PokemonCardDef(
     guid="380a017e-d722-58a6-b55a-7ba2ff77e230",
@@ -29,16 +28,14 @@ card = PokemonCardDef(
             game_text="Your opponent switches the Defending Pok\u00e9mon with 1 of his or her Benched Pok\u00e9mon, if any. (Do the damage before switching the Pok\u00e9mon.)",
             cost={PokemonTypes.COLORLESS: 2},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=gust_attack(opponent_chooses=True),
         ),
         Attack(
             title="Mega Drain",
             game_text="Remove a number of damage counters from Butterfree equal of half the damage done to the Defending Pok\u00e9mon (after applying Weakness and Resistance) (rounded up to the nearest 10). If Butterfree has fewer damage counters that that, remove all of them.",
             cost={PokemonTypes.GRASS: 4},
             damage=40,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=mega_drain,
         ),
     ],
 )

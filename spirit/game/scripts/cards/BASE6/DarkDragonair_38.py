@@ -1,10 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dark Dragonair (BASE6 #38): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import flip_bonus
+from spirit.game.card_effects.ecard import no_special_conditions
+from spirit.game.card_effects.support_common import search_to_hand
+from spirit.game.session.effects import is_evolution_pokemon
 
 
 card = PokemonCardDef(
@@ -28,9 +27,13 @@ card = PokemonCardDef(
         Ability(
             title="Evolutionary Light",
             game_text="Once during your turn (before your attack), you may search your deck for an Evolution card. Show it to your opponent and put it into your hand. Shuffle your deck afterward. This power can't be used if Dark Dragonair is affected by a Special Condition.",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            activation=Activations.ONCE_PER_TURN,
+            condition=no_special_conditions,
+            effect=search_to_hand(
+                is_evolution_pokemon, count=1, reveal=True,
+                prompt="Choose an Evolution card to put into your hand.",
+            ),
         ),
         Attack(
             title="Tail Strike",
@@ -38,7 +41,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=20,
             damage_operator="+",
-            # STUB: attack effect not implemented
             effect=flip_bonus(20),
         ),
     ],

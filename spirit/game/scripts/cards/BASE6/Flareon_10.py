@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Flareon (BASE6 #10): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-from spirit.game.card_effects.attacks_common import flip_bonus
+from spirit.game.card_effects.attacks_common import flip_bonus, self_energy_discard_attack
+from spirit.game.card_effects.ecard import has_fire_energy_attached
 
 
 card = PokemonCardDef(
@@ -31,7 +28,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
             effect=flip_bonus(20),
         ),
         Attack(
@@ -39,8 +35,9 @@ card = PokemonCardDef(
             game_text="Discard 1 Fire Energy card attached to Flareon or this attack does nothing.",
             cost={PokemonTypes.FIRE: 2, PokemonTypes.COLORLESS: 2},
             damage=60,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            condition=has_fire_energy_attached,
+            effect=self_energy_discard_attack(
+                count=1, energy_type=PokemonTypes.FIRE, before_damage=True),
         ),
     ],
 )

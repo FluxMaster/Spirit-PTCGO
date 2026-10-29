@@ -2292,6 +2292,45 @@ async def magnetic_flow(ctx):
     await ctx.move_energy(energy_b[0], first)
 
 
+async def energy_control(ctx):
+    """Flip: heads, move 1 basic Energy from 1 of the opponent's Pokémon
+    to another of the opponent's Pokémon (Mewtwo — Energy Control)."""
+    results = await ctx.flip_coins(1, "Energy Control")
+    if not results or not results[0]:
+        return
+    opponent = ctx.opponent_pokemon_in_play()
+    if len(opponent) < 2:
+        return
+    sources = [
+        poked for poked in opponent
+        if any(is_basic_energy_card(e) for e in ctx.attached_energies(poked))
+        and not ctx.effects_blocked(poked)
+    ]
+    if not sources:
+        return
+    source = await ctx.choose_pokemon(
+        sources, "Choose a Pokémon with a basic Energy card attached")
+    if source is None:
+        return
+    energies = [
+        energy for energy in ctx.attached_energies(source)
+        if is_basic_energy_card(energy)
+    ]
+    if not energies:
+        return
+    picks = await ctx.choose_cards(
+        energies, 1, prompt="Choose a basic Energy card to move")
+    if not picks:
+        return
+    dests = [poked for poked in opponent if poked is not source]
+    if not dests:
+        return
+    dest = await ctx.choose_pokemon(
+        dests, "Choose a Pokémon to attach the Energy to")
+    if dest is not None:
+        await ctx.move_energy(picks[0], dest)
+
+
 async def steel_wave(ctx):
     """Printed damage; 10 to each opposing Benched Pokémon of the Defending's type."""
     await ctx.deal_damage()
@@ -7743,14 +7782,15 @@ async def leech_life(ctx):
 
 
 class ThickSkinnedPassive(Passive):
-    """Can't become Asleep, Confused, Paralyzed, or Poisoned. Stops while
-    already Asleep, Confused, or Paralyzed."""
+    """Can't become Asleep, Confused, Paralyzed, Poisoned, or Burned.
+    Stops while already Asleep, Confused, or Paralyzed."""
 
     _blocked = (
         SpecialConditions.ASLEEP,
         SpecialConditions.CONFUSED,
         SpecialConditions.PARALYZED,
         SpecialConditions.POISONED,
+        SpecialConditions.BURNED,
     )
 
     def blocks_special_conditions(self, target, condition, carrier):
