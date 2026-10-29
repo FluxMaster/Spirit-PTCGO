@@ -94,7 +94,8 @@ from spirit.game.attributes import (
 from spirit.game.content.definitions import with_sort_order
 from spirit.game.data_utils import (
     ABILITIES_BY_ID, Ability, Activations, Triggers, def_for, prize_value,
-    subtypes_for, unimplemented,
+    subtypes_for,
+    is_baby_pokemon, unimplemented,
 )
 from spirit.database.player_data import COINS_PER_WIN, COINS_PER_LOSS, grant_coins
 from spirit.database.versus_data import award_match_points, get_progress
@@ -5185,6 +5186,14 @@ class GameSession:
         if flip_title is not None:
             if not await self._resolve_attack_attempt_flip(player_id, card, flip_title):
                 return True  # tails: the attack does not happen; the turn ends
+
+        # e-Card Baby Pokemon rule: if the opponent's Active is a Baby, the
+        # attacker flips a coin before doing anything else; tails ends the turn.
+        opp_active = self.board_state.active_pokemon(self._opponent_id(player_id))
+        if opp_active is not None and is_baby_pokemon(opp_active.archetype_id):
+            if not await self._resolve_attack_attempt_flip(
+                    player_id, card, "Baby Pokémon"):
+                return True
 
         if ability is not None:
             if getattr(ability, "locks_next_turn", False):

@@ -550,7 +550,11 @@ def compute_legal_actions(
                         game_id, card.entity_id,
                         action_id_for(card.entity_id, "stadium"), ACTION_PLAY_STADIUM,
                     ))
-            elif trainer_type == TrainerType.POKEMON_TOOL.value:
+            elif trainer_type in (
+                    TrainerType.POKEMON_TOOL.value,
+                    TrainerType.TECHNICAL_MACHINE.value,
+            ):
+                # e-Card Technical Machines attach like Tools and grant an attack.
                 tool_attach_to = getattr(definition, "attach_to", None)
                 tool_targets = [
                     p.entity_id for p in in_play

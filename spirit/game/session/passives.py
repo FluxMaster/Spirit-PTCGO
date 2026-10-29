@@ -833,6 +833,9 @@ def tool_slots_free(board: Optional[BoardState], pokemon: PokemonEntity) -> int:
             capacity = max(capacity, passive.tool_capacity(pokemon, carrier))
     attached = sum(
         1 for child in pokemon.children
-        if child.get_attribute(AttrID.TRAINER_TYPE) == TrainerType.POKEMON_TOOL.value
+        if child.get_attribute(AttrID.TRAINER_TYPE) in (
+            TrainerType.POKEMON_TOOL.value,
+            TrainerType.TECHNICAL_MACHINE.value,
+        )
     )
     return capacity - attached
