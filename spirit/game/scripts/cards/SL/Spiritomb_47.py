@@ -4,6 +4,8 @@ Spiritomb (SL #47): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import place_counters
+
 
 card = PokemonCardDef(
     guid="e07d3a7b-fdd9-5cac-9f30-8b749486398c",
@@ -33,7 +35,7 @@ card = PokemonCardDef(
             game_text="Put 3 damage counters on your opponent's Pok\u00e9mon in any way you like.",
             cost={PokemonTypes.DARKNESS: 1, PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=place_counters(3, 'choose_any_opponent'),
         ),
     ],
 )

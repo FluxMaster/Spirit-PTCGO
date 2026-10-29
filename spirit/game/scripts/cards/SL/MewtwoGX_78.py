@@ -4,6 +4,8 @@ Mewtwo-GX (SL #78): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import heal_attack
+
 
 card = PokemonCardDef(
     guid="7e18a734-b4b2-5051-916a-f518d7b1bac9",
@@ -37,7 +39,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 1},
             damage=60,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=heal_attack(30, target='self'),
         ),
         Attack(
             title="Psystrike-GX",

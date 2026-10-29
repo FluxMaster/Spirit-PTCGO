@@ -4,6 +4,8 @@ Shaymin (SL #7): one or more attacks/abilities use effect=unimplemented until a 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import shuffle_hand_into_deck_draw
+
 
 card = PokemonCardDef(
     guid="d57e19a0-ef06-59ae-a53e-6db4ffdb62a0",
@@ -27,7 +29,7 @@ card = PokemonCardDef(
             game_text="Shuffle your hand into your deck. Then, draw 6 cards.",
             cost={PokemonTypes.GRASS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=shuffle_hand_into_deck_draw(6),
         ),
         Attack(
             title="Rally Back",

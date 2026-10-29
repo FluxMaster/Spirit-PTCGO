@@ -4,6 +4,8 @@ Virizion (SL #8): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import snipe_attack
+
 
 card = PokemonCardDef(
     guid="b5f4b412-e929-5dbd-b3d7-0a85c7889d9b",
@@ -36,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 2, PokemonTypes.COLORLESS: 1},
             damage=90,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=snipe_attack(30),
         ),
     ],
 )

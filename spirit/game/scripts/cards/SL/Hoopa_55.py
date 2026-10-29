@@ -4,6 +4,8 @@ Hoopa (SL #55): one or more attacks/abilities use effect=unimplemented until a m
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm3 import LuminousBarrierPassive
+
 
 card = PokemonCardDef(
     guid="6d8f7be4-8059-5bae-a73c-ff22f17bad24",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             game_text="Prevent all effects of attacks, including damage, done to this Pok\u00e9mon by your opponent's Pok\u00e9mon-GX or Pok\u00e9mon-EX.",
             ability_type=AbilityTypes.POKE_ABILITY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=LuminousBarrierPassive(),
         ),
         Attack(
             title="Super Psy Bolt",

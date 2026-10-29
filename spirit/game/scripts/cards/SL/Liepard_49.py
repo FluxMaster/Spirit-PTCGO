@@ -4,6 +4,28 @@ Liepard (SL #49): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.data_utils import def_for
+
+
+async def amnesia(ctx):
+    """20 damage; lock 1 of the Defending Pokémon's attacks next turn."""
+    await ctx.deal_damage()
+    defender = ctx.defender
+    if defender is None or ctx.effects_blocked(defender):
+        return
+    definition = def_for(defender.archetype_id)
+    candidates = [
+        (defender, ability) for ability in getattr(definition, "abilities", []) or []
+        if isinstance(ability, Attack)
+    ]
+    if not candidates:
+        return
+    picked = await ctx.choose_attack_to_copy(candidates, "Choose an attack to lock")
+    if picked is None:
+        return
+    _, chosen = picked
+    ctx.session.turn_state.lock_attack(defender.entity_id, chosen.ability_id)
+
 
 card = PokemonCardDef(
     guid="3f7a425b-2558-5e61-94f8-e86279b024b7",
@@ -31,7 +53,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.DARKNESS: 1},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=amnesia,
         ),
         Attack(
             title="Slash",

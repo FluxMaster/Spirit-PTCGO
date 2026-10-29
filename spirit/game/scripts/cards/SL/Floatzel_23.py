@@ -4,6 +4,8 @@ Floatzel (SL #23): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import recoil_attack
+
 
 card = PokemonCardDef(
     guid="967970de-c3e1-5641-a54f-204719015013",
@@ -34,7 +36,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 2},
             damage=120,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=recoil_attack(30),
         ),
     ],
 )

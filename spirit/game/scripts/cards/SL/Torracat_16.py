@@ -5,6 +5,20 @@ Torracat (SL #16): one or more attacks/abilities use effect=unimplemented until 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 
+
+async def cut_down(ctx):
+    heads = await ctx.flip_coins(1, "Cut Down")
+    if not heads[0]:
+        return
+    target = ctx.opponent_active()
+    if target is None or ctx.effects_blocked(target):
+        return
+    await ctx.discard_energy_from(
+        target, 1,
+        prompt="Choose an Energy to discard from the Defending Pokémon.",
+    )
+
+
 card = PokemonCardDef(
     guid="2abdef81-7d8e-56dd-aa08-b6d025292ce5",
     key="SL",
@@ -28,7 +42,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, discard an Energy from your opponent's Active Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=cut_down,
         ),
         Attack(
             title="Fire Claws",

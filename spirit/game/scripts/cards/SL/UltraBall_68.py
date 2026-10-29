@@ -1,12 +1,5 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Ultra Ball (SL #68): trainer effect stubbed.
-
-Card text:
-  - Discard 2 cards from your hand. If you do, search your deck for a Pokémon, reveal it, and put it into your hand. Then, shuffle your deck.
-  - You may play as many Item cards as you like during your turn (before your attack).
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.card_effects.trainers import hand_size_at_least, ultra_ball
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
 
 card = ItemCardDef(
@@ -19,6 +12,6 @@ card = ItemCardDef(
     collector_number=68,
     set_code="SL",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=ultra_ball,
+    condition=hand_size_at_least(3)
 )

@@ -4,6 +4,8 @@ Carnivine (SL #6): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.pokemon import rock_crush
+
 
 card = PokemonCardDef(
     guid="9e2251d1-f269-59f3-8b78-ed9c17590ca8",
@@ -35,7 +37,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=rock_crush,
         ),
     ],
 )

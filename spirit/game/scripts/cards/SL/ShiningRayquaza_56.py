@@ -4,6 +4,8 @@ Shining Rayquaza (SL #56): one or more attacks/abilities use effect=unimplemente
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import mill_attack, self_energy_discard_attack
+
 
 card = PokemonCardDef(
     guid="fcf07ba2-2279-55cc-9eb1-7621f3edb783",
@@ -28,7 +30,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 1},
             damage=40,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=mill_attack(2, opponent=False),
         ),
         Attack(
             title="Sky Judgment",
@@ -36,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 1, PokemonTypes.LIGHTNING: 2, PokemonTypes.COLORLESS: 1},
             damage=190,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=self_energy_discard_attack(count=3),
         ),
     ],
 )

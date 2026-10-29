@@ -4,6 +4,8 @@ Electrode (SL #31): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import ignore_effects_attack
+
 
 card = PokemonCardDef(
     guid="7f460a16-6d5e-5762-b792-7d77fa26cfc6",
@@ -31,7 +33,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 1},
             damage=60,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=ignore_effects_attack(ignore_weakness=True, ignore_resistance=True),
         ),
     ],
 )

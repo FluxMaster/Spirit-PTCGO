@@ -1,13 +1,19 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Pokémon Catcher (SL #64): trainer effect stubbed.
-
-Card text:
-  - Flip a coin. If heads, switch 1 of your opponent's Benched Pokémon with their Active Pokémon.
-  - You may play as many Item cards as you like during your turn (before your attack).
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.trainers import opponent_has_bench
+
+
+async def pokemon_catcher(ctx):
+    """Switch 1 of your opponent's Benched Pokémon with their Active Pokémon."""
+    bench = ctx.opponent_bench()
+    if not bench:
+        return
+    target = await ctx.choose_pokemon(
+        bench, "Choose your opponent's new Active Pokémon"
+    )
+    if target is not None:
+        await ctx.switch_active(ctx.opponent_id, target)
+
 
 card = ItemCardDef(
     guid="ff13f3cf-5e8c-58d0-baf5-683ab296b524",
@@ -19,6 +25,6 @@ card = ItemCardDef(
     collector_number=64,
     set_code="SL",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=pokemon_catcher,
+    condition=opponent_has_bench
 )

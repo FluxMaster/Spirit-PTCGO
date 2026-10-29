@@ -4,6 +4,8 @@ Feraligatr (SL #20): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.pokemon import rock_crush
+
 
 card = PokemonCardDef(
     guid="0cfc80c4-fa7c-55e2-99da-8ff3d7247d26",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 2},
             damage=80,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=rock_crush,
         ),
         Attack(
             title="Hydro Splash",

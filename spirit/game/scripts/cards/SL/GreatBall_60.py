@@ -1,13 +1,22 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Great Ball (SL #60): trainer effect stubbed.
-
-Card text:
-  - Look at the top 7 cards of your deck. You may reveal a Pokémon you find there and put it into your hand. Shuffle the other cards back into your deck.
-  - You may play as many Item cards as you like during your turn (before your attack).
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.session.effects import is_pokemon_card
+
+
+async def great_ball(ctx):
+    """Look at the top 7 cards of your deck. You may reveal a Pokemon you
+    find there and put it into your hand. Shuffle the other cards back."""
+    top = ctx.deck_top(7)
+    candidates = [c for c in top if is_pokemon_card(c)]
+    # No matches still shows the looked-at cards (nothing selectable).
+    picks = await ctx.choose_cards(
+        candidates, 1, minimum=0,
+        prompt="You may put a Pokémon into your hand.",
+        display_cards=top,
+    )
+    await ctx.put_in_hand(picks, reveal=True)
+    await ctx.shuffle_deck()
+
 
 card = ItemCardDef(
     guid="b0576e28-6c57-5c5b-a3d6-5eca04ec248a",
@@ -19,6 +28,5 @@ card = ItemCardDef(
     collector_number=60,
     set_code="SL",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=great_ball
 )

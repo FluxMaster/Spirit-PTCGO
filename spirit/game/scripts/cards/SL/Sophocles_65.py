@@ -1,13 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Sophocles (SL #65): trainer effect stubbed.
-
-Card text:
-  - Discard 2 cards from your hand. If you do, draw 4 cards.
-  - You may play only 1 Supporter card during your turn (before your attack).
-"""
-
 from spirit.game.data_utils import SupporterCardDef, unimplemented
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.sm3 import sophocles, sophocles_condition
 
 card = SupporterCardDef(
     guid="121d7b5b-2df7-54ef-b717-d18bb0806535",
@@ -19,6 +12,5 @@ card = SupporterCardDef(
     collector_number=65,
     set_code="SL",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
-)
+    condition=sophocles_condition,
+    effect=sophocles,)

@@ -4,6 +4,8 @@ Shining Volcanion (SL #27): one or more attacks/abilities use effect=unimplement
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import snipe_attack, flip_damage
+
 
 card = PokemonCardDef(
     guid="e7d1f0b9-2455-5704-8b87-5e5a2afd1399",
@@ -27,7 +29,7 @@ card = PokemonCardDef(
             game_text="This attack does 50 damage to 2 of your opponent's Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.WATER: 3},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=snipe_attack(50, pool='any', count=2),
         ),
         Attack(
             title="Quad Smash",
@@ -36,7 +38,7 @@ card = PokemonCardDef(
             damage=50,
             damage_operator="x",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(coins=4, per_heads=50),
         ),
     ],
 )

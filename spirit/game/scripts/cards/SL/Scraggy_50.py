@@ -4,6 +4,8 @@ Scraggy (SL #50): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import search_to_bench
+
 
 card = PokemonCardDef(
     guid="91a7db01-aa8a-5ad6-958b-96321c1d64bd",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             game_text="Search your deck for a Basic Pok\u00e9mon and put it onto your Bench. Then, shuffle your deck.",
             cost={PokemonTypes.DARKNESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=search_to_bench(),
         ),
         Attack(
             title="Headbutt",

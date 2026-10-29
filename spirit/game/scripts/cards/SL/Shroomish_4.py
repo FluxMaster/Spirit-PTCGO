@@ -4,6 +4,8 @@ Shroomish (SL #4): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import heal_attack
+
 
 card = PokemonCardDef(
     guid="c6705b6c-7a1b-551c-adb9-0de1c15e920a",
@@ -28,7 +30,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=heal_attack(20),
         ),
     ],
 )
