@@ -159,6 +159,14 @@ class Passive:
         """True to prevent the hit entirely (calc.amount becomes 0)."""
         return False
 
+    def prevents_damage_counters(
+        self, target: PokemonEntity, carrier: BoardEntity,
+        source_player_id: Optional[str] = None,
+    ) -> bool:
+        """True to stop putting damage counters on `target` (Machoke's
+        Daunting Pose: opponent attacks/Abilities vs your Bench)."""
+        return False
+
     def modify_attack_cost(
         self,
         cost: Dict[str, int],
@@ -946,6 +954,17 @@ def energy_provided_options(board: Optional[BoardState], energy: BoardEntity) ->
     for passive, carrier in active_passives(board):
         options = passive.modify_energy_provided(options, energy, holder, board)
     return options
+
+
+def damage_counters_prevented(
+    board: BoardState, target: PokemonEntity,
+    source_player_id: Optional[str] = None,
+) -> bool:
+    """Whether a passive blocks putting damage counters on `target`."""
+    return any(
+        passive.prevents_damage_counters(target, carrier, source_player_id)
+        for passive, carrier in active_passives(board)
+    )
 
 
 def effective_bench_capacity(board: BoardState, player_id: str) -> int:

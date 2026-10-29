@@ -55,6 +55,7 @@ from .passives import (
     carrier_pokemon,
     compute_damage,
     conditions_blocked,
+    damage_counters_prevented,
     discard_blocked,
     effective_bench_capacity,
     effective_max_hp,
@@ -428,7 +429,11 @@ class EffectContext:
             # less damage" only apply to attack DAMAGE). But placing counters
             # IS an attack EFFECT, so an attack-effect shield (Snorlax's Unfazed
             # Fat) prevents them: the target stays a legal pick but takes 0.
-            dealt = 0 if self.effects_blocked(target) else base
+            # prevents_damage_counters is the extra gate for "can't put damage
+            # counters" (Machoke Daunting Pose) which is not an effect shield.
+            dealt = 0 if (self.effects_blocked(target)
+                          or damage_counters_prevented(
+                              self.board, target, self.player_id)) else base
         else:
             calc = compute_damage(
                 self.board, self.attacker, target, base,
