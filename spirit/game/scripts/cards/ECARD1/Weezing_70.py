@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Weezing (ECARD1 #70): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
+from spirit.game.data_utils import PokemonCardDef, Attack
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, SpecialConditions
+from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ecard import misfire
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 
 card = PokemonCardDef(
     guid="97c2dfcc-0486-5e47-b816-1424e71caaf4",
@@ -27,16 +26,17 @@ card = PokemonCardDef(
             title="Foul Gas",
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon is now Poisoned. If tails, the Defending Pok\u00e9mon is now Confused.",
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(
+                SpecialConditions.POISONED, flip=True,
+                tails_conditions=(SpecialConditions.CONFUSED,),
+            ),
         ),
         Attack(
             title="Misfire",
             game_text="Flip a coin. If tails, put 6 damage counters on Weezing.",
             cost={PokemonTypes.GRASS: 2, PokemonTypes.COLORLESS: 1},
             damage=60,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=misfire,
         ),
     ],
 )

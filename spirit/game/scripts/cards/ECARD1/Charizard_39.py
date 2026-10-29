@@ -1,10 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Charizard (ECARD1 #39): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-from spirit.game.card_effects.attacks_common import flip_or_nothing
+from spirit.game.card_effects.attacks_common import flip_or_nothing, self_energy_discard_attack
 
 
 card = PokemonCardDef(
@@ -30,7 +26,6 @@ card = PokemonCardDef(
             game_text="Flip a coin. If tails, this attack does nothing.",
             cost={PokemonTypes.COLORLESS: 1},
             damage=40,
-            # STUB: attack effect not implemented
             effect=flip_or_nothing(),
         ),
         Attack(
@@ -38,8 +33,7 @@ card = PokemonCardDef(
             game_text="Discard 1 Fire Energy card attached to Charizard.",
             cost={PokemonTypes.FIRE: 2, PokemonTypes.COLORLESS: 1},
             damage=60,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=self_energy_discard_attack(count=1, energy_type=PokemonTypes.FIRE),
         ),
     ],
 )

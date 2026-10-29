@@ -1,9 +1,14 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Vileplume (ECARD1 #31): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
+from spirit.game.attributes import (
+    PokemonTypes, PokemonStage, Rarities, AbilityTypes, SpecialConditions,
+)
+from spirit.game.card_effects.attacks_common import flip_damage
+from spirit.game.card_effects.ecard import no_special_conditions, poison_pollen
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+async def _confuse_self(ctx):
+    await ctx.apply_special_condition(ctx.attacker, SpecialConditions.CONFUSED)
+
 
 card = PokemonCardDef(
     guid="55f4025f-c55d-562f-8251-352dc04e0ab9",
@@ -27,8 +32,9 @@ card = PokemonCardDef(
             title="Poison Pollen",
             game_text="Once during your turn (before your attack), you may flip a coin. If heads, the Defending Pok\u00e9mon is now Poisoned. This power can't be used if Vileplume is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=no_special_conditions,
+            effect=poison_pollen,
         ),
         Attack(
             title="Petal Dance",
@@ -36,8 +42,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(coins=3, per_heads=30, also=_confuse_self),
         ),
     ],
 )

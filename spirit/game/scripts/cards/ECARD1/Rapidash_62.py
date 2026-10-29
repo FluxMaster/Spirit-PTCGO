@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Rapidash (ECARD1 #62): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import overrun
+
 
 card = PokemonCardDef(
     guid="b99e4fd2-4bec-51c5-b7ca-11df80a2481a",
@@ -28,8 +26,7 @@ card = PokemonCardDef(
             game_text="If your opponent has any Benched Pok\u00e9mon, flip a coin. If heads, choose 1 of them and this attack does 10 damage to it. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.COLORLESS: 2},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=overrun,
         ),
         Attack(
             title="Flame Tail",

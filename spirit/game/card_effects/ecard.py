@@ -12,6 +12,7 @@ from spirit.game.attributes import (
     AttrID,
     CLIENT_POKEMON_TYPE_NAMES,
     PokemonTypes,
+    SpecialConditions,
     TrainerType,
 )
 from spirit.game.content.definitions import Attack
@@ -793,4 +794,104 @@ class HarvestBountyPassive(Passive):
         if carrier.get_attribute(AttrID.SPECIAL_CONDITIONS):
             return False
         return _is_in_active_area(pokemon)
+
+
+# ----------------------------------------------------------------------
+# Rapidash — Overrun
+# ----------------------------------------------------------------------
+
+async def overrun(ctx):
+    """20; if the opponent has a Bench, flip — heads, 10 to one Benched Pokémon."""
+    await ctx.deal_damage()
+    bench = ctx.opponent_bench()
+    if not bench:
+        return
+    results = await ctx.flip_coins(1, "Overrun")
+    if not results or not results[0]:
+        return
+    target = await ctx.choose_pokemon(
+        bench, "Choose 1 of your opponent's Benched Pokémon")
+    if target is not None:
+        await ctx.deal_damage(10, target=target)
+
+
+# ----------------------------------------------------------------------
+# Typhlosion — Heat Up
+# ----------------------------------------------------------------------
+
+def _energy_card_count(board, player_id) -> int:
+    return sum(len(board.attached_energies(poked))
+               for poked in board.pokemon_in_play(player_id))
+
+
+def heat_up_condition(board, player_id, pokemon=None) -> bool:
+    if not no_special_conditions(board, player_id, pokemon):
+        return False
+    if not _has_bench(board, player_id):
+        return False
+    opponent = _opponent_id(board, player_id)
+    if opponent is None:
+        return False
+    return _energy_card_count(board, opponent) > _energy_card_count(board, player_id)
+
+
+async def heat_up(ctx):
+    """If the opponent has more Energy cards attached, search a Fire Energy onto a Benched Pokémon."""
+    mine = sum(len(ctx.attached_energies(poked)) for poked in ctx.my_pokemon_in_play())
+    theirs = sum(len(ctx.attached_energies(poked))
+                 for poked in ctx.opponent_pokemon_in_play())
+    if theirs <= mine:
+        return
+    found = await ctx.search_deck(
+        lambda c: _typed_basic_energy(c, PokemonTypes.FIRE),
+        count=1, minimum=0,
+        prompt="Choose a Fire Energy card to attach to 1 of your Benched Pokémon.",
+    )
+    bench = ctx.my_bench()
+    if found and bench:
+        target = await ctx.choose_pokemon(
+            bench, "Choose a Benched Pokémon to attach the Energy to")
+        if target is not None:
+            await ctx.attach_energy(found[0], target)
+    await ctx.shuffle_deck()
+
+
+# ----------------------------------------------------------------------
+# Tyranitar — Stamp
+# ----------------------------------------------------------------------
+
+async def stamp(ctx):
+    """50; heads, +10 and 10 to each opposing Benched Pokémon."""
+    results = await ctx.flip_coins(1, "Stamp")
+    heads = bool(results and results[0])
+    base = getattr(ctx.ability, "damage", 0) or 0
+    await ctx.deal_damage(base + (10 if heads else 0))
+    if not heads:
+        return
+    for poked in ctx.opponent_bench():
+        await ctx.deal_damage(10, target=poked)
+
+
+# ----------------------------------------------------------------------
+# Vileplume — Poison Pollen
+# ----------------------------------------------------------------------
+
+async def poison_pollen(ctx):
+    """Flip: heads, Poison the Defending Pokémon."""
+    results = await ctx.flip_coins(1, "Poison Pollen")
+    if not results or not results[0]:
+        return
+    await ctx.apply_special_condition(ctx.defender, SpecialConditions.POISONED)
+
+
+# ----------------------------------------------------------------------
+# Weezing — Misfire
+# ----------------------------------------------------------------------
+
+async def misfire(ctx):
+    """60; flip — tails, put 6 damage counters on Weezing."""
+    await ctx.deal_damage()
+    results = await ctx.flip_coins(1, "Misfire")
+    if results and not results[0]:
+        await ctx.deal_damage(60, target=ctx.attacker, as_counters=True)
 

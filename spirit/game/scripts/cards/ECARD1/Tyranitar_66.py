@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Tyranitar (ECARD1 #66): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ecard import DarkAuraPassive, stamp
+
 
 card = PokemonCardDef(
     guid="473fa3c8-4ff2-5843-9e68-4b531ccca224",
@@ -28,8 +26,7 @@ card = PokemonCardDef(
             title="Dark Aura",
             game_text="All Energy attached to Tyranitar is Darkness Energy instead of its usual type.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=DarkAuraPassive(),
         ),
         Attack(
             title="Stamp",
@@ -37,8 +34,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.DARKNESS: 4},
             damage=50,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=stamp,
         ),
     ],
 )

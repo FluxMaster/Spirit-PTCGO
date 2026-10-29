@@ -1,11 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Venusaur (ECARD1 #68): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
-from spirit.game.attributes import SpecialConditions
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
+from spirit.game.attributes import (
+    PokemonTypes, PokemonStage, Rarities, AbilityTypes, SpecialConditions,
+)
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ecard import HarvestBountyPassive
 
 
 card = PokemonCardDef(
@@ -30,15 +28,13 @@ card = PokemonCardDef(
             title="Harvest Bounty",
             game_text="Once during your turn (before your attack), if you attach an Energy card to your Active Pok\u00e9mon as part of your turn, you may attach an additional Energy card to that Pok\u00e9mon at the same time. This power can't be used if Venusaur is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=HarvestBountyPassive(),
         ),
         Attack(
             title="Body Slam",
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon is now Paralyzed.",
             cost={PokemonTypes.GRASS: 2, PokemonTypes.COLORLESS: 2},
             damage=40,
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.PARALYZED, flip=True),
         ),
     ],
