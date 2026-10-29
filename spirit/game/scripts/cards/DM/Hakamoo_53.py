@@ -1,0 +1,40 @@
+"""STUB: effect not implemented — do not guess mechanics.
+Hakamo-o (DM #53): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
+"""
+
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+card = PokemonCardDef(
+    guid="ea885a69-5e16-5ba6-8a63-3880f5bc4703",
+    key="DM",
+    name="com.direwolfdigital.cake.data.archetypes.pokemon.Hakamoo.Name",
+    display_name="Hakamo-o",
+    searchable_by=["Hakamo-o", "Stage 1", "Hakamoo"],
+    subtypes=["Stage 1"],
+    collector_number=53,
+    set_code="DM",
+    rarity=Rarities.Common,
+    hp=90,
+    elements=[PokemonTypes.DRAGON],
+    stage=PokemonStage.STAGE1,
+    retreat_cost=2,
+    weakness_type=PokemonTypes.FAIRY,
+    evolves_from="com.direwolfdigital.cake.data.archetypes.pokemon.Jangmoo.Name",
+    family_id=782,
+    abilities=[
+        Attack(
+            title="Guard Press",
+            game_text="During your opponent's next turn, this Pok\u00e9mon takes 30 less damage from attacks (after applying Weakness and Resistance).",
+            cost={PokemonTypes.COLORLESS: 2},
+            damage=30,
+            # STUB: attack effect not implemented
+            effect=unimplemented,
+        ),
+        Attack(
+            title="Dragon Claw",
+            cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 1},
+            damage=70,
+        ),
+    ],
+)
