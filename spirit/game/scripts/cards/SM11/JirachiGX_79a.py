@@ -4,6 +4,8 @@ Jirachi-GX (SM11 #79a): one or more attacks/abilities use effect=unimplemented u
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.passives_common import protect_next_turn
+
 
 card = PokemonCardDef(
     guid="85198694-4549-509e-9d0e-54587f28f4ae",
@@ -42,7 +44,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 3},
             damage=100,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=protect_next_turn(prevent=True, effects_too=True),
         ),
     ],
 )

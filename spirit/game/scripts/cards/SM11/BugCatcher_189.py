@@ -1,13 +1,14 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Bug Catcher (SM11 #189): trainer effect stubbed.
-
-Card text:
-  - Draw 2 cards. Flip a coin. If heads, draw 2 more cards.
-  - You may play only 1 Supporter card during your turn (before your attack).
-"""
-
-from spirit.game.data_utils import SupporterCardDef, unimplemented
+from spirit.game.data_utils import SupporterCardDef
 from spirit.game.attributes import Rarities
+
+
+async def bug_catcher(ctx):
+    """Draw 2 cards. Flip a coin; if heads, draw 2 more cards."""
+    await ctx.draw_cards(2)
+    heads = (await ctx.flip_coins(1, "Bug Catcher"))[0]
+    if heads:
+        await ctx.draw_cards(2)
+
 
 card = SupporterCardDef(
     guid="824cd96a-2209-5375-8ffb-c0694a5407ba",
@@ -19,6 +20,5 @@ card = SupporterCardDef(
     collector_number=189,
     set_code="SM11",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=bug_catcher
 )

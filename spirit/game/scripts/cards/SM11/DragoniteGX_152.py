@@ -4,6 +4,8 @@ Dragonite-GX (SM11 #152): one or more attacks/abilities use effect=unimplemented
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import self_energy_discard_attack
+
 
 card = PokemonCardDef(
     guid="423df2bf-3232-5fc7-89ef-c724e0fe8191",
@@ -34,7 +36,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 5},
             damage=270,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=self_energy_discard_attack(count=3),
         ),
         Attack(
             title="Mach Delivery-GX",

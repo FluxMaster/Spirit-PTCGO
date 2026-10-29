@@ -4,6 +4,8 @@ Alolan Grimer (SM11 #127): one or more attacks/abilities use effect=unimplemente
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import draw_attack
+
 
 card = PokemonCardDef(
     guid="5521fc30-86ae-53f4-9e7b-7c0467cd2df4",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             game_text="Draw 2 cards.",
             cost={},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=draw_attack(2),
         ),
         Attack(
             title="Sludge Bomb",

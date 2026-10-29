@@ -4,6 +4,8 @@ Cryogonal (SM11 #46): one or more attacks/abilities use effect=unimplemented unt
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm3 import distort
+
 
 card = PokemonCardDef(
     guid="19acd55d-b34c-590e-9f60-821f630b27a8",
@@ -28,7 +30,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1},
             damage=10,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=distort,
         ),
     ],
 )

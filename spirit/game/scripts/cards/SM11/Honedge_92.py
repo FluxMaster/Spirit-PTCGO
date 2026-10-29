@@ -4,6 +4,9 @@ Honedge (SM11 #92): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import search_to_hand
+from spirit.game.session.effects import is_item_card
+
 
 card = PokemonCardDef(
     guid="1a5b3a57-2d2c-5beb-88de-4c62a9aafa14",
@@ -29,7 +32,7 @@ card = PokemonCardDef(
             game_text="Search your deck for an Item card, reveal it, and put it into your hand. Then, shuffle your deck.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=search_to_hand(is_item_card, count=1, minimum=0, reveal=True),
         ),
         Attack(
             title="Pierce",

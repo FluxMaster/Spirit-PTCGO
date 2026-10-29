@@ -5,6 +5,12 @@ Hoopa (SM11 #140): one or more attacks/abilities use effect=unimplemented until 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 
+
+async def sonic_boom(ctx):
+    """40. This attack's damage isn't affected by Weakness or Resistance."""
+    await ctx.deal_damage(apply_modifiers=False)
+
+
 card = PokemonCardDef(
     guid="2c264a50-44ae-50da-a90b-9f4db2e06a81",
     key="SM11",
@@ -39,7 +45,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=80,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=sonic_boom,
         ),
     ],
 )

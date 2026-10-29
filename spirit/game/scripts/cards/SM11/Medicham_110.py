@@ -4,6 +4,8 @@ Medicham (SM11 #110): one or more attacks/abilities use effect=unimplemented unt
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm8 import cursed_drop
+
 
 card = PokemonCardDef(
     guid="b98d8774-25a8-5d8e-ba8b-764df056420a",
@@ -28,7 +30,7 @@ card = PokemonCardDef(
             game_text="Put 4 damage counters on your opponent's Pok\u00e9mon in any way you like.",
             cost={PokemonTypes.FIGHTING: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=cursed_drop,
         ),
         Attack(
             title="Master Strike",

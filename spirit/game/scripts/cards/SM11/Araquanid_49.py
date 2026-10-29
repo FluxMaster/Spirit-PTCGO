@@ -4,6 +4,17 @@ Araquanid (SM11 #49): one or more attacks/abilities use effect=unimplemented unt
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import gust_attack
+from spirit.game.card_effects.passives_common import apply_defender_attack_cost_raise, apply_defender_retreat_cost_raise
+
+
+async def chomp_chomp_hold(ctx):
+    """During your opponent's next turn, the Defending Pokemon's attacks
+    cost [C] more, and its Retreat Cost is [C] more."""
+    await ctx.deal_damage()
+    await apply_defender_attack_cost_raise(ctx, 1)
+    await apply_defender_retreat_cost_raise(ctx, 1)
+
 
 card = PokemonCardDef(
     guid="e04a6d25-0e82-578a-a14a-fcf644993d6a",
@@ -28,7 +39,7 @@ card = PokemonCardDef(
             game_text="Switch 1 of your opponent's Benched Pok\u00e9mon with their Active Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=gust_attack(),
         ),
         Attack(
             title="Sticky Web",
@@ -36,7 +47,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 2},
             damage=80,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=chomp_chomp_hold,
         ),
     ],
 )

@@ -4,6 +4,18 @@ Yveltal (SM11 #139): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm3 import solar_heat
+
+
+async def shadow_impact(ctx):
+    """170. Put 3 damage counters on 1 of your Pokemon."""
+    await ctx.deal_damage()
+    own = ctx.my_pokemon_in_play()
+    if own:
+        target = await ctx.choose_pokemon(own, "Choose 1 of your Pokémon")
+        if target is not None:
+            await ctx.deal_damage(30, target=target, apply_modifiers=False, as_counters=True)
+
 
 card = PokemonCardDef(
     guid="c90c8df5-ee10-5535-b810-9516d9f52904",
@@ -31,7 +43,7 @@ card = PokemonCardDef(
             damage=20,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=solar_heat,
         ),
         Attack(
             title="Shadow Impact",
@@ -39,7 +51,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.DARKNESS: 2, PokemonTypes.COLORLESS: 1},
             damage=120,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=shadow_impact,
         ),
     ],
 )

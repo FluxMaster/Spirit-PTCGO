@@ -4,6 +4,13 @@ Skorupi (SM11 #82): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import discard_random_from_hand
+
+
+async def knock_off(ctx):
+    await ctx.deal_damage()
+    await discard_random_from_hand(ctx, player_id=ctx.opponent_id, count=1)
+
 
 card = PokemonCardDef(
     guid="fcbf80ed-ae42-51a9-92a8-237b02f179ab",
@@ -27,7 +34,7 @@ card = PokemonCardDef(
             game_text="Discard a random card from your opponent's hand.",
             cost={PokemonTypes.COLORLESS: 2},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=knock_off,
         ),
         Attack(
             title="Bug Bite",

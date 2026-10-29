@@ -4,6 +4,8 @@ Steelix (SM11 #104): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm6 import cell_connector
+
 
 card = PokemonCardDef(
     guid="c337ba19-1bba-5c0c-971c-1373d839c0d1",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=cell_connector,
         ),
         Attack(
             title="Gigaton Shake",

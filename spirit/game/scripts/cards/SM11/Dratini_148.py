@@ -4,6 +4,9 @@ Dratini (SM11 #148): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm6 import frubbles_passive
+from spirit.game.card_effects.attacks_common import flip_bonus
+
 
 card = PokemonCardDef(
     guid="8b688ec6-3127-5551-86d8-1d4e87f02990",
@@ -27,7 +30,7 @@ card = PokemonCardDef(
             game_text="If this Pok\u00e9mon has any Water Energy attached to it, it has no Retreat Cost.",
             ability_type=AbilityTypes.POKE_ABILITY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=frubbles_passive,
         ),
         Attack(
             title="Jump On",
@@ -36,7 +39,7 @@ card = PokemonCardDef(
             damage=10,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_bonus(30),
         ),
     ],
 )

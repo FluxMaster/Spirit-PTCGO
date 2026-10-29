@@ -4,6 +4,8 @@ Axew (SM11 #154): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm6 import unnerve_passive
+
 
 card = PokemonCardDef(
     guid="72fe3440-9ab2-5893-9384-16f1f2624442",
@@ -27,7 +29,7 @@ card = PokemonCardDef(
             game_text="Whenever your opponent plays an Item or Supporter card from their hand, prevent all effects of that card done to this Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=unnerve_passive,
         ),
         Attack(
             title="Gnaw",

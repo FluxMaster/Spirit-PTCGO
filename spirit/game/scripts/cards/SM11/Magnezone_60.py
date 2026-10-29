@@ -4,6 +4,8 @@ Magnezone (SM11 #60): one or more attacks/abilities use effect=unimplemented unt
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.pokemon import electromagnetic_sonar
+
 
 card = PokemonCardDef(
     guid="aef6e168-7436-5b05-b78f-aa8ec465e64b",
@@ -38,7 +40,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 2},
             damage=120,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=electromagnetic_sonar,
         ),
     ],
 )

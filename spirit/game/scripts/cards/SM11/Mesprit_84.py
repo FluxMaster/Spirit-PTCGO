@@ -4,6 +4,8 @@ Mesprit (SM11 #84): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import search_to_bench
+
 
 card = PokemonCardDef(
     guid="7ebfe45a-1ab0-5b4a-be0b-a2a0ad45de1b",
@@ -27,7 +29,7 @@ card = PokemonCardDef(
             game_text="Search your deck for up to 3 Basic Pok\u00e9mon and put them onto your Bench. Then, shuffle your deck.",
             cost={PokemonTypes.PSYCHIC: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=search_to_bench(count=3),
         ),
         Attack(
             title="Mumble",

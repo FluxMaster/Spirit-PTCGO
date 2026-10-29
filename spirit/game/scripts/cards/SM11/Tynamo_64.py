@@ -4,6 +4,9 @@ Tynamo (SM11 #64): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.pokemon import is_lightning_energy
+from spirit.game.card_effects.support_common import search_attach_energy
+
 
 card = PokemonCardDef(
     guid="79261db0-abc5-50e0-a8ec-ce929a44ec2a",
@@ -29,7 +32,7 @@ card = PokemonCardDef(
             game_text="Search your deck for a Lightning Energy card and attach it to this Pok\u00e9mon. Then, shuffle your deck.",
             cost={PokemonTypes.LIGHTNING: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=search_attach_energy(predicate=is_lightning_energy, count=1, to_self=True),
         ),
     ],
 )

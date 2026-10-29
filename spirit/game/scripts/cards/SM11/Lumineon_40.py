@@ -5,6 +5,30 @@ Lumineon (SM11 #40): one or more attacks/abilities use effect=unimplemented unti
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 
+
+async def _tricky_steps(ctx):
+    await ctx.deal_damage()
+    active = ctx.opponent_active()
+    bench = ctx.opponent_bench()
+    if active is None or not bench or ctx.effects_blocked(active):
+        return
+    energies = ctx.attached_energies(active)
+    if not energies:
+        return
+    if not await ctx.ask_yes_no(
+        "Move an Energy from your opponent's Active Pokémon to 1 of their Benched Pokémon?"
+    ):
+        return
+    picked = await ctx.choose_cards(energies, 1, minimum=1, prompt="Choose an Energy to move")
+    if not picked:
+        return
+    target = await ctx.choose_pokemon(
+        bench, "Choose the Benched Pokémon to move the Energy to"
+    )
+    if target is not None:
+        await ctx.move_energy(picked[0], target)
+
+
 card = PokemonCardDef(
     guid="dd5436af-5196-5a37-8f0e-ed77ba0ff232",
     key="SM11",
@@ -29,7 +53,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=50,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=_tricky_steps,
         ),
     ],
 )

@@ -4,6 +4,8 @@ Golisopod (SM11 #51): one or more attacks/abilities use effect=unimplemented unt
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import bonus_if
+
 
 card = PokemonCardDef(
     guid="bdc28478-cc70-5ac2-9dca-0dc2b9e2de0f",
@@ -37,7 +39,7 @@ card = PokemonCardDef(
             damage=120,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bonus_if(lambda ctx: ctx.entered_active_this_turn(ctx.attacker), 60),
         ),
     ],
 )

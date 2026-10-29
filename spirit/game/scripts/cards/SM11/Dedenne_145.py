@@ -5,6 +5,14 @@ Dedenne (SM11 #145): one or more attacks/abilities use effect=unimplemented unti
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 
+
+async def return_effect(ctx):
+    """30 damage; you may draw cards until you have 6 cards in your hand."""
+    await ctx.deal_damage()
+    if await ctx.ask_yes_no("Draw cards until you have 6 cards in your hand?"):
+        await ctx.draw_until(6)
+
+
 card = PokemonCardDef(
     guid="71d2e333-3724-597a-8dd2-a0ccaf80aa23",
     key="SM11",
@@ -30,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=return_effect,
         ),
     ],
 )

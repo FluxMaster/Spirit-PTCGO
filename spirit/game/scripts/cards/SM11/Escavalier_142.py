@@ -4,6 +4,8 @@ Escavalier (SM11 #142): one or more attacks/abilities use effect=unimplemented u
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import bonus_if, has_damage
+
 
 card = PokemonCardDef(
     guid="8e4e09b9-2f34-5513-992b-9b3fd4643e63",
@@ -31,7 +33,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.METAL: 1},
             damage=80,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bonus_if(has_damage('defender'), 0, else_nothing=True),
         ),
         Attack(
             title="Iron Lance",

@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Sableye (SM11 #133): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.scripts.cards.SWSH8.Turtonator_198 import shell_trap
 
 card = PokemonCardDef(
     guid="94173933-06b5-53d5-9965-d35904c34537",
@@ -26,8 +23,7 @@ card = PokemonCardDef(
             game_text="During your opponent's next turn, if this Pok\u00e9mon is damaged by an attack (even if it is Knocked Out), put 8 damage counters on the Attacking Pok\u00e9mon.",
             cost={PokemonTypes.DARKNESS: 1},
             damage=10,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=shell_trap,
         ),
     ],
 )

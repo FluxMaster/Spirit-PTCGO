@@ -4,6 +4,8 @@ Mawile-GX (SM11 #141): one or more attacks/abilities use effect=unimplemented un
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm3 import mind_jack
+
 
 card = PokemonCardDef(
     guid="7403c668-d3bb-5660-be02-0c4fc87517b3",
@@ -38,7 +40,7 @@ card = PokemonCardDef(
             damage=10,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=mind_jack,
         ),
         Attack(
             title="Big Eater-GX",

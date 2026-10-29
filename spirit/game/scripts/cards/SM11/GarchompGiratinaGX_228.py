@@ -4,6 +4,8 @@ Garchomp & Giratina-GX (SM11 #228): one or more attacks/abilities use effect=uni
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import snipe_attack, bonus_if, has_damage
+
 
 card = PokemonCardDef(
     guid="e8750733-da37-5cb2-ac05-18d1e265543d",
@@ -27,7 +29,7 @@ card = PokemonCardDef(
             game_text="This attack does 40 damage to 1 of your opponent's Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=snipe_attack(40, pool='any', count=1),
         ),
         Attack(
             title="Calamitous Slash",
@@ -36,7 +38,7 @@ card = PokemonCardDef(
             damage=160,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bonus_if(has_damage(), 80),
         ),
         Attack(
             title="GG End-GX",

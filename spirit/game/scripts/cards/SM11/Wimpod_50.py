@@ -4,6 +4,8 @@ Wimpod (SM11 #50): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm8 import smokescreen
+
 
 card = PokemonCardDef(
     guid="2a5b169b-698a-59bf-bb56-8be62b8203d7",
@@ -28,7 +30,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1},
             damage=10,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=smokescreen,
         ),
     ],
 )

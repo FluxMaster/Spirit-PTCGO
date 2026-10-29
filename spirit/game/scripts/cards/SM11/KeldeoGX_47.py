@@ -4,6 +4,10 @@ Keldeo-GX (SM11 #47): one or more attacks/abilities use effect=unimplemented unt
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm3 import LuminousBarrierPassive
+from spirit.game.card_effects.pokemon import shred
+from spirit.game.card_effects.attacks_common import damage_per, count_bench
+
 
 card = PokemonCardDef(
     guid="bf63b056-a90e-5308-accb-e7c520ef1e97",
@@ -27,7 +31,7 @@ card = PokemonCardDef(
             game_text="Prevent all effects of attacks, including damage, done to this Pok\u00e9mon by your opponent's Pok\u00e9mon-GX or Pok\u00e9mon-EX.",
             ability_type=AbilityTypes.POKE_ABILITY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=LuminousBarrierPassive(),
         ),
         Attack(
             title="Sonic Edge",
@@ -35,7 +39,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 2, PokemonTypes.COLORLESS: 1},
             damage=110,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=shred,
         ),
         Attack(
             title="Resolute Blade-GX",
@@ -44,7 +48,7 @@ card = PokemonCardDef(
             damage=50,
             damage_operator="x",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_per(count_bench('opponent'), 50),
         ),
     ],
 )

@@ -4,6 +4,8 @@ Swadloon (SM11 #8): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.passives_common import takes_less_passive
+
 
 card = PokemonCardDef(
     guid="f05c84ec-f942-5674-b101-ef8ba04830c1",
@@ -28,7 +30,7 @@ card = PokemonCardDef(
             game_text="This Pok\u00e9mon takes 30 less damage from attacks (after applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_ABILITY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=takes_less_passive(30),
         ),
         Attack(
             title="Bug Bite",

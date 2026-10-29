@@ -4,6 +4,15 @@ Carracosta (SM11 #45): one or more attacks/abilities use effect=unimplemented un
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.session.passives import effective_retreat_cost
+
+
+async def _iron_crash(ctx):
+    """20 more damage for each Colorless in the opponent's Active's Retreat Cost."""
+    target = ctx.opponent_active()
+    cost = effective_retreat_cost(ctx.board, target) if target is not None else 0
+    await ctx.deal_damage(ctx.ability.damage + 20 * cost)
+
 
 card = PokemonCardDef(
     guid="b994cbad-1c05-5935-ac55-02130746ffee",
@@ -37,7 +46,7 @@ card = PokemonCardDef(
             damage=80,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=_iron_crash,
         ),
     ],
 )

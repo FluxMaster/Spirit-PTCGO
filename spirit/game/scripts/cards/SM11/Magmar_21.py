@@ -4,6 +4,8 @@ Magmar (SM11 #21): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm8 import smokescreen
+
 
 card = PokemonCardDef(
     guid="32d157c2-d002-5ad9-8697-f2491c2d977d",
@@ -28,7 +30,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 1},
             damage=10,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=smokescreen,
         ),
     ],
 )
