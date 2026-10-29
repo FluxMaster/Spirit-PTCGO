@@ -1,12 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Professor Elm (BP #3): trainer effect stubbed.
-
-Card text:
-  - Shuffle your hand into your deck. Then, draw 7 cards. You can't play any more Trainer cards this turn.
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ecard import professor_elm
+
 
 card = ItemCardDef(
     guid="706feb4c-fadd-509d-9b08-72219cc312ed",
@@ -18,6 +13,5 @@ card = ItemCardDef(
     collector_number=3,
     set_code="BP",
     rarity=Rarities.RarePromo,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=professor_elm,
 )

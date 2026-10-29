@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Rocket's Scizor (BP #4): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.passives_common import boost_own_next_turn, flip_protection
+
 
 card = PokemonCardDef(
     guid="f9c226a5-6403-538a-8247-11e28eae0ad5",
@@ -27,16 +25,14 @@ card = PokemonCardDef(
             title="Focus",
             game_text="During your next turn, Rocket's Scizor's Agility attack's damage is doubled.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=boost_own_next_turn(20, attack_title="Agility"),
         ),
         Attack(
             title="Agility",
             game_text="Flip a coin. If heads, during your opponent's next turn, prevent all effects of attacks, including damage, done to Rocket's Scizor.",
             cost={PokemonTypes.METAL: 1, PokemonTypes.COLORLESS: 2},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_protection(prevent=True, effects_too=True),
         ),
     ],
 )

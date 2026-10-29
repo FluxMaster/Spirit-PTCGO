@@ -5348,6 +5348,11 @@ class GameSession:
         await self._apply_active_to_bench_counters(player_id, card)
         await self._apply_retreat_energy_discard(player_id, card)
         await self.fire_move_to_active_triggers(new_active)
+        # Vine Pull: only while the retreated Pokemon is still in play
+        # (Spikemuth-style bench counters may have just Knocked it Out).
+        if card in self.board_state.pokemon_in_play(player_id):
+            await self._fire_triggered_abilities(
+                player_id, card, Triggers.ON_RETREAT)
         # An Active-spot change can flip suppression passives (Tool Jammer).
         await self.resync_effective_max_hp()
 

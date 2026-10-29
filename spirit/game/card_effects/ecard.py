@@ -4938,3 +4938,100 @@ async def warp_hole(ctx):
     if picks:
         await ctx.put_on_top_of_deck(picks[0])
 
+
+# ----------------------------------------------------------------------
+# Best of Game (BP)
+# ----------------------------------------------------------------------
+
+async def vine_pull(ctx):
+    """When this Pokémon retreats, switch the opponent's Active with a Bench
+    Pokémon of your choice (Dark Ivysaur Vine Pull)."""
+    old_active = ctx.opponent_active()
+    bench = ctx.opponent_bench()
+    if old_active is None or not bench or ctx.effects_blocked(old_active):
+        ctx.suppress_announce = True
+        return
+    target = await ctx.choose_pokemon(
+        bench, "Choose 1 of your opponent's Benched Pokémon")
+    if target is not None:
+        await ctx.switch_active(ctx.opponent_id, target)
+
+
+async def fury_strikes(ctx):
+    """The opponent distributes 3 damage counters among their Pokémon
+    (Dark Ivysaur Fury Strikes markers, no W/R)."""
+    await ctx.place_damage_counters(
+        3, ctx.opponent_pokemon_in_play(),
+        player_id=ctx.opponent_id,
+        prompt="Place 3 damage counters on your Pokémon.",
+    )
+
+
+async def horrid_pollen(ctx):
+    """30; flip 2. Always Poisoned; 2 heads Confused, 1 heads Asleep,
+    both tails Paralyzed."""
+    await ctx.deal_damage()
+    results = await ctx.flip_coins(2, "Horrid Pollen")
+    heads = sum(1 for result in results if result)
+    await ctx.apply_special_condition(ctx.defender, SpecialConditions.POISONED)
+    if heads == 2:
+        extra = SpecialConditions.CONFUSED
+    elif heads == 1:
+        extra = SpecialConditions.ASLEEP
+    else:
+        extra = SpecialConditions.PARALYZED
+    await ctx.apply_special_condition(ctx.defender, extra)
+
+
+async def professor_elm(ctx):
+    """Shuffle your hand into your deck, draw 7, then no more Trainers
+    this turn."""
+    await ctx.shuffle_into_deck(ctx.hand(), ctx.player_id)
+    await ctx.draw_cards(7)
+    ctx.lock_plays(
+        ctx.player_id, is_trainer_card,
+        through_turn=ctx.session.turn_state.turn_number,
+    )
+
+
+class CrosscounterPassive(Passive):
+    """If this Pokémon is damaged by an attack (even if Knocked Out), flip:
+    heads, deal double that damage to the attacking Pokémon."""
+
+    async def damage_interceptor(self, ctx, calc, target, carrier):
+        if not (calc.is_attack and calc.is_opposing and calc.amount > 0):
+            return None
+        holder = carrier_pokemon(carrier) or carrier
+        if target is not holder:
+            return None
+        attacker = calc.attacker
+        if attacker is None:
+            return None
+        results = await ctx.flip_coins(1, "Crosscounter", source=holder)
+        if results and results[0]:
+            await ctx.deal_damage(
+                calc.amount * 2, target=attacker,
+                apply_modifiers=False, as_counters=True,
+            )
+        return None
+
+
+async def crosscounter(ctx):
+    """During the opponent's next turn, a hit on this Pokémon may reflect
+    double that damage onto the attacker (even if this Pokémon is KO'd)."""
+    ctx.add_passive_through_opponents_turn(ctx.attacker, CrosscounterPassive())
+
+
+async def juxtapose(ctx):
+    """Flip: heads, swap damage-counter counts with the Defending Pokémon."""
+    results = await ctx.flip_coins(1, "Juxtapose")
+    if not results or not results[0]:
+        return
+    defender = ctx.defender
+    if defender is None or ctx.effects_blocked(defender):
+        return
+    self_counters = damage_counters_on("self")(ctx)
+    opp_counters = damage_counters_on("defender")(ctx)
+    await ctx.set_damage_counters(ctx.attacker, opp_counters)
+    await ctx.set_damage_counters(defender, self_counters)
+

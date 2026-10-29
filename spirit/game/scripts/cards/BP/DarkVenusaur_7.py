@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dark Venusaur (BP #7): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import horrid_pollen
+
 
 card = PokemonCardDef(
     guid="d09d8f6c-5049-5124-859d-448e691a3069",
@@ -28,8 +26,7 @@ card = PokemonCardDef(
             game_text="Flip 2 coins. If 1 is heads, the Defending Pok\u00e9mon is now Asleep and Poisoned. If both are heads, the Defending Pok\u00e9mon is now Confused and Poisoned. If both are tails, the Defending Pok\u00e9mon is now Paralyzed and Poisoned.",
             cost={PokemonTypes.GRASS: 3},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=horrid_pollen,
         ),
     ],
 )

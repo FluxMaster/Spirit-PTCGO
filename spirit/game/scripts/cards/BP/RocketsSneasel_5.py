@@ -1,10 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Rocket's Sneasel (BP #5): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.attacks_common import condition_attack, flip_damage
 
 
 card = PokemonCardDef(
@@ -29,7 +25,6 @@ card = PokemonCardDef(
             title="Entrap",
             game_text="The Defending Pok\u00e9mon can't retreat during your opponent's next turn.",
             cost={PokemonTypes.DARKNESS: 1},
-            # STUB: attack effect not implemented
             effect=condition_attack(no_retreat=True),
         ),
         Attack(
@@ -38,8 +33,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=10,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(coins=4, per_heads=10),
         ),
     ],
 )
