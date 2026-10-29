@@ -124,6 +124,7 @@ from .passives import (
     ability_locked, active_passives, active_to_bench_counters,
     burn_recovery_blocked, passive_sleep_coins, effective_bench_capacity, effective_max_hp,
     effective_retreat_cost, energy_attach_taxer, evolve_heal_amount,
+    evolve_damage_counters,
     granted_extra_attacks, retreat_energy_destination, tool_slots_free,
     tool_suppressed,
     stadium_suppressed,
@@ -2267,27 +2268,31 @@ class GameSession:
         def _damage_ko(pokemon) -> bool:
             return ctx.is_attack_effect() \
                 and pokemon.entity_id in ctx.attack_damage
-        energy_ko_hooks: List[Tuple[str, Any, list]] = []
+        energy_ko_hooks: List[Tuple[str, Any, list, bool]] = []
         for pokemon in ctx.knockouts:
             owner_id = pokemon.owning_player_id
             if owner_id is None or not _damage_ko(pokemon) \
                     or ctx.attacker.owning_player_id == owner_id:
                 continue
+            was_active = self.board_state.active_pokemon(owner_id) is pokemon
             attached = self.board_state.attached_energies(pokemon)
             for energy in attached:
                 definition = def_for(energy.archetype_id)
                 hook = getattr(definition, "on_carrier_knocked_out", None)
                 if hook is not None and hook is not unimplemented:
-                    energy_ko_hooks.append((owner_id, hook, list(attached)))
-            # Pokemon Tools with the same hook (Energy Pouch); they get the
-            # pre-move list of the carrier's Energy on hook_ctx.ko_energies.
+                    energy_ko_hooks.append(
+                        (owner_id, hook, list(attached), was_active))
+            # Pokemon Tools with the same hook (Energy Pouch / Wishful Baton);
+            # they get the pre-move list of the carrier's Energy on
+            # hook_ctx.ko_energies and whether the holder was Active.
             for child in list(pokemon.children):
                 if child in attached:
                     continue
                 definition = def_for(child.archetype_id)
                 hook = getattr(definition, "on_carrier_knocked_out", None)
                 if hook is not None and hook is not unimplemented:
-                    energy_ko_hooks.append((owner_id, hook, list(attached)))
+                    energy_ko_hooks.append(
+                        (owner_id, hook, list(attached), was_active))
 
         # Prize counts/destinations evaluate BEFORE any stack moves so the
         # KO'd Pokemon's own passives and Special Conditions still count.
@@ -2487,9 +2492,11 @@ class GameSession:
                     if trigger_ctx is not None:
                         trigger_ctxs.append(trigger_ctx)
 
-        for owner_id, hook, ko_energies in energy_ko_hooks:
+        for owner_id, hook, ko_energies, was_active in energy_ko_hooks:
             hook_ctx = EffectContext(self, owner_id, ctx.attacker, None)
             hook_ctx.ko_energies = ko_energies
+            hook_ctx.ko_from_attack = True
+            hook_ctx.was_active_at_ko = was_active
             await hook(hook_ctx)
             if hook_ctx._messages:
                 await self._flush_effect_runs(hook_ctx)
@@ -4949,14 +4956,22 @@ class GameSession:
                  self._condition_attr_msg(target)],
             )
 
-        # Wyndon Stadium: heal a Pokemon just evolved from hand (deck-sourced
-        # evolutions ride from_zone_intro and are not "played from hand").
+        # Wyndon Stadium / Po Town: heal or place counters on a Pokemon just
+        # evolved from hand (deck-sourced evolutions ride from_zone_intro and
+        # are not "played from hand").
         if not from_zone_intro:
             heal = evolve_heal_amount(self.board_state, card, target, player_id)
-            if heal > 0:
-                heal_ctx = EffectContext(self, player_id, card, None)
-                if await heal_ctx.heal(heal, target=card):
-                    await self._flush_effect_runs(heal_ctx)
+            counters = evolve_damage_counters(
+                self.board_state, card, target, player_id)
+            if heal > 0 or counters > 0:
+                evolve_ctx = EffectContext(self, player_id, card, None)
+                if heal > 0:
+                    await evolve_ctx.heal(heal, target=card)
+                if counters > 0:
+                    await evolve_ctx.deal_damage(
+                        counters * 10, target=card, as_counters=True)
+                await self._flush_effect_runs(evolve_ctx)
+                await self.resolve_knockouts(evolve_ctx)
 
         if break_previous_evolution(card) is not None:
             await self._apply_break_inheritance(card, target)
