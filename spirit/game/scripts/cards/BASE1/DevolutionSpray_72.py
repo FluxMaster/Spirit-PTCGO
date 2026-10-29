@@ -1,12 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Devolution Spray (BASE1 #72): trainer effect stubbed.
-
-Card text:
-  - Choose 1 of your own Pokémon in play and a Stage of Evolution. Discard all Evolution cards of that Stage or higher attached to that Pokémon. That Pokémon is no longer Asleep, Confused, Paralyzed, Poisoned, or anything else that might be the result of an attack (just as if you had evolved it).
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ecard import (
+    devolution_spray, devolution_spray_condition, devolution_spray_targets,
+)
+
 
 card = ItemCardDef(
     guid="52c43ad2-d597-56ab-8dfc-b616de0256c9",
@@ -18,6 +15,8 @@ card = ItemCardDef(
     collector_number=72,
     set_code="BASE1",
     rarity=Rarities.Rare,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=devolution_spray,
+    condition=devolution_spray_condition,
+    play_targets=devolution_spray_targets,
+    play_target_prompt="Choose a Pokémon to devolve",
 )

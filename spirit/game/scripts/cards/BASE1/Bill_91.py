@@ -1,12 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Bill (BASE1 #91): trainer effect stubbed.
-
-Card text:
-  - Draw 2 cards.
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.support_common import draw_attack
+from spirit.game.card_effects.ecard import has_cards_in_deck
 
 card = ItemCardDef(
     guid="4a4961ac-af79-5067-b52d-be88935b48b8",
@@ -18,6 +13,6 @@ card = ItemCardDef(
     collector_number=91,
     set_code="BASE1",
     rarity=Rarities.Common,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    condition=has_cards_in_deck,
+    effect=draw_attack(2)
 )

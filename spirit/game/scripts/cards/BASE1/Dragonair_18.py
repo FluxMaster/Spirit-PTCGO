@@ -1,10 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dragonair (BASE1 #18): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-from spirit.game.card_effects.attacks_common import discard_opponent_energy_attack
+from spirit.game.card_effects.attacks_common import (
+    discard_opponent_energy_attack, flip_damage,
+)
 
 
 card = PokemonCardDef(
@@ -31,15 +29,13 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=30,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(coins=2, per_heads=30),
         ),
         Attack(
             title="Hyper Beam",
             game_text="If the Defending Pok\u00e9mon has any Energy cards attached to it, choose 1 of them and discard it.",
             cost={PokemonTypes.COLORLESS: 4},
             damage=20,
-            # STUB: attack effect not implemented
             effect=discard_opponent_energy_attack(),
         ),
     ],

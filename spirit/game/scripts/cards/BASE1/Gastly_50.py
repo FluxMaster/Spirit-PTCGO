@@ -1,11 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Gastly (BASE1 #50): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ecard import destiny_bond, has_typed_basic_energy
 
 
 card = PokemonCardDef(
@@ -29,15 +26,14 @@ card = PokemonCardDef(
             title="Sleeping Gas",
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon is now Asleep.",
             cost={PokemonTypes.PSYCHIC: 1},
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.ASLEEP, flip=True),
         ),
         Attack(
             title="Destiny Bond",
             game_text="Discard 1 Psychic Energy card attached to Gastly in order to use this attack. If a Pok\u00e9mon Knocks Out Gastly during your opponent's next turn, Knock Out that Pok\u00e9mon.",
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            condition=has_typed_basic_energy(PokemonTypes.PSYCHIC),
+            effect=destiny_bond,
         ),
     ],
 )

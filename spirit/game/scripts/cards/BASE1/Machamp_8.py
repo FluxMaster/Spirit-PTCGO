@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Machamp (BASE1 #8): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ecard import strikes_back
+
 
 card = PokemonCardDef(
     guid="36acad07-0803-5a49-8f14-994f6eb1f47d",
@@ -26,9 +24,9 @@ card = PokemonCardDef(
         Ability(
             title="Strikes Back",
             game_text="Whenever your opponent's attack damages Machamp (even if Machamp is Knocked Out), this power does 10 damage to the attacking Pok\u00e9mon. (Don't apply Weakness and Resistance.) This power can't be used if Machamp is Asleep, Confused, or Paralyzed when your opponent attacks.",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            trigger=Triggers.ON_DAMAGED_BY_ATTACK,
+            effect=strikes_back,
         ),
         Attack(
             title="Seismic Toss",

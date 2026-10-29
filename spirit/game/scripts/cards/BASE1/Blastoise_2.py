@@ -1,9 +1,11 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Blastoise (BASE1 #2): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ecard import (
+    rain_dance,
+    rain_dance_condition,
+    unused_energy_bonus,
+)
+
 
 card = PokemonCardDef(
     guid="4e52b95c-0803-5fb1-88bb-d1d9b5cfad66",
@@ -26,9 +28,10 @@ card = PokemonCardDef(
         Ability(
             title="Rain Dance",
             game_text="As often as you like during your turn (before your attack), you may attach 1 Water Energy card to 1 of your Water Pok\u00e9mon. (This doesn't use up your 1 Energy card attachment for the turn.) This power can't be used if Blastoise is Asleep, Confused, or Paralyzed.",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            activation=Activations.UNLIMITED,
+            condition=rain_dance_condition,
+            effect=rain_dance,
         ),
         Attack(
             title="Hydro Pump",
@@ -36,8 +39,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 3},
             damage=40,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=unused_energy_bonus(10, 20, energy_type=PokemonTypes.WATER),
         ),
     ],
 )

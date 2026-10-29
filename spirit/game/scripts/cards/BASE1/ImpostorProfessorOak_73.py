@@ -1,12 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Impostor Professor Oak (BASE1 #73): trainer effect stubbed.
-
-Card text:
-  - Your opponent shuffles his or her hand into his or her deck, then draws 7 cards.
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ecard import impostor_professor_oak
 
 card = ItemCardDef(
     guid="e16799ba-3669-5cd4-85d3-19b374cb8623",
@@ -18,6 +12,5 @@ card = ItemCardDef(
     collector_number=73,
     set_code="BASE1",
     rarity=Rarities.Rare,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=impostor_professor_oak,
 )

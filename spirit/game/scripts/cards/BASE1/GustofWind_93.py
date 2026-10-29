@@ -1,12 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Gust of Wind (BASE1 #93): trainer effect stubbed.
-
-Card text:
-  - Choose 1 of your opponent's Benched Pokémon and switch it with his or her Active Pokémon.
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.card_effects.trainers import (
+    bosss_orders, opponent_has_bench, opponent_play_targets,
+)
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+
 
 card = ItemCardDef(
     guid="972d7ee6-3386-5e82-b6c8-6c82034aa920",
@@ -18,6 +15,8 @@ card = ItemCardDef(
     collector_number=93,
     set_code="BASE1",
     rarity=Rarities.Common,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=bosss_orders,
+    play_targets=opponent_play_targets(bench_only=True),
+    play_target_prompt="Choose the opponent's new Active Pokémon",
+    condition=opponent_has_bench,
 )

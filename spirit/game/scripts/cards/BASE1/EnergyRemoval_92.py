@@ -1,12 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Energy Removal (BASE1 #92): trainer effect stubbed.
-
-Card text:
-  - Choose 1 Energy card attached to 1 of your opponent's Pokémon and discard it.
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ecard import energy_removal
+from spirit.game.card_effects.trainers import opponent_has_energy_attached
+
 
 card = ItemCardDef(
     guid="ba29102d-bffa-50fc-9029-2423e5d1772b",
@@ -18,6 +14,6 @@ card = ItemCardDef(
     collector_number=92,
     set_code="BASE1",
     rarity=Rarities.Common,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    condition=opponent_has_energy_attached,
+    effect=energy_removal,
 )
