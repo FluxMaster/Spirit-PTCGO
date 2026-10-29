@@ -1,0 +1,49 @@
+"""STUB: effect not implemented — do not guess mechanics.
+Dialga-GX (SM5 #100): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
+"""
+
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+card = PokemonCardDef(
+    guid="1f91bc44-b818-55f3-a8b6-873dd7ed75a8",
+    key="SM5",
+    name="com.direwolfdigital.cake.data.archetypes.pokemon.DialgaGX.Name",
+    display_name="Dialga-GX",
+    searchable_by=["Dialga-GX", "Basic", "GX", "DialgaGX"],
+    subtypes=["Basic", "GX"],
+    collector_number=100,
+    set_code="SM5",
+    rarity=Rarities.RareHoloGX,
+    hp=180,
+    elements=[PokemonTypes.DRAGON],
+    stage=PokemonStage.BASIC,
+    retreat_cost=3,
+    weakness_type=PokemonTypes.FAIRY,
+    family_id=483,
+    abilities=[
+        Attack(
+            title="Overclock",
+            game_text="Draw cards until you have 6 cards in your hand.",
+            cost={PokemonTypes.METAL: 1},
+            # STUB: attack effect not implemented
+            effect=unimplemented,
+        ),
+        Attack(
+            title="Shred",
+            game_text="This attack's damage isn't affected by any effects on your opponent's Active Pok\u00e9mon.",
+            cost={PokemonTypes.METAL: 1, PokemonTypes.COLORLESS: 2},
+            damage=80,
+            # STUB: attack effect not implemented
+            effect=unimplemented,
+        ),
+        Attack(
+            title="Timeless-GX",
+            game_text="Take another turn after this one. (Skip the between-turns step.) (You can't use more than 1 GX attack in a game.)",
+            cost={PokemonTypes.METAL: 3, PokemonTypes.COLORLESS: 2},
+            damage=150,
+            # STUB: attack effect not implemented
+            effect=unimplemented,
+        ),
+    ],
+)

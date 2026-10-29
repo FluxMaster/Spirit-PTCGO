@@ -1,0 +1,43 @@
+"""STUB: effect not implemented — do not guess mechanics.
+Rotom (SM5 #50): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
+"""
+
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+card = PokemonCardDef(
+    guid="8578c6fe-328d-5de0-bf5a-c67090072aa6",
+    key="SM5",
+    name="com.direwolfdigital.cake.data.archetypes.pokemon.Rotom.Name",
+    display_name="Rotom",
+    searchable_by=["Rotom", "Basic", "Rotom"],
+    subtypes=["Basic"],
+    collector_number=50,
+    set_code="SM5",
+    rarity=Rarities.Uncommon,
+    hp=70,
+    elements=[PokemonTypes.LIGHTNING],
+    stage=PokemonStage.BASIC,
+    retreat_cost=1,
+    weakness_type=PokemonTypes.FIGHTING,
+    resistance_type=PokemonTypes.METAL,
+    resistance_amount=20,
+    family_id=479,
+    abilities=[
+        Ability(
+            title="Roto Motor",
+            game_text="If you have 9 or more Pok\u00e9mon Tool cards in your discard pile, ignore all Energy in the attack cost of each of this Pok\u00e9mon's attacks.",
+            ability_type=AbilityTypes.POKE_ABILITY,
+            # STUB: ability effect not implemented
+            effect=unimplemented,
+        ),
+        Attack(
+            title="Plasma Slice",
+            game_text="This Pok\u00e9mon can't attack during your next turn.",
+            cost={PokemonTypes.LIGHTNING: 3},
+            damage=120,
+            # STUB: attack effect not implemented
+            effect=unimplemented,
+        ),
+    ],
+)

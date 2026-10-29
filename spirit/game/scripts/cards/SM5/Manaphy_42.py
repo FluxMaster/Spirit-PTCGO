@@ -1,0 +1,41 @@
+"""STUB: effect not implemented — do not guess mechanics.
+Manaphy (SM5 #42): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
+"""
+
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+card = PokemonCardDef(
+    guid="bbfbda70-3391-599b-b509-a7b2376aa4a9",
+    key="SM5",
+    name="com.direwolfdigital.cake.data.archetypes.pokemon.Manaphy.Name",
+    display_name="Manaphy",
+    searchable_by=["Manaphy", "Basic", "Manaphy"],
+    subtypes=["Basic"],
+    collector_number=42,
+    set_code="SM5",
+    rarity=Rarities.Uncommon,
+    hp=70,
+    elements=[PokemonTypes.WATER],
+    stage=PokemonStage.BASIC,
+    retreat_cost=1,
+    weakness_type=PokemonTypes.GRASS,
+    family_id=490,
+    abilities=[
+        Attack(
+            title="Deep Currents",
+            game_text="Shuffle 5 Water Energy cards from your discard pile into your deck.",
+            cost={PokemonTypes.WATER: 1},
+            # STUB: attack effect not implemented
+            effect=unimplemented,
+        ),
+        Attack(
+            title="Water Pulse",
+            game_text="Your opponent's Active Pok\u00e9mon is now Asleep.",
+            cost={PokemonTypes.WATER: 1},
+            damage=20,
+            # STUB: attack effect not implemented
+            effect=unimplemented,
+        ),
+    ],
+)

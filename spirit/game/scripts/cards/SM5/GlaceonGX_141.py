@@ -1,0 +1,51 @@
+"""STUB: effect not implemented — do not guess mechanics.
+Glaceon-GX (SM5 #141): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
+"""
+
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+card = PokemonCardDef(
+    guid="b4971d2d-7916-5c6d-964c-85e70a9c4d2b",
+    key="SM5",
+    name="com.direwolfdigital.cake.data.archetypes.pokemon.GlaceonGX.Name",
+    display_name="Glaceon-GX",
+    searchable_by=["Glaceon-GX", "Stage 1", "GX", "GlaceonGX"],
+    subtypes=["Stage 1", "GX"],
+    collector_number=141,
+    set_code="SM5",
+    rarity=Rarities.RareUltra,
+    hp=200,
+    elements=[PokemonTypes.WATER],
+    stage=PokemonStage.STAGE1,
+    retreat_cost=2,
+    weakness_type=PokemonTypes.METAL,
+    evolves_from="com.direwolfdigital.cake.data.archetypes.pokemon.Eevee.Name",
+    family_id=133,
+    abilities=[
+        Ability(
+            title="Freezing Gaze",
+            game_text="As long as this Pok\u00e9mon is your Active Pok\u00e9mon, your opponent's Pok\u00e9mon-GX and Pok\u00e9mon-EX in play, in their hand, and in their discard pile have no Abilities, except for Freezing Gaze.",
+            ability_type=AbilityTypes.POKE_ABILITY,
+            # STUB: ability effect not implemented
+            effect=unimplemented,
+        ),
+        Attack(
+            title="Frost Bullet",
+            game_text="This attack does 30 damage to 1 of your opponent's Benched Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
+            cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 2},
+            damage=90,
+            # STUB: attack effect not implemented
+            effect=unimplemented,
+        ),
+        Attack(
+            title="Polar Spear-GX",
+            game_text="This attack does 50 damage for each damage counter on your opponent's Active Pok\u00e9mon. (You can't use more than 1 GX attack in a game.)",
+            cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 2},
+            damage=50,
+            damage_operator="x",
+            # STUB: attack effect not implemented
+            effect=unimplemented,
+        ),
+    ],
+)
