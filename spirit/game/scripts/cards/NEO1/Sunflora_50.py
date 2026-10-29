@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Sunflora (NEO1 #50): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import petal_dance
+
 
 card = PokemonCardDef(
     guid="abab4c3d-9a6a-5b30-bf48-70337d274fdc",
@@ -29,8 +27,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 3},
             damage=30,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=petal_dance,
         ),
     ],
 )

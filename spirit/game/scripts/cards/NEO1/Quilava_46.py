@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Quilava (NEO1 #46): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import self_energy_discard_attack
+from spirit.game.card_effects.ecard import fire_wind, has_fire_energy_attached
+
 
 card = PokemonCardDef(
     guid="d9afc570-d45c-5c24-b422-f004352ad0bb",
@@ -28,16 +27,16 @@ card = PokemonCardDef(
             game_text="Discard 1 Fire Energy card attached to Quilava in order to use this attack.",
             cost={PokemonTypes.FIRE: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            condition=has_fire_energy_attached,
+            effect=self_energy_discard_attack(
+                count=1, energy_type=PokemonTypes.FIRE, before_damage=True),
         ),
         Attack(
             title="Fire Wind",
             game_text="If your opponent has any Benched Pok\u00e9mon, choose 1 of them. Flip 2 coins. For each heads, this attack does 10 damage to that Pok\u00e9mon. (Don't apply Weakness and Resistance.)",
             cost={PokemonTypes.FIRE: 2},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=fire_wind,
         ),
     ],
 )

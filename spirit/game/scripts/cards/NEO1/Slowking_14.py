@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Slowking (NEO1 #14): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.attributes import SpecialConditions
+from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ecard import mind_games_passive
+
 
 card = PokemonCardDef(
     guid="915a74ad-3fb3-5c0e-8347-cf12cca18bc6",
@@ -26,9 +26,8 @@ card = PokemonCardDef(
         Ability(
             title="Mind Games",
             game_text="Whenever your opponent plays a Trainer card, you may flip a coin. If heads, that card does nothing. Put it on top of your opponent's deck. This power can't be used if Slowking is Asleep, Confused, or Paralyzed.",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            passive=mind_games_passive,
         ),
         Attack(
             title="Mind Blast",
@@ -36,8 +35,8 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 3},
             damage=20,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(
+                SpecialConditions.CONFUSED, flip=True, heads_bonus_damage=10),
         ),
     ],
 )

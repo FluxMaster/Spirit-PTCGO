@@ -1,12 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Super Rod (NEO1 #103): trainer effect stubbed.
-
-Card text:
-  - Flip a coin. If heads, put an Evolution card from your discard pile, if any, into your hand. If tails, put a Basic Pokémon card from your discard pile, if any, into your hand.
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ecard import super_rod, super_rod_condition
+
 
 card = ItemCardDef(
     guid="5c8e39bb-40ac-5a2b-8dc4-8a6e77911cfd",
@@ -18,6 +13,6 @@ card = ItemCardDef(
     collector_number=103,
     set_code="NEO1",
     rarity=Rarities.Common,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    condition=super_rod_condition,
+    effect=super_rod,
 )

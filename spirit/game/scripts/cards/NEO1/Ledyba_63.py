@@ -32,7 +32,7 @@ card = PokemonCardDef(
             title="Comet Punch",
             game_text="Flip 4 coins. This attack does 10 damage times the number of heads.",
             cost={PokemonTypes.GRASS: 2},
-            damage=10,
+            damage=0,
             damage_operator="x",
             effect=flip_damage(coins=4, per_heads=10),
         ),

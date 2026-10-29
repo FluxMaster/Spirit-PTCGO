@@ -386,6 +386,14 @@ class Passive:
         (Chaos Gym): tails cancels the play and the opponent may use it."""
         return False
 
+    def intercepts_trainer_play(
+        self, card: BoardEntity, player_id: str, carrier: BoardEntity
+    ) -> bool:
+        """True if `carrier`'s owner may flip to cancel `player_id` playing
+        `card` (Slowking Mind Games): heads, the card does nothing and is
+        put on top of that player's deck."""
+        return False
+
     def requires_retreat_flip(self, pokemon: PokemonEntity, carrier: BoardEntity) -> bool:
         """True to coin-flip `pokemon`'s retreat attempt (Mirage Stadium);
         tails locks that Pokémon from retreating this turn and discards no Energy."""
@@ -900,6 +908,16 @@ def trainer_play_taxer(board: BoardState, player_id: str,
         if passive.taxes_trainer_play(card, player_id, carrier):
             return carrier
     return None
+
+
+def trainer_play_interceptors(
+    board: BoardState, player_id: str, card: BoardEntity
+) -> List[BoardEntity]:
+    """Carriers whose owner may cancel this Trainer play (Slowking Mind Games)."""
+    return [
+        carrier for passive, carrier in active_passives(board)
+        if passive.intercepts_trainer_play(card, player_id, carrier)
+    ]
 
 
 def retreat_flip_required(board: BoardState, pokemon: PokemonEntity) -> Optional[BoardEntity]:

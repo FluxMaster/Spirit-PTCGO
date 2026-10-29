@@ -136,7 +136,7 @@ from .passives import (
     retreat_discards_remaining_energy,
     retreat_energy_destination, retreat_flip_required,
     tool_attach_allowed, tool_slots_free, tool_suppressed,
-    trainer_play_taxer,
+    trainer_play_interceptors, trainer_play_taxer,
 )
 from .legal_actions import (
     ACTION_ATTACH_TOOL,
@@ -4752,6 +4752,8 @@ class GameSession:
 
     async def _execute_attach_tool(self, player_id, card, entry, target_ids):
         """Attaches a Pokemon Tool underneath the chosen Pokemon (one each)."""
+        if await self._maybe_cancel_trainer_play(player_id, card):
+            return
         target_id = self._validated_target(entry, target_ids)
         target = self.board_state.get_entity(target_id) if target_id else None
         if target is None or tool_slots_free(self.board_state, target) <= 0:
@@ -5233,6 +5235,8 @@ class GameSession:
 
         # Effect dialogs run after placement so both viewers see the card on
         # the trainer slot while the player decides.
+        if await self._maybe_cancel_trainer_play(player_id, card):
+            return False
         ctx = await self._resolve_taxed_trainer_effect(
             player_id, card, play_target=play_target)
         logging.info(
@@ -5264,6 +5268,31 @@ class GameSession:
             # The effect may have removed a Stadium / toggled capacity passives.
             await self.enforce_bench_capacity()
         return ctx is not None and ctx.ends_turn
+
+    async def _maybe_cancel_trainer_play(self, player_id, card) -> bool:
+        """Slowking Mind Games: the opponent may flip; heads, the Trainer
+        does nothing and is put on top of the playing player's deck.
+        Returns True when the play was cancelled."""
+        interceptors = trainer_play_interceptors(self.board_state, player_id, card)
+        if not interceptors:
+            return False
+        name = getattr(def_for(card.archetype_id), "display_name", None) \
+            or "that Trainer card"
+        for carrier in interceptors:
+            owner = carrier.owning_player_id
+            if owner is None or owner == player_id:
+                continue
+            ctx = EffectContext(self, owner, carrier, None)
+            if not await ctx.ask_yes_no(f"Use Mind Games on {name}?"):
+                continue
+            results = await ctx.flip_coins(1, "Mind Games", source=carrier)
+            if not (results and results[0]):
+                continue
+            card.owning_player_id = player_id
+            await ctx.put_on_top_of_deck(card)
+            await self._flush_effect_runs(ctx)
+            return True
+        return False
 
     async def _resolve_taxed_trainer_effect(self, player_id, card, play_target=None):
         """Chaos Gym: flip before the Item/Supporter resolves; tails lets the
@@ -5325,6 +5354,8 @@ class GameSession:
 
     async def _execute_play_stadium(self, player_id, card):
         """Plays a Stadium: the previous one goes to its owner's discard."""
+        if await self._maybe_cancel_trainer_play(player_id, card):
+            return
         stadium_area = self.board_state.find_global_area("activeStadium")
         if not stadium_area:
             return

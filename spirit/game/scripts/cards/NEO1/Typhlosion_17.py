@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Typhlosion (NEO1 #17): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ecard import fire_recharge, fire_recharge_condition, flame_burst
+
 
 card = PokemonCardDef(
     guid="a8f9fe61-44be-5d0b-9117-29e20c57cc6e",
@@ -26,9 +24,10 @@ card = PokemonCardDef(
         Ability(
             title="Fire Recharge",
             game_text="Once during your turn (before your attack), you may flip a coin. If heads, attach a Fire Energy card from your discard pile to 1 of your Fire Pok\u00e9mon. This power can't be used if Typhlosion is Asleep, Confused, or Paralyzed.",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            activation=Activations.ONCE_PER_TURN,
+            condition=fire_recharge_condition,
+            effect=fire_recharge,
         ),
         Attack(
             title="Flame Burst",
@@ -36,8 +35,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 4},
             damage=60,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flame_burst,
         ),
     ],
 )

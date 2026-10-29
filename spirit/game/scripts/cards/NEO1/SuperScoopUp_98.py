@@ -1,12 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Super Scoop Up (NEO1 #98): trainer effect stubbed.
-
-Card text:
-  - Flip a coin. If heads, return 1 of your Pokémon and all cards attached to it to your hand.
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ecard import super_scoop_up
+
 
 card = ItemCardDef(
     guid="48e9afb5-a38e-5879-a319-3a0023a79142",
@@ -18,6 +13,5 @@ card = ItemCardDef(
     collector_number=98,
     set_code="NEO1",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=super_scoop_up,
 )
