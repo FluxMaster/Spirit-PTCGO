@@ -2622,7 +2622,7 @@ async def deep_dive(ctx):
 class AntiLightningPassive(Passive):
     """Can't attach Lightning Energy cards from hand to the holder."""
 
-    def blocks_energy_attach(self, attaching_player_id, energy, target, carrier):
+    def blocks_energy_attach(self, energy, player_id, target, carrier):
         if carrier_pokemon(carrier) is not target:
             return False
         return _typed_basic_energy(energy, PokemonTypes.LIGHTNING)
