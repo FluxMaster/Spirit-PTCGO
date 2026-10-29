@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Marill (SI1 #11): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import snipe_attack
+
 
 card = PokemonCardDef(
     guid="6f8386d0-6ba3-5cf0-884f-082157c9c282",
@@ -26,8 +24,7 @@ card = PokemonCardDef(
             title="Squirt",
             game_text="Choose 1 of your opponent's Pok\u00e9mon. This attack does 10 damage to that Pok\u00e9mon. Don't apply Weakness and Resistance.",
             cost={PokemonTypes.WATER: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=snipe_attack(10, pool="any", apply_modifiers=False),
         ),
         Attack(
             title="Rolling Tackle",

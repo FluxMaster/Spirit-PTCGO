@@ -1,9 +1,11 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Slowking (SI1 #14): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import (
+    count_energy, damage_per, flip_or_nothing,
+)
+from spirit.game.card_effects.support_common import search_to_hand
+from spirit.game.session.effects import is_trainer_card
+
 
 card = PokemonCardDef(
     guid="2bb670f3-22b9-5a57-bf96-c0a73144688c",
@@ -27,8 +29,10 @@ card = PokemonCardDef(
             title="Revelation",
             game_text="Flip a coin. If heads, search your deck for a Trainer card, show it to your opponent, and put it into your hand. Shuffle your deck afterward.",
             cost={PokemonTypes.PSYCHIC: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_or_nothing(then=search_to_hand(
+                is_trainer_card, count=1, minimum=0, reveal=True,
+                prompt="Choose a Trainer card.",
+            )),
         ),
         Attack(
             title="Psychic",
@@ -36,8 +40,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 1},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_per(count_energy("defender", cards=True), 10, base=10),
         ),
     ],
 )

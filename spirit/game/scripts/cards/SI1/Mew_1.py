@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Mew (SI1 #1): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import rainbow_wave
+
 
 card = PokemonCardDef(
     guid="87a2036c-4ee8-532d-b98e-a2e0a95df53e",
@@ -26,8 +24,7 @@ card = PokemonCardDef(
             title="Rainbow Wave",
             game_text="Choose a type of Energy other than Colorless attached to Mew. This attack does 20 damage to each of your opponent's Pok\u00e9mon of that type (including Benched Pok\u00e9mon). Don't apply Weakness and Resistance.",
             cost={PokemonTypes.PSYCHIC: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=rainbow_wave,
         ),
     ],
 )

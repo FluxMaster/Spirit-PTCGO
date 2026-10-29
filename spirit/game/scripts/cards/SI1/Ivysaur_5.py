@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Ivysaur (SI1 #5): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import strange_scent
+
 
 card = PokemonCardDef(
     guid="9bbff0fe-fdcf-554b-aa8e-188d591b882c",
@@ -27,8 +25,7 @@ card = PokemonCardDef(
             title="Strange Scent",
             game_text="Each player flips a coin. Each player who gets heads chooses a total of 3 damage counters from among his or her Pok\u00e9mon and removes them. (If the player's Pok\u00e9mon have fewer total damage counters than that, he or she removes all of them.)",
             cost={PokemonTypes.GRASS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=strange_scent,
         ),
         Attack(
             title="Razor Leaf",

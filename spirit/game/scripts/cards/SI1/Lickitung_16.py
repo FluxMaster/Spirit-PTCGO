@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Lickitung (SI1 #16): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_or_nothing, snipe_attack
+from spirit.game.card_effects.ecard import lick_wounds
+
 
 card = PokemonCardDef(
     guid="0738d786-1cc8-53a4-ad40-51606c731d8c",
@@ -27,15 +26,14 @@ card = PokemonCardDef(
             title="Lick Wounds",
             game_text="Flip a coin. If heads, choose 1 Pok\u00e9mon (yours or your opponent's) with damage counters on it and remove 2 damage counters from it (1 if it only has 1).",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=lick_wounds,
         ),
         Attack(
             title="Tongue Stretch",
             game_text="Flip a coin. If heads, choose 1 of your opponent's Pok\u00e9mon. This attack does 20 damage to that Pok\u00e9mon. Don't apply Weakness and Resistance.",
             cost={PokemonTypes.COLORLESS: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_or_nothing(then=snipe_attack(
+                20, pool="any", apply_modifiers=False)),
         ),
     ],
 )
