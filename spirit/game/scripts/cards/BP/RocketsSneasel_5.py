@@ -4,6 +4,8 @@ Rocket's Sneasel (BP #5): one or more attacks/abilities use effect=unimplemented
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import condition_attack
+
 
 card = PokemonCardDef(
     guid="521cd0bd-b745-566c-b616-fcbb2404301e",
@@ -28,7 +30,7 @@ card = PokemonCardDef(
             game_text="The Defending Pok\u00e9mon can't retreat during your opponent's next turn.",
             cost={PokemonTypes.DARKNESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(no_retreat=True),
         ),
         Attack(
             title="Continuous Scratch",

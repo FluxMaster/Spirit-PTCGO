@@ -4,6 +4,9 @@ Rocket's Mewtwo (BP #8): one or more attacks/abilities use effect=unimplemented 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.attributes import SpecialConditions
+from spirit.game.card_effects.attacks_common import condition_attack
+
 
 card = PokemonCardDef(
     guid="a5fb9a10-e503-500c-b81e-9d30000ed958",
@@ -35,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 2},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(SpecialConditions.ASLEEP, flip=True),
         ),
         Attack(
             title="Psyburn",
