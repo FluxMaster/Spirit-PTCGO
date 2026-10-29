@@ -4043,10 +4043,37 @@ class GameSession:
 
     async def _fire_end_of_turn_triggers(self, active_id: str):
         """END_OF_TURN for the turn player's in-play Pokemon, after their turn
-        ends and before the checkup (Radiant Venusaur's Sunny Bloom)."""
+        ends and before the checkup (Radiant Venusaur's Sunny Bloom).
+
+        Also discards e-Card Technical Machines attached to that player's
+        Pokemon ("At the end of your turn, discard this card").
+        """
         for pokemon in list(self.board_state.pokemon_in_play(active_id)):
             await self._fire_triggered_abilities(
                 active_id, pokemon, Triggers.END_OF_TURN)
+        await self._discard_technical_machines(active_id)
+
+    async def _discard_technical_machines(self, player_id: str):
+        """Discard every Technical Machine attached to `player_id`'s Pokemon."""
+        to_discard = []
+        holders = []
+        for pokemon in list(self.board_state.pokemon_in_play(player_id)):
+            for child in list(pokemon.children):
+                if child.get_attribute(AttrID.TRAINER_TYPE) == TrainerType.TECHNICAL_MACHINE.value:
+                    to_discard.append(child)
+                    holders.append(pokemon)
+        if not to_discard:
+            return
+        discard_area = self.board_state.find_player_area(player_id, "discard")
+        if discard_area is None:
+            return
+        for card, holder in zip(to_discard, holders):
+            self.board_state.move_cards([card.entity_id], discard_area.entity_id)
+            logging.info(
+                f"[Session {self.game_id}] Discarded Technical Machine "
+                f"{card.entity_id} at end of turn."
+            )
+            await self.refresh_granted_abilities(holder)
 
     async def _fire_stadium_triggers(self, acting_player_id: str, trigger: str,
                                      ctx_setup=None):
