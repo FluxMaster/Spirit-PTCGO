@@ -4,6 +4,14 @@ Detective Pikachu (GUM #10): one or more attacks/abilities use effect=unimplemen
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_or_nothing
+
+
+async def pry(ctx):
+    """10 damage. Your opponent reveals their hand."""
+    await ctx.deal_damage()
+    await ctx.reveal_hand(of_player=ctx.opponent_id)
+
 
 card = PokemonCardDef(
     guid="02a84ff9-b113-5290-a422-6f8fe72ffc5d",
@@ -29,7 +37,7 @@ card = PokemonCardDef(
             game_text="Your opponent reveals their hand.",
             cost={PokemonTypes.LIGHTNING: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=pry,
         ),
         Attack(
             title="Surprise Attack",
@@ -37,7 +45,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=80,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_or_nothing(),
         ),
     ],
 )

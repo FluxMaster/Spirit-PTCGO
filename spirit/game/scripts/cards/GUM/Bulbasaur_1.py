@@ -4,6 +4,8 @@ Bulbasaur (GUM #1): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm8 import find_a_friend
+
 
 card = PokemonCardDef(
     guid="43f1444c-8732-5e3b-b77c-bbc243329fdc",
@@ -27,7 +29,7 @@ card = PokemonCardDef(
             game_text="Search your deck for a Grass Pok\u00e9mon, reveal it, and put it into your hand. Then, shuffle your deck.",
             cost={PokemonTypes.GRASS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=find_a_friend,
         ),
     ],
 )

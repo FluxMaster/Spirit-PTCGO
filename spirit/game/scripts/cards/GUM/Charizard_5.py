@@ -4,6 +4,8 @@ Charizard (GUM #5): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm4 import super_electromagnetic_tackle
+
 
 card = PokemonCardDef(
     guid="3f879e45-c7fd-503c-813e-b54353af0a89",
@@ -34,7 +36,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 1, PokemonTypes.COLORLESS: 3},
             damage=180,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=super_electromagnetic_tackle,
         ),
     ],
 )

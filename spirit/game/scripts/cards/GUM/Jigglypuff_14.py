@@ -4,6 +4,8 @@ Jigglypuff (GUM #14): one or more attacks/abilities use effect=unimplemented unt
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import heal_targets
+
 
 card = PokemonCardDef(
     guid="8d3ebc61-dc4f-540f-9859-062aa26fc0bf",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             game_text="Heal 10 damage from each of your Pok\u00e9mon.",
             cost={PokemonTypes.FAIRY: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=heal_targets(10, 'each_own'),
         ),
     ],
 )
