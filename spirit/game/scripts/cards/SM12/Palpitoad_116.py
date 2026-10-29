@@ -26,7 +26,6 @@ card = PokemonCardDef(
             game_text="This attack does 10 damage to each of your Benched Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.FIGHTING: 1},
             damage=60,
-            # STUB: attack effect not implemented
             effect=earthquake,
         ),
     ],

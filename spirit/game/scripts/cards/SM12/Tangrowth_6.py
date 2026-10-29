@@ -28,7 +28,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
             effect=rocket_fall,
         ),
         Attack(
@@ -37,7 +36,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 2},
             damage=80,
             damage_operator="x",
-            # STUB: attack effect not implemented
             effect=flip_damage(coins=2, per_heads=80),
         ),
     ],

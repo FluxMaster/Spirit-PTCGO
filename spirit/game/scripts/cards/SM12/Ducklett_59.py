@@ -28,7 +28,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
             effect=flip_bonus(30),
         ),
     ],

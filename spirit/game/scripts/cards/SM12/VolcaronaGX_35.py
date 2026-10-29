@@ -41,7 +41,6 @@ card = PokemonCardDef(
             title="Massive Heat Wave-GX",
             game_text="Discard an Energy from each of your opponent's Pok\u00e9mon. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.FIRE: 1},
-            # STUB: attack effect not implemented
             effect=dread_storm_gx,
         ),
     ],

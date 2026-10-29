@@ -25,7 +25,6 @@ card = PokemonCardDef(
             title="Singe",
             game_text="Your opponent's Active Pok\u00e9mon is now Burned.",
             cost={PokemonTypes.FIRE: 1},
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.BURNED),
         ),
     ],

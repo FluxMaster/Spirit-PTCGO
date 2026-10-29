@@ -27,7 +27,6 @@ card = PokemonCardDef(
             title="Seasonal Blessings",
             game_text="Once during your turn (before your attack), you may draw a card.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
             activation=Activations.ONCE_PER_TURN,
             condition=lambda board, player_id, pokemon=None: deck_nonempty(board, player_id),
             effect=draw_attack(1),
@@ -37,7 +36,6 @@ card = PokemonCardDef(
             game_text="You may switch this Pok\u00e9mon with 1 of your Benched Pok\u00e9mon.",
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 1},
             damage=60,
-            # STUB: attack effect not implemented
             effect=switch_self_attack(optional=True),
         ),
     ],

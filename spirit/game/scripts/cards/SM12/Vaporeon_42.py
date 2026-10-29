@@ -33,7 +33,6 @@ card = PokemonCardDef(
             game_text="Heal 30 damage from each of your Pok\u00e9mon.",
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 2},
             damage=60,
-            # STUB: attack effect not implemented
             effect=heal_targets(30, 'each_own'),
         ),
     ],

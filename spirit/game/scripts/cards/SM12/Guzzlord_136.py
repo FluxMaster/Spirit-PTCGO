@@ -27,7 +27,6 @@ card = PokemonCardDef(
             title="Mountain Munch",
             game_text="Discard the top card of your opponent's deck.",
             cost={PokemonTypes.DARKNESS: 1},
-            # STUB: attack effect not implemented
             effect=mill_attack(1),
         ),
         Attack(

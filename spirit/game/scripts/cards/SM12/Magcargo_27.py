@@ -25,7 +25,6 @@ card = PokemonCardDef(
             title="Stomp Off",
             game_text="Discard the top 2 cards of your opponent's deck.",
             cost={PokemonTypes.FIRE: 1},
-            # STUB: attack effect not implemented
             effect=mill_attack(2),
         ),
         Attack(
@@ -33,7 +32,6 @@ card = PokemonCardDef(
             game_text="Discard an Energy from this Pok\u00e9mon.",
             cost={PokemonTypes.FIRE: 1, PokemonTypes.COLORLESS: 1},
             damage=80,
-            # STUB: attack effect not implemented
             effect=self_energy_discard_attack(count=1),
         ),
     ],

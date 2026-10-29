@@ -25,7 +25,6 @@ card = PokemonCardDef(
             title="High Water",
             game_text="Attach 2 Water Energy cards from your discard pile to 1 of your Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=star_stream,
         ),
         Attack(
@@ -33,7 +32,6 @@ card = PokemonCardDef(
             game_text="Discard an Energy from this Pok\u00e9mon.",
             cost={PokemonTypes.WATER: 2, PokemonTypes.COLORLESS: 2},
             damage=130,
-            # STUB: attack effect not implemented
             effect=self_energy_discard_attack(count=1),
         ),
     ],

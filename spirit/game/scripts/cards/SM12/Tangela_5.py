@@ -24,7 +24,6 @@ card = PokemonCardDef(
             title="Toxic",
             game_text="Your opponent's Active Pok\u00e9mon is now Poisoned. Put 2 damage counters instead of 1 on that Pok\u00e9mon between turns.",
             cost={PokemonTypes.GRASS: 1},
-            # STUB: attack effect not implemented
             effect=toxic_secretion,
         ),
     ],

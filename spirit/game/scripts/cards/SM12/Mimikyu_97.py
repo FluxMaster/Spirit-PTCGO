@@ -32,7 +32,6 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, your opponent's Active Pok\u00e9mon is now Confused.",
             cost={PokemonTypes.COLORLESS: 2},
             damage=20,
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.CONFUSED, flip=True),
         ),
     ],

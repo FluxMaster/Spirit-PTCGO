@@ -25,7 +25,6 @@ card = PokemonCardDef(
             game_text="Discard an Energy from this Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 2},
             damage=50,
-            # STUB: attack effect not implemented
             effect=self_energy_discard_attack(count=1),
         ),
     ],

@@ -26,7 +26,6 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, your opponent's Active Pok\u00e9mon is now Paralyzed.",
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 2},
             damage=30,
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.PARALYZED, flip=True),
         ),
     ],

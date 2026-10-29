@@ -29,7 +29,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.FAIRY: 2, PokemonTypes.COLORLESS: 1},
             damage=120,
             damage_operator="+",
-            # STUB: attack effect not implemented
             effect=flip_damage(until_tails=True, bonus_per_heads=30),
         ),
         Attack(

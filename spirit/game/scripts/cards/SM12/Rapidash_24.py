@@ -26,7 +26,6 @@ card = PokemonCardDef(
             game_text="This attack does 30 damage to 1 of your opponent's Benched Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.FIRE: 1},
             damage=30,
-            # STUB: attack effect not implemented
             effect=lava_burn,
         ),
         Attack(

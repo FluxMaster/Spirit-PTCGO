@@ -61,7 +61,6 @@ card = PokemonCardDef(
             title="Recall",
             game_text="Choose an attack from 1 of this Pok\u00e9mon's previous Evolutions and use it as this attack.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=secret_attack,
         ),
         Attack(
@@ -69,7 +68,6 @@ card = PokemonCardDef(
             game_text="Discard all Energy from this Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 2},
             damage=130,
-            # STUB: attack effect not implemented
             effect=self_energy_discard_attack(all_energy=True),
         ),
     ],

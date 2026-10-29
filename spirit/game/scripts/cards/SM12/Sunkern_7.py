@@ -25,7 +25,6 @@ card = PokemonCardDef(
             game_text="Heal 10 damage from this Pok\u00e9mon.",
             cost={PokemonTypes.GRASS: 1},
             damage=10,
-            # STUB: attack effect not implemented
             effect=heal_attack(10),
         ),
     ],

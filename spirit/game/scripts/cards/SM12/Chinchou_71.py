@@ -31,7 +31,6 @@ card = PokemonCardDef(
             title="Scout",
             game_text="Your opponent reveals their hand.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=pry,
         ),
         Attack(

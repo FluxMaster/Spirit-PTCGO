@@ -43,7 +43,6 @@ card = PokemonCardDef(
             title="Mischievous Hands",
             game_text="Choose 2 of your opponent's Pok\u00e9mon and put 2 damage counters on each of them.",
             cost={PokemonTypes.PSYCHIC: 1},
-            # STUB: attack effect not implemented
             effect=night_footsteps,
         ),
     ],

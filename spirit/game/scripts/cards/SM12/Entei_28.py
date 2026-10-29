@@ -26,7 +26,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
             effect=bonus_if(lambda ctx: ctx.kos_suffered_last_turn() > 0, 90),
         ),
         Attack(

@@ -32,7 +32,6 @@ card = PokemonCardDef(
             game_text="You may draw cards until you have 5 cards in your hand.",
             cost={PokemonTypes.PSYCHIC: 1},
             damage=10,
-            # STUB: attack effect not implemented
             effect=_return,
         ),
     ],

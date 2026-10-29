@@ -49,7 +49,6 @@ card = PokemonCardDef(
             title="Future Sight",
             game_text="Look at the top 4 cards of either player's deck and put them back in any order.",
             cost={PokemonTypes.PSYCHIC: 1},
-            # STUB: attack effect not implemented
             effect=future_sight,
         ),
     ],

@@ -25,7 +25,6 @@ card = PokemonCardDef(
             title="Synthesis",
             game_text="Search your deck for a Grass Energy card and attach it to 1 of your Pok\u00e9mon. Then, shuffle your deck.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=search_attach_energy(is_grass_energy_card, count=1),
         ),
         Attack(
@@ -33,7 +32,6 @@ card = PokemonCardDef(
             game_text="Heal 30 damage from this Pok\u00e9mon.",
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 1},
             damage=50,
-            # STUB: attack effect not implemented
             effect=heal_attack(30),
         ),
     ],

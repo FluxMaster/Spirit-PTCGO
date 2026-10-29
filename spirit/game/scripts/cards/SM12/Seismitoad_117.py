@@ -27,7 +27,6 @@ card = PokemonCardDef(
             title="Bulldoze",
             game_text="Once during your turn (before your attack), you may search your deck for a card, shuffle your deck, then put that card on top of it.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
             activation=Activations.ONCE_PER_TURN,
             effect=smooth_over,
             condition=deck_has_cards,

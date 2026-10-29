@@ -26,7 +26,6 @@ card = PokemonCardDef(
             title="Solid Shell",
             game_text="This Pok\u00e9mon takes 30 less damage from attacks (after applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
             passive=takes_less_passive(30),
         ),
         Attack(

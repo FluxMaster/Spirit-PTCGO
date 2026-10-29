@@ -31,7 +31,6 @@ card = PokemonCardDef(
             title="Seaweed Grab",
             game_text="Put a Trainer card from your discard pile into your hand.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=electromagnetic_sonar,
         ),
         Attack(
@@ -39,7 +38,6 @@ card = PokemonCardDef(
             game_text="This attack's damage isn't affected by Resistance.",
             cost={PokemonTypes.PSYCHIC: 2, PokemonTypes.COLORLESS: 1},
             damage=100,
-            # STUB: attack effect not implemented
             effect=feint,
         ),
     ],

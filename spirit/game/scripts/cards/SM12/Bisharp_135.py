@@ -28,7 +28,6 @@ card = PokemonCardDef(
             game_text="The Defending Pok\u00e9mon can't retreat during your opponent's next turn.",
             cost={PokemonTypes.COLORLESS: 1},
             damage=30,
-            # STUB: attack effect not implemented
             effect=condition_attack(no_retreat=True),
         ),
         Attack(
@@ -36,7 +35,6 @@ card = PokemonCardDef(
             game_text="This Pok\u00e9mon can't use Slashing Strike during your next turn.",
             cost={PokemonTypes.DARKNESS: 1, PokemonTypes.COLORLESS: 1},
             damage=80,
-            # STUB: attack effect not implemented
             effect=None,
             locks_next_turn=True,
         ),

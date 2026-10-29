@@ -25,7 +25,6 @@ card = PokemonCardDef(
             title="Lead",
             game_text="Search your deck for a Supporter card, reveal it, and put it into your hand. Then, shuffle your deck.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=search_to_hand(is_supporter_card, count=1, reveal=True, prompt='Choose a Supporter card.'),
         ),
         Attack(

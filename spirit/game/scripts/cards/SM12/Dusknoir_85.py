@@ -36,7 +36,6 @@ card = PokemonCardDef(
             game_text="During your next turn, this Pok\u00e9mon's Psych Up attack does 60 more damage (before applying Weakness and Resistance).",
             cost={PokemonTypes.PSYCHIC: 1},
             damage=60,
-            # STUB: attack effect not implemented
             effect=psych_up,
         ),
     ],

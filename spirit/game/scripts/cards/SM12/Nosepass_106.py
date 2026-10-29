@@ -24,7 +24,6 @@ card = PokemonCardDef(
             title="Draw Toward",
             game_text="Switch 1 of your opponent's Benched Pok\u00e9mon with their Active Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 2},
-            # STUB: attack effect not implemented
             effect=gust_attack(),
         ),
         Attack(

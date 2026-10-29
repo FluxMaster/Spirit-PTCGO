@@ -24,7 +24,6 @@ card = PokemonCardDef(
             title="Ascension",
             game_text="Search your deck for a card that evolves from this Pok\u00e9mon and put it onto this Pok\u00e9mon to evolve it. Then, shuffle your deck.",
             cost={PokemonTypes.PSYCHIC: 1},
-            # STUB: attack effect not implemented
             effect=evolve_self_from_deck,
         ),
     ],

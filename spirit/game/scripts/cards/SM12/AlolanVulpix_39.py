@@ -24,7 +24,6 @@ card = PokemonCardDef(
             title="Snowed In",
             game_text="As long as this Pok\u00e9mon is on your Bench, prevent all damage done to this Pok\u00e9mon by attacks (both yours and your opponent's).",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
             passive=submerge_passive,
         ),
         Attack(

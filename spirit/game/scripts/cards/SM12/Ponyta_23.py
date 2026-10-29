@@ -25,7 +25,6 @@ card = PokemonCardDef(
             title="Minor Errand-Running",
             game_text="Search your deck for up to 2 basic Energy cards, reveal them, and put them into your hand. Then, shuffle your deck.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=search_to_hand(predicate=is_basic_energy_card, count=2, reveal=True),
         ),
         Attack(

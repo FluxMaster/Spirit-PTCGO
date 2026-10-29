@@ -26,7 +26,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.FIGHTING: 1},
             damage=20,
             damage_operator="+",
-            # STUB: attack effect not implemented
             effect=onix_rage,
         ),
     ],

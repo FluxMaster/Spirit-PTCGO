@@ -26,7 +26,6 @@ card = PokemonCardDef(
             game_text="Discard a Special Energy from your opponent's Active Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 2},
             damage=30,
-            # STUB: attack effect not implemented
             effect=discard_opponent_energy_attack(special_only=True),
         ),
         Attack(

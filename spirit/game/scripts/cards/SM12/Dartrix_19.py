@@ -31,7 +31,6 @@ card = PokemonCardDef(
             game_text="Your opponent switches their Active Pok\u00e9mon with 1 of their Benched Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 2},
             damage=30,
-            # STUB: attack effect not implemented
             effect=gust_attack(opponent_chooses=True),
         ),
     ],

@@ -27,7 +27,6 @@ card = PokemonCardDef(
             game_text="Your opponent's Active Pok\u00e9mon is now Asleep.",
             cost={PokemonTypes.GRASS: 1},
             damage=20,
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.ASLEEP),
         ),
     ],

@@ -28,7 +28,6 @@ card = PokemonCardDef(
             game_text="The Defending Pok\u00e9mon can't retreat during your opponent's next turn.",
             cost={PokemonTypes.COLORLESS: 1},
             damage=30,
-            # STUB: attack effect not implemented
             effect=condition_attack(no_retreat=True),
         ),
         Attack(
@@ -36,7 +35,6 @@ card = PokemonCardDef(
             game_text="Discard 2 Energy from this Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 4},
             damage=140,
-            # STUB: attack effect not implemented
             effect=self_energy_discard_attack(count=2),
         ),
     ],

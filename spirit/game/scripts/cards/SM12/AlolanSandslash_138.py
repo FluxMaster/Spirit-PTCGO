@@ -29,7 +29,6 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, prevent all damage done to this Pok\u00e9mon by attacks during your opponent's next turn.",
             cost={},
             damage=30,
-            # STUB: attack effect not implemented
             effect=flip_protection(prevent=True),
         ),
         Attack(
@@ -38,7 +37,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.METAL: 1, PokemonTypes.COLORLESS: 2},
             damage=60,
             damage_operator="+",
-            # STUB: attack effect not implemented
             effect=bonus_if(lambda ctx: ctx.attacker is not None and has_tool(ctx.attacker), 60),
         ),
     ],

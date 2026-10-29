@@ -26,7 +26,6 @@ card = PokemonCardDef(
             title="Confuse Ray",
             game_text="Your opponent's Active Pok\u00e9mon is now Confused.",
             cost={PokemonTypes.GRASS: 1},
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.CONFUSED),
         ),
         Attack(

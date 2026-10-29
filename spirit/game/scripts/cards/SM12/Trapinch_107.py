@@ -33,7 +33,6 @@ card = PokemonCardDef(
             title="Nest Building",
             game_text="Search your deck for a Stadium card, reveal it, and put it into your hand. Then, shuffle your deck.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=search_to_hand(_is_stadium_card, count=1, minimum=0, reveal=True, prompt='Choose a Stadium card to put into your hand.'),
         ),
         Attack(

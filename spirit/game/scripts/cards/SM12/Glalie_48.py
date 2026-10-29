@@ -40,7 +40,6 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, your opponent's Active Pok\u00e9mon is now Paralyzed, and discard an Energy from that Pok\u00e9mon.",
             cost={PokemonTypes.WATER: 1},
             damage=30,
-            # STUB: attack effect not implemented
             effect=drowning_ball,
         ),
         Attack(

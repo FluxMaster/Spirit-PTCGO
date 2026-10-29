@@ -31,7 +31,6 @@ card = PokemonCardDef(
             game_text="Both Active Pok\u00e9mon are now Confused.",
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.CONFUSED, both_actives=True),
         ),
     ],
