@@ -124,7 +124,7 @@ from .passives import (
     ability_locked, active_passives, active_to_bench_counters,
     burn_recovery_blocked, passive_sleep_coins, effective_bench_capacity, effective_max_hp,
     effective_retreat_cost, energy_attach_taxer, evolve_heal_amount,
-    evolve_damage_counters, keeps_conditions_on_evolve,
+    evolve_damage_counters, conditions_kept_on_evolve,
     granted_extra_attacks, retreat_energy_destination, tool_slots_free,
     tool_suppressed,
     stadium_suppressed,
@@ -1525,6 +1525,21 @@ class GameSession:
             self.confusion_damage[eid] = snap["confusion"]
         if snap.get("paralyzed") is not None:
             self.paralyzed_since[eid] = snap["paralyzed"]
+
+    def _trim_condition_snap(self, snap: dict, kept: List[str]) -> dict:
+        """Keep only `kept` condition names (and their checkup bookkeeping)."""
+        trimmed = dict(snap)
+        trimmed["conditions"] = [n for n in (snap.get("conditions") or []) if n in kept]
+        keys = {
+            "sleep": CLIENT_SPECIAL_CONDITION_NAMES[SpecialConditions.ASLEEP],
+            "poison": CLIENT_SPECIAL_CONDITION_NAMES[SpecialConditions.POISONED],
+            "confusion": CLIENT_SPECIAL_CONDITION_NAMES[SpecialConditions.CONFUSED],
+            "paralyzed": CLIENT_SPECIAL_CONDITION_NAMES[SpecialConditions.PARALYZED],
+        }
+        for key, name in keys.items():
+            if name not in kept:
+                trimmed[key] = None
+        return trimmed
 
     def clear_pokemon_effects(self, pokemon) -> bool:
         """Wipes every effect that ends when a Pokemon leaves the Active spot
@@ -4990,17 +5005,18 @@ class GameSession:
             f"evolved {target.entity_id} into {card.entity_id}."
         )
 
-        # Condition markers clear on evolve unless Sea of Nothingness keeps them.
-        keep_conditions = keeps_conditions_on_evolve(self.board_state, target)
-        snap = self.snapshot_condition_state(target) if keep_conditions else None
+        # Condition markers clear on evolve unless a passive keeps them
+        # (Sea of Nothingness: all; Muk Poison Sacs: Poisoned only).
+        kept = conditions_kept_on_evolve(self.board_state, target)
+        snap = self.snapshot_condition_state(target) if kept else None
         if self.clear_pokemon_effects(target):
             await self.send_game_sequence(
                 list(self.players.values()), GameSequence.REMOVE_SPECIAL_CONDITION,
                 [self._entity_id_data_effect_msg("Target", target.entity_id),
                  self._condition_attr_msg(target)],
             )
-        if keep_conditions and snap and snap.get("conditions"):
-            self.restore_condition_state(card, snap)
+        if kept and snap and snap.get("conditions"):
+            self.restore_condition_state(card, self._trim_condition_snap(snap, kept))
             await self.send_game_sequence(
                 list(self.players.values()), GameSequence.ADD_SPECIAL_CONDITION,
                 [self._entity_id_data_effect_msg("Target", card.entity_id),
@@ -5082,10 +5098,10 @@ class GameSession:
         self.board_state.move_card(pokemon.entity_id, dest.entity_id)
         moves.append(self._entity_moved_msg(pokemon.entity_id, dest.entity_id, position))
 
-        # Devolving removes Special Conditions (not damage) unless Sea of
-        # Nothingness keeps them on the surviving stage.
-        keep_conditions = keeps_conditions_on_evolve(self.board_state, pokemon)
-        snap = self.snapshot_condition_state(pokemon) if keep_conditions else None
+        # Devolving removes Special Conditions (not damage) unless a passive
+        # keeps them on the surviving stage (Sea of Nothingness / Poison Sacs).
+        kept = conditions_kept_on_evolve(self.board_state, pokemon)
+        snap = self.snapshot_condition_state(pokemon) if kept else None
         self.clear_pokemon_effects(pokemon)
         self.reset_pokemon_damage(pokemon)
         self.reset_ability_usage(pokemon)
@@ -5122,8 +5138,8 @@ class GameSession:
             data_effects + moves + attrs,
         )
         await self.refresh_granted_abilities(prev)
-        if keep_conditions and snap and snap.get("conditions"):
-            self.restore_condition_state(prev, snap)
+        if kept and snap and snap.get("conditions"):
+            self.restore_condition_state(prev, self._trim_condition_snap(snap, kept))
             await self.send_game_sequence(
                 list(self.players.values()), GameSequence.ADD_SPECIAL_CONDITION,
                 [self._entity_id_data_effect_msg("Target", prev.entity_id),

@@ -65,6 +65,7 @@ from .passives import (
     supporter_effect_replacement,
     player_attack_effects_blocked,
     trainer_effects_blocked,
+    return_to_hand_blocked,
 )
 
 # CakeAttackEffect's damageType is a string array of client type names.
@@ -1385,6 +1386,8 @@ class EffectContext:
             if not hand:
                 continue
             if self._energy_removal_blocked(card):
+                continue
+            if return_to_hand_blocked(self.board, card):
                 continue
             if isinstance(card, CompositePokemonEntity):
                 departed.update(self._queue_composite_departure(card, hand, cards))
