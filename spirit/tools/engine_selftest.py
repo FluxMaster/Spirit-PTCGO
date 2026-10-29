@@ -2133,6 +2133,28 @@ async def test_setup_as_active():
     assert board.player_has_any_basic(P1)
 
 
+async def test_setup_if_second():
+    from spirit.game.data_utils import def_for
+    manectric = def_for("c8471fcc-7d43-5ef5-92c0-7576dd85f850")  # Promo_SM Manectric
+    assert manectric is not None and getattr(manectric, "setup_if_second", False), \
+        "Promo_SM Manectric must carry setup_if_second"
+    rig = Rig(manectric, FILLER, ENERGY_GUIDS, ITEM)
+    rig.setup("pokemon")
+    board = rig.board
+    in_hand = rig.to_area(rig.pull_guid(P1, manectric.guid), P1, "hand")
+    assert in_hand is not None
+    basics = board.basic_pokemon_in_hand(P1)
+    assert in_hand not in basics, \
+        "Stage 1 stays out of the Basic scans unless going second"
+    assert in_hand not in board.setup_active_candidates(P1), \
+        "Electric Start is not offered when going first"
+    candidates = board.setup_active_candidates(P1, going_second=True)
+    assert in_hand in candidates, "setup_if_second joins the opening-Active offer"
+    bench = board.setup_bench_candidates(P1, going_second=True)
+    assert in_hand in bench, "setup_if_second joins the opening-Bench offer"
+    assert board.player_has_any_basic(P1, going_second=True)
+
+
 TESTS = [
     test_temp_passive_prevents_then_expires,
     test_temp_passive_cleared_on_leave,
@@ -2200,6 +2222,7 @@ TESTS = [
     test_on_play_trigger_ends_turn,
     test_extra_prize_watchers,
     test_setup_as_active,
+    test_setup_if_second,
     test_blocks_attacks,
     test_damage_counters_on_evolve,
 ]

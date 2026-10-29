@@ -2288,19 +2288,21 @@ class GameSession:
         # Snapshot ON_KNOCKED_OUT triggers BEFORE any stack moves: ability_locked
         # reads board position, so the carrier must still be top-level in-play;
         # was_active is captured here too (Radiant Jirachi's Active-spot gate).
-        ko_triggers: List[Tuple[PokemonEntity, str, Ability, bool]] = []
+        ko_triggers: List[Tuple[PokemonEntity, str, Ability, bool, list]] = []
         for pokemon in ctx.knockouts:
             owner_id = pokemon.owning_player_id
             if owner_id is None or ability_locked(self.board_state, pokemon):
                 continue
             was_active = self.board_state.active_pokemon(owner_id) is pokemon
+            attached = list(self.board_state.attached_energies(pokemon))
             for entry in pokemon.get_attribute(AttrID.PIE_ABILITIES) or []:
                 if not isinstance(entry, dict):
                     continue
                 ability_id = entry.get("abilityID")
                 ability = ABILITIES_BY_ID.get(ability_id) if ability_id else None
                 if ability is not None and ability.has_trigger(Triggers.ON_KNOCKED_OUT):
-                    ko_triggers.append((pokemon, owner_id, ability, was_active))
+                    ko_triggers.append(
+                        (pokemon, owner_id, ability, was_active, attached))
 
         # Special-energy leave-play hooks (Gift Energy's draw) snapshotted with
         # the KO'd carrier before any stack moves; run only for attack KOs.
@@ -2555,16 +2557,17 @@ class GameSession:
                     f"depth exceeded ({_ko_depth}); skipping further triggers."
                 )
             else:
-                for pokemon, owner_id, ability, was_active in ko_triggers:
+                for pokemon, owner_id, ability, was_active, ko_energies in ko_triggers:
                     ko_from_attack = _damage_ko(pokemon) \
                         and ctx.attacker.owning_player_id != owner_id
                     ko_attacker = ctx.attacker if ko_from_attack else None
 
                     def _setup(c, _from_attack=ko_from_attack, _attacker=ko_attacker,
-                               _was_active=was_active):
+                               _was_active=was_active, _energies=ko_energies):
                         c.ko_from_attack = _from_attack
                         c.ko_attacker = _attacker
                         c.was_active_at_ko = _was_active
+                        c.ko_energies = list(_energies)
 
                     trigger_ctx = await resolve_triggered_ability(
                         self, owner_id, pokemon, ability, ctx_setup=_setup,
@@ -3632,9 +3635,14 @@ class GameSession:
                 grouped_moves,
             )
 
+    def _going_second(self, player_id: str) -> bool:
+        return self.first_player_id is not None and player_id != self.first_player_id
+
     def _needs_mulligan(self, player_id: str) -> bool:
         board = self.board_state
-        return not board.setup_active_candidates(player_id) and board.player_has_any_basic(player_id)
+        going_second = self._going_second(player_id)
+        return (not board.setup_active_candidates(player_id, going_second)
+                and board.player_has_any_basic(player_id, going_second))
 
     async def _resolve_mulligans(
         self,
@@ -3804,7 +3812,7 @@ class GameSession:
         # player_id -> list of {entity_id: [attribute dicts]} piles, one per mulligan
         reveal_piles: Dict[str, List[Dict[str, Any]]] = {pid: [] for pid in self.players}
         for pid in order:
-            if not self.board_state.player_has_any_basic(pid):
+            if not self.board_state.player_has_any_basic(pid, self._going_second(pid)):
                 logging.error(
                     f"[Session {self.game_id}] Deck of {self.players[pid].screen_name} "
                     f"contains no Basic Pokemon; skipping impossible mulligan."
@@ -5795,8 +5803,9 @@ class GameSession:
             logging.error(f"[Session {self.game_id}] Missing active area for {player_id}.")
             return
 
+        going_second = self._going_second(player_id)
         if isinstance(player, AIPlayer):
-            basics = board.setup_active_candidates(player_id)
+            basics = board.setup_active_candidates(player_id, going_second)
             if basics:
                 await self._place_setup_card(player_id, basics[0].entity_id, active_area)
             return
@@ -5805,7 +5814,7 @@ class GameSession:
         for _ in range(MAX_SELECTION_RETRIES):
             if active_area.children:
                 break
-            basics = board.setup_active_candidates(player_id)
+            basics = board.setup_active_candidates(player_id, going_second)
             if not basics:
                 logging.error(
                     f"[Session {self.game_id}] {player.screen_name} has no Basic "
@@ -5844,7 +5853,8 @@ class GameSession:
 
         def bench_candidates():
             return [
-                card for card in board.basic_pokemon_in_hand(player_id)
+                card for card in board.setup_bench_candidates(
+                    player_id, self._going_second(player_id))
                 if candidates is None or card.entity_id in candidates
             ]
 
