@@ -1,0 +1,33 @@
+"""STUB: effect not implemented — do not guess mechanics.
+Tyrogue (NEO2 #66): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
+"""
+
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+card = PokemonCardDef(
+    guid="bab783d2-dcbf-5af5-9576-74ba93cbc678",
+    key="NEO2",
+    name="com.direwolfdigital.cake.data.archetypes.pokemon.Tyrogue.Name",
+    display_name="Tyrogue",
+    searchable_by=["Tyrogue", "Baby", "Tyrogue"],
+    subtypes=["Baby"],
+    collector_number=66,
+    set_code="NEO2",
+    rarity=Rarities.Common,
+    hp=30,
+    elements=[PokemonTypes.FIGHTING],
+    stage=PokemonStage.BASIC,
+    retreat_cost=0,
+    family_id=236,
+    abilities=[
+        Attack(
+            title="Smash Punch",
+            game_text="Flip a coin. If tails, this attack does nothing.",
+            cost={PokemonTypes.COLORLESS: 1},
+            damage=30,
+            # STUB: attack effect not implemented
+            effect=unimplemented,
+        ),
+    ],
+)
