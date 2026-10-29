@@ -4052,6 +4052,7 @@ class GameSession:
             await self._fire_triggered_abilities(
                 active_id, pokemon, Triggers.END_OF_TURN)
         await self._discard_technical_machines(active_id)
+        await self._apply_classic_darkness_energy()
 
     async def _discard_technical_machines(self, player_id: str):
         """Discard every Technical Machine attached to `player_id`'s Pokemon,
@@ -4079,6 +4080,37 @@ class GameSession:
                 f"{card.entity_id} at end of turn."
             )
             await self.refresh_granted_abilities(holder)
+
+
+    async def _apply_classic_darkness_energy(self):
+        """e-Card Darkness Energy: at the end of every turn, put 1 damage
+        counter on the attached Pokémon unless it is Darkness-type or has
+        'Dark' in its name."""
+        from spirit.game.card_effects.ecard import ClassicDarknessEnergyPassive
+        from spirit.game.session.passives import active_passives, carrier_pokemon
+        from spirit.game.attributes import PokemonTypes
+        for passive, carrier in active_passives(self.board_state):
+            if not isinstance(passive, ClassicDarknessEnergyPassive):
+                continue
+            pokemon = carrier_pokemon(carrier)
+            if pokemon is None:
+                continue
+            types = pokemon.get_attribute(AttrID.POKEMON_TYPES) or []
+            if PokemonTypes.DARKNESS.value in types:
+                continue
+            name = ""
+            d = def_for(pokemon.archetype_id)
+            if d is not None:
+                name = d.display_name or ""
+            if "Dark" in name:
+                continue
+            # 1 damage counter = 10 HP
+            current = pokemon.get_attribute(AttrID.HP, 0)
+            pokemon.set_attribute(AttrID.HP, max(0, current - 10))
+            logging.info(
+                f"[Session {self.game_id}] Darkness Energy placed a damage "
+                f"counter on {pokemon.entity_id}."
+            )
 
     async def _fire_stadium_triggers(self, acting_player_id: str, trigger: str,
                                      ctx_setup=None):

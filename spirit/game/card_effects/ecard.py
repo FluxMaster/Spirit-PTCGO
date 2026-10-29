@@ -755,7 +755,7 @@ async def super_scoop_up(ctx):
                     ctx.session._opponent_id(owner),
                     f"{screen_name} has no Pokémon left",
                 )
-        ctx.after_effects.append(_promote)
+        ctx.deferred_actions.append(_promote)
 
 
 # ----------------------------------------------------------------------
@@ -1031,4 +1031,45 @@ class StrengthCharmPassive(Passive):
             return calc.amount + 10
 
         self.damage_interceptor = _intercept
+
+
+# ----------------------------------------------------------------------
+# Classic Darkness / Metal Energy (e-Card)
+# ----------------------------------------------------------------------
+
+class ClassicDarknessEnergyPassive(Passive):
+    """+10 attack damage after W/R. EOT self-damage handled in game_session."""
+
+    def __init__(self):
+        async def _intercept(ctx, calc, target, carrier):
+            if not (calc.is_attack and calc.is_opposing):
+                return None
+            if carrier_pokemon(carrier) is not calc.attacker:
+                return None
+            if calc.amount <= 0:
+                return None
+            return calc.amount + 10
+        self.damage_interceptor = _intercept
+
+
+class ClassicMetalEnergyPassive(Passive):
+    """-10 damage taken after W/R; if holder is not Metal, also -10 damage dealt."""
+
+    def modify_damage_taken(self, calc, carrier):
+        if not (calc.is_attack and calc.is_opposing):
+            return
+        if carrier_pokemon(carrier) is not calc.target:
+            return
+        calc.amount = max(0, calc.amount - 10)
+
+    def modify_damage_dealt(self, calc, carrier):
+        # Penalty for non-Metal holders (before W/R approx; text says after W/R)
+        pokemon = carrier_pokemon(carrier)
+        if pokemon is None or pokemon is not calc.attacker:
+            return
+        if not (calc.is_attack and calc.is_opposing):
+            return
+        if pokemon_has_type(pokemon, PokemonTypes.METAL):
+            return
+        calc.amount = max(0, calc.amount - 10)
 

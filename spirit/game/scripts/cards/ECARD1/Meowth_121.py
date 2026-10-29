@@ -1,14 +1,11 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Meowth (ECARD1 #121): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_damage
 
 
-async def _quick_draw(ctx):
-    """Flip a coin. If heads, draw a card."""
-    results = await ctx.flip_coins(1, "Quick Draw")
+async def _pay_day(ctx):
+    await ctx.deal_damage()
+    results = await ctx.flip_coins(1, "Pay Day")
     if results and results[0]:
         await ctx.draw_cards(1)
 
@@ -36,16 +33,14 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(coins=2, per_heads=10),
         ),
         Attack(
             title="Pay Day",
             game_text="Flip a coin. If heads, draw a card.",
             cost={PokemonTypes.COLORLESS: 2},
             damage=10,
-            # STUB: attack effect not implemented
-            effect=_quick_draw,
+            effect=_pay_day,
         ),
     ],
 )
