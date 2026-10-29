@@ -473,6 +473,14 @@ class Passive:
         evolve/devolve (Muk Poison Sacs: Poisoned only)."""
         return False
 
+    def keeps_condition_on_trainer_switch(
+        self, pokemon: PokemonEntity, condition: str, carrier: BoardEntity
+    ) -> bool:
+        """True to copy one named Special Condition from a leaving Active
+        onto the new Active when a Trainer card switches them (Dust Island:
+        Poisoned only). `pokemon` is the Pokemon leaving the Active spot."""
+        return False
+
     def blocks_return_to_hand(
         self, card: BoardEntity, carrier: BoardEntity,
         board: Optional[BoardState] = None,

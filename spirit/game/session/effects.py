@@ -2188,6 +2188,15 @@ class EffectContext:
         # All effects (Special Conditions, attack locks) end when a Pokemon
         # leaves the Active spot; the state-clearing lives in one shared helper.
         had_conditions = bool(old_active.get_attribute(AttrID.SPECIAL_CONDITIONS))
+        poison_name = CLIENT_SPECIAL_CONDITION_NAMES[SpecialConditions.POISONED]
+        old_conditions = list(old_active.get_attribute(AttrID.SPECIAL_CONDITIONS) or [])
+        had_poison = poison_name in old_conditions
+        poison_n = self.session.poison_counters.get(old_active.entity_id, 1)
+        from_trainer = self.source is not None and is_trainer_card(self.source)
+        keep_poison = from_trainer and had_poison and any(
+            p.keeps_condition_on_trainer_switch(old_active, poison_name, c)
+            for p, c in active_passives(board)
+        )
         self.session.clear_pokemon_effects(old_active)
         if had_conditions:
             self._queue(
@@ -2236,6 +2245,9 @@ class EffectContext:
         # ON_MOVE_TO_ACTIVE fires after the swap choreography flushes.
         self.deferred_actions.append(
             lambda p=new_active: self.session.fire_move_to_active_triggers(p))
+        if keep_poison:
+            await self.apply_special_condition(
+                new_active, SpecialConditions.POISONED, poison_counters=poison_n)
         return True
 
     async def flush_choreography(self):

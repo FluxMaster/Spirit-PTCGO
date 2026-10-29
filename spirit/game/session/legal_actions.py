@@ -188,6 +188,9 @@ class TurnState:
     # {player_id, attacker_predicate, target_predicate, prizes}; consulted by
     # resolve_knockouts on attack-damage KOs, cleared every begin_turn.
     extra_prize_watchers: List[Dict[str, Any]] = field(default_factory=list)
+    # owner_id -> chooser_id: who picks the replacement Active after a KO
+    # (Hypno Hypnotic Pendulum). Consumed by _promote_new_active.
+    promotion_chooser: Dict[str, str] = field(default_factory=dict)
 
     def begin_turn(self, player_id: str, board: Optional[Any] = None):
         """Advances to the next turn, resets the once-per-turn flags, rotates
@@ -244,6 +247,7 @@ class TurnState:
         }
         self.ignore_target_effects_entities = set()
         self.extra_prize_watchers = []
+        self.promotion_chooser = {}
         if board is not None:
             board.temporary_passives = [
                 tp for tp in (getattr(board, "temporary_passives", None) or [])
