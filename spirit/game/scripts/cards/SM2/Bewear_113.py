@@ -1,0 +1,43 @@
+"""STUB: effect not implemented — do not guess mechanics.
+Bewear (SM2 #113): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
+"""
+
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+card = PokemonCardDef(
+    guid="2502d43c-307b-54de-81f9-7ca610710184",
+    key="SM2",
+    name="com.direwolfdigital.cake.data.archetypes.pokemon.Bewear.Name",
+    display_name="Bewear",
+    searchable_by=["Bewear", "Stage 1", "Bewear"],
+    subtypes=["Stage 1"],
+    collector_number=113,
+    set_code="SM2",
+    rarity=Rarities.Uncommon,
+    hp=130,
+    elements=[PokemonTypes.COLORLESS],
+    stage=PokemonStage.STAGE1,
+    retreat_cost=2,
+    weakness_type=PokemonTypes.FIGHTING,
+    evolves_from="com.direwolfdigital.cake.data.archetypes.pokemon.Stufful.Name",
+    family_id=759,
+    abilities=[
+        Ability(
+            title="Rake It In",
+            game_text="When you play this Pok\u00e9mon from your hand to evolve 1 of your Pok\u00e9mon during your turn, you may draw 3 cards.",
+            ability_type=AbilityTypes.POKE_ABILITY,
+            # STUB: ability effect not implemented
+            effect=unimplemented,
+        ),
+        Attack(
+            title="Dangerous Blow",
+            game_text="If your opponent's Active Pok\u00e9mon is a Basic Pok\u00e9mon, this attack does 60 more damage.",
+            cost={PokemonTypes.COLORLESS: 3},
+            damage=60,
+            damage_operator="+",
+            # STUB: attack effect not implemented
+            effect=unimplemented,
+        ),
+    ],
+)

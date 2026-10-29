@@ -1,0 +1,47 @@
+"""STUB: effect not implemented — do not guess mechanics.
+Wishiwashi-GX (SM2 #151): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
+"""
+
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+card = PokemonCardDef(
+    guid="98ab90ba-59c4-5591-a951-5e80f2f638ae",
+    key="SM2",
+    name="com.direwolfdigital.cake.data.archetypes.pokemon.WishiwashiGX.Name",
+    display_name="Wishiwashi-GX",
+    searchable_by=["Wishiwashi-GX", "Basic", "GX", "WishiwashiGX"],
+    subtypes=["Basic", "GX"],
+    collector_number=151,
+    set_code="SM2",
+    rarity=Rarities.RareRainbow,
+    hp=210,
+    elements=[PokemonTypes.WATER],
+    stage=PokemonStage.BASIC,
+    retreat_cost=3,
+    weakness_type=PokemonTypes.LIGHTNING,
+    family_id=746,
+    abilities=[
+        Attack(
+            title="Water Gun",
+            cost={PokemonTypes.WATER: 1},
+            damage=20,
+        ),
+        Attack(
+            title="Torrential Vortex",
+            game_text="Discard a Special Energy from your opponent's Active Pok\u00e9mon.",
+            cost={PokemonTypes.WATER: 3, PokemonTypes.COLORLESS: 2},
+            damage=120,
+            # STUB: attack effect not implemented
+            effect=unimplemented,
+        ),
+        Attack(
+            title="Blue Surge-GX",
+            game_text="Move all Energy from this Pok\u00e9mon to your Benched Pok\u00e9mon in any way you like. (You can't use more than 1 GX attack in a game.)",
+            cost={PokemonTypes.WATER: 3, PokemonTypes.COLORLESS: 2},
+            damage=220,
+            # STUB: attack effect not implemented
+            effect=unimplemented,
+        ),
+    ],
+)
