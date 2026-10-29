@@ -1,6 +1,3 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Carracosta (SM11 #45): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.session.passives import effective_retreat_cost

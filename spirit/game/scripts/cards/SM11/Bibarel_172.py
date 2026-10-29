@@ -1,8 +1,4 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Bibarel (SM11 #172): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.passives_common import attack_effect_shield_passive
 from spirit.game.data_utils import def_for
@@ -50,7 +46,6 @@ card = PokemonCardDef(
             title="Unaware",
             game_text="Prevent all effects of your opponent's attacks, except damage, done to this Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
             passive=attack_effect_shield_passive(),
         ),
         Attack(
@@ -58,7 +53,6 @@ card = PokemonCardDef(
             game_text="Choose 1 of your opponent's Active Pok\u00e9mon's attacks. That Pok\u00e9mon can't use that attack during your opponent's next turn.",
             cost={PokemonTypes.COLORLESS: 3},
             damage=60,
-            # STUB: attack effect not implemented
             effect=amnesia,
         ),
     ],

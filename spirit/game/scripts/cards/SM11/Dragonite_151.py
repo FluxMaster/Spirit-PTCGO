@@ -1,6 +1,3 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dragonite (SM11 #151): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import self_energy_discard_attack

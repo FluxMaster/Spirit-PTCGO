@@ -1,8 +1,4 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Tauros (SM11 #164): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.support_common import search_to_bench
 from spirit.game.card_effects.attacks_common import recoil_attack
@@ -29,7 +25,6 @@ card = PokemonCardDef(
             title="Call for Family",
             game_text="Search your deck for a Basic Pok\u00e9mon and put it onto your Bench. Then, shuffle your deck.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=search_to_bench(),
         ),
         Attack(
@@ -37,7 +32,6 @@ card = PokemonCardDef(
             game_text="This Pok\u00e9mon does 10 damage to itself.",
             cost={PokemonTypes.COLORLESS: 2},
             damage=60,
-            # STUB: attack effect not implemented
             effect=recoil_attack(10),
         ),
     ],

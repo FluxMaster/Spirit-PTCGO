@@ -1,11 +1,3 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Karate Belt (SM11 #252): trainer effect stubbed.
-
-Card text:
-  - Attach a Pokémon Tool to 1 of your Pokémon that doesn't already have a Pokémon Tool attached to it.
-  - If you have more Prize cards remaining than your opponent, the attacks of the Pokémon this card is attached to cost Fighting less.
-  - You may play as many Item cards as you like during your turn (before your attack).
-"""
 from spirit.game.data_utils import PokemonToolCardDef
 from spirit.game.attributes import Rarities
 from spirit.game.card_effects.sm11 import karate_belt_passive

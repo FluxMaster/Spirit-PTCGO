@@ -1,11 +1,3 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Unidentified Fossil (SM11 #210): trainer effect stubbed.
-
-Card text:
-  - Play this card as if it were a 60-HP Colorless Basic Pokémon. At any time during your turn (before your attack), you may discard this card from play.
-  - This card can't retreat.
-  - You may play as many Item cards as you like during your turn (before your attack).
-"""
 from spirit.game.data_utils import FossilItemCardDef
 from spirit.game.attributes import Rarities
 from spirit.game.card_effects.trainers import FossilBodyPassive, fossil_discard_ability

@@ -1,8 +1,4 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Liepard (SM11 #136): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import lock_defender_attacks
 from spirit.game.session.effects import is_basic_pokemon
@@ -46,7 +42,6 @@ card = PokemonCardDef(
             game_text="If the Defending Pok\u00e9mon is a Basic Pok\u00e9mon, it can't attack during your opponent's next turn.",
             cost={PokemonTypes.DARKNESS: 1, PokemonTypes.COLORLESS: 2},
             damage=90,
-            # STUB: attack effect not implemented
             effect=tie_up,
         ),
     ],

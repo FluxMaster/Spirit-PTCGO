@@ -1,6 +1,3 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Latios-GX (SM11 #223): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.sm11 import clear_vision_gx, power_bind_passive, tag_purge

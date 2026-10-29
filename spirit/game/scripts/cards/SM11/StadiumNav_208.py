@@ -1,10 +1,3 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Stadium Nav (SM11 #208): trainer effect stubbed.
-
-Card text:
-  - Flip 2 coins. For each heads, search your deck for a Stadium card, reveal it, and put it into your hand. Then, shuffle your deck.
-  - You may play as many Item cards as you like during your turn (before your attack).
-"""
 from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
 from spirit.game.card_effects.sm11 import stadium_nav

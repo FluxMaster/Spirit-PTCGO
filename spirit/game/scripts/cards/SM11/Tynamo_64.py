@@ -1,8 +1,4 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Tynamo (SM11 #64): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.pokemon import is_lightning_energy
 from spirit.game.card_effects.support_common import search_attach_energy
@@ -31,7 +27,6 @@ card = PokemonCardDef(
             title="Generate Electricity",
             game_text="Search your deck for a Lightning Energy card and attach it to this Pok\u00e9mon. Then, shuffle your deck.",
             cost={PokemonTypes.LIGHTNING: 1},
-            # STUB: attack effect not implemented
             effect=search_attach_energy(predicate=is_lightning_energy, count=1, to_self=True),
         ),
     ],

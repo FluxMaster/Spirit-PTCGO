@@ -1,10 +1,3 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Weakness Guard Energy (SM11 #213): special energy provides/passive/attach rules stubbed until matched to a known energy pattern.
-
-Card text:
-  - This card provides Colorless Energy.
-  - The Pokémon this card is attached to has no Weakness.
-"""
 from spirit.game.data_utils import EnergyCardDef
 from spirit.game.attributes import PokemonTypes, Rarities
 from spirit.game.card_effects.sm11 import weakness_guard_passive

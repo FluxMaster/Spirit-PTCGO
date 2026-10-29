@@ -1,10 +1,3 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Hapu (SM11 #200): trainer effect stubbed.
-
-Card text:
-  - Look at the top 6 cards of your deck and put 2 of them into your hand. Discard the other cards.
-  - You may play only 1 Supporter card during your turn (before your attack).
-"""
 from spirit.game.data_utils import SupporterCardDef
 from spirit.game.attributes import Rarities
 from spirit.game.card_effects.sm11 import hapu, hapu_condition

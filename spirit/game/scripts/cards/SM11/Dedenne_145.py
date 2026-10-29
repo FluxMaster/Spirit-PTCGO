@@ -1,8 +1,4 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dedenne (SM11 #145): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 
 
@@ -37,7 +33,6 @@ card = PokemonCardDef(
             game_text="You may draw cards until you have 6 cards in your hand.",
             cost={PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
             effect=return_effect,
         ),
     ],

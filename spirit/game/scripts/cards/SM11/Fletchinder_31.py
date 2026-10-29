@@ -1,8 +1,4 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Fletchinder (SM11 #31): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import AttrID
 from spirit.game.card_effects.trainers import is_energy_card
@@ -37,7 +33,6 @@ card = PokemonCardDef(
             game_text="Search your deck for a Fire Energy card and attach it to this Pok\u00e9mon. Then, shuffle your deck.",
             cost={PokemonTypes.FIRE: 1},
             damage=20,
-            # STUB: attack effect not implemented
             effect=search_attach_energy(predicate=_is_fire_energy, count=1, to_self=True),
         ),
     ],

@@ -1,10 +1,3 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Grimsley (SM11 #199): trainer effect stubbed.
-
-Card text:
-  - Move up to 3 damage counters from 1 of your opponent's Pokémon to another of their Pokémon.
-  - You may play only 1 Supporter card during your turn (before your attack).
-"""
 from spirit.game.data_utils import SupporterCardDef
 from spirit.game.attributes import Rarities
 from spirit.game.card_effects.sm11 import grimsley, grimsley_condition

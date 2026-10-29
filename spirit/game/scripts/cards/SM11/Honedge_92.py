@@ -1,8 +1,4 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Honedge (SM11 #92): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.support_common import search_to_hand
 from spirit.game.session.effects import is_item_card
@@ -31,7 +27,6 @@ card = PokemonCardDef(
             title="Lucky Find",
             game_text="Search your deck for an Item card, reveal it, and put it into your hand. Then, shuffle your deck.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=search_to_hand(is_item_card, count=1, minimum=0, reveal=True),
         ),
         Attack(

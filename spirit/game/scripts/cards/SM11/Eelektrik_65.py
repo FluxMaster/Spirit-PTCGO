@@ -1,8 +1,4 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Eelektrik (SM11 #65): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.pokemon import is_energy_card, energy_provides_type
 
@@ -45,7 +41,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 1},
             damage=30,
             damage_operator="x",
-            # STUB: attack effect not implemented
             effect=_discharge,
         ),
     ],

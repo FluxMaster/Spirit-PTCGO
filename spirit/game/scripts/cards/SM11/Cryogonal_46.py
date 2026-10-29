@@ -1,8 +1,4 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Cryogonal (SM11 #46): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.sm3 import distort
 
@@ -29,7 +25,6 @@ card = PokemonCardDef(
             game_text="Your opponent can't play any Item cards from their hand during their next turn.",
             cost={PokemonTypes.WATER: 1},
             damage=10,
-            # STUB: attack effect not implemented
             effect=distort,
         ),
     ],

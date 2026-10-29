@@ -1,8 +1,4 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Escavalier (SM11 #142): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import bonus_if, has_damage
 
@@ -32,7 +28,6 @@ card = PokemonCardDef(
             game_text="If your opponent's Active Pok\u00e9mon has no damage counters on it before this attack does damage, this attack does nothing.",
             cost={PokemonTypes.METAL: 1},
             damage=80,
-            # STUB: attack effect not implemented
             effect=bonus_if(has_damage('defender'), 0, else_nothing=True),
         ),
         Attack(

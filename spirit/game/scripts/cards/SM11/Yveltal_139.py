@@ -1,8 +1,4 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Yveltal (SM11 #139): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.sm3 import solar_heat
 
@@ -42,7 +38,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.DARKNESS: 1},
             damage=20,
             damage_operator="+",
-            # STUB: attack effect not implemented
             effect=solar_heat,
         ),
         Attack(
@@ -50,7 +45,6 @@ card = PokemonCardDef(
             game_text="Put 3 damage counters on 1 of your Pok\u00e9mon.",
             cost={PokemonTypes.DARKNESS: 2, PokemonTypes.COLORLESS: 1},
             damage=120,
-            # STUB: attack effect not implemented
             effect=shadow_impact,
         ),
     ],

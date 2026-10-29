@@ -1,8 +1,4 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Exeggcute (SM11 #73): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.support_common import heal_attack
 
@@ -29,7 +25,6 @@ card = PokemonCardDef(
             game_text="Heal 10 damage from this Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
-            # STUB: attack effect not implemented
             effect=heal_attack(10),
         ),
     ],

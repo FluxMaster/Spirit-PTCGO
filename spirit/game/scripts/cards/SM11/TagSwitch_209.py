@@ -1,10 +1,3 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Tag Switch (SM11 #209): trainer effect stubbed.
-
-Card text:
-  - Move up to 2 Energy from 1 of your TAG TEAM Pokémon to another of your Pokémon.
-  - You may play as many Item cards as you like during your turn (before your attack).
-"""
 from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
 from spirit.game.card_effects.sm11 import tag_switch, tag_switch_condition

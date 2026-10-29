@@ -1,10 +1,3 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Reset Stamp (SM11 #206a): trainer effect stubbed.
-
-Card text:
-  - Your opponent shuffles their hand into their deck and draws a card for each of their remaining Prize cards.
-  - You may play as many Item cards as you like during your turn (before your attack).
-"""
 from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
 from spirit.game.card_effects.sm11 import reset_stamp

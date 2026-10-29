@@ -1,8 +1,4 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Scraggy (SM11 #137): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 
 
@@ -44,7 +40,6 @@ card = PokemonCardDef(
             title="Swagger",
             game_text="Flip a coin. If heads, discard an Energy from your opponent's Active Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=cut_down,
         ),
         Attack(

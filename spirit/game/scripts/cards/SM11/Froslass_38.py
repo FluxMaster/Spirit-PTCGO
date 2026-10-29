@@ -1,8 +1,4 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Froslass (SM11 #38): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
@@ -43,7 +39,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1},
             damage=20,
             damage_operator="x",
-            # STUB: attack effect not implemented
             effect=resolute_spite,
         ),
         Attack(
@@ -51,7 +46,6 @@ card = PokemonCardDef(
             game_text="Your opponent's Active Pok\u00e9mon is now Asleep.",
             cost={PokemonTypes.WATER: 1},
             damage=40,
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.ASLEEP),
         ),
     ],

@@ -1,8 +1,4 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Sewaddle (SM11 #7): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.passives_common import takes_less_passive
 from spirit.game.card_effects.attacks_common import flip_or_nothing
@@ -29,7 +25,6 @@ card = PokemonCardDef(
             title="Swaddling Leaves",
             game_text="This Pok\u00e9mon takes 10 less damage from attacks (after applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
             passive=takes_less_passive(10),
         ),
         Attack(
@@ -37,7 +32,6 @@ card = PokemonCardDef(
             game_text="Flip a coin. If tails, this attack does nothing.",
             cost={PokemonTypes.GRASS: 1},
             damage=20,
-            # STUB: attack effect not implemented
             effect=flip_or_nothing(),
         ),
     ],

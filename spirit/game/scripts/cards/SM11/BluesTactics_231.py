@@ -1,10 +1,3 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Blue's Tactics (SM11 #231): trainer effect stubbed.
-
-Card text:
-  - At the end of this turn, draw cards until you have 8 cards in your hand.
-  - You may play only 1 Supporter card during your turn (before your attack).
-"""
 from spirit.game.data_utils import SupporterCardDef
 from spirit.game.attributes import Rarities
 from spirit.game.card_effects.sm11 import blues_tactics

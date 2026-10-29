@@ -1,6 +1,3 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Mawile-GX (SM11 #246): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.sm3 import mind_jack

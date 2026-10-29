@@ -1,6 +1,3 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Umbreon & Darkrai-GX (SM11 #125): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.sm11 import black_lance, dark_moon_gx

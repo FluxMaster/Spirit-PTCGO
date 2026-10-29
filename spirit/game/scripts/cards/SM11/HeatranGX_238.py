@@ -1,6 +1,3 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Heatran-GX (SM11 #238): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.sm11 import burning_road, hot_burn_gx

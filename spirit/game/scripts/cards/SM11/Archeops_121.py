@@ -1,8 +1,4 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Archeops (SM11 #121): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.support_common import switch_self_attack
 from spirit.game.card_effects.pokemon import rock_crush
@@ -33,7 +29,6 @@ card = PokemonCardDef(
             game_text="Switch this Pok\u00e9mon with 1 of your Benched Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 1},
             damage=40,
-            # STUB: attack effect not implemented
             effect=switch_self_attack(),
         ),
         Attack(
@@ -41,7 +36,6 @@ card = PokemonCardDef(
             game_text="Discard an Energy from your opponent's Active Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 1},
             damage=80,
-            # STUB: attack effect not implemented
             effect=rock_crush,
         ),
     ],

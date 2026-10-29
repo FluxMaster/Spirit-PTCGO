@@ -1,10 +1,3 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Channeler (SM11 #232): trainer effect stubbed.
-
-Card text:
-  - Remove all effects of attacks on you and each of your Pokémon.
-  - You may play only 1 Supporter card during your turn (before your attack).
-"""
 from spirit.game.data_utils import SupporterCardDef
 from spirit.game.attributes import Rarities
 from spirit.game.card_effects.sm11 import channeler

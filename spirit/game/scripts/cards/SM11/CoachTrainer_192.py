@@ -1,10 +1,3 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Coach Trainer (SM11 #192): trainer effect stubbed.
-
-Card text:
-  - Draw 2 cards. If your Active Pokémon is a TAG TEAM Pokémon, draw 2 more cards.
-  - You may play only 1 Supporter card during your turn (before your attack).
-"""
 from spirit.game.data_utils import SupporterCardDef
 from spirit.game.attributes import Rarities
 from spirit.game.card_effects.sm11 import coach_trainer

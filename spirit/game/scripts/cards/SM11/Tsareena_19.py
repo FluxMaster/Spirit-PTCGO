@@ -1,6 +1,3 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Tsareena (SM11 #19): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.sm11 import queenly_reward, queenly_reward_condition

@@ -1,8 +1,4 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Doublade (SM11 #94): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 
 
@@ -36,7 +32,6 @@ card = PokemonCardDef(
             game_text="This attack's damage isn't affected by Weakness or Resistance.",
             cost={PokemonTypes.COLORLESS: 1},
             damage=30,
-            # STUB: attack effect not implemented
             effect=sonic_boom,
         ),
     ],

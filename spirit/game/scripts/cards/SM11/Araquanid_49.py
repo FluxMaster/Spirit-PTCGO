@@ -1,8 +1,4 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Araquanid (SM11 #49): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.support_common import gust_attack
 from spirit.game.card_effects.passives_common import apply_defender_attack_cost_raise, apply_defender_retreat_cost_raise
@@ -38,7 +34,6 @@ card = PokemonCardDef(
             title="Tangle Drag",
             game_text="Switch 1 of your opponent's Benched Pok\u00e9mon with their Active Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=gust_attack(),
         ),
         Attack(
@@ -46,7 +41,6 @@ card = PokemonCardDef(
             game_text="During your opponent's next turn, the Defending Pok\u00e9mon's attacks cost Colorless more, and its Retreat Cost is Colorless more.",
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 2},
             damage=80,
-            # STUB: attack effect not implemented
             effect=chomp_chomp_hold,
         ),
     ],

@@ -1,8 +1,4 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Magmortar (SM11 #22): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.sm8 import smokescreen
 from spirit.game.card_effects.attacks_common import self_energy_discard_attack
@@ -31,7 +27,6 @@ card = PokemonCardDef(
             game_text="If the Defending Pok\u00e9mon tries to attack during your opponent's next turn, your opponent flips a coin. If tails, that attack doesn't happen.",
             cost={PokemonTypes.COLORLESS: 2},
             damage=50,
-            # STUB: attack effect not implemented
             effect=smokescreen,
         ),
         Attack(
@@ -39,7 +34,6 @@ card = PokemonCardDef(
             game_text="Discard an Energy from this Pok\u00e9mon.",
             cost={PokemonTypes.FIRE: 1, PokemonTypes.COLORLESS: 2},
             damage=120,
-            # STUB: attack effect not implemented
             effect=self_energy_discard_attack(count=1),
         ),
     ],

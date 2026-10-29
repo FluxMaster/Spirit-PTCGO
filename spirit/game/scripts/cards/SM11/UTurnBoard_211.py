@@ -1,12 +1,3 @@
-"""STUB: effect not implemented — do not guess mechanics.
-U-Turn Board (SM11 #211): trainer effect stubbed.
-
-Card text:
-  - Attach a Pokémon Tool to 1 of your Pokémon that doesn't already have a Pokémon Tool attached to it.
-  - The Retreat Cost of the Pokémon this card is attached to is Colorless less.
-  - If this card is discarded from play, put it into your hand instead of the discard pile.
-  - You may play as many Item cards as you like during your turn (before your attack).
-"""
 from spirit.game.data_utils import PokemonToolCardDef
 from spirit.game.attributes import Rarities
 from spirit.game.card_effects.sm11 import uturn_board_passive

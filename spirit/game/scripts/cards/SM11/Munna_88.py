@@ -1,8 +1,4 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Munna (SM11 #88): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 
 
@@ -51,7 +47,6 @@ card = PokemonCardDef(
             title="Future Sight",
             game_text="Look at the top 4 cards of either player's deck and put them back in any order.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=future_sight,
         ),
     ],

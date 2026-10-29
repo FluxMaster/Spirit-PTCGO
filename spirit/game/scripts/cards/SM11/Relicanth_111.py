@@ -1,8 +1,4 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Relicanth (SM11 #111): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.support_common import search_to_hand
 from spirit.game.session.effects import is_trainer_card
@@ -31,7 +27,6 @@ card = PokemonCardDef(
             title="Deep Sea Boring",
             game_text="Search your deck for a Trainer card, reveal it, and put it into your hand. Then, shuffle your deck.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=search_to_hand(is_trainer_card, count=1, minimum=0, reveal=True, prompt='Choose a Trainer card.'),
         ),
         Attack(
@@ -39,7 +34,6 @@ card = PokemonCardDef(
             game_text="Your opponent's Active Pok\u00e9mon is now Asleep.",
             cost={PokemonTypes.COLORLESS: 2},
             damage=30,
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.ASLEEP),
         ),
     ],

@@ -1,11 +1,3 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Ear-Ringing Bell (SM11 #194): trainer effect stubbed.
-
-Card text:
-  - Attach a Pokémon Tool to 1 of your Pokémon that doesn't already have a Pokémon Tool attached to it.
-  - If the Pokémon this card is attached to is your Active Pokémon and is damaged by an opponent's attack (even if that Pokémon is Knocked Out), the Attacking Pokémon is now Confused.
-  - You may play as many Item cards as you like during your turn (before your attack).
-"""
 from spirit.game.data_utils import PokemonToolCardDef
 from spirit.game.attributes import Rarities
 from spirit.game.card_effects.sm11 import EAR_RINGING_BELL_ABILITIES
