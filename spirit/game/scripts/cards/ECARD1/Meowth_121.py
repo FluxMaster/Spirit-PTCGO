@@ -5,6 +5,14 @@ Meowth (ECARD1 #121): one or more attacks/abilities use effect=unimplemented unt
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 
+
+async def _quick_draw(ctx):
+    """Flip a coin. If heads, draw a card."""
+    results = await ctx.flip_coins(1, "Quick Draw")
+    if results and results[0]:
+        await ctx.draw_cards(1)
+
+
 card = PokemonCardDef(
     guid="3ed4b12c-35c3-56df-9f50-93fb193969c7",
     key="ECARD1",
@@ -37,7 +45,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=10,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=_quick_draw,
         ),
     ],
 )
