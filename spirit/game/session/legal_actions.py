@@ -46,6 +46,7 @@ from .passives import (
     effective_bench_capacity,
     effective_supporter_limit,
     effective_retreat_cost,
+    energy_attach_blocked,
     energy_provided_options,
     evolution_blocked,
     gx_attacks_blocked,

@@ -92,8 +92,10 @@ class DamageCalc:
         self.resistance_applies = True
         # Era-correct Resistance: the target's printed amount (XY/BW -20,
         # SWSH -30); modify_resistance hooks may rewrite it (Klefki -40).
+        # resistance_reduction is an e-Card alias (Enervating Pollen).
         self.resistance_amount = target.get_attribute(AttrID.RESISTANCE_AMOUNT) \
             or RESISTANCE_REDUCTION
+        self.resistance_reduction = self.resistance_amount
         self.weakness_hit = False
         self.resistance_hit = False
         self.prevented = False
@@ -446,6 +448,14 @@ class Passive:
         (Slimy Room): tails discards the energy instead of attaching."""
         return False
 
+    def blocks_energy_attach(
+        self, attaching_player_id: str, energy: BoardEntity,
+        target: PokemonEntity, carrier: BoardEntity,
+    ) -> bool:
+        """True to forbid attaching `energy` from hand to `target`
+        (Zapdos Anti-Lightning)."""
+        return False
+
     def retreat_cost_destination(
         self, pokemon: PokemonEntity, energy: BoardEntity, carrier: BoardEntity
     ) -> Optional[str]:
@@ -459,6 +469,13 @@ class Passive:
         """Damage counters put on an Active that moved to its owner's Bench
         during that owner's turn (Spikemuth)."""
         return 0
+
+    def discard_energy_on_retreat(
+        self, pokemon: PokemonEntity, carrier: BoardEntity
+    ) -> bool:
+        """True to discard remaining Energy on `pokemon` after it retreats
+        from Active to Bench (Suction Cups)."""
+        return False
 
     def heal_on_evolve(
         self, evolved: PokemonEntity, pre_evolution: BoardEntity,
@@ -1043,6 +1060,16 @@ def energy_attach_taxer(board: BoardState, attaching_player_id: str,
     return None
 
 
+def energy_attach_blocked(board: BoardState, attaching_player_id: str,
+                          energy: BoardEntity, target: PokemonEntity) -> bool:
+    """Whether a continuous passive forbids attaching `energy` from hand to
+    `target` (Zapdos Anti-Lightning)."""
+    return any(
+        passive.blocks_energy_attach(attaching_player_id, energy, target, carrier)
+        for passive, carrier in active_passives(board)
+    )
+
+
 def retreat_energy_destination(board: BoardState, pokemon: PokemonEntity,
                                energy: BoardEntity) -> Optional[str]:
     """First non-None area a passive redirects a retreat-cost energy to
@@ -1052,6 +1079,15 @@ def retreat_energy_destination(board: BoardState, pokemon: PokemonEntity,
         if dest is not None:
             return dest
     return None
+
+
+def retreat_discards_remaining_energy(board: BoardState, pokemon: PokemonEntity) -> bool:
+    """Whether remaining Energy on `pokemon` is discarded after it retreats
+    (Suction Cups)."""
+    return any(
+        passive.discard_energy_on_retreat(pokemon, carrier)
+        for passive, carrier in active_passives(board)
+    )
 
 
 def evolution_blocked(board: BoardState, player_id: str, target: PokemonEntity) -> bool:
