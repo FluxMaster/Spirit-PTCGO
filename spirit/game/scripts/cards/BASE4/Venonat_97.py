@@ -1,11 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Venonat (BASE4 #97): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-from spirit.game.attributes import SpecialConditions
+from spirit.game.data_utils import PokemonCardDef, Attack
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ecard import leech_life
 
 
 card = PokemonCardDef(
@@ -27,19 +23,17 @@ card = PokemonCardDef(
     abilities=[
         Attack(
             title="Stun Spore",
-            game_text="Flip a coin. If heads, the Defending Pok\u00e9mon is now Paralyzed.",
+            game_text="Flip a coin. If heads, the Defending Pokémon is now Paralyzed.",
             cost={PokemonTypes.GRASS: 1},
             damage=10,
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.PARALYZED, flip=True),
         ),
         Attack(
             title="Leech Life",
-            game_text="Remove a number of damage counters from Venonat equal to the damage done to the Defending Pok\u00e9mon (after applying Weakness and Resistance). If Venonat has fewer damage counters than that, remove all of them.",
+            game_text="Remove a number of damage counters from Venonat equal to the damage done to the Defending Pokémon (after applying Weakness and Resistance). If Venonat has fewer damage counters than that, remove all of them.",
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 1},
             damage=10,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=leech_life,
         ),
     ],
 )
