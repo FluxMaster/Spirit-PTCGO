@@ -1,13 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Aether Foundation Employee (SM8 #168): trainer effect stubbed.
-
-Card text:
-  - Put 3 Pokémon that have "Alolan" in their names from your discard pile into your hand.
-  - You may play only 1 Supporter card during your turn (before your attack).
-"""
-
-from spirit.game.data_utils import SupporterCardDef, unimplemented
+from spirit.game.data_utils import SupporterCardDef
 from spirit.game.attributes import Rarities
+
+from spirit.game.card_effects.sm8 import (
+    aether_foundation_employee,
+)
 
 card = SupporterCardDef(
     guid="eed448cd-793c-57e1-9f9c-7409c6b27e7d",
@@ -19,6 +15,5 @@ card = SupporterCardDef(
     collector_number=168,
     set_code="SM8",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=aether_foundation_employee
 )

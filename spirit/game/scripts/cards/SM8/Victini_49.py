@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Victini (SM8 #49): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm8 import (
+    v_beatdown,
+)
 
 card = PokemonCardDef(
     guid="89573c2f-2180-5434-a022-a33d158a93c4",
@@ -28,8 +28,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=v_beatdown
         ),
     ],
 )

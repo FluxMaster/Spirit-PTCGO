@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Snubbull (SM8 #137): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm8 import (
+    make_a_mess,
+)
 
 card = PokemonCardDef(
     guid="1964fdd6-f186-5d52-a3c6-b83630592ea4",
@@ -30,8 +30,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FAIRY: 1},
             damage=20,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=make_a_mess
         ),
     ],
 )

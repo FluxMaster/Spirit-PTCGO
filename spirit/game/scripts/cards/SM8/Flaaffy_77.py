@@ -1,12 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Flaaffy (SM8 #77): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
-
 
 card = PokemonCardDef(
     guid="9131ba4e-e429-5e81-9fce-cf2cb11c4f12",
@@ -33,7 +28,6 @@ card = PokemonCardDef(
             game_text="Your opponent's Active Pok\u00e9mon is now Confused.",
             cost={PokemonTypes.LIGHTNING: 2},
             damage=40,
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.CONFUSED),
         ),
     ],

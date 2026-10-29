@@ -1,11 +1,11 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Ampharos (SM8 #78): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import snipe_attack
 
+from spirit.game.card_effects.sm8 import (
+    unseen_flash,
+    unseen_flash_condition,
+)
 
 card = PokemonCardDef(
     guid="db5ca5ed-986a-5ddb-98b8-050acd8a2727",
@@ -31,14 +31,14 @@ card = PokemonCardDef(
             title="Unseen Flash",
             game_text="Once during your turn (before your attack), you may put 2 Lightning Energy cards from your hand in the Lost Zone. If you do, your opponent's Active Pok\u00e9mon is now Paralyzed.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=unseen_flash,
+            activation=Activations.ONCE_PER_TURN,
+            condition=unseen_flash_condition,
         ),
         Attack(
             title="Split Bomb",
             game_text="This attack does 50 damage to 2 of your opponent's Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.LIGHTNING: 2},
-            # STUB: attack effect not implemented
             effect=snipe_attack(50, pool='any', count=2),
         ),
     ],

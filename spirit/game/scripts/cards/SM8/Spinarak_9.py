@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Spinarak (SM8 #9): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm8 import (
+    spider_scram,
+)
 
 card = PokemonCardDef(
     guid="cbefbef1-dd51-5a72-8e6d-1e0031829cdf",
@@ -26,8 +26,7 @@ card = PokemonCardDef(
             title="Spider Scram",
             game_text="Your opponent's Active Pok\u00e9mon is now Paralyzed and Poisoned. Put this Pok\u00e9mon and all cards attached to it in the Lost Zone.",
             cost={PokemonTypes.GRASS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=spider_scram
         ),
         Attack(
             title="Sting",

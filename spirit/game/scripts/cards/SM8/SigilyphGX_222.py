@@ -1,15 +1,14 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Sigilyph-GX (SM8 #222): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 
+from spirit.game.card_effects.sm8 import (
+    intercept_gx,
+    mirror_counter,
+)
 
 async def feint(ctx):
     """30. This attack's damage isn't affected by Resistance."""
     await ctx.deal_damage(ignore_resistance=True)
-
 
 card = PokemonCardDef(
     guid="70124643-3b1e-540d-8ae0-cd1f0cffb92c",
@@ -34,15 +33,14 @@ card = PokemonCardDef(
             title="Mirror Counter",
             game_text="If this Pok\u00e9mon is your Active Pok\u00e9mon and is damaged by an attack from your opponent's Pok\u00e9mon-GX or Pok\u00e9mon-EX (even if this Pok\u00e9mon is Knocked Out), put damage counters on the Attacking Pok\u00e9mon equal to the damage done to this Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=mirror_counter,
+            trigger=Triggers.ON_DAMAGED_BY_ATTACK,
         ),
         Attack(
             title="Sonic Wing",
             game_text="This attack's damage isn't affected by Resistance.",
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 2},
             damage=80,
-            # STUB: attack effect not implemented
             effect=feint,
         ),
         Attack(
@@ -51,8 +49,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 2},
             damage=60,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=intercept_gx
         ),
     ],
 )

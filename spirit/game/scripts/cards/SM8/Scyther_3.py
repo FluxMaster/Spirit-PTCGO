@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Scyther (SM8 #3): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm8 import (
+    fury_cutter,
+)
 
 card = PokemonCardDef(
     guid="9e5c932c-e7a8-55b3-ae46-3a2c1ff468ef",
@@ -28,8 +28,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=fury_cutter
         ),
     ],
 )

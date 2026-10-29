@@ -1,12 +1,11 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Tapu Fini (SM8 #151): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
 
+from spirit.game.card_effects.sm8 import (
+    dream_away,
+)
 
 card = PokemonCardDef(
     guid="348d9ffc-2d1f-5fdb-9d58-3dbbd89690c1",
@@ -31,15 +30,13 @@ card = PokemonCardDef(
             title="Dream Away",
             game_text="Flip a coin. If heads, your opponent shuffles their Active Pok\u00e9mon and all cards attached to it into their deck.",
             cost={PokemonTypes.FAIRY: 1, PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=dream_away
         ),
         Attack(
             title="Wonder Shine",
             game_text="Your opponent's Active Pok\u00e9mon is now Confused.",
             cost={PokemonTypes.FAIRY: 2, PokemonTypes.COLORLESS: 1},
             damage=100,
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.CONFUSED),
         ),
     ],

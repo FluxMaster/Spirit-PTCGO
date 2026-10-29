@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Alolan Meowth (SM8 #118): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm8 import (
+    spoil_the_fun,
+)
 
 card = PokemonCardDef(
     guid="cdff9678-5f4f-5745-9934-e051417ab36b",
@@ -30,8 +30,7 @@ card = PokemonCardDef(
             cost={},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=spoil_the_fun
         ),
     ],
 )

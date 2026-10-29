@@ -1,12 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Hitmontop (SM8 #113): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.support_common import opponent_switches
 from spirit.game.card_effects.attacks_common import flip_damage
-
 
 async def gyro_ball(ctx):
     """Switch self with a Benched Pokemon; if you do, the opponent switches too."""
@@ -18,7 +13,6 @@ async def gyro_ball(ctx):
     await ctx.switch_active(ctx.player_id, target or bench[0])
     await ctx.flush_choreography()
     await opponent_switches(ctx)
-
 
 card = PokemonCardDef(
     guid="1083eb97-b23c-5c2a-8b21-6c695155a742",
@@ -42,7 +36,6 @@ card = PokemonCardDef(
             game_text="Switch this Pok\u00e9mon with 1 of your Benched Pok\u00e9mon. If you do, your opponent switches their Active Pok\u00e9mon with 1 of their Benched Pok\u00e9mon.",
             cost={PokemonTypes.FIGHTING: 1},
             damage=30,
-            # STUB: attack effect not implemented
             effect=gyro_ball,
         ),
         Attack(
@@ -51,7 +44,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=40,
             damage_operator="x",
-            # STUB: attack effect not implemented
             effect=flip_damage(coins=3, per_heads=40),
         ),
     ],

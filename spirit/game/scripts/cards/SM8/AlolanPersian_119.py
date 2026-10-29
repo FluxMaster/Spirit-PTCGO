@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Alolan Persian (SM8 #119): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm8 import (
+    empty_threat,
+)
 
 card = PokemonCardDef(
     guid="1eb72690-9613-5950-b540-4880428ff5c9",
@@ -31,8 +31,7 @@ card = PokemonCardDef(
             cost={},
             damage=90,
             damage_operator="-",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=empty_threat
         ),
     ],
 )

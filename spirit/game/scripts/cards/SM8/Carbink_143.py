@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Carbink (SM8 #143): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm8 import (
+    wonder_ray,
+)
 
 card = PokemonCardDef(
     guid="09ed8d6c-2cea-5b22-8f1e-bc06354fe7d3",
@@ -29,8 +29,7 @@ card = PokemonCardDef(
             game_text="During your opponent's next turn, prevent all effects of attacks, including damage, done to this Pok\u00e9mon by any Pok\u00e9mon that has an Ability.",
             cost={PokemonTypes.COLORLESS: 2},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=wonder_ray
         ),
         Attack(
             title="Power Gem",

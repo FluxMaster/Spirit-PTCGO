@@ -1,11 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Wigglytuff (SM8 #134): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.passives_common import protect_next_turn
 
+from spirit.game.card_effects.sm8 import (
+    charmed_slap,
+)
 
 card = PokemonCardDef(
     guid="bd9cd9c3-6ee3-58e5-8dbe-2db28ed9c248",
@@ -32,7 +31,6 @@ card = PokemonCardDef(
             game_text="During your opponent's next turn, this Pok\u00e9mon takes 30 less damage from attacks (after applying Weakness and Resistance).",
             cost={PokemonTypes.COLORLESS: 2},
             damage=30,
-            # STUB: attack effect not implemented
             effect=protect_next_turn(reduce=30),
         ),
         Attack(
@@ -41,8 +39,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FAIRY: 1, PokemonTypes.COLORLESS: 2},
             damage=70,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=charmed_slap
         ),
     ],
 )

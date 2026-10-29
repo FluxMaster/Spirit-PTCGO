@@ -1,11 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Sableye (SM8 #96): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import place_counters
 
+from spirit.game.card_effects.sm8 import (
+    quick_hunt,
+)
 
 card = PokemonCardDef(
     guid="2b5ce4a5-9dac-54ac-b79f-a0d99e7277fe",
@@ -27,14 +26,13 @@ card = PokemonCardDef(
             title="Quick Hunt",
             game_text="If you go first, you can use this attack on your first turn. Search your deck for a card and put it into your hand. Then, shuffle your deck.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=quick_hunt,
+            usable_first_turn=True,
         ),
         Attack(
             title="Cursed Drop",
             game_text="Put 3 damage counters on your opponent's Pok\u00e9mon in any way you like.",
             cost={PokemonTypes.PSYCHIC: 1},
-            # STUB: attack effect not implemented
             effect=place_counters(3, 'choose_any_opponent'),
         ),
     ],

@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Cascoon (SM8 #27): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm8 import (
+    cocoon_collector,
+)
 
 card = PokemonCardDef(
     guid="b6a291a4-0e52-51f6-9f51-ab439eb24d48",
@@ -27,8 +27,7 @@ card = PokemonCardDef(
             title="Cocoon Collector",
             game_text="Search your deck for up to 4 in any combination of Silcoon and Cascoon and put them onto your Bench. Then, shuffle your deck.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=cocoon_collector
         ),
         Attack(
             title="Ram",

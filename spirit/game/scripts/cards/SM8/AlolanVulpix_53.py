@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Alolan Vulpix (SM8 #53): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.sm8 import (
+    secret_alleyway_passive,
+)
 
 card = PokemonCardDef(
     guid="fd3ec7ae-2b73-5eaf-bdae-aec7330a082e",
@@ -26,8 +26,7 @@ card = PokemonCardDef(
             title="Secret Alleyway",
             game_text="If you have any Fairy Pok\u00e9mon in play, this Pok\u00e9mon has no Retreat Cost.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=secret_alleyway_passive
         ),
         Attack(
             title="Gnaw",

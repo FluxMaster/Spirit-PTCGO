@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Lampent (SM8 #102): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm8 import (
+    haunt,
+)
 
 card = PokemonCardDef(
     guid="e07b59b8-22cb-5fc1-b7b8-3bd1cc0b3375",
@@ -29,8 +29,7 @@ card = PokemonCardDef(
             title="Haunt",
             game_text="Put 3 damage counters on your opponent's Active Pok\u00e9mon.",
             cost={PokemonTypes.PSYCHIC: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=haunt
         ),
     ],
 )

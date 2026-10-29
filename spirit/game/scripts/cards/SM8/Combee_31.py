@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Combee (SM8 #31): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm8 import (
+    bee_march,
+)
 
 card = PokemonCardDef(
     guid="49926a94-9576-5868-a73d-90c870ef15ff",
@@ -26,8 +26,7 @@ card = PokemonCardDef(
             title="Bee March",
             game_text="Search your deck for up to 3 Combee and put them onto your Bench. Then, shuffle your deck.",
             cost={PokemonTypes.GRASS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bee_march
         ),
     ],
 )

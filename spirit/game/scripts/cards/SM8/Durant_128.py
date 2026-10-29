@@ -1,12 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Durant (SM8 #128): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.sm3 import knock_over
 from spirit.game.card_effects.attacks_common import mill_attack
-
 
 card = PokemonCardDef(
     guid="ec13f698-338a-5f33-b8d0-83ea07d5bac0",
@@ -32,14 +27,12 @@ card = PokemonCardDef(
             game_text="You may discard any Stadium card in play.",
             cost={PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
             effect=knock_over,
         ),
         Attack(
             title="Mountain Munch",
             game_text="Discard the top 2 cards of your opponent's deck.",
             cost={PokemonTypes.COLORLESS: 2},
-            # STUB: attack effect not implemented
             effect=mill_attack(2),
         ),
     ],

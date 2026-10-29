@@ -1,9 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Typhlosion (SM8 #42): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.sm8 import (
+    blazing_energy,
+    lost_flame,
+)
 
 card = PokemonCardDef(
     guid="3dbc7194-93eb-57b3-9f01-b1fd414f1356",
@@ -27,16 +28,15 @@ card = PokemonCardDef(
             title="Blazing Energy",
             game_text="Once during your turn (before your attack), you may use this Ability. All Energy attached to your Pok\u00e9mon are Fire Energy instead of their usual type until the end of your turn. (This includes cards that come into play on this turn.)",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=blazing_energy,
+            activation=Activations.ONCE_PER_TURN,
         ),
         Attack(
             title="Lost Flame",
             game_text="Put 2 Energy attached to your opponent's Active Pok\u00e9mon in the Lost Zone.",
             cost={PokemonTypes.FIRE: 4},
             damage=120,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=lost_flame
         ),
     ],
 )

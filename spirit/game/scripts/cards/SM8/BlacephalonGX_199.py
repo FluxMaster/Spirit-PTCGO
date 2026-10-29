@@ -1,12 +1,12 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Blacephalon-GX (SM8 #199): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
 
+from spirit.game.card_effects.sm8 import (
+    burst_gx,
+    mind_blown,
+)
 
 card = PokemonCardDef(
     guid="0999432a-7ba1-59b5-bfcc-9c8143dfef3b",
@@ -29,7 +29,6 @@ card = PokemonCardDef(
             title="Bursting Burn",
             game_text="Your opponent's Active Pok\u00e9mon is now Burned and Confused.",
             cost={PokemonTypes.FIRE: 1},
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.BURNED, SpecialConditions.CONFUSED),
         ),
         Attack(
@@ -38,15 +37,13 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 2},
             damage=50,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=mind_blown
         ),
         Attack(
             title="Burst-GX",
             game_text="Discard 1 of your Prize cards. If it's an Energy card, attach it to 1 of your Pok\u00e9mon. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.FIRE: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=burst_gx
         ),
     ],
 )

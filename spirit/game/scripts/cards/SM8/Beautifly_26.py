@@ -1,11 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Beautifly (SM8 #26): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import snipe_attack
 
+from spirit.game.card_effects.sm8 import (
+    butterfly_edge,
+)
 
 card = PokemonCardDef(
     guid="2e572dd6-20f3-5dc7-83f5-d1e99ddf7828",
@@ -29,7 +28,6 @@ card = PokemonCardDef(
             title="Skill Dive",
             game_text="This attack does 50 damage to 1 of your opponent's Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=snipe_attack(50, pool='any', count=1),
         ),
         Attack(
@@ -37,8 +35,7 @@ card = PokemonCardDef(
             game_text="If your opponent's Pok\u00e9mon is Knocked Out by damage from this attack, prevent all effects of attacks, including damage, done to this Pok\u00e9mon during your opponent's next turn.",
             cost={PokemonTypes.GRASS: 1},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=butterfly_edge
         ),
     ],
 )

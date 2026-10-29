@@ -1,9 +1,11 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Naganadel (SM8 #108): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.sm8 import (
+    charging_up,
+    charging_up_condition,
+    turning_point,
+)
 
 card = PokemonCardDef(
     guid="148e39c9-f29f-5b3c-b763-bac9acafc0bf",
@@ -27,8 +29,9 @@ card = PokemonCardDef(
             title="Charging Up",
             game_text="Once during your turn (before your attack), you may attach a basic Energy card from your discard pile to this Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=charging_up,
+            activation=Activations.ONCE_PER_TURN,
+            condition=charging_up_condition,
         ),
         Attack(
             title="Turning Point",
@@ -36,8 +39,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=80,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=turning_point
         ),
     ],
 )

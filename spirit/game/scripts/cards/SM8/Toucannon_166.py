@@ -1,19 +1,13 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Toucannon (SM8 #166): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
-
 
 async def overspin(ctx):
     state = ctx.session.turn_state
     if state.entered_play_turn.get(ctx.attacker.entity_id) == state.turn_number:
         return
     await ctx.deal_damage()
-
 
 card = PokemonCardDef(
     guid="d8257185-61f7-530f-b2a3-257539d319a7",
@@ -40,7 +34,6 @@ card = PokemonCardDef(
             game_text="Your opponent's Active Pok\u00e9mon is now Burned.",
             cost={PokemonTypes.COLORLESS: 1},
             damage=40,
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.BURNED),
         ),
         Attack(
@@ -48,7 +41,6 @@ card = PokemonCardDef(
             game_text="If this Pok\u00e9mon evolved during this turn, this attack does nothing.",
             cost={PokemonTypes.COLORLESS: 3},
             damage=160,
-            # STUB: attack effect not implemented
             effect=overspin,
         ),
     ],

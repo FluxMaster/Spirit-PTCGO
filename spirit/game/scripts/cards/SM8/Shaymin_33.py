@@ -1,9 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Shaymin (SM8 #33): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.sm8 import (
+    floral_heal,
+    floral_heal_condition,
+)
 
 card = PokemonCardDef(
     guid="b821ac9e-c450-57fa-a6ee-eac5f2992f71",
@@ -26,8 +27,9 @@ card = PokemonCardDef(
             title="Floral Heal",
             game_text="Once during your turn (before your attack), you may heal 20 damage from your Active Grass Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=floral_heal,
+            activation=Activations.ONCE_PER_TURN,
+            condition=floral_heal_condition,
         ),
         Attack(
             title="Ram",

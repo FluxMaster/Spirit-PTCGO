@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Poipole (SM8 #107): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm8 import (
+    eye_opener,
+)
 
 card = PokemonCardDef(
     guid="f05147d1-5067-560b-aad3-779949fb4329",
@@ -26,8 +26,7 @@ card = PokemonCardDef(
             title="Eye Opener",
             game_text="Look at your face-down Prize cards.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=eye_opener
         ),
         Attack(
             title="Peck",

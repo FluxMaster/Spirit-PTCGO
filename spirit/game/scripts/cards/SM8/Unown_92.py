@@ -1,9 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Unown (SM8 #92): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.sm8 import (
+    unown_missing_condition,
+    win_the_game,
+)
 
 card = PokemonCardDef(
     guid="8e11f3e9-0be3-50ce-ab06-72ee2e822144",
@@ -26,8 +27,9 @@ card = PokemonCardDef(
             title="MISSING",
             game_text="Once during your turn (before your attack), if this Pok\u00e9mon is your Active Pok\u00e9mon, and if your opponent has 12 or more Supporter cards in the Lost Zone, you may use this Ability. If you do, you win this game.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=win_the_game,
+            activation=Activations.ONCE_PER_TURN,
+            condition=unown_missing_condition,
         ),
         Attack(
             title="Hidden Power",

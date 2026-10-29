@@ -1,9 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Trumbeak (SM8 #165): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.sm8 import (
+    mountain_pass,
+    mountain_pass_condition,
+)
 
 card = PokemonCardDef(
     guid="af0a3e02-7aae-5aae-a8c5-6866fe7b6acb",
@@ -29,8 +30,10 @@ card = PokemonCardDef(
             title="Mountain Pass",
             game_text="Once during your turn (before your attack), if this Pok\u00e9mon is in your hand, you may reveal it. If you do, look at the top card of your opponent's deck and put this Pok\u00e9mon in the Lost Zone. If that card is a Supporter card, you may put it in the Lost Zone. If your opponent has no cards in their deck, you can't use this Ability.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=mountain_pass,
+            activation=Activations.ONCE_PER_TURN,
+            usable_from="hand",
+            condition=mountain_pass_condition,
         ),
         Attack(
             title="Peck",

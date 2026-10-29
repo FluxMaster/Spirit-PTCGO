@@ -1,10 +1,5 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Pikipek (SM8 #163): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-
 
 async def _obsidian_fang(ctx):
     """Before doing damage, discard all Pokemon Tools from the opponent's Active."""
@@ -14,7 +9,6 @@ async def _obsidian_fang(ctx):
         if tools:
             await ctx.discard_cards(tools)
     await ctx.deal_damage()
-
 
 card = PokemonCardDef(
     guid="93539eb7-75b3-5449-8811-25fc5140b839",
@@ -40,7 +34,6 @@ card = PokemonCardDef(
             game_text="Before doing damage, discard all Pok\u00e9mon Tool cards from your opponent's Active Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
-            # STUB: attack effect not implemented
             effect=_obsidian_fang,
         ),
     ],

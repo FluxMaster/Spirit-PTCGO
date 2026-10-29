@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dedenne (SM8 #142): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm8 import (
+    zzzap_touch,
+)
 
 card = PokemonCardDef(
     guid="bcbe5ff3-489a-5e5c-8f8b-ecce0bb04940",
@@ -29,8 +29,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, your opponent's Active Pok\u00e9mon is now Confused. If tails, your opponent's Active Pok\u00e9mon is now Paralyzed.",
             cost={PokemonTypes.FAIRY: 1},
             damage=10,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=zzzap_touch
         ),
     ],
 )

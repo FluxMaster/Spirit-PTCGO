@@ -1,12 +1,11 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Lanturn (SM8 #74): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
 
+from spirit.game.card_effects.sm8 import (
+    salvage,
+)
 
 card = PokemonCardDef(
     guid="3dfaf1be-2933-5693-8d4e-fb2c8d5874e1",
@@ -32,15 +31,13 @@ card = PokemonCardDef(
             title="Salvage",
             game_text="Shuffle 4 Item cards from your discard pile into your deck.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=salvage
         ),
         Attack(
             title="Signal Beam",
             game_text="Your opponent's Active Pok\u00e9mon is now Confused.",
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 1},
             damage=50,
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.CONFUSED),
         ),
     ],

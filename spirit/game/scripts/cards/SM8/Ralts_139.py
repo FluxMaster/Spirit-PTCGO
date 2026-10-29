@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Ralts (SM8 #139): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm8 import (
+    beckon,
+)
 
 card = PokemonCardDef(
     guid="b3084b64-8667-5baf-a7ea-06b2ab111377",
@@ -28,8 +28,7 @@ card = PokemonCardDef(
             title="Beckon",
             game_text="Put a Supporter card from your discard pile into your hand.",
             cost={PokemonTypes.FAIRY: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=beckon
         ),
         Attack(
             title="Beat",

@@ -1,9 +1,12 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Magcargo-GX (SM8 #218): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.sm8 import (
+    burning_magma_gx,
+    crushing_charge,
+    crushing_charge_condition,
+    lava_flow,
+)
 
 card = PokemonCardDef(
     guid="4318046a-6063-50a4-9254-b9d37428e311",
@@ -27,8 +30,9 @@ card = PokemonCardDef(
             title="Crushing Charge",
             game_text="Once during your turn (before your attack), you may discard the top card of your deck. If it's a basic Energy card, attach it to 1 of your Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=crushing_charge,
+            activation=Activations.ONCE_PER_TURN,
+            condition=crushing_charge_condition,
         ),
         Attack(
             title="Lava Flow",
@@ -36,15 +40,13 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 2, PokemonTypes.COLORLESS: 1},
             damage=50,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=lava_flow
         ),
         Attack(
             title="Burning Magma-GX",
             game_text="Discard the top 5 cards of your opponent's deck. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.FIRE: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=burning_magma_gx
         ),
     ],
 )

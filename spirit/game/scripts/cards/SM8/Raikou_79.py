@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Raikou (SM8 #79): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm8 import (
+    lost_voltage,
+)
 
 card = PokemonCardDef(
     guid="687118b7-fe78-5696-a033-5d3478addb8b",
@@ -30,8 +30,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=lost_voltage
         ),
     ],
 )

@@ -1,9 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Tapu Bulu (SM8 #37): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm8 import (
+    heavy_punch,
+    wild_tackle,
+)
 
 card = PokemonCardDef(
     guid="5eca810e-b951-5566-bf78-b94aab755037",
@@ -28,16 +29,14 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=heavy_punch
         ),
         Attack(
             title="Wild Tackle",
             game_text="Flip a coin. If tails, this Pok\u00e9mon does 30 damage to itself.",
             cost={PokemonTypes.GRASS: 2, PokemonTypes.COLORLESS: 1},
             damage=120,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=wild_tackle
         ),
     ],
 )

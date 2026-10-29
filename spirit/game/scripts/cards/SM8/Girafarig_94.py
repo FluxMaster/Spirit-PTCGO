@@ -1,15 +1,13 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Girafarig (SM8 #94): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 
+from spirit.game.card_effects.sm8 import (
+    get_lost,
+)
 
 async def sonic_boom(ctx):
     """40. This attack's damage isn't affected by Weakness or Resistance."""
     await ctx.deal_damage(apply_modifiers=False)
-
 
 card = PokemonCardDef(
     guid="1af1547f-bcba-5dee-98e6-ddcf73045284",
@@ -32,15 +30,13 @@ card = PokemonCardDef(
             title="Get Lost",
             game_text="Put 2 cards from your opponent's discard pile in the Lost Zone.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=get_lost
         ),
         Attack(
             title="Mind Shock",
             game_text="This attack's damage isn't affected by Weakness or Resistance.",
             cost={PokemonTypes.COLORLESS: 3},
             damage=70,
-            # STUB: attack effect not implemented
             effect=sonic_boom,
         ),
     ],

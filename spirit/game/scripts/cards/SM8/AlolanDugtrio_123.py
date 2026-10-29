@@ -1,15 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Alolan Dugtrio (SM8 #123): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-
 
 async def sonic_boom(ctx):
     """40. This attack's damage isn't affected by Weakness or Resistance."""
     await ctx.deal_damage(apply_modifiers=False)
-
 
 card = PokemonCardDef(
     guid="bbffa148-dfa9-566b-828f-fd95785645b1",
@@ -36,7 +30,6 @@ card = PokemonCardDef(
             game_text="This attack's damage isn't affected by Weakness or Resistance.",
             cost={},
             damage=60,
-            # STUB: attack effect not implemented
             effect=sonic_boom,
         ),
     ],

@@ -1,11 +1,11 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Sceptile-GX (SM8 #216): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import discard_opponent_energy_attack
 
+from spirit.game.card_effects.sm8 import (
+    jungle_heal_gx,
+    leaf_cyclone,
+)
 
 card = PokemonCardDef(
     guid="d51566c4-da93-52ba-a66d-e28022449260",
@@ -30,7 +30,6 @@ card = PokemonCardDef(
             game_text="Discard a Special Energy from your opponent's Active Pok\u00e9mon.",
             cost={PokemonTypes.GRASS: 1},
             damage=60,
-            # STUB: attack effect not implemented
             effect=discard_opponent_energy_attack(special_only=True),
         ),
         Attack(
@@ -38,15 +37,13 @@ card = PokemonCardDef(
             game_text="Move a Grass Energy from this Pok\u00e9mon to 1 of your Benched Pok\u00e9mon.",
             cost={PokemonTypes.GRASS: 2},
             damage=130,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=leaf_cyclone
         ),
         Attack(
             title="Jungle Heal-GX",
             game_text="Heal all damage from each of your Pok\u00e9mon that has any Grass Energy attached to it. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.GRASS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=jungle_heal_gx
         ),
     ],
 )

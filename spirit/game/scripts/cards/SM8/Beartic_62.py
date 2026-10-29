@@ -1,17 +1,15 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Beartic (SM8 #62): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import lock_all_attacks
 
+from spirit.game.card_effects.sm8 import (
+    beartic_resolute,
+)
 
 async def _freeze_shock(ctx):
     """Printed damage; this Pokemon can't attack during your next turn."""
     await ctx.deal_damage()
     lock_all_attacks(ctx, ctx.attacker)
-
 
 card = PokemonCardDef(
     guid="d2434100-ac83-502f-a0bd-d4f00a57795e",
@@ -37,15 +35,13 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 2},
             damage=60,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=beartic_resolute
         ),
         Attack(
             title="Blizzard Burn",
             game_text="This Pok\u00e9mon can't attack during your next turn.",
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 3},
             damage=150,
-            # STUB: attack effect not implemented
             effect=_freeze_shock,
         ),
     ],

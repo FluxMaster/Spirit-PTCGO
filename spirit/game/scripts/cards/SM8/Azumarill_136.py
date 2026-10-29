@@ -1,11 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Azumarill (SM8 #136): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_bonus
 
+from spirit.game.card_effects.sm8 import (
+    polka_dot_search,
+)
 
 card = PokemonCardDef(
     guid="2bbc0154-1e88-597c-8c1d-6e9c506c6e89",
@@ -31,8 +30,7 @@ card = PokemonCardDef(
             title="Polka-Dot Search",
             game_text="Look at the top 8 cards of your deck and attach any number of Energy cards you find there to your Pok\u00e9mon in any way you like. Shuffle the other cards back into your deck.",
             cost={PokemonTypes.FAIRY: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=polka_dot_search
         ),
         Attack(
             title="Play Rough",
@@ -40,7 +38,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.FAIRY: 1, PokemonTypes.COLORLESS: 2},
             damage=60,
             damage_operator="+",
-            # STUB: attack effect not implemented
             effect=flip_bonus(30),
         ),
     ],

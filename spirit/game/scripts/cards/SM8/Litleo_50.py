@@ -1,11 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Litleo (SM8 #50): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import recoil_attack
 
+from spirit.game.card_effects.sm8 import (
+    wild_dash_passive,
+)
 
 card = PokemonCardDef(
     guid="0c89bbc8-caca-52fa-b5e5-e877913d56a4",
@@ -28,15 +27,13 @@ card = PokemonCardDef(
             title="Wild Dash",
             game_text="If your opponent has any Pok\u00e9mon-GX or Pok\u00e9mon-EX in play, this Pok\u00e9mon has no Retreat Cost.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=wild_dash_passive
         ),
         Attack(
             title="Take Down",
             game_text="This Pok\u00e9mon does 10 damage to itself.",
             cost={PokemonTypes.COLORLESS: 2},
             damage=30,
-            # STUB: attack effect not implemented
             effect=recoil_attack(10),
         ),
     ],

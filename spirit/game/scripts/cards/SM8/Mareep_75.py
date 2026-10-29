@@ -1,9 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Mareep (SM8 #75): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.sm8 import (
+    fluffy_pillow,
+    is_active_pokemon,
+)
 
 card = PokemonCardDef(
     guid="dee9d90a-0259-5bbc-a560-ec35a0b68733",
@@ -28,8 +29,9 @@ card = PokemonCardDef(
             title="Fluffy Pillow",
             game_text="Once during your turn (before your attack), if this Pok\u00e9mon is your Active Pok\u00e9mon, you may leave your opponent's Active Pok\u00e9mon Asleep.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=fluffy_pillow,
+            activation=Activations.ONCE_PER_TURN,
+            condition=is_active_pokemon,
         ),
         Attack(
             title="Tackle",

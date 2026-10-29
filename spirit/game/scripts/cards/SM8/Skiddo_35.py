@@ -1,11 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Skiddo (SM8 #35): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.support_common import draw_attack
-
 
 card = PokemonCardDef(
     guid="7c1a1d9c-6778-5317-ac73-8223bbd7101a",
@@ -28,7 +23,6 @@ card = PokemonCardDef(
             title="Collect",
             game_text="Draw a card.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=draw_attack(1),
         ),
         Attack(

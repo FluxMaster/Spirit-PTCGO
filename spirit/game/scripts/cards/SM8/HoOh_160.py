@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Ho-Oh (SM8 #160): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm8 import (
+    rainbow_burn,
+)
 
 card = PokemonCardDef(
     guid="e71be88b-aab5-530d-adcd-18146e4aa157",
@@ -30,8 +30,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=rainbow_burn
         ),
     ],
 )

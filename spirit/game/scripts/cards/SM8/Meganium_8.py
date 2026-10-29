@@ -1,9 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Meganium (SM8 #8): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.sm8 import (
+    quick_ripening_herb,
+    quick_ripening_herb_condition,
+)
 
 card = PokemonCardDef(
     guid="b9ef3be7-b020-5083-922c-86bdf57af9c0",
@@ -27,8 +28,9 @@ card = PokemonCardDef(
             title="Quick-Ripening Herb",
             game_text="Once during your turn (before your attack), you may use this Ability. Choose 1 of your Basic Pok\u00e9mon in play. If you have a Stage 2 card in your hand that evolves from that Pok\u00e9mon, put that card onto the Basic Pok\u00e9mon to evolve it. You can use this Ability during your first turn or on a Pok\u00e9mon that was put into play this turn.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=quick_ripening_herb,
+            activation=Activations.ONCE_PER_TURN,
+            condition=quick_ripening_herb_condition,
         ),
         Attack(
             title="Solar Beam",

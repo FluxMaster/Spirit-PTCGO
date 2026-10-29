@@ -1,9 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Xerneas {*} (SM8 #144): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.sm8 import (
+    bright_horns,
+    path_of_life,
+)
 
 card = PokemonCardDef(
     guid="1078c2ac-187a-5a51-8092-f80a33af7601",
@@ -28,16 +29,16 @@ card = PokemonCardDef(
             title="Path of Life",
             game_text="Once during your turn, when this Pok\u00e9mon moves from your Bench to become your Active Pok\u00e9mon, you may move any number of Energy from your other Pok\u00e9mon to it.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=path_of_life,
+            trigger=Triggers.ON_MOVE_TO_ACTIVE,
         ),
         Attack(
             title="Bright Horns",
             game_text="This Pok\u00e9mon can't use Bright Horns during your next turn.",
             cost={PokemonTypes.FAIRY: 3},
             damage=160,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bright_horns,
+            locks_next_turn=True,
         ),
     ],
 )

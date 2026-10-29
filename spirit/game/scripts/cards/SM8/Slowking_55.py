@@ -1,11 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Slowking (SM8 #55): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.sm5 import psychic_60_plus
 
+from spirit.game.card_effects.sm8 import (
+    memory_melt,
+)
 
 card = PokemonCardDef(
     guid="597387af-6e10-5d80-b9c8-c24fdb5e439f",
@@ -29,8 +28,7 @@ card = PokemonCardDef(
             title="Memory Melt",
             game_text="Look at your opponent's hand and put a card you find there in the Lost Zone.",
             cost={PokemonTypes.WATER: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=memory_melt
         ),
         Attack(
             title="Psychic",
@@ -38,7 +36,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=60,
             damage_operator="+",
-            # STUB: attack effect not implemented
             effect=psychic_60_plus,
         ),
     ],

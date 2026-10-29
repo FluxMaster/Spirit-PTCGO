@@ -1,11 +1,11 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Lugia-GX (SM8 #207): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.sm6 import meowstic_psychic
 
+from spirit.game.card_effects.sm8 import (
+    lost_purge_gx,
+    pelagic_blade,
+)
 
 card = PokemonCardDef(
     guid="631f05ba-87be-564b-ab79-1f166d113822",
@@ -32,7 +32,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
             effect=meowstic_psychic,
         ),
         Attack(
@@ -40,15 +39,14 @@ card = PokemonCardDef(
             game_text="This Pok\u00e9mon can't use Pelagic Blade during your next turn.",
             cost={PokemonTypes.COLORLESS: 4},
             damage=170,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=pelagic_blade,
+            locks_next_turn=True,
         ),
         Attack(
             title="Lost Purge-GX",
             game_text="Put your opponent's Active Pok\u00e9mon and all cards attached to it in the Lost Zone. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.COLORLESS: 3},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=lost_purge_gx
         ),
     ],
 )

@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Delibird (SM8 #57): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm8 import (
+    happy_delivery,
+)
 
 card = PokemonCardDef(
     guid="2a77ffac-7b03-54c1-8a45-1f9c8ace8230",
@@ -26,8 +26,7 @@ card = PokemonCardDef(
             title="Happy Delivery",
             game_text="Choose any number of your Benched Pok\u00e9mon that don't already have a Pok\u00e9mon Tool attached to them. For each of those Pok\u00e9mon, search your deck for a Pok\u00e9mon Tool card and attach it to that Pok\u00e9mon. Then, shuffle your deck.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=happy_delivery
         ),
         Attack(
             title="Flap",

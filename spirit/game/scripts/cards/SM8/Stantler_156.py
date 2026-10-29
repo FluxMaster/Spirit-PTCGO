@@ -1,12 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Stantler (SM8 #156): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack, bonus_if, has_tool
-
 
 card = PokemonCardDef(
     guid="df2d2e41-c329-5b8e-a19e-6c3c0a70a987",
@@ -29,7 +24,6 @@ card = PokemonCardDef(
             title="Mystifying Horns",
             game_text="Your opponent's Active Pok\u00e9mon is now Confused.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.CONFUSED),
         ),
         Attack(
@@ -38,7 +32,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=20,
             damage_operator="+",
-            # STUB: attack effect not implemented
             effect=bonus_if(lambda ctx: ctx.attacker is not None and has_tool(ctx.attacker), 60),
         ),
     ],

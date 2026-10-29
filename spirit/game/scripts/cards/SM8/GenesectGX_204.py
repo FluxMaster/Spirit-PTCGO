@@ -1,11 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Genesect-GX (SM8 #204): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.sm3 import muscle_punch_gx
 
+from spirit.game.card_effects.sm8 import (
+    double_drive_passive,
+)
 
 card = PokemonCardDef(
     guid="88773070-88e2-59ea-aa6f-ed8b3fd56d54",
@@ -30,8 +29,7 @@ card = PokemonCardDef(
             title="Double Drive",
             game_text="This Pok\u00e9mon may have up to 2 Pok\u00e9mon Tool cards attached to it. If it loses this Ability, discard Pok\u00e9mon Tool cards from it until only 1 remains.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=double_drive_passive
         ),
         Attack(
             title="Burst Shot",
@@ -43,7 +41,6 @@ card = PokemonCardDef(
             game_text="This attack's damage isn't affected by Resistance. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.METAL: 2, PokemonTypes.COLORLESS: 1},
             damage=190,
-            # STUB: attack effect not implemented
             effect=muscle_punch_gx,
         ),
     ],

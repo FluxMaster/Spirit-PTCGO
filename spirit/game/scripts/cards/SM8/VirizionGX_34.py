@@ -1,11 +1,11 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Virizion-GX (SM8 #34): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.support_common import draw_attack
 
+from spirit.game.card_effects.sm8 import (
+    breeze_away_gx,
+    sensitive_blade,
+)
 
 card = PokemonCardDef(
     guid="40ef41fc-5f75-5868-9b58-ed8271a02bbd",
@@ -28,7 +28,6 @@ card = PokemonCardDef(
             title="Double Draw",
             game_text="Draw 2 cards.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=draw_attack(2),
         ),
         Attack(
@@ -37,15 +36,13 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 2},
             damage=50,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=sensitive_blade
         ),
         Attack(
             title="Breeze Away-GX",
             game_text="Put any number of your Pok\u00e9mon in play and all cards attached to them into your hand. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=breeze_away_gx
         ),
     ],
 )

@@ -1,12 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Chinchou (SM8 #73): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
-
 
 card = PokemonCardDef(
     guid="469aa052-24c0-5c56-b6d0-256b678da976",
@@ -31,7 +26,6 @@ card = PokemonCardDef(
             title="Thunder Wave",
             game_text="Flip a coin. If heads, your opponent's Active Pok\u00e9mon is now Paralyzed.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.PARALYZED, flip=True),
         ),
         Attack(

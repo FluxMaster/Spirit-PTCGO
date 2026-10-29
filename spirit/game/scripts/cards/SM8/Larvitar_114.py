@@ -1,11 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Larvitar (SM8 #114): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.sm4 import submerge_passive
-
 
 card = PokemonCardDef(
     guid="188bc694-59fb-5910-8964-45e1d8f452eb",
@@ -28,7 +23,6 @@ card = PokemonCardDef(
             title="Submerge",
             game_text="As long as this Pok\u00e9mon is on your Bench, prevent all damage done to this Pok\u00e9mon by attacks (both yours and your opponent's).",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
             passive=submerge_passive,
         ),
         Attack(

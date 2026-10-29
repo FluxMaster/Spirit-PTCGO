@@ -1,17 +1,16 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Zeraora-GX (SM8 #86): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import lock_all_attacks
 
+from spirit.game.card_effects.sm8 import (
+    full_voltage_gx,
+    thunderclap_zone_passive,
+)
 
 async def _freeze_shock(ctx):
     """Printed damage; this Pokemon can't attack during your next turn."""
     await ctx.deal_damage()
     lock_all_attacks(ctx, ctx.attacker)
-
 
 card = PokemonCardDef(
     guid="d39c59ad-ac00-519c-b16f-f7276bbdc467",
@@ -36,23 +35,20 @@ card = PokemonCardDef(
             title="Thunderclap Zone",
             game_text="Each of your Pok\u00e9mon that has any Lightning Energy attached to it has no Retreat Cost.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=thunderclap_zone_passive
         ),
         Attack(
             title="Plasma Fists",
             game_text="This Pok\u00e9mon can't attack during your next turn.",
             cost={PokemonTypes.LIGHTNING: 2, PokemonTypes.COLORLESS: 1},
             damage=160,
-            # STUB: attack effect not implemented
             effect=_freeze_shock,
         ),
         Attack(
             title="Full Voltage-GX",
             game_text="Attach 5 basic Energy cards from your discard pile to your Pok\u00e9mon in any way you like. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.LIGHTNING: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=full_voltage_gx
         ),
     ],
 )

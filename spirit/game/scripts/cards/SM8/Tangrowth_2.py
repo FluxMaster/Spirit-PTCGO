@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Tangrowth (SM8 #2): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm8 import (
+    hefty_whip,
+)
 
 card = PokemonCardDef(
     guid="15ac751e-45c1-5dc6-8ae6-ade20ba32b5f",
@@ -29,8 +29,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 2},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=hefty_whip
         ),
         Attack(
             title="Whip Smash",

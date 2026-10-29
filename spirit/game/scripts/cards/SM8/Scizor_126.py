@@ -1,11 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Scizor (SM8 #126): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.passives_common import takes_less_passive
 
+from spirit.game.card_effects.sm8 import (
+    special_blow,
+)
 
 card = PokemonCardDef(
     guid="09cfa82f-17c4-5aaf-ab21-3d48f985769a",
@@ -31,7 +30,6 @@ card = PokemonCardDef(
             title="Exoskeleton",
             game_text="This Pok\u00e9mon takes 30 less damage from attacks (after applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
             passive=takes_less_passive(30),
         ),
         Attack(
@@ -40,8 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.METAL: 1, PokemonTypes.COLORLESS: 1},
             damage=60,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=special_blow
         ),
     ],
 )

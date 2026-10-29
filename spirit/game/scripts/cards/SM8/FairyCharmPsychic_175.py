@@ -1,14 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Fairy Charm Psychic (SM8 #175): trainer effect stubbed.
-
-Card text:
-  - Attach a Pokémon Tool to 1 of your Pokémon that doesn't already have a Pokémon Tool attached to it.
-  - Prevent all damage done to the Fairy Pokémon this card is attached to by attacks from your opponent's Psychic Pokémon-GX and Psychic Pokémon-EX.
-  - You may play as many Item cards as you like during your turn (before your attack).
-"""
-
-from spirit.game.data_utils import PokemonToolCardDef, unimplemented
+from spirit.game.data_utils import PokemonToolCardDef
 from spirit.game.attributes import Rarities
+
+from spirit.game.card_effects.sm8 import (
+    fairy_charm_psychic_passive,
+    is_fairy_pokemon,
+)
 
 card = PokemonToolCardDef(
     guid="25618b26-4e48-57ab-b132-9df0db13e5a7",
@@ -20,6 +16,6 @@ card = PokemonToolCardDef(
     collector_number=175,
     set_code="SM8",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    passive=fairy_charm_psychic_passive,
+    attach_to=is_fairy_pokemon,
 )

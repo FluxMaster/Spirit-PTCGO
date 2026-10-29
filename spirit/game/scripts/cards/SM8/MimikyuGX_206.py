@@ -1,12 +1,12 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Mimikyu-GX (SM8 #206): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
 
+from spirit.game.card_effects.sm8 import (
+    dream_fear_gx,
+    lets_snuggle,
+)
 
 card = PokemonCardDef(
     guid="91181f04-2699-5c19-ae99-52091cfc17d6",
@@ -28,7 +28,6 @@ card = PokemonCardDef(
             title="Perplex",
             game_text="Your opponent's Active Pok\u00e9mon is now Confused.",
             cost={PokemonTypes.FAIRY: 1},
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.CONFUSED),
         ),
         Attack(
@@ -37,15 +36,13 @@ card = PokemonCardDef(
             cost={PokemonTypes.FAIRY: 1, PokemonTypes.COLORLESS: 1},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=lets_snuggle
         ),
         Attack(
             title="Dream Fear-GX",
             game_text="Choose 1 of your opponent's Benched Pok\u00e9mon. Your opponent shuffles that Pok\u00e9mon and all cards attached to it into their deck. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.FAIRY: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=dream_fear_gx
         ),
     ],
 )

@@ -1,9 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Skiploom (SM8 #13): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.sm8 import (
+    floral_path,
+    floral_path_condition,
+)
 
 card = PokemonCardDef(
     guid="b92c020e-e7fd-5584-9e52-d064a7dec3b6",
@@ -29,8 +30,9 @@ card = PokemonCardDef(
             title="Floral Path to the Sky",
             game_text="Once during your turn (before your attack), you may search your deck for Jumpluff, put this Pok\u00e9mon and all cards attached to it in the Lost Zone, and put that Jumpluff in its place. Then, shuffle your deck.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=floral_path,
+            activation=Activations.ONCE_PER_TURN,
+            condition=floral_path_condition,
         ),
         Attack(
             title="Tackle",

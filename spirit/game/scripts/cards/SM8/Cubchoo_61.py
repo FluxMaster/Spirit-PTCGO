@@ -1,9 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Cubchoo (SM8 #61): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm8 import (
+    go_second_first_turn,
+    secondary_chills,
+)
 
 card = PokemonCardDef(
     guid="b3b446b3-d138-5bd1-8859-ca16b670711e",
@@ -26,8 +27,8 @@ card = PokemonCardDef(
             title="Secondary Chills",
             game_text="You can use this attack only if you go second, and only on your first turn. Your opponent's Active Pok\u00e9mon is now Paralyzed.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=secondary_chills,
+            condition=go_second_first_turn,
         ),
         Attack(
             title="Beat",

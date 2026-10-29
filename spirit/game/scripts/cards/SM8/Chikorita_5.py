@@ -1,12 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Chikorita (SM8 #5): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.support_common import search_attach_energy
 from spirit.game.card_effects.trainers import is_grass_energy_card
-
 
 card = PokemonCardDef(
     guid="67715c56-4511-5262-8458-8a2c9339b6c8",
@@ -29,7 +24,6 @@ card = PokemonCardDef(
             title="Synthesis",
             game_text="Search your deck for a Grass Energy card and attach it to 1 of your Pok\u00e9mon. Then, shuffle your deck.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=search_attach_energy(is_grass_energy_card, count=1),
         ),
         Attack(

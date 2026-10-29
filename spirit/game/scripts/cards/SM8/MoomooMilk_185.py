@@ -1,13 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Moomoo Milk (SM8 #185): trainer effect stubbed.
-
-Card text:
-  - Choose 1 of your Pokémon, and then flip 2 coins. For each heads, heal 30 damage from that Pokémon.
-  - You may play as many Item cards as you like during your turn (before your attack).
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+
+from spirit.game.card_effects.sm8 import (
+    moomoo_milk,
+)
 
 card = ItemCardDef(
     guid="18c207d0-88ff-551a-a391-add93b936b6d",
@@ -19,6 +15,5 @@ card = ItemCardDef(
     collector_number=185,
     set_code="SM8",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=moomoo_milk
 )

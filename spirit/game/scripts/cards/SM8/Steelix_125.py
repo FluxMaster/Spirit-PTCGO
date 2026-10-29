@@ -1,11 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Steelix (SM8 #125): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.sm4 import super_electromagnetic_tackle
-
 
 card = PokemonCardDef(
     guid="14bd9a6c-0859-5560-b258-cd2aa204563e",
@@ -37,7 +32,6 @@ card = PokemonCardDef(
             game_text="This Pok\u00e9mon does 50 damage to itself.",
             cost={PokemonTypes.METAL: 1, PokemonTypes.COLORLESS: 3},
             damage=170,
-            # STUB: attack effect not implemented
             effect=super_electromagnetic_tackle,
         ),
     ],

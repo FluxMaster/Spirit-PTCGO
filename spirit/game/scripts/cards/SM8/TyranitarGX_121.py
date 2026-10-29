@@ -1,11 +1,11 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Tyranitar-GX (SM8 #121): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import ignore_effects_attack
 
+from spirit.game.card_effects.sm8 import (
+    dusty_ruckus,
+    lost_out_passive,
+)
 
 card = PokemonCardDef(
     guid="bfdc485c-c4ec-5d17-8216-dcbda2b93831",
@@ -31,23 +31,20 @@ card = PokemonCardDef(
             title="Lost Out",
             game_text="If your opponent's Pok\u00e9mon is Knocked Out by damage from this Pok\u00e9mon's attacks, put that Pok\u00e9mon and all cards attached to it in the Lost Zone instead of the discard pile.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=lost_out_passive
         ),
         Attack(
             title="Dusty Ruckus",
             game_text="This attack does 30 damage to each of your opponent's Benched Basic Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.DARKNESS: 2, PokemonTypes.COLORLESS: 1},
             damage=130,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=dusty_ruckus
         ),
         Attack(
             title="Lay the Smackdown-GX",
             game_text="This attack's damage isn't affected by any effects on your opponent's Active Pok\u00e9mon. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.DARKNESS: 2, PokemonTypes.COLORLESS: 1},
             damage=220,
-            # STUB: attack effect not implemented
             effect=ignore_effects_attack(),
         ),
     ],

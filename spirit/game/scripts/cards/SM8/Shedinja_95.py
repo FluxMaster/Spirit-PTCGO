@@ -1,9 +1,11 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Shedinja (SM8 #95): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.sm8 import (
+    haunt,
+    vessel_of_life,
+    vessel_of_life_condition,
+)
 
 card = PokemonCardDef(
     guid="10586aa5-0b4e-5290-8141-c389693024eb",
@@ -26,15 +28,15 @@ card = PokemonCardDef(
             title="Vessel of Life",
             game_text="Once during your turn (before your attack), you may discard all cards attached to this Pok\u00e9mon and attach it to 1 of your Pok\u00e9mon as a Pok\u00e9mon Tool card. When the Pok\u00e9mon this card is attached to is Knocked Out, your opponent takes 1 fewer Prize card.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=vessel_of_life,
+            activation=Activations.ONCE_PER_TURN,
+            condition=vessel_of_life_condition,
         ),
         Attack(
             title="Haunt",
             game_text="Put 3 damage counters on your opponent's Active Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=haunt
         ),
     ],
 )

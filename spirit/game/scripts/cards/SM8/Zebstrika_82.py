@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Zebstrika (SM8 #82): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.sm8 import (
+    sprint,
+)
 
 card = PokemonCardDef(
     guid="87700b5f-13b2-5977-bf5b-2ad3cc8fb0d8",
@@ -29,8 +29,8 @@ card = PokemonCardDef(
             title="Sprint",
             game_text="Once during your turn (before your attack), you may discard your hand and draw 4 cards.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=sprint,
+            activation=Activations.ONCE_PER_TURN,
         ),
         Attack(
             title="Head Bolt",

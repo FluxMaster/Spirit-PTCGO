@@ -1,11 +1,11 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Blissey (SM8 #153): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import count_energy, flip_damage
 
+from spirit.game.card_effects.sm8 import (
+    happiness_supplement,
+    happiness_supplement_condition,
+)
 
 card = PokemonCardDef(
     guid="2d9ed1c1-16b7-5ff1-aee5-a8885ad02f0c",
@@ -29,8 +29,9 @@ card = PokemonCardDef(
             title="Happiness Supplement",
             game_text="Once during your turn (before your attack), you may remove a Special Condition from your Active Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=happiness_supplement,
+            activation=Activations.ONCE_PER_TURN,
+            condition=happiness_supplement_condition,
         ),
         Attack(
             title="Powerful Slap",
@@ -38,7 +39,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=80,
             damage_operator="x",
-            # STUB: attack effect not implemented
             effect=flip_damage(coins_from=count_energy('self'), per_heads=80),
         ),
     ],

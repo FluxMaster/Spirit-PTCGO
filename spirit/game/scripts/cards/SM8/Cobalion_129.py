@@ -1,11 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Cobalion (SM8 #129): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.passives_common import protect_next_turn
 
+from spirit.game.card_effects.sm8 import (
+    metal_arms,
+)
 
 card = PokemonCardDef(
     guid="e39a4deb-5a37-54b0-a5cf-28ceae73b0fc",
@@ -31,7 +30,6 @@ card = PokemonCardDef(
             game_text="During your opponent's next turn, this Pok\u00e9mon takes 30 less damage from attacks (after applying Weakness and Resistance).",
             cost={PokemonTypes.METAL: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
-            # STUB: attack effect not implemented
             effect=protect_next_turn(reduce=30),
         ),
         Attack(
@@ -40,8 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.METAL: 2, PokemonTypes.COLORLESS: 1},
             damage=80,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=metal_arms
         ),
     ],
 )

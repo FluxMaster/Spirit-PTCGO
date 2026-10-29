@@ -1,13 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Electropower (SM8 #172a): trainer effect stubbed.
-
-Card text:
-  - During this turn, your Lightning Pokémon's attacks do 30 more damage to your opponent's Active Pokémon (before applying Weakness and Resistance).
-  - You may play as many Item cards as you like during your turn (before your attack).
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+
+from spirit.game.card_effects.sm8 import (
+    electropower,
+)
 
 card = ItemCardDef(
     guid="5ac0501b-4682-5255-b24f-744b6dcddaa2",
@@ -19,6 +15,5 @@ card = ItemCardDef(
     collector_number=237,
     set_code="SM8",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=electropower
 )

@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Gogoat (SM8 #36): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm8 import (
+    leaf_wallop,
+)
 
 card = PokemonCardDef(
     guid="4cd3da56-c2a7-50e9-9580-747f0cd05191",
@@ -28,8 +28,7 @@ card = PokemonCardDef(
             game_text="During your next turn, this Pok\u00e9mon's Leaf Wallop attack does 50 more damage (before applying Weakness and Resistance).",
             cost={PokemonTypes.COLORLESS: 2},
             damage=40,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=leaf_wallop
         ),
         Attack(
             title="Solar Beam",

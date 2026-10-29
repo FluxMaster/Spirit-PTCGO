@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Moltres (SM8 #38): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm8 import (
+    assisting_heater,
+)
 
 card = PokemonCardDef(
     guid="c2aab563-862a-5e2e-b70c-5cc6aa6e85f0",
@@ -27,8 +27,7 @@ card = PokemonCardDef(
             game_text="You may attach a Fire Energy card from your hand to 1 of your Benched Pok\u00e9mon.",
             cost={PokemonTypes.FIRE: 1},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=assisting_heater
         ),
         Attack(
             title="Fire Wing",

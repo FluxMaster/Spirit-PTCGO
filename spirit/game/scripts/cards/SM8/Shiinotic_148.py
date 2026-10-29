@@ -1,9 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Shiinotic (SM8 #148): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.sm8 import (
+    dreams_touch,
+    effect_spore,
+)
 
 card = PokemonCardDef(
     guid="feaba974-af2a-55a7-b5f7-daeaf4a7814d",
@@ -29,16 +30,15 @@ card = PokemonCardDef(
             title="Effect Spore",
             game_text="If this Pok\u00e9mon is your Active Pok\u00e9mon and is damaged by an opponent's attack (even if this Pok\u00e9mon is Knocked Out), the Attacking Pok\u00e9mon is now Asleep.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=effect_spore,
+            trigger=Triggers.ON_DAMAGED_BY_ATTACK,
         ),
         Attack(
             title="Dream's Touch",
             game_text="If your opponent's Active Pok\u00e9mon is Asleep, your opponent shuffles all Energy from it into their deck.",
             cost={PokemonTypes.FAIRY: 2},
             damage=50,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=dreams_touch
         ),
     ],
 )

@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Ribombee (SM8 #146): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.sm8 import (
+    mysterious_buzz_passive,
+)
 
 card = PokemonCardDef(
     guid="821b1215-ee09-5e3f-8738-7d64ddfdd0b0",
@@ -29,8 +29,7 @@ card = PokemonCardDef(
             title="Mysterious Buzz",
             game_text="As long as this Pok\u00e9mon is on your Bench, whenever your opponent plays a Supporter card from their hand, prevent all effects of that card done to your Fairy Pok\u00e9mon in play.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=mysterious_buzz_passive
         ),
         Attack(
             title="Stampede",

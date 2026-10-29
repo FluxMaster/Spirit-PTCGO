@@ -1,11 +1,11 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Ninjask (SM8 #30): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import flip_bonus
 
+from spirit.game.card_effects.sm8 import (
+    molting,
+    molting_condition,
+)
 
 card = PokemonCardDef(
     guid="dac17095-31e2-5371-971a-8c5801de5928",
@@ -29,8 +29,9 @@ card = PokemonCardDef(
             title="Molting",
             game_text="When you play this Pok\u00e9mon from your hand to evolve 1 of your Pok\u00e9mon during your turn, you may put a Shedinja from your discard pile onto your Bench.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=molting,
+            trigger=Triggers.ON_EVOLVE,
+            condition=molting_condition,
         ),
         Attack(
             title="X-Scissor",
@@ -38,7 +39,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1},
             damage=40,
             damage_operator="+",
-            # STUB: attack effect not implemented
             effect=flip_bonus(40),
         ),
     ],

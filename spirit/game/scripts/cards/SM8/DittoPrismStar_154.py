@@ -1,9 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Ditto {*} (SM8 #154): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.sm8 import (
+    almighty_evolution,
+    almighty_evolution_condition,
+)
 
 card = PokemonCardDef(
     guid="600ddbd8-4185-502c-a662-cfdae26dc68f",
@@ -26,8 +27,9 @@ card = PokemonCardDef(
             title="Almighty Evolution",
             game_text="Once during your turn (before your attack), you may put any Stage 1 card from your hand onto this Pok\u00e9mon to evolve it. You can't use this Ability during your first turn or the turn this Pok\u00e9mon was put into play.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=almighty_evolution,
+            activation=Activations.ONCE_PER_TURN,
+            condition=almighty_evolution_condition,
         ),
     ],
 )

@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Treecko (SM8 #20): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm8 import (
+    find_a_friend,
+)
 
 card = PokemonCardDef(
     guid="ad4191ef-d5d3-50f0-a5cd-77e3c632defd",
@@ -26,8 +26,7 @@ card = PokemonCardDef(
             title="Find a Friend",
             game_text="Search your deck for a Grass Pok\u00e9mon, reveal it, and put it into your hand. Then, shuffle your deck.",
             cost={PokemonTypes.GRASS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=find_a_friend
         ),
     ],
 )

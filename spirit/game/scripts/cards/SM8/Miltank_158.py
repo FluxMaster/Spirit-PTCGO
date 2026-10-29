@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Miltank (SM8 #158): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm8 import (
+    milk_cannon,
+)
 
 card = PokemonCardDef(
     guid="fcd1979f-eed4-58cc-ba52-e0e3f9d56d95",
@@ -28,8 +28,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=60,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=milk_cannon
         ),
     ],
 )

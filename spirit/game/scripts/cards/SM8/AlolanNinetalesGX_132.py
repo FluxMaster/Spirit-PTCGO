@@ -1,10 +1,11 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Alolan Ninetales-GX (SM8 #132): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 
+from spirit.game.card_effects.sm8 import (
+    mysterious_guidance,
+    snowy_wind,
+    sublimation_gx,
+)
 
 card = PokemonCardDef(
     guid="ccccba4d-d31f-5a75-9115-93263b00c608",
@@ -30,23 +31,21 @@ card = PokemonCardDef(
             title="Mysterious Guidance",
             game_text="When you play this Pok\u00e9mon from your hand to evolve 1 of your Pok\u00e9mon during your turn, you may search your deck for up to 2 Item cards, reveal them, and put them into your hand. Then, shuffle your deck.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=mysterious_guidance,
+            trigger=Triggers.ON_EVOLVE,
         ),
         Attack(
             title="Snowy Wind",
             game_text="This attack does 30 damage to 1 of your opponent's Benched Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.FAIRY: 1, PokemonTypes.COLORLESS: 1},
             damage=70,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=snowy_wind
         ),
         Attack(
             title="Sublimation-GX",
             game_text="If your opponent's Active Pok\u00e9mon is an Ultra Beast, it is Knocked Out. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.FAIRY: 1, PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=sublimation_gx
         ),
     ],
 )
