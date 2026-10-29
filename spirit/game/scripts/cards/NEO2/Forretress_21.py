@@ -4,6 +4,8 @@ Forretress (NEO2 #21): one or more attacks/abilities use effect=unimplemented un
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ecard import rapid_spin
+
 
 card = PokemonCardDef(
     guid="09d17c47-a7a6-5749-9331-424c3758fc1b",
@@ -37,7 +39,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.METAL: 1, PokemonTypes.COLORLESS: 2},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=rapid_spin,
         ),
     ],
 )

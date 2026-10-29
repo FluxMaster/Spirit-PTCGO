@@ -4,6 +4,8 @@ Houndoom (NEO2 #23): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import screech
+
 
 card = PokemonCardDef(
     guid="ddc259e6-04a2-5618-a890-b31a8414b6c8",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.DARKNESS: 1, PokemonTypes.COLORLESS: 2},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=screech(),
         ),
         Attack(
             title="Flamethrower",

@@ -4,6 +4,9 @@ Ursaring (NEO2 #15): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.attributes import SpecialConditions
+from spirit.game.card_effects.attacks_common import condition_attack, flip_or_nothing, flip_damage
+
 
 card = PokemonCardDef(
     guid="43098cb5-ead9-5c21-b3e8-ad16a4d1fa08",
@@ -30,7 +33,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_or_nothing(then=condition_attack(SpecialConditions.PARALYZED)),
         ),
         Attack(
             title="Double Lariat",
@@ -39,7 +42,7 @@ card = PokemonCardDef(
             damage=40,
             damage_operator="x",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(coins=2, per_heads=40),
         ),
     ],
 )

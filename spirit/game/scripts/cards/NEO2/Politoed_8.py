@@ -4,6 +4,8 @@ Politoed (NEO2 #8): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import flip_damage
+
 
 card = PokemonCardDef(
     guid="541ba1f3-b209-5442-82f4-773830a0e779",
@@ -37,7 +39,7 @@ card = PokemonCardDef(
             damage=40,
             damage_operator="x",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(coins=2, per_heads=40),
         ),
     ],
 )

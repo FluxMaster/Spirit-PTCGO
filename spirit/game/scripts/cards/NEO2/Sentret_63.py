@@ -4,6 +4,8 @@ Sentret (NEO2 #63): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import look_at_opponent_hand
+
 
 card = PokemonCardDef(
     guid="11f89d42-1969-59a1-8017-4a11cc5cfc33",
@@ -28,7 +30,7 @@ card = PokemonCardDef(
             game_text="Look at your opponent's hand.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=look_at_opponent_hand,
         ),
         Attack(
             title="Tackle",
