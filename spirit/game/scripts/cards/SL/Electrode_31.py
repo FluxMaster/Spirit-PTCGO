@@ -1,8 +1,4 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Electrode (SL #31): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import ignore_effects_attack
 
@@ -32,7 +28,6 @@ card = PokemonCardDef(
             game_text="This attack's damage isn't affected by Weakness, Resistance, or any other effects on your opponent's Active Pok\u00e9mon.",
             cost={PokemonTypes.LIGHTNING: 1},
             damage=60,
-            # STUB: attack effect not implemented
             effect=ignore_effects_attack(ignore_weakness=True, ignore_resistance=True),
         ),
     ],

@@ -1,7 +1,3 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Mewtwo-GX (SL #78): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import count_energy, damage_per, ignore_effects_attack
@@ -38,7 +34,6 @@ card = PokemonCardDef(
             game_text="Heal 30 damage from this Pok\u00e9mon.",
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 1},
             damage=60,
-            # STUB: attack effect not implemented
             effect=heal_attack(30, target='self'),
         ),
         Attack(
