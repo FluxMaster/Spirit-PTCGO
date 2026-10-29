@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dark Flareon (BASE5 #35): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import damage_counters_on, damage_per
+from spirit.game.card_effects.ecard import has_fire_energy_attached, playing_with_fire
+
 
 card = PokemonCardDef(
     guid="a73c0a55-4f0f-532e-a010-c820ce4143b0",
@@ -29,8 +28,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_per(damage_counters_on("self"), 10, base=10),
         ),
         Attack(
             title="Playing with Fire",
@@ -38,8 +36,8 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 2},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            condition=has_fire_energy_attached,
+            effect=playing_with_fire,
         ),
     ],
 )

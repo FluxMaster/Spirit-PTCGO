@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dark Magneton (BASE5 #11): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import dark_magnetic_lines, no_weakness_or_resistance
+
 
 card = PokemonCardDef(
     guid="6289380b-836e-5cfb-a512-5c22cb16a091",
@@ -28,16 +26,14 @@ card = PokemonCardDef(
             game_text="Don't apply Weakness and Resistance for this attack. (Any other effects that would happen after applying Weakness and Resistance still happen.)",
             cost={PokemonTypes.COLORLESS: 2},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=no_weakness_or_resistance,
         ),
         Attack(
             title="Magnetic Lines",
             game_text="If the Defending Pok\u00e9mon has any basic Energy cards attached to it, choose 1 of them. If your opponent has any Benched Pok\u00e9mon, choose 1 of them and attach that Energy card to it.",
             cost={PokemonTypes.LIGHTNING: 2},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=dark_magnetic_lines,
         ),
     ],
 )

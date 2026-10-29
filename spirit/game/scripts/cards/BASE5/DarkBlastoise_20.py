@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dark Blastoise (BASE5 #20): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import rocket_tackle, unused_energy_bonus
+
 
 card = PokemonCardDef(
     guid="afc1f328-1735-5182-97f1-a7ed0bc2e227",
@@ -29,16 +27,14 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 2},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=unused_energy_bonus(20, 40, energy_type=PokemonTypes.WATER),
         ),
         Attack(
             title="Rocket Tackle",
             game_text="Dark Blastoise does 10 damage to itself. Flip a coin. If heads, prevent all damage done to Dark Blastoise during your opponent's next turn. (Any other effects of attacks still happen.)",
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 2},
             damage=40,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=rocket_tackle,
         ),
     ],
 )

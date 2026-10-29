@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dark Primeape (BASE5 #43): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.attributes import SpecialConditions
+from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ecard import FrenzyPassive
+
 
 card = PokemonCardDef(
     guid="d034d073-5446-5d3e-8b8c-0b2cfe55a37e",
@@ -26,17 +26,15 @@ card = PokemonCardDef(
         Ability(
             title="Frenzy",
             game_text="If Dark Primeape does any damage while it's Confused (even to itself), it does 30 more damage.",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            passive=FrenzyPassive(),
         ),
         Attack(
             title="Frenzied Attack",
             game_text="Dark Primeape is now Confused (after doing damage).",
             cost={PokemonTypes.FIGHTING: 2},
             damage=40,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(self_conditions=(SpecialConditions.CONFUSED,)),
         ),
     ],
 )

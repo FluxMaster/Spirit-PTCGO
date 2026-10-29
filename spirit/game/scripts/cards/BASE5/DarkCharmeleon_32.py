@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dark Charmeleon (BASE5 #32): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import fireball, has_fire_energy_attached
+
 
 card = PokemonCardDef(
     guid="bb99756f-bc23-5bf6-a16b-bfb9333fcf47",
@@ -33,8 +31,8 @@ card = PokemonCardDef(
             game_text="Use this attack only if there are any Fire Energy cards attached to Dark Charmeleon. Flip a coin. If heads, discard 1 of those Energy cards. If tails, this attack does nothing (not even damage).",
             cost={PokemonTypes.FIRE: 3},
             damage=70,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            condition=has_fire_energy_attached,
+            effect=fireball,
         ),
     ],
 )

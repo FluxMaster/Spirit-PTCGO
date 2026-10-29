@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dark Dugtrio (BASE5 #23): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ecard import knock_down, sinkhole
+
 
 card = PokemonCardDef(
     guid="827390ff-08fd-5a42-99dd-22f235f5e263",
@@ -27,9 +25,9 @@ card = PokemonCardDef(
         Ability(
             title="Sinkhole",
             game_text="Whenever your opponent's Active Pok\u00e9mon retreats, your opponent flips a coin. If tails, this power does 20 damage to that Pok\u00e9mon. (Don't apply Weakness and Resistance.) This power stops working while Dark Dugtrio is Asleep, Confused, or Paralyzed.",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            trigger=Triggers.ON_RETREAT,
+            effect=sinkhole,
         ),
         Attack(
             title="Knock Down",
@@ -37,8 +35,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 2},
             damage=20,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=knock_down,
         ),
     ],
 )

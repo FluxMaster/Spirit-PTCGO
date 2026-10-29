@@ -1,11 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dark Muk (BASE5 #41): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ecard import StickyGooPassive
 
 
 card = PokemonCardDef(
@@ -29,16 +26,14 @@ card = PokemonCardDef(
         Ability(
             title="Sticky Goo",
             game_text="As long as Dark Muk is your Active Pok\u00e9mon, your opponent pays ColorlessColorless more to retreat his or her Active Pok\u00e9mon. This power stops working while Dark Muk is Asleep, Confused, or Paralyzed.",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            passive=StickyGooPassive(),
         ),
         Attack(
             title="Sludge Punch",
             game_text="The Defending Pok\u00e9mon is now Poisoned.",
             cost={PokemonTypes.GRASS: 2},
             damage=20,
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.POISONED),
         ),
     ],

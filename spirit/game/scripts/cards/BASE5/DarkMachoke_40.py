@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dark Machoke (BASE5 #40): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import drag_off, opponent_has_benched
+from spirit.game.card_effects.support_common import gust_attack
+
 
 card = PokemonCardDef(
     guid="48715416-8bc6-5c5b-8876-97dd9efa674d",
@@ -28,16 +27,15 @@ card = PokemonCardDef(
             game_text="Before doing damage, choose 1 of your opponent's Benched Pok\u00e9mon and switch it with the Defending Pok\u00e9mon. Do the damage to the new Defending Pok\u00e9mon. This attack can't be used if your opponent has no Benched Pok\u00e9mon.",
             cost={PokemonTypes.FIGHTING: 2, PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=drag_off,
+            condition=opponent_has_benched,
         ),
         Attack(
             title="Knock Back",
             game_text="If your opponent has any Benched Pok\u00e9mon, he or she chooses 1 of them and switches it with the Defending Pok\u00e9mon. (Do the damage before switching the Pok\u00e9mon.)",
             cost={PokemonTypes.FIGHTING: 2, PokemonTypes.COLORLESS: 1},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=gust_attack(opponent_chooses=True),
         ),
     ],
 )

@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dark Golbat (BASE5 #24): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import snipe_attack
+from spirit.game.card_effects.ecard import sneak_attack
+
 
 card = PokemonCardDef(
     guid="ae12f2fd-7fb0-597f-bf54-f2b3b4d1dc35",
@@ -27,16 +26,17 @@ card = PokemonCardDef(
         Ability(
             title="Sneak Attack",
             game_text="When you play Dark Golbat from your hand, you may choose 1 of your opponent's Pok\u00e9mon. If you do, Dark Golbat does 10 damage to that Pok\u00e9mon. Apply Weakness and Resistance.",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            trigger=Triggers.ON_EVOLVE,
+            effect=sneak_attack,
         ),
         Attack(
             title="Flitter",
             game_text="Choose 1 of your opponent's Pok\u00e9mon. This attack does 20 damage to that Pok\u00e9mon. Don't apply Weakness and Resistance for this attack. (Any other effects that would happen after applying Weakness and Resistance still happen.)",
             cost={PokemonTypes.GRASS: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=snipe_attack(
+                20, pool="any", apply_modifiers=False,
+                prompt="Choose 1 of your opponent's Pokémon"),
         ),
     ],
 )

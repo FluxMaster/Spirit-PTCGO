@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Charmander (BASE5 #50): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ecard import gather_fire, gather_fire_condition
+
 
 card = PokemonCardDef(
     guid="3d6d1c6b-8a53-5778-92e3-a3251f0ebd3d",
@@ -25,9 +23,10 @@ card = PokemonCardDef(
         Ability(
             title="Gather Fire",
             game_text="Once during your turn (before your attack), you may take 1 Fire Energy card attached to 1 of your other Pok\u00e9mon and attach it to Charmander. This power can't be used if Charmander is Asleep, Confused, or Paralyzed.",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            activation=Activations.ONCE_PER_TURN,
+            condition=gather_fire_condition,
+            effect=gather_fire,
         ),
         Attack(
             title="Fire Tail",

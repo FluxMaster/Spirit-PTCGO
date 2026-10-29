@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dark Machamp (BASE5 #27): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import fling, fling_condition
+
 
 card = PokemonCardDef(
     guid="fe7b00e0-bc80-576c-9f87-b18a41247fe2",
@@ -32,8 +30,8 @@ card = PokemonCardDef(
             title="Fling",
             game_text="Your opponent shuffles his or her Active Pok\u00e9mon and all cards attached to it into his or her deck. This attack can't be used if your opponent has no Benched Pok\u00e9mon.",
             cost={PokemonTypes.FIGHTING: 3, PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=fling,
+            condition=fling_condition,
         ),
     ],
 )

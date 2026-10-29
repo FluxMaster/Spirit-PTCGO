@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dark Electrode (BASE5 #34): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import energy_bomb
+
 
 card = PokemonCardDef(
     guid="ac91ad10-7a1e-5e6c-b41a-df0691dd0421",
@@ -33,8 +31,7 @@ card = PokemonCardDef(
             game_text="Take all Energy cards attached to Dark Electrode and attach them to your Benched Pok\u00e9mon (in any way you choose). If you have no Benched Pok\u00e9mon, discard all Energy cards attached to Dark Electrode.",
             cost={PokemonTypes.LIGHTNING: 2},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=energy_bomb,
         ),
     ],
 )

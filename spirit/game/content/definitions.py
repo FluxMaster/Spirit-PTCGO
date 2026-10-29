@@ -153,9 +153,10 @@ class Triggers:
     # effect (Amoonguss "Surprise Spores"); fires via the acting ctx's
     # deferred_actions, after that effect's choreography flushes.
     ON_DISCARDED_FROM_HAND = "on_discarded_from_hand"
-    # This Pokemon just completed a retreat (Active -> Bench via the retreat
-    # action; Dark Ivysaur "Vine Pull"). Fires after the swap, if it is
-    # still in play.
+    # A Pokemon just completed a retreat (Active -> Bench via the retreat
+    # action). Fires after the swap on every in-play Pokemon (the retreater
+    # if still in play, plus observers such as Dark Dugtrio Sinkhole).
+    # ctx.retreated_pokemon is the Pokemon that left Active.
     ON_RETREAT = "on_retreat"
 
 
