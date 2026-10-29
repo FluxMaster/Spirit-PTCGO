@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Moltres & Zapdos & Articuno-GX (HF #69): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.hf import sky_legends_gx
 
 card = PokemonCardDef(
     guid="7b5f383e-6650-59c3-9de1-d12c6720a666",
@@ -33,8 +30,7 @@ card = PokemonCardDef(
             title="Sky Legends-GX",
             game_text="Shuffle this Pok\u00e9mon and all cards attached to it into your deck. If this Pok\u00e9mon has at least 1 extra Fire, Water, and Lightning Energy attached to it (in addition to this attack's cost), this attack does 110 damage to 3 of your opponent's Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.) (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=sky_legends_gx,
         ),
     ],
 )

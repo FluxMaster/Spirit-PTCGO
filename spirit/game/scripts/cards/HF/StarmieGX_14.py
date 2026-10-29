@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Starmie-GX (HF #14): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.hf import hydro_pump_gx, star_stream
 
 card = PokemonCardDef(
     guid="b7d149e4-8444-588c-b9f5-ee82a38fd280",
@@ -28,8 +25,7 @@ card = PokemonCardDef(
             game_text="Attach 2 Water Energy cards from your discard pile to 1 of your Pok\u00e9mon.",
             cost={PokemonTypes.WATER: 1},
             damage=40,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=star_stream,
         ),
         Attack(
             title="Spinning Attack",
@@ -42,8 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=40,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=hydro_pump_gx,
         ),
     ],
 )

@@ -1,13 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Brock's Training (HF #55): trainer effect stubbed.
-
-Card text:
-  - Attach an Energy card from your hand to 1 of your Geodude, Graveler, Golem, Onix-GX, Cubone, Rhyhorn, Rhydon, or Sudowoodo.
-  - You may play only 1 Supporter card during your turn (before your attack).
-"""
-
-from spirit.game.data_utils import SupporterCardDef, unimplemented
+from spirit.game.data_utils import SupporterCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.hf import brocks_training, brocks_training_condition
 
 card = SupporterCardDef(
     guid="c9f5e4ac-36a4-5da9-acf1-d84198fbd72e",
@@ -19,6 +12,6 @@ card = SupporterCardDef(
     collector_number=55,
     set_code="HF",
     rarity=Rarities.RareHolo,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=brocks_training,
+    condition=brocks_training_condition,
 )

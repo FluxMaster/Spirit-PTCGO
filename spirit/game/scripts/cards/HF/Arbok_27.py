@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Arbok (HF #27): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.hf import last_pattern, rocket_tail
 
 card = PokemonCardDef(
     guid="f7d31cd5-1fef-5210-a9fa-36d6ffee2777",
@@ -27,8 +24,8 @@ card = PokemonCardDef(
             title="Last Pattern",
             game_text="If this Pok\u00e9mon is Knocked Out by damage from an opponent's attack, discard 2 random cards from your opponent's hand.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=Triggers.ON_KNOCKED_OUT,
+            effect=last_pattern,
         ),
         Attack(
             title="Rocket Tail",
@@ -36,8 +33,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 2},
             damage=50,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=rocket_tail,
         ),
     ],
 )

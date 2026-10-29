@@ -1,11 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Mewtwo-GX (HF #31): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-from spirit.game.card_effects.sm3 import queens_haze_gx
-
+from spirit.game.card_effects.hf import psycrush_gx
 
 card = PokemonCardDef(
     guid="bb5451c2-a51a-553f-b365-5f847e3595f1",
@@ -34,8 +29,7 @@ card = PokemonCardDef(
             game_text="Discard all Energy from your opponent's Active Pok\u00e9mon. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.PSYCHIC: 2, PokemonTypes.COLORLESS: 1},
             damage=120,
-            # STUB: attack effect not implemented
-            effect=queens_haze_gx,
+            effect=psycrush_gx,
         ),
     ],
 )

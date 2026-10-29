@@ -1,13 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Brock's Pewter City Gym (HF #54): trainer effect stubbed.
-
-Card text:
-  - Onix-GX (both yours and your opponent's) take 40 less damage from the opponent's attacks (after applying Weakness and Resistance).
-  - This card stays in play when you play it. Discard this card if another Stadium card comes into play. If another card with the same name is in play, you can't play this card.
-"""
-
-from spirit.game.data_utils import StadiumCardDef, unimplemented
+from spirit.game.data_utils import StadiumCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.hf import brocks_pewter_city_gym_passive
 
 card = StadiumCardDef(
     guid="f9b480aa-f3b2-5e27-95aa-b816005f0e33",
@@ -19,6 +12,5 @@ card = StadiumCardDef(
     collector_number=54,
     set_code="HF",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    passive=brocks_pewter_city_gym_passive,
 )

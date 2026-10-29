@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Golem (HF #35): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.hf import golem_rock_slide
 
 card = PokemonCardDef(
     guid="d6b13f98-30a9-5c2a-9466-9939e7044b3d",
@@ -28,8 +25,7 @@ card = PokemonCardDef(
             game_text="This attack does 20 damage to 3 of your opponent's Benched Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 2},
             damage=60,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=golem_rock_slide,
         ),
         Attack(
             title="Land Crush",

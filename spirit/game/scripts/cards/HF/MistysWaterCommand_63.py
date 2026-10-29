@@ -1,13 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Misty's Water Command (HF #63): trainer effect stubbed.
-
-Card text:
-  - Move any number of Water Energy from your Pokémon to your Psyduck, Horsea, Staryu, Starmie-GX, Magikarp, Gyarados, or Lapras in any way you like.
-  - You may play only 1 Supporter card during your turn (before your attack).
-"""
-
-from spirit.game.data_utils import SupporterCardDef, unimplemented
+from spirit.game.data_utils import SupporterCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.hf import (
+    mistys_water_command, mistys_water_command_condition,
+)
 
 card = SupporterCardDef(
     guid="5ee0e1b4-cc2f-5626-9bb6-4548f3ba703d",
@@ -19,6 +14,6 @@ card = SupporterCardDef(
     collector_number=63,
     set_code="HF",
     rarity=Rarities.RareHolo,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=mistys_water_command,
+    condition=mistys_water_command_condition,
 )
