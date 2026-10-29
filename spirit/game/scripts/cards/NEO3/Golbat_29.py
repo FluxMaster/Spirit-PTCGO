@@ -4,6 +4,8 @@ Golbat (NEO3 #29): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import screech
+
 
 card = PokemonCardDef(
     guid="9d39b880-3ba6-5f54-ba67-bc52661792d7",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             game_text="Until the end of your next turn, if an attack damages the Defending Pok\u00e9mon (after applying Weakness and Resistance), that attack does 20 more damage to the Defending Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=screech(),
         ),
         Attack(
             title="Poison Bite",

@@ -4,6 +4,8 @@ Slugma (NEO3 #53): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import condition_attack
+
 
 card = PokemonCardDef(
     guid="1277409a-b803-5f85-9f60-0801c2884681",
@@ -33,7 +35,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 2},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(no_retreat=True),
         ),
     ],
 )

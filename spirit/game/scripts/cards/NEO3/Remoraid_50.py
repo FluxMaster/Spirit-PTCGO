@@ -4,6 +4,8 @@ Remoraid (NEO3 #50): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_or_nothing, snipe_attack
+
 
 card = PokemonCardDef(
     guid="95891e44-42a8-5932-bf88-ad7ad40692c5",
@@ -27,7 +29,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, choose 1 of your opponent's Pok\u00e9mon. This attack does 20 damage to that Pok\u00e9mon. Don't apply Weakness and Resistance.",
             cost={PokemonTypes.WATER: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_or_nothing(then=snipe_attack(20, pool='any', apply_modifiers=False)),
         ),
     ],
 )
