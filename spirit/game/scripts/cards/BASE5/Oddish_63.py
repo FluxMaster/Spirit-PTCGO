@@ -4,6 +4,9 @@ Oddish (BASE5 #63): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.attributes import SpecialConditions
+from spirit.game.card_effects.attacks_common import condition_attack
+
 
 card = PokemonCardDef(
     guid="74918c6e-e88f-5812-b572-30526414c642",
@@ -27,14 +30,14 @@ card = PokemonCardDef(
             game_text="The Defending Pok\u00e9mon is now Asleep.",
             cost={PokemonTypes.GRASS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(SpecialConditions.ASLEEP),
         ),
         Attack(
             title="Poisonpowder",
             game_text="The Defending Pok\u00e9mon is now Poisoned.",
             cost={PokemonTypes.GRASS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(SpecialConditions.POISONED),
         ),
     ],
 )

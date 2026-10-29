@@ -4,6 +4,8 @@ Dark Slowbro (BASE5 #12): one or more attacks/abilities use effect=unimplemented
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import flip_or_nothing
+
 
 card = PokemonCardDef(
     guid="b0d59cb5-aaa7-5f0e-8b2c-b61888b0ebc4",
@@ -36,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 2},
             damage=40,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_or_nothing(),
         ),
     ],
 )

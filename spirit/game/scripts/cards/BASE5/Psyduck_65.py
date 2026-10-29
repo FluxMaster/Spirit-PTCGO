@@ -4,6 +4,8 @@ Psyduck (BASE5 #65): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import draw_attack
+
 
 card = PokemonCardDef(
     guid="99f5197e-cf68-5ef5-8314-c2f6aa85ed11",
@@ -27,7 +29,7 @@ card = PokemonCardDef(
             game_text="Draw a card.",
             cost={PokemonTypes.PSYCHIC: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=draw_attack(1),
         ),
         Attack(
             title="Water Gun",

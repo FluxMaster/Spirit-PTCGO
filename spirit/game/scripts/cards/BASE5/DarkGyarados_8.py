@@ -4,6 +4,9 @@ Dark Gyarados (BASE5 #8): one or more attacks/abilities use effect=unimplemented
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.attributes import SpecialConditions
+from spirit.game.card_effects.attacks_common import condition_attack
+
 
 card = PokemonCardDef(
     guid="bd21e118-9e3b-5bf4-bbb8-4ec1a921c0e8",
@@ -37,7 +40,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 3},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(SpecialConditions.PARALYZED, flip=True),
         ),
     ],
 )

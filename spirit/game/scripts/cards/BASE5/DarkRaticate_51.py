@@ -4,6 +4,8 @@ Dark Raticate (BASE5 #51): one or more attacks/abilities use effect=unimplemente
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_or_nothing
+
 
 card = PokemonCardDef(
     guid="28547469-7fd4-51d0-bb80-fab6e181783f",
@@ -35,7 +37,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=50,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_or_nothing(),
         ),
     ],
 )

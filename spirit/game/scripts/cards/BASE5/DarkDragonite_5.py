@@ -4,6 +4,8 @@ Dark Dragonite (BASE5 #5): one or more attacks/abilities use effect=unimplemente
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import flip_or_nothing
+
 
 card = PokemonCardDef(
     guid="1feb949f-9015-55de-81ca-d2e834ba8b16",
@@ -36,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 4},
             damage=70,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_or_nothing(),
         ),
     ],
 )
