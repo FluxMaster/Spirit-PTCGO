@@ -1,0 +1,44 @@
+"""STUB: effect not implemented — do not guess mechanics.
+Gengar & Mimikyu-GX (SM9 #165): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
+"""
+
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+card = PokemonCardDef(
+    guid="47aceeb0-c98c-54ff-9591-11e475e759c8",
+    key="SM9",
+    name="com.direwolfdigital.cake.data.archetypes.pokemon.GengarMimikyuGX.Name",
+    display_name="Gengar & Mimikyu-GX",
+    searchable_by=["Gengar & Mimikyu-GX", "Basic", "TAG TEAM", "GX", "GengarMimikyuGX"],
+    subtypes=["Basic", "TAG TEAM", "GX"],
+    collector_number=165,
+    set_code="SM9",
+    rarity=Rarities.RareUltra,
+    hp=240,
+    elements=[PokemonTypes.PSYCHIC],
+    stage=PokemonStage.BASIC,
+    retreat_cost=2,
+    weakness_type=PokemonTypes.DARKNESS,
+    resistance_type=PokemonTypes.FIGHTING,
+    resistance_amount=20,
+    family_id=94,
+    abilities=[
+        Attack(
+            title="Poltergeist",
+            game_text="Your opponent reveals their hand. This attack does 50 damage for each Trainer card you find there.",
+            cost={PokemonTypes.PSYCHIC: 2},
+            damage=50,
+            damage_operator="x",
+            # STUB: attack effect not implemented
+            effect=unimplemented,
+        ),
+        Attack(
+            title="Horror House-GX",
+            game_text="Your opponent can't play any cards from their hand during their next turn. If this Pok\u00e9mon has at least 1 extra Psychic Energy attached to it (in addition to this attack's cost), each player draws cards until they have 7 cards in their hand. (You can't use more than 1 GX attack in a game.)",
+            cost={PokemonTypes.PSYCHIC: 1},
+            # STUB: attack effect not implemented
+            effect=unimplemented,
+        ),
+    ],
+)
