@@ -1,12 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Nightly Garbage Run (BASE5 #77): trainer effect stubbed.
-
-Card text:
-  - Choose up to 3 Basic Pokémon cards, Evolution cards, and/or basic Energy cards from your discard pile. Show them to your opponent and shuffle them into your deck.
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ecard import (
+    nightly_garbage_run,
+    nightly_garbage_run_condition,
+)
+
 
 card = ItemCardDef(
     guid="ed148e61-382d-587f-aeca-e7ff9a5bdda0",
@@ -18,6 +16,6 @@ card = ItemCardDef(
     collector_number=77,
     set_code="BASE5",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    condition=nightly_garbage_run_condition,
+    effect=nightly_garbage_run,
 )

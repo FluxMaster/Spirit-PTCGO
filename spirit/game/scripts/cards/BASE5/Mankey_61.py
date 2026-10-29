@@ -1,9 +1,11 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Mankey (BASE5 #61): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_bonus
+
+
+async def mischief(ctx):
+    await ctx.shuffle_deck(ctx.opponent_id)
+
 
 card = PokemonCardDef(
     guid="0641286c-7a21-5109-9377-1ab905b7f230",
@@ -26,8 +28,7 @@ card = PokemonCardDef(
             title="Mischief",
             game_text="Shuffle your opponent's deck.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=mischief,
         ),
         Attack(
             title="Anger",
@@ -35,8 +36,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_bonus(20),
         ),
     ],
 )

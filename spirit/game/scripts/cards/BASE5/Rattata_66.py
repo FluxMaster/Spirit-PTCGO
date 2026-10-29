@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Rattata (BASE5 #66): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import flip_bonus
+from spirit.game.card_effects.ecard import trickery, trickery_condition
+
 
 card = PokemonCardDef(
     guid="edfc7846-65f2-53b4-a48f-ba6ff75e5439",
@@ -26,9 +25,10 @@ card = PokemonCardDef(
         Ability(
             title="Trickery",
             game_text="Once during your turn (before your attack), you may switch 1 of your Prizes with the top card of your deck. This power can't be used if Rattata is Asleep, Confused, or Paralyzed.",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            activation=Activations.ONCE_PER_TURN,
+            condition=trickery_condition,
+            effect=trickery,
         ),
         Attack(
             title="Quick Attack",
@@ -36,8 +36,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_bonus(10),
         ),
     ],
 )

@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dark Vileplume (BASE5 #13): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ecard import HayFeverPassive, petal_whirlwind
+
 
 card = PokemonCardDef(
     guid="b00d2943-c9f6-5984-9346-2103001187e5",
@@ -26,9 +24,8 @@ card = PokemonCardDef(
         Ability(
             title="Hay Fever",
             game_text="No Trainer cards can be played. This power stops working while Dark Vileplume is Asleep, Confused, or Paralyzed.",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            passive=HayFeverPassive(),
         ),
         Attack(
             title="Petal Whirlwind",
@@ -36,8 +33,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 3},
             damage=30,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=petal_whirlwind,
         ),
     ],
 )

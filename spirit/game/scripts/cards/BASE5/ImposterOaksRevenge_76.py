@@ -1,12 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Imposter Oak's Revenge (BASE5 #76): trainer effect stubbed.
-
-Card text:
-  - Discard a card from your hand in order to play this card. Your opponent shuffles his or her hand into his or her deck, then draws 4 cards.
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ecard import imposter_oaks_revenge
+from spirit.game.card_effects.support_common import requires_hand
 
 card = ItemCardDef(
     guid="649ff12a-4b3e-52ca-9ad6-840072930d2f",
@@ -18,6 +13,6 @@ card = ItemCardDef(
     collector_number=76,
     set_code="BASE5",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=imposter_oaks_revenge,
+    condition=requires_hand(n=1),
 )

@@ -17,6 +17,7 @@ from spirit.game.models.board import (
     BoardEntity,
     BoardState,
     CardEntity,
+    PlayMat,
     PokemonEntity,
 )
 
@@ -468,7 +469,13 @@ def _collect_passives(board: BoardState) -> List[Tuple[Passive, BoardEntity, boo
 
 
 def _carrier_in_play(entity: BoardEntity) -> bool:
-    """Whether an entity (or the stack it is attached under) sits in play."""
+    """Whether an entity (or the stack it is attached under) sits in play.
+
+    The playmat itself is in play so global delayed trainer effects (Goop Gas
+    Attack) can ride it after the trainer card has been discarded.
+    """
+    if isinstance(entity, PlayMat):
+        return True
     node = entity
     while isinstance(getattr(node, "parent", None), CardEntity):
         node = node.parent

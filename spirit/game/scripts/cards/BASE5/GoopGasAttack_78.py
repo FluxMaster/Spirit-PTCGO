@@ -1,12 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Goop Gas Attack (BASE5 #78): trainer effect stubbed.
-
-Card text:
-  - All Pokémon Powers stop working until the end of your opponent's next turn.
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ecard import goop_gas_attack
 
 card = ItemCardDef(
     guid="426a5188-2c95-5fe9-b899-3393674d10f8",
@@ -18,6 +12,5 @@ card = ItemCardDef(
     collector_number=78,
     set_code="BASE5",
     rarity=Rarities.Common,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=goop_gas_attack,
 )

@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dark Weezing (BASE5 #31): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.attributes import SpecialConditions
+from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ecard import mass_explosion
+
 
 card = PokemonCardDef(
     guid="6472068c-0a36-5a6e-b3c9-d66856fcca93",
@@ -29,16 +29,17 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=mass_explosion,
         ),
         Attack(
             title="Stun Gas",
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon is now Poisoned; if tails, the Defending Pok\u00e9mon is now Paralyzed.",
             cost={PokemonTypes.GRASS: 3},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(
+                SpecialConditions.POISONED, flip=True,
+                tails_conditions=(SpecialConditions.PARALYZED,),
+            ),
         ),
     ],
 )

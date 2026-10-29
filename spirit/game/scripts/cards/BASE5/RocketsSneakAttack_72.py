@@ -1,12 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Rocket's Sneak Attack (BASE5 #72): trainer effect stubbed.
-
-Card text:
-  - Look at your opponent's hand. If he or she has any Trainer cards, choose 1 of them. Your opponent shuffles that card into his or her deck.
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ecard import (
+    rockets_sneak_attack,
+    rockets_sneak_attack_condition,
+)
+
 
 card = ItemCardDef(
     guid="ae3caa63-1d33-5ddd-b7df-0a59799625dd",
@@ -18,6 +16,6 @@ card = ItemCardDef(
     collector_number=72,
     set_code="BASE5",
     rarity=Rarities.Rare,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    condition=rockets_sneak_attack_condition,
+    effect=rockets_sneak_attack,
 )

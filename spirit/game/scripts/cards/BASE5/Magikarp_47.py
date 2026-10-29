@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Magikarp (BASE5 #47): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import rapid_evolution
+
 
 card = PokemonCardDef(
     guid="f4e3f8d2-e9f0-575a-a1cf-818b796b5c7e",
@@ -31,8 +29,7 @@ card = PokemonCardDef(
             title="Rapid Evolution",
             game_text="Search your deck for an Evolution card named Gyarados or Dark Gyarados and put it on Magikarp. (This counts as evolving Magikarp.) Shuffle your deck afterward.",
             cost={PokemonTypes.WATER: 3},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=rapid_evolution,
         ),
     ],
 )

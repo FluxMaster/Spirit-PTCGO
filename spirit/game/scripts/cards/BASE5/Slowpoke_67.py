@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Slowpoke (BASE5 #67): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import search_attach_energy
+from spirit.game.card_effects.trainers import is_psychic_energy_card
+
 
 card = PokemonCardDef(
     guid="c5f3dccd-ee25-5306-a4e3-b755c74ded83",
@@ -26,8 +25,10 @@ card = PokemonCardDef(
             title="Afternoon Nap",
             game_text="Search your deck for a Psychic Energy card and attach it to Slowpoke. Shuffle your deck afterward.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=search_attach_energy(
+                predicate=is_psychic_energy_card, count=1, to_self=True,
+                prompt="Choose a Psychic Energy card to attach to Slowpoke.",
+            ),
         ),
         Attack(
             title="Headbutt",

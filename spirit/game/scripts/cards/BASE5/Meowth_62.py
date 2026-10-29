@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Meowth (BASE5 #62): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import coin_hurl
+
 
 card = PokemonCardDef(
     guid="32f4aba0-439e-5626-b2ff-20780996413c",
@@ -27,8 +25,7 @@ card = PokemonCardDef(
             title="Coin Hurl",
             game_text="Choose 1 of your opponent's Pok\u00e9mon and flip a coin. If heads, this attack does 20 damage to that Pok\u00e9mon. Don't apply Weakness and Resistance for this attack. (Any other effects that would happen after applying Weakness and Resistance still happen.)",
             cost={PokemonTypes.COLORLESS: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=coin_hurl,
         ),
     ],
 )

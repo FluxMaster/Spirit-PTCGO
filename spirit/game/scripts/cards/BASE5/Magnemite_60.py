@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Magnemite (BASE5 #60): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import magnetism
+
 
 card = PokemonCardDef(
     guid="12fb6027-cda8-517a-9bcc-2cd941c1910c",
@@ -33,8 +31,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 1},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=magnetism,
         ),
     ],
 )

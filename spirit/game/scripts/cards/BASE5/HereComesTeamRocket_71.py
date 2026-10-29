@@ -1,12 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Here Comes Team Rocket! (BASE5 #71): trainer effect stubbed.
-
-Card text:
-  - Each player plays with his or her Prize cards face up for the rest of the game.
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ecard import (
+    here_comes_team_rocket,
+    here_comes_team_rocket_condition,
+)
 
 card = ItemCardDef(
     guid="b4d76d4d-5509-55a2-a6d1-5dd01c53ec69",
@@ -18,6 +15,6 @@ card = ItemCardDef(
     collector_number=71,
     set_code="BASE5",
     rarity=Rarities.Rare,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=here_comes_team_rocket,
+    condition=here_comes_team_rocket_condition,
 )

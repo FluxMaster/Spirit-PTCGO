@@ -1,12 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Sleep! (BASE5 #79): trainer effect stubbed.
-
-Card text:
-  - Flip a coin. If heads, the Defending Pokémon is now Asleep.
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ecard import sleep
+
 
 card = ItemCardDef(
     guid="c714eddf-86cb-5384-9b00-6e66f935d75d",
@@ -18,6 +13,5 @@ card = ItemCardDef(
     collector_number=79,
     set_code="BASE5",
     rarity=Rarities.Common,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=sleep,
 )

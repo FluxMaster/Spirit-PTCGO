@@ -1,12 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-The Boss's Way (BASE5 #73): trainer effect stubbed.
-
-Card text:
-  - Search your deck for an Evolution card with Dark in its name. Show it to your opponent and put it into your hand. Shuffle your deck afterward.
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ecard import the_bosss_way
+
 
 card = ItemCardDef(
     guid="6025b89d-bb5e-58d0-8a0a-4db9c5a6a2ea",
@@ -18,6 +13,5 @@ card = ItemCardDef(
     collector_number=73,
     set_code="BASE5",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=the_bosss_way,
 )

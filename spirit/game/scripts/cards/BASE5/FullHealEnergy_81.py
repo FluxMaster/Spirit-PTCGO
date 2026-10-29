@@ -1,13 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Full Heal Energy (BASE5 #81): special energy provides/passive/attach rules stubbed until matched to a known energy pattern.
-
-Card text:
-  - If you play this card from your hand, the Pokémon you attach it to is no longer Asleep, Confused, Paralyzed, or Poisoned.
-  - Full Heal Energy provides Colorless energy. (Doesn't count as a basic Energy card.)
-"""
-
 from spirit.game.data_utils import EnergyCardDef
 from spirit.game.attributes import PokemonTypes, Rarities
+from spirit.game.card_effects.ecard import full_heal_energy_on_attach
 
 card = EnergyCardDef(
     guid="4246b06b-7bbd-512d-9fb6-ced009bcbd4c",
@@ -21,5 +14,6 @@ card = EnergyCardDef(
     rarity=Rarities.Uncommon,
     energy_type=PokemonTypes.COLORLESS,
     is_special=True,
-    # STUB: special energy mechanics not implemented
+    provides=[[PokemonTypes.COLORLESS]],
+    on_attach=full_heal_energy_on_attach,
 )
