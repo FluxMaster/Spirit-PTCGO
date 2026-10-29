@@ -4,6 +4,14 @@ Zeraora-GX (SM8 #221): one or more attacks/abilities use effect=unimplemented un
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import lock_all_attacks
+
+
+async def _freeze_shock(ctx):
+    """Printed damage; this Pokemon can't attack during your next turn."""
+    await ctx.deal_damage()
+    lock_all_attacks(ctx, ctx.attacker)
+
 
 card = PokemonCardDef(
     guid="4f4aa52b-331d-5ed7-8f95-c63665498865",
@@ -37,7 +45,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 2, PokemonTypes.COLORLESS: 1},
             damage=160,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=_freeze_shock,
         ),
         Attack(
             title="Full Voltage-GX",

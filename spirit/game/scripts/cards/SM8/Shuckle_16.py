@@ -4,6 +4,23 @@ Shuckle (SM8 #16): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.trainers import is_basic_energy_card
+
+
+async def _flower_supply(ctx):
+    """40; attach 2 basic Energy cards from your discard pile to your Pokemon in any way you like."""
+    await ctx.deal_damage()
+    for _ in range(2):
+        cards = [c for c in ctx.discard_pile() if is_basic_energy_card(c)]
+        mine = ctx.my_pokemon_in_play()
+        if not cards or not mine:
+            return
+        picks = await ctx.choose_cards(cards, 1, minimum=1, prompt="Choose a basic Energy card")
+        if not picks:
+            return
+        target = mine[0] if len(mine) == 1 else await ctx.choose_pokemon(mine, "Attach it to which Pokémon?")
+        await ctx.attach_energy(picks[0], target or mine[0])
+
 
 card = PokemonCardDef(
     guid="d766af80-2f7b-598a-83e2-ace501a6ed18",
@@ -34,7 +51,7 @@ card = PokemonCardDef(
             game_text="Attach 2 basic Energy cards from your discard pile to your Pok\u00e9mon in any way you like.",
             cost={PokemonTypes.GRASS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=_flower_supply,
         ),
     ],
 )

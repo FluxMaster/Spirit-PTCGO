@@ -4,6 +4,8 @@ Blissey (SM8 #153): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import count_energy, flip_damage
+
 
 card = PokemonCardDef(
     guid="2d9ed1c1-16b7-5ff1-aee5-a8885ad02f0c",
@@ -37,7 +39,7 @@ card = PokemonCardDef(
             damage=80,
             damage_operator="x",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(coins_from=count_energy('self'), per_heads=80),
         ),
     ],
 )

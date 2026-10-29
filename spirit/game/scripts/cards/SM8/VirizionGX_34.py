@@ -4,6 +4,8 @@ Virizion-GX (SM8 #34): one or more attacks/abilities use effect=unimplemented un
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import draw_attack
+
 
 card = PokemonCardDef(
     guid="40ef41fc-5f75-5868-9b58-ed8271a02bbd",
@@ -27,7 +29,7 @@ card = PokemonCardDef(
             game_text="Draw 2 cards.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=draw_attack(2),
         ),
         Attack(
             title="Sensitive Blade",

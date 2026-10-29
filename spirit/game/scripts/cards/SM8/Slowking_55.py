@@ -4,6 +4,8 @@ Slowking (SM8 #55): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm5 import psychic_60_plus
+
 
 card = PokemonCardDef(
     guid="597387af-6e10-5d80-b9c8-c24fdb5e439f",
@@ -37,7 +39,7 @@ card = PokemonCardDef(
             damage=60,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=psychic_60_plus,
         ),
     ],
 )

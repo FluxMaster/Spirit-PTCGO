@@ -5,6 +5,12 @@ Sigilyph-GX (SM8 #222): one or more attacks/abilities use effect=unimplemented u
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 
+
+async def feint(ctx):
+    """30. This attack's damage isn't affected by Resistance."""
+    await ctx.deal_damage(ignore_resistance=True)
+
+
 card = PokemonCardDef(
     guid="70124643-3b1e-540d-8ae0-cd1f0cffb92c",
     key="SM8",
@@ -37,7 +43,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 2},
             damage=80,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=feint,
         ),
         Attack(
             title="Intercept-GX",

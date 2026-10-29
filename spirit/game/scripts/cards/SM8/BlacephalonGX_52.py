@@ -4,6 +4,9 @@ Blacephalon-GX (SM8 #52): one or more attacks/abilities use effect=unimplemented
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.attributes import SpecialConditions
+from spirit.game.card_effects.attacks_common import condition_attack
+
 
 card = PokemonCardDef(
     guid="6da8c9b2-7e91-59af-a40d-7f20fc46d2b3",
@@ -27,7 +30,7 @@ card = PokemonCardDef(
             game_text="Your opponent's Active Pok\u00e9mon is now Burned and Confused.",
             cost={PokemonTypes.FIRE: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(SpecialConditions.BURNED, SpecialConditions.CONFUSED),
         ),
         Attack(
             title="Mind Blown",

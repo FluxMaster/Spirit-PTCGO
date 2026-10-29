@@ -4,6 +4,9 @@ Magearna (SM8 #131): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import search_to_hand
+from spirit.game.card_effects.trainers import is_basic_energy_card
+
 
 card = PokemonCardDef(
     guid="7d6f7de1-1f27-5343-8592-add59f9e8b46",
@@ -29,7 +32,7 @@ card = PokemonCardDef(
             game_text="Search your deck for up to 2 basic Energy cards, reveal them, and put them into your hand. Then, shuffle your deck.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=search_to_hand(predicate=is_basic_energy_card, count=2, reveal=True),
         ),
         Attack(
             title="Energy Press",

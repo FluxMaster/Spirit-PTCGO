@@ -5,6 +5,7 @@ Alolan Ninetales-GX (SM8 #225): one or more attacks/abilities use effect=unimple
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 
+
 card = PokemonCardDef(
     guid="5435f096-eb83-5a63-af2e-4acdaec7bce9",
     key="SM8",

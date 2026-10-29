@@ -4,6 +4,21 @@ Hitmontop (SM8 #113): one or more attacks/abilities use effect=unimplemented unt
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import opponent_switches
+from spirit.game.card_effects.attacks_common import flip_damage
+
+
+async def gyro_ball(ctx):
+    """Switch self with a Benched Pokemon; if you do, the opponent switches too."""
+    await ctx.deal_damage()
+    bench = ctx.my_bench()
+    if not bench:
+        return
+    target = await ctx.choose_pokemon(bench, "Choose your new Active Pokémon")
+    await ctx.switch_active(ctx.player_id, target or bench[0])
+    await ctx.flush_choreography()
+    await opponent_switches(ctx)
+
 
 card = PokemonCardDef(
     guid="1083eb97-b23c-5c2a-8b21-6c695155a742",
@@ -28,7 +43,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=gyro_ball,
         ),
         Attack(
             title="Triple Kick",
@@ -37,7 +52,7 @@ card = PokemonCardDef(
             damage=40,
             damage_operator="x",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(coins=3, per_heads=40),
         ),
     ],
 )

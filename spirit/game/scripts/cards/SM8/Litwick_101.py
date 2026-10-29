@@ -4,6 +4,8 @@ Litwick (SM8 #101): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import place_counters
+
 
 card = PokemonCardDef(
     guid="9aee7795-3024-51aa-8e7b-e424cf72e4be",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             game_text="Put 1 damage counter on your opponent's Active Pok\u00e9mon.",
             cost={PokemonTypes.PSYCHIC: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=place_counters(1, 'opponent_active'),
         ),
     ],
 )

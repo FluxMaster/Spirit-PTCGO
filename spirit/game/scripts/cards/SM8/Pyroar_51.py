@@ -4,6 +4,8 @@ Pyroar (SM8 #51): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.pokemon import rock_crush
+
 
 card = PokemonCardDef(
     guid="884d40af-4a46-5181-9d4f-bc1a8a513dff",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=rock_crush,
         ),
         Attack(
             title="Heat Blast",

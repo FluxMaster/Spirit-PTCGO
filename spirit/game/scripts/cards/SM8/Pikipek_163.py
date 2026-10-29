@@ -5,6 +5,17 @@ Pikipek (SM8 #163): one or more attacks/abilities use effect=unimplemented until
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 
+
+async def _obsidian_fang(ctx):
+    """Before doing damage, discard all Pokemon Tools from the opponent's Active."""
+    defender = ctx.defender
+    if defender is not None and not ctx.effects_blocked(defender):
+        tools = [t for t, p in ctx.tools_in_play() if p is defender]
+        if tools:
+            await ctx.discard_cards(tools)
+    await ctx.deal_damage()
+
+
 card = PokemonCardDef(
     guid="93539eb7-75b3-5449-8811-25fc5140b839",
     key="SM8",
@@ -30,7 +41,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=_obsidian_fang,
         ),
     ],
 )

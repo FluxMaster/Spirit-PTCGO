@@ -4,6 +4,8 @@ Gardevoir (SM8 #141): one or more attacks/abilities use effect=unimplemented unt
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import search_to_hand
+
 
 card = PokemonCardDef(
     guid="37345a7d-908f-5f25-8400-e653e0edecb5",
@@ -30,7 +32,7 @@ card = PokemonCardDef(
             game_text="Search your deck for up to 3 cards and put them into your hand. Then, shuffle your deck.",
             cost={PokemonTypes.FAIRY: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=search_to_hand(None, count=3, minimum=0, reveal=False, prompt='Choose up to 3 cards'),
         ),
         Attack(
             title="Sensitive Ray",

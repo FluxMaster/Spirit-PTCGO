@@ -4,6 +4,8 @@ Tyranitar-GX (SM8 #121): one or more attacks/abilities use effect=unimplemented 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import ignore_effects_attack
+
 
 card = PokemonCardDef(
     guid="bfdc485c-c4ec-5d17-8216-dcbda2b93831",
@@ -46,7 +48,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.DARKNESS: 2, PokemonTypes.COLORLESS: 1},
             damage=220,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=ignore_effects_attack(),
         ),
     ],
 )

@@ -4,6 +4,8 @@ Lugia-GX (SM8 #227): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm6 import meowstic_psychic
+
 
 card = PokemonCardDef(
     guid="4966ea78-9e16-54e7-ba24-b7fc0ede526a",
@@ -31,7 +33,7 @@ card = PokemonCardDef(
             damage=30,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=meowstic_psychic,
         ),
         Attack(
             title="Pelagic Blade",

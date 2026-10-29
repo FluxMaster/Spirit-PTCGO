@@ -4,6 +4,8 @@ Espeon (SM8 #89): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import draw_attack
+
 
 card = PokemonCardDef(
     guid="d67a5f36-f326-5e86-b436-0c75e5413d49",
@@ -28,7 +30,7 @@ card = PokemonCardDef(
             game_text="Draw 3 cards.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=draw_attack(3),
         ),
         Attack(
             title="Energy Crush",

@@ -4,6 +4,8 @@ Chansey (SM8 #152): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import heal_targets
+
 
 card = PokemonCardDef(
     guid="1f552055-5357-5b37-9547-dc846a46872d",
@@ -27,7 +29,7 @@ card = PokemonCardDef(
             game_text="Heal 20 damage from each of your Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=heal_targets(20, scope='each_own'),
         ),
         Attack(
             title="Sympathetic Slap",

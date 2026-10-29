@@ -4,6 +4,8 @@ Sceptile-GX (SM8 #22): one or more attacks/abilities use effect=unimplemented un
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import discard_opponent_energy_attack
+
 
 card = PokemonCardDef(
     guid="fbb7f558-d5a2-5d52-9ac7-80bbcd0f00e9",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1},
             damage=60,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=discard_opponent_energy_attack(special_only=True),
         ),
         Attack(
             title="Leaf Cyclone",

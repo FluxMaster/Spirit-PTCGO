@@ -4,6 +4,8 @@ Genesect-GX (SM8 #224): one or more attacks/abilities use effect=unimplemented u
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm3 import muscle_punch_gx
+
 
 card = PokemonCardDef(
     guid="1729a323-751e-5cb1-bd74-cb38af43ed07",
@@ -42,7 +44,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.METAL: 2, PokemonTypes.COLORLESS: 1},
             damage=190,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=muscle_punch_gx,
         ),
     ],
 )

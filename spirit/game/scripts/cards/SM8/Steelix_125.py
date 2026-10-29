@@ -4,6 +4,8 @@ Steelix (SM8 #125): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm4 import super_electromagnetic_tackle
+
 
 card = PokemonCardDef(
     guid="14bd9a6c-0859-5560-b258-cd2aa204563e",
@@ -36,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.METAL: 1, PokemonTypes.COLORLESS: 3},
             damage=170,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=super_electromagnetic_tackle,
         ),
     ],
 )

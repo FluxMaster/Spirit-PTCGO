@@ -4,6 +4,8 @@ Sableye (SM8 #96): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import place_counters
+
 
 card = PokemonCardDef(
     guid="2b5ce4a5-9dac-54ac-b79f-a0d99e7277fe",
@@ -33,7 +35,7 @@ card = PokemonCardDef(
             game_text="Put 3 damage counters on your opponent's Pok\u00e9mon in any way you like.",
             cost={PokemonTypes.PSYCHIC: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=place_counters(3, 'choose_any_opponent'),
         ),
     ],
 )

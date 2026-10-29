@@ -4,6 +4,8 @@ Alolan Diglett (SM8 #122): one or more attacks/abilities use effect=unimplemente
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import search_to_bench
+
 
 card = PokemonCardDef(
     guid="bb1a524e-209d-5f39-8bb6-0a5da77611d4",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             game_text="Search your deck for a Basic Pok\u00e9mon and put it onto your Bench. Then, shuffle your deck.",
             cost={},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=search_to_bench(),
         ),
     ],
 )

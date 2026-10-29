@@ -4,6 +4,8 @@ Mantine (SM8 #58): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm7 import floating_electrons_passive
+
 
 card = PokemonCardDef(
     guid="76671314-5df3-5cab-a0b7-f3368a06e65f",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             game_text="If this Pok\u00e9mon has any Energy attached to it, it has no Retreat Cost.",
             ability_type=AbilityTypes.POKE_ABILITY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=floating_electrons_passive,
         ),
         Attack(
             title="Surf",

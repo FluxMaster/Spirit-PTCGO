@@ -4,6 +4,8 @@ Yamask (SM8 #99): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import place_counters
+
 
 card = PokemonCardDef(
     guid="931c91ed-cf3b-542a-a0b4-ca4b8f61b0d5",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             game_text="Put 1 damage counter on your opponent's Active Pok\u00e9mon.",
             cost={PokemonTypes.PSYCHIC: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=place_counters(1, 'opponent_active'),
         ),
     ],
 )

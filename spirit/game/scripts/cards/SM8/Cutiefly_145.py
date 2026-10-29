@@ -4,6 +4,8 @@ Cutiefly (SM8 #145): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import heal_targets
+
 
 card = PokemonCardDef(
     guid="b9d03e4e-e028-5a99-9ffc-7a9f7a83fdb1",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             game_text="Heal 30 damage from 1 of your Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=heal_targets(30, 'choice'),
         ),
     ],
 )

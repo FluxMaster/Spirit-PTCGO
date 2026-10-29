@@ -4,6 +4,9 @@ Suicune-GX (SM8 #200): one or more attacks/abilities use effect=unimplemented un
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.passives_common import debuff_defender_attacks
+from spirit.game.card_effects.sm3 import crossing_cut_gx
+
 
 card = PokemonCardDef(
     guid="c399ccfb-0b82-5cca-935d-f7b800edb205",
@@ -35,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 2, PokemonTypes.COLORLESS: 1},
             damage=120,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=debuff_defender_attacks(30),
         ),
         Attack(
             title="Brinicles-GX",
@@ -43,7 +46,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 2, PokemonTypes.COLORLESS: 1},
             damage=150,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=crossing_cut_gx,
         ),
     ],
 )

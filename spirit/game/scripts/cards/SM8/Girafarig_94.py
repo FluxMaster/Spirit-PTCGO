@@ -5,6 +5,12 @@ Girafarig (SM8 #94): one or more attacks/abilities use effect=unimplemented unti
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 
+
+async def sonic_boom(ctx):
+    """40. This attack's damage isn't affected by Weakness or Resistance."""
+    await ctx.deal_damage(apply_modifiers=False)
+
+
 card = PokemonCardDef(
     guid="1af1547f-bcba-5dee-98e6-ddcf73045284",
     key="SM8",
@@ -35,7 +41,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=70,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=sonic_boom,
         ),
     ],
 )
