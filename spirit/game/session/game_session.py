@@ -4253,6 +4253,21 @@ class GameSession:
         await self._fire_stadium_triggers(
             benching_player_id, Triggers.ON_POKEMON_BENCHED, _setup)
 
+    async def fire_opponent_retreat_triggers(self, retreating_player_id: str,
+                                             retreated, new_active):
+        """ON_OPPONENT_RETREAT for the retreating player's opponent's in-play
+        Pokemon (Toxapex Toxic Spikes) after a retreat completes."""
+        def _setup(c):
+            c.retreating_player_id = retreating_player_id
+            c.retreated_pokemon = retreated
+            c.new_active = new_active
+        for pid in self._turn_order():
+            if pid == retreating_player_id:
+                continue
+            for pokemon in list(self.board_state.pokemon_in_play(pid)):
+                await self._fire_triggered_abilities(
+                    pid, pokemon, Triggers.ON_OPPONENT_RETREAT, ctx_setup=_setup)
+
     async def fire_move_to_active_triggers(self, pokemon):
         """ON_MOVE_TO_ACTIVE (Cinderace Libero), at most once per entity per
         turn regardless of how often it re-enters the Active spot."""
@@ -5425,6 +5440,7 @@ class GameSession:
             self.turn_state.turn_number
         await self._apply_active_to_bench_counters(player_id, card)
         await self.fire_move_to_active_triggers(new_active)
+        await self.fire_opponent_retreat_triggers(player_id, card, new_active)
         # An Active-spot change can flip suppression passives (Tool Jammer).
         await self.resync_effective_max_hp()
 

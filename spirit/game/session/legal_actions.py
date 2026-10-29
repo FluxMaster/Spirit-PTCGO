@@ -118,6 +118,9 @@ class TurnState:
     vstar_used: Set[str] = field(default_factory=set)
     # Players who already used their once-per-game GX attack.
     gx_used: Set[str] = field(default_factory=set)
+    # player_id -> turn number during which that player may attach any number
+    # of Energy cards from hand (Dragonair "Dragon's Wish").
+    unlimited_energy_attach: Dict[str, int] = field(default_factory=dict)
     # (player_id, combined guid) per V-UNION already combined this game.
     vunions_assembled: Set[Tuple[str, str]] = field(default_factory=set)
     # (entity_id, ability_id) -> last turn number the attack stays locked
@@ -241,6 +244,13 @@ class TurnState:
                 if tp.expires_after_turn is None
                 or tp.expires_after_turn >= self.turn_number
             ]
+
+    def allow_unlimited_energy_attach(self, player_id: str, turn_number: int):
+        """`player_id` may attach any number of Energy from hand during `turn_number`."""
+        self.unlimited_energy_attach[player_id] = turn_number
+
+    def energy_attach_unlimited(self, player_id: str) -> bool:
+        return self.unlimited_energy_attach.get(player_id) == self.turn_number
 
     def mark_entered_play(self, entity_id: str):
         self.entered_play_turn[entity_id] = self.turn_number
@@ -512,7 +522,9 @@ def compute_legal_actions(
         elif isinstance(card, EnergyEntity):
             if not in_play_ids:
                 continue
-            if state.energy_attached and state.alpha_growth_target is None:
+            unlimited = state.energy_attach_unlimited(player_id)
+            if state.energy_attached and state.alpha_growth_target is None \
+                    and not unlimited:
                 continue
             if state.play_locked(player_id, card):
                 continue
@@ -526,7 +538,8 @@ def compute_legal_actions(
                 if (attach_to is None or attach_to(p))
                 and not state.attach_restricted(p.entity_id)
                 and not energy_attach_blocked(board, player_id, card, p)
-                and (not state.energy_attached or p.entity_id == state.alpha_growth_target)
+                and (not state.energy_attached or unlimited
+                     or p.entity_id == state.alpha_growth_target)
             ]
             if targets:
                 entries.append(_target_map_entry(
