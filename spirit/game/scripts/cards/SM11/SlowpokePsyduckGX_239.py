@@ -1,44 +1,8 @@
 """STUB: effect not implemented — do not guess mechanics.
 Slowpoke & Psyduck-GX (SM11 #239): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm11 import ditch_and_splash, thrilling_times_gx
 
-card = PokemonCardDef(
-    guid="965cbd9c-178a-5671-90a2-6ba261ec0120",
-    key="SM11",
-    name="com.direwolfdigital.cake.data.archetypes.pokemon.SlowpokePsyduckGX.Name",
-    display_name="Slowpoke & Psyduck-GX",
-    searchable_by=["Slowpoke & Psyduck-GX", "Basic", "TAG TEAM", "GX", "SlowpokePsyduckGX"],
-    subtypes=["Basic", "TAG TEAM", "GX"],
-    collector_number=239,
-    set_code="SM11",
-    rarity=Rarities.RareRainbow,
-    hp=250,
-    elements=[PokemonTypes.WATER],
-    stage=PokemonStage.BASIC,
-    retreat_cost=2,
-    weakness_type=PokemonTypes.GRASS,
-    family_id=54,
-    abilities=[
-        Attack(
-            title="Ditch and Splash",
-            game_text="Discard any number of Supporter cards from your hand. This attack does 40 damage for each card you discarded in this way.",
-            cost={PokemonTypes.WATER: 2},
-            damage=40,
-            damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
-        ),
-        Attack(
-            title="Thrilling Times-GX",
-            game_text="Flip a coin. If heads, this attack does 100 more damage. If this Pok\u00e9mon has at least 6 extra Water Energy attached to it (in addition to this attack's cost), flip 10 coins instead, and this attack does 100 more damage for each heads. (You can't use more than 1 GX attack in a game.)",
-            cost={PokemonTypes.WATER: 2},
-            damage=10,
-            damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
-        ),
-    ],
-)
+card = PokemonCardDef(guid='965cbd9c-178a-5671-90a2-6ba261ec0120', key='SM11', name='com.direwolfdigital.cake.data.archetypes.pokemon.SlowpokePsyduckGX.Name', display_name='Slowpoke & Psyduck-GX', searchable_by=['Slowpoke & Psyduck-GX', 'Basic', 'TAG TEAM', 'GX', 'SlowpokePsyduckGX'], subtypes=['Basic', 'TAG TEAM', 'GX'], collector_number=239, set_code='SM11', rarity=Rarities.RareRainbow, hp=250, elements=[PokemonTypes.WATER], stage=PokemonStage.BASIC, retreat_cost=2, weakness_type=PokemonTypes.GRASS, family_id=54, abilities=[Attack(title='Ditch and Splash', game_text='Discard any number of Supporter cards from your hand. This attack does 40 damage for each card you discarded in this way.', cost={PokemonTypes.WATER: 2}, damage=40, damage_operator='x', effect=ditch_and_splash), Attack(title='Thrilling Times-GX', game_text="Flip a coin. If heads, this attack does 100 more damage. If this Pokémon has at least 6 extra Water Energy attached to it (in addition to this attack's cost), flip 10 coins instead, and this attack does 100 more damage for each heads. (You can't use more than 1 GX attack in a game.)", cost={PokemonTypes.WATER: 2}, damage=10, damage_operator='+', effect=thrilling_times_gx)])
