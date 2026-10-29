@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Geodude (ECARD1 #110): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import rock_tumble
+
 
 card = PokemonCardDef(
     guid="eba559ac-1002-5fbd-8cfa-19c001bb3f64",
@@ -27,8 +25,7 @@ card = PokemonCardDef(
             game_text="Don't apply Resistance.",
             cost={PokemonTypes.FIGHTING: 1},
             damage=10,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=rock_tumble,
         ),
     ],
 )

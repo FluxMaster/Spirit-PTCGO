@@ -4054,12 +4054,17 @@ class GameSession:
         await self._discard_technical_machines(active_id)
 
     async def _discard_technical_machines(self, player_id: str):
-        """Discard every Technical Machine attached to `player_id`'s Pokemon."""
+        """Discard every Technical Machine attached to `player_id`'s Pokemon,
+        plus Strength Charm tools that dealt damage this turn."""
         to_discard = []
         holders = []
         for pokemon in list(self.board_state.pokemon_in_play(player_id)):
             for child in list(pokemon.children):
-                if child.get_attribute(AttrID.TRAINER_TYPE) == TrainerType.TECHNICAL_MACHINE.value:
+                ttype = child.get_attribute(AttrID.TRAINER_TYPE)
+                if ttype == TrainerType.TECHNICAL_MACHINE.value:
+                    to_discard.append(child)
+                    holders.append(pokemon)
+                elif ttype == TrainerType.POKEMON_TOOL.value and child.get_attribute("_strength_charm_spent"):
                     to_discard.append(child)
                     holders.append(pokemon)
         if not to_discard:

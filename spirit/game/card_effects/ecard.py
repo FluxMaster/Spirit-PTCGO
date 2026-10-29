@@ -1006,3 +1006,29 @@ async def giant_wave(ctx):
     await ctx.deal_damage()
     lock_all_attacks(ctx, ctx.attacker)
 
+
+# ----------------------------------------------------------------------
+# Strength Charm
+# ----------------------------------------------------------------------
+
+class StrengthCharmPassive(Passive):
+    """Holder's attacks do +10. Marked for end-of-turn discard after dealing
+    attack damage (Strength Charm text: discard at end of that turn)."""
+
+    def __init__(self):
+        self._hit_this_turn = False
+
+        async def _intercept(ctx, calc, target, carrier):
+            if not (calc.is_attack and calc.is_opposing):
+                return None
+            if carrier_pokemon(carrier) is not calc.attacker:
+                return None
+            if calc.amount <= 0:
+                return None
+            # +10 after W/R (interceptor runs after compute_damage)
+            self._hit_this_turn = True
+            carrier.set_attribute("_strength_charm_spent", True)
+            return calc.amount + 10
+
+        self.damage_interceptor = _intercept
+
