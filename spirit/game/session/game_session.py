@@ -2395,12 +2395,20 @@ class GameSession:
             pokemon.ko_by_opponent_attack_damage = bool(
                 _damage_ko(pokemon) and ctx.attacker is not None
                 and ctx.attacker.owning_player_id != owner_id)
+            pokemon.ko_attacker = (
+                ctx.attacker if pokemon.ko_by_opponent_attack_damage else None
+            )
             # Lost City-style passives (Lost Zone) redirect the KO'd Pokemon
-            # stack; energy/tools always fall to the discard pile.
+            # stack; energy/tools always fall to the discard pile unless a
+            # knockout_whole_stack hook (Lost Out) takes the attachments too.
+            ko_passives = active_passives(self.board_state)
             dest_name = next(
-                (d for p, c in active_passives(self.board_state)
+                (d for p, c in ko_passives
                  for d in [p.knockout_destination(pokemon, c)] if d),
                 "discard",
+            )
+            whole_stack = any(
+                p.knockout_whole_stack(pokemon, c) for p, c in ko_passives
             )
             dest_area = self.board_state.find_player_area(owner_id, dest_name) or discard
             stack = [pokemon] + _stack_descendants(pokemon)
@@ -2409,7 +2417,7 @@ class GameSession:
             if isinstance(pokemon, CompositePokemonEntity):
                 moves, trailing, _ = vunion.depart_composite(self, pokemon, dest_area, knockout=True)
             for entity in ([] if isinstance(pokemon, CompositePokemonEntity) else stack):
-                area = dest_area if isinstance(entity, PokemonEntity) else discard
+                area = dest_area if (isinstance(entity, PokemonEntity) or whole_stack) else discard
                 position = len(area.children)
                 if self.board_state.move_card(entity.entity_id, area.entity_id):
                     moves.append(self._entity_moved_msg(
@@ -4362,7 +4370,10 @@ class GameSession:
         from spirit.game.card_effects.ancient_traits import ALPHA_GROWTH, has_ancient_trait
         if self.turn_state.energy_attached:
             self.turn_state.alpha_growth_target = None  # alpha Growth's 2nd card used
-        elif has_ancient_trait(target, ALPHA_GROWTH):
+        elif has_ancient_trait(target, ALPHA_GROWTH) or any(
+            p.allows_second_energy_attach(target, c)
+            for p, c in active_passives(self.board_state)
+        ):
             self.turn_state.alpha_growth_target = target.entity_id
         self.turn_state.energy_attached = True
         card.attached_on_turn = self.turn_state.turn_number
@@ -4840,6 +4851,12 @@ class GameSession:
         )
         await self._refresh_max_hp(target, max_before)
         await self.refresh_granted_abilities(target)
+        def _tool_setup(c):
+            c.attaching_player_id = player_id
+            c.attached_tool = card
+            c.tool_receiver = target
+        await self._fire_triggered_abilities(
+            player_id, target, Triggers.ON_TOOL_ATTACHED, ctx_setup=_tool_setup)
 
     async def _execute_use_ability(self, player_id, card, entry) -> bool:
         """Activates a Pokemon's usable ability (once-per-turn / VSTAR).

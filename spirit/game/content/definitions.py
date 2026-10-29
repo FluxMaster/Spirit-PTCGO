@@ -187,6 +187,10 @@ class Triggers:
     # for each in-play Pokemon of the retreating player's opponent after the
     # swap; ctx carries retreating_player_id / retreated_pokemon / new_active.
     ON_OPPONENT_RETREAT = "on_opponent_retreat"
+    # A Pokemon Tool was attached from hand to this Pokemon (Tapu Lele
+    # Charmed Charm); ctx carries attaching_player_id / attached_tool /
+    # tool_receiver.
+    ON_TOOL_ATTACHED = "on_tool_attached"
 
 
 class Activations:
