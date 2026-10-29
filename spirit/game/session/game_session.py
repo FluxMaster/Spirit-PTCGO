@@ -4043,10 +4043,74 @@ class GameSession:
 
     async def _fire_end_of_turn_triggers(self, active_id: str):
         """END_OF_TURN for the turn player's in-play Pokemon, after their turn
-        ends and before the checkup (Radiant Venusaur's Sunny Bloom)."""
+        ends and before the checkup (Radiant Venusaur's Sunny Bloom).
+
+        Also discards e-Card Technical Machines attached to that player's
+        Pokemon ("At the end of your turn, discard this card").
+        """
         for pokemon in list(self.board_state.pokemon_in_play(active_id)):
             await self._fire_triggered_abilities(
                 active_id, pokemon, Triggers.END_OF_TURN)
+        await self._discard_technical_machines(active_id)
+        await self._apply_classic_darkness_energy()
+
+    async def _discard_technical_machines(self, player_id: str):
+        """Discard every Technical Machine attached to `player_id`'s Pokemon,
+        plus Strength Charm tools that dealt damage this turn."""
+        to_discard = []
+        holders = []
+        for pokemon in list(self.board_state.pokemon_in_play(player_id)):
+            for child in list(pokemon.children):
+                ttype = child.get_attribute(AttrID.TRAINER_TYPE)
+                if ttype == TrainerType.TECHNICAL_MACHINE.value:
+                    to_discard.append(child)
+                    holders.append(pokemon)
+                elif ttype == TrainerType.POKEMON_TOOL.value and child.get_attribute("_strength_charm_spent"):
+                    to_discard.append(child)
+                    holders.append(pokemon)
+        if not to_discard:
+            return
+        discard_area = self.board_state.find_player_area(player_id, "discard")
+        if discard_area is None:
+            return
+        for card, holder in zip(to_discard, holders):
+            self.board_state.move_cards([card.entity_id], discard_area.entity_id)
+            logging.info(
+                f"[Session {self.game_id}] Discarded Technical Machine "
+                f"{card.entity_id} at end of turn."
+            )
+            await self.refresh_granted_abilities(holder)
+
+
+    async def _apply_classic_darkness_energy(self):
+        """e-Card Darkness Energy: at the end of every turn, put 1 damage
+        counter on the attached Pokémon unless it is Darkness-type or has
+        'Dark' in its name."""
+        from spirit.game.card_effects.ecard import ClassicDarknessEnergyPassive
+        from spirit.game.session.passives import active_passives, carrier_pokemon
+        from spirit.game.attributes import PokemonTypes
+        for passive, carrier in active_passives(self.board_state):
+            if not isinstance(passive, ClassicDarknessEnergyPassive):
+                continue
+            pokemon = carrier_pokemon(carrier)
+            if pokemon is None:
+                continue
+            types = pokemon.get_attribute(AttrID.POKEMON_TYPES) or []
+            if PokemonTypes.DARKNESS.value in types:
+                continue
+            name = ""
+            d = def_for(pokemon.archetype_id)
+            if d is not None:
+                name = d.display_name or ""
+            if "Dark" in name:
+                continue
+            # 1 damage counter = 10 HP
+            current = pokemon.get_attribute(AttrID.HP, 0)
+            pokemon.set_attribute(AttrID.HP, max(0, current - 10))
+            logging.info(
+                f"[Session {self.game_id}] Darkness Energy placed a damage "
+                f"counter on {pokemon.entity_id}."
+            )
 
     async def _fire_stadium_triggers(self, acting_player_id: str, trigger: str,
                                      ctx_setup=None):
@@ -4126,6 +4190,14 @@ class GameSession:
         position = len(target.children)
         if not self.board_state.attach_card(card.entity_id, target_id):
             return
+        from spirit.game.session.passives import active_passives
+        if self.turn_state.energy_attached:
+            self.turn_state.alpha_growth_target = None  # 2nd attach used
+        elif any(
+            p.allows_second_energy_attach(target, c)
+            for p, c in active_passives(self.board_state)
+        ):
+            self.turn_state.alpha_growth_target = target.entity_id
         self.turn_state.energy_attached = True
         self.stat_add(player_id, "energyplayed")
         logging.info(
