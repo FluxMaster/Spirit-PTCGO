@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Arceus & Dialga & Palkia-GX (SM12 #221): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm12 import altered_creation_gx
 from spirit.game.card_effects.support_common import search_attach_energy
 from spirit.game.card_effects.trainers import is_basic_energy_card
 
@@ -37,8 +34,7 @@ card = PokemonCardDef(
             title="Altered Creation-GX",
             game_text="For the rest of this game, your Pok\u00e9mon's attacks do 30 more damage to your opponent's Active Pok\u00e9mon (before applying Weakness and Resistance). If this Pok\u00e9mon has at least 1 extra Water Energy attached to it (in addition to this attack's cost), when your opponent's Active Pok\u00e9mon is Knocked Out by damage from those attacks, take 1 more Prize card. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.METAL: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=altered_creation_gx,
         ),
     ],
 )

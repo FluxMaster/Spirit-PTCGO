@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Wishiwashi-GX (SM12 #63): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm12 import massive_catch_gx, school_storm
 
 card = PokemonCardDef(
     guid="bb2b48f4-178e-5efd-8aee-5981dca87f8f",
@@ -28,15 +25,13 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=school_storm,
         ),
         Attack(
             title="Massive Catch-GX",
             game_text="Look at the top 12 cards of your deck and put any number of Basic Pok\u00e9mon you find there onto your Bench. Shuffle the other cards back into your deck. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=massive_catch_gx,
         ),
     ],
 )

@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Drilbur (SM12 #114): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm12 import rototiller
 
 card = PokemonCardDef(
     guid="b886a2f3-d519-5740-b223-1dc305d97e89",
@@ -26,8 +23,7 @@ card = PokemonCardDef(
             title="Rototiller",
             game_text="Shuffle a card from your discard pile into your deck.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=rototiller,
         ),
         Attack(
             title="Mud-Slap",

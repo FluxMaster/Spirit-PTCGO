@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Heliolisk (SM12 #180): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm12 import parabolic_counter
 
 card = PokemonCardDef(
     guid="bef72908-6d50-52fd-a28b-4f5798498cec",
@@ -29,8 +26,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=parabolic_counter,
         ),
         Attack(
             title="Zap Kick",

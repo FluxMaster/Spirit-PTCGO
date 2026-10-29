@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Lanturn (SM12 #72): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm12 import blinking_lights, blinking_lights_condition, swirling_flow
 
 card = PokemonCardDef(
     guid="aa818ff2-2c7e-59e2-9944-86da91218414",
@@ -29,16 +26,16 @@ card = PokemonCardDef(
             title="Blinking Lights",
             game_text="As often as you like during your turn (before your attack), you may look at the top card of your opponent's deck.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.UNLIMITED,
+            condition=blinking_lights_condition,
+            effect=blinking_lights,
         ),
         Attack(
             title="Swirling Flow",
             game_text="You may have your opponent shuffle their deck.",
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 1},
             damage=50,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=swirling_flow,
         ),
     ],
 )

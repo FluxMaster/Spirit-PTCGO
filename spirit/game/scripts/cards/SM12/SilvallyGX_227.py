@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Silvally-GX (SM12 #227): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm12 import disk_reload, disk_reload_condition
 from spirit.game.card_effects.attacks_common import bonus_if
 from spirit.game.card_effects.sm8 import sublimation_gx
 
@@ -34,8 +31,9 @@ card = PokemonCardDef(
             title="Disk Reload",
             game_text="Once during your turn (before your attack), you may draw cards until you have 5 cards in your hand.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=disk_reload_condition,
+            effect=disk_reload,
         ),
         Attack(
             title="Brave Buddies",

@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Wishiwashi (SM12 #62): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm12 import scatter
 
 card = PokemonCardDef(
     guid="35a79266-4218-54c1-a99f-a71ec72354db",
@@ -26,8 +23,8 @@ card = PokemonCardDef(
             title="Scatter",
             game_text="At the end of your opponent's turn, if this Pok\u00e9mon has any damage counters on it, flip a coin. If tails, shuffle this Pok\u00e9mon and all cards attached to it into your deck.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=Triggers.BETWEEN_TURNS,
+            effect=scatter,
         ),
         Attack(
             title="Hydro Splash",

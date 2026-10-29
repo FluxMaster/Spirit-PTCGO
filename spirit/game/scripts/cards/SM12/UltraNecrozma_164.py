@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Ultra Necrozma (SM12 #164): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm12 import ultra_burst_passive
 from spirit.game.card_effects.pokemon import rock_crush
 
 
@@ -28,8 +25,7 @@ card = PokemonCardDef(
             title="Ultra Burst",
             game_text="This Pok\u00e9mon can't attack unless your opponent has 2 or fewer Prize cards remaining.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=ultra_burst_passive,
         ),
         Attack(
             title="Luster of Downfall",

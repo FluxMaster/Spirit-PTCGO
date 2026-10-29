@@ -1,10 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Vileplume-GX (SM12 #250): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
-from spirit.game.card_effects.sm12 import allergic_explosion_gx
+from spirit.game.card_effects.sm12 import allergic_explosion_gx, fragrant_flower_garden, massive_bloom
 
 card = PokemonCardDef(
     guid="26e0ebac-e418-58a7-8632-b70edfe3de2b",
@@ -28,8 +24,8 @@ card = PokemonCardDef(
             title="Fragrant Flower Garden",
             game_text="Once during your turn (before your attack), you may heal 30 damage from each of your Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            effect=fragrant_flower_garden,
         ),
         Attack(
             title="Massive Bloom",
@@ -37,8 +33,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 1},
             damage=180,
             damage_operator="-",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=massive_bloom,
         ),
         Attack(
             title="Allergic Explosion-GX",

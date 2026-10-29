@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Vaporeon (SM12 #42): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm12 import vitality_cheer_passive
 from spirit.game.card_effects.support_common import heal_targets
 
 
@@ -29,8 +26,7 @@ card = PokemonCardDef(
             title="Vitality Cheer",
             game_text="Your Pok\u00e9mon-GX in play that evolve from Eevee get +60 HP. You can't apply more than 1 Vitality Cheer Ability at a time.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=vitality_cheer_passive,
         ),
         Attack(
             title="Refreshing Rain",

@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Kommo-o (SM12 #163): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm12 import scaly_uppercut
 from spirit.game.card_effects.support_common import attach_from_discard
 from spirit.game.card_effects.trainers import is_basic_energy_card
 from spirit.game.card_effects.passives_common import is_in_active_spot
@@ -41,8 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.FIGHTING: 1},
             damage=90,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=scaly_uppercut,
         ),
     ],
 )

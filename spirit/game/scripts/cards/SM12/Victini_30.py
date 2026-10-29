@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Victini (SM12 #30): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm12 import victory_heal, victory_heal_condition
 
 card = PokemonCardDef(
     guid="da0b3a5d-b2c6-5ba1-90e3-cd2521356503",
@@ -26,8 +23,9 @@ card = PokemonCardDef(
             title="Victory Heal",
             game_text="Once during your turn (before your attack), you may heal 20 damage from 1 of your Benched Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=victory_heal_condition,
+            effect=victory_heal,
         ),
         Attack(
             title="Combustion",

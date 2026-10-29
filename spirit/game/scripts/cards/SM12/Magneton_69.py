@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Magneton (SM12 #69): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm12 import call_signal
 
 card = PokemonCardDef(
     guid="eaa68448-db77-5816-8a8b-8aaaf0cd9aa3",
@@ -29,8 +26,8 @@ card = PokemonCardDef(
             title="Call Signal",
             game_text="Once during your turn (before your attack), you may search your deck for up to 3 Supporter cards, reveal them, and put them into your hand. Then, shuffle your deck. If you searched your deck in this way, this Pok\u00e9mon is Knocked Out.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            effect=call_signal,
         ),
         Attack(
             title="Magnetic Blast",

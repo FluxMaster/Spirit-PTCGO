@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Sunflora (SM12 #8): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm12 import solar_power
 
 card = PokemonCardDef(
     guid="7b83b477-5681-5704-b03f-b6dd4137a3d3",
@@ -27,8 +24,7 @@ card = PokemonCardDef(
             title="Solar Power",
             game_text="During your next turn, ignore all Energy in the attack costs of Grass Pok\u00e9mon and Fire Pok\u00e9mon. (This includes Pok\u00e9mon that come into play on that turn.)",
             cost={PokemonTypes.COLORLESS: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=solar_power,
         ),
         Attack(
             title="Solar Beam",

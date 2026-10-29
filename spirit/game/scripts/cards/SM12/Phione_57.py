@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Phione (SM12 #57): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm12 import whirlpool_suction, whirlpool_suction_condition
 
 card = PokemonCardDef(
     guid="ce57be1b-bc81-52e6-84a6-d29d657c6309",
@@ -26,8 +23,9 @@ card = PokemonCardDef(
             title="Whirlpool Suction",
             game_text="Once during your turn (before your attack), if this Pok\u00e9mon is on your Bench, you may have your opponent switch their Active Pok\u00e9mon with 1 of their Benched Pok\u00e9mon. If you do, discard all cards attached to this Pok\u00e9mon and put it on the bottom of your deck.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=whirlpool_suction_condition,
+            effect=whirlpool_suction,
         ),
         Attack(
             title="Rain Splash",

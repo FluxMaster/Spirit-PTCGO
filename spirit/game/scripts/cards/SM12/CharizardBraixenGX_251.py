@@ -1,10 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Charizard & Braixen-GX (SM12 #251): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-from spirit.game.card_effects.sm12 import brilliant_flare
+from spirit.game.card_effects.sm12 import brilliant_flare, crimson_flame_pillar_gx
 
 card = PokemonCardDef(
     guid="2460f09b-d2d4-5516-abe6-c3b8f42da503",
@@ -34,8 +30,7 @@ card = PokemonCardDef(
             title="Crimson Flame Pillar-GX",
             game_text="Attach 5 basic Energy cards from your discard pile to your Pok\u00e9mon in any way you like. If this Pok\u00e9mon has at least 1 extra Energy attached to it (in addition to this attack's cost), your opponent's Active Pok\u00e9mon is now Burned and Confused. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.FIRE: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=crimson_flame_pillar_gx,
         ),
     ],
 )

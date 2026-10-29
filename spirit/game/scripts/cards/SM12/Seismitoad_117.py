@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Seismitoad (SM12 #117): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm12 import tremulous_fist
 from spirit.game.card_effects.sm7 import deck_has_cards, smooth_over
 from spirit.game.data_utils import Activations
 
@@ -41,8 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 3},
             damage=80,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=tremulous_fist,
         ),
     ],
 )

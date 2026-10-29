@@ -1,14 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Red & Blue (SM12 #202): trainer effect stubbed.
-
-Card text:
-  - Search your deck for a Pokémon-GX that evolves from 1 of your Pokémon and put it onto that Pokémon to evolve it. Then, shuffle your deck. (You can't use this card during your first turn or on a Pokémon that was put into play this turn.)
-  - When you play this card, you may discard 2 other cards from your hand. If you do, search your deck for up to 2 basic Energy cards and attach them to the Pokémon you evolved in this way.
-  - You may play only 1 Supporter card during your turn (before your attack).
-"""
-
-from spirit.game.data_utils import SupporterCardDef, unimplemented
+from spirit.game.data_utils import SupporterCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.sm12 import red_blue, red_blue_condition
 
 card = SupporterCardDef(
     guid="cb8c5531-c0bb-5f15-b2e5-0095e1fcb873",
@@ -20,6 +12,5 @@ card = SupporterCardDef(
     collector_number=202,
     set_code="SM12",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=red_blue, condition=red_blue_condition,
 )

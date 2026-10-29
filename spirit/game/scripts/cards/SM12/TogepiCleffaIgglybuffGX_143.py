@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Togepi & Cleffa & Igglybuff-GX (SM12 #143): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm12 import supreme_puff_gx
 from spirit.game.card_effects.attacks_common import flip_damage
 
 
@@ -39,8 +36,7 @@ card = PokemonCardDef(
             title="Supreme Puff-GX",
             game_text="Take another turn after this one. (Skip the between-turns step.) If this Pok\u00e9mon has at least 14 extra Fairy Energy attached to it (in addition to this attack's cost), your opponent shuffles all of their Benched Pok\u00e9mon and all cards attached to them into their deck. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.FAIRY: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=supreme_puff_gx,
         ),
     ],
 )

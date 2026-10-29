@@ -1,16 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Lillie's Poké Doll (SM12 #267): trainer effect stubbed.
-
-Card text:
-  - Play this card as if it were a 30-HP Colorless Basic Pokémon. At any time during your turn (before your attack), if this Pokémon is your Active Pokémon, you may discard all cards from it and put it on the bottom of your deck.
-  - This card can't retreat. If this card is Knocked Out, your opponent can't take any Prize cards for it.
-  - You may play as many Item cards as you like during your turn (before your attack).
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import FossilItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.sm12 import (
+    lillies_poke_doll_ability, lillies_poke_doll_passive,
+)
 
-card = ItemCardDef(
+card = FossilItemCardDef(
     guid="805bec0f-66ad-5d93-91db-eb373825c1dd",
     key="SM12",
     name="com.direwolfdigital.cake.data.archetypes.trainer.LilliesPokeDoll.Name",
@@ -20,6 +14,8 @@ card = ItemCardDef(
     collector_number=267,
     set_code="SM12",
     rarity=Rarities.RareSecret,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    hp=30,
+    passive=lillies_poke_doll_passive,
+    abilities=[lillies_poke_doll_ability()],
 )
+card.prize_count = 0

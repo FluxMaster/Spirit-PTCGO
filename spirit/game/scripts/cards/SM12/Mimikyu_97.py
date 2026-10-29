@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Mimikyu (SM12 #97): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm12 import shadow_box_passive
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
 
@@ -28,8 +25,7 @@ card = PokemonCardDef(
             title="Shadow Box",
             game_text="Pok\u00e9mon-GX that have any damage counters on them (both yours and your opponent's) have no Abilities.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=shadow_box_passive,
         ),
         Attack(
             title="Tail Trickery",

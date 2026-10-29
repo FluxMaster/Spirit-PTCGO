@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dragalge (SM12 #92): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm12 import poison_cultivation
 
 card = PokemonCardDef(
     guid="4b82e101-ecf1-5967-b620-1fdf66d5030f",
@@ -27,8 +24,7 @@ card = PokemonCardDef(
             title="Poison Cultivation",
             game_text="If your opponent's Active Pok\u00e9mon is Poisoned, put 10 damage counters instead of 1 on that Pok\u00e9mon between turns.",
             cost={PokemonTypes.PSYCHIC: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=poison_cultivation,
         ),
         Attack(
             title="Sharp Fin",

@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Solgaleo & Lunala-GX (SM12 #216): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm12 import light_of_the_protector_gx
 
 card = PokemonCardDef(
     guid="d9bd03b9-38ae-522e-86bd-566240a1c4d3",
@@ -34,8 +31,7 @@ card = PokemonCardDef(
             game_text="If you played Lillie's Full Force from your hand during this turn, prevent all effects of attacks, including damage, done to each of your Pok\u00e9mon during your opponent's next turn. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.PSYCHIC: 2, PokemonTypes.COLORLESS: 1},
             damage=200,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=light_of_the_protector_gx,
         ),
     ],
 )

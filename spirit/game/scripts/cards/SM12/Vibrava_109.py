@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Vibrava (SM12 #109): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm12 import obnoxious_whirring_passive
 
 card = PokemonCardDef(
     guid="7420fffc-12a7-5ce3-a3fe-579476a115cb",
@@ -27,8 +24,7 @@ card = PokemonCardDef(
             title="Obnoxious Whirring",
             game_text="Whenever your opponent plays a Supporter card from their hand, prevent all effects of that card done to this Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=obnoxious_whirring_passive,
         ),
         Attack(
             title="Flap",

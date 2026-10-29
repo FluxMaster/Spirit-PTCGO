@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Jolteon (SM12 #70): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm12 import speed_cheer_passive
 
 card = PokemonCardDef(
     guid="4383f2f1-5a59-5686-99a9-3fe5487bfbe7",
@@ -29,8 +26,7 @@ card = PokemonCardDef(
             title="Speed Cheer",
             game_text="The attacks of your Pok\u00e9mon-GX in play that evolve from Eevee cost Colorless less. You can't apply more than 1 Speed Cheer Ability at a time.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=speed_cheer_passive,
         ),
         Attack(
             title="Head Bolt",

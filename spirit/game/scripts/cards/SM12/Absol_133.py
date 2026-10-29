@@ -1,10 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Absol (SM12 #133): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-from spirit.game.card_effects.sm12 import dirty_throw
+from spirit.game.card_effects.sm12 import dirty_throw, ominous_news
 
 card = PokemonCardDef(
     guid="e4d739c2-e074-5eaa-a27f-781ac857c687",
@@ -29,8 +25,7 @@ card = PokemonCardDef(
             title="Ominous News",
             game_text="Discard a Special Energy from 1 of your opponent's Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=ominous_news,
         ),
         Attack(
             title="Dirty Throw",

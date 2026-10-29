@@ -1,13 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Chaotic Swell (SM12 #187): trainer effect stubbed.
-
-Card text:
-  - Whenever either player plays a Stadium card from their hand, discard that Stadium card after discarding this one. (The new Stadium card has no effect.)
-  - This card stays in play when you play it. Discard this card if another Stadium card comes into play. If another card with the same name is in play, you can't play this card.
-"""
-
-from spirit.game.data_utils import StadiumCardDef, unimplemented
+from spirit.game.data_utils import StadiumCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.sm12 import chaotic_swell_passive
 
 card = StadiumCardDef(
     guid="53ff5d70-7635-5aad-b190-be61c579151d",
@@ -19,6 +12,5 @@ card = StadiumCardDef(
     collector_number=187,
     set_code="SM12",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    passive=chaotic_swell_passive,
 )

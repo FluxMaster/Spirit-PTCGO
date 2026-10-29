@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Heracross (SM12 #9): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm12 import riled_horn
 
 card = PokemonCardDef(
     guid="0fa9c356-157f-5863-9ef8-0b2b36db10fd",
@@ -33,8 +30,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=50,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=riled_horn,
         ),
     ],
 )

@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Herdier (SM12 #175): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm12 import work_up
 
 card = PokemonCardDef(
     guid="25d6c811-c449-5d53-8cbd-33fb187cdaa1",
@@ -27,8 +24,7 @@ card = PokemonCardDef(
             title="Work Up",
             game_text="During your next turn, this Pok\u00e9mon's attacks do 60 more damage to your opponent's Active Pok\u00e9mon (before applying Weakness and Resistance).",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=work_up,
         ),
         Attack(
             title="Headbutt Bounce",

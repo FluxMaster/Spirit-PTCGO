@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Igglybuff (SM12 #168): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm12 import sleepy_voice
 
 card = PokemonCardDef(
     guid="f2ebb804-6a99-5201-8eea-59e9b8d21947",
@@ -25,8 +22,9 @@ card = PokemonCardDef(
             title="Sleepy Voice",
             game_text="Once during your turn (before your attack), you may flip a coin. If heads, your opponent's Active Pok\u00e9mon is now Asleep. If you use this Ability, your turn ends.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            ends_turn=True,
+            effect=sleepy_voice,
         ),
     ],
 )

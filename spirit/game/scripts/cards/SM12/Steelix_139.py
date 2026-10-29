@@ -1,10 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Steelix (SM12 #139): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-from spirit.game.card_effects.sm12 import iron_tail
+from spirit.game.card_effects.sm12 import iron_tail, thumping_fall
 
 card = PokemonCardDef(
     guid="7eda475d-78f4-5b16-9695-cf0b0db2bf67",
@@ -32,8 +28,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=50,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=thumping_fall,
         ),
         Attack(
             title="Iron Tail",

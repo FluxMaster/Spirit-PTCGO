@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Aipom (SM12 #169): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm12 import scampering_tail, scampering_tail_condition
 
 card = PokemonCardDef(
     guid="288812cc-611e-5b2a-bbf4-58bdf7e08c36",
@@ -26,8 +23,9 @@ card = PokemonCardDef(
             title="Scampering Tail",
             game_text="Once during your turn (before your attack), you may put the top card of your opponent's deck on the bottom of their deck without looking at it.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=scampering_tail_condition,
+            effect=scampering_tail,
         ),
         Attack(
             title="Tail Smack",

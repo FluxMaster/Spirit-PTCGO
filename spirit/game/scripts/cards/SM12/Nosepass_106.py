@@ -1,8 +1,4 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Nosepass (SM12 #106): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.support_common import gust_attack
 
@@ -36,8 +32,7 @@ card = PokemonCardDef(
             game_text="This Pok\u00e9mon can't use Zap Cannon during your next turn.",
             cost={PokemonTypes.COLORLESS: 3},
             damage=50,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            locks_next_turn=True,
         ),
     ],
 )

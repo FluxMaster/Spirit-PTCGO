@@ -1,10 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Florges (SM12 #152): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented, Triggers
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
-from spirit.game.card_effects.sm12 import flower_picking
+from spirit.game.card_effects.sm12 import flower_picking, petal_dance
 
 card = PokemonCardDef(
     guid="2211db1c-7913-5c0b-a0fe-3036e53ed532",
@@ -39,8 +35,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FAIRY: 1, PokemonTypes.COLORLESS: 1},
             damage=60,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=petal_dance,
         ),
     ],
 )

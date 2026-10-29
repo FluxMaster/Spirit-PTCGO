@@ -1,13 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Draw Energy (SM12 #209): special energy provides/passive/attach rules stubbed until matched to a known energy pattern.
-
-Card text:
-  - This card provides Colorless Energy.
-  - When you attach this card from your hand to a Pokémon, draw a card.
-"""
-
 from spirit.game.data_utils import EnergyCardDef
 from spirit.game.attributes import PokemonTypes, Rarities
+from spirit.game.card_effects.sm12 import draw_energy_on_attach
 
 card = EnergyCardDef(
     guid="7c7935a3-d73a-522c-bf46-4526b76fc27c",
@@ -21,5 +14,5 @@ card = EnergyCardDef(
     rarity=Rarities.Uncommon,
     energy_type=PokemonTypes.COLORLESS,
     is_special=True,
-    # STUB: special energy mechanics not implemented
+    on_attach=draw_energy_on_attach,
 )

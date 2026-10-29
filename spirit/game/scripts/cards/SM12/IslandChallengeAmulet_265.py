@@ -1,14 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Island Challenge Amulet (SM12 #265): trainer effect stubbed.
-
-Card text:
-  - Attach a Pokémon Tool to 1 of your Pokémon that doesn't already have a Pokémon Tool attached to it.
-  - The Pokémon-GX or Pokémon-EX this card is attached to gets -100 HP, and when it is Knocked Out by damage from an opponent's attack, that player takes 1 fewer Prize card.
-  - You may play as many Item cards as you like during your turn (before your attack).
-"""
-
-from spirit.game.data_utils import PokemonToolCardDef, unimplemented
+from spirit.game.data_utils import PokemonToolCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.sm12 import island_challenge_amulet_passive
 
 card = PokemonToolCardDef(
     guid="897323f4-ce91-5810-92a6-fb3a9af0a44b",
@@ -20,6 +12,5 @@ card = PokemonToolCardDef(
     collector_number=265,
     set_code="SM12",
     rarity=Rarities.RareSecret,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    passive=island_challenge_amulet_passive,
 )

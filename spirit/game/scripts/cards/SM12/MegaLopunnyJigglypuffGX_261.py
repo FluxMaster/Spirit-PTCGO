@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Mega Lopunny & Jigglypuff-GX (SM12 #261): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm12 import jumping_balloon, puffy_smashers_gx
 
 card = PokemonCardDef(
     guid="0b8f2a3c-1dfc-5931-b2ab-cf5ca4518fff",
@@ -28,15 +25,13 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=60,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=jumping_balloon,
         ),
         Attack(
             title="Puffy Smashers-GX",
             game_text="Your opponent's Active Pok\u00e9mon is now Asleep. If this Pok\u00e9mon has at least 4 extra Energy attached to it (in addition to this attack's cost), this attack does 200 damage to 1 of your opponent's Benched Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.) (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=puffy_smashers_gx,
         ),
     ],
 )

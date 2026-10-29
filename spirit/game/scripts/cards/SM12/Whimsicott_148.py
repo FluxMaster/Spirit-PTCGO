@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Whimsicott (SM12 #148): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm12 import lost_march, sneaky_pocket
 
 card = PokemonCardDef(
     guid="4bd6432f-f2cb-5b4b-8f67-204d260639b1",
@@ -29,8 +26,7 @@ card = PokemonCardDef(
             title="Sneaky Pocket",
             game_text="Put a card from your hand in the Lost Zone. If you do, draw 3 cards.",
             cost={PokemonTypes.FAIRY: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=sneaky_pocket,
         ),
         Attack(
             title="Lost March",
@@ -38,8 +34,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=20,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=lost_march,
         ),
     ],
 )

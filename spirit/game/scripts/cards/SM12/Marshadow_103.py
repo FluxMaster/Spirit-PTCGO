@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Marshadow (SM12 #103): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm12 import shadow_imitation
 
 card = PokemonCardDef(
     guid="c6702441-1aad-54fa-b1f5-cfc5436876d3",
@@ -28,8 +25,7 @@ card = PokemonCardDef(
             title="Shadow Imitation",
             game_text="Choose 1 of your opponent's Active Pok\u00e9mon's non-GX attacks and use it as this attack.",
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=shadow_imitation,
         ),
     ],
 )

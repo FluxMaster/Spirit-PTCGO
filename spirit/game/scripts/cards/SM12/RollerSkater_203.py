@@ -1,13 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Roller Skater (SM12 #203): trainer effect stubbed.
-
-Card text:
-  - Discard a card from your hand. If you do, draw 2 cards. If you discarded an Energy card in this way, draw 2 more cards.
-  - You may play only 1 Supporter card during your turn (before your attack).
-"""
-
-from spirit.game.data_utils import SupporterCardDef, unimplemented
+from spirit.game.data_utils import SupporterCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.sm12 import roller_skater, roller_skater_condition
 
 card = SupporterCardDef(
     guid="a21675b6-9b09-5d9d-b191-183260ce7063",
@@ -19,6 +12,5 @@ card = SupporterCardDef(
     collector_number=203,
     set_code="SM12",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=roller_skater, condition=roller_skater_condition,
 )

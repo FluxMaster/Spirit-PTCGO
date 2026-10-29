@@ -1,14 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Beastite (SM12 #185): trainer effect stubbed.
-
-Card text:
-  - Attach a Pokémon Tool to 1 of your Pokémon that doesn't already have a Pokémon Tool attached to it.
-  - The attacks of the Ultra Beast this card is attached to do 10 more damage to your opponent's Active Pokémon for each Prize card you have taken (before applying Weakness and Resistance).
-  - You may play as many Item cards as you like during your turn (before your attack).
-"""
-
-from spirit.game.data_utils import PokemonToolCardDef, unimplemented
+from spirit.game.data_utils import PokemonToolCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.sm12 import beastite_passive
 
 card = PokemonToolCardDef(
     guid="b3138bdc-662a-53b3-b63f-dbf4ab9d0414",
@@ -20,6 +12,5 @@ card = PokemonToolCardDef(
     collector_number=185,
     set_code="SM12",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    passive=beastite_passive,
 )

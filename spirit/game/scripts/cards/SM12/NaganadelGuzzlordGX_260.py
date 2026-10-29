@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Naganadel & Guzzlord-GX (SM12 #260): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm12 import chaotic_order_gx, violent_appetite, violent_appetite_condition
 
 card = PokemonCardDef(
     guid="46360c0f-7e96-50a3-9d39-75024a11a9fa",
@@ -26,8 +23,9 @@ card = PokemonCardDef(
             title="Violent Appetite",
             game_text="Once during your turn (before your attack), you may discard a Pok\u00e9mon from your hand. If you do, heal 60 damage from this Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=violent_appetite_condition,
+            effect=violent_appetite,
         ),
         Attack(
             title="Jet Pierce",
@@ -38,8 +36,7 @@ card = PokemonCardDef(
             title="Chaotic Order-GX",
             game_text="Turn all of your Prize cards face up. (Those Prize cards remain face up for the rest of the game.) If this Pok\u00e9mon has at least 1 extra Psychic Energy and 1 extra Darkness Energy attached to it (in addition to this attack's cost), take 2 Prize cards. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=chaotic_order_gx,
         ),
     ],
 )

@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Lunala (SM12 #102): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm12 import blessing_of_the_moone, blessing_of_the_moone_condition
 
 card = PokemonCardDef(
     guid="43940e90-a227-5639-b5bb-cb6eefea54d9",
@@ -29,8 +26,9 @@ card = PokemonCardDef(
             title="Blessing of the Moone",
             game_text="Once during your turn (before your attack), if you have Solgaleo in play, you may search your deck for up to 2 Energy cards and attach them to your Solgaleo or Lunala in any way you like. Then, shuffle your deck.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=blessing_of_the_moone_condition,
+            effect=blessing_of_the_moone,
         ),
         Attack(
             title="Lunar Blast",

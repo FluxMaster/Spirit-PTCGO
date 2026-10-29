@@ -1,8 +1,4 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Empoleon (SM12 #56): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.data_utils import def_for, evolves_from_chain
 from spirit.game.attributes import AttrID

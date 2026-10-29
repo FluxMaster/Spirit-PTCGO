@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Oricorio-GX (SM12 #255): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm12 import dance_of_tribute, dance_of_tribute_condition
 from spirit.game.card_effects.sm3 import crossing_cut_gx
 
 
@@ -30,8 +27,10 @@ card = PokemonCardDef(
             title="Dance of Tribute",
             game_text="Once during your turn (before your attack), if any of your Pok\u00e9mon were Knocked Out during your opponent's last turn, you may draw 3 cards. You can't use more than 1 Dance of Tribute Ability each turn.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            shared_once_per_turn="Dance of Tribute",
+            condition=dance_of_tribute_condition,
+            effect=dance_of_tribute,
         ),
         Attack(
             title="Razor Wing",

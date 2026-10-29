@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Alolan Persian-GX (SM12 #257): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm12 import smug_face_passive, stalking_claws_gx
 
 card = PokemonCardDef(
     guid="a53533ae-6035-559e-a5b6-54590eeac2ed",
@@ -29,8 +26,7 @@ card = PokemonCardDef(
             title="Smug Face",
             game_text="Prevent all effects of attacks, including damage, done to this Pok\u00e9mon by your opponent's TAG TEAM Pok\u00e9mon and Ultra Beasts, and by your opponent's Pok\u00e9mon that have any Special Energy attached to them.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=smug_face_passive,
         ),
         Attack(
             title="Claw Slash",
@@ -41,8 +37,7 @@ card = PokemonCardDef(
             title="Stalking Claws-GX",
             game_text="This attack does 120 damage to 1 of your opponent's Pok\u00e9mon. This damage isn't affected by Weakness, Resistance, or any other effects on that Pok\u00e9mon. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.DARKNESS: 1, PokemonTypes.COLORLESS: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=stalking_claws_gx,
         ),
     ],
 )

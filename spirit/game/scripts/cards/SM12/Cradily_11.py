@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Cradily (SM12 #11): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm12 import swaying_strangle_passive
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
 
@@ -30,8 +27,7 @@ card = PokemonCardDef(
             title="Swaying Strangle",
             game_text="Your opponent's Pok\u00e9mon that are affected by Special Conditions can't retreat.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=swaying_strangle_passive,
         ),
         Attack(
             title="Poison Tentacles",

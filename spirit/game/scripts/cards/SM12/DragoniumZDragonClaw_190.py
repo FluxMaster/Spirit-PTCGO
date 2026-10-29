@@ -1,14 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dragonium Z: Dragon Claw (SM12 #190): trainer effect stubbed.
-
-Card text:
-  - Attach a Pokémon Tool to 1 of your Pokémon that doesn't already have a Pokémon Tool attached to it.
-  - If the Pokémon this card is attached to has the Dragon Claw attack, it can use the GX attack on this card. (You still need the necessary Energy to use this attack.)
-  - You may play as many Item cards as you like during your turn (before your attack).
-"""
-
-from spirit.game.data_utils import PokemonToolCardDef, unimplemented
+from spirit.game.data_utils import PokemonToolCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.sm12 import DESTRUCTIVE_DRAKE_GX
 
 card = PokemonToolCardDef(
     guid="ea7c61e1-4083-504f-b87a-1f3f72395048",
@@ -20,6 +12,5 @@ card = PokemonToolCardDef(
     collector_number=190,
     set_code="SM12",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    granted_abilities=[DESTRUCTIVE_DRAKE_GX],
 )
