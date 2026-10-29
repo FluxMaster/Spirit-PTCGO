@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Mankey (BASE2 #55): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ecard import peek, peek_condition
+
 
 card = PokemonCardDef(
     guid="2ccf0110-debb-55c8-81ef-e06e43df4085",
@@ -25,9 +23,10 @@ card = PokemonCardDef(
         Ability(
             title="Peek",
             game_text="Once during your turn (before your attack), you may look at one of the following: the top card of either player's deck, a random card from your opponent's hand, or one of either player's Prizes. This power can't be used if Mankey is Asleep, Confused, or Paralyzed.",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            activation=Activations.ONCE_PER_TURN,
+            condition=peek_condition,
+            effect=peek,
         ),
         Attack(
             title="Scratch",

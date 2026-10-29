@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Nidoran ♀ (BASE2 #57): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_damage
+from spirit.game.card_effects.ecard import call_for_family_condition, named_basic
+from spirit.game.card_effects.support_common import search_to_bench
+
 
 card = PokemonCardDef(
     guid="664ba19e-344e-5c4a-b249-db82a980439c",
@@ -28,15 +28,17 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1},
             damage=10,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(coins=3, per_heads=10),
         ),
         Attack(
             title="Call for Family",
             game_text="Search your deck for a Basic Pok\u00e9mon named Nidoran \u2642 or Nidoran \u2640 and put it onto your Bench. Shuffle your deck afterward. (You can't use this attack if your Bench is full.)",
             cost={PokemonTypes.GRASS: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            condition=call_for_family_condition,
+            effect=search_to_bench(
+                predicate=named_basic("Nidoran"),
+                prompt="Choose a Nidoran ♂ or Nidoran ♀ to put onto your Bench.",
+            ),
         ),
     ],
 )

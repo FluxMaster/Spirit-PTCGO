@@ -6,6 +6,7 @@ reprints across the three sets can import the same effect.
 
 from __future__ import annotations
 
+import random
 from typing import Any, Callable, List, Optional
 
 from spirit.game.attributes import (
@@ -6919,4 +6920,380 @@ async def pokemon_flute(ctx):
     for card in picks:
         await ctx.bench_pokemon(card)
 
+
+# ----------------------------------------------------------------------
+# Jungle (BASE2)
+# ----------------------------------------------------------------------
+
+def named_basic(*names):
+    """Deck-search predicate: a Basic Pokémon whose evolution-logic name is
+    one of `names` (Oddish Sprout, Bellsprout Call for Family)."""
+    wanted = set(names)
+
+    def pred(card) -> bool:
+        return (is_basic_pokemon(card)
+                and card.get_attribute(AttrID.EVOLUTION_LOGIC_NAME) in wanted)
+    return pred
+
+
+def call_for_family_condition(board, player_id, pokemon=None) -> bool:
+    """Sprout / Call for Family: deck nonempty and Bench not full."""
+    return has_cards_in_deck(board, player_id, pokemon) and bench_has_room(
+        board, player_id)
+
+
+def reduce_if_defending_attacks(amount: int):
+    """Printed damage, then: if that Defending Pokémon attacks this Pokémon
+    during the opponent's next turn, reduce that damage by `amount` after
+    W/R. Benching either Pokémon ends the effect (Pounce, Snivel)."""
+    async def effect(ctx):
+        await ctx.deal_damage()
+        user = ctx.attacker
+        defending = ctx.defender
+        if user is None or defending is None:
+            return
+        defending_id = defending.entity_id
+        ctx.add_passive_through_opponents_turn(
+            user,
+            takes_less_passive(
+                amount,
+                attacker_pred=lambda attacker: attacker.entity_id == defending_id,
+            ),
+        )
+    return effect
+
+
+async def hurricane(ctx):
+    """Printed damage; unless that Knocks Out the Defending Pokémon, return
+    it and all attached cards to the opponent's hand (needs a Bench to
+    promote)."""
+    await ctx.deal_damage()
+    defender = ctx.defender
+    if defender is None:
+        return
+    if defender.get_attribute(AttrID.HP, 0) <= 0:
+        return
+    if ctx.effects_blocked(defender):
+        return
+    if not ctx.opponent_bench():
+        return
+    owner = defender.owning_player_id or ctx.opponent_id
+    await ctx.put_in_hand(full_stack(defender), reveal=False)
+
+    async def _promote():
+        if not await ctx.session._promote_new_active(owner):
+            screen_name = ctx.session.players[owner].screen_name
+            await ctx.session.end_game(
+                ctx.session._opponent_id(owner),
+                f"{screen_name} has no Pokémon left",
+            )
+    ctx.deferred_actions.append(_promote)
+
+
+async def poke_ball(ctx):
+    """Flip a coin. If heads, you may search the deck for a Basic Pokémon or
+    Evolution card, show it, and put it into your hand; then shuffle."""
+    if (await ctx.flip_coins(1, "Poké Ball"))[0]:
+        await search_to_hand(
+            is_pokemon_card, count=1, reveal=True,
+            prompt="Choose a Basic Pokémon or Evolution card.",
+        )(ctx)
+
+
+def basic_of_type(pokemon_type: PokemonTypes):
+    """Deck-search predicate: a Basic Pokémon of `pokemon_type`."""
+    def pred(card) -> bool:
+        return is_basic_pokemon(card) and pokemon_has_type(card, pokemon_type)
+    return pred
+
+
+def _invisible_wall_blocks(calc, carrier) -> bool:
+    holder = carrier_pokemon(carrier) or carrier
+    if not calc.is_attack or calc.target is not holder or calc.amount < 30:
+        return False
+    return not _asleep_confused_or_paralyzed(holder)
+
+
+invisible_wall = prevent_damage_when(_invisible_wall_blocks, attacks_only=False)
+
+
+def _peek_choices(board, player_id):
+    opponent = _opponent_id(board, player_id)
+    options = []
+    labels = []
+    my_deck = board.find_player_area(player_id, "deck")
+    if my_deck and my_deck.children:
+        options.append(("deck", player_id))
+        labels.append("Top of your deck")
+    if opponent:
+        opp_deck = board.find_player_area(opponent, "deck")
+        if opp_deck and opp_deck.children:
+            options.append(("deck", opponent))
+            labels.append("Top of your opponent's deck")
+        opp_hand = board.find_player_area(opponent, "hand")
+        if opp_hand and opp_hand.children:
+            options.append(("hand", opponent))
+            labels.append("A random card from your opponent's hand")
+    my_prizes = board.find_player_area(player_id, "prizePile")
+    if my_prizes and my_prizes.children:
+        options.append(("prizes", player_id))
+        labels.append("Your Prizes")
+    if opponent:
+        opp_prizes = board.find_player_area(opponent, "prizePile")
+        if opp_prizes and opp_prizes.children:
+            options.append(("prizes", opponent))
+            labels.append("Opponent's Prizes")
+    return options, labels
+
+
+def peek_condition(board, player_id, pokemon=None) -> bool:
+    if not no_special_conditions(board, player_id, pokemon):
+        return False
+    options, _labels = _peek_choices(board, player_id)
+    return bool(options)
+
+
+async def peek(ctx):
+    """Look at the top of either deck, a random card from the opponent's
+    hand, or one of either player's Prizes."""
+    options, labels = _peek_choices(ctx.board, ctx.player_id)
+    if not options:
+        return
+    idx = 0 if len(options) == 1 else await ctx.choose("Peek", labels)
+    kind, pid = options[idx]
+    if kind == "deck":
+        top = ctx.deck_top(1, pid)
+        if top:
+            await ctx.session.prompt_view_cards(
+                ctx.player_id, ctx.source.entity_id, list(top),
+                prompt="Top card of the deck",
+            )
+        return
+    if kind == "hand":
+        hand = ctx.hand(pid)
+        if not hand:
+            return
+        await ctx.session.prompt_view_cards(
+            ctx.player_id, ctx.source.entity_id, [random.choice(hand)],
+            prompt="A random card from your opponent's hand",
+        )
+        return
+    await _look_at_prizes(ctx, pid, 1)
+
+
+async def pay_day(ctx):
+    """Printed damage; heads, draw a card."""
+    await ctx.deal_damage()
+    results = await ctx.flip_coins(1, "Pay Day")
+    if results and results[0]:
+        await ctx.draw_cards(1)
+
+
+_SHIFT_TYPE_ATTR = "_shift_type"
+
+
+class ShiftPassive(Passive):
+    """Venomoth Shift: while `_shift_type` is set, that value replaces
+    the Pokémon's printed types."""
+
+    def modify_pokemon_types(self, types, pokemon, carrier):
+        if pokemon is not carrier:
+            return types
+        override = pokemon.get_attribute(_SHIFT_TYPE_ATTR)
+        if override is None:
+            return types
+        return [override]
+
+
+def _other_in_play_types(board, self_pokemon) -> list:
+    """Non-Colorless types among every other Pokémon in play."""
+    skip = {PokemonTypes.COLORLESS.value, PokemonTypes.NO_COLOR.value}
+    found = set()
+    for player_id in board.player_ids:
+        for poked in board.pokemon_in_play(player_id):
+            if poked is self_pokemon:
+                continue
+            for type_value in effective_pokemon_types(board, poked):
+                if type_value not in skip:
+                    found.add(type_value)
+    return sorted(found)
+
+
+def shift_condition(board, player_id, pokemon=None) -> bool:
+    if not no_special_conditions(board, player_id, pokemon):
+        return False
+    return bool(_other_in_play_types(board, pokemon))
+
+
+async def shift(ctx):
+    """Change this Pokémon's type to a non-Colorless type of any other
+    Pokémon in play."""
+    holder = ctx.source
+    if holder is None:
+        return
+    types = _other_in_play_types(ctx.board, holder)
+    if not types:
+        return
+    names = [CLIENT_POKEMON_TYPE_NAMES[PokemonTypes(t)] for t in types]
+    idx = 0 if len(types) == 1 else await ctx.choose(
+        "Select the new type of Venomoth", names)
+    holder.set_attribute(_SHIFT_TYPE_ATTR, types[idx])
+
+
+def vileplume_heal_condition(board, player_id, pokemon=None) -> bool:
+    if not no_special_conditions(board, player_id, pokemon):
+        return False
+    return any(_is_damaged(board, poked)
+               for poked in board.pokemon_in_play(player_id))
+
+
+async def vileplume_heal(ctx):
+    """Flip: heads, remove 1 damage counter from 1 of your Pokémon."""
+    results = await ctx.flip_coins(1, "Heal")
+    if not results or not results[0]:
+        return
+    damaged = [poked for poked in ctx.my_pokemon_in_play()
+               if _is_damaged(ctx.board, poked)]
+    if not damaged:
+        return
+    target = await ctx.choose_pokemon(
+        damaged, "Select 1 Pokémon to remove 1 damage")
+    if target is not None:
+        await ctx.heal(10, target)
+
+
+async def petal_dance(ctx):
+    """40× heads among 3 coins; then this Pokémon is Confused."""
+    results = await ctx.flip_coins(3, "Petal Dance")
+    heads = sum(1 for result in results if result)
+    if heads:
+        await ctx.deal_damage(40 * heads)
+    await ctx.apply_special_condition(ctx.attacker, SpecialConditions.CONFUSED)
+
+
+async def leech_life(ctx):
+    """Deal printed damage; heal the attacker by the damage actually done
+    (after Weakness and Resistance)."""
+    dealt = await ctx.deal_damage()
+    if dealt > 0:
+        await ctx.heal(dealt, ctx.attacker)
+
+
+class ThickSkinnedPassive(Passive):
+    """Can't become Asleep, Confused, Paralyzed, or Poisoned. Stops while
+    already Asleep, Confused, or Paralyzed."""
+
+    _blocked = (
+        SpecialConditions.ASLEEP,
+        SpecialConditions.CONFUSED,
+        SpecialConditions.PARALYZED,
+        SpecialConditions.POISONED,
+    )
+
+    def blocks_special_conditions(self, target, condition, carrier):
+        holder = carrier_pokemon(carrier) or carrier
+        if target is not holder or condition not in self._blocked:
+            return False
+        return not _asleep_confused_or_paralyzed(holder)
+
+
+class CantAttackThisPokemonPassive(Passive):
+    """The locked Pokémon can't attack this Pokémon (Leer / Tail Wag).
+    Benching either Pokémon ends the effect: this passive rides the user
+    (cleared on bench), and the locked Pokémon must still be Active."""
+
+    def __init__(self, locked_pokemon):
+        self.locked = locked_pokemon
+
+    def prevents_damage(self, calc, carrier):
+        holder = carrier_pokemon(carrier)
+        if holder is not calc.target or not calc.is_attack:
+            return False
+        attacker = calc.attacker
+        return attacker is not None and attacker.entity_id == self.locked.entity_id
+
+    def blocks_attack_effects(self, target, carrier):
+        holder = carrier_pokemon(carrier)
+        if holder is not target:
+            return False
+        return is_in_active_spot(self.locked)
+
+
+async def cant_attack_this_pokemon(ctx):
+    """Heads: the Defending Pokémon can't attack this Pokémon during the
+    opponent's next turn. Benching either Pokémon ends the effect."""
+    title = ctx.ability.title if ctx.ability else ""
+    results = await ctx.flip_coins(1, title)
+    if not results or not results[0]:
+        return
+    attacker = ctx.attacker
+    defender = ctx.defender
+    if attacker is None or defender is None or ctx.effects_blocked(defender):
+        return
+    ctx.add_passive_through_opponents_turn(
+        attacker, CantAttackThisPokemonPassive(defender)
+    )
+
+
+async def tantrum(ctx):
+    """Printed damage; tails, this Pokémon is Confused."""
+    await ctx.deal_damage()
+    title = ctx.ability.title if ctx.ability else "Tantrum"
+    results = await ctx.flip_coins(1, title)
+    if results and not results[0]:
+        await ctx.apply_special_condition(ctx.attacker, SpecialConditions.CONFUSED)
+
+
+async def ram(ctx):
+    """Printed damage; 20 to self; opponent then switches if they have a Bench
+    (even if this Pokémon is Knocked Out)."""
+    await ctx.deal_damage()
+    if ctx.attacker is not None:
+        await ctx.deal_damage(20, target=ctx.attacker, apply_modifiers=False)
+    old_active = ctx.opponent_active()
+    if old_active is None or not ctx.opponent_bench() \
+            or ctx.effects_blocked(old_active):
+        return
+    await opponent_switches(ctx)
+
+
+async def mega_drain(ctx):
+    """Deal printed damage; heal half of that damage (after W/R), rounded
+    up to the nearest 10, from the attacker."""
+    dealt = await ctx.deal_damage()
+    if dealt <= 0:
+        return
+    heal_amount = (((dealt + 1) // 2 + 9) // 10) * 10
+    if heal_amount > 0:
+        await ctx.heal(heal_amount, ctx.attacker)
+
+
+class RetreatAidPassive(Passive):
+    """While this Pokémon is Benched, your Active Pokémon costs Colorless
+    less to retreat."""
+
+    def modify_retreat_cost(self, cost, pokemon, carrier, board):
+        holder = carrier_pokemon(carrier) or carrier
+        if holder is None or is_in_active_spot(holder):
+            return cost
+        if not is_in_active_spot(pokemon):
+            return cost
+        if pokemon.owning_player_id != holder.owning_player_id:
+            return cost
+        return max(0, cost - 1)
+
+
+async def chain_lightning(ctx):
+    """Printed damage; if the Defending Pokémon isn't Colorless, 10 to each
+    Benched Pokémon of the same type as the Defending Pokémon (both sides)."""
+    await ctx.deal_damage()
+    defender = ctx.defender
+    if defender is None:
+        return
+    types = set(effective_pokemon_types(ctx.board, defender))
+    if not types or PokemonTypes.COLORLESS.value in types:
+        return
+    for poked in list(ctx.opponent_bench()) + list(ctx.my_bench()):
+        if types & set(effective_pokemon_types(ctx.board, poked)):
+            await ctx.deal_damage(10, target=poked)
 

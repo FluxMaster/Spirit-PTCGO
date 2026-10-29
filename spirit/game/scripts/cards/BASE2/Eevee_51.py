@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Eevee (BASE2 #51): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_bonus
+from spirit.game.card_effects.ecard import cant_attack_this_pokemon
+
 
 card = PokemonCardDef(
     guid="15b26ecf-f234-5183-bb68-40f7813ae7d3",
@@ -27,8 +26,7 @@ card = PokemonCardDef(
             title="Tail Wag",
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon can't attack Eevee during your opponent's next turn. (Benching either Pok\u00e9mon ends this effect.)",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=cant_attack_this_pokemon,
         ),
         Attack(
             title="Quick Attack",
@@ -36,8 +34,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_bonus(20),
         ),
     ],
 )

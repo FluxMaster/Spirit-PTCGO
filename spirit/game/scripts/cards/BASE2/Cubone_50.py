@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Cubone (BASE2 #50): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import damage_counters_on, damage_per
+from spirit.game.card_effects.ecard import reduce_if_defending_attacks
+
 
 card = PokemonCardDef(
     guid="29622202-ccfc-5b76-a5b6-9dd80bbca6f0",
@@ -27,8 +26,7 @@ card = PokemonCardDef(
             title="Snivel",
             game_text="If the Defending Pok\u00e9mon attacks Cubone during your opponent's next turn, any damage done by the attack is reduced by 20 (after applying Weakness and Resistance). (Benching either Pok\u00e9mon ends this effect.)",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=reduce_if_defending_attacks(20),
         ),
         Attack(
             title="Rage",
@@ -36,8 +34,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 2},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_per(damage_counters_on("self"), 10, base=10),
         ),
     ],
 )

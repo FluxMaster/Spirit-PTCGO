@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Scyther (BASE2 #10): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.passives_common import boost_own_next_turn
+
 
 card = PokemonCardDef(
     guid="3f1b7976-fea8-502d-9423-b00d63a1bed0",
@@ -27,8 +25,7 @@ card = PokemonCardDef(
             title="Swords Dance",
             game_text="During your next turn, Scyther's Slash attack's base damage is 60 instead of 30.",
             cost={PokemonTypes.GRASS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=boost_own_next_turn(30, attack_title="Slash"),
         ),
         Attack(
             title="Slash",

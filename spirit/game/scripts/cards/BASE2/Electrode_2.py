@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Electrode (BASE2 #2): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import chain_lightning
+
 
 card = PokemonCardDef(
     guid="bf14528a-e0ab-58a5-8e69-49b539484861",
@@ -33,8 +31,7 @@ card = PokemonCardDef(
             game_text="If the Defending Pok\u00e9mon isn't Colorless, this attack does 10 damage to each Benched Pok\u00e9mon of the same type as the Defending Pok\u00e9mon (including your own).",
             cost={PokemonTypes.LIGHTNING: 3},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=chain_lightning,
         ),
     ],
 )

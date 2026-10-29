@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Pidgeot (BASE2 #24): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import hurricane
+
 
 card = PokemonCardDef(
     guid="9fef2e2e-7266-59db-87d7-86a06f0d1e67",
@@ -34,8 +32,7 @@ card = PokemonCardDef(
             game_text="Unless this attack Knocks Out the Defending Pok\u00e9mon, return the Defending Pok\u00e9mon and all cards attached to it to your opponent's hand.",
             cost={PokemonTypes.COLORLESS: 3},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=hurricane,
         ),
     ],
 )

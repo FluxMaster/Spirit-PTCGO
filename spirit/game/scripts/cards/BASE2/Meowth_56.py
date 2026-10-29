@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Meowth (BASE2 #56): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import pay_day
+
 
 card = PokemonCardDef(
     guid="6b56299e-9084-5bbe-8abe-09cf940830c1",
@@ -28,8 +26,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, draw a card.",
             cost={PokemonTypes.COLORLESS: 2},
             damage=10,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=pay_day,
         ),
     ],
 )

@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Exeggutor (BASE2 #35): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import count_energy, flip_damage
+from spirit.game.card_effects.ecard import has_bench
+from spirit.game.card_effects.support_common import switch_self_attack
+
 
 card = PokemonCardDef(
     guid="26d8b2d6-e553-537b-9c33-44bdd26f0594",
@@ -27,8 +27,8 @@ card = PokemonCardDef(
             title="Teleport",
             game_text="Switch Exeggutor with 1 of your Benched Pok\u00e9mon.",
             cost={PokemonTypes.PSYCHIC: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            condition=has_bench,
+            effect=switch_self_attack(),
         ),
         Attack(
             title="Big Eggsplosion",
@@ -36,8 +36,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=20,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(coins_from=count_energy("self"), per_heads=20),
         ),
     ],
 )
