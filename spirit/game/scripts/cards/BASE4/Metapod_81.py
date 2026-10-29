@@ -1,0 +1,42 @@
+"""STUB: effect not implemented — do not guess mechanics.
+Metapod (BASE4 #81): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
+"""
+
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+card = PokemonCardDef(
+    guid="23775ba6-b2e6-5018-a034-f0f76f7ca5a7",
+    key="BASE4",
+    name="com.direwolfdigital.cake.data.archetypes.pokemon.Metapod.Name",
+    display_name="Metapod",
+    searchable_by=["Metapod", "Stage 1", "Metapod"],
+    subtypes=["Stage 1"],
+    collector_number=81,
+    set_code="BASE4",
+    rarity=Rarities.Common,
+    hp=70,
+    elements=[PokemonTypes.GRASS],
+    stage=PokemonStage.STAGE1,
+    retreat_cost=2,
+    weakness_type=PokemonTypes.FIRE,
+    evolves_from="com.direwolfdigital.cake.data.archetypes.pokemon.Caterpie.Name",
+    family_id=10,
+    abilities=[
+        Attack(
+            title="Stiffen",
+            game_text="Flip a coin. If heads, prevent all damage done to Metapod during your opponent's next turn. (Any other effects of attacks still happen.)",
+            cost={PokemonTypes.COLORLESS: 2},
+            # STUB: attack effect not implemented
+            effect=unimplemented,
+        ),
+        Attack(
+            title="Stun Spore",
+            game_text="Flip a coin. If heads, the Defending Pok\u00e9mon is now Paralyzed.",
+            cost={PokemonTypes.GRASS: 2},
+            damage=20,
+            # STUB: attack effect not implemented
+            effect=unimplemented,
+        ),
+    ],
+)
