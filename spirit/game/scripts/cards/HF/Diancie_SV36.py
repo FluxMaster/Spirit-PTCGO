@@ -1,0 +1,43 @@
+"""STUB: effect not implemented — do not guess mechanics.
+Diancie (HF #SV36): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
+"""
+
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+card = PokemonCardDef(
+    guid="aa62d6f3-9f8e-568e-80a1-7ca671a672a0",
+    key="HF",
+    name="com.direwolfdigital.cake.data.archetypes.pokemon.Diancie.Name",
+    display_name="Diancie",
+    searchable_by=["Diancie", "Basic", "Diancie"],
+    subtypes=["Basic"],
+    collector_number=105,
+    set_code="HF",
+    rarity=Rarities.RareHolo,
+    hp=90,
+    elements=[PokemonTypes.FAIRY],
+    stage=PokemonStage.BASIC,
+    retreat_cost=1,
+    weakness_type=PokemonTypes.METAL,
+    resistance_type=PokemonTypes.DARKNESS,
+    resistance_amount=20,
+    family_id=719,
+    abilities=[
+        Attack(
+            title="Sparkling Wish",
+            game_text="Search your deck for a card that evolves from 1 of your Pok\u00e9mon and put it onto that Pok\u00e9mon to evolve it. Then, shuffle your deck.",
+            cost={PokemonTypes.FAIRY: 1},
+            # STUB: attack effect not implemented
+            effect=unimplemented,
+        ),
+        Attack(
+            title="Diamond Storm",
+            game_text="Heal 30 damage from each of your Fairy Pok\u00e9mon.",
+            cost={PokemonTypes.FAIRY: 1, PokemonTypes.COLORLESS: 1},
+            damage=30,
+            # STUB: attack effect not implemented
+            effect=unimplemented,
+        ),
+    ],
+)
