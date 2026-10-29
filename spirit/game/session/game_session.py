@@ -4239,9 +4239,17 @@ class GameSession:
 
     async def fire_move_to_active_triggers(self, pokemon):
         """ON_MOVE_TO_ACTIVE (Cinderace Libero), at most once per entity per
-        turn regardless of how often it re-enters the Active spot."""
+        turn regardless of how often it re-enters the Active spot.
+        ON_BENCH_TO_ACTIVE observers (Forretress Spikes) fire every time a
+        Benched Pokémon becomes Active, including promotion after a KO."""
         if pokemon is None:
             return
+        def _setup(c):
+            c.moved_to_active = pokemon
+        for pid in self._turn_order():
+            for poked in list(self.board_state.pokemon_in_play(pid)):
+                await self._fire_triggered_abilities(
+                    pid, poked, Triggers.ON_BENCH_TO_ACTIVE, ctx_setup=_setup)
         ts = self.turn_state
         if pokemon.entity_id in ts.on_move_to_active_fired:
             return

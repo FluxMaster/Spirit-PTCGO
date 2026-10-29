@@ -158,6 +158,12 @@ class Triggers:
     # if still in play, plus observers such as Dark Dugtrio Sinkhole).
     # ctx.retreated_pokemon is the Pokemon that left Active.
     ON_RETREAT = "on_retreat"
+    # A Benched Pokemon just became Active (retreat, Switch, gust, or
+    # promotion). Fires on every in-play Pokemon each time, with
+    # ctx.moved_to_active set to the Pokemon that entered Active
+    # (Forretress Spikes). Distinct from ON_MOVE_TO_ACTIVE, which fires
+    # only on the mover and at most once per entity per turn.
+    ON_BENCH_TO_ACTIVE = "on_bench_to_active"
 
 
 class Activations:
