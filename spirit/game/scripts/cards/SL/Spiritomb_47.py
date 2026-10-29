@@ -30,7 +30,6 @@ card = PokemonCardDef(
             title="Cursed Drop",
             game_text="Put 3 damage counters on your opponent's Pok\u00e9mon in any way you like.",
             cost={PokemonTypes.DARKNESS: 1, PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=place_counters(3, 'choose_any_opponent'),
         ),
     ],

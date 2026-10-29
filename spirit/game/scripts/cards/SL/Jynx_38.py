@@ -1,4 +1,4 @@
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 import random
 from spirit.game.attributes import SpecialConditions
@@ -38,7 +38,6 @@ card = PokemonCardDef(
             title="Whiny Voice",
             game_text="Choose a random card from your opponent's hand. Your opponent reveals that card and shuffles it into their deck.",
             cost={PokemonTypes.PSYCHIC: 1},
-            # STUB: attack effect not implemented
             effect=astonish,
         ),
         Attack(
@@ -46,7 +45,6 @@ card = PokemonCardDef(
             game_text="Your opponent's Active Pok\u00e9mon is now Confused.",
             cost={PokemonTypes.COLORLESS: 2},
             damage=30,
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.CONFUSED),
         ),
     ],

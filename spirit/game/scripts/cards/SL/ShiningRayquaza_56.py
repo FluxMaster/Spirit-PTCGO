@@ -1,4 +1,4 @@
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import mill_attack, self_energy_discard_attack
 
@@ -25,7 +25,6 @@ card = PokemonCardDef(
             game_text="Discard the top 2 cards of your deck.",
             cost={PokemonTypes.LIGHTNING: 1},
             damage=40,
-            # STUB: attack effect not implemented
             effect=mill_attack(2, opponent=False),
         ),
         Attack(
@@ -33,7 +32,6 @@ card = PokemonCardDef(
             game_text="Discard 3 Energy from this Pok\u00e9mon.",
             cost={PokemonTypes.FIRE: 1, PokemonTypes.LIGHTNING: 2, PokemonTypes.COLORLESS: 1},
             damage=190,
-            # STUB: attack effect not implemented
             effect=self_energy_discard_attack(count=3),
         ),
     ],

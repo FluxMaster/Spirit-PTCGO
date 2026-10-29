@@ -1,4 +1,4 @@
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
 from spirit.game.card_effects.sm3 import super_scoop_up
 

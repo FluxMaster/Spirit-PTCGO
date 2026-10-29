@@ -35,7 +35,6 @@ card = PokemonCardDef(
             game_text="Discard all Fire Energy from this Pok\u00e9mon.",
             cost={PokemonTypes.FIRE: 2, PokemonTypes.COLORLESS: 1},
             damage=180,
-            # STUB: attack effect not implemented
             effect=self_energy_discard_attack(all_energy=True, energy_type=PokemonTypes.FIRE),
         ),
     ],

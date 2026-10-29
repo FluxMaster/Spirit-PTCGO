@@ -25,7 +25,6 @@ card = PokemonCardDef(
             title="Flippity Flap",
             game_text="Shuffle your hand into your deck. Then, draw 6 cards.",
             cost={PokemonTypes.GRASS: 1},
-            # STUB: attack effect not implemented
             effect=shuffle_hand_into_deck_draw(6),
         ),
         Attack(

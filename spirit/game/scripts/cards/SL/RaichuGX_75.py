@@ -39,7 +39,6 @@ card = PokemonCardDef(
             game_text="This Pok\u00e9mon does 30 damage to itself.",
             cost={PokemonTypes.LIGHTNING: 2, PokemonTypes.COLORLESS: 1},
             damage=160,
-            # STUB: attack effect not implemented
             effect=recoil_attack(30),
         ),
         Attack(
@@ -47,7 +46,6 @@ card = PokemonCardDef(
             game_text="Your opponent's Active Pok\u00e9mon is now Paralyzed. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.LIGHTNING: 2, PokemonTypes.COLORLESS: 1},
             damage=120,
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.PARALYZED),
         ),
     ],
