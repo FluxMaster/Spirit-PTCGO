@@ -1,0 +1,41 @@
+"""STUB: effect not implemented — do not guess mechanics.
+Koga's Golbat (GYM2 #46): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
+"""
+
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+card = PokemonCardDef(
+    guid="2ffc9bd2-ead4-5411-89c1-1dad8b73e7b7",
+    key="GYM2",
+    name="com.direwolfdigital.cake.data.archetypes.pokemon.KogasGolbat.Name",
+    display_name="Koga's Golbat",
+    searchable_by=["Koga's Golbat", "Stage 1", "KogasGolbat"],
+    subtypes=["Stage 1"],
+    collector_number=46,
+    set_code="GYM2",
+    rarity=Rarities.Uncommon,
+    hp=60,
+    elements=[PokemonTypes.GRASS],
+    stage=PokemonStage.STAGE1,
+    retreat_cost=0,
+    weakness_type=PokemonTypes.PSYCHIC,
+    resistance_type=PokemonTypes.FIGHTING,
+    evolves_from="com.direwolfdigital.cake.data.archetypes.pokemon.KogasZubat.Name",
+    family_id=41,
+    abilities=[
+        Attack(
+            title="Bite",
+            cost={PokemonTypes.COLORLESS: 2},
+            damage=20,
+        ),
+        Attack(
+            title="Sonic Scream",
+            game_text="Flip a coin. If heads, the Defending Pok\u00e9mon is now Confused.",
+            cost={PokemonTypes.GRASS: 3},
+            damage=30,
+            # STUB: attack effect not implemented
+            effect=unimplemented,
+        ),
+    ],
+)
