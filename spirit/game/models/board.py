@@ -350,6 +350,8 @@ class BoardState:
         
         # Build Playmat Root Entity
         self.playmat = PlayMat()
+        # Passives that walk the tree (Shadow Box) read effective HP via this.
+        self.playmat.board_state = self
         
         # Internal cache map (entityID -> BoardEntity) for O(1) lookups
         self._entity_cache: Dict[str, BoardEntity] = {self.playmat.entity_id: self.playmat}

@@ -1019,6 +1019,16 @@ class EffectContext:
         await self._queue_coin_results(new_results, title, source, immediate=True)
         return new_results
 
+    async def _choose_will_first_coin(self) -> Optional[int]:
+        """Will: the player chooses heads (0) or tails (1) for their next first coin."""
+        ts = self.session.turn_state
+        pending = getattr(ts, "will_choose_first_coin", None)
+        if not pending or self.player_id not in pending:
+            return None
+        pending.discard(self.player_id)
+        heads = await self.ask_yes_no("Choose heads for the first coin flip?")
+        return 0 if heads else 1
+
     async def flip_coins(self, count: int, title: str = "",
                          source: Optional[BoardEntity] = None) -> List[bool]:
         """Flips `count` coins for a card effect ("Flip 2 coins..."); returns
@@ -1027,7 +1037,10 @@ class EffectContext:
             return []
         def _flip() -> int:
             return flip_coin_for(self.board, self.player_id)
+        first = await self._choose_will_first_coin()
         results = [_flip() for _ in range(count)]
+        if first is not None:
+            results[0] = first
         final = await self._maybe_reroll_attack_coins(
             results, title, source,
             lambda: [_flip() for _ in range(count)])
@@ -1040,13 +1053,16 @@ class EffectContext:
     async def flip_until_tails(self, title: str = "") -> int:
         """"Flip a coin until you get tails": one coin screen shows the whole
         run; returns the heads count."""
-        def _run() -> List[int]:
-            run = [flip_coin_for(self.board, self.player_id)]
+        def _run(forced_first: Optional[int] = None) -> List[int]:
+            run = [forced_first if forced_first is not None
+                   else flip_coin_for(self.board, self.player_id)]
             while run[-1] == 0:
                 run.append(flip_coin_for(self.board, self.player_id))
             return run
-        results = _run()
-        final = await self._maybe_reroll_attack_coins(results, title, None, _run)
+        first = await self._choose_will_first_coin()
+        results = _run(first)
+        final = await self._maybe_reroll_attack_coins(
+            results, title, None, lambda: _run())
         if final is None:
             await self._queue_coin_results(results, title)
         else:
