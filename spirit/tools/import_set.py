@@ -427,10 +427,11 @@ card = PokemonCardDef(
         content += ")"
 
     elif supertype == "Trainer":
-        # GAP notes (BW-era subtypes with no dedicated *CardDef subclass):
+        # GAP notes (subtypes with no dedicated *CardDef subclass):
         # - Technical Machine: no TechnicalMachineCardDef; emit TrainerCardDef
-        #   with TrainerType.TECHNICAL_MACHINE. Engine has the enum + AbilityTypes
-        #   but no TM attach / granted-attack play path like DP-era TMs.
+        #   with TrainerType.TECHNICAL_MACHINE. Engine attaches them like Tools
+        #   (legal_actions + tool_slots_free). Script granted_attacks via a
+        #   Passive and discard at end of turn; attacks are stubbed below.
         # - ACE SPEC: no AceSpecCardDef; keep as Item/Tool/Stadium and leave
         #   'ACE SPEC' in subtypes (deck singleton enforced in validation).
         trainer_extra_kw = ""

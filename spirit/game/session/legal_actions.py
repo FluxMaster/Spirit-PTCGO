@@ -105,7 +105,8 @@ class TurnState:
     supporter_played: bool = False
     stadium_played: bool = False
     energy_attached: bool = False
-    # alpha Growth: the Pokemon whose trait allows a 2nd manual attachment this turn.
+    # Pokemon id that may receive a 2nd manual Energy attach this turn
+    # (alpha Growth ancient trait, Venusaur Harvest Bounty, Primarina Harmonics).
     alpha_growth_target: Optional[str] = None
     retreated: bool = False
     # entity_id -> turn number it entered play (or last evolved). Entities
@@ -626,7 +627,11 @@ def compute_legal_actions(
                         game_id, card.entity_id,
                         action_id_for(card.entity_id, "stadium"), ACTION_PLAY_STADIUM,
                     ))
-            elif trainer_type == TrainerType.POKEMON_TOOL.value:
+            elif trainer_type in (
+                    TrainerType.POKEMON_TOOL.value,
+                    TrainerType.TECHNICAL_MACHINE.value,
+            ):
+                # e-Card Technical Machines attach like Tools and grant an attack.
                 tool_attach_to = getattr(definition, "attach_to", None)
                 tool_pool = in_play
                 if getattr(definition, "attach_to_opponent", False):
