@@ -75,6 +75,9 @@ from .constants import (
     TEXT_ATTACH_TAX_CHECK,
     TEXT_ATTACH_TAX_OK,
     TEXT_ATTACH_TAX_DISCARD,
+    TEXT_RETREAT_FLIP_CHECK,
+    TEXT_RETREAT_FLIP_OK,
+    TEXT_RETREAT_FLIP_FAILS,
 )
 from spirit.network.message_names import OutboundMsg
 from spirit.game.session.sequence_packets import NestedSequence
@@ -83,6 +86,7 @@ from spirit.game.content.visualizations import (
     Visualization, VisualizationArrow, VisualizationLifetime, VisualizationType,
 )
 from spirit.game.attributes import (
+    AbilityTypes,
     AttrID,
     CLIENT_SPECIAL_CONDITION_NAMES,
     DeckBoxShape,
@@ -126,8 +130,10 @@ from .passives import (
     burn_recovery_blocked, passive_sleep_coins, effective_bench_capacity, effective_max_hp,
     effective_retreat_cost, energy_attach_blocked, energy_attach_taxer, evolve_heal_amount,
     evolve_damage_counters, conditions_kept_on_evolve,
-    granted_extra_attacks, retreat_discards_remaining_energy,
-    retreat_energy_destination, tool_slots_free,
+    granted_extra_attacks, poke_bodies_ignored,
+    retreat_discards_remaining_energy,
+    retreat_energy_destination, retreat_flip_required,
+    tool_attach_allowed, tool_slots_free,
     tool_suppressed,
     stadium_suppressed,
     stadium_nullifies_replacement,
@@ -4236,7 +4242,10 @@ class GameSession:
             if ability.ability_id not in seen:
                 seen.add(ability.ability_id)
                 abilities.append(ability)
+        ignore_bodies = poke_bodies_ignored(self.board_state)
         for ability in abilities:
+            if ignore_bodies and ability.ability_type == AbilityTypes.POKE_BODY:
+                continue
             if ability.has_trigger(trigger):
                 # "1 per turn" abilities shared by name across copies (Dark Asset).
                 if ability.shared_once_per_turn \
@@ -4413,7 +4422,10 @@ class GameSession:
 
     async def _discard_technical_machines(self, player_id: str):
         """Discard every Technical Machine attached to `player_id`'s Pokemon,
-        plus Strength Charm tools that dealt damage this turn."""
+        plus Strength Charm tools that dealt damage this turn and Crystal
+        Shard tools whose holder attacked this turn."""
+        from spirit.game.card_effects.ecard import CrystalShardPassive
+        attacked = {eid for eid, _, _ in self.turn_state.attacks_used}
         to_discard = []
         holders = []
         for pokemon in list(self.board_state.pokemon_in_play(player_id)):
@@ -4422,7 +4434,15 @@ class GameSession:
                 if ttype == TrainerType.TECHNICAL_MACHINE.value:
                     to_discard.append(child)
                     holders.append(pokemon)
-                elif ttype == TrainerType.POKEMON_TOOL.value and child.get_attribute("_strength_charm_spent"):
+                    continue
+                if ttype != TrainerType.POKEMON_TOOL.value:
+                    continue
+                drop = bool(child.get_attribute("_strength_charm_spent"))
+                if not drop:
+                    d = def_for(child.archetype_id)
+                    drop = isinstance(getattr(d, "passive", None), CrystalShardPassive) \
+                        and pokemon.entity_id in attacked
+                if drop:
                     to_discard.append(child)
                     holders.append(pokemon)
         if not to_discard:
@@ -4652,6 +4672,41 @@ class GameSession:
                     [self._entity_moved_msg(
                         energy.entity_id, discard.entity_id, position)],
                 )
+        return False
+
+    async def _resolve_retreat_flip(self, player_id: str, pokemon, taxer) -> bool:
+        """Mirage Stadium flip on a retreat attempt: heads (True) proceeds;
+        tails locks that Pokémon from retreating this turn and returns False."""
+        flip = random.choice([0, 1])
+        heads = flip == 0
+        self.stat_add(player_id, "headsflipped", 1 if heads else 0)
+        self.stat_add(player_id, "tailsflipped", 0 if heads else 1)
+        name = taxer.get_attribute(AttrID.NAME)
+        title = name.get("id", "") if isinstance(name, dict) else (name or "")
+        await self.send_game_sequence(
+            list(self.players.values()), GameSequence.POKE_ABILITY,
+            [self._build_msg(
+                OutboundMsg.MULTIPLE_COIN_FLIP_WITH_CONTEXT_EFFECT.value,
+                {
+                    "gameID": self.game_id,
+                    "resultLst": [flip],
+                    "title": {"id": title or TEXT_RETREAT_FLIP_CHECK},
+                    "gameText": {"id": TEXT_RETREAT_FLIP_OK if heads
+                                 else TEXT_RETREAT_FLIP_FAILS},
+                    "source": taxer.entity_id,
+                    "targets": [pokemon.entity_id],
+                },
+            )],
+        )
+        await self.choreo_pause(2.5)
+        if heads:
+            return True
+        self.turn_state.lock_retreat(
+            pokemon.entity_id, self.turn_state.turn_number)
+        logging.info(
+            f"[Session {self.game_id}] Retreat flip tails; "
+            f"{pokemon.entity_id} can't retreat this turn."
+        )
         return False
 
     async def _refresh_max_hp(self, pokemon, max_before: int):
@@ -5051,6 +5106,12 @@ class GameSession:
             logging.warning(
                 f"[Session {self.game_id}] Tool attach without a valid "
                 f"target ({target_ids}); re-offering."
+            )
+            return
+        if not tool_attach_allowed(self.board_state, card, target):
+            logging.warning(
+                f"[Session {self.game_id}] Tool {card.entity_id} may not "
+                f"attach to {target_id}; re-offering."
             )
             return
         max_before = effective_max_hp(self.board_state, target)
@@ -5718,6 +5779,13 @@ class GameSession:
                 f"[Session {self.game_id}] Retreat cost {cost} underpaid "
                 f"({paid}) by {discard_ids}; re-offering."
             )
+            return
+
+        # Mirage Stadium: the flip runs after the retreat is otherwise legal;
+        # tails locks this Pokémon from retreating this turn and discards nothing.
+        taxer = retreat_flip_required(self.board_state, card)
+        if taxer is not None and \
+                not await self._resolve_retreat_flip(player_id, card, taxer):
             return
 
         # The Retreat executor (N.P) requires the Retreating/NewActive data

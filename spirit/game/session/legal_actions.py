@@ -51,6 +51,7 @@ from .passives import (
     evolution_blocked,
     gx_attacks_blocked,
     retreat_blocked,
+    tool_attach_allowed,
     tool_slots_free,
     trainer_play_blocked,
 )
@@ -641,7 +642,7 @@ def compute_legal_actions(
                 tool_targets = [
                     p.entity_id for p in tool_pool
                     if tool_slots_free(board, p) > 0
-                    and (tool_attach_to is None or tool_attach_to(p))
+                    and tool_attach_allowed(board, card, p)
                 ]
                 if tool_targets:
                     entries.append(_target_map_entry(
