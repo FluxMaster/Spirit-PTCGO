@@ -61,6 +61,7 @@ from .passives import (
     healing_blocked,
     supporter_effect_replacement,
     trainer_effects_blocked,
+    trainer_play_discard_cost,
     hand_is_public,
 )
 
@@ -2605,6 +2606,15 @@ async def resolve_trainer_effect(session, player_id: str, card,
         return None
     ctx = EffectContext(session, player_id, card, None, play_target=play_target)
     ctx.is_trainer_effect = True
+    tax = trainer_play_discard_cost(session.board_state, player_id, card)
+    if tax:
+        name = getattr(def_for(card.archetype_id), "display_name", None) or "this card"
+        discarded = await ctx.discard_from_hand(
+            tax, minimum=tax,
+            prompt=f"Discard {tax} cards from your hand to play {name}.",
+        )
+        if len(discarded) < tax:
+            return ctx
     await effect(ctx)
     return ctx
 
