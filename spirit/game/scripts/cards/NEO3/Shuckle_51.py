@@ -1,11 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Shuckle (NEO3 #51): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ecard import hard_shell
 
 
 card = PokemonCardDef(
@@ -28,15 +25,13 @@ card = PokemonCardDef(
         Ability(
             title="Hard Shell",
             game_text="Whenever an attack (including your own) does 40 or less damage to Shuckle (after applying Weakness and Resistance), reduce that damage to 10. (Any other effects of attacks still happen.) This power stops working while Shuckle is Asleep, Confused, or Paralyzed.",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            passive=hard_shell,
         ),
         Attack(
             title="Toxic Saliva",
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon is now Poisoned. It now takes 20 Poison damage instead of 10 after each player's turn (even if it was already Poisoned).",
             cost={PokemonTypes.GRASS: 2},
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.POISONED, flip=True, counters=2),
         ),
     ],

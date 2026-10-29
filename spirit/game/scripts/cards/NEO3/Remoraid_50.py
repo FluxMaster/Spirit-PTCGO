@@ -1,8 +1,4 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Remoraid (NEO3 #50): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_or_nothing, snipe_attack
 
@@ -28,7 +24,6 @@ card = PokemonCardDef(
             title="Sharpshooting",
             game_text="Flip a coin. If heads, choose 1 of your opponent's Pok\u00e9mon. This attack does 20 damage to that Pok\u00e9mon. Don't apply Weakness and Resistance.",
             cost={PokemonTypes.WATER: 1},
-            # STUB: attack effect not implemented
             effect=flip_or_nothing(then=snipe_attack(20, pool='any', apply_modifiers=False)),
         ),
     ],

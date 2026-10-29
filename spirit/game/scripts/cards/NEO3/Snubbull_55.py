@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Snubbull (NEO3 #55): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import raging_headbutt
+
 
 card = PokemonCardDef(
     guid="d88e0f67-c5ca-5bef-8284-426d3e9956c1",
@@ -34,8 +32,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=raging_headbutt,
         ),
     ],
 )

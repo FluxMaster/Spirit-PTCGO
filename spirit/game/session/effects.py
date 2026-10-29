@@ -55,12 +55,14 @@ from .passives import (
     conditions_blocked,
     devolution_blocked,
     discard_blocked,
+    discard_pile_effects_blocked,
     effective_bench_capacity,
     effective_max_hp,
     effective_pokemon_types,
     energy_removal_blocked,
     attached_energy_discard_destination,
     healing_blocked,
+    holder_discards_attached_trainers,
     supporter_effect_replacement,
     trainer_effects_blocked,
     trainer_play_discard_cost,
@@ -283,6 +285,7 @@ class EffectContext:
     def _trainer_blocked(self, player_or_entity) -> bool:
         """Dew Guard shield: in a trainer context, True when the primitive's
         direct object belongs to a shielded player OTHER than the acting one.
+        Legendary Body also shields its holder from the owner's Trainers.
         Guards: deal_damage/counters, apply_special_condition, switch_active,
         draw_cards/draw_until, discard_from_hand, hand_to_bottom_of_deck,
         shuffle_into_deck, discard_cards/move_to_lost_zone (per card)."""
@@ -290,9 +293,19 @@ class EffectContext:
             return False
         pid = player_or_entity if isinstance(player_or_entity, str) \
             else getattr(player_or_entity, "owning_player_id", None)
-        if pid is None or pid == self.player_id:
+        if pid is None:
             return False
         entity = None if isinstance(player_or_entity, str) else player_or_entity
+        if pid == self.player_id:
+            if self.source is None:
+                return False
+            trainer_type = self.source.get_attribute(AttrID.TRAINER_TYPE)
+            return any(
+                passive.blocks_own_trainer_effects(
+                    pid, self.source, trainer_type, carrier,
+                    affected_entity=entity, board=self.board)
+                for passive, carrier in active_passives(self.board)
+            )
         if trainer_effects_blocked(self.board, pid, self.source, entity):
             logging.info(
                 f"[Effects {self.game_id}] Trainer effect on {pid} blocked "
@@ -313,6 +326,32 @@ class EffectContext:
             )
             return True
         return False
+
+    def discard_pile_locked(self) -> bool:
+        """Allergic Pollen: attacks/Pokémon Powers cannot affect discard piles."""
+        if self.is_trainer_effect:
+            return False
+        if self.is_attack_effect():
+            kind = "attack"
+        elif self.is_ability_effect():
+            kind = "ability"
+        else:
+            return False
+        return discard_pile_effects_blocked(self.board, kind)
+
+    def _in_discard_pile(self, card) -> bool:
+        containing = getattr(card, "_containing_area_name", None)
+        return callable(containing) and containing() == "discard"
+
+    def _discard_pile_move_blocked(self, card) -> bool:
+        """True when an attack/Pokémon Power would move `card` out of discard."""
+        if not self._in_discard_pile(card) or not self.discard_pile_locked():
+            return False
+        logging.info(
+            f"[Effects {self.game_id}] Discard-pile move of {card.entity_id} "
+            f"blocked by Allergic Pollen."
+        )
+        return True
 
     async def _run_damage_interceptors(self, calc, target: PokemonEntity) -> int:
         """Awaitable damage stage (Guts/Infiltrator): runs AFTER compute_damage
@@ -1325,7 +1364,7 @@ class EffectContext:
             hand = self.board.find_player_area(owner, "hand")
             if not hand:
                 continue
-            if self._energy_removal_blocked(card):
+            if self._energy_removal_blocked(card) or self._discard_pile_move_blocked(card):
                 continue
             if isinstance(card, CompositePokemonEntity):
                 departed.update(self._queue_composite_departure(card, hand, cards))
@@ -1525,7 +1564,7 @@ class EffectContext:
             pile = self.board.find_player_area(owner, area_name)
             if not pile:
                 continue
-            if self._trainer_blocked(card):
+            if self._trainer_blocked(card) or self._discard_pile_move_blocked(card):
                 continue
             # Opponent-caused discards can be shielded (Bibarel PGO/Greedent);
             # own discards (costs) always resolve.
@@ -1670,7 +1709,8 @@ class EffectContext:
         for card in cards:
             if card.entity_id in departed:
                 continue
-            if self._trainer_blocked(card) or self._energy_removal_blocked(card):
+            if self._trainer_blocked(card) or self._energy_removal_blocked(card) \
+                    or self._discard_pile_move_blocked(card):
                 continue
             if isinstance(card, CompositePokemonEntity):
                 departed.update(self._queue_composite_departure(card, deck, cards))
@@ -1800,7 +1840,8 @@ class EffectContext:
         """Puts a card on top of its owner's deck."""
         owner = card.owning_player_id or self.player_id
         deck = self.board.find_player_area(owner, "deck")
-        if not deck or self._energy_removal_blocked(card):
+        if not deck or self._energy_removal_blocked(card) \
+                or self._discard_pile_move_blocked(card):
             return False
         if isinstance(card, CompositePokemonEntity):
             self._queue_composite_departure(card, deck, [card])
@@ -1823,7 +1864,8 @@ class EffectContext:
         """Puts a card on the bottom of its owner's deck (position 0)."""
         owner = card.owning_player_id or self.player_id
         deck = self.board.find_player_area(owner, "deck")
-        if not deck or self._energy_removal_blocked(card):
+        if not deck or self._energy_removal_blocked(card) \
+                or self._discard_pile_move_blocked(card):
             return False
         if isinstance(card, CompositePokemonEntity):
             self._queue_composite_departure(card, deck, [card], position=0)
@@ -1848,6 +1890,8 @@ class EffectContext:
         abilities deliberately do NOT fire.
         """
         if isinstance(card, (ComponentCardEntity, CompositePokemonEntity)):
+            return False
+        if self._discard_pile_move_blocked(card):
             return False
         owner = card.owning_player_id or self.player_id
         bench = self.board.find_player_area(owner, "bench")
@@ -1970,6 +2014,8 @@ class EffectContext:
         """
         if energy is None or pokemon is None:
             return False
+        if self._discard_pile_move_blocked(energy):
+            return False
         position = len(pokemon.children)
         if not self.board.attach_card(energy.entity_id, pokemon.entity_id):
             return False
@@ -1978,6 +2024,7 @@ class EffectContext:
             self.deferred_actions.append(
                 lambda e=energy, p=pokemon: self.session.fire_energy_attached_triggers(
                     self.player_id, e, p))
+        await self.maybe_discard_attached_trainers(pokemon)
         return True
 
     async def move_energy(self, energy: CardEntity, to_pokemon: PokemonEntity) -> bool:
@@ -2141,6 +2188,9 @@ class EffectContext:
         # ON_MOVE_TO_ACTIVE fires after the swap choreography flushes.
         self.deferred_actions.append(
             lambda p=new_active: self.session.fire_move_to_active_triggers(p))
+        # Magma Pool: the Pokémon that left Active may move remaining Energy.
+        self.deferred_actions.append(
+            lambda p=old_active: self.session.fire_moved_to_bench_triggers(p))
         return True
 
     async def flush_choreography(self):
@@ -2276,6 +2326,23 @@ class EffectContext:
     def messages_for(self, viewer_id: str) -> List[Dict[str, Any]]:
         return [msg for vid, msg, _ in self._messages
                 if vid is None or vid == viewer_id]
+
+    async def maybe_discard_attached_trainers(
+        self, pokemon: Optional[PokemonEntity] = None
+    ) -> None:
+        """Discard Trainer cards on `pokemon` when a passive forbids them
+        (Legendary Body)."""
+        target = pokemon
+        if target is None and isinstance(self.source, PokemonEntity):
+            target = self.source
+        if target is None:
+            return
+        if not holder_discards_attached_trainers(self.board, target):
+            return
+        trainers = [child for child in list(target.children)
+                    if is_trainer_card(child)]
+        if trainers:
+            await self.discard_cards(trainers)
 
     def bracket_runs_for(
         self, viewer_id: str, default: str = GameSequence.GROUPED_MOVE.value

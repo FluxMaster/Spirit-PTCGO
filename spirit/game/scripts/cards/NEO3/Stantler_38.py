@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Stantler (NEO3 #38): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import overhead_toss, terrorize
+
 
 card = PokemonCardDef(
     guid="4e86aa17-5532-5efe-b236-884817333c24",
@@ -27,16 +25,14 @@ card = PokemonCardDef(
             title="Terrorize",
             game_text="If the Defending Pok\u00e9mon is a Basic Pok\u00e9mon, choose 1 of its attacks. That Pok\u00e9mon can't use that attack during your opponent's next turn.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=terrorize,
         ),
         Attack(
             title="Overhead Toss",
             game_text="If you have any Benched Pok\u00e9mon, flip a coin. If tails, this attack does 10 damage to 1 of them. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.COLORLESS: 3},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=overhead_toss,
         ),
     ],
 )

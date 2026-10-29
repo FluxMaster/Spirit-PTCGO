@@ -1,12 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Old Rod (NEO3 #64): trainer effect stubbed.
-
-Card text:
-  - Flip 2 coins. If both are heads, put a Baby Pokémon, Basic Pokémon, or Evolution card from your discard pile into your hand. If both are tails, put a Trainer card from your discard pile into your hand.
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ecard import old_rod, old_rod_condition
+
 
 card = ItemCardDef(
     guid="1d88c3b4-8160-5e7b-9a57-21c661c71984",
@@ -18,6 +13,6 @@ card = ItemCardDef(
     collector_number=64,
     set_code="NEO3",
     rarity=Rarities.Common,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    condition=old_rod_condition,
+    effect=old_rod,
 )

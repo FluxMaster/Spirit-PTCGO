@@ -1,9 +1,11 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Raikou (NEO3 #22): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ecard import (
+    legendary_body_discard_trainers,
+    legendary_body_passive,
+    overrun,
+)
+
 
 card = PokemonCardDef(
     guid="340da609-2748-56dd-8138-d0496c86b9e2",
@@ -25,17 +27,17 @@ card = PokemonCardDef(
         Ability(
             title="Legendary Body",
             game_text="As long as Raikou is your Active Pok\u00e9mon, Raikou and Energy cards attached to it aren't affected by effects from Trainer cards other than Stadium cards. As long as this Power is active, discard any Trainer cards attached to Raikou. (This power works even if Raikou is Asleep, Confused, or Paralyzed.)",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            passive=legendary_body_passive,
+            trigger=(Triggers.BETWEEN_TURNS, Triggers.ON_MOVE_TO_ACTIVE),
+            effect=legendary_body_discard_trainers,
         ),
         Attack(
             title="Lightning Spark",
             game_text="If your opponent has any Benched Pok\u00e9mon, flip a coin. If heads, choose 1 of them and this attack does 20 damage to it. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.LIGHTNING: 3},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=overrun(20),
         ),
     ],
 )

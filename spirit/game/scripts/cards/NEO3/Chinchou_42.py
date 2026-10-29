@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Chinchou (NEO3 #42): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_bonus
+from spirit.game.card_effects.ecard import negative_ion
 
 
 card = PokemonCardDef(
@@ -30,7 +27,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 1},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
             effect=flip_bonus(10),
         ),
         Attack(
@@ -38,8 +34,7 @@ card = PokemonCardDef(
             game_text="If the Defending Pok\u00e9mon attacks Chinchou during your opponent's next turn, any damage done to Chinchou is reduced by 10 (before applying Weakness and Resistance). (Benching or evolving either Pok\u00e9mon ends this effect.)",
             cost={PokemonTypes.WATER: 1},
             damage=10,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=negative_ion,
         ),
     ],
 )

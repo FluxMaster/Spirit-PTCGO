@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Houndoom (NEO3 #8): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_damage
+from spirit.game.card_effects.ecard import count_darkness_energy_cards, dark_flame
+
 
 card = PokemonCardDef(
     guid="9db0064c-af16-5950-acce-c84086852587",
@@ -28,8 +27,7 @@ card = PokemonCardDef(
             game_text="Discard 1 Fire Energy card attached to Houndoom or this attack does nothing. If there are any Darkness Energy cards in your discard pile, attach 1 of them to Houndoom.",
             cost={PokemonTypes.FIRE: 1},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=dark_flame,
         ),
         Attack(
             title="Black Fang",
@@ -37,8 +35,8 @@ card = PokemonCardDef(
             cost={PokemonTypes.DARKNESS: 1, PokemonTypes.COLORLESS: 2},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(
+                coins_from=count_darkness_energy_cards, bonus_per_heads=10),
         ),
     ],
 )

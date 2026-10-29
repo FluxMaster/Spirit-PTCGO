@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Lugia (NEO3 #20): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import aerowing
+
 
 card = PokemonCardDef(
     guid="b8503fed-f8fd-5b3c-8275-b16fd2564bc9",
@@ -28,8 +26,7 @@ card = PokemonCardDef(
             game_text="You may flip a coin. If heads, this attack does 80 damage. If tails, this attack does nothing.",
             cost={PokemonTypes.COLORLESS: 4},
             damage=40,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=aerowing,
         ),
     ],
 )

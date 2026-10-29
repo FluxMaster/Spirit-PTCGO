@@ -1,9 +1,12 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Magneton (NEO3 #10): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.support_common import attach_from_discard
+from spirit.game.card_effects.pokemon import is_lightning_energy
+from spirit.game.card_effects.ecard import (
+    electromagnetic_power,
+    electromagnetic_power_condition,
+)
+
 
 card = PokemonCardDef(
     guid="2b18e8ea-c91f-53ea-8145-4d61fc14bdf0",
@@ -27,17 +30,17 @@ card = PokemonCardDef(
         Ability(
             title="Electromagnetic Power",
             game_text="As often as you like during your turn (before your attack), you may take 1 Energy card attached to 1 of your Magnemites, Magnetons, or Dark Magnetons and attach it to a different 1 of your Magnemites, Magnetons, and Dark Magnetons. This power can't be used if Magneton is Asleep, Confused, or Paralyzed.",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            activation=Activations.UNLIMITED,
+            condition=electromagnetic_power_condition,
+            effect=electromagnetic_power,
         ),
         Attack(
             title="Plasma",
             game_text="If there are any Lightning Energy cards in your discard pile, attach 1 of them to Magneton.",
             cost={PokemonTypes.LIGHTNING: 2, PokemonTypes.COLORLESS: 1},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=attach_from_discard(predicate=is_lightning_energy),
         ),
     ],
 )

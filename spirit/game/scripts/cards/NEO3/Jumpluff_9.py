@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Jumpluff (NEO3 #9): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import evolutionary_spore
+
 
 card = PokemonCardDef(
     guid="f8811f3d-a10a-5c97-a17e-501763385f61",
@@ -28,8 +26,7 @@ card = PokemonCardDef(
             title="Evolutionary Spore",
             game_text="Choose any number of your Hoppips and Skiplooms. Then, for each Pok\u00e9mon you chose in this way, you may search your deck for a card that evolves from that Pok\u00e9mon and attach it to that Pok\u00e9mon. (This counts as evolving those Pok\u00e9mon.) Shuffle your deck afterward.",
             cost={PokemonTypes.GRASS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=evolutionary_spore,
         ),
         Attack(
             title="Solarbeam",

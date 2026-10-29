@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Celebi (NEO3 #16): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import psychic_leaf
+
 
 card = PokemonCardDef(
     guid="7fa13428-a5f2-5cbd-8083-80a0f35d7b01",
@@ -28,8 +26,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 2},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=psychic_leaf,
         ),
     ],
 )

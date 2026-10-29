@@ -1,10 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Golbat (NEO3 #29): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-from spirit.game.card_effects.ecard import screech
+from spirit.game.card_effects.ecard import poison_bite_attack, screech
 
 
 card = PokemonCardDef(
@@ -30,7 +26,6 @@ card = PokemonCardDef(
             title="Screech",
             game_text="Until the end of your next turn, if an attack damages the Defending Pok\u00e9mon (after applying Weakness and Resistance), that attack does 20 more damage to the Defending Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=screech(),
         ),
         Attack(
@@ -38,8 +33,7 @@ card = PokemonCardDef(
             game_text="If this attack damages the Defending Pok\u00e9mon, the Defending Pok\u00e9mon is now Poisoned and you remove a number of damage counters from Golbat equal to half that damage (rounded up to the nearest 10). If Golbat has fewer damage counters than that, remove all of them. Either way, the Defending Pok\u00e9mon is now Poisoned.",
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 1},
             damage=10,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=poison_bite_attack(always_poison=True),
         ),
     ],
 )

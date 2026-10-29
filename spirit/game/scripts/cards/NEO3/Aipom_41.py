@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Aipom (NEO3 #41): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import grab
+
 
 card = PokemonCardDef(
     guid="5c100329-53d7-537c-80e4-07adf3167b07",
@@ -27,8 +25,7 @@ card = PokemonCardDef(
             title="Grab",
             game_text="Choose a Trainer card attached to 1 of your opponent's Pok\u00e9mon. Your opponent shuffles that card into his or her deck.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=grab,
         ),
         Attack(
             title="Tail Punch",

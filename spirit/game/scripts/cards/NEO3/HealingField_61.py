@@ -1,13 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Healing Field (NEO3 #61): trainer effect stubbed.
-
-Card text:
-  - This card stays in play when you play it. Discard this card if another Stadium card comes into play.
-  - Once during each player's turn, he or she may flip a coin. If heads, that player removes 2 damage counters from his or her Active Pokémon (1 if it only has 1).
-"""
-
-from spirit.game.data_utils import StadiumCardDef, unimplemented
+from spirit.game.data_utils import StadiumCardDef, Ability, Activations
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ecard import healing_field, healing_field_condition
+
 
 card = StadiumCardDef(
     guid="88ffd2cc-7c5b-5ddd-80f7-0edc1d5b9370",
@@ -19,6 +13,11 @@ card = StadiumCardDef(
     collector_number=61,
     set_code="NEO3",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    ability=Ability(
+        title="Healing Field",
+        game_text="Once during each player's turn, he or she may flip a coin. If heads, that player removes 2 damage counters from his or her Active Pok\u00e9mon (1 if it only has 1).",
+        activation=Activations.ONCE_PER_TURN,
+        condition=healing_field_condition,
+        effect=healing_field,
+    ),
 )

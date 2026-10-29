@@ -1,9 +1,12 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Murkrow (NEO3 #46): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import count_bench, flip_damage
+from spirit.game.card_effects.ecard import call_for_family_condition, named_basic
+from spirit.game.card_effects.support_common import search_to_bench
+
+
+_murkrow = named_basic("Murkrow")
+
 
 card = PokemonCardDef(
     guid="3a8dbeeb-5fbe-50ba-b352-5ae0225e37c9",
@@ -26,8 +29,11 @@ card = PokemonCardDef(
             title="Call for Family",
             game_text="Search your deck for a Basic Pok\u00e9mon card named Murkrow and put it onto your Bench. Shuffle your deck afterward. (You can't use this attack if your Bench is full.)",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            condition=call_for_family_condition,
+            effect=search_to_bench(
+                _murkrow,
+                prompt="Choose a Basic Pokémon named Murkrow to put onto your Bench.",
+            ),
         ),
         Attack(
             title="Flock Attack",
@@ -35,8 +41,10 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(
+                bonus_per_heads=10,
+                coins_from=count_bench("mine", pred=_murkrow),
+            ),
         ),
     ],
 )

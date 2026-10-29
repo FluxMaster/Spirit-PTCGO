@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Farfetch'd (NEO3 #43): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
 
 card = PokemonCardDef(
     guid="c6c48a11-495f-56ed-92a6-4e718cf763cd",
@@ -33,8 +30,7 @@ card = PokemonCardDef(
             game_text="This attack can't be used during your next turn. (Benching Farfetch'd ends this effect.)",
             cost={PokemonTypes.COLORLESS: 3},
             damage=40,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            locks_next_turn=True,
         ),
     ],
 )

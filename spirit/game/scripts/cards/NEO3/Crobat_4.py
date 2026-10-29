@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Crobat (NEO3 #4): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import cross_attack, triggered_poison
+
 
 card = PokemonCardDef(
     guid="619a95eb-659d-5477-a8e4-fec142f22374",
@@ -29,8 +27,7 @@ card = PokemonCardDef(
             game_text="If your opponent attaches an Energy card to the Defending Pok\u00e9mon during his or her next turn, that Pok\u00e9mon becomes Poisoned.",
             cost={PokemonTypes.GRASS: 1},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=triggered_poison,
         ),
         Attack(
             title="Cross Attack",
@@ -38,8 +35,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 2, PokemonTypes.COLORLESS: 1},
             damage=20,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=cross_attack,
         ),
     ],
 )

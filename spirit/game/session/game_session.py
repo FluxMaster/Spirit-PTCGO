@@ -4072,6 +4072,17 @@ class GameSession:
                     pid, pokemon, Triggers.ON_ENERGY_ATTACHED, ctx_setup=_setup)
         await self._fire_stadium_triggers(
             attaching_player_id, Triggers.ON_ENERGY_ATTACHED, _setup)
+        ctx = EffectContext(self, attaching_player_id, receiver, None)
+        _setup(ctx)
+        for passive, carrier in active_passives(self.board_state):
+            hook = getattr(passive, "after_energy_attached", None)
+            if hook is None:
+                continue
+            await hook(ctx, attaching_player_id, energy, receiver, carrier)
+        if ctx._messages:
+            await self._flush_effect_runs(ctx)
+        if ctx.knockouts:
+            await self.resolve_knockouts(ctx)
 
     async def _fire_ally_evolved_triggers(self, player_id: str, evolution_card,
                                           pre_evolution):
@@ -4237,6 +4248,17 @@ class GameSession:
                 await self._fire_triggered_abilities(
                     pid, poked, Triggers.ON_RETREAT, ctx_setup=_setup)
 
+    async def fire_moved_to_bench_triggers(self, pokemon):
+        """ON_RETREAT on the Pokémon that just left Active via switch/gust
+        (Magcargo Magma Pool). Observer powers like Sinkhole stay on the
+        real retreat path."""
+        def _setup(c):
+            c.retreated_pokemon = pokemon
+        owner = pokemon.owning_player_id
+        if owner:
+            await self._fire_triggered_abilities(
+                owner, pokemon, Triggers.ON_RETREAT, ctx_setup=_setup)
+
     async def fire_move_to_active_triggers(self, pokemon):
         """ON_MOVE_TO_ACTIVE (Cinderace Libero), at most once per entity per
         turn regardless of how often it re-enters the Active spot.
@@ -4244,6 +4266,11 @@ class GameSession:
         Benched Pokémon becomes Active, including promotion after a KO."""
         if pokemon is None:
             return
+        owner_id = pokemon.owning_player_id
+        if owner_id:
+            discard_ctx = EffectContext(self, owner_id, pokemon, None)
+            await discard_ctx.maybe_discard_attached_trainers(pokemon)
+            await self._flush_effect_runs(discard_ctx)
         def _setup(c):
             c.moved_to_active = pokemon
         for pid in self._turn_order():
@@ -4794,6 +4821,9 @@ class GameSession:
         )
         await self._refresh_max_hp(target, max_before)
         await self.refresh_granted_abilities(target)
+        discard_ctx = EffectContext(self, player_id, target, None)
+        await discard_ctx.maybe_discard_attached_trainers(target)
+        await self._flush_effect_runs(discard_ctx)
         definition = def_for(card.archetype_id)
         if getattr(definition, "discard_end_of_opponent_next_turn", False):
             # Weakness Guard: discard at the checkup ending opponent's next turn.

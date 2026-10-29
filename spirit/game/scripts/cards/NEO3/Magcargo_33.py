@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Magcargo (NEO3 #33): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ecard import lava_flow, magma_pool
+
 
 card = PokemonCardDef(
     guid="bd687ca4-34f0-5b6e-b7d8-57234ae68ffe",
@@ -26,9 +24,9 @@ card = PokemonCardDef(
         Ability(
             title="Magma Pool",
             game_text="If Magcargo is your Active Pok\u00e9mon and moves to the Bench, remove 1 Fire Energy card attached to Magcargo, if any, and attach it to the new Active Pok\u00e9mon. (You can't choose an Energy card that you used to pay the Retreat Cost.)",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            trigger=Triggers.ON_RETREAT,
+            effect=magma_pool,
         ),
         Attack(
             title="Lava Flow",
@@ -36,8 +34,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 3},
             damage=40,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=lava_flow,
         ),
     ],
 )

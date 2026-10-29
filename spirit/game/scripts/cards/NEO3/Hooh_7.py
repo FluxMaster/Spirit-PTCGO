@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Ho-oh (NEO3 #7): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-from spirit.game.card_effects.attacks_common import flip_or_nothing
+from spirit.game.card_effects.attacks_common import flip_or_nothing, snipe_attack
+from spirit.game.card_effects.ecard import stoke
 
 
 card = PokemonCardDef(
@@ -29,22 +26,20 @@ card = PokemonCardDef(
             title="Stoke",
             game_text="You may search your deck for a Fire Energy card and attach it to Ho-Oh. Shuffle your deck afterward.",
             cost={PokemonTypes.FIRE: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=stoke,
         ),
         Attack(
             title="Sacred Fire",
             game_text="Flip a coin. If heads, choose 1 of your opponent's Pok\u00e9mon. This attack does 40 damage to that Pok\u00e9mon. Don't apply Weakness and Resistance.",
             cost={PokemonTypes.FIRE: 3},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_or_nothing(
+                then=snipe_attack(40, pool="any", apply_modifiers=False)),
         ),
         Attack(
             title="Dive Bomb",
             game_text="Flip a coin. If tails, this attack does nothing.",
             cost={PokemonTypes.FIRE: 5},
             damage=90,
-            # STUB: attack effect not implemented
             effect=flip_or_nothing(),
         ),
     ],

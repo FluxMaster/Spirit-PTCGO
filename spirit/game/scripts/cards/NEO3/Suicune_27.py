@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Suicune (NEO3 #27): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ecard import crystal_wave, legendary_body_passive
+
 
 card = PokemonCardDef(
     guid="5262e0e0-63cf-551f-97f8-c9a2c8cb6ebd",
@@ -25,9 +23,8 @@ card = PokemonCardDef(
         Ability(
             title="Legendary Body",
             game_text="As long as Suicune is your Active Pok\u00e9mon, Suicune and Energy cards attached to it aren't affected by effects from Trainer cards other than Stadium cards. As long as this Power is active, discard any Trainer cards attached to Suicune. (This power works even if Suicune is Asleep, Confused, or Paralyzed.)",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            passive=legendary_body_passive,
         ),
         Attack(
             title="Crystal Wave",
@@ -35,8 +32,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 3},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=crystal_wave,
         ),
     ],
 )

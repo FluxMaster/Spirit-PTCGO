@@ -1,11 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Misdreavus (NEO3 #11): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-from spirit.game.attributes import SpecialConditions
-from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ecard import night_eyes, perish_song
 
 
 card = PokemonCardDef(
@@ -29,15 +24,13 @@ card = PokemonCardDef(
             title="Night Eyes",
             game_text="The Defending Pok\u00e9mon is now Asleep.",
             cost={PokemonTypes.PSYCHIC: 1},
-            # STUB: attack effect not implemented
-            effect=condition_attack(SpecialConditions.ASLEEP),
+            effect=night_eyes,
         ),
         Attack(
             title="Perish Song",
             game_text="If the Defending Pok\u00e9mon is Asleep and was attacked with Night Eyes during your last turn, it is Knocked Out.",
             cost={PokemonTypes.PSYCHIC: 3},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=perish_song,
         ),
     ],
 )

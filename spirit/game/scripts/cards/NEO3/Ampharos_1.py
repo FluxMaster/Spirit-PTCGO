@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Ampharos (NEO3 #1): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.attributes import SpecialConditions
+from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ecard import attract_current
+
 
 card = PokemonCardDef(
     guid="635602fb-00ef-5970-8590-85655bb373ee",
@@ -28,8 +28,7 @@ card = PokemonCardDef(
             game_text="Flip 3 coins. For each heads, you may search your deck for a Lightning Energy card and attach it to 1 of your Lightning Pok\u00e9mon. Shuffle your deck afterward.",
             cost={PokemonTypes.LIGHTNING: 1},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=attract_current,
         ),
         Attack(
             title="Gigavolt",
@@ -37,8 +36,11 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 3, PokemonTypes.COLORLESS: 1},
             damage=40,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(
+                flip=True,
+                tails_conditions=(SpecialConditions.PARALYZED,),
+                heads_bonus_damage=20,
+            ),
         ),
     ],
 )

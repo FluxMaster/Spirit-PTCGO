@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Unown [K] (NEO3 #58): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ecard import unown_keep_passive
+
 
 card = PokemonCardDef(
     guid="624a8f32-5218-51b3-b1c4-28d71b5719a9",
@@ -25,9 +23,8 @@ card = PokemonCardDef(
         Ability(
             title="[Keep]",
             game_text="Your opponent's attacks, Pok\u00e9mon Powers, and Trainer cards can't discard Energy cards from your Pok\u00e9mon with Unown in their names. (Any other effects still happen.)",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            passive=unown_keep_passive,
         ),
         Attack(
             title="Hidden Power",

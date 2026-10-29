@@ -186,6 +186,8 @@ def attach_from_discard(predicate=is_energy, count=1, target="self",
     activated public-zone pick mandatory; gate activation with a condition=."""
     async def effect(ctx):
         await _deal_printed(ctx)
+        if ctx.discard_pile_locked():
+            return
         cards = [c for c in ctx.discard_pile() if predicate(c)]
         if not cards:
             return
@@ -219,6 +221,8 @@ def recover_from_discard(predicate=None, count=1, minimum=1, reveal=False,
     minimum=1 discipline for activated public-zone picks."""
     async def effect(ctx):
         await _deal_printed(ctx)
+        if ctx.discard_pile_locked():
+            return
         cards = [c for c in ctx.discard_pile()
                  if predicate is None or predicate(c)]
         if not cards:
