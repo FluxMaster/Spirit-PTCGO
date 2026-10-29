@@ -24,7 +24,6 @@ card = PokemonCardDef(
             title="Tail Whip",
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon can't attack during your opponent's next turn.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=tail_whip,
         ),
         Attack(

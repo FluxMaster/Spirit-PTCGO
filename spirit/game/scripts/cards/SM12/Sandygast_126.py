@@ -37,7 +37,6 @@ card = PokemonCardDef(
             game_text="Choose a random card from your opponent's hand. Your opponent reveals that card and shuffles it into their deck.",
             cost={PokemonTypes.FIGHTING: 1},
             damage=10,
-            # STUB: attack effect not implemented
             effect=astonish,
         ),
         Attack(

@@ -35,7 +35,6 @@ card = PokemonCardDef(
             game_text="Discard the top 4 cards of your deck.",
             cost={PokemonTypes.FIGHTING: 1},
             damage=120,
-            # STUB: attack effect not implemented
             effect=mill_attack(4, opponent=False),
         ),
     ],

@@ -32,7 +32,6 @@ card = PokemonCardDef(
             game_text="Discard an Energy from your opponent's Active Pok\u00e9mon.",
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.METAL: 1},
             damage=170,
-            # STUB: attack effect not implemented
             effect=rock_crush,
         ),
     ],

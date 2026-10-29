@@ -38,7 +38,6 @@ card = PokemonCardDef(
             game_text="You may have your opponent switch their Active Pok\u00e9mon with 1 of their Benched Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
             effect=push_down,
         ),
         Attack(
@@ -46,7 +45,6 @@ card = PokemonCardDef(
             game_text="Put 4 damage counters on 1 of your Pok\u00e9mon.",
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 2},
             damage=120,
-            # STUB: attack effect not implemented
             effect=shadow_impact,
         ),
     ],

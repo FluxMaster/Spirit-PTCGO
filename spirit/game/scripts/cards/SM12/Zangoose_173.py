@@ -31,7 +31,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=20,
             damage_operator="+",
-            # STUB: attack effect not implemented
             effect=damage_per(damage_counters_on('defender'), 10, base=20),
         ),
     ],

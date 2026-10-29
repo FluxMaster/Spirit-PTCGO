@@ -26,7 +26,6 @@ card = PokemonCardDef(
             title="Nice-Nice Catch",
             game_text="Draw 2 cards.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=draw_attack(2),
         ),
         Attack(

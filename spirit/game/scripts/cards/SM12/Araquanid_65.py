@@ -31,7 +31,6 @@ card = PokemonCardDef(
             game_text="During your next turn, the Defending Pok\u00e9mon takes 60 more damage from attacks (after applying Weakness and Resistance).",
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 2},
             damage=80,
-            # STUB: attack effect not implemented
             effect=screech,
         ),
     ],

@@ -27,7 +27,6 @@ card = PokemonCardDef(
             game_text="Search your deck for up to 3 basic Energy cards and attach them to your Pok\u00e9mon in any way you like. Then, shuffle your deck.",
             cost={PokemonTypes.WATER: 1, PokemonTypes.METAL: 1, PokemonTypes.COLORLESS: 1},
             damage=150,
-            # STUB: attack effect not implemented
             effect=search_attach_energy(predicate=is_basic_energy_card, count=3, distribute=True),
         ),
         Attack(

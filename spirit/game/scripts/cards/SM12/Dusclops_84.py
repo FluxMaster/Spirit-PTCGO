@@ -48,7 +48,6 @@ card = PokemonCardDef(
             game_text="Choose 1 of your opponent's Active Pok\u00e9mon's attacks. That Pok\u00e9mon can't use that attack during your opponent's next turn.",
             cost={PokemonTypes.PSYCHIC: 1},
             damage=20,
-            # STUB: attack effect not implemented
             effect=amnesia,
         ),
     ],

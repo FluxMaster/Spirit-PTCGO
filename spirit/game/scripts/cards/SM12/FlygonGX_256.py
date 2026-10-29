@@ -27,7 +27,6 @@ card = PokemonCardDef(
             title="Dusty Defense",
             game_text="As long as this Pok\u00e9mon is your Active Pok\u00e9mon, all of your Pok\u00e9mon take 30 less damage from your opponent's attacks (after applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
             passive=security_guard_passive,
         ),
         Attack(
@@ -43,7 +42,6 @@ card = PokemonCardDef(
             game_text="This attack's damage isn't affected by any effects on your opponent's Active Pok\u00e9mon. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.FIGHTING: 3},
             damage=220,
-            # STUB: attack effect not implemented
             effect=ignore_effects_attack(),
         ),
     ],

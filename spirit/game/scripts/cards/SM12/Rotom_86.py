@@ -27,7 +27,6 @@ card = PokemonCardDef(
             title="Cycle Draw",
             game_text="Discard a card from your hand. If you do, draw 2 cards.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=discard_then_draw(1, 2, optional=True),
         ),
         Attack(

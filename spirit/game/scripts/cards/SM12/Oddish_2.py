@@ -24,7 +24,6 @@ card = PokemonCardDef(
             title="Sweet Scent",
             game_text="Heal 30 damage from 1 of your Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=heal_targets(30, 'choice'),
         ),
     ],

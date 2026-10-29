@@ -24,7 +24,6 @@ card = PokemonCardDef(
             title="Teleport",
             game_text="Switch this Pok\u00e9mon with 1 of your Benched Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=switch_self_attack(),
         ),
         Attack(

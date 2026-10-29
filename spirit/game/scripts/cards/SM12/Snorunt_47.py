@@ -26,7 +26,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1},
             damage=20,
             damage_operator="x",
-            # STUB: attack effect not implemented
             effect=flip_damage(until_tails=True, per_heads=20),
         ),
     ],

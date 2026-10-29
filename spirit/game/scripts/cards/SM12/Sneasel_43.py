@@ -25,7 +25,6 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, prevent all effects of attacks, including damage, done to this Pok\u00e9mon during your opponent's next turn.",
             cost={PokemonTypes.DARKNESS: 1},
             damage=10,
-            # STUB: attack effect not implemented
             effect=flip_protection(prevent=True, effects_too=True),
         ),
     ],

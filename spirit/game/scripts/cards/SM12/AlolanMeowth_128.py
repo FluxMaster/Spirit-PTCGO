@@ -40,7 +40,6 @@ card = PokemonCardDef(
             title="Swagger",
             game_text="Flip a coin. If heads, discard an Energy from your opponent's Active Pok\u00e9mon.",
             cost={PokemonTypes.DARKNESS: 1},
-            # STUB: attack effect not implemented
             effect=cut_down,
         ),
         Attack(

@@ -32,7 +32,6 @@ card = PokemonCardDef(
             game_text="Flip a coin. If tails, this attack does nothing.",
             cost={PokemonTypes.COLORLESS: 3},
             damage=100,
-            # STUB: attack effect not implemented
             effect=flip_or_nothing(),
         ),
     ],

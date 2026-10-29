@@ -41,14 +41,12 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=50,
             damage_operator="+",
-            # STUB: attack effect not implemented
             effect=bonus_if(_supporter_played_this_turn, 70),
         ),
         Attack(
             title="Silver Knight-GX",
             game_text="If your opponent's Active Pok\u00e9mon is an Ultra Beast, it is Knocked Out. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.COLORLESS: 2},
-            # STUB: attack effect not implemented
             effect=sublimation_gx,
         ),
     ],

@@ -29,7 +29,6 @@ card = PokemonCardDef(
             game_text="During your opponent's next turn, the Defending Pok\u00e9mon's attacks do 30 less damage (before applying Weakness and Resistance).",
             cost={PokemonTypes.FAIRY: 1},
             damage=30,
-            # STUB: attack effect not implemented
             effect=debuff_defender_attacks(30),
         ),
         Attack(

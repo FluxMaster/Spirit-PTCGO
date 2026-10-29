@@ -24,7 +24,6 @@ card = PokemonCardDef(
             title="Hide and Seek",
             game_text="Flip a coin. If heads, prevent all effects of attacks, including damage, done to this Pok\u00e9mon during your opponent's next turn.",
             cost={PokemonTypes.GRASS: 1},
-            # STUB: attack effect not implemented
             effect=flip_protection(prevent=True, effects_too=True),
         ),
         Attack(

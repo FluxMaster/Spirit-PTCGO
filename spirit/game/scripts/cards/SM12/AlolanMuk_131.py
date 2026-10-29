@@ -29,7 +29,6 @@ card = PokemonCardDef(
             game_text="Your opponent's Active Pok\u00e9mon is now Burned, Confused, and Poisoned.",
             cost={PokemonTypes.DARKNESS: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.BURNED, SpecialConditions.CONFUSED, SpecialConditions.POISONED),
         ),
         Attack(

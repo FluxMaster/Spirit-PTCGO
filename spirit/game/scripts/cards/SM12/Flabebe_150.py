@@ -26,7 +26,6 @@ card = PokemonCardDef(
             title="Petal Blizzard",
             game_text="This attack does 10 damage to each of your opponent's Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.FAIRY: 1},
-            # STUB: attack effect not implemented
             effect=damage_all_opponents(10),
         ),
     ],

@@ -28,7 +28,6 @@ card = PokemonCardDef(
             title="Tailwind",
             game_text="Attach an Energy card from your hand to 1 of your Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=cheer_up,
         ),
         Attack(
@@ -36,7 +35,6 @@ card = PokemonCardDef(
             game_text="Discard an Energy from this Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 2},
             damage=70,
-            # STUB: attack effect not implemented
             effect=self_energy_discard_attack(count=1),
         ),
     ],

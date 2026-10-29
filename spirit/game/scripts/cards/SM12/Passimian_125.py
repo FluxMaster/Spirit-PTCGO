@@ -25,7 +25,6 @@ card = PokemonCardDef(
             game_text="Draw 2 cards.",
             cost={PokemonTypes.FIGHTING: 1},
             damage=20,
-            # STUB: attack effect not implemented
             effect=draw_attack(2),
         ),
         Attack(

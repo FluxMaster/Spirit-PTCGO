@@ -32,7 +32,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
             effect=bonus_if(_bench_has_damage, 90),
         ),
     ],

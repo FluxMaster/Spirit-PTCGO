@@ -25,7 +25,6 @@ card = PokemonCardDef(
             title="Stiffen",
             game_text="During your opponent's next turn, this Pok\u00e9mon takes 40 less damage from attacks (after applying Weakness and Resistance).",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=protect_next_turn(reduce=40),
         ),
     ],

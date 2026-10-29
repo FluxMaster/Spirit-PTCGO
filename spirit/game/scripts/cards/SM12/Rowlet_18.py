@@ -24,7 +24,6 @@ card = PokemonCardDef(
             title="Skill Dive",
             game_text="This attack does 10 damage to 1 of your opponent's Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.GRASS: 1},
-            # STUB: attack effect not implemented
             effect=snipe_attack(10, pool='any', count=1),
         ),
     ],

@@ -43,7 +43,6 @@ card = PokemonCardDef(
             game_text="Put an Energy attached to this Pok\u00e9mon into your hand.",
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 1},
             damage=80,
-            # STUB: attack effect not implemented
             effect=energy_loop,
         ),
     ],

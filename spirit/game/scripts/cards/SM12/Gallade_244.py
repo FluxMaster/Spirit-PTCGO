@@ -37,7 +37,6 @@ card = PokemonCardDef(
             game_text="Move an Energy from this Pok\u00e9mon to 1 of your Benched Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 2},
             damage=120,
-            # STUB: attack effect not implemented
             effect=shadow_cyclone,
         ),
     ],

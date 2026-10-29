@@ -25,7 +25,6 @@ card = PokemonCardDef(
             title="Unaware",
             game_text="Prevent all effects of your opponent's attacks, except damage, done to this Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
             passive=attack_effect_shield_passive(),
         ),
         Attack(
@@ -33,7 +32,6 @@ card = PokemonCardDef(
             game_text="Flip a coin. If tails, this attack does nothing.",
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
-            # STUB: attack effect not implemented
             effect=flip_or_nothing(),
         ),
     ],

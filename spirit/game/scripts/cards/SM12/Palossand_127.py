@@ -27,7 +27,6 @@ card = PokemonCardDef(
             game_text="During your opponent's next turn, this Pok\u00e9mon takes 20 less damage from attacks (after applying Weakness and Resistance).",
             cost={PokemonTypes.COLORLESS: 3},
             damage=80,
-            # STUB: attack effect not implemented
             effect=protect_next_turn(reduce=20),
         ),
         Attack(
@@ -35,7 +34,6 @@ card = PokemonCardDef(
             game_text="This attack does 20 damage to each of your Benched Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 3},
             damage=150,
-            # STUB: attack effect not implemented
             effect=earthquake,
         ),
     ],

@@ -26,7 +26,6 @@ card = PokemonCardDef(
             title="Nasal Suction",
             game_text="The Defending Pok\u00e9mon can't retreat during your opponent's next turn.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=condition_attack(no_retreat=True),
         ),
         Attack(
@@ -34,7 +33,6 @@ card = PokemonCardDef(
             game_text="Flip a coin. If tails, this attack does nothing.",
             cost={PokemonTypes.PSYCHIC: 1},
             damage=30,
-            # STUB: attack effect not implemented
             effect=flip_or_nothing(),
         ),
     ],

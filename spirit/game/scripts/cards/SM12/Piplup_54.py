@@ -34,7 +34,6 @@ card = PokemonCardDef(
             game_text="If the Defending Pok\u00e9mon is a Basic Pok\u00e9mon, it can't attack during your opponent's next turn.",
             cost={PokemonTypes.WATER: 3},
             damage=80,
-            # STUB: attack effect not implemented
             effect=tie_up,
         ),
     ],

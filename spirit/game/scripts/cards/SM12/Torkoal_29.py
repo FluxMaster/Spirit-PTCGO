@@ -43,7 +43,6 @@ card = PokemonCardDef(
             game_text="Discard an Energy from this Pok\u00e9mon. If you do, discard an Energy from your opponent's Active Pok\u00e9mon.",
             cost={PokemonTypes.FIRE: 3},
             damage=100,
-            # STUB: attack effect not implemented
             effect=axe_slash,
         ),
     ],

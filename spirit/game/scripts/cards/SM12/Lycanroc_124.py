@@ -34,7 +34,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=60,
             damage_operator="+",
-            # STUB: attack effect not implemented
             effect=special_blow,
         ),
     ],
