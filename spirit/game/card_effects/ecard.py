@@ -65,6 +65,7 @@ from spirit.game.session.passives import (
     effective_max_hp,
     effective_pokemon_types,
     effective_retreat_cost,
+    energy_provided_options,
     granted_extra_attacks,
 )
 
@@ -5034,4 +5035,148 @@ async def juxtapose(ctx):
     opp_counters = damage_counters_on("defender")(ctx)
     await ctx.set_damage_counters(ctx.attacker, opp_counters)
     await ctx.set_damage_counters(defender, self_counters)
+
+
+# ----------------------------------------------------------------------
+# Southern Islands (SI1)
+# ----------------------------------------------------------------------
+
+async def rainbow_wave(ctx):
+    """Choose a non-Colorless Energy type attached to Mew; 20 to each opposing
+    Pokémon of that type (including the Bench), no Weakness or Resistance."""
+    types = set()
+    attacker = ctx.attacker
+    if attacker is None:
+        return
+    for energy in ctx.attached_energies(attacker):
+        for option in energy_provided_options(ctx.board, energy):
+            types.update(option)
+    types.discard(PokemonTypes.COLORLESS.value)
+    types.discard(PokemonTypes.NO_COLOR.value)
+    if not types:
+        return
+    ordered = sorted(types)
+    names = [CLIENT_POKEMON_TYPE_NAMES[PokemonTypes(t)] for t in ordered]
+    idx = 0 if len(ordered) == 1 else await ctx.choose(
+        "Choose a type of Energy other than Colorless.", names)
+    chosen = ordered[idx]
+    for poked in ctx.opponent_pokemon_in_play():
+        if chosen in effective_pokemon_types(ctx.board, poked):
+            await ctx.deal_damage(20, target=poked, apply_modifiers=False)
+
+
+async def _remove_up_to_counters(ctx, pokemon_list, count, player_id):
+    """Remove up to `count` damage counters from among `pokemon_list`."""
+    damaged = [poked for poked in pokemon_list if _is_damaged(ctx.board, poked)]
+    if not damaged:
+        return
+    total = sum(
+        (ctx.max_hp(poked) - poked.get_attribute(AttrID.HP, 0)) // 10
+        for poked in damaged)
+    if total <= count:
+        for poked in damaged:
+            dmg = ctx.max_hp(poked) - poked.get_attribute(AttrID.HP, 0)
+            if dmg > 0:
+                await ctx.heal(dmg, poked)
+        return
+    remaining = count
+    while remaining > 0:
+        damaged = [poked for poked in pokemon_list if _is_damaged(ctx.board, poked)]
+        if not damaged:
+            return
+        target = damaged[0] if len(damaged) == 1 else await ctx.choose_pokemon(
+            damaged, "Choose a Pokémon to remove a damage counter from",
+            player_id=player_id)
+        if target is None:
+            return
+        await ctx.heal(10, target)
+        remaining -= 1
+
+
+async def strange_scent(ctx):
+    """Each player flips a coin; heads removes 3 damage counters from among
+    that player's Pokémon."""
+    mine = await ctx.flip_coins(1, "Strange Scent")
+    theirs = await ctx.flip_coins(1, "Strange Scent")
+    if mine and mine[0]:
+        await _remove_up_to_counters(
+            ctx, ctx.my_pokemon_in_play(), 3, ctx.player_id)
+    if theirs and theirs[0]:
+        await _remove_up_to_counters(
+            ctx, ctx.opponent_pokemon_in_play(), 3, ctx.opponent_id)
+
+
+async def tentacle_grip(ctx):
+    """Flip a coin per Water Energy attached; draw 2 cards per heads."""
+    n = count_energy("self", energy_type=PokemonTypes.WATER)(ctx)
+    results = await ctx.flip_coins(n, "Tentacle Grip") if n else []
+    heads = sum(1 for result in results if result)
+    if heads:
+        await ctx.draw_cards(heads * 2)
+
+
+async def gentle_song(ctx):
+    """Heal 20 from Lapras and the Defending Pokémon; that Pokémon is Asleep."""
+    if ctx.attacker is not None:
+        await ctx.heal(20, ctx.attacker)
+    defender = ctx.defender
+    if defender is not None:
+        await ctx.heal(20, defender)
+        await ctx.apply_special_condition(defender, SpecialConditions.ASLEEP)
+
+
+async def sharpshooter(ctx):
+    """Choose 1 opposing Pokémon; 10× heads of Grass-Energy coin flips, no W/R."""
+    targets = ctx.opponent_pokemon_in_play()
+    if not targets:
+        return
+    target = await ctx.choose_pokemon(
+        targets, "Choose 1 of your opponent's Pokémon")
+    if target is None:
+        return
+    n = count_energy("self", energy_type=PokemonTypes.GRASS)(ctx)
+    results = await ctx.flip_coins(n, "Sharpshooter") if n else []
+    heads = sum(1 for result in results if result)
+    if heads:
+        await ctx.deal_damage(10 * heads, target=target, apply_modifiers=False)
+
+
+async def lick_wounds(ctx):
+    """Heads: heal 20 from 1 damaged Pokémon in play (either player's)."""
+    results = await ctx.flip_coins(1, "Lick Wounds")
+    if not results or not results[0]:
+        return
+    damaged = [poked for poked in
+               ctx.my_pokemon_in_play() + ctx.opponent_pokemon_in_play()
+               if _is_damaged(ctx.board, poked)]
+    if not damaged:
+        return
+    target = await ctx.choose_pokemon(damaged, "Choose a Pokémon to heal")
+    if target is not None:
+        await ctx.heal(20, target)
+
+
+async def paradise_pollen(ctx):
+    """Heads: heal 20 from Vileplume, then 20 from 1 damaged Benched Pokémon."""
+    results = await ctx.flip_coins(1, "Paradise Pollen")
+    if not results or not results[0]:
+        return
+    if ctx.attacker is not None:
+        await ctx.heal(20, ctx.attacker)
+    damaged_bench = [poked for poked in ctx.my_bench()
+                     if _is_damaged(ctx.board, poked)]
+    if not damaged_bench:
+        return
+    target = await ctx.choose_pokemon(
+        damaged_bench, "Choose a Benched Pokémon to heal")
+    if target is not None:
+        await ctx.heal(20, target)
+
+
+async def rampage(ctx):
+    """20 + 10 per damage counter on self; tails, this Pokémon is Confused."""
+    await damage_per(damage_counters_on("self"), 10, base=20)(ctx)
+    results = await ctx.flip_coins(1, "Rampage")
+    if results and not results[0]:
+        await ctx.apply_special_condition(ctx.attacker, SpecialConditions.CONFUSED)
 
