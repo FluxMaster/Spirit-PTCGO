@@ -526,6 +526,7 @@ class PokemonCardDef(CardDefinition):
         passive: Optional[Any] = None,
         unplayable_from_hand: bool = False,
         setup_as_active: bool = False,
+        setup_if_second: bool = False,
         foil: Optional[Foil] = None
     ):
         if stage == PokemonStage.LEGEND and not self.runtime_only:
@@ -541,6 +542,9 @@ class PokemonCardDef(CardDefinition):
         # Luxray CZ's Explosiveness: may be placed as the opening Active
         # despite its stage (setup only; bench plays stay Basics-only).
         self.setup_as_active = setup_as_active
+        # Manectric Electric Start: if you go second, may be placed as the
+        # opening Active or onto the Bench despite its stage (setup only).
+        self.setup_if_second = setup_if_second
 
         # Add Pokemon-specific defaults to extra_attributes
         self.extra_attributes.update({
