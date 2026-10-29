@@ -4,6 +4,8 @@ Gyarados (EX3 #32): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import ignore_resistance_attack
+
 
 card = PokemonCardDef(
     guid="935bd8aa-42fa-5ace-b2b8-3d3f34479bcf",
@@ -36,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 4},
             damage=80,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=ignore_resistance_attack(),
         ),
     ],
 )
