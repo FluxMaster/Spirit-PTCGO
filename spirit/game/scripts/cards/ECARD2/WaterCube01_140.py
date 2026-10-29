@@ -9,7 +9,7 @@ _attack = Attack(
     game_text="Choose 1 of your opponent's Pokémon. This attack does 20 damage to that Pokémon. Don't apply Weakness or Resistance.",
     cost={PokemonTypes.WATER: 1},
     damage=0,
-    effect=snipe_attack(20, apply_wr=False),
+    effect=snipe_attack(20, pool="any", apply_modifiers=False),
     )
 
 card = TrainerCardDef(
