@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Wailord ex (EX2 #100): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import damage_counters_on, damage_per
+from spirit.game.card_effects.ex import heal_then_switch
+
 
 card = PokemonCardDef(
     guid="9305caa1-093f-525f-bc5b-432ea0d640a4",
@@ -27,8 +26,7 @@ card = PokemonCardDef(
             title="Super Deep Dive",
             game_text="If you don't have any Benched Pok\u00e9mon, this attack does nothing. Remove 3 damage counters from Wailord ex. Switch Wailord ex with 1 of your Benched Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=heal_then_switch(3),
         ),
         Attack(
             title="Dwindling Wave",
@@ -36,8 +34,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 3, PokemonTypes.COLORLESS: 1},
             damage=100,
             damage_operator="-",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_per(damage_counters_on("self"), -10, base=100),
         ),
     ],
 )

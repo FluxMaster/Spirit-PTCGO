@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Slakoth (EX2 #80): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import cant_attack_next_turn
+
 
 card = PokemonCardDef(
     guid="106a76dd-496c-5dc7-893f-1345b87f93b1",
@@ -27,8 +25,7 @@ card = PokemonCardDef(
             game_text="Slakoth can't attack during your next turn.",
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=cant_attack_next_turn(),
         ),
     ],
 )

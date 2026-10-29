@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Eevee (EX2 #63): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, evolves_from
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_bonus
+from spirit.game.card_effects.support_common import search_to_hand
 
 
 card = PokemonCardDef(
@@ -28,8 +25,11 @@ card = PokemonCardDef(
             title="Signs of Evolution",
             game_text="Search your deck for up to 3 cards that evolve from Eevee, show them to your opponent, and put them into your hand. Shuffle your deck afterward.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=search_to_hand(
+                predicate=lambda c: evolves_from(c.archetype_id, "Eevee"),
+                count=3, minimum=0, reveal=True,
+                prompt="Choose up to 3 cards that evolve from Eevee.",
+            ),
         ),
         Attack(
             title="Quick Attack",
@@ -37,7 +37,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
             effect=flip_bonus(10),
         ),
     ],

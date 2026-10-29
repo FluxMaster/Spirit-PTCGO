@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Shiftry (EX2 #12): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import count_energy, damage_per
+from spirit.game.card_effects.ex import flip_return_defender_energy, poke_power_condition
+
 
 card = PokemonCardDef(
     guid="a5bfa8d8-1e08-5ddb-a4f3-ff0c726d44c4",
@@ -27,8 +26,9 @@ card = PokemonCardDef(
             title="Fan Away",
             game_text="Once during your turn (before your attack), you may flip a coin. If heads, return 1 Energy card attached to the Defending Pok\u00e9mon to your opponent's hand. This power can't be used if Shiftry is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=poke_power_condition(),
+            effect=flip_return_defender_energy(),
         ),
         Attack(
             title="Light Touch Throw",
@@ -36,8 +36,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 2, PokemonTypes.COLORLESS: 2},
             damage=80,
             damage_operator="-",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_per(count_energy("defender"), per=-10, base=80),
         ),
     ],
 )

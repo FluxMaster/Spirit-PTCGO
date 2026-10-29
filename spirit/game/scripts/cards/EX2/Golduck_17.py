@@ -1,9 +1,11 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Golduck (EX2 #17): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.attributes import SpecialConditions
+from spirit.game.card_effects.attacks_common import bonus_if, defender_has_special_energy
+from spirit.game.card_effects.ex import (
+    flip_apply_condition, is_active_pokemon, poke_power_condition,
+)
+
 
 card = PokemonCardDef(
     guid="b4a7a50b-d20d-552e-b01b-aed4ad941985",
@@ -27,8 +29,9 @@ card = PokemonCardDef(
             title="Chaos Flash",
             game_text="Once during your turn (before your attack), if Golduck is your Active Pok\u00e9mon, you may flip a coin. If heads, the Defending Pok\u00e9mon (choose 1 if there are 2) is now Confused. This power can't be used if Golduck is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=poke_power_condition(is_active_pokemon),
+            effect=flip_apply_condition(SpecialConditions.CONFUSED),
         ),
         Attack(
             title="Special Blow",
@@ -36,8 +39,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1, PokemonTypes.PSYCHIC: 1},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bonus_if(defender_has_special_energy, 40),
         ),
     ],
 )

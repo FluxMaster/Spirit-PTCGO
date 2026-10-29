@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Wynaut (EX2 #54): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import (
+    baby_evolution, baby_evolution_condition, search_basic_or_evo_per_energy,
+)
+
 
 card = PokemonCardDef(
     guid="d7f27b57-a59e-51bf-9238-7e072dc67125",
@@ -26,15 +26,15 @@ card = PokemonCardDef(
             title="Baby Evolution",
             game_text="Once during your turn (before your attack), you may put Wobbuffet from your hand onto Wynaut (this counts as evolving Wynaut), and remove all damage counters from Wynaut.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=baby_evolution_condition("Wobbuffet"),
+            effect=baby_evolution("Wobbuffet"),
         ),
         Attack(
             title="Alluring Smile",
             game_text="Search your deck for a Basic Pok\u00e9mon card or Evolution card for each Energy attached to Wynaut, show them to your opponent, and put them into your hand. Shuffle your deck afterward.",
             cost={PokemonTypes.PSYCHIC: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=search_basic_or_evo_per_energy(),
         ),
     ],
 )

@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Seviper (EX2 #11): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.attributes import SpecialConditions
+from spirit.game.card_effects.attacks_common import conditions_if
+from spirit.game.card_effects.ex import defender_is_ex, may_discard_energy_for_condition
+
 
 card = PokemonCardDef(
     guid="6835f419-d12f-55b5-898e-e89518b261ae",
@@ -27,16 +27,20 @@ card = PokemonCardDef(
             game_text="You may discard a Grass Energy card attached to Seviper. If you do, the Defending Pok\u00e9mon is now Poisoned.",
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=may_discard_energy_for_condition(
+                PokemonTypes.GRASS, SpecialConditions.POISONED,
+                prompt="You may discard a Grass Energy card",
+            ),
         ),
         Attack(
             title="Extra Poison",
             game_text="If the Defending Pok\u00e9mon is Pok\u00e9mon-ex, the Defending Pok\u00e9mon is now Asleep and Poisoned.",
             cost={PokemonTypes.COLORLESS: 2},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=conditions_if(
+                defender_is_ex,
+                SpecialConditions.ASLEEP, SpecialConditions.POISONED,
+            ),
         ),
     ],
 )

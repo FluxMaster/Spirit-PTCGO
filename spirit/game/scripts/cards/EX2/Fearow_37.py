@@ -1,13 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Fearow (EX2 #37): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import bonus_if, has_damage
 
 
-async def super_slap_push(ctx):
-    """Does 20 damage to each Defending Pok\u00e9mon (no printed damage)."""
+async def double_wing_attack(ctx):
+    """Does 20 damage to each Defending Pokémon (no printed damage)."""
     await ctx.deal_damage(20)
 
 
@@ -34,8 +31,7 @@ card = PokemonCardDef(
             title="Double Wing Attack",
             game_text="Does 20 damage to each Defending Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 2},
-            # STUB: attack effect not implemented
-            effect=super_slap_push,
+            effect=double_wing_attack,
         ),
         Attack(
             title="Rend",
@@ -43,8 +39,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bonus_if(has_damage(), 20),
         ),
     ],
 )

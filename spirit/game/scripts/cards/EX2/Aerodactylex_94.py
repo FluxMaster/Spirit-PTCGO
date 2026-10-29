@@ -1,11 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Aerodactyl ex (EX2 #94): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ex import discard_opponent_tools, opponent_cant_play_tools
 
 
 card = PokemonCardDef(
@@ -31,15 +28,15 @@ card = PokemonCardDef(
             title="Primal Lock",
             game_text="As long as Aerodactyl ex is in play, your opponent can't play Pok\u00e9mon Tool cards. Remove any Pok\u00e9mon Tool cards attached to your opponent's Pok\u00e9mon and put them into his or her discard pile.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=(Triggers.ON_PLAY, Triggers.ON_EVOLVE),
+            effect=discard_opponent_tools,
+            passive=opponent_cant_play_tools(),
         ),
         Attack(
             title="Supersonic",
             game_text="The Defending Pok\u00e9mon is now Confused.",
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.CONFUSED),
         ),
         Attack(

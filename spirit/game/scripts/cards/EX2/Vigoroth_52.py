@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Vigoroth (EX2 #52): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import increased_base_damage_next_turn
+
 
 card = PokemonCardDef(
     guid="996ef45a-67f7-564b-8d15-748abbad3ecf",
@@ -27,8 +25,7 @@ card = PokemonCardDef(
             title="Focus Energy",
             game_text="During your next turn, base damage of Vigoroth's Slash is attack is 90 instead of 40.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=increased_base_damage_next_turn(("Slash", 50)),
         ),
         Attack(
             title="Slash",

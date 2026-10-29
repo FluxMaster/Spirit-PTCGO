@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Growlithe (EX2 #65): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.attributes import SpecialConditions
+from spirit.game.card_effects.ex import condition_on_damaged
+
 
 card = PokemonCardDef(
     guid="e9944d19-7de8-5e5b-80e1-35ddffa0c56d",
@@ -26,8 +25,8 @@ card = PokemonCardDef(
             title="Fire Veil",
             game_text="If Growlithe is your Active Pok\u00e9mon and is damaged by an opponent's attack (even if Growlithe is Knocked Out), the Attacking Pok\u00e9mon is now Burned.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=Triggers.ON_DAMAGED_BY_ATTACK,
+            effect=condition_on_damaged(SpecialConditions.BURNED),
         ),
         Attack(
             title="Flare",

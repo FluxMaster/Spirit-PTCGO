@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dusclops (EX2 #4): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import place_counters
+from spirit.game.card_effects.ex import flip_knock_out_defender
+
 
 card = PokemonCardDef(
     guid="e70fd49f-0a8b-57a7-8ef8-a4e9f1982c0d",
@@ -28,15 +27,13 @@ card = PokemonCardDef(
             title="Judgement",
             game_text="Flip 2 coins. If both of them are heads, the Defending Pok\u00e9mon is Knocked Out.",
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_knock_out_defender(),
         ),
         Attack(
             title="Random Curse",
             game_text="Put a total of 5 damage counters on all Defending Pok\u00e9mon in any way you like.",
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=place_counters(5),
         ),
     ],
 )

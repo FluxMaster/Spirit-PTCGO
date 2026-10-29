@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Armaldo (EX2 #1): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import both_players_cant_play_supporters
+
 
 card = PokemonCardDef(
     guid="72f132b5-3ac7-5724-909c-7875ffffe35c",
@@ -27,8 +25,7 @@ card = PokemonCardDef(
             title="Primal Veil",
             game_text="As long as Armaldo is your Active Pok\u00e9mon, each player can't play any Supporter Cards.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=both_players_cant_play_supporters(),
         ),
         Attack(
             title="Blade Arms",

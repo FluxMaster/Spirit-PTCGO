@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Lombre (EX2 #45): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import flip_damage
+from spirit.game.card_effects.ex import rain_dish
+
 
 card = PokemonCardDef(
     guid="6b5ed9ff-b33e-50ad-9070-c4e95173d4f0",
@@ -27,8 +26,8 @@ card = PokemonCardDef(
             title="Rain Dish",
             game_text="At any time between turns, remove 1 damage counter from Lombre.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=Triggers.BETWEEN_TURNS,
+            effect=rain_dish(),
         ),
         Attack(
             title="Double Scratch",
@@ -36,8 +35,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(coins=2, per_heads=30),
         ),
     ],
 )

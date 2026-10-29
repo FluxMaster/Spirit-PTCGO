@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Lileep (EX2 #43): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import amnesia
+
 
 card = PokemonCardDef(
     guid="d0d6d1d3-723c-50b4-b4c7-fc1ea71e60c9",
@@ -27,8 +25,7 @@ card = PokemonCardDef(
             title="Amnesia",
             game_text="Choose 1 of the Defending Pok\u00e9mon's attacks. That Pok\u00e9mon can't use that attack during your opponent's next turn.",
             cost={PokemonTypes.COLORLESS: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=amnesia,
         ),
         Attack(
             title="Headbutt",

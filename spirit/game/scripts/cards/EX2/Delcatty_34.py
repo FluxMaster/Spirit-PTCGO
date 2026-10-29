@@ -1,9 +1,20 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Delcatty (EX2 #34): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import damage_per
+from spirit.game.card_effects.trainers import is_basic_energy_card
+
+
+def _basic_energy_on_actives(ctx):
+    total = 0
+    for pokemon in (ctx.my_active(), ctx.opponent_active()):
+        if pokemon is None:
+            continue
+        total += sum(
+            1 for energy in ctx.attached_energies(pokemon)
+            if is_basic_energy_card(energy)
+        )
+    return total
+
 
 card = PokemonCardDef(
     guid="116cb9af-b443-5d08-ab98-ebb53648a36a",
@@ -34,8 +45,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=10,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_per(_basic_energy_on_actives, 10),
         ),
     ],
 )

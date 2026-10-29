@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Xatu (EX2 #55): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import place_counters
+from spirit.game.card_effects.ex import healing_wind, healing_wind_condition
+
 
 card = PokemonCardDef(
     guid="06619c6a-10da-593f-9b69-0ffdd64b900b",
@@ -28,15 +27,15 @@ card = PokemonCardDef(
             title="Healing Wind",
             game_text="Once during your turn (before your attack), you may remove 1 damage counter from each of your Active Pok\u00e9mon. This power can't be used if Xatu is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=healing_wind_condition,
+            effect=healing_wind(),
         ),
         Attack(
             title="Psyimpact",
             game_text="Put 1 damage counter on each of your opponent's Pok\u00e9mon.",
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=place_counters(1, "each_opponent"),
         ),
     ],
 )

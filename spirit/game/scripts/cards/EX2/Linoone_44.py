@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Linoone (EX2 #44): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_damage
+from spirit.game.card_effects.support_common import recover_from_discard
 
 
 card = PokemonCardDef(
@@ -29,8 +26,10 @@ card = PokemonCardDef(
             title="Sniff Out",
             game_text="Put any 1 card from your discard pile into your hand.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=recover_from_discard(
+                count=1, minimum=1, reveal=False, to="hand",
+                prompt="Choose a card from your discard pile.",
+            ),
         ),
         Attack(
             title="Fury Swipes",
@@ -38,7 +37,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=20,
             damage_operator="x",
-            # STUB: attack effect not implemented
             effect=flip_damage(coins=3, per_heads=20),
         ),
     ],

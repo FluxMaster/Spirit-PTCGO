@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Lombre (EX2 #46): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_damage
+from spirit.game.card_effects.ex import shuffle_random_from_opponent_hand
+
 
 card = PokemonCardDef(
     guid="cbfbcbb2-fe3e-54d9-966d-b8b6bffb3942",
@@ -28,8 +27,7 @@ card = PokemonCardDef(
             game_text="Choose 1 card from your opponent's hand without looking. Look at the card you chose, then have your opponent shuffle that card into his or her deck.",
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=shuffle_random_from_opponent_hand(),
         ),
         Attack(
             title="Fury Swipes",
@@ -37,8 +35,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=20,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(coins=3, per_heads=20),
         ),
     ],
 )

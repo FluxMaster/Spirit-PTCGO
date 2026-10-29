@@ -1,10 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Breloom (EX2 #33): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-from spirit.game.card_effects.attacks_common import ignore_resistance_attack
+from spirit.game.data_utils import PokemonCardDef, Attack
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, SpecialConditions
+from spirit.game.card_effects.attacks_common import condition_attack, ignore_resistance_attack
 
 
 card = PokemonCardDef(
@@ -29,15 +25,13 @@ card = PokemonCardDef(
             title="Super Poison Breath",
             game_text="Each Defending Pok\u00e9mon is now Poisoned.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(SpecialConditions.POISONED),
         ),
         Attack(
             title="Sky Uppercut",
             game_text="This attack's damage is not affected by Resistance.",
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 2},
             damage=50,
-            # STUB: attack effect not implemented
             effect=ignore_resistance_attack(),
         ),
     ],

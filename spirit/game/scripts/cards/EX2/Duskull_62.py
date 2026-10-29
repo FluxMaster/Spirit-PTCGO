@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Duskull (EX2 #62): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import place_counters, snipe_attack
+
 
 card = PokemonCardDef(
     guid="37027051-f6f3-53d8-b280-ad69f9b48bf0",
@@ -27,16 +25,14 @@ card = PokemonCardDef(
             title="Haunt",
             game_text="Put 1 damage counter on the Defending Pok\u00e9mon.",
             cost={PokemonTypes.PSYCHIC: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=place_counters(1),
         ),
         Attack(
             title="Dark Mind",
             game_text="Does 10 damage to 1 of your opponent's Benched Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.COLORLESS: 2},
             damage=10,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=snipe_attack(10, also_base=True),
         ),
     ],
 )

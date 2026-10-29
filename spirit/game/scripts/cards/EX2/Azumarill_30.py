@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Azumarill (EX2 #30): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import count_energy, flip_damage
+from spirit.game.card_effects.ex import attach_as_many_from_hand
+from spirit.game.card_effects.trainers import is_water_energy_card
+
 
 card = PokemonCardDef(
     guid="c89eb069-67ed-5ffb-b14a-c08d6e22d755",
@@ -27,8 +27,10 @@ card = PokemonCardDef(
             title="Drizzle",
             game_text="If you have Water Energy cards in your hand, attach as many Water Energy cards as you like to any of your Active Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=attach_as_many_from_hand(
+                is_water_energy_card, target="active",
+                prompt="Choose Water Energy cards to attach.",
+            ),
         ),
         Attack(
             title="Max Bubbles",
@@ -36,8 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(coins_from=count_energy("my_active"), per_heads=30),
         ),
     ],
 )

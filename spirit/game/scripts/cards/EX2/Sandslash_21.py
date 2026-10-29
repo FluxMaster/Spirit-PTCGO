@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Sandslash (EX2 #21): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import condition_attack, spread_damage
+
 
 card = PokemonCardDef(
     guid="48250881-9e69-56be-bf78-2e2036ab7f11",
@@ -27,16 +25,15 @@ card = PokemonCardDef(
             title="Sand Swirl",
             game_text="Does 20 damage to each Defending Pok\u00e9mon. The Defending Pok\u00e9mon can't retreat until the end of your opponent's next turn.",
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            damage=0,
+            effect=condition_attack(no_retreat=True, damage=20),
         ),
         Attack(
             title="Earthquake",
             game_text="Does 10 damage to each of your Benched Pok\u00e9mon. (Don't apply Weakness or Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 2},
             damage=60,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=spread_damage(10, side="mine", also_base=True),
         ),
     ],
 )

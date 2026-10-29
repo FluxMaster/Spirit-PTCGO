@@ -1,13 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Lanette's Net Search (EX2 #87): trainer effect stubbed.
-
-Card text:
-  - You can play only one Supporter card each turn. When you play this card, put it next to your Active Pokémon. When your turn ends, discard this card.
-  - Search your deck for up to 3 different types of Basic Pokémon cards (excluding Baby Pokémon), show them to your opponent, and put them into your hand. Shuffle your deck afterward.
-"""
-
-from spirit.game.data_utils import SupporterCardDef, unimplemented
+from spirit.game.data_utils import SupporterCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ex import lanettes_net_search
+from spirit.game.card_effects.trainers import deck_nonempty
+
 
 card = SupporterCardDef(
     guid="bcb48bd8-729f-576e-bd58-e1f97cb26749",
@@ -19,6 +14,6 @@ card = SupporterCardDef(
     collector_number=87,
     set_code="EX2",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=lanettes_net_search,
+    condition=deck_nonempty,
 )

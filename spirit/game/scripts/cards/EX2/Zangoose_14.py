@@ -1,9 +1,16 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Zangoose (EX2 #14): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
+from spirit.game.attributes import (
+    AttrID, PokemonTypes, PokemonStage, Rarities, AbilityTypes,
+    SpecialConditions,
+)
+from spirit.game.card_effects.attacks_common import active_is, bonus_if
+from spirit.game.card_effects.passives_common import condition_immunity_passive
+from spirit.game.session.effects import is_evolution_pokemon
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+def _is_seviper(pokemon):
+    return pokemon.get_attribute(AttrID.EVOLUTION_LOGIC_NAME) == "Seviper"
+
 
 card = PokemonCardDef(
     guid="f48a8027-545f-551a-9be1-abaad3b8988b",
@@ -26,8 +33,7 @@ card = PokemonCardDef(
             title="Poison Resistance",
             game_text="Zangoose can't be Poisoned.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=condition_immunity_passive(SpecialConditions.POISONED),
         ),
         Attack(
             title="Target Slash",
@@ -35,8 +41,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bonus_if(active_is(_is_seviper), 30),
         ),
         Attack(
             title="Super Slash",
@@ -44,8 +49,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bonus_if(active_is(is_evolution_pokemon), 30),
         ),
     ],
 )

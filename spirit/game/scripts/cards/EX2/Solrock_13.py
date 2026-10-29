@@ -1,9 +1,11 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Solrock (EX2 #13): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import (
+    draw_if_opponent_evolved,
+    eclipse_type_change,
+    named_partner_condition,
+)
+
 
 card = PokemonCardDef(
     guid="aa4ce394-efcf-5732-a423-a8a6ca5bb26b",
@@ -26,15 +28,15 @@ card = PokemonCardDef(
             title="Solar Eclipse",
             game_text="Once during your turn (before your attack), if Lunatone is in play, you may use this power. Until the end of your turn, Solrock's type is Fire. This power can't be used if Solrock is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=named_partner_condition("Lunatone"),
+            effect=eclipse_type_change(PokemonTypes.FIRE),
         ),
         Attack(
             title="Cosmic Draw",
             game_text="If your opponent has any Evolved Pok\u00e9mon in play, draw 3 cards.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=draw_if_opponent_evolved(3),
         ),
         Attack(
             title="Solar Blast",

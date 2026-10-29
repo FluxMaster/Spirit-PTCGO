@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Gardevoir ex (EX2 #96): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import (
+    count_energy, count_hand, damage_per, place_counters,
+)
+
 
 card = PokemonCardDef(
     guid="387cf2bd-f6b2-534d-b455-35dbf2554dc9",
@@ -27,8 +27,7 @@ card = PokemonCardDef(
             title="Feedback",
             game_text="Count the number of cards in your opponent's hand. Put that many damage counters on the Defending Pok\u00e9mon.",
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=place_counters(count_hand("opponent")),
         ),
         Attack(
             title="Psystorm",
@@ -36,8 +35,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 3},
             damage=10,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_per(count_energy("both"), 10),
         ),
     ],
 )

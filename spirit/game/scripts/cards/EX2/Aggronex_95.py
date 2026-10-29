@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Aggron ex (EX2 #95): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import bonus_if, has_damage, spread_damage
+
 
 card = PokemonCardDef(
     guid="73d8fa2b-25f4-5d88-80bd-1db5c60a4ce5",
@@ -30,16 +28,14 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bonus_if(has_damage(), 30),
         ),
         Attack(
             title="Metal Surge",
             game_text="Does 20 damage to each of your opponent's Benched Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.METAL: 2, PokemonTypes.COLORLESS: 3},
             damage=50,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=spread_damage(20, also_base=True),
         ),
     ],
 )

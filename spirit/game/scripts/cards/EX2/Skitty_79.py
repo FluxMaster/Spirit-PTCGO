@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Skitty (EX2 #79): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import recoil_attack
+from spirit.game.card_effects.support_common import recover_from_discard
+from spirit.game.card_effects.trainers import is_basic_energy_card
+
 
 card = PokemonCardDef(
     guid="fcdd5ff2-b57e-570f-b3e1-5a7f3c5b9393",
@@ -26,16 +26,17 @@ card = PokemonCardDef(
             title="Energy Catch",
             game_text="Search your discard pile for a basic Energy card, show it to your opponent, and put it into your hand.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=recover_from_discard(
+                is_basic_energy_card, count=1, reveal=True,
+                prompt="Choose a basic Energy card from your discard pile",
+            ),
         ),
         Attack(
             title="Double-edge",
             game_text="Skitty does 10 damage to itself.",
             cost={PokemonTypes.COLORLESS: 2},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=recoil_attack(10),
         ),
     ],
 )

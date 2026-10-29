@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Cacnea (EX2 #57): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
+from spirit.game.attributes import (
+    PokemonTypes, PokemonStage, Rarities, AbilityTypes, SpecialConditions,
+)
+from spirit.game.card_effects.ex import condition_on_damaged
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 
 card = PokemonCardDef(
     guid="9421f58c-ba81-5bee-a21f-84477a8960cd",
@@ -26,8 +26,8 @@ card = PokemonCardDef(
             title="Poison Payback",
             game_text="If Cacnea is your Active Pok\u00e9mon and is damaged by an opponent's attack (even if Cacnea is Knocked Out), the Attacking Pok\u00e9mon is now Poisoned.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=Triggers.ON_DAMAGED_BY_ATTACK,
+            effect=condition_on_damaged(SpecialConditions.POISONED),
         ),
         Attack(
             title="Light Punch",

@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Anorith (EX2 #27): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import search_to_hand
+from spirit.game.session.effects import is_evolution_pokemon
+
 
 card = PokemonCardDef(
     guid="96351595-883f-541f-863d-8fcef9365739",
@@ -27,8 +26,10 @@ card = PokemonCardDef(
             title="Fast Evolution",
             game_text="Search your deck for an Evolution card, show it to your opponent, and put it into your hand. Shuffle your deck afterward.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=search_to_hand(
+                is_evolution_pokemon,
+                prompt="Choose an Evolution card to put into your hand.",
+            ),
         ),
         Attack(
             title="Pierce",

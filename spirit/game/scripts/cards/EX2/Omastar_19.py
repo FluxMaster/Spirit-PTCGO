@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Omastar (EX2 #19): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import extra_energy_damage, pull_down
+
 
 card = PokemonCardDef(
     guid="07b7a5df-4d92-5f54-b5c3-5e493a769c8a",
@@ -27,8 +25,7 @@ card = PokemonCardDef(
             title="Pull Down",
             game_text="If your opponent has any Evolved Pok\u00e9mon in play, remove the highest Stage Evolution card from each of them and put those cards back into his or her hand.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=pull_down,
         ),
         Attack(
             title="Hydrocannon",
@@ -36,8 +33,9 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=extra_energy_damage(
+                20, base=30, extra_cap=2, energy_type=PokemonTypes.WATER,
+            ),
         ),
     ],
 )

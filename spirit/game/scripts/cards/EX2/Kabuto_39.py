@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Kabuto (EX2 #39): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import search_to_bench_named
+from spirit.game.card_effects.passives_common import takes_less_passive
+
 
 card = PokemonCardDef(
     guid="b03b1222-6767-5762-85de-6292287e0517",
@@ -27,15 +26,16 @@ card = PokemonCardDef(
             title="Exoskeleton",
             game_text="Any damage done to Kabuto by attacks is reduced by 20 (after applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=takes_less_passive(20),
         ),
         Attack(
             title="Team Assembly",
             game_text="Search your deck for Omanyte, Kabuto, or any Basic Pok\u00e9mon and put as many of them as you like onto your Bench. Shuffle your deck afterward. Treat the new Benched Pok\u00e9mon as Basic Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=search_to_bench_named(
+                "Omanyte", "Kabuto", include_basic=True,
+                prompt="Choose Omanyte, Kabuto, or Basic Pokémon to put onto your Bench.",
+            ),
         ),
         Attack(
             title="Pierce",
