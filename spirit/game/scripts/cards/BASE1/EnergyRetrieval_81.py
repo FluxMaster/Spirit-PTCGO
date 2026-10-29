@@ -1,11 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Energy Retrieval (BASE1 #81): trainer effect stubbed.
-
-Card text:
-  - Trade 1 of the other cards in your hand for up to 2 basic Energy cards from your discard pile.
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.card_effects.support_common import recover_from_discard, requires_discard
+from spirit.game.card_effects.trainers import is_basic_energy_card
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
 
 card = ItemCardDef(
@@ -18,6 +13,6 @@ card = ItemCardDef(
     collector_number=81,
     set_code="BASE1",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    condition=requires_discard(is_basic_energy_card),
+    effect=recover_from_discard(is_basic_energy_card, count=2, minimum=1, to="hand"),
 )

@@ -4,6 +4,8 @@ Dragonair (BASE1 #18): one or more attacks/abilities use effect=unimplemented un
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import discard_opponent_energy_attack
+
 
 card = PokemonCardDef(
     guid="ef91abc5-9c39-5a88-aee6-3985ff31d0e8",
@@ -38,7 +40,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 4},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=discard_opponent_energy_attack(),
         ),
     ],
 )

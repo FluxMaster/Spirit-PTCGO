@@ -4,6 +4,8 @@ Porygon (BASE1 #39): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import conversion_1
+
 
 card = PokemonCardDef(
     guid="e491b524-820d-5f6e-a906-0cc6fb6da769",
@@ -28,7 +30,7 @@ card = PokemonCardDef(
             game_text="If the Defending Pok\u00e9mon has a Weakness, you may change it to a type of your choice other than Colorless.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=conversion_1,
         ),
         Attack(
             title="Conversion 2",

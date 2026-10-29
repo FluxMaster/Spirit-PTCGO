@@ -4,6 +4,8 @@ Poliwrath (BASE1 #13): one or more attacks/abilities use effect=unimplemented un
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import discard_opponent_energy_attack
+
 
 card = PokemonCardDef(
     guid="7164c0fd-5d53-5e38-88be-569ca5e888a8",
@@ -38,7 +40,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 2, PokemonTypes.COLORLESS: 2},
             damage=40,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=discard_opponent_energy_attack(),
         ),
     ],
 )

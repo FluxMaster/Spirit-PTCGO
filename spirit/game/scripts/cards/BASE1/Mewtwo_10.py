@@ -4,6 +4,8 @@ Mewtwo (BASE1 #10): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import count_energy, damage_per
+
 
 card = PokemonCardDef(
     guid="ddb931c8-0c77-555e-baeb-a473c7266c75",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             damage=10,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_per(count_energy('defender', cards=True), 10, base=10),
         ),
         Attack(
             title="Barrier",

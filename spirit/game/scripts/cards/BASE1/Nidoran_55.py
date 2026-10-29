@@ -4,6 +4,8 @@ Nidoran ♂ (BASE1 #55): one or more attacks/abilities use effect=unimplemented 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_or_nothing
+
 
 card = PokemonCardDef(
     guid="e7ca05c7-7d89-558e-b3ca-7b2a5d0df83c",
@@ -28,7 +30,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_or_nothing(),
         ),
     ],
 )

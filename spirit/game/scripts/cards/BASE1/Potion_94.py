@@ -1,12 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Potion (BASE1 #94): trainer effect stubbed.
-
-Card text:
-  - Remove up to 2 damage counters from 1 of your Pokémon.
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.support_common import heal_item, requires_damaged_pokemon
 
 card = ItemCardDef(
     guid="d54dd009-991e-554a-a43e-cbc6b410056e",
@@ -18,6 +12,6 @@ card = ItemCardDef(
     collector_number=94,
     set_code="BASE1",
     rarity=Rarities.Common,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    condition=requires_damaged_pokemon(),
+    effect=heal_item(30)
 )
