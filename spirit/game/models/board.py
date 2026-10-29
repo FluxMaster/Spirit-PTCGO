@@ -4,7 +4,7 @@ import random
 import logging
 from typing import Dict, Any, List, Optional, Union
 from spirit.game.attributes import AttrID, CardType, PokemonStage, Rarities, PlayerAttrID
-from spirit.game.content.definitions import def_for
+from spirit.game.content.definitions import def_for, is_prism_star
 from spirit.game.models.card import Card
 from spirit.game.scripts.cards import loader as card_loader
 from spirit.network.message_names import OutboundMsg
@@ -497,6 +497,16 @@ class BoardState:
                 card.redirected_from = to_area.entity_id
                 to_area, position = home_discard, None
             card.home_player_id = None
+
+        # Prism Star rule: a Prism Star card that would go to the discard pile
+        # goes to its owner's Lost Zone instead (EntityMoved reports the real
+        # destination through redirected_from).
+        if to_area.get_attribute(AttrID.NAME) == "discard" \
+                and card.archetype_id and is_prism_star(card.archetype_id):
+            lost_zone = self.find_player_area(to_area.owning_player_id, "lostZone")
+            if lost_zone is not None:
+                card.redirected_from = to_area.entity_id
+                to_area, position = lost_zone, None
 
         if card.parent_id:
             parent = self.get_entity(card.parent_id)

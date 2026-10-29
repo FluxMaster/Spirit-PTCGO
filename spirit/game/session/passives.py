@@ -159,6 +159,14 @@ class Passive:
         """True to prevent the hit entirely (calc.amount becomes 0)."""
         return False
 
+    def prevents_damage_counters(
+        self, target: PokemonEntity, carrier: BoardEntity,
+        source_player_id: Optional[str] = None,
+    ) -> bool:
+        """True to stop putting damage counters on `target` (Machoke's
+        Daunting Pose: opponent attacks/Abilities vs your Bench)."""
+        return False
+
     def modify_attack_cost(
         self,
         cost: Dict[str, int],
@@ -183,6 +191,18 @@ class Passive:
 
     def blocks_attack_effects(self, target: PokemonEntity, carrier: BoardEntity) -> bool:
         """True to shield `target` from opponents' attack EFFECTS (not damage)."""
+        return False
+
+    def blocks_attack_effects_from(
+        self, target: PokemonEntity, attacker: Optional[PokemonEntity],
+        carrier: BoardEntity,
+    ) -> bool:
+        """Attacker-aware effect shield (Alolan Ninetales vs GX/EX). Defaults
+        to blocks_attack_effects when the attacker is unknown."""
+        return self.blocks_attack_effects(target, carrier)
+
+    def blocks_attacks(self, pokemon: PokemonEntity, carrier: BoardEntity) -> bool:
+        """True to forbid `pokemon` from attacking (Vileplume Disgusting Pollen)."""
         return False
 
     def blocks_abilities(self, pokemon: PokemonEntity, carrier: BoardEntity) -> bool:
@@ -310,6 +330,12 @@ class Passive:
         as their manual attachment (Froslass Cursed Glare)."""
         return False
 
+    def blocks_gx_attacks(self, player_id: str, pokemon: PokemonEntity,
+                          carrier: BoardEntity) -> bool:
+        """True to forbid `player_id`'s `pokemon` using GX attacks ("your
+        opponent can't use any GX attacks")."""
+        return False
+
     def forces_coin_tails(self, player_id: str, carrier: BoardEntity) -> bool:
         """True when every coin `player_id` flips comes up tails (Cofagrigus
         Slap of Misfortune); covers effect flips and Checkup/attack flips."""
@@ -407,6 +433,20 @@ class Passive:
         """Damage healed from a Pokemon `player_id` just evolved from hand
         (Wyndon Stadium)."""
         return 0
+
+    def damage_counters_on_evolve(
+        self, evolved: PokemonEntity, pre_evolution: BoardEntity,
+        player_id: str, carrier: BoardEntity,
+    ) -> int:
+        """Damage counters put on a Pokemon just evolved from hand (Po Town)."""
+        return 0
+
+    def keeps_conditions_on_evolve(
+        self, pokemon: PokemonEntity, carrier: BoardEntity
+    ) -> bool:
+        """True to keep Special Conditions on `pokemon` when it evolves or
+        devolves (Sea of Nothingness)."""
+        return False
 
     def trainer_play_flip(self, card: BoardEntity, player_id: str,
                           carrier: BoardEntity) -> Optional[str]:
@@ -704,10 +744,19 @@ def effective_max_hp(board: BoardState, pokemon: PokemonEntity) -> int:
     return printed + bonus
 
 
-def attack_effects_blocked(board: BoardState, target: PokemonEntity) -> bool:
+def attack_effects_blocked(board: BoardState, target: PokemonEntity,
+                           attacker: Optional[PokemonEntity] = None) -> bool:
     """Whether a passive shields `target` from opposing attack effects."""
     return any(
-        passive.blocks_attack_effects(target, carrier)
+        passive.blocks_attack_effects_from(target, attacker, carrier)
+        for passive, carrier in active_passives(board)
+    )
+
+
+def attacks_blocked(board: BoardState, pokemon: PokemonEntity) -> bool:
+    """Whether a passive forbids `pokemon` from attacking (Disgusting Pollen)."""
+    return any(
+        passive.blocks_attacks(pokemon, carrier)
         for passive, carrier in active_passives(board)
     )
 
@@ -769,6 +818,15 @@ def energy_attach_blocked(board: BoardState, player_id: str, energy: BoardEntity
     )
 
 
+def gx_attacks_blocked(board: BoardState, player_id: str,
+                       pokemon: PokemonEntity) -> bool:
+    """Whether a passive forbids `player_id`'s `pokemon` from using GX attacks."""
+    return any(
+        passive.blocks_gx_attacks(player_id, pokemon, carrier)
+        for passive, carrier in active_passives(board)
+    )
+
+
 def discard_blocked(board: BoardState, card: BoardEntity) -> bool:
     """Whether a passive protects `card` from an opponent-caused discard."""
     return any(
@@ -823,6 +881,23 @@ def evolve_heal_amount(board: BoardState, evolved: PokemonEntity,
     """Damage healed from a Pokemon just evolved from hand (Wyndon Stadium)."""
     return sum(
         passive.heal_on_evolve(evolved, pre_evolution, player_id, carrier)
+        for passive, carrier in active_passives(board)
+    )
+
+
+def evolve_damage_counters(board: BoardState, evolved: PokemonEntity,
+                           pre_evolution: BoardEntity, player_id: str) -> int:
+    """Damage counters put on a Pokemon just evolved from hand (Po Town)."""
+    return sum(
+        passive.damage_counters_on_evolve(evolved, pre_evolution, player_id, carrier)
+        for passive, carrier in active_passives(board)
+    )
+
+
+def keeps_conditions_on_evolve(board: BoardState, pokemon: PokemonEntity) -> bool:
+    """Whether a stadium/passive keeps Special Conditions through evolve/devolve."""
+    return any(
+        passive.keeps_conditions_on_evolve(pokemon, carrier)
         for passive, carrier in active_passives(board)
     )
 
@@ -931,6 +1006,17 @@ def energy_provided_options(board: Optional[BoardState], energy: BoardEntity) ->
     for passive, carrier in active_passives(board):
         options = passive.modify_energy_provided(options, energy, holder, board)
     return options
+
+
+def damage_counters_prevented(
+    board: BoardState, target: PokemonEntity,
+    source_player_id: Optional[str] = None,
+) -> bool:
+    """Whether a passive blocks putting damage counters on `target`."""
+    return any(
+        passive.prevents_damage_counters(target, carrier, source_player_id)
+        for passive, carrier in active_passives(board)
+    )
 
 
 def effective_bench_capacity(board: BoardState, player_id: str) -> int:

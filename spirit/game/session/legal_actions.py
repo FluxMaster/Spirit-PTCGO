@@ -38,6 +38,7 @@ from .passives import (
     ability_locked,
     stadium_suppressed,
     energy_attach_blocked,
+    attacks_blocked,
     can_attack_despite_conditions,
     can_evolve_early,
     effective_attack_cost,
@@ -46,6 +47,7 @@ from .passives import (
     effective_retreat_cost,
     energy_provided_options,
     evolution_blocked,
+    gx_attacks_blocked,
     retreat_blocked,
     tool_slots_free,
     trainer_play_blocked,
@@ -115,6 +117,11 @@ class TurnState:
     used_named_abilities: Set[str] = field(default_factory=set)
     # Players who already used their once-per-game VSTAR Power.
     vstar_used: Set[str] = field(default_factory=set)
+    # Players who already used their once-per-game GX attack.
+    gx_used: Set[str] = field(default_factory=set)
+    # player_id -> turn number during which that player may attach any number
+    # of Energy cards from hand (Dragonair "Dragon's Wish").
+    unlimited_energy_attach: Dict[str, int] = field(default_factory=dict)
     # (player_id, combined guid) per V-UNION already combined this game.
     vunions_assembled: Set[Tuple[str, str]] = field(default_factory=set)
     # (entity_id, ability_id) -> last turn number the attack stays locked
@@ -238,6 +245,13 @@ class TurnState:
                 if tp.expires_after_turn is None
                 or tp.expires_after_turn >= self.turn_number
             ]
+
+    def allow_unlimited_energy_attach(self, player_id: str, turn_number: int):
+        """`player_id` may attach any number of Energy from hand during `turn_number`."""
+        self.unlimited_energy_attach[player_id] = turn_number
+
+    def energy_attach_unlimited(self, player_id: str) -> bool:
+        return self.unlimited_energy_attach.get(player_id) == self.turn_number
 
     def mark_entered_play(self, entity_id: str):
         self.entered_play_turn[entity_id] = self.turn_number
@@ -469,9 +483,11 @@ def compute_legal_actions(
                 if getattr(def_for(card.archetype_id), "unplayable_from_hand", False):
                     continue  # Shedinja: enters play only via an effect
                 # Fossils stay Item cards in hand: Item locks gate the bench play.
+                # Heavy Rock-GX / Bell of Silence also lock Basic Pokemon plays.
+                if state.play_locked(player_id, card):
+                    continue
                 if card.get_attribute(AttrID.TRAINER_TYPE) is not None \
-                        and (state.play_locked(player_id, card)
-                             or trainer_play_blocked(board, player_id, card)):
+                        and trainer_play_blocked(board, player_id, card):
                     continue
                 if bench_has_space:
                     # The bench area is the drop target; without it the drag
@@ -483,6 +499,8 @@ def compute_legal_actions(
                     ))
                 continue
 
+            if state.play_locked(player_id, card):
+                continue  # Heavy Rock-GX / Bell of Silence lock evolve-from-hand
             evolves_from = card.get_attribute(AttrID.EVOLUTION_LOGIC_FROM)
             if not evolves_from:
                 continue
@@ -509,7 +527,9 @@ def compute_legal_actions(
         elif isinstance(card, EnergyEntity):
             if not in_play_ids:
                 continue
-            if state.energy_attached and state.alpha_growth_target is None:
+            unlimited = state.energy_attach_unlimited(player_id)
+            if state.energy_attached and state.alpha_growth_target is None \
+                    and not unlimited:
                 continue
             if state.play_locked(player_id, card):
                 continue
@@ -523,7 +543,8 @@ def compute_legal_actions(
                 if (attach_to is None or attach_to(p))
                 and not state.attach_restricted(p.entity_id)
                 and not energy_attach_blocked(board, player_id, card, p)
-                and (not state.energy_attached or p.entity_id == state.alpha_growth_target)
+                and (not state.energy_attached or unlimited
+                     or p.entity_id == state.alpha_growth_target)
             ]
             if targets:
                 entries.append(_target_map_entry(
@@ -819,6 +840,8 @@ def _attack_entries(
     active = board.active_pokemon(player_id)
     if not active:
         return []
+    if attacks_blocked(board, active):
+        return []
     # A passive (Windup Arm) can exempt the whole Pokemon from the gate.
     if immobilized and can_attack_despite_conditions(board, active):
         immobilized = False
@@ -851,6 +874,10 @@ def _attack_entries(
             continue
         if definition is not None and definition.vstar \
                 and player_id in state.vstar_used:
+            continue
+        if definition is not None and getattr(definition, "gx", False) \
+                and (player_id in state.gx_used
+                     or gx_attacks_blocked(board, player_id, active)):
             continue
         # Attack usage restriction ("You can use this attack only if...").
         if definition is not None and definition.condition is not None \

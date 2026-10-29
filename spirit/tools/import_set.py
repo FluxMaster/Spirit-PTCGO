@@ -35,6 +35,20 @@ RARITY_MAP = {
     "Rare Prime": "Rarities.RarePrime",
     "LEGEND": "Rarities.Legendary",
     "Rare ACE": "Rarities.Ace",
+    # Sun & Moon era. No dedicated Shiny rarity in the client enum: Shiny
+    # Vault holos map to RareHolo, full-art Shiny GX to RareUltra.
+    "Rare Holo GX": "Rarities.RareHoloGX",
+    "Rare Prism Star": "Rarities.Prism",
+    "Rare Shining": "Rarities.Shining",
+    "Rare Shiny": "Rarities.RareHolo",
+    "Rare Shiny GX": "Rarities.RareUltra",
+}
+
+# Data names whose client archetype key differs from the plain ASCII stem.
+NAME_STEM_OVERRIDES = {
+    "Unit Energy GrassFireWater": "UnitEnergyGRW",
+    "Unit Energy LightningPsychicMetal": "UnitEnergyLPM",
+    "Unit Energy FightingDarknessFairy": "UnitEnergyFDY",
 }
 
 # JSON abilities[].type -> AbilityTypes enum ref for generated Ability(...)
@@ -72,8 +86,29 @@ STAGE_MAP = {
     "MEGA": "PokemonStage.STAGE1",
 }
 
+# Client display markup: {*} is the Prism Star glyph, {G}{R}{W} energy icons
+# (LocalizationDB: "Cyrus {*}", "Unit Energy {G}{R}{W}").
+DISPLAY_NAME_OVERRIDES = {
+    "Unit Energy GrassFireWater": "Unit Energy {G}{R}{W}",
+    "Unit Energy LightningPsychicMetal": "Unit Energy {L}{P}{M}",
+    "Unit Energy FightingDarknessFairy": "Unit Energy {F}{D}{Y}",
+}
+
+
+def client_display_name(name: str) -> str:
+    if name in DISPLAY_NAME_OVERRIDES:
+        return DISPLAY_NAME_OVERRIDES[name]
+    return (name or "").replace("\u25c7", "{*}")
+
+
 def clean_name(name: str) -> str:
-    """ASCII stem for filenames: Flabébé -> Flabebe, Pokémon -> Pokemon."""
+    """ASCII stem for filenames and archetype keys: Flabébé -> Flabebe,
+    Pokémon -> Pokemon, 'Cyrus ◇' -> CyrusPrismStar (the client's
+    ...trainercards.cyrusprismstar key; keeps Prism Star cards from sharing a
+    name key with the regular card), Unit Energy -> client abbreviations."""
+    if name in NAME_STEM_OVERRIDES:
+        return NAME_STEM_OVERRIDES[name]
+    name = (name or "").replace("\u25c7", " Prism Star")
     decomposed = unicodedata.normalize("NFKD", name or "")
     ascii_only = decomposed.encode("ascii", "ignore").decode("ascii")
     return re.sub(r'[^a-zA-Z0-9]', '', ascii_only)
@@ -212,6 +247,12 @@ def map_rarity(raw_rarity: Optional[str]) -> str:
         return "Rarities.Ace"
     if "Secret" in raw:
         return "Rarities.RareSecret"
+    if "Prism" in raw:
+        return "Rarities.Prism"
+    if "Shining" in raw:
+        return "Rarities.Shining"
+    if "GX" in raw and "Holo" in raw:
+        return "Rarities.RareHoloGX"
     if "Holo" in raw:
         return "Rarities.RareHolo"
     if "Rare" in raw:
@@ -298,6 +339,7 @@ def render_script(card: Dict[str, Any]) -> Optional[str]:
     number_raw = card.get("number", "0")
     number = collector_number_int(number_raw)
     safe_name = clean_name(name)
+    name = client_display_name(name)
     rules = [fix_text(r) for r in (card.get("rules") or []) if r]
 
     # Prepare script content
@@ -499,6 +541,11 @@ def main():
     
     parser = argparse.ArgumentParser(description="Import a Pokemon TCG set from a JSON file.")
     parser.add_argument("json_path", nargs="?", default="spirit/game/scripts/cards/SWSH12/swsh12.json", help="Path to the TCG JSON file to import.")
+    parser.add_argument(
+        "--also", action="append", default=[], metavar="JSON",
+        help="Extra JSON files imported into the same set, numbered together "
+             "(Hidden Fates: sm115.json --also sma.json puts SV1.. after 69).",
+    )
     parser.add_argument("--set-code", help="The set code to use, case preserved (defaults to upper case of JSON filename).")
     parser.add_argument(
         "--skip-existing",
@@ -531,6 +578,9 @@ def main():
         
     with open(JSON_PATH, "r") as f:
         cards = json.load(f)
+    for extra in args.also:
+        with open(extra, "r") as f:
+            cards.extend(json.load(f))
     
     set_numbering(cards)
     numbers = [collector_number_int(c.get("number", "0")) for c in cards]

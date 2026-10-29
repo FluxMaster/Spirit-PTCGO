@@ -92,6 +92,7 @@ from spirit.game.attributes import (
     SpecialConditions,
     TrainerType,
 )
+from spirit.game.content.definitions import with_sort_order
 from spirit.game.data_utils import (
     ABILITIES_BY_ID, Ability, Activations, Triggers, def_for, prize_value,
     subtypes_for, unimplemented,
@@ -123,6 +124,7 @@ from .passives import (
     ability_locked, active_passives, active_to_bench_counters,
     burn_recovery_blocked, passive_sleep_coins, effective_bench_capacity, effective_max_hp,
     effective_retreat_cost, energy_attach_taxer, evolve_heal_amount,
+    evolve_damage_counters, keeps_conditions_on_evolve,
     granted_extra_attacks, retreat_energy_destination, tool_slots_free,
     tool_suppressed,
     stadium_suppressed,
@@ -1499,6 +1501,31 @@ class GameSession:
         self.confusion_damage.pop(entity_id, None)
         self.paralyzed_since.pop(entity_id, None)
 
+    def snapshot_condition_state(self, pokemon) -> dict:
+        """Copies Special Conditions and their bookkeeping for Sea of
+        Nothingness to reapply onto the surviving evolution/devolution card."""
+        eid = pokemon.entity_id
+        return {
+            "conditions": list(pokemon.get_attribute(AttrID.SPECIAL_CONDITIONS) or []),
+            "sleep": self.sleep_checkup_coins.get(eid),
+            "poison": self.poison_counters.get(eid),
+            "confusion": self.confusion_damage.get(eid),
+            "paralyzed": self.paralyzed_since.get(eid),
+        }
+
+    def restore_condition_state(self, pokemon, snap: dict) -> None:
+        """Writes a snapshot_condition_state result onto `pokemon`."""
+        pokemon.set_attribute(AttrID.SPECIAL_CONDITIONS, list(snap.get("conditions") or []))
+        eid = pokemon.entity_id
+        if snap.get("sleep") is not None:
+            self.sleep_checkup_coins[eid] = snap["sleep"]
+        if snap.get("poison") is not None:
+            self.poison_counters[eid] = snap["poison"]
+        if snap.get("confusion") is not None:
+            self.confusion_damage[eid] = snap["confusion"]
+        if snap.get("paralyzed") is not None:
+            self.paralyzed_since[eid] = snap["paralyzed"]
+
     def clear_pokemon_effects(self, pokemon) -> bool:
         """Wipes every effect that ends when a Pokemon leaves the Active spot
         or play entirely: Special Conditions (attr + bookkeeping), attack and
@@ -2266,27 +2293,31 @@ class GameSession:
         def _damage_ko(pokemon) -> bool:
             return ctx.is_attack_effect() \
                 and pokemon.entity_id in ctx.attack_damage
-        energy_ko_hooks: List[Tuple[str, Any, list]] = []
+        energy_ko_hooks: List[Tuple[str, Any, list, bool]] = []
         for pokemon in ctx.knockouts:
             owner_id = pokemon.owning_player_id
             if owner_id is None or not _damage_ko(pokemon) \
                     or ctx.attacker.owning_player_id == owner_id:
                 continue
+            was_active = self.board_state.active_pokemon(owner_id) is pokemon
             attached = self.board_state.attached_energies(pokemon)
             for energy in attached:
                 definition = def_for(energy.archetype_id)
                 hook = getattr(definition, "on_carrier_knocked_out", None)
                 if hook is not None and hook is not unimplemented:
-                    energy_ko_hooks.append((owner_id, hook, list(attached)))
-            # Pokemon Tools with the same hook (Energy Pouch); they get the
-            # pre-move list of the carrier's Energy on hook_ctx.ko_energies.
+                    energy_ko_hooks.append(
+                        (owner_id, hook, list(attached), was_active))
+            # Pokemon Tools with the same hook (Energy Pouch / Wishful Baton);
+            # they get the pre-move list of the carrier's Energy on
+            # hook_ctx.ko_energies and whether the holder was Active.
             for child in list(pokemon.children):
                 if child in attached:
                     continue
                 definition = def_for(child.archetype_id)
                 hook = getattr(definition, "on_carrier_knocked_out", None)
                 if hook is not None and hook is not unimplemented:
-                    energy_ko_hooks.append((owner_id, hook, list(attached)))
+                    energy_ko_hooks.append(
+                        (owner_id, hook, list(attached), was_active))
 
         # Prize counts/destinations evaluate BEFORE any stack moves so the
         # KO'd Pokemon's own passives and Special Conditions still count.
@@ -2486,9 +2517,11 @@ class GameSession:
                     if trigger_ctx is not None:
                         trigger_ctxs.append(trigger_ctx)
 
-        for owner_id, hook, ko_energies in energy_ko_hooks:
+        for owner_id, hook, ko_energies, was_active in energy_ko_hooks:
             hook_ctx = EffectContext(self, owner_id, ctx.attacker, None)
             hook_ctx.ko_energies = ko_energies
+            hook_ctx.ko_from_attack = True
+            hook_ctx.was_active_at_ko = was_active
             await hook(hook_ctx)
             if hook_ctx._messages:
                 await self._flush_effect_runs(hook_ctx)
@@ -4252,6 +4285,21 @@ class GameSession:
         await self._fire_stadium_triggers(
             benching_player_id, Triggers.ON_POKEMON_BENCHED, _setup)
 
+    async def fire_opponent_retreat_triggers(self, retreating_player_id: str,
+                                             retreated, new_active):
+        """ON_OPPONENT_RETREAT for the retreating player's opponent's in-play
+        Pokemon (Toxapex Toxic Spikes) after a retreat completes."""
+        def _setup(c):
+            c.retreating_player_id = retreating_player_id
+            c.retreated_pokemon = retreated
+            c.new_active = new_active
+        for pid in self._turn_order():
+            if pid == retreating_player_id:
+                continue
+            for pokemon in list(self.board_state.pokemon_in_play(pid)):
+                await self._fire_triggered_abilities(
+                    pid, pokemon, Triggers.ON_OPPONENT_RETREAT, ctx_setup=_setup)
+
     async def fire_move_to_active_triggers(self, pokemon):
         """ON_MOVE_TO_ACTIVE (Cinderace Libero), at most once per entity per
         turn regardless of how often it re-enters the Active spot."""
@@ -4422,6 +4470,8 @@ class GameSession:
     async def _broadcast_entity_attribute(self, entity, attr: AttrID, value: Any):
         """Sets `attr` on `entity` and broadcasts a standalone AttributeModified
         to both viewers; the client re-renders on the version bump."""
+        if attr == AttrID.PIE_ABILITIES:
+            value = with_sort_order(value)
         entity.set_attribute(attr, value)
         envelope = self._sequence_envelope(
             EMPTY_SEQUENCE_ID,
@@ -4478,7 +4528,22 @@ class GameSession:
             if key not in seen:
                 seen.add(key)
                 entries.append(row)
-        return entries
+        return with_sort_order(entries)
+
+    async def _apply_break_inheritance(self, card, previous):
+        """BREAK Evolution rule: the Pokemon BREAK keeps the attacks, Abilities,
+        Weakness, Resistance, and Retreat Cost of its previous Evolution (its
+        own HP and type apply), and counts as the same Stage for Stage checks.
+        The Stage is set server-side only (the client keys the sideways BREAK
+        layout off the printed Stage); printed values return on leaving play."""
+        attrs = (AttrID.WEAKNESS_TYPES, AttrID.RESISTANCE_TYPES,
+                 AttrID.RESISTANCE_AMOUNT, AttrID.RETREAT_COST)
+        if getattr(card, "_break_printed", None) is None:
+            card._break_printed = {a: card.get_attribute(a) for a in attrs + (AttrID.STAGE,)}
+        for attr in attrs:
+            await self._broadcast_entity_attribute(card, attr, previous.get_attribute(attr))
+        card.set_attribute(AttrID.STAGE, previous.get_attribute(AttrID.STAGE))
+        await self.refresh_granted_abilities(card)
 
     async def _apply_break_inheritance(self, card, previous):
         """BREAK Evolution rule: the Pokemon BREAK keeps the attacks, Abilities,
@@ -4923,22 +4988,42 @@ class GameSession:
             f"evolved {target.entity_id} into {card.entity_id}."
         )
 
-        # needs live client verification: condition marker clears on evolve
+        # Condition markers clear on evolve unless Sea of Nothingness keeps them.
+        keep_conditions = keeps_conditions_on_evolve(self.board_state, target)
+        snap = self.snapshot_condition_state(target) if keep_conditions else None
         if self.clear_pokemon_effects(target):
             await self.send_game_sequence(
                 list(self.players.values()), GameSequence.REMOVE_SPECIAL_CONDITION,
                 [self._entity_id_data_effect_msg("Target", target.entity_id),
                  self._condition_attr_msg(target)],
             )
+        if keep_conditions and snap and snap.get("conditions"):
+            self.restore_condition_state(card, snap)
+            await self.send_game_sequence(
+                list(self.players.values()), GameSequence.ADD_SPECIAL_CONDITION,
+                [self._entity_id_data_effect_msg("Target", card.entity_id),
+                 self._condition_attr_msg(card)],
+            )
 
-        # Wyndon Stadium: heal a Pokemon just evolved from hand (deck-sourced
-        # evolutions ride from_zone_intro and are not "played from hand").
+        # Wyndon Stadium / Po Town: heal or place counters on a Pokemon just
+        # evolved from hand (deck-sourced evolutions ride from_zone_intro and
+        # are not "played from hand").
         if not from_zone_intro:
             heal = evolve_heal_amount(self.board_state, card, target, player_id)
-            if heal > 0:
-                heal_ctx = EffectContext(self, player_id, card, None)
-                if await heal_ctx.heal(heal, target=card):
-                    await self._flush_effect_runs(heal_ctx)
+            counters = evolve_damage_counters(
+                self.board_state, card, target, player_id)
+            if heal > 0 or counters > 0:
+                evolve_ctx = EffectContext(self, player_id, card, None)
+                if heal > 0:
+                    await evolve_ctx.heal(heal, target=card)
+                if counters > 0:
+                    await evolve_ctx.deal_damage(
+                        counters * 10, target=card, as_counters=True)
+                await self._flush_effect_runs(evolve_ctx)
+                await self.resolve_knockouts(evolve_ctx)
+
+        if break_previous_evolution(card) is not None:
+            await self._apply_break_inheritance(card, target)
 
         if break_previous_evolution(card) is not None:
             await self._apply_break_inheritance(card, target)
@@ -4998,8 +5083,10 @@ class GameSession:
         self.board_state.move_card(pokemon.entity_id, dest.entity_id)
         moves.append(self._entity_moved_msg(pokemon.entity_id, dest.entity_id, position))
 
-        # Devolving removes Special Conditions (not damage); the removed card
-        # leaves play as a fresh card.
+        # Devolving removes Special Conditions (not damage) unless Sea of
+        # Nothingness keeps them on the surviving stage.
+        keep_conditions = keeps_conditions_on_evolve(self.board_state, pokemon)
+        snap = self.snapshot_condition_state(pokemon) if keep_conditions else None
         self.clear_pokemon_effects(pokemon)
         self.reset_pokemon_damage(pokemon)
         self.reset_ability_usage(pokemon)
@@ -5036,6 +5123,13 @@ class GameSession:
             data_effects + moves + attrs,
         )
         await self.refresh_granted_abilities(prev)
+        if keep_conditions and snap and snap.get("conditions"):
+            self.restore_condition_state(prev, snap)
+            await self.send_game_sequence(
+                list(self.players.values()), GameSequence.ADD_SPECIAL_CONDITION,
+                [self._entity_id_data_effect_msg("Target", prev.entity_id),
+                 self._condition_attr_msg(prev)],
+            )
         logging.info(
             f"[Session {self.game_id}] {pokemon.entity_id} devolved into "
             f"{prev.entity_id} ({destination_name})."
@@ -5422,6 +5516,7 @@ class GameSession:
             self.turn_state.turn_number
         await self._apply_active_to_bench_counters(player_id, card)
         await self.fire_move_to_active_triggers(new_active)
+        await self.fire_opponent_retreat_triggers(player_id, card, new_active)
         # An Active-spot change can flip suppression passives (Tool Jammer).
         await self.resync_effective_max_hp()
 
@@ -5469,6 +5564,8 @@ class GameSession:
                 self.turn_state.lock_attack(card.entity_id, action_id)
             if ability.vstar:
                 self.turn_state.vstar_used.add(player_id)
+            if getattr(ability, "gx", False):
+                self.turn_state.gx_used.add(player_id)
 
         ctx = await resolve_attack(self, player_id, card, ability, action_id)
         # Effects like Aqua Return can remove the attacker itself from play.
