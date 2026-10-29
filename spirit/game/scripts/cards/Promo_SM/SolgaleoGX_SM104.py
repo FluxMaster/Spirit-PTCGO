@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Solgaleo-GX (Promo_SM #SM104): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.trainers import is_basic_energy_card
+from spirit.game.card_effects.smp import shining_mane_passive
 
 
 async def turbo_storm(ctx):
@@ -59,22 +56,19 @@ card = PokemonCardDef(
             title="Shining Mane",
             game_text="Your Pok\u00e9mon in play have no Weakness.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=shining_mane_passive,
         ),
         Attack(
             title="Turbo Strike",
             game_text="Attach 2 basic Energy cards from your discard pile to 1 of your Benched Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 2},
             damage=120,
-            # STUB: attack effect not implemented
             effect=turbo_storm,
         ),
         Attack(
             title="Prominence-GX",
             game_text="Heal all damage from all of your Pok\u00e9mon. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.COLORLESS: 2},
-            # STUB: attack effect not implemented
             effect=_grand_echo,
         ),
     ],

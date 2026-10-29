@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Pikachu (Promo_SM #SM234): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.smp import find_a_friend
 
 card = PokemonCardDef(
     guid="e2629911-493d-508e-b160-910e17dbcc17",
@@ -28,8 +25,7 @@ card = PokemonCardDef(
             title="Find a Friend",
             game_text="Flip a coin. If heads, search your deck for a Pok\u00e9mon, reveal it, and put it into your hand. Then, shuffle your deck.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=find_a_friend,
         ),
         Attack(
             title="Gnaw",

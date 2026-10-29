@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Raikou-GX (Promo_SM #SM121): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.dm import bolt_strike
+from spirit.game.card_effects.smp import thunderous_rain_gx
 
 
 card = PokemonCardDef(
@@ -36,15 +33,13 @@ card = PokemonCardDef(
             game_text="Flip a coin. If tails, this Pok\u00e9mon does 50 damage to itself.",
             cost={PokemonTypes.LIGHTNING: 2, PokemonTypes.COLORLESS: 2},
             damage=150,
-            # STUB: attack effect not implemented
             effect=bolt_strike,
         ),
         Attack(
             title="Thunderous Rain-GX",
             game_text="This attack does 100 damage to each of your opponent's Pok\u00e9mon that has any Energy attached to it. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.) (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.LIGHTNING: 4},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=thunderous_rain_gx,
         ),
     ],
 )

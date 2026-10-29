@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Greninja-GX (Promo_SM #SM197): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import ignore_effects_attack
+from spirit.game.card_effects.smp import dark_mist_gx, elusive_master, elusive_master_condition
 
 
 card = PokemonCardDef(
@@ -29,23 +26,23 @@ card = PokemonCardDef(
             title="Elusive Master",
             game_text="Once during your turn (before your attack), if this Pok\u00e9mon is the last card in your hand, you may play it onto your Bench. If you do, draw 3 cards.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=elusive_master,
+            activation=Activations.ONCE_PER_TURN,
+            usable_from="hand",
+            condition=elusive_master_condition,
         ),
         Attack(
             title="Mist Slash",
             game_text="This attack's damage isn't affected by Weakness, Resistance, or any other effects on your opponent's Active Pok\u00e9mon.",
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 1},
             damage=130,
-            # STUB: attack effect not implemented
             effect=ignore_effects_attack(ignore_weakness=True, ignore_resistance=True),
         ),
         Attack(
             title="Dark Mist-GX",
             game_text="Put 1 of your opponent's Benched Pok\u00e9mon and all cards attached to it into your opponent's hand. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.WATER: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=dark_mist_gx,
         ),
     ],
 )

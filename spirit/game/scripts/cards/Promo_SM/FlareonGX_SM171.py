@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Flareon-GX (Promo_SM #SM171): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import self_energy_discard_attack
+from spirit.game.card_effects.smp import heat_stage, power_burner_gx
 
 
 card = PokemonCardDef(
@@ -30,15 +27,13 @@ card = PokemonCardDef(
             game_text="You may attach up to 3 Fire Energy cards from your hand to your Pok\u00e9mon in any way you like.",
             cost={PokemonTypes.FIRE: 1},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=heat_stage,
         ),
         Attack(
             title="Bright Flame",
             game_text="Discard 2 Fire Energy from this Pok\u00e9mon.",
             cost={PokemonTypes.FIRE: 2, PokemonTypes.COLORLESS: 1},
             damage=190,
-            # STUB: attack effect not implemented
             effect=self_energy_discard_attack(count=2, energy_type=PokemonTypes.FIRE),
         ),
         Attack(
@@ -47,8 +42,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 1},
             damage=20,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=power_burner_gx,
         ),
     ],
 )

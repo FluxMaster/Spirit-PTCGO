@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Charizard-GX (Promo_SM #SM195): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.sm4 import dread_storm_gx
+from spirit.game.card_effects.smp import raging_destruction
 
 
 card = PokemonCardDef(
@@ -29,8 +26,7 @@ card = PokemonCardDef(
             title="Raging Destruction",
             game_text="Discard the top 8 cards of your deck. If any of those cards are Fire Energy cards, attach them to this Pok\u00e9mon.",
             cost={PokemonTypes.FIRE: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=raging_destruction,
         ),
         Attack(
             title="Steam Artillery",
@@ -42,7 +38,6 @@ card = PokemonCardDef(
             game_text="Discard an Energy from each of your opponent's Pok\u00e9mon. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.FIRE: 2, PokemonTypes.COLORLESS: 3},
             damage=250,
-            # STUB: attack effect not implemented
             effect=dread_storm_gx,
         ),
     ],

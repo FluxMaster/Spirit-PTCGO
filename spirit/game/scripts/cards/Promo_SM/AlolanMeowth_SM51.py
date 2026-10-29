@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Alolan Meowth (Promo_SM #SM51): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.smp import nasty_plot
 
 card = PokemonCardDef(
     guid="9d8d395d-4dcd-59ca-ae40-372f54faf01f",
@@ -28,8 +25,7 @@ card = PokemonCardDef(
             title="Nasty Plot",
             game_text="Flip a coin. If heads, search your deck for a card and put it into your hand. Then, shuffle your deck.",
             cost={},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=nasty_plot,
         ),
         Attack(
             title="Scratch",

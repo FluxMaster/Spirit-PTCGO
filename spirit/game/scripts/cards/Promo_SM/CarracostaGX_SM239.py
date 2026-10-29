@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Carracosta-GX (Promo_SM #SM239): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.smp import high_density_armor_passive, stone_age_gx
 
 
 card = PokemonCardDef(
@@ -29,23 +26,20 @@ card = PokemonCardDef(
             title="High Density Armor",
             game_text="If this Pok\u00e9mon has full HP, it takes 90 less damage from your opponent's attacks (after applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=high_density_armor_passive,
         ),
         Attack(
             title="Ground Crush",
             game_text="The Defending Pok\u00e9mon can't retreat during your opponent's next turn.",
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 3},
             damage=160,
-            # STUB: attack effect not implemented
             effect=condition_attack(no_retreat=True),
         ),
         Attack(
             title="Stone Age-GX",
             game_text="Put any number of Pok\u00e9mon that evolve from Unidentified Fossil from your discard pile onto your Bench. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=stone_age_gx,
         ),
     ],
 )

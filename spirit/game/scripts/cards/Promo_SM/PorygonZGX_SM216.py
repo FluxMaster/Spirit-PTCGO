@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Porygon-Z-GX (Promo_SM #SM216): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.smp import abnormal_overheating, critical_error_gx, troubleshooting, troubleshooting_condition
 
 card = PokemonCardDef(
     guid="5cc94745-1e52-5413-a42b-0fcb2d451bdf",
@@ -27,23 +24,22 @@ card = PokemonCardDef(
             title="Troubleshooting",
             game_text="Once during your turn (before your attack), you may discard a Special Energy from this Pok\u00e9mon. If you do, heal 80 damage from it.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=troubleshooting,
+            activation=Activations.ONCE_PER_TURN,
+            condition=troubleshooting_condition,
         ),
         Attack(
             title="Abnormal Overheating",
             game_text="This Pok\u00e9mon is now Burned.",
             cost={PokemonTypes.COLORLESS: 3},
             damage=160,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=abnormal_overheating,
         ),
         Attack(
             title="Critical Error-GX",
             game_text="Search your deck for up to 10 cards and discard them. Then, shuffle your deck. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=critical_error_gx,
         ),
     ],
 )

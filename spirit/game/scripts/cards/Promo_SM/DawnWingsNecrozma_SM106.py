@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dawn Wings Necrozma (Promo_SM #SM106): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import self_energy_discard_attack
+from spirit.game.card_effects.smp import gulf_stream
 
 
 card = PokemonCardDef(
@@ -32,15 +29,13 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 1},
             damage=20,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=gulf_stream,
         ),
         Attack(
             title="Sword of Dawn",
             game_text="Discard 2 Energy from this Pok\u00e9mon.",
             cost={PokemonTypes.PSYCHIC: 3},
             damage=130,
-            # STUB: attack effect not implemented
             effect=self_energy_discard_attack(count=2),
         ),
     ],

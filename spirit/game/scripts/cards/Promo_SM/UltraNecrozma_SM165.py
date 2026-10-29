@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Ultra Necrozma (Promo_SM #SM165): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.smp import shining_burst
 
 card = PokemonCardDef(
     guid="ca47c5aa-e8d1-565f-b61d-b7c20fabca70",
@@ -28,8 +25,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 2, PokemonTypes.METAL: 2},
             damage=100,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=shining_burst,
         ),
     ],
 )

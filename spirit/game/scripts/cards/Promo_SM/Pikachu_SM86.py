@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Pikachu (Promo_SM #SM86): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.smp import spark
 
 card = PokemonCardDef(
     guid="5d9c0e9b-90c2-5b59-8006-28c80aa5a9e1",
@@ -34,8 +31,7 @@ card = PokemonCardDef(
             game_text="This attack does 10 damage to 1 of your opponent's Benched Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=spark,
         ),
     ],
 )

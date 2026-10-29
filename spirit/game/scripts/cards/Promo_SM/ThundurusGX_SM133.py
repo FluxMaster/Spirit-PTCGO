@@ -1,11 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Thundurus-GX (Promo_SM #SM133): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.pokemon import is_lightning_energy
 from spirit.game.card_effects.support_common import search_attach_energy
+from spirit.game.card_effects.smp import thundering_hurricane_gx
 
 
 card = PokemonCardDef(
@@ -31,7 +28,6 @@ card = PokemonCardDef(
             title="Charge",
             game_text="Search your deck for a Lightning Energy card and attach it to this Pok\u00e9mon. Then, shuffle your deck.",
             cost={PokemonTypes.LIGHTNING: 1},
-            # STUB: attack effect not implemented
             effect=search_attach_energy(predicate=is_lightning_energy, count=1, to_self=True),
         ),
         Attack(
@@ -45,8 +41,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 3},
             damage=100,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=thundering_hurricane_gx,
         ),
     ],
 )

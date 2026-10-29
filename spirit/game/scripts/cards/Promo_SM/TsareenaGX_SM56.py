@@ -1,11 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Tsareena-GX (Promo_SM #SM56): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.support_common import gust_then
+from spirit.game.card_effects.smp import jumping_side_kick, queens_command_gx
 
 
 async def _alluring_dance_confuse(ctx, new_active):
@@ -34,7 +31,6 @@ card = PokemonCardDef(
             title="Side Eye",
             game_text="Switch 1 of your opponent's Benched Pok\u00e9mon with their Active Pok\u00e9mon. The new Active Pok\u00e9mon is now Confused.",
             cost={PokemonTypes.GRASS: 1},
-            # STUB: attack effect not implemented
             effect=gust_then(_alluring_dance_confuse),
         ),
         Attack(
@@ -43,15 +39,13 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 2},
             damage=90,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=jumping_side_kick,
         ),
         Attack(
             title="Queen's Command-GX",
             game_text="Your opponent discards 4 cards from their hand. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.GRASS: 2, PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=queens_command_gx,
         ),
     ],
 )

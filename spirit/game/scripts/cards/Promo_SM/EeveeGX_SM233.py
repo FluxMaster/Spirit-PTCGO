@@ -1,20 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Eevee-GX (Promo_SM #SM233): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
-
-
-async def _hollow_hunt(ctx):
-    """Put 3 cards from your discard pile into your hand."""
-    cards = list(ctx.discard_pile())
-    if not cards:
-        return
-    n = min(3, len(cards))
-    picks = await ctx.choose_cards(cards, n, minimum=n,
-                                   prompt="Choose 3 cards to put into your hand.")
-    await ctx.put_in_hand(picks, reveal=True)
+from spirit.game.card_effects.smp import ascension_dna, ascension_dna_condition, joy_maker_gx
 
 
 card = PokemonCardDef(
@@ -38,8 +24,9 @@ card = PokemonCardDef(
             title="Ascension DNA",
             game_text="Once during your turn (before your attack), if you have a Pok\u00e9mon in your hand that evolves from Eevee, you may put that card onto this Pok\u00e9mon to evolve it. Before evolving, heal all damage from this Pok\u00e9mon. You can't use this Ability during your first turn or on the turn this Pok\u00e9mon was put into play.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=ascension_dna,
+            activation=Activations.ONCE_PER_TURN,
+            condition=ascension_dna_condition,
         ),
         Attack(
             title="Boost Dash",
@@ -50,8 +37,7 @@ card = PokemonCardDef(
             title="Joy Maker-GX",
             game_text="Put 3 cards from your discard pile into your hand. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=_hollow_hunt,
+            effect=joy_maker_gx,
         ),
     ],
 )

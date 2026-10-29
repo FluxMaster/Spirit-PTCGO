@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Detective Pikachu (Promo_SM #SM194): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.smp import brilliant_deduction
 
 card = PokemonCardDef(
     guid="8d12c765-9791-5e71-acb4-f29dae03db1b",
@@ -28,8 +25,7 @@ card = PokemonCardDef(
             title="Brilliant Deduction",
             game_text="Look at the top 4 cards of your deck and put 1 of them into your hand. Shuffle the other cards back into your deck.",
             cost={PokemonTypes.LIGHTNING: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=brilliant_deduction,
         ),
     ],
 )

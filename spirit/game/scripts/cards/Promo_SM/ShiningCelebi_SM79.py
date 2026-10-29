@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Shining Celebi (Promo_SM #SM79): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.smp import time_recall_passive
 
 card = PokemonCardDef(
     guid="8e353f1b-7773-5e66-9e46-62c8f2c6c6df",
@@ -26,8 +23,7 @@ card = PokemonCardDef(
             title="Time Recall",
             game_text="Each of your evolved Pok\u00e9mon can use any attack from its previous Evolutions. (You still need the necessary Energy to use each attack.)",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=time_recall_passive,
         ),
         Attack(
             title="Leaf Step",

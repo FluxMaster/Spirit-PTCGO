@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Melmetal-GX (Promo_SM #SM178): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.passives_common import takes_less_passive
+from spirit.game.card_effects.smp import iron_force_gx, metal_blast
 
 
 card = PokemonCardDef(
@@ -31,7 +28,6 @@ card = PokemonCardDef(
             title="Hard Coat",
             game_text="This Pok\u00e9mon takes 30 less damage from attacks (after applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
             passive=takes_less_passive(30),
         ),
         Attack(
@@ -40,15 +36,13 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 4},
             damage=110,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=metal_blast,
         ),
         Attack(
             title="Iron Force-GX",
             game_text="Attach any number of Metal Energy cards from your discard pile to this Pok\u00e9mon. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.METAL: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=iron_force_gx,
         ),
     ],
 )

@@ -1,11 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Alolan Sandslash-GX (Promo_SM #SM236): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.data_utils import Triggers
 from spirit.game.card_effects.pokemon import in_active_spot
+from spirit.game.card_effects.smp import spiky_storm_gx
 
 
 async def counterattack(ctx):
@@ -40,7 +37,6 @@ card = PokemonCardDef(
             title="Spiky Shield",
             game_text="If this Pok\u00e9mon is your Active Pok\u00e9mon and is damaged by an opponent's attack (even if this Pok\u00e9mon is Knocked Out), put 3 damage counters on the Attacking Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
             trigger=Triggers.ON_DAMAGED_BY_ATTACK,
             effect=counterattack,
         ),
@@ -53,8 +49,7 @@ card = PokemonCardDef(
             title="Spiky Storm-GX",
             game_text="This attack does 100 damage to each of your opponent's Pok\u00e9mon that has any damage counters on it. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=spiky_storm_gx,
         ),
     ],
 )

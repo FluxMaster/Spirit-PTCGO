@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Shining Ho-Oh (Promo_SM #SM70): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import self_energy_discard_attack
+from spirit.game.card_effects.smp import golden_wing
 
 
 card = PokemonCardDef(
@@ -30,15 +27,14 @@ card = PokemonCardDef(
             title="Golden Wing",
             game_text="If this Pok\u00e9mon is your Active Pok\u00e9mon and is Knocked Out by damage from an opponent's attack, move up to 2 basic Energy cards from this Pok\u00e9mon to your Benched Pok\u00e9mon in any way you like.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=golden_wing,
+            trigger=Triggers.ON_KNOCKED_OUT,
         ),
         Attack(
             title="Fire Blast",
             game_text="Discard an Energy from this Pok\u00e9mon.",
             cost={PokemonTypes.FIRE: 1, PokemonTypes.COLORLESS: 3},
             damage=110,
-            # STUB: attack effect not implemented
             effect=self_energy_discard_attack(count=1),
         ),
     ],

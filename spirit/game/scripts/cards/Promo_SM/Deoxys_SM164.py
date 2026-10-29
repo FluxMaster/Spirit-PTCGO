@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Deoxys (Promo_SM #SM164): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.smp import power_suction, power_suction_condition, psycho_boost
 
 card = PokemonCardDef(
     guid="c8af6223-78de-5f42-82c1-94e23bad39da",
@@ -26,16 +23,16 @@ card = PokemonCardDef(
             title="Power Suction",
             game_text="Once during your turn (before your attack), you may move an Energy from 1 of your Pok\u00e9mon to 1 of your Deoxys.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=power_suction,
+            activation=Activations.ONCE_PER_TURN,
+            condition=power_suction_condition,
         ),
         Attack(
             title="Psycho Boost",
             game_text="During your next turn, this Pok\u00e9mon's Psycho Boost attack's base damage is 50.",
             cost={PokemonTypes.PSYCHIC: 2, PokemonTypes.COLORLESS: 1},
             damage=100,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=psycho_boost,
         ),
     ],
 )

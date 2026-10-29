@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Shining Lugia (Promo_SM #SM82): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.sm7 import silver_fist
+from spirit.game.card_effects.smp import aero_force
 
 
 card = PokemonCardDef(
@@ -32,7 +29,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=60,
             damage_operator="+",
-            # STUB: attack effect not implemented
             effect=silver_fist,
         ),
         Attack(
@@ -40,8 +36,7 @@ card = PokemonCardDef(
             game_text="Discard an Energy attached to this Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 4},
             damage=130,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=aero_force,
         ),
     ],
 )

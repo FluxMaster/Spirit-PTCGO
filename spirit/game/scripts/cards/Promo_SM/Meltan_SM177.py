@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Meltan (Promo_SM #SM177): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.smp import multiply
 
 card = PokemonCardDef(
     guid="2e776f79-c1b2-52f1-871c-8c970c6c7fa7",
@@ -28,8 +25,7 @@ card = PokemonCardDef(
             title="Multiply",
             game_text="Search your deck for Meltan and put it onto your Bench. Then, shuffle your deck.",
             cost={PokemonTypes.METAL: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=multiply,
         ),
         Attack(
             title="Beam",

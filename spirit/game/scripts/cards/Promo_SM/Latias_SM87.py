@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Latias (Promo_SM #SM87): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.sm6 import diamond_rain
+from spirit.game.card_effects.smp import flight_support_passive
 
 
 card = PokemonCardDef(
@@ -28,15 +25,13 @@ card = PokemonCardDef(
             title="Flight Support",
             game_text="Your Latios in play have no Retreat Cost.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=flight_support_passive,
         ),
         Attack(
             title="Misty Gale",
             game_text="Heal 30 damage from each of your Benched Pok\u00e9mon.",
             cost={PokemonTypes.PSYCHIC: 1},
             damage=30,
-            # STUB: attack effect not implemented
             effect=diamond_rain,
         ),
     ],

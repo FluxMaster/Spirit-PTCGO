@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Trevenant & Dusknoir-GX (Promo_SM #SM217): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 import random
+from spirit.game.card_effects.smp import pale_moon_gx
 
 
 async def bend(ctx):
@@ -42,15 +39,13 @@ card = PokemonCardDef(
             game_text="Choose 2 random cards from your opponent's hand. Your opponent reveals those cards and shuffles them into their deck.",
             cost={PokemonTypes.PSYCHIC: 3},
             damage=150,
-            # STUB: attack effect not implemented
             effect=bend,
         ),
         Attack(
             title="Pale Moon-GX",
             game_text="At the end of your opponent's next turn, the Defending Pok\u00e9mon will be Knocked Out. If this Pok\u00e9mon has at least 1 extra Psychic Energy attached to it (in addition to this attack's cost), discard all Energy from your opponent's Active Pok\u00e9mon. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=pale_moon_gx,
         ),
     ],
 )

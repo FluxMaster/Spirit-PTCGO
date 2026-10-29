@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Zekrom-GX (Promo_SM #SM138): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import ignore_effects_attack
+from spirit.game.card_effects.smp import bullet_uppercut, swift_bolt_strike
 
 
 card = PokemonCardDef(
@@ -32,8 +29,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bullet_uppercut,
         ),
         Attack(
             title="Swift Bolt Strike",
@@ -41,15 +37,13 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 3, PokemonTypes.COLORLESS: 1},
             damage=80,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=swift_bolt_strike,
         ),
         Attack(
             title="Rampage Bolt-GX",
             game_text="This attack's damage isn't affected by any effects on your opponent's Active Pok\u00e9mon. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.LIGHTNING: 3, PokemonTypes.COLORLESS: 1},
             damage=200,
-            # STUB: attack effect not implemented
             effect=ignore_effects_attack(),
         ),
     ],
