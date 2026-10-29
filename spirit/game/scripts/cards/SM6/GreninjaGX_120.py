@@ -4,6 +4,22 @@ Greninja-GX (SM6 #120): one or more attacks/abilities use effect=unimplemented u
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.data_utils import Triggers
+from spirit.game.card_effects.support_common import remove_self_from_play
+
+
+async def untamed_shout(ctx):
+    if not await ctx.ask_yes_no(
+            "Put 3 damage counters on 1 of your opponent's Pokémon?"):
+        return
+    candidates = ctx.opponent_pokemon_in_play()
+    if not candidates:
+        return
+    target = await ctx.choose_pokemon(
+        candidates, "Choose 1 of your opponent's Pokémon")
+    if target is not None:
+        await ctx.deal_damage(30, target=target, as_counters=True)
+
 
 card = PokemonCardDef(
     guid="635b41b6-f6ea-5e2a-8283-e2621d42226d",
@@ -28,7 +44,8 @@ card = PokemonCardDef(
             game_text="When you play this Pok\u00e9mon from your hand to evolve 1 of your Pok\u00e9mon during your turn, you may put 3 damage counters on 1 of your opponent's Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=Triggers.ON_EVOLVE,
+            effect=untamed_shout,
         ),
         Attack(
             title="Haze Slash",
@@ -36,7 +53,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 2},
             damage=110,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=remove_self_from_play('deck', optional=True),
         ),
         Attack(
             title="Shadowy Hunter-GX",

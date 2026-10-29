@@ -4,6 +4,9 @@ Dedenne (SM6 #88): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import search_to_hand
+from spirit.game.session.effects import is_pokemon_card
+
 
 card = PokemonCardDef(
     guid="15cc39fd-942f-5ae4-aad5-effc29efd424",
@@ -29,7 +32,7 @@ card = PokemonCardDef(
             game_text="Search your deck for a Pok\u00e9mon, reveal it, and put it into your hand. Then, shuffle your deck.",
             cost={PokemonTypes.FAIRY: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=search_to_hand(is_pokemon_card, count=1, minimum=0, reveal=True, prompt='Choose a Pokémon.'),
         ),
         Attack(
             title="Electrichain",

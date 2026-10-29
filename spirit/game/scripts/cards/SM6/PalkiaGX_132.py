@@ -4,6 +4,8 @@ Palkia-GX (SM6 #132): one or more attacks/abilities use effect=unimplemented unt
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm5 import spatial_control, hydro_pressure, zero_vanish_gx
+
 
 card = PokemonCardDef(
     guid="477c978f-9c44-55c5-b1fd-9efe94bf478e",
@@ -27,7 +29,7 @@ card = PokemonCardDef(
             game_text="Move any number of Energy from your Benched Pok\u00e9mon to this Pok\u00e9mon.",
             cost={PokemonTypes.WATER: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=spatial_control,
         ),
         Attack(
             title="Hydro Pressure",
@@ -36,7 +38,7 @@ card = PokemonCardDef(
             damage=60,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=hydro_pressure,
         ),
         Attack(
             title="Zero Vanish-GX",
@@ -44,7 +46,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 3, PokemonTypes.COLORLESS: 2},
             damage=150,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=zero_vanish_gx,
         ),
     ],
 )

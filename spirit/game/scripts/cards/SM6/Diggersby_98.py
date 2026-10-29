@@ -4,6 +4,8 @@ Diggersby (SM6 #98): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm4 import continuous_headbutt
+
 
 card = PokemonCardDef(
     guid="d5b8d245-967d-5bda-b520-55bb2cbd135a",
@@ -39,7 +41,7 @@ card = PokemonCardDef(
             damage=80,
             damage_operator="x",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=continuous_headbutt,
         ),
     ],
 )

@@ -1,12 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Energy Recycler (SM6 #143): trainer effect stubbed.
-
-Card text:
-  - Shuffle 5 basic Energy cards from your discard pile into your deck.
-  - You may play as many Item cards as you like during your turn (before your attack).
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.card_effects.support_common import recover_from_discard, requires_discard
+from spirit.game.card_effects.trainers import is_basic_energy_card
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
 
 card = ItemCardDef(
@@ -19,6 +13,9 @@ card = ItemCardDef(
     collector_number=143,
     set_code="SM6",
     rarity=Rarities.RareSecret,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    condition=requires_discard(is_basic_energy_card, n=5),
+    effect=recover_from_discard(
+        is_basic_energy_card, count=5, minimum=5, to="deck_shuffle",
+        prompt="Choose 5 basic Energy to shuffle into your deck.",
+    ),
 )

@@ -4,6 +4,8 @@ Pancham (SM6 #65): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm4 import sucker_punch
+
 
 card = PokemonCardDef(
     guid="a5544e39-b8dd-5185-a899-2b3d4ae30510",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             damage=10,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=sucker_punch,
         ),
     ],
 )

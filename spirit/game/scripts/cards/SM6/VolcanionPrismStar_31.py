@@ -4,6 +4,8 @@ Volcanion {*} (SM6 #31): one or more attacks/abilities use effect=unimplemented 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import spread_damage
+
 
 card = PokemonCardDef(
     guid="976c1a05-3eeb-5d87-9bc2-3d3ee0553b67",
@@ -35,7 +37,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 3},
             damage=100,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=spread_damage(20, side='opponent'),
         ),
     ],
 )

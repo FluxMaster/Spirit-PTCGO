@@ -4,6 +4,8 @@ Flabébé (SM6 #83): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm5 import EvolutionaryAdvantagePassive
+
 
 card = PokemonCardDef(
     guid="888a34f9-e88e-5cc5-8217-608e4028db7d",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             game_text="If you go second, this Pok\u00e9mon can evolve during your first turn.",
             ability_type=AbilityTypes.POKE_ABILITY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=EvolutionaryAdvantagePassive(),
         ),
         Attack(
             title="Tackle",

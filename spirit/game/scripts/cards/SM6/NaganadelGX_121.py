@@ -5,6 +5,12 @@ Naganadel-GX (SM6 #121): one or more attacks/abilities use effect=unimplemented 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 
+
+async def sonic_boom(ctx):
+    """40. This attack's damage isn't affected by Weakness or Resistance."""
+    await ctx.deal_damage(apply_modifiers=False)
+
+
 card = PokemonCardDef(
     guid="fff6d41f-026b-5b3b-8531-1e00a3c93094",
     key="SM6",
@@ -38,7 +44,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 2},
             damage=110,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=sonic_boom,
         ),
         Attack(
             title="Stinger-GX",

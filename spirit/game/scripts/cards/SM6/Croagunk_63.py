@@ -5,6 +5,22 @@ Croagunk (SM6 #63): one or more attacks/abilities use effect=unimplemented until
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 
+
+async def cut_down(ctx):
+    """Printed damage; flip a coin, heads: discard an Energy from the opponent's Active."""
+    await ctx.deal_damage()
+    heads = await ctx.flip_coins(1, "Muddy Acid")
+    if not heads[0]:
+        return
+    target = ctx.opponent_active()
+    if target is None or ctx.effects_blocked(target):
+        return
+    await ctx.discard_energy_from(
+        target, 1,
+        prompt="Choose an Energy to discard from the Defending Pokémon.",
+    )
+
+
 card = PokemonCardDef(
     guid="2f76ab6e-56fe-545d-a7d0-d92ecd18d9be",
     key="SM6",
@@ -28,7 +44,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1},
             damage=10,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=cut_down,
         ),
     ],
 )

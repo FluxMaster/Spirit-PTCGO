@@ -4,6 +4,28 @@ Aurorus (SM6 #28): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.passives_common import prevent_damage_when
+from spirit.game.session.effects import is_evolution_pokemon
+from spirit.game.session.passives import carrier_pokemon
+from spirit.game.card_effects.attacks_common import lock_all_attacks
+
+
+async def frost_wall(ctx):
+    """30. During your opponent's next turn, prevent all damage done to this
+    Pokemon by attacks from Evolution Pokemon."""
+    await ctx.deal_damage()
+    passive = prevent_damage_when(
+        lambda calc, carrier: carrier_pokemon(carrier) is calc.target
+        and is_evolution_pokemon(calc.attacker)
+    )
+    ctx.add_passive_through_opponents_turn(ctx.attacker, passive)
+
+
+async def _freeze_shock(ctx):
+    """Printed damage; this Pokemon can't attack during your next turn."""
+    await ctx.deal_damage()
+    lock_all_attacks(ctx, ctx.attacker)
+
 
 card = PokemonCardDef(
     guid="c66198bb-0758-5ea0-88e1-5a44c749b9f6",
@@ -29,7 +51,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 2},
             damage=50,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=frost_wall,
         ),
         Attack(
             title="Blizzard Burn",
@@ -37,7 +59,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 2, PokemonTypes.COLORLESS: 2},
             damage=150,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=_freeze_shock,
         ),
     ],
 )

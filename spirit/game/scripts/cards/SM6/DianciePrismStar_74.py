@@ -5,6 +5,13 @@ Diancie {*} (SM6 #74): one or more attacks/abilities use effect=unimplemented un
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 
+
+async def sugary_sprinkles(ctx):
+    """Heal 30 damage from each of your Benched Pokemon."""
+    for pokemon in ctx.my_bench():
+        await ctx.heal(30, pokemon)
+
+
 card = PokemonCardDef(
     guid="6eb6ea32-5340-53d6-b32a-53a8ce66fd29",
     key="SM6",
@@ -35,7 +42,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 3},
             damage=90,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=sugary_sprinkles,
         ),
     ],
 )

@@ -5,6 +5,13 @@ Furfrou (SM6 #99): one or more attacks/abilities use effect=unimplemented until 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 
+
+async def _return(ctx):
+    await ctx.deal_damage()
+    if await ctx.ask_yes_no("Draw cards until you have 5 cards in your hand?"):
+        await ctx.draw_until(5)
+
+
 card = PokemonCardDef(
     guid="382c1054-c839-5fd1-afc1-6f04f5714e2e",
     key="SM6",
@@ -28,7 +35,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=_return,
         ),
     ],
 )

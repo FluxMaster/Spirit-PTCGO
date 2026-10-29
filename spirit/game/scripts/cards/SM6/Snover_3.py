@@ -4,6 +4,8 @@ Snover (SM6 #3): one or more attacks/abilities use effect=unimplemented until a 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm5 import ice_shard
+
 
 card = PokemonCardDef(
     guid="7fafa0ec-4ea1-5453-9710-073353b79460",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             damage=20,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=ice_shard,
         ),
     ],
 )
