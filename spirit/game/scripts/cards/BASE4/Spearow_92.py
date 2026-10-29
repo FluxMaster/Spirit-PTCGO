@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Spearow (BASE4 #92): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import mirror_move, mirror_move_condition
+
 
 card = PokemonCardDef(
     guid="fffec2e8-bb82-5a7e-8b4c-3b0f685e2955",
@@ -32,8 +30,8 @@ card = PokemonCardDef(
             title="Mirror Move",
             game_text="If Spearow was attacked last turn, do the final result of that attack on Spearow to the Defending Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 3},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            condition=mirror_move_condition,
+            effect=mirror_move,
         ),
     ],
 )

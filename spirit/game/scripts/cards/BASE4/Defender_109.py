@@ -1,12 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Defender (BASE4 #109): trainer effect stubbed.
-
-Card text:
-  - Attach Defender to 1 of your Pokémon. At the end of your opponent's next turn, discard Defender. Damage done to that Pokémon by attacks is reduced by 20 (after applying Weakness and Resistance).
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ecard import defender, defender_passive
+from spirit.game.card_effects.trainers import player_play_targets
+
 
 card = ItemCardDef(
     guid="aeeaca71-e23c-593c-8c10-31b59816f315",
@@ -18,6 +14,8 @@ card = ItemCardDef(
     collector_number=109,
     set_code="BASE4",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=defender,
+    play_targets=player_play_targets(),
+    play_target_prompt="Choose a Pokémon to attach Defender to",
 )
+card.passive = defender_passive

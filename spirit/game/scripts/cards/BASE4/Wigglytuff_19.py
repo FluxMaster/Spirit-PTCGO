@@ -1,9 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Wigglytuff (BASE4 #19): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.attributes import SpecialConditions
+from spirit.game.card_effects.attacks_common import (
+    condition_attack, count_bench, damage_per,
+)
+
 
 card = PokemonCardDef(
     guid="a4062cb6-3c6b-5c94-9014-edf76d1d8a42",
@@ -28,8 +29,7 @@ card = PokemonCardDef(
             title="Lullaby",
             game_text="The Defending Pok\u00e9mon is now Asleep.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(SpecialConditions.ASLEEP),
         ),
         Attack(
             title="Do the Wave",
@@ -37,8 +37,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_per(count_bench("mine"), 10, base=10),
         ),
     ],
 )

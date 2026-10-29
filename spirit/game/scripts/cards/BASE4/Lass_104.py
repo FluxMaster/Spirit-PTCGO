@@ -1,12 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Lass (BASE4 #104): trainer effect stubbed.
-
-Card text:
-  - You and your opponent show each other your hands, then shuffle all the Trainer cards from your hands into your decks.
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ecard import lass
 
 card = ItemCardDef(
     guid="6b1a01aa-1f51-57ae-90df-798afdd9c40c",
@@ -18,6 +12,5 @@ card = ItemCardDef(
     collector_number=104,
     set_code="BASE4",
     rarity=Rarities.Rare,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=lass,
 )

@@ -4,6 +4,9 @@ Blastoise (BASE4 #2): one or more attacks/abilities use effect=unimplemented unt
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.data_utils import Activations
+from spirit.game.card_effects.ecard import rain_dance, rain_dance_condition
+
 
 card = PokemonCardDef(
     guid="1918bf13-e7e9-59de-960d-e9ca551229f5",
@@ -28,7 +31,9 @@ card = PokemonCardDef(
             game_text="As often as you like during your turn (before your attack), you may attach 1 Water Energy card to 1 of your Water Pok\u00e9mon. (This doesn't use up your 1 Energy card attachment for the turn.) This power can't be used if Blastoise is Asleep, Confused, or Paralyzed.",
             ability_type=AbilityTypes.POKE_ABILITY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.UNLIMITED,
+            condition=rain_dance_condition,
+            effect=rain_dance,
         ),
         Attack(
             title="Hydro Pump",

@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Haunter (BASE4 #43): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.attributes import SpecialConditions
+from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ecard import defending_is_asleep
+
 
 card = PokemonCardDef(
     guid="18eae14a-6412-56e9-b1f9-ed8e006f294a",
@@ -27,16 +27,14 @@ card = PokemonCardDef(
             title="Hypnosis",
             game_text="The Defending Pok\u00e9mon is now Asleep.",
             cost={PokemonTypes.PSYCHIC: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(SpecialConditions.ASLEEP),
         ),
         Attack(
             title="Dream Eater",
             game_text="You can't use this attack unless the Defending Pok\u00e9mon is Asleep.",
             cost={PokemonTypes.PSYCHIC: 2},
             damage=50,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            condition=defending_is_asleep,
         ),
     ],
 )

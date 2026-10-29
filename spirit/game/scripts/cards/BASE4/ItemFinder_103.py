@@ -1,12 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Item Finder (BASE4 #103): trainer effect stubbed.
-
-Card text:
-  - Discard 2 of the other cards from your hand in order to put a Trainer card from your discard pile into your hand.
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ecard import item_finder, item_finder_condition
 
 card = ItemCardDef(
     guid="cdb60c14-3d35-5e77-b80e-0a88e9703f14",
@@ -18,6 +12,6 @@ card = ItemCardDef(
     collector_number=103,
     set_code="BASE4",
     rarity=Rarities.Rare,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    condition=item_finder_condition,
+    effect=item_finder,
 )

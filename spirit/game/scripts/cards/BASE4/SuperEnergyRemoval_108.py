@@ -1,12 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Super Energy Removal (BASE4 #108): trainer effect stubbed.
-
-Card text:
-  - Discard 1 Energy card attached to 1 of your own Pokémon in order to choose 1 of your opponent's Pokémon and up to 2 Energy cards attached to it. Discard those Energy cards.
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ecard import (
+    super_energy_removal,
+    super_energy_removal_condition,
+)
+
 
 card = ItemCardDef(
     guid="d432f18b-0bce-5d88-bdff-fc4838071e09",
@@ -18,6 +16,6 @@ card = ItemCardDef(
     collector_number=108,
     set_code="BASE4",
     rarity=Rarities.Rare,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    condition=super_energy_removal_condition,
+    effect=super_energy_removal,
 )

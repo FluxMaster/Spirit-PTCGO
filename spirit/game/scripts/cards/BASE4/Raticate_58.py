@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Raticate (BASE4 #58): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import super_fang
+
 
 card = PokemonCardDef(
     guid="7d05cd93-3386-5390-93b4-13a64e3166fa",
@@ -33,8 +31,7 @@ card = PokemonCardDef(
             title="Super Fang",
             game_text="Does damage to the Defending Pok\u00e9mon equal to half the Defending Pok\u00e9mon's remaining HP (rounded up to the nearest 10).",
             cost={PokemonTypes.COLORLESS: 3},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=super_fang,
         ),
     ],
 )

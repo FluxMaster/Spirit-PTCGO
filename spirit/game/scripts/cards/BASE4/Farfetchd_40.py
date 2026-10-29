@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Farfetch'd (BASE4 #40): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import leek_slap, leek_slap_available
+
 
 card = PokemonCardDef(
     guid="8b2e3613-5733-5219-82cd-2e84194a8430",
@@ -28,8 +26,8 @@ card = PokemonCardDef(
             game_text="Flip a coin. If tails, this attack does nothing. Either way, you can't use this attack again as long as Farfetch'd stays in play (even putting Farfetch'd on the Bench won't let you use it again).",
             cost={PokemonTypes.COLORLESS: 1},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            condition=leek_slap_available,
+            effect=leek_slap,
         ),
         Attack(
             title="Pot Smash",

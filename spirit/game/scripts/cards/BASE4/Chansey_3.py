@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Chansey (BASE4 #3): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import recoil_attack
+from spirit.game.card_effects.passives_common import flip_protection
+
 
 card = PokemonCardDef(
     guid="4debeb28-62fa-5017-8a22-3013c3cb6a90",
@@ -27,16 +26,14 @@ card = PokemonCardDef(
             title="Scrunch",
             game_text="Flip a coin. If heads, prevent all damage done to Chansey during your opponent's next turn. (Any other effects of attacks still happen.)",
             cost={PokemonTypes.COLORLESS: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_protection(prevent=True),
         ),
         Attack(
             title="Double-edge",
             game_text="Chansey does 80 damage to itself.",
             cost={PokemonTypes.COLORLESS: 4},
             damage=80,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=recoil_attack(80),
         ),
     ],
 )

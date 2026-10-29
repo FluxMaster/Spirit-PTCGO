@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Pidgeot (BASE4 #14): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import hurricane
+
 
 card = PokemonCardDef(
     guid="ee577932-95eb-5e6b-8697-5e15abdcf6f9",
@@ -22,7 +20,7 @@ card = PokemonCardDef(
     weakness_type=PokemonTypes.LIGHTNING,
     resistance_type=PokemonTypes.FIGHTING,
     evolves_from="com.direwolfdigital.cake.data.archetypes.pokemon.Pidgeotto.Name",
-    family_id=16,
+    family_id=18,
     abilities=[
         Attack(
             title="Wing Attack",
@@ -34,8 +32,7 @@ card = PokemonCardDef(
             game_text="Unless this attack Knocks Out the Defending Pok\u00e9mon, return the Defending Pok\u00e9mon and all cards attached to it to your opponent's hand.",
             cost={PokemonTypes.COLORLESS: 3},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=hurricane,
         ),
     ],
 )

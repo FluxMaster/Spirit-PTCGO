@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Nidoqueen (BASE4 #12): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
+from spirit.game.data_utils import PokemonCardDef, Attack
+from spirit.game.attributes import AttrID, PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import count_in_play, damage_per
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 
 card = PokemonCardDef(
     guid="1cf37597-6dca-50e9-90df-221032ec88ea",
@@ -29,8 +27,13 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_per(
+                count_in_play(
+                    "mine",
+                    lambda p: p.get_attribute(AttrID.EVOLUTION_LOGIC_NAME) == "Nidoking",
+                ),
+                20, base=20,
+            ),
         ),
         Attack(
             title="Mega Punch",

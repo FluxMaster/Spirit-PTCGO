@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Arcanine (BASE4 #33): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import recoil_attack, self_energy_discard_attack
+from spirit.game.card_effects.ecard import has_fire_energy_attached
+
 
 card = PokemonCardDef(
     guid="d18c2539-2dc5-5824-9a1b-0bcded6a70a0",
@@ -28,16 +27,15 @@ card = PokemonCardDef(
             game_text="Discard 1 Fire Energy card attached to Arcanine in order to use this attack.",
             cost={PokemonTypes.FIRE: 2, PokemonTypes.COLORLESS: 1},
             damage=50,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            condition=has_fire_energy_attached,
+            effect=self_energy_discard_attack(count=1, energy_type=PokemonTypes.FIRE),
         ),
         Attack(
             title="Take Down",
             game_text="Arcanine does 30 damage to itself.",
             cost={PokemonTypes.FIRE: 2, PokemonTypes.COLORLESS: 2},
             damage=80,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=recoil_attack(30),
         ),
     ],
 )

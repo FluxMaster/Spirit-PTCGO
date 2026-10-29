@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Rhyhorn (BASE4 #90): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import cant_attack_this_pokemon
+
 
 card = PokemonCardDef(
     guid="170f49f1-00c4-5980-a6a9-d59388efb8e1",
@@ -27,8 +25,7 @@ card = PokemonCardDef(
             title="Leer",
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon can't attack Rhyhorn during your opponent's next turn. (Benching either Pok\u00e9mon ends this effect.)",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=cant_attack_this_pokemon,
         ),
         Attack(
             title="Horn Attack",

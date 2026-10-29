@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dodrio (BASE4 #37): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import damage_counters_on, damage_per
+from spirit.game.card_effects.ecard import RetreatAidPassive
+
 
 card = PokemonCardDef(
     guid="e26dd66e-ecbe-57ae-8998-365395a09c40",
@@ -22,14 +21,13 @@ card = PokemonCardDef(
     weakness_type=PokemonTypes.LIGHTNING,
     resistance_type=PokemonTypes.FIGHTING,
     evolves_from="com.direwolfdigital.cake.data.archetypes.pokemon.Doduo.Name",
-    family_id=84,
+    family_id=85,
     abilities=[
         Ability(
             title="Retreat Aid",
             game_text="As long as Dodrio is Benched, pay Colorless less to retreat your Active Pok\u00e9mon.",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            passive=RetreatAidPassive(),
         ),
         Attack(
             title="Rage",
@@ -37,8 +35,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_per(damage_counters_on("self"), 10, base=10),
         ),
     ],
 )

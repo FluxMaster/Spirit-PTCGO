@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Marowak (BASE4 #52): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_damage
+from spirit.game.card_effects.ecard import basic_of_type, call_for_family_condition
+from spirit.game.card_effects.support_common import search_to_bench
+
 
 card = PokemonCardDef(
     guid="e8767f56-994d-5514-8357-2f4ce442dbb4",
@@ -30,15 +30,17 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 2},
             damage=30,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(coins=2, per_heads=30),
         ),
         Attack(
             title="Call for Friend",
             game_text="Search your deck for a Fighting Basic Pok\u00e9mon card and put it onto your Bench. Shuffle your deck afterward. (You can't use this attack if your Bench is full.)",
             cost={PokemonTypes.FIGHTING: 2, PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            condition=call_for_family_condition,
+            effect=search_to_bench(
+                predicate=basic_of_type(PokemonTypes.FIGHTING),
+                prompt="Choose a Fighting Basic Pokémon to put onto your Bench.",
+            ),
         ),
     ],
 )

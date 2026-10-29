@@ -1,12 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Pokémon Breeder (BASE4 #105): trainer effect stubbed.
-
-Card text:
-  - Put a Stage 2 Evolution card from your hand on the matching Basic Pokémon. You can only play this card when you would be allowed to evolve that Pokémon anyway.
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ecard import pokemon_breeder, pokemon_breeder_condition
+
 
 card = ItemCardDef(
     guid="16a36a55-836c-5f77-86ae-db29a5e8637c",
@@ -18,6 +13,6 @@ card = ItemCardDef(
     collector_number=105,
     set_code="BASE4",
     rarity=Rarities.Rare,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    condition=pokemon_breeder_condition,
+    effect=pokemon_breeder,
 )

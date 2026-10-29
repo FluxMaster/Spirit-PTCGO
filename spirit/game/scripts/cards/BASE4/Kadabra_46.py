@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Kadabra (BASE4 #46): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import (
+    has_typed_basic_energy, recover_discarding_energy,
+)
+
 
 card = PokemonCardDef(
     guid="b2419304-d554-521b-ab9c-2cff1078e8e4",
@@ -27,8 +27,8 @@ card = PokemonCardDef(
             title="Recover",
             game_text="Discard 1 Psychic Energy card attached to Kadabra in order to use this attack. Remove all damage counters from Kadabra.",
             cost={PokemonTypes.PSYCHIC: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            condition=has_typed_basic_energy(PokemonTypes.PSYCHIC),
+            effect=recover_discarding_energy(PokemonTypes.PSYCHIC),
         ),
         Attack(
             title="Super Psy",
