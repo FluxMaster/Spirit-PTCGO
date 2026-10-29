@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Chansey (ECARD1 #72): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import bind_wound, dogpile
+
 
 card = PokemonCardDef(
     guid="1705fe3b-79a4-5b19-8330-ee61235b8596",
@@ -26,8 +24,7 @@ card = PokemonCardDef(
             title="Bind Wound",
             game_text="Flip a coin. If heads, remove 2 damage counters from 1 of your Pok\u00e9mon (1 if it has only 1).",
             cost={PokemonTypes.COLORLESS: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bind_wound,
         ),
         Attack(
             title="Dogpile",
@@ -35,8 +32,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=10,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=dogpile,
         ),
     ],
 )

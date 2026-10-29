@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Croconaw (ECARD1 #74): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import recoil_attack
+
 
 card = PokemonCardDef(
     guid="b3c978d4-b708-577b-90e4-8e16b69e856d",
@@ -33,8 +31,7 @@ card = PokemonCardDef(
             game_text="Croconaw does 10 damage to itself.",
             cost={PokemonTypes.COLORLESS: 3},
             damage=40,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=recoil_attack(10),
         ),
     ],
 )

@@ -1,13 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Professor Oak's Research (ECARD1 #149): trainer effect stubbed.
-
-Card text:
-  - You can play only one Supporter card each turn. When you play this card, put it next to your Active Pokémon. When your turn ends, discard this card.
-  - Shuffle your hand into your deck, then draw 5 cards.
-"""
-
-from spirit.game.data_utils import SupporterCardDef, unimplemented
+from spirit.game.data_utils import SupporterCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.support_common import shuffle_hand_into_deck_draw
+
 
 card = SupporterCardDef(
     guid="8ed08e76-4e36-5cc5-a903-30b4ec0760ba",
@@ -19,6 +13,5 @@ card = SupporterCardDef(
     collector_number=149,
     set_code="ECARD1",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=shuffle_hand_into_deck_draw(5),
 )

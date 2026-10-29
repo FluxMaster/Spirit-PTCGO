@@ -1,13 +1,18 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Mary's Impulse (ECARD1 #142): trainer effect stubbed.
-
-Card text:
-  - You can play only one Supporter card each turn. When you play this card, put it next to your Active Pokémon. When your turn ends, discard this card.
-  - Flip a coin until you get tails. For each heads, draw 2 cards.
-"""
-
-from spirit.game.data_utils import SupporterCardDef, unimplemented
+from spirit.game.data_utils import SupporterCardDef
 from spirit.game.attributes import Rarities
+
+
+async def marys_impulse(ctx):
+    """Flip until tails; for each heads draw 2 cards."""
+    heads = 0
+    while True:
+        results = await ctx.flip_coins(1, "Mary's Impulse")
+        if not results or not results[0]:
+            break
+        heads += 1
+    if heads:
+        await ctx.draw_cards(heads * 2)
+
 
 card = SupporterCardDef(
     guid="91e720d8-9311-56cb-ae4e-b30e4218c729",
@@ -19,6 +24,5 @@ card = SupporterCardDef(
     collector_number=142,
     set_code="ECARD1",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=marys_impulse,
 )

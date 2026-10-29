@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Metapod (ECARD1 #87): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.passives_common import takes_less_passive
+
 
 card = PokemonCardDef(
     guid="f24b88a9-f474-5384-b100-1ed5e979fbf8",
@@ -27,8 +25,7 @@ card = PokemonCardDef(
             title="Exoskeleton",
             game_text="All damage done by attacks to Metapod is reduced by 20 (after applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=takes_less_passive(20),
         ),
         Attack(
             title="Rollout",

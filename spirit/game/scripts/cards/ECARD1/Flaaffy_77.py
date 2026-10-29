@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Flaaffy (ECARD1 #77): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_damage
+
 
 card = PokemonCardDef(
     guid="b7efbd51-b7a0-5e6a-bc00-d6c7eb296a46",
@@ -33,8 +31,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If tails, Flaaffy does 20 damage to itself.",
             cost={PokemonTypes.LIGHTNING: 2, PokemonTypes.COLORLESS: 1},
             damage=50,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(tails_self_damage=20),
         ),
     ],
 )

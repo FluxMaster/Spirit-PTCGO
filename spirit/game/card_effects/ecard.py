@@ -11,6 +11,7 @@ from typing import Any, Callable, List, Optional
 from spirit.game.attributes import (
     AttrID,
     CLIENT_POKEMON_TYPE_NAMES,
+    CLIENT_SPECIAL_CONDITION_NAMES,
     PokemonTypes,
     SpecialConditions,
     TrainerType,
@@ -18,6 +19,7 @@ from spirit.game.attributes import (
 from spirit.game.content.definitions import Attack
 from spirit.game.data_utils import def_for
 from spirit.game.models.board import PokemonEntity
+from spirit.game.card_effects.attacks_common import lock_all_attacks
 from spirit.game.card_effects.passives_common import retreat_free_when
 from spirit.game.card_effects.pokemon import energy_provides_type
 from spirit.game.card_effects.support_common import opponent_switches
@@ -894,4 +896,113 @@ async def misfire(ctx):
     results = await ctx.flip_coins(1, "Misfire")
     if results and not results[0]:
         await ctx.deal_damage(60, target=ctx.attacker, as_counters=True)
+
+
+# ----------------------------------------------------------------------
+# Typhlosion — Thermal Blast
+# ----------------------------------------------------------------------
+
+async def thermal_blast(ctx):
+    """40; heads, 10 to each opposing Benched Pokémon."""
+    await ctx.deal_damage()
+    results = await ctx.flip_coins(1, "Thermal Blast")
+    if not results or not results[0]:
+        return
+    for poked in ctx.opponent_bench():
+        await ctx.deal_damage(10, target=poked)
+
+
+# ----------------------------------------------------------------------
+# Venusaur — Leech Seed
+# ----------------------------------------------------------------------
+
+async def leech_seed(ctx):
+    """20; if it damages the Defending Pokémon, heal 10 from the attacker."""
+    dealt = await ctx.deal_damage()
+    if dealt > 0:
+        await ctx.heal(10, ctx.attacker)
+
+
+# ----------------------------------------------------------------------
+# Chansey — Bind Wound / Dogpile
+# ----------------------------------------------------------------------
+
+async def bind_wound(ctx):
+    """Flip: heads, heal 20 from 1 of your Pokémon."""
+    results = await ctx.flip_coins(1, "Bind Wound")
+    if not results or not results[0]:
+        return
+    damaged = [poked for poked in ctx.my_pokemon_in_play()
+               if _is_damaged(ctx.board, poked)]
+    if not damaged:
+        return
+    target = await ctx.choose_pokemon(damaged, "Choose a Pokémon to heal")
+    if target is not None:
+        await ctx.heal(20, target)
+
+
+async def dogpile(ctx):
+    """10× your Bench count to the Defending Pokémon and to Chansey."""
+    amount = 10 * len(ctx.my_bench())
+    if amount <= 0:
+        return
+    await ctx.deal_damage(amount)
+    await ctx.deal_damage(amount, target=ctx.attacker, apply_modifiers=False)
+
+
+# ----------------------------------------------------------------------
+# Electabuzz — Reflect Energy
+# ----------------------------------------------------------------------
+
+async def reflect_energy(ctx):
+    """20; move 1 basic Energy from Electabuzz onto a Benched Pokémon."""
+    await ctx.deal_damage()
+    bench = ctx.my_bench()
+    pool = [e for e in ctx.attached_energies(ctx.attacker)
+            if is_basic_energy_card(e)]
+    if not bench or not pool:
+        return
+    picks = await ctx.choose_cards(
+        pool, 1,
+        prompt="Choose a basic Energy card to attach to 1 of your Benched Pokémon")
+    if not picks:
+        return
+    target = await ctx.choose_pokemon(
+        bench, "Choose a Benched Pokémon to attach the Energy to")
+    if target is not None:
+        await ctx.move_energy(picks[0], target)
+
+
+# ----------------------------------------------------------------------
+# Haunter — Dream Eater
+# ----------------------------------------------------------------------
+
+async def dream_eater(ctx):
+    """50 only if the Defending Pokémon is Asleep; otherwise nothing."""
+    defender = ctx.defender
+    asleep = CLIENT_SPECIAL_CONDITION_NAMES[SpecialConditions.ASLEEP]
+    if defender is None or asleep not in (
+            defender.get_attribute(AttrID.SPECIAL_CONDITIONS) or []):
+        return
+    await ctx.deal_damage()
+
+
+# ----------------------------------------------------------------------
+# Pidgeotto — Whirlwind
+# ----------------------------------------------------------------------
+
+async def whirlwind(ctx):
+    """20, then the opponent switches their Active with a Benched Pokémon."""
+    await ctx.deal_damage()
+    await opponent_switches(ctx)
+
+
+# ----------------------------------------------------------------------
+# Wartortle — Giant Wave
+# ----------------------------------------------------------------------
+
+async def giant_wave(ctx):
+    """Printed damage; this Pokémon can't attack during your next turn."""
+    await ctx.deal_damage()
+    lock_all_attacks(ctx, ctx.attacker)
 

@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Pidgeotto (ECARD1 #88): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import whirlwind
+
 
 card = PokemonCardDef(
     guid="8e888168-036c-582e-9de1-174328c48d59",
@@ -29,8 +27,7 @@ card = PokemonCardDef(
             game_text="If your opponent has any Benched Pok\u00e9mon, he or she chooses 1 of them and switches the Defending Pok\u00e9mon with it. (Do the damage before switching the Pok\u00e9mon.)",
             cost={PokemonTypes.COLORLESS: 2},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=whirlwind,
         ),
     ],
 )

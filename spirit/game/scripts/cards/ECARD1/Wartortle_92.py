@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Wartortle (ECARD1 #92): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_damage
+from spirit.game.card_effects.ecard import giant_wave
+
 
 card = PokemonCardDef(
     guid="2b5300f4-0941-5a41-b499-2ed8b82769ab",
@@ -29,16 +28,14 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(coins=2, per_heads=10),
         ),
         Attack(
             title="Giant Wave",
             game_text="Wartortle can't attack during your next turn.",
             cost={PokemonTypes.WATER: 2},
             damage=40,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=giant_wave,
         ),
     ],
 )

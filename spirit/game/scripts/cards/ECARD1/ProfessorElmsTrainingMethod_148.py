@@ -1,13 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Professor Elm's Training Method (ECARD1 #148): trainer effect stubbed.
-
-Card text:
-  - You can play only one Supporter card each turn. When you play this card, put it next to your Active Pokémon. When your turn ends, discard this card.
-  - Search your deck for an Evolution card, show it to your opponent, and put it into your hand. Shuffle your deck afterward.
-"""
-
-from spirit.game.data_utils import SupporterCardDef, unimplemented
+from spirit.game.data_utils import SupporterCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.support_common import search_to_hand
+from spirit.game.session.effects import is_evolution_pokemon
+
 
 card = SupporterCardDef(
     guid="36532a6a-fb17-52bb-921d-8960bc799bae",
@@ -19,6 +14,8 @@ card = SupporterCardDef(
     collector_number=148,
     set_code="ECARD1",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=search_to_hand(
+        is_evolution_pokemon, count=1, minimum=0, reveal=True,
+        prompt="Choose an Evolution card to put into your hand.",
+    ),
 )

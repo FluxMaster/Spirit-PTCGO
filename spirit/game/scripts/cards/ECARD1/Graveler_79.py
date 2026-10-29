@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Graveler (ECARD1 #79): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import snipe_attack
+from spirit.game.card_effects.ecard import rock_tumble
+
 
 card = PokemonCardDef(
     guid="0f2580bc-6bb7-5802-b67d-79da74a253c3",
@@ -28,16 +27,14 @@ card = PokemonCardDef(
             game_text="Don't apply Resistance.",
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=rock_tumble,
         ),
         Attack(
             title="Rock Slide",
             game_text="Choose 2 of your opponent's Benched Pok\u00e9mon (1 if he or she has only 1). This attack does 10 damage to each of those Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.FIGHTING: 2, PokemonTypes.COLORLESS: 1},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=snipe_attack(10, pool="bench", count=2, also_base=True),
         ),
     ],
 )

@@ -1,12 +1,23 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Master Ball (ECARD1 #143): trainer effect stubbed.
-
-Card text:
-  - Look at 7 cards from the top of your deck. You may choose a Basic Pokémon or Evolution card from those cards, show it your opponent, and put it into your hand. Shuffle the rest into your deck.
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.session.effects import is_pokemon_card
+
+
+async def master_ball(ctx):
+    """Look at top 7; may take 1 Basic or Evolution Pokémon to hand (reveal)."""
+    top = ctx.deck_top(7)
+    if not top:
+        return
+    candidates = [c for c in top if is_pokemon_card(c)]
+    picks = await ctx.choose_cards(
+        candidates, 1, minimum=0,
+        prompt="You may choose a Basic or Evolution Pokémon to put into your hand.",
+        display_cards=top if len(candidates) < len(top) else None,
+    )
+    if picks:
+        await ctx.put_in_hand(picks, reveal=True)
+    await ctx.shuffle_deck()
+
 
 card = ItemCardDef(
     guid="ad5cd530-6545-577e-b08a-7cdb6e409f21",
@@ -18,6 +29,5 @@ card = ItemCardDef(
     collector_number=143,
     set_code="ECARD1",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=master_ball,
 )
