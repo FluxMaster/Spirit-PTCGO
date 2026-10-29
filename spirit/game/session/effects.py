@@ -175,6 +175,9 @@ class EffectContext:
         # ON_KNOCKED_OUT only: whether this Pokemon sat in the Active spot at
         # the moment it was Knocked Out (Radiant Jirachi).
         self.was_active_at_ko: bool = False
+        # ON_KNOCKED_OUT only: Energy that was attached when the Pokemon was
+        # Knocked Out, snapshotted before the stack moves (Golden Wing).
+        self.ko_energies: list = []
         # Set by resolve_trainer_effect: primitives against a shielded OTHER
         # player no-op (Dew Guard, via _trainer_blocked).
         self.is_trainer_effect: bool = False
