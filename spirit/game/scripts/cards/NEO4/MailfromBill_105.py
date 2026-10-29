@@ -1,12 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Mail from Bill (NEO4 #105): trainer effect stubbed.
-
-Card text:
-  - You can't play this card if you have 5 or more cards in your hand (including this one). Draw cards until you have exactly 4 cards in your hand.
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ecard import mail_from_bill_condition
+from spirit.game.card_effects.support_common import draw_until_effect
+
 
 card = ItemCardDef(
     guid="27303010-e742-528f-b79a-fd21900a16c2",
@@ -18,6 +14,6 @@ card = ItemCardDef(
     collector_number=105,
     set_code="NEO4",
     rarity=Rarities.Common,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    condition=mail_from_bill_condition,
+    effect=draw_until_effect(4),
 )

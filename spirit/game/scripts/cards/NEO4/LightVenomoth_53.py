@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Light Venomoth (NEO4 #53): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import mysterious_wing, synchronize
+
 
 card = PokemonCardDef(
     guid="59f26242-3595-5aed-bb8f-15081d8e5f9d",
@@ -28,16 +26,14 @@ card = PokemonCardDef(
             title="Mysterious Wing",
             game_text="Your opponent may choose a Baby Pok\u00e9mon, Basic Pok\u00e9mon, or Evolution card from his or her discard pile and put it into his or her hand. Either way, you may do the same.",
             cost={PokemonTypes.GRASS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=mysterious_wing,
         ),
         Attack(
             title="Synchronize",
             game_text="If Light Venomoth and the Defending Pok\u00e9mon have a different number of Energy cards attached to them, this attack does nothing.",
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 1},
             damage=40,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=synchronize,
         ),
     ],
 )

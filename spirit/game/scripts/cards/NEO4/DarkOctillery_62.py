@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dark Octillery (NEO4 #62): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import tentacle_wrap, unused_energy_bonus
+
 
 card = PokemonCardDef(
     guid="e071eae8-6bb6-5409-b301-91312631ad71",
@@ -29,16 +27,14 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1},
             damage=20,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=unused_energy_bonus(10, 20),
         ),
         Attack(
             title="Tentacle Wrap",
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon is now Paralyzed. If tails, during your opponent's next turn, your opponent pays Colorless more to retreat the Defending Pok\u00e9mon.",
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=tentacle_wrap,
         ),
     ],
 )

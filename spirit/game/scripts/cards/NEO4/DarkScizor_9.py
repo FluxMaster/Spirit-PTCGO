@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dark Scizor (NEO4 #9): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import threaten
+
 
 card = PokemonCardDef(
     guid="43ae2cfd-512d-535e-b804-c5118c468a9f",
@@ -28,8 +26,7 @@ card = PokemonCardDef(
             title="Threaten",
             game_text="Flip a coin. If heads, look at your opponent's hand. If he or she has any Trainer cards there, choose 1 of them. Your opponent shuffles that card into his or her deck.",
             cost={PokemonTypes.COLORLESS: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=threaten,
         ),
         Attack(
             title="Slash",

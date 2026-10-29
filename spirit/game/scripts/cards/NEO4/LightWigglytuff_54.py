@@ -1,11 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Light Wigglytuff (NEO4 #54): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ecard import evolution_song
 
 
 card = PokemonCardDef(
@@ -31,15 +28,13 @@ card = PokemonCardDef(
             title="Evolution Song",
             game_text="Your opponent may choose 1 of his or her Pok\u00e9mon and search his or her deck for a card that evolves from that Pok\u00e9mon. Your opponent attaches that card to that Pok\u00e9mon. This counts as evolving that Pok\u00e9mon. Either way, you may do the same, and then each player who searched shuffles his or her deck.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=evolution_song,
         ),
         Attack(
             title="Body Slam",
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon is now Paralyzed.",
             cost={PokemonTypes.COLORLESS: 3},
             damage=20,
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.PARALYZED, flip=True),
         ),
     ],

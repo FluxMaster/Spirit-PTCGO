@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Hitmonchan (NEO4 #69): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.passives_common import flip_prevent_next_turn
+
 
 card = PokemonCardDef(
     guid="da0641c4-1b46-5fbd-a271-d348d2d21beb",
@@ -26,8 +24,7 @@ card = PokemonCardDef(
             title="Dodge",
             game_text="If Hitmonchan would be damaged by an attack during your opponent's next turn, flip a coin. If heads, prevent that attack's damage done to Hitmonchan. (Any other effects of attacks still happen.)",
             cost={PokemonTypes.FIGHTING: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_prevent_next_turn(),
         ),
         Attack(
             title="Supersonic Jab",

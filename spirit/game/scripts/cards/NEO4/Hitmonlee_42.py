@@ -1,8 +1,4 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Hitmonlee (NEO4 #42): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_damage, flip_or_nothing
 
@@ -30,7 +26,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 2},
             damage=20,
             damage_operator="x",
-            # STUB: attack effect not implemented
             effect=flip_damage(coins=2, per_heads=20),
         ),
         Attack(
@@ -38,7 +33,6 @@ card = PokemonCardDef(
             game_text="Flip a coin. If tails, this attack does nothing.",
             cost={PokemonTypes.FIGHTING: 3},
             damage=60,
-            # STUB: attack effect not implemented
             effect=flip_or_nothing(),
         ),
     ],

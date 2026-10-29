@@ -1,10 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dark Flaaffy (NEO4 #34): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-from spirit.game.card_effects.ecard import high_voltage
+from spirit.game.card_effects.ecard import high_voltage, stun_wave
 
 
 card = PokemonCardDef(
@@ -30,7 +26,6 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, your opponent can't play Trainer cards during his or her next turn.",
             cost={PokemonTypes.LIGHTNING: 1},
             damage=10,
-            # STUB: attack effect not implemented
             effect=high_voltage,
         ),
         Attack(
@@ -38,8 +33,7 @@ card = PokemonCardDef(
             game_text="If the Defending Pok\u00e9mon has a Pok\u00e9mon Power, that power stops working until the end of your next turn.",
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=stun_wave,
         ),
     ],
 )

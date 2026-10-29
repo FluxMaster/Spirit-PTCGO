@@ -2451,6 +2451,8 @@ async def resolve_attack(session, player_id: str, attacker: PokemonEntity,
         (attacker.entity_id, attacker.archetype_id, title)
     )
 
+    await _run_attack_setups(session, ctx)
+
     if effect is None or effect is unimplemented:
         if effect is unimplemented:
             logging.warning(
@@ -2473,6 +2475,15 @@ async def resolve_attack(session, player_id: str, attacker: PokemonEntity,
     await session.enforce_bench_capacity()
     await _run_attack_followups(session, ctx)
     return ctx
+
+
+async def _run_attack_setups(session, ctx: EffectContext):
+    """Pre-attack riders (Unown [X] XXXXX): coin flips and TurnDamageModifiers
+    queue on the attack ctx so they choreograph inside the attack bracket."""
+    for passive, carrier in active_passives(session.board_state):
+        setup = getattr(passive, "attack_setup", None)
+        if setup is not None:
+            await setup(ctx, carrier)
 
 
 async def _run_attack_followups(session, ctx: EffectContext):

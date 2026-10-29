@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dark Espeon (NEO4 #4): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_bonus
+from spirit.game.card_effects.ecard import psysplash
 
 
 card = PokemonCardDef(
@@ -31,15 +28,13 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
             effect=flip_bonus(10),
         ),
         Attack(
             title="Psysplash",
             game_text="Does 10 damage to each of your opponent's Pok\u00e9mon for each Energy card attached to that Pok\u00e9mon. Don't apply Weakness and Resistance.",
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=psysplash,
         ),
     ],
 )

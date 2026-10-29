@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Psyduck (NEO4 #79): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import migraine
+
 
 card = PokemonCardDef(
     guid="9e9faa9a-2714-5851-931b-e07aa9af2442",
@@ -32,8 +30,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon is now Confused. If tails, Psyduck is now Confused.",
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=migraine,
         ),
     ],
 )

@@ -1,12 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Team Rocket's Evil Deeds (NEO4 #103): trainer effect stubbed.
-
-Card text:
-  - Look at your opponent's hand and choose a card there. Your opponent shuffles that card into his or her deck. Then, your opponent may draw up to 2 cards.
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ecard import (
+    rockets_sneak_attack_condition,
+    team_rockets_evil_deeds,
+)
+
 
 card = ItemCardDef(
     guid="ff17bf31-7963-5204-9aeb-caae73a94664",
@@ -18,6 +16,6 @@ card = ItemCardDef(
     collector_number=103,
     set_code="NEO4",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    condition=rockets_sneak_attack_condition,
+    effect=team_rockets_evil_deeds,
 )

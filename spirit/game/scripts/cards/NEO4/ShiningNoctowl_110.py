@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Shining Noctowl (NEO4 #110): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import flashing_eyes
+
 
 card = PokemonCardDef(
     guid="3b3c85b5-4735-54d0-b45b-c828b757251a",
@@ -28,8 +26,7 @@ card = PokemonCardDef(
             game_text="Flip 3 coins. If exactly 1 is heads, the Defending Pok\u00e9mon is now Asleep. If exactly 2 are heads, the Defending Pok\u00e9mon is now Confused. If all 3 are heads, the Defending Pok\u00e9mon is now Paralyzed.",
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flashing_eyes,
         ),
     ],
 )

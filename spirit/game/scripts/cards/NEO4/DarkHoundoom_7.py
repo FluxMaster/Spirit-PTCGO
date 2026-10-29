@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dark Houndoom (NEO4 #7): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import dark_fire, eerie_howl
+
 
 card = PokemonCardDef(
     guid="eff360fd-70bb-5753-97a6-05f0e689266f",
@@ -27,8 +25,7 @@ card = PokemonCardDef(
             title="Eerie Howl",
             game_text="If your opponent's Bench isn't full, look at his or her hand. If your opponent has any Baby Pok\u00e9mon or Basic Pok\u00e9mon there, choose 1 of them and put it on his or her Bench. Then, switch it with the Defending Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=eerie_howl,
         ),
         Attack(
             title="Dark Fire",
@@ -36,8 +33,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=dark_fire,
         ),
     ],
 )

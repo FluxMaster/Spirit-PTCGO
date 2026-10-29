@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dark Feraligatr (NEO4 #5): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ecard import removal_pulse, scare_passive
+
 
 card = PokemonCardDef(
     guid="43e8fbce-e3c5-5b6c-8d24-e54c503366a0",
@@ -26,17 +24,15 @@ card = PokemonCardDef(
         Ability(
             title="Scare",
             game_text="As long as Dark Feraligatr is your Active Pok\u00e9mon, all of your opponent's Baby Pok\u00e9mon Powers stop working and your opponent's Baby Pok\u00e9mon can't attack. This power stops working while Dark Feraligatr is Asleep, Confused, or Paralyzed.",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            passive=scare_passive,
         ),
         Attack(
             title="Crushing Blow",
             game_text="If the Defending Pok\u00e9mon has any Energy cards attached to it, flip a coin. If heads, choose 1 of those cards and discard it.",
             cost={PokemonTypes.WATER: 3},
             damage=50,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=removal_pulse,
         ),
     ],
 )

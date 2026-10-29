@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Shining Steelix (NEO4 #112): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import crushing_earth
+
 
 card = PokemonCardDef(
     guid="8eac7865-2846-57e5-bc80-439a1cf44d90",
@@ -28,8 +26,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, this attack does 10 damage to each Benched Pok\u00e9mon (yours and your opponent's). (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.) If tails, this attack does nothing. Either way, Shining Steelix can't attack during your next turn.",
             cost={PokemonTypes.METAL: 2, PokemonTypes.FIGHTING: 2},
             damage=80,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=crushing_earth,
         ),
     ],
 )

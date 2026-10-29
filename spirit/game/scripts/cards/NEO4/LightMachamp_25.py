@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Light Machamp (NEO4 #25): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ecard import beatdown, tag_team
+
 
 card = PokemonCardDef(
     guid="207a05eb-1fad-5de7-a29a-2e755b3a6a0e",
@@ -26,17 +24,16 @@ card = PokemonCardDef(
         Ability(
             title="Tag Team",
             game_text="When you play Light Machamp from your hand, if it is on your Bench, remove 3 damage counters from your Active Pok\u00e9mon. If it has fewer damage counters than that, remove all of them. Then, switch Light Machamp with your Active Pok\u00e9mon.",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            trigger=Triggers.ON_EVOLVE,
+            effect=tag_team,
         ),
         Attack(
             title="Beatdown",
             game_text="If the Defending Pok\u00e9mon has Dark in its name or is a Darkness Pok\u00e9mon, flip a coin. If heads, this attack does 100 damage instead of 50.",
             cost={PokemonTypes.FIGHTING: 3},
             damage=50,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=beatdown,
         ),
     ],
 )

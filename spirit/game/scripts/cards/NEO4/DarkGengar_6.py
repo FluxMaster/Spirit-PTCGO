@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dark Gengar (NEO4 #6): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ecard import deep_sleep_passive, pull_in
+
 
 card = PokemonCardDef(
     guid="00fef6d4-4729-5323-b7a7-32579b822862",
@@ -26,17 +24,15 @@ card = PokemonCardDef(
         Ability(
             title="Deep Sleep",
             game_text="As long as any Dark Gengar are in play, a player flips 2 coins for each of his or her Pok\u00e9mon that is Asleep at the end of each turn. If either of them is tails, that Pok\u00e9mon is still Asleep. This power stops working if Dark Gengar is Asleep, Confused, or Paralyzed.",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            passive=deep_sleep_passive,
         ),
         Attack(
             title="Pull In",
             game_text="If your opponent has any Benched Pok\u00e9mon, you may choose 1 of them and switch it with the Defending Pok\u00e9mon (before doing damage or other effects of this attack). Either way, the Defending Pok\u00e9mon is now Asleep.",
             cost={PokemonTypes.PSYCHIC: 3},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=pull_in,
         ),
     ],
 )

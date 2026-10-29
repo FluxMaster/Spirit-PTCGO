@@ -1,12 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dark Quilava (NEO4 #39): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import AttrID
 from spirit.game.card_effects.attacks_common import mill_scaled_damage
 from spirit.game.card_effects.pokemon import is_energy_card
+from spirit.game.card_effects.ecard import incinerate
 
 
 def _is_fire_energy_card(card):
@@ -36,8 +33,7 @@ card = PokemonCardDef(
             title="Incinerate",
             game_text="Show the top card of your opponent's deck to all players. If it's a Trainer card, discard it.",
             cost={PokemonTypes.FIRE: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=incinerate,
         ),
         Attack(
             title="Rushing Magma",
@@ -45,7 +41,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 2},
             damage=20,
             damage_operator="x",
-            # STUB: attack effect not implemented
             effect=mill_scaled_damage(5, 20, pred=_is_fire_energy_card),
         ),
     ],

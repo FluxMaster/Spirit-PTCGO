@@ -1,9 +1,11 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Light Arcanine (NEO4 #12): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ecard import (
+    drive_off,
+    drive_off_condition,
+    gentle_flames,
+)
+
 
 card = PokemonCardDef(
     guid="8af232ef-b7e8-5499-9acf-1185e589e2c2",
@@ -26,17 +28,17 @@ card = PokemonCardDef(
         Ability(
             title="Drive Off",
             game_text="As long as Light Arcanine is your Active Pok\u00e9mon, once during your turn (before your attack), if your opponent has any Benched Pok\u00e9mon, he or she chooses 1 of them and switches it with the Defending Pok\u00e9mon. This power can't be used while Light Arcanine is Asleep, Confused, or Paralyzed.",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            activation=Activations.ONCE_PER_TURN,
+            condition=drive_off_condition,
+            effect=drive_off,
         ),
         Attack(
             title="Gentle Flames",
             game_text="If the Defending Pok\u00e9mon is a Baby Pok\u00e9mon, this attack does 10 damage instead of 50. If the Defending Pok\u00e9mon is a Basic Pok\u00e9mon, this attack does 30 damage instead of 50.",
             cost={PokemonTypes.FIRE: 2, PokemonTypes.COLORLESS: 1},
             damage=50,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=gentle_flames,
         ),
     ],
 )

@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Light Sunflora (NEO4 #72): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import reflected_sunlight
+
 
 card = PokemonCardDef(
     guid="e1c97f0f-e096-521d-8c3e-5c16e2d28f56",
@@ -27,8 +25,7 @@ card = PokemonCardDef(
             title="Reflected Sunlight",
             game_text="Attach up to 2 Grass Energy cards from your hand to 1 of your Grass Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=reflected_sunlight,
         ),
         Attack(
             title="Solarbeam",

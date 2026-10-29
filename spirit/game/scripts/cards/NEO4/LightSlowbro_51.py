@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Light Slowbro (NEO4 #51): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import bonus_if, count_energy
+from spirit.game.card_effects.ecard import fish_out
+
 
 card = PokemonCardDef(
     guid="b374b586-dc59-5283-8d31-6e604ba96f4b",
@@ -27,8 +26,7 @@ card = PokemonCardDef(
             title="Fish Out",
             game_text="Your opponent may choose up to 3 Baby Pok\u00e9mon, Basic Pok\u00e9mon, and/or Evolution cards from his or her discard pile and shuffle them into his or her deck. Either way, you may do the same.",
             cost={PokemonTypes.PSYCHIC: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=fish_out,
         ),
         Attack(
             title="Splash About",
@@ -36,8 +34,13 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bonus_if(
+                lambda ctx: (
+                    count_energy("defender", cards=True)(ctx)
+                    > count_energy("self", cards=True)(ctx)
+                ),
+                20,
+            ),
         ),
     ],
 )

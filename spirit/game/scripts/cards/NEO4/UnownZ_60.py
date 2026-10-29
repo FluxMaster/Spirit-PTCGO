@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Unown [Z] (NEO4 #60): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ecard import unown_zoom_passive
+
 
 card = PokemonCardDef(
     guid="6a685e34-cd42-5261-be19-c18db6bb6872",
@@ -25,9 +23,8 @@ card = PokemonCardDef(
         Ability(
             title="[Zoom]",
             game_text="As long as Unown [Z] is Benched, you pay no Energy cost to retreat a Pok\u00e9mon with Unown in its name.",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            passive=unown_zoom_passive,
         ),
         Attack(
             title="Hidden Power",

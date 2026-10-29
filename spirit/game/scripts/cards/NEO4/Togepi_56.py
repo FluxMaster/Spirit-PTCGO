@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Togepi (NEO4 #56): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import recoil_attack
+from spirit.game.card_effects.passives_common import debuff_defender_attacks
+
 
 card = PokemonCardDef(
     guid="1ec9322c-ec68-5209-a3ae-ce0a1c2cda83",
@@ -26,16 +25,14 @@ card = PokemonCardDef(
             title="Charm",
             game_text="If the Defending Pok\u00e9mon attacks during your opponent's next turn, any damage it does is reduced by 10 (before applying Weakness and Resistance).",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=debuff_defender_attacks(10),
         ),
         Attack(
             title="Spike Ball Tackle",
             game_text="Togepi does 10 damage to itself.",
             cost={PokemonTypes.COLORLESS: 2},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=recoil_attack(10),
         ),
     ],
 )

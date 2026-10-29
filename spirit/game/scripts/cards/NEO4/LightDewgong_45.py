@@ -1,11 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Light Dewgong (NEO4 #45): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ecard import ice_pillar
 
 
 card = PokemonCardDef(
@@ -31,7 +28,6 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon is now Paralyzed. If tails, the Defending Pok\u00e9mon is now Asleep.",
             cost={PokemonTypes.WATER: 2},
             damage=10,
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.PARALYZED, flip=True, tails_conditions=(SpecialConditions.ASLEEP,)),
         ),
         Attack(
@@ -39,8 +35,7 @@ card = PokemonCardDef(
             game_text="Until the end of your opponent's next turn, as long as Light Dewgong is your Active Pok\u00e9mon, prevent all damage done by attacks to your Benched Pok\u00e9mon. (Any other effects of attacks still happen.)",
             cost={PokemonTypes.WATER: 3},
             damage=40,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=ice_pillar,
         ),
     ],
 )

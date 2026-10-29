@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Light Golduck (NEO4 #47): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import damage_per
+from spirit.game.card_effects.ecard import flipper_stroke, special_energy_on_defender
+
 
 card = PokemonCardDef(
     guid="0a59ac17-614c-59d5-ad47-ba01c09a6858",
@@ -27,8 +26,7 @@ card = PokemonCardDef(
             title="Flipper Stroke",
             game_text="Your opponent looks at the top 3 cards of his or her deck. If any of them are basic Energy cards, he or she may show any number of them to you and put them into his or her hand. You do the same. Either way, each player shuffles his or her deck.",
             cost={PokemonTypes.WATER: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flipper_stroke,
         ),
         Attack(
             title="Core Blast",
@@ -36,8 +34,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 2},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_per(special_energy_on_defender, 20, base=30),
         ),
     ],
 )

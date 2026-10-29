@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Light Ledian (NEO4 #24): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_damage
+from spirit.game.card_effects.ecard import flash_touch
 
 
 card = PokemonCardDef(
@@ -30,8 +27,7 @@ card = PokemonCardDef(
             title="Flash Touch",
             game_text="If you have any Benched Pok\u00e9mon, switch 1 of them with Light Ledian. As long as that Pok\u00e9mon is your Active Pok\u00e9mon, it can't become Asleep, Confused, Paralyzed, or Poisoned. (All other effects of attacks, Pok\u00e9mon Powers, and Trainer cards still happen.)",
             cost={PokemonTypes.GRASS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flash_touch,
         ),
         Attack(
             title="Comet Punch",
@@ -39,7 +35,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 2},
             damage=20,
             damage_operator="x",
-            # STUB: attack effect not implemented
             effect=flip_damage(coins=4, per_heads=20),
         ),
     ],

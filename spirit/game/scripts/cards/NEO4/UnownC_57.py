@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Unown [C] (NEO4 #57): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ecard import unown_chase
+
 
 card = PokemonCardDef(
     guid="8b54f2e4-2ba9-5651-b7ce-8c26ec2963ce",
@@ -25,9 +23,9 @@ card = PokemonCardDef(
         Ability(
             title="[Chase]",
             game_text="As long as Unown [C] is your Active Pok\u00e9mon, whenever your opponent's Active Pok\u00e9mon tries to retreat, flip a coin. If heads, put 1 damage counter on that Pok\u00e9mon. Apply Weakness and Resistance.",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            trigger=Triggers.ON_RETREAT,
+            effect=unown_chase,
         ),
         Attack(
             title="Hidden Power",

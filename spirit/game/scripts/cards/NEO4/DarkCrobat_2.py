@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dark Crobat (NEO4 #2): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ecard import surprise_bite, dark_drain
+
 
 card = PokemonCardDef(
     guid="e44c5587-edcf-5799-98a5-1d48782d691b",
@@ -27,16 +25,15 @@ card = PokemonCardDef(
         Ability(
             title="Surprise Bite",
             game_text="When you play Dark Crobat from your hand, you may choose 1 of your opponent's Pok\u00e9mon. This power does 20 damage to that Pok\u00e9mon. (Don't apply Weakness and Resistance.)",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            trigger=Triggers.ON_EVOLVE,
+            effect=surprise_bite,
         ),
         Attack(
             title="Dark Drain",
             game_text="Flip a coin for each of your opponent's Pok\u00e9mon. For each heads, this attack does 10 damage to that Pok\u00e9mon. Don't apply Weakness and Resistance. Remove a number of damage counters from Dark Crobat equal to the damage dealt. If Dark Crobat has fewer damage counters than that, remove all of them.",
             cost={PokemonTypes.GRASS: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=dark_drain,
         ),
     ],
 )

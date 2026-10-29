@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Shining Kabutops (NEO4 #108): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import lightning_cut, unused_energy_bonus
+
 
 card = PokemonCardDef(
     guid="5bb03942-cef5-5f7d-b9c2-6b131073414c",
@@ -28,8 +26,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 2, PokemonTypes.LIGHTNING: 1},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=lightning_cut,
         ),
         Attack(
             title="Water Slash",
@@ -37,8 +34,8 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 2, PokemonTypes.WATER: 2},
             damage=50,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=unused_energy_bonus(
+                10, energy_type=PokemonTypes.WATER, ignore_resistance=True),
         ),
     ],
 )

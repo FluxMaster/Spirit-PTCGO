@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dark Pupitar (NEO4 #38): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import recoil_attack
+from spirit.game.card_effects.ecard import explosive_evolution
+
 
 card = PokemonCardDef(
     guid="f335917b-8b2f-584f-b5ec-315ef27ee132",
@@ -29,15 +28,14 @@ card = PokemonCardDef(
             game_text="Dark Pupitar does 10 damage to itself. Dark Pupitar can't use this attack during your next turn.",
             cost={PokemonTypes.FIGHTING: 2},
             damage=40,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            locks_next_turn=True,
+            effect=recoil_attack(10),
         ),
         Attack(
             title="Explosive Evolution",
             game_text="Flip a coin. If heads, this attack does 10 damage to each of your opponent's Pok\u00e9mon. Don't apply Weakness and Resistance. Then, search your deck for an Evolution card named Dark Tyranitar and put it on Dark Pupitar. (This counts as evolving Dark Pupitar.) Shuffle your deck afterward.",
             cost={PokemonTypes.COLORLESS: 3},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=explosive_evolution,
         ),
     ],
 )

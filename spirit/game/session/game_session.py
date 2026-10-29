@@ -129,6 +129,7 @@ from .effects import (
 from .passives import (
     ability_locked, active_passives, active_to_bench_counters,
     burn_recovery_blocked, effective_bench_capacity, effective_max_hp,
+    effective_sleep_checkup_coins,
     effective_retreat_cost, energy_attach_blocked, energy_attach_taxer,
     evolve_heal_amount,
     granted_extra_attacks, hand_is_public, poke_bodies_ignored,
@@ -3342,7 +3343,10 @@ class GameSession:
 
     async def _checkup_sleep(self, player_id: str, active):
         """Sleep flip: all heads wakes (Thumping Snore's rider flips 2 coins)."""
-        coins = self.sleep_checkup_coins.get(active.entity_id, 1)
+        coins = effective_sleep_checkup_coins(
+            self.board_state, active,
+            self.sleep_checkup_coins.get(active.entity_id, 1),
+        )
         flips = [random.choice([0, 1]) for _ in range(coins)]
         woke = all(f == 0 for f in flips)
         self.stat_add(player_id, "headsflipped", flips.count(0))
@@ -4149,9 +4153,9 @@ class GameSession:
 
     async def _discard_technical_machines(self, player_id: str):
         """Discard every Technical Machine attached to `player_id`'s Pokemon,
-        plus Strength Charm tools that dealt damage this turn and Crystal
-        Shard tools whose holder attacked this turn."""
-        from spirit.game.card_effects.ecard import CrystalShardPassive
+        plus Strength Charm tools that dealt damage this turn, Crystal
+        Shard tools whose holder attacked this turn, and Magnifier tools."""
+        from spirit.game.card_effects.ecard import CrystalShardPassive, MagnifierPassive
         attacked = {eid for eid, _, _ in self.turn_state.attacks_used}
         to_discard = []
         holders = []
@@ -4167,8 +4171,10 @@ class GameSession:
                 drop = bool(child.get_attribute("_strength_charm_spent"))
                 if not drop:
                     d = def_for(child.archetype_id)
-                    drop = isinstance(getattr(d, "passive", None), CrystalShardPassive) \
-                        and pokemon.entity_id in attacked
+                    passive = getattr(d, "passive", None)
+                    drop = isinstance(passive, MagnifierPassive) or (
+                        isinstance(passive, CrystalShardPassive)
+                        and pokemon.entity_id in attacked)
                 if drop:
                     to_discard.append(child)
                     holders.append(pokemon)
@@ -4228,10 +4234,15 @@ class GameSession:
 
     async def fire_pokemon_benched_triggers(self, benching_player_id: str, pokemon):
         """ON_POKEMON_BENCHED for a manual from-hand bench play only (Gapejaw
-        Bog does not observe effect-driven benching from the deck)."""
+        Bog does not observe effect-driven benching from the deck). Fires on
+        every in-play Pokemon (Dark Magcargo Hot Plate) then the Stadium."""
         def _setup(c):
             c.benching_player_id = benching_player_id
             c.benched_pokemon = pokemon
+        for pid in self._turn_order():
+            for poked in list(self.board_state.pokemon_in_play(pid)):
+                await self._fire_triggered_abilities(
+                    pid, poked, Triggers.ON_POKEMON_BENCHED, ctx_setup=_setup)
         await self._fire_stadium_triggers(
             benching_player_id, Triggers.ON_POKEMON_BENCHED, _setup)
 
@@ -5582,7 +5593,8 @@ class GameSession:
         # e-Card Baby Pokemon rule: if the opponent's Active is a Baby, the
         # attacker flips a coin before doing anything else; tails ends the turn.
         opp_active = self.board_state.active_pokemon(self._opponent_id(player_id))
-        if opp_active is not None and is_baby_pokemon(opp_active.archetype_id):
+        if (opp_active is not None and is_baby_pokemon(opp_active.archetype_id)
+                and not ability_locked(self.board_state, opp_active)):
             if not await self._resolve_attack_attempt_flip(
                     player_id, card, "Baby Pokémon"):
                 return True

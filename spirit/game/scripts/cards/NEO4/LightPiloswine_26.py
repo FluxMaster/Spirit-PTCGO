@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Light Piloswine (NEO4 #26): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ecard import fluffy_wool, knock_over
+
 
 card = PokemonCardDef(
     guid="d78afa19-9dc3-57cc-b1ed-0cab2c9f4301",
@@ -27,17 +25,16 @@ card = PokemonCardDef(
         Ability(
             title="Fluffy Wool",
             game_text="During your opponent's turn, if Light Piloswine is your Active Pok\u00e9mon and is damaged by your opponent's attack (even if it's Knocked Out), flip a coin. If heads, the attacking Pok\u00e9mon is now Asleep. This power stops working if Light Piloswine is already Asleep, Confused, or Paralyzed when your opponent attacks.",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            trigger=Triggers.ON_DAMAGED_BY_ATTACK,
+            effect=fluffy_wool,
         ),
         Attack(
             title="Knock Over",
             game_text="If there is a Stadium card in play, you may discard it.",
             cost={PokemonTypes.COLORLESS: 3},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=knock_over,
         ),
     ],
 )

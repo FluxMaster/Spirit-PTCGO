@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Light Dragonair (NEO4 #22): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.passives_common import flip_protection
+from spirit.game.card_effects.support_common import heal_targets
+
 
 card = PokemonCardDef(
     guid="13cf8ce0-7176-558d-8019-b03f1b926ce6",
@@ -27,16 +26,14 @@ card = PokemonCardDef(
             title="Healing Light",
             game_text="Remove 1 damage counter from each of your Pok\u00e9mon that has any damage counters on it.",
             cost={PokemonTypes.COLORLESS: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=heal_targets(10),
         ),
         Attack(
             title="Protective Wave",
             game_text="Flip a coin. If heads, during your opponent's next turn, prevent all effects of attacks, including damage, done to Light Dragonair.",
             cost={PokemonTypes.COLORLESS: 3},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_protection(prevent=True, effects_too=True),
         ),
     ],
 )

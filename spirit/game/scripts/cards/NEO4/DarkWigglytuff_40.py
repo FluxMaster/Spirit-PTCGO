@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dark Wigglytuff (NEO4 #40): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.attributes import SpecialConditions
+from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ecard import slap_awake
+
 
 card = PokemonCardDef(
     guid="783100cc-3833-57c6-93db-da8945d45a0c",
@@ -28,8 +28,9 @@ card = PokemonCardDef(
             title="Dark Song",
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon is now Asleep. If tails, the Defending Pok\u00e9mon is now Confused.",
             cost={PokemonTypes.COLORLESS: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(
+                SpecialConditions.ASLEEP, flip=True,
+                tails_conditions=(SpecialConditions.CONFUSED,)),
         ),
         Attack(
             title="Slap Awake",
@@ -37,8 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=20,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=slap_awake,
         ),
     ],
 )

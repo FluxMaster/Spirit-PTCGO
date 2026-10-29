@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Light Vaporeon (NEO4 #52): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import wash_away, hypnoshower
+
 
 card = PokemonCardDef(
     guid="7e9cb56d-0b16-5c23-95f6-97ff9398833f",
@@ -27,16 +25,14 @@ card = PokemonCardDef(
             title="Wash Away",
             game_text="If you have any Benched Pok\u00e9mon, flip a coin. If heads, remove all damage counters from 1 of your Benched Pok\u00e9mon and discard all Energy cards attached to it.",
             cost={PokemonTypes.WATER: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=wash_away,
         ),
         Attack(
             title="Hypnoshower",
             game_text="The Defending Pok\u00e9mon is now Asleep. Remove 1 damage counter from each Benched Pok\u00e9mon (yours and your opponent's) with any damage counters on it.",
             cost={PokemonTypes.WATER: 2, PokemonTypes.COLORLESS: 1},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=hypnoshower,
         ),
     ],
 )

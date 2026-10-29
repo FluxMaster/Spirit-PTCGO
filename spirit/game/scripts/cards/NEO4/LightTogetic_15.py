@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Light Togetic (NEO4 #15): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ecard import light_togetic_gift, sweet_kiss
+
 
 card = PokemonCardDef(
     guid="0aef6db5-c560-5698-9550-43244bc51a68",
@@ -26,17 +24,16 @@ card = PokemonCardDef(
         Ability(
             title="Gift",
             game_text="When you play Light Togetic from your hand, your opponent may search his or her deck for a Pok\u00e9mon Tool card, show that card to you, and put it into his or her hand. Either way, you may do the same, and then each player who searched shuffles his or her deck.",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            trigger=Triggers.ON_EVOLVE,
+            effect=light_togetic_gift,
         ),
         Attack(
             title="Sweet Kiss",
             game_text="Your opponent may draw a card.",
             cost={PokemonTypes.COLORLESS: 2},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=sweet_kiss,
         ),
     ],
 )

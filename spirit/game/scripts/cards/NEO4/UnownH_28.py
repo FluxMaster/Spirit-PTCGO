@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Unown [H] (NEO4 #28): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ecard import unown_help, unown_help_condition
+
 
 card = PokemonCardDef(
     guid="2eac478a-b120-5d42-aafd-7f3374d21918",
@@ -25,9 +23,10 @@ card = PokemonCardDef(
         Ability(
             title="[Help]",
             game_text="Once during your turn (before your attack), if you have Unown [H], Unown [E], Unown [L], and Unown [P] on your Bench, you may shuffle your hand into your deck, then draw a new hand of the same number of cards.",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            activation=Activations.ONCE_PER_TURN,
+            condition=unown_help_condition,
+            effect=unown_help,
         ),
         Attack(
             title="Hidden Power",

@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Shining Charizard (NEO4 #107): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import white_hot_flame, white_hot_flame_condition
+
 
 card = PokemonCardDef(
     guid="3d41f97e-f76c-53e7-a980-3f5d25b6fe4e",
@@ -28,8 +26,8 @@ card = PokemonCardDef(
             game_text="Discard 1 Fire Energy card and 1 Lightning Energy card attached to Shining Charizard or this attack does nothing. Flip a coin. If tails, Shining Charizard does 30 damage to itself.",
             cost={PokemonTypes.FIRE: 3, PokemonTypes.LIGHTNING: 2},
             damage=100,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            condition=white_hot_flame_condition,
+            effect=white_hot_flame,
         ),
     ],
 )

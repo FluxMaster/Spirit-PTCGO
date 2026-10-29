@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Seel (NEO4 #81): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import recoil_attack
+
 
 card = PokemonCardDef(
     guid="b0b481c4-a526-5c46-bb63-6a6290ce7049",
@@ -27,8 +25,7 @@ card = PokemonCardDef(
             game_text="Seel does 10 damage to itself.",
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=recoil_attack(10),
         ),
     ],
 )

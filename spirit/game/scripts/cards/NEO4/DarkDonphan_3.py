@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dark Donphan (NEO4 #3): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import tusk_toss
+
 
 card = PokemonCardDef(
     guid="76c3f5ee-1184-5f51-b686-5a03c088a15c",
@@ -28,8 +26,7 @@ card = PokemonCardDef(
             title="Tusk Toss",
             game_text="If your opponent has any Benched Pok\u00e9mon, flip a coin. If heads, return the Defending Pok\u00e9mon and all cards attached to it to your opponent's hand. If tails, your opponent chooses 1 of his or her Benched Pok\u00e9mon and switches it with the Defending Pok\u00e9mon.",
             cost={PokemonTypes.FIGHTING: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=tusk_toss,
         ),
         Attack(
             title="Giant Tusk",

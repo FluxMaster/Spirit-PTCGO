@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Sunkern (NEO4 #83): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import hatch
+
 
 card = PokemonCardDef(
     guid="26a0f82e-d3c1-5b2f-afaf-0db26a40f5db",
@@ -31,8 +29,7 @@ card = PokemonCardDef(
             title="Sunbathe",
             game_text="Flip a coin. If heads, remove all damage counters from Sunkern. Search your deck for a card that evolves from Sunkern and attach that card to Sunkern. This counts as evolving Sunkern. Shuffle your deck afterward.",
             cost={PokemonTypes.GRASS: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=hatch,
         ),
     ],
 )

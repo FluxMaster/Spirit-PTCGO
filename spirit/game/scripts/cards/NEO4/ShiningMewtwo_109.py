@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Shining Mewtwo (NEO4 #109): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import psyburst, reflect_shield
+
 
 card = PokemonCardDef(
     guid="12f4704d-272a-5fe1-9d6e-c42b0326f141",
@@ -26,8 +24,7 @@ card = PokemonCardDef(
             title="Reflect Shield",
             game_text="If an attack does damage to Shining Mewtwo during your opponent's next turn (even if Shining Mewtwo is Knocked Out), flip a coin. If heads, prevent all damage done to Shining Mewtwo from that attack (any other effects of attacks still happen) and do 20 damage to the attacking Pok\u00e9mon.",
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.LIGHTNING: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=reflect_shield,
         ),
         Attack(
             title="Psyburst",
@@ -35,8 +32,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 2, PokemonTypes.FIRE: 1},
             damage=40,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=psyburst,
         ),
     ],
 )

@@ -133,6 +133,12 @@ class Passive:
     # coin flips via ctx so they choreograph inside the attack bracket.
     damage_interceptor: Optional[Any] = None
 
+    # Optional awaitable pre-attack stage: async (ctx, carrier) -> None, run
+    # by resolve_attack BEFORE the attack effect so coin-flip damage bonuses
+    # (Unown [X] XXXXX) land on TurnDamageModifier before W/R. Messages stay
+    # on the attack ctx and flush with the attack bracket.
+    attack_setup: Optional[Any] = None
+
     # Optional awaitable post-attack stage: async (ctx, carrier) -> None, run
     # by resolve_attack AFTER knockouts/deferred actions resolve (end-of-turn
     # riders like Blunder Policy); queued messages flush as their own brackets.
@@ -328,6 +334,12 @@ class Passive:
     ) -> int:
         """Damage counters the Burn checkup tick places (default 2)."""
         return counters
+
+    def modify_sleep_checkup_coins(
+        self, coins: int, pokemon: PokemonEntity, carrier: BoardEntity
+    ) -> int:
+        """Coins flipped to try to wake `pokemon` (default 1; Deep Sleep 2)."""
+        return coins
 
     def blocks_burn_recovery(self, pokemon: PokemonEntity, carrier: BoardEntity) -> bool:
         """True to skip the Burn recovery flip entirely (stays Burned)."""
@@ -1048,6 +1060,16 @@ def burn_recovery_blocked(board: BoardState, pokemon: PokemonEntity) -> bool:
         passive.blocks_burn_recovery(pokemon, carrier)
         for passive, carrier in active_passives(board)
     )
+
+
+def effective_sleep_checkup_coins(
+    board: BoardState, pokemon: PokemonEntity, base: int = 1
+) -> int:
+    """Sleep-check coin count after passives (Deep Sleep raises it to 2)."""
+    coins = base
+    for passive, carrier in active_passives(board):
+        coins = passive.modify_sleep_checkup_coins(coins, pokemon, carrier)
+    return coins
 
 
 def special_energy_suppressed(board: BoardState, energy: BoardEntity) -> bool:

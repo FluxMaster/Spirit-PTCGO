@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Mantine (NEO4 #74): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import giant_wave
+
 
 card = PokemonCardDef(
     guid="72a75df2-3851-5d89-af74-0b24bdb25449",
@@ -28,8 +26,7 @@ card = PokemonCardDef(
             game_text="Mantine can't attack during your next turn.",
             cost={PokemonTypes.WATER: 2},
             damage=40,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=giant_wave,
         ),
     ],
 )

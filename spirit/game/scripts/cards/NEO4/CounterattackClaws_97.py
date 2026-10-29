@@ -1,13 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Counterattack Claws (NEO4 #97): trainer effect stubbed.
-
-Card text:
-  - Attach Counterattack Claws to 1 of your Pokémon that doesn't have a Pokémon Tool attached to it.
-  - During your opponent's turn, if the Pokémon Counterattack Claws is attached to is your Active Pokémon and an opponent's attack damages it (even if it is Knocked Out), flip a coin. If heads, put 2 damage counters on the Defending Pokémon. Then, discard Counterattack Claws.
-"""
-
-from spirit.game.data_utils import PokemonToolCardDef, unimplemented
+from spirit.game.data_utils import PokemonToolCardDef, Ability, Triggers
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ecard import counterattack_claws
+
 
 card = PokemonToolCardDef(
     guid="7dd63a07-5714-5b3d-9cab-c7c9b3519ece",
@@ -19,6 +13,12 @@ card = PokemonToolCardDef(
     collector_number=97,
     set_code="NEO4",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    granted_abilities=[
+        Ability(
+            title="Counterattack Claws",
+            game_text="During your opponent's turn, if the Pokémon Counterattack Claws is attached to is your Active Pokémon and an opponent's attack damages it (even if it is Knocked Out), flip a coin. If heads, put 2 damage counters on the Defending Pokémon. Then, discard Counterattack Claws.",
+            trigger=Triggers.ON_DAMAGED_BY_ATTACK,
+            effect=counterattack_claws,
+        ),
+    ],
 )

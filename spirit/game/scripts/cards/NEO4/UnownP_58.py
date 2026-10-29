@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Unown [P] (NEO4 #58): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ecard import unown_perform_passive
+
 
 card = PokemonCardDef(
     guid="66fc955e-67e1-5aa5-af7a-08f72b239231",
@@ -25,9 +23,8 @@ card = PokemonCardDef(
         Ability(
             title="[Perform]",
             game_text="If an attack damaged Unown [P] during your opponent's last turn and Unown [P] was your Active Pok\u00e9mon, Unown [P]'s Hidden Power attack does that much more damage to the Defending Pok\u00e9mon. This power can be used even if Unown [P] is Confused.",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            passive=unown_perform_passive,
         ),
         Attack(
             title="Hidden Power",

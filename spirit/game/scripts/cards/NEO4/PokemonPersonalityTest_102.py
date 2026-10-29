@@ -1,12 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Pokémon Personality Test (NEO4 #102): trainer effect stubbed.
-
-Card text:
-  - Put an Evolution card from your hand face down in front of you. Your opponent guesses whether it is a Pokémon card with Light in its name, a Pokémon card with Dark in its name, or neither one. Flip the card over. If your opponent guessed right, he or she draws 3 cards. If your opponent guessed wrong, you draw 3 cards. Either way, return the card to your hand.
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ecard import (
+    pokemon_personality_test, pokemon_personality_test_condition,
+)
+
 
 card = ItemCardDef(
     guid="58ef2c6c-602e-55ea-b203-84caaafbe1d8",
@@ -18,6 +15,6 @@ card = ItemCardDef(
     collector_number=102,
     set_code="NEO4",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    condition=pokemon_personality_test_condition,
+    effect=pokemon_personality_test,
 )

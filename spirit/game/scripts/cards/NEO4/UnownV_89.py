@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Unown [V] (NEO4 #89): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ecard import unown_vanish
+
 
 card = PokemonCardDef(
     guid="b3bacf6f-20ab-5ae2-aedc-ed8abfac48d8",
@@ -25,9 +23,9 @@ card = PokemonCardDef(
         Ability(
             title="[Vanish]",
             game_text="When you play Unown [V] from your hand, you may flip a coin. If heads, return 1 of your Pok\u00e9mon with Unown in its name (other than Unown [V]) to your hand. (Discard all cards attached to that card.)",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            trigger=Triggers.ON_PLAY,
+            effect=unown_vanish,
         ),
         Attack(
             title="Hidden Power",

@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dark Porygon2 (NEO4 #8): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.passives_common import flip_protection
+from spirit.game.card_effects.ecard import spatial_distortion, spatial_distortion_condition
+
 
 card = PokemonCardDef(
     guid="45f804a5-f97b-5a4d-848f-4a7dd5895041",
@@ -27,17 +26,17 @@ card = PokemonCardDef(
         Ability(
             title="Spatial Distortion",
             game_text="Once during your turn (before your attack), you may flip a coin. If heads, choose a Stadium card from your discard pile and put it into play. (If there's already a Stadium card in play, discard it.) This power can't be used if Dark Porygon2 is Asleep, Confused, or Paralyzed.",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            activation=Activations.ONCE_PER_TURN,
+            condition=spatial_distortion_condition,
+            effect=spatial_distortion,
         ),
         Attack(
             title="Curve Attack",
             game_text="Flip a coin. If heads, prevent all damage done by attacks to Dark Porygon2 during your opponent's next turn. (Any other effects of attacks still happen.)",
             cost={PokemonTypes.COLORLESS: 3},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_protection(prevent=True),
         ),
     ],
 )

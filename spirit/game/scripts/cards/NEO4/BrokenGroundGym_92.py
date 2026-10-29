@@ -1,13 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Broken Ground Gym (NEO4 #92): trainer effect stubbed.
-
-Card text:
-  - This card stays in play when you play it. Discard this card if another Stadium card comes into play.
-  - Each player pays Colorless more to retreat a Baby Pokémon or Basic Pokémon.
-"""
-
-from spirit.game.data_utils import StadiumCardDef, unimplemented
+from spirit.game.data_utils import StadiumCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ecard import broken_ground_gym_passive
+
 
 card = StadiumCardDef(
     guid="f33cb209-4280-5b4f-87e8-5ff656b7feb4",
@@ -19,6 +13,5 @@ card = StadiumCardDef(
     collector_number=92,
     set_code="NEO4",
     rarity=Rarities.Rare,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    passive=broken_ground_gym_passive,
 )
