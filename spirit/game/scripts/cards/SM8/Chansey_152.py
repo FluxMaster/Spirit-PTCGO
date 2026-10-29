@@ -1,0 +1,41 @@
+"""STUB: effect not implemented — do not guess mechanics.
+Chansey (SM8 #152): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
+"""
+
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+card = PokemonCardDef(
+    guid="1f552055-5357-5b37-9547-dc846a46872d",
+    key="SM8",
+    name="com.direwolfdigital.cake.data.archetypes.pokemon.Chansey.Name",
+    display_name="Chansey",
+    searchable_by=["Chansey", "Basic", "Chansey"],
+    subtypes=["Basic"],
+    collector_number=152,
+    set_code="SM8",
+    rarity=Rarities.Common,
+    hp=100,
+    elements=[PokemonTypes.COLORLESS],
+    stage=PokemonStage.BASIC,
+    retreat_cost=2,
+    weakness_type=PokemonTypes.FIGHTING,
+    family_id=113,
+    abilities=[
+        Attack(
+            title="Healing Pirouette",
+            game_text="Heal 20 damage from each of your Pok\u00e9mon.",
+            cost={PokemonTypes.COLORLESS: 1},
+            # STUB: attack effect not implemented
+            effect=unimplemented,
+        ),
+        Attack(
+            title="Sympathetic Slap",
+            game_text="If your opponent's Active Pok\u00e9mon already has any damage counters on it before this attack does damage, this attack does nothing.",
+            cost={PokemonTypes.COLORLESS: 3},
+            damage=100,
+            # STUB: attack effect not implemented
+            effect=unimplemented,
+        ),
+    ],
+)

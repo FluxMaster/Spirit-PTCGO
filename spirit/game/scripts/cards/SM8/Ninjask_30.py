@@ -1,0 +1,43 @@
+"""STUB: effect not implemented — do not guess mechanics.
+Ninjask (SM8 #30): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
+"""
+
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+card = PokemonCardDef(
+    guid="dac17095-31e2-5371-971a-8c5801de5928",
+    key="SM8",
+    name="com.direwolfdigital.cake.data.archetypes.pokemon.Ninjask.Name",
+    display_name="Ninjask",
+    searchable_by=["Ninjask", "Stage 1", "Ninjask"],
+    subtypes=["Stage 1"],
+    collector_number=30,
+    set_code="SM8",
+    rarity=Rarities.Uncommon,
+    hp=80,
+    elements=[PokemonTypes.GRASS],
+    stage=PokemonStage.STAGE1,
+    retreat_cost=0,
+    weakness_type=PokemonTypes.FIRE,
+    evolves_from="com.direwolfdigital.cake.data.archetypes.pokemon.Nincada.Name",
+    family_id=290,
+    abilities=[
+        Ability(
+            title="Molting",
+            game_text="When you play this Pok\u00e9mon from your hand to evolve 1 of your Pok\u00e9mon during your turn, you may put a Shedinja from your discard pile onto your Bench.",
+            ability_type=AbilityTypes.POKE_ABILITY,
+            # STUB: ability effect not implemented
+            effect=unimplemented,
+        ),
+        Attack(
+            title="X-Scissor",
+            game_text="Flip a coin. If heads, this attack does 40 more damage.",
+            cost={PokemonTypes.GRASS: 1},
+            damage=40,
+            damage_operator="+",
+            # STUB: attack effect not implemented
+            effect=unimplemented,
+        ),
+    ],
+)

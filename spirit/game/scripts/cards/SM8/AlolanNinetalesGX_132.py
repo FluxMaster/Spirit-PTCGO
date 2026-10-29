@@ -1,0 +1,51 @@
+"""STUB: effect not implemented — do not guess mechanics.
+Alolan Ninetales-GX (SM8 #132): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
+"""
+
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+card = PokemonCardDef(
+    guid="ccccba4d-d31f-5a75-9115-93263b00c608",
+    key="SM8",
+    name="com.direwolfdigital.cake.data.archetypes.pokemon.AlolanNinetalesGX.Name",
+    display_name="Alolan Ninetales-GX",
+    searchable_by=["Alolan Ninetales-GX", "Stage 1", "GX", "AlolanNinetalesGX"],
+    subtypes=["Stage 1", "GX"],
+    collector_number=132,
+    set_code="SM8",
+    rarity=Rarities.RareHoloGX,
+    hp=200,
+    elements=[PokemonTypes.FAIRY],
+    stage=PokemonStage.STAGE1,
+    retreat_cost=2,
+    weakness_type=PokemonTypes.METAL,
+    resistance_type=PokemonTypes.DARKNESS,
+    resistance_amount=20,
+    evolves_from="com.direwolfdigital.cake.data.archetypes.pokemon.AlolanVulpix.Name",
+    family_id=37,
+    abilities=[
+        Ability(
+            title="Mysterious Guidance",
+            game_text="When you play this Pok\u00e9mon from your hand to evolve 1 of your Pok\u00e9mon during your turn, you may search your deck for up to 2 Item cards, reveal them, and put them into your hand. Then, shuffle your deck.",
+            ability_type=AbilityTypes.POKE_ABILITY,
+            # STUB: ability effect not implemented
+            effect=unimplemented,
+        ),
+        Attack(
+            title="Snowy Wind",
+            game_text="This attack does 30 damage to 1 of your opponent's Benched Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
+            cost={PokemonTypes.FAIRY: 1, PokemonTypes.COLORLESS: 1},
+            damage=70,
+            # STUB: attack effect not implemented
+            effect=unimplemented,
+        ),
+        Attack(
+            title="Sublimation-GX",
+            game_text="If your opponent's Active Pok\u00e9mon is an Ultra Beast, it is Knocked Out. (You can't use more than 1 GX attack in a game.)",
+            cost={PokemonTypes.FAIRY: 1, PokemonTypes.COLORLESS: 1},
+            # STUB: attack effect not implemented
+            effect=unimplemented,
+        ),
+    ],
+)
