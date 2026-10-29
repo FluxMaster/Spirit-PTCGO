@@ -1,0 +1,39 @@
+"""STUB: effect not implemented — do not guess mechanics.
+Lucario (SM11 #117): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
+"""
+
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+card = PokemonCardDef(
+    guid="56a86969-a3e8-5dd7-8e58-79966a7aa190",
+    key="SM11",
+    name="com.direwolfdigital.cake.data.archetypes.pokemon.Lucario.Name",
+    display_name="Lucario",
+    searchable_by=["Lucario", "Stage 1", "Lucario"],
+    subtypes=["Stage 1"],
+    collector_number=117,
+    set_code="SM11",
+    rarity=Rarities.Rare,
+    hp=120,
+    elements=[PokemonTypes.FIGHTING],
+    stage=PokemonStage.STAGE1,
+    retreat_cost=2,
+    weakness_type=PokemonTypes.PSYCHIC,
+    evolves_from="com.direwolfdigital.cake.data.archetypes.pokemon.Riolu.Name",
+    family_id=447,
+    abilities=[
+        Ability(
+            title="Tag Coach",
+            game_text="Your TAG TEAM Pok\u00e9mon take 20 less damage from your opponent's attacks (after applying Weakness and Resistance).",
+            ability_type=AbilityTypes.POKE_ABILITY,
+            # STUB: ability effect not implemented
+            effect=unimplemented,
+        ),
+        Attack(
+            title="Mach Cross",
+            cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 2},
+            damage=90,
+        ),
+    ],
+)

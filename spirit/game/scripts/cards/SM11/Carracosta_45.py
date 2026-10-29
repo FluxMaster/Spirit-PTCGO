@@ -1,0 +1,43 @@
+"""STUB: effect not implemented — do not guess mechanics.
+Carracosta (SM11 #45): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
+"""
+
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+card = PokemonCardDef(
+    guid="b994cbad-1c05-5935-ac55-02130746ffee",
+    key="SM11",
+    name="com.direwolfdigital.cake.data.archetypes.pokemon.Carracosta.Name",
+    display_name="Carracosta",
+    searchable_by=["Carracosta", "Stage 2", "Carracosta"],
+    subtypes=["Stage 2"],
+    collector_number=45,
+    set_code="SM11",
+    rarity=Rarities.Uncommon,
+    hp=160,
+    elements=[PokemonTypes.WATER],
+    stage=PokemonStage.STAGE2,
+    retreat_cost=3,
+    weakness_type=PokemonTypes.GRASS,
+    evolves_from="com.direwolfdigital.cake.data.archetypes.pokemon.Tirtouga.Name",
+    family_id=564,
+    abilities=[
+        Ability(
+            title="Ancient Custom",
+            game_text="Pok\u00e9mon Tool cards attached to your opponent's Pok\u00e9mon have no effect.",
+            ability_type=AbilityTypes.POKE_ABILITY,
+            # STUB: ability effect not implemented
+            effect=unimplemented,
+        ),
+        Attack(
+            title="Aqua Impact",
+            game_text="This attack does 20 more damage for each Colorless in your opponent's Active Pok\u00e9mon's Retreat Cost.",
+            cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 2},
+            damage=80,
+            damage_operator="+",
+            # STUB: attack effect not implemented
+            effect=unimplemented,
+        ),
+    ],
+)

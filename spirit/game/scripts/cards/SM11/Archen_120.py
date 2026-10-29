@@ -1,0 +1,38 @@
+"""STUB: effect not implemented — do not guess mechanics.
+Archen (SM11 #120): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
+"""
+
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+card = PokemonCardDef(
+    guid="31934e92-54ac-59f8-a9fd-0c0796c00139",
+    key="SM11",
+    name="com.direwolfdigital.cake.data.archetypes.pokemon.Archen.Name",
+    display_name="Archen",
+    searchable_by=["Archen", "Stage 1", "Archen"],
+    subtypes=["Stage 1"],
+    collector_number=120,
+    set_code="SM11",
+    rarity=Rarities.Uncommon,
+    hp=80,
+    elements=[PokemonTypes.FIGHTING],
+    stage=PokemonStage.STAGE1,
+    retreat_cost=1,
+    weakness_type=PokemonTypes.LIGHTNING,
+    resistance_type=PokemonTypes.FIGHTING,
+    resistance_amount=20,
+    evolves_from="com.direwolfdigital.cake.data.archetypes.pokemon.UnidentifiedFossil.Name",
+    family_id=566,
+    abilities=[
+        Attack(
+            title="Endeavor",
+            game_text="Flip 2 coins. This attack does 20 more damage for each heads.",
+            cost={PokemonTypes.COLORLESS: 1},
+            damage=20,
+            damage_operator="+",
+            # STUB: attack effect not implemented
+            effect=unimplemented,
+        ),
+    ],
+)

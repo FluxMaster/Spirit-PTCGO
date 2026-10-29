@@ -1,0 +1,40 @@
+"""STUB: effect not implemented — do not guess mechanics.
+Latias (SM11 #153): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
+"""
+
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+card = PokemonCardDef(
+    guid="f4943309-6a2b-5e87-bb1c-db345455876a",
+    key="SM11",
+    name="com.direwolfdigital.cake.data.archetypes.pokemon.Latias.Name",
+    display_name="Latias",
+    searchable_by=["Latias", "Basic", "Latias"],
+    subtypes=["Basic"],
+    collector_number=153,
+    set_code="SM11",
+    rarity=Rarities.Rare,
+    hp=120,
+    elements=[PokemonTypes.DRAGON],
+    stage=PokemonStage.BASIC,
+    retreat_cost=1,
+    weakness_type=PokemonTypes.FAIRY,
+    family_id=380,
+    abilities=[
+        Attack(
+            title="Energy Arrow",
+            game_text="This attack does 20 damage times the amount of Energy attached to 1 of your opponent's Pok\u00e9mon to that Pok\u00e9mon. This damage isn't affected by Weakness or Resistance.",
+            cost={PokemonTypes.PSYCHIC: 1},
+            damage=20,
+            damage_operator="x",
+            # STUB: attack effect not implemented
+            effect=unimplemented,
+        ),
+        Attack(
+            title="Speed Wing",
+            cost={PokemonTypes.FIRE: 2, PokemonTypes.COLORLESS: 1},
+            damage=100,
+        ),
+    ],
+)

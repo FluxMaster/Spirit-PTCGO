@@ -1,0 +1,41 @@
+"""STUB: effect not implemented — do not guess mechanics.
+Whimsicott (SM11 #144): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
+"""
+
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+card = PokemonCardDef(
+    guid="e96a8426-90fc-52d5-b51c-b5316834af13",
+    key="SM11",
+    name="com.direwolfdigital.cake.data.archetypes.pokemon.Whimsicott.Name",
+    display_name="Whimsicott",
+    searchable_by=["Whimsicott", "Stage 1", "Whimsicott"],
+    subtypes=["Stage 1"],
+    collector_number=144,
+    set_code="SM11",
+    rarity=Rarities.Rare,
+    hp=80,
+    elements=[PokemonTypes.FAIRY],
+    stage=PokemonStage.STAGE1,
+    retreat_cost=0,
+    weakness_type=PokemonTypes.METAL,
+    resistance_type=PokemonTypes.DARKNESS,
+    resistance_amount=20,
+    evolves_from="com.direwolfdigital.cake.data.archetypes.pokemon.Cottonee.Name",
+    family_id=546,
+    abilities=[
+        Ability(
+            title="Prowl",
+            game_text="When you play this Pok\u00e9mon from your hand to evolve 1 of your Pok\u00e9mon during your turn, you may search your deck for a card and put it into your hand. Then, shuffle your deck.",
+            ability_type=AbilityTypes.POKE_ABILITY,
+            # STUB: ability effect not implemented
+            effect=unimplemented,
+        ),
+        Attack(
+            title="Gust",
+            cost={PokemonTypes.COLORLESS: 1},
+            damage=40,
+        ),
+    ],
+)

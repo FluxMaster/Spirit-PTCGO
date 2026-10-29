@@ -1,0 +1,46 @@
+"""STUB: effect not implemented — do not guess mechanics.
+Raichu & Alolan Raichu-GX (SM11 #54): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
+"""
+
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+card = PokemonCardDef(
+    guid="839c1613-c72f-54b8-922d-0da18057f8a2",
+    key="SM11",
+    name="com.direwolfdigital.cake.data.archetypes.pokemon.RaichuAlolanRaichuGX.Name",
+    display_name="Raichu & Alolan Raichu-GX",
+    searchable_by=["Raichu & Alolan Raichu-GX", "Basic", "TAG TEAM", "GX", "RaichuAlolanRaichuGX"],
+    subtypes=["Basic", "TAG TEAM", "GX"],
+    collector_number=54,
+    set_code="SM11",
+    rarity=Rarities.RareHoloGX,
+    hp=260,
+    elements=[PokemonTypes.LIGHTNING],
+    stage=PokemonStage.BASIC,
+    retreat_cost=2,
+    weakness_type=PokemonTypes.FIGHTING,
+    resistance_type=PokemonTypes.METAL,
+    resistance_amount=20,
+    family_id=26,
+    abilities=[
+        Attack(
+            title="Tandem Shock",
+            game_text="If this Pok\u00e9mon was on the Bench and became your Active Pok\u00e9mon this turn, this attack does 80 more damage, and your opponent's Active Pok\u00e9mon is now Paralyzed.",
+            cost={PokemonTypes.LIGHTNING: 2, PokemonTypes.COLORLESS: 1},
+            damage=80,
+            damage_operator="+",
+            # STUB: attack effect not implemented
+            effect=unimplemented,
+        ),
+        Attack(
+            title="Lightning Ride-GX",
+            game_text="Switch this Pok\u00e9mon with 1 of your Benched Pok\u00e9mon. If this Pok\u00e9mon has at least 2 extra Lightning Energy attached to it (in addition to this attack's cost), this attack does 100 more damage. (You can't use more than 1 GX attack in a game.)",
+            cost={PokemonTypes.LIGHTNING: 2, PokemonTypes.COLORLESS: 1},
+            damage=150,
+            damage_operator="+",
+            # STUB: attack effect not implemented
+            effect=unimplemented,
+        ),
+    ],
+)

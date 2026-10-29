@@ -1,0 +1,36 @@
+"""STUB: effect not implemented — do not guess mechanics.
+Chandelure (SM11 #30): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
+"""
+
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+card = PokemonCardDef(
+    guid="8d2a5d38-fbda-58c1-8ae1-642f6d8d7d4a",
+    key="SM11",
+    name="com.direwolfdigital.cake.data.archetypes.pokemon.Chandelure.Name",
+    display_name="Chandelure",
+    searchable_by=["Chandelure", "Stage 2", "Chandelure"],
+    subtypes=["Stage 2"],
+    collector_number=30,
+    set_code="SM11",
+    rarity=Rarities.RareHolo,
+    hp=140,
+    elements=[PokemonTypes.FIRE],
+    stage=PokemonStage.STAGE2,
+    retreat_cost=2,
+    weakness_type=PokemonTypes.WATER,
+    evolves_from="com.direwolfdigital.cake.data.archetypes.pokemon.Lampent.Name",
+    family_id=607,
+    abilities=[
+        Attack(
+            title="Spirit Burner",
+            game_text="Discard the top 5 cards of your deck. This attack does 60 more damage for each Pok\u00e9mon you discarded in this way. Then, put any number of Fire Pok\u00e9mon you discarded in this way onto your Bench.",
+            cost={PokemonTypes.FIRE: 1},
+            damage=10,
+            damage_operator="+",
+            # STUB: attack effect not implemented
+            effect=unimplemented,
+        ),
+    ],
+)

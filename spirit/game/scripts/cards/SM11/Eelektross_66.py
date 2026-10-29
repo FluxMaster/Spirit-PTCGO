@@ -1,0 +1,44 @@
+"""STUB: effect not implemented — do not guess mechanics.
+Eelektross (SM11 #66): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
+"""
+
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+card = PokemonCardDef(
+    guid="8c12a9a0-b506-5706-bd04-c748b55df26e",
+    key="SM11",
+    name="com.direwolfdigital.cake.data.archetypes.pokemon.Eelektross.Name",
+    display_name="Eelektross",
+    searchable_by=["Eelektross", "Stage 2", "Eelektross"],
+    subtypes=["Stage 2"],
+    collector_number=66,
+    set_code="SM11",
+    rarity=Rarities.RareHolo,
+    hp=150,
+    elements=[PokemonTypes.LIGHTNING],
+    stage=PokemonStage.STAGE2,
+    retreat_cost=3,
+    weakness_type=PokemonTypes.FIGHTING,
+    resistance_type=PokemonTypes.METAL,
+    resistance_amount=20,
+    evolves_from="com.direwolfdigital.cake.data.archetypes.pokemon.Eelektrik.Name",
+    family_id=602,
+    abilities=[
+        Ability(
+            title="Electric Swamp",
+            game_text="Once during your turn (before your attack), if this Pok\u00e9mon is in your hand and you have at least 4 Lightning Energy cards in play, you may play this Pok\u00e9mon onto your Bench. If you do, move any number of Lightning Energy from your other Pok\u00e9mon to this Pok\u00e9mon.",
+            ability_type=AbilityTypes.POKE_ABILITY,
+            # STUB: ability effect not implemented
+            effect=unimplemented,
+        ),
+        Attack(
+            title="Hover Over",
+            game_text="The Defending Pok\u00e9mon can't retreat during your opponent's next turn.",
+            cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 3},
+            damage=130,
+            # STUB: attack effect not implemented
+            effect=unimplemented,
+        ),
+    ],
+)

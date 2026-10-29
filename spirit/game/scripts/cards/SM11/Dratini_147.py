@@ -1,0 +1,34 @@
+"""STUB: effect not implemented — do not guess mechanics.
+Dratini (SM11 #147): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
+"""
+
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+card = PokemonCardDef(
+    guid="049ef089-4948-5c11-88e6-29ce0d9d5bad",
+    key="SM11",
+    name="com.direwolfdigital.cake.data.archetypes.pokemon.Dratini.Name",
+    display_name="Dratini",
+    searchable_by=["Dratini", "Basic", "Dratini"],
+    subtypes=["Basic"],
+    collector_number=147,
+    set_code="SM11",
+    rarity=Rarities.Common,
+    hp=60,
+    elements=[PokemonTypes.DRAGON],
+    stage=PokemonStage.BASIC,
+    retreat_cost=2,
+    weakness_type=PokemonTypes.FAIRY,
+    family_id=147,
+    abilities=[
+        Attack(
+            title="Agility",
+            game_text="Flip a coin. If heads, prevent all effects of attacks, including damage, done to this Pok\u00e9mon during your opponent's next turn.",
+            cost={PokemonTypes.LIGHTNING: 1},
+            damage=10,
+            # STUB: attack effect not implemented
+            effect=unimplemented,
+        ),
+    ],
+)

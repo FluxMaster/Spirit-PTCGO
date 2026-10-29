@@ -1,0 +1,51 @@
+"""STUB: effect not implemented — do not guess mechanics.
+Mawile-GX (SM11 #246): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
+"""
+
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+card = PokemonCardDef(
+    guid="d178f106-48a2-5050-96d4-5ca33e1e89ca",
+    key="SM11",
+    name="com.direwolfdigital.cake.data.archetypes.pokemon.MawileGX.Name",
+    display_name="Mawile-GX",
+    searchable_by=["Mawile-GX", "Basic", "GX", "MawileGX"],
+    subtypes=["Basic", "GX"],
+    collector_number=246,
+    set_code="SM11",
+    rarity=Rarities.RareRainbow,
+    hp=170,
+    elements=[PokemonTypes.METAL],
+    stage=PokemonStage.BASIC,
+    retreat_cost=1,
+    weakness_type=PokemonTypes.FIRE,
+    resistance_type=PokemonTypes.PSYCHIC,
+    resistance_amount=20,
+    family_id=303,
+    abilities=[
+        Ability(
+            title="Captivating Wink",
+            game_text="When you play this Pok\u00e9mon from your hand onto your Bench during your turn, you may have your opponent reveal their hand and put any number of Basic Pok\u00e9mon you find there onto their Bench.",
+            ability_type=AbilityTypes.POKE_ABILITY,
+            # STUB: ability effect not implemented
+            effect=unimplemented,
+        ),
+        Attack(
+            title="Wily Bite",
+            game_text="This attack does 30 more damage for each of your opponent's Benched Pok\u00e9mon.",
+            cost={PokemonTypes.METAL: 1, PokemonTypes.COLORLESS: 1},
+            damage=10,
+            damage_operator="+",
+            # STUB: attack effect not implemented
+            effect=unimplemented,
+        ),
+        Attack(
+            title="Big Eater-GX",
+            game_text="Your opponent reveals their hand. Discard all Supporter cards you find there. (You can't use more than 1 GX attack in a game.)",
+            cost={PokemonTypes.METAL: 1, PokemonTypes.COLORLESS: 1},
+            # STUB: attack effect not implemented
+            effect=unimplemented,
+        ),
+    ],
+)
