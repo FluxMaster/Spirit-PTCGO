@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Erika's Victreebel (GYM1 #26): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ecard import fragrance_trap, fragrance_trap_condition
+
 
 card = PokemonCardDef(
     guid="17d6460e-a19d-5ea6-b238-e2dd83f63584",
@@ -26,9 +24,10 @@ card = PokemonCardDef(
         Ability(
             title="Fragrance Trap",
             game_text="Once during your turn (before your attack), you may flip a coin. If heads, and if your opponent has any Benched Pok\u00e9mon, choose 1 of them and switch it with his or her Active Pok\u00e9mon. This power can't be used if Erika's Victreebel is Asleep, Confused, or Paralyzed.",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            activation=Activations.ONCE_PER_TURN,
+            condition=fragrance_trap_condition,
+            effect=fragrance_trap,
         ),
         Attack(
             title="Razor Leaf",

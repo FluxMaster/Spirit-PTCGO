@@ -1,12 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Energy Flow (GYM1 #122): trainer effect stubbed.
-
-Card text:
-  - For each of your Pokémon, you may return any number of Energy cards attached to it to your hand.
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ecard import energy_flow, energy_flow_condition
+
 
 card = ItemCardDef(
     guid="9f399bfb-7cd0-5012-9ab0-577c3ad61020",
@@ -18,6 +13,6 @@ card = ItemCardDef(
     collector_number=122,
     set_code="GYM1",
     rarity=Rarities.Common,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    condition=energy_flow_condition,
+    effect=energy_flow,
 )

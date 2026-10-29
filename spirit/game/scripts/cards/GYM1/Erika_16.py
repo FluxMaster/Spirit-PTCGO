@@ -1,12 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Erika (GYM1 #16): trainer effect stubbed.
-
-Card text:
-  - You may draw up to 3 cards, then your opponent may draw up to 3 cards.
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ecard import erika
+
 
 card = ItemCardDef(
     guid="c3978618-8737-5605-94d5-e09c82e3f262",
@@ -18,6 +13,5 @@ card = ItemCardDef(
     collector_number=16,
     set_code="GYM1",
     rarity=Rarities.RareHolo,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=erika,
 )

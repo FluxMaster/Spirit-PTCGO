@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Erika's Oddish (GYM1 #78): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import heal_attack
+from spirit.game.card_effects.ecard import sporadic_sponging
+
 
 card = PokemonCardDef(
     guid="d26b4275-2eb4-5300-a506-bd8584e4bff7",
@@ -27,16 +26,14 @@ card = PokemonCardDef(
             game_text="If there are any damage counters on Erika's Oddish, remove 1 of them.",
             cost={PokemonTypes.GRASS: 1},
             damage=10,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=heal_attack(10),
         ),
         Attack(
             title="Sporadic Sponging",
             game_text="If Erika's Oddish has any damage counters on it, flip a coin. If heads, remove 1 of those damage counters.",
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=sporadic_sponging,
         ),
     ],
 )

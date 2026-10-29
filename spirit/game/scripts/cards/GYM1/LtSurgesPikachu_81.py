@@ -1,11 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Lt. Surge's Pikachu (GYM1 #81): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.support_common import attach_from_discard
+from spirit.game.card_effects.pokemon import is_lightning_energy
 
 
 card = PokemonCardDef(
@@ -29,15 +27,13 @@ card = PokemonCardDef(
             title="Charge",
             game_text="Take 1 Lightning Energy card from your discard pile and attach it to Lt. Surge's Pikachu.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=attach_from_discard(predicate=is_lightning_energy),
         ),
         Attack(
             title="Lightning Tail",
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon is now Paralyzed.",
             cost={PokemonTypes.LIGHTNING: 2},
             damage=20,
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.PARALYZED, flip=True),
         ),
     ],

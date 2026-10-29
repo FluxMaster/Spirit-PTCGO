@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Erika's Gloom (GYM1 #45): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import flip_heal_self, magic_pollen
+
 
 card = PokemonCardDef(
     guid="74b841bd-99ab-5705-853c-3c1df075f4e8",
@@ -27,16 +25,14 @@ card = PokemonCardDef(
             title="Healing Pollen",
             game_text="Flip a coin. If heads, remove 4 damage counters from Erika's Gloom. If Erika's Gloom has fewer damage counters than that, remove all of them.",
             cost={PokemonTypes.GRASS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_heal_self,
         ),
         Attack(
             title="Magic Pollen",
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon is now Asleep, Confused, Paralyzed, or Poisoned (your choice).",
             cost={PokemonTypes.GRASS: 3},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=magic_pollen,
         ),
     ],
 )

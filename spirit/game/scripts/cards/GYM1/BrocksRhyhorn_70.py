@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Brock's Rhyhorn (GYM1 #70): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_or_nothing
+
 
 card = PokemonCardDef(
     guid="86ce5c4d-eae2-5d66-a6ee-22c34b85ce2d",
@@ -28,8 +26,7 @@ card = PokemonCardDef(
             game_text="Flip 2 coins. If 1 or both of them are tails, this attack does nothing.",
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 1},
             damage=70,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_or_nothing(coins=2),
         ),
     ],
 )

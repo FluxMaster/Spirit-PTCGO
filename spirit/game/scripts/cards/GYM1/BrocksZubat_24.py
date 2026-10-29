@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Brock's Zubat (GYM1 #24): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import alert, has_bench
+
 
 card = PokemonCardDef(
     guid="62e7a0e0-5d1d-59d8-909a-3a405193531f",
@@ -27,8 +25,8 @@ card = PokemonCardDef(
             title="Alert",
             game_text="Draw a card. Then, switch Brock's Zubat with 1 of your Benched Pok\u00e9mon. You can't use this attack if your Bench is empty.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            condition=has_bench,
+            effect=alert,
         ),
         Attack(
             title="Wing Attack",

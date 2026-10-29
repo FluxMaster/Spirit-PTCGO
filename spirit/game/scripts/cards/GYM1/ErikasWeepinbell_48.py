@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Erika's Weepinbell (GYM1 #48): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import opponent_has_benched
+from spirit.game.card_effects.support_common import gust_attack
+
 
 card = PokemonCardDef(
     guid="ca4bf4af-10d4-5484-8847-3ceb33cc3769",
@@ -33,8 +32,8 @@ card = PokemonCardDef(
             game_text="Before doing damage, choose 1 of your opponent's Benched Pok\u00e9mon and switch it with his or her Active Pok\u00e9mon. This attack can't be used if your opponent has no Benched Pok\u00e9mon.",
             cost={PokemonTypes.GRASS: 2},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            condition=opponent_has_benched,
+            effect=gust_attack(damage_to_new_active=20, damage_before=0),
         ),
     ],
 )

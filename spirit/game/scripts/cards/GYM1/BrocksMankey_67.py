@@ -1,8 +1,4 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Brock's Mankey (GYM1 #67): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.support_common import gust_attack
 
@@ -28,7 +24,6 @@ card = PokemonCardDef(
             title="Taunt",
             game_text="If your opponent has any Benched Pok\u00e9mon, choose 1 of them and switch it with the Defending Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=gust_attack(),
         ),
         Attack(

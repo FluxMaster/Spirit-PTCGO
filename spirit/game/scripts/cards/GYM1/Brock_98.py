@@ -1,12 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Brock (GYM1 #98): trainer effect stubbed.
-
-Card text:
-  - Remove 1 damage counter from each of your Pokémon that has any damage counters on it.
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.support_common import heal_item, requires_damaged_pokemon
 
 card = ItemCardDef(
     guid="08202675-968e-51ca-a73b-ed173c4f300d",
@@ -18,6 +12,6 @@ card = ItemCardDef(
     collector_number=98,
     set_code="GYM1",
     rarity=Rarities.Rare,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    condition=requires_damaged_pokemon(),
+    effect=heal_item(10, scope="each_own"),
 )

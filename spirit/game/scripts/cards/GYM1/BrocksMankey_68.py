@@ -1,9 +1,12 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Brock's Mankey (GYM1 #68): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import damage_counters_on, damage_per
+
+
+async def fidget(ctx):
+    """Shuffle your deck."""
+    await ctx.shuffle_deck()
+
 
 card = PokemonCardDef(
     guid="16c75ec8-108c-56d4-b64d-0fa6ede24fbf",
@@ -26,8 +29,7 @@ card = PokemonCardDef(
             title="Fidget",
             game_text="Shuffle your deck.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=fidget,
         ),
         Attack(
             title="Karate Chop",
@@ -35,8 +37,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 1},
             damage=40,
             damage_operator="-",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_per(damage_counters_on("self"), -10, base=40),
         ),
     ],
 )

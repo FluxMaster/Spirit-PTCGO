@@ -1,11 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Brock's Onix (GYM1 #21): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ecard import tunneling
 
 
 card = PokemonCardDef(
@@ -30,15 +27,13 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon is now Paralyzed.",
             cost={PokemonTypes.FIGHTING: 2},
             damage=20,
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.PARALYZED, flip=True),
         ),
         Attack(
             title="Tunneling",
             game_text="If your opponent has any Benched Pok\u00e9mon, choose up to 2 of them. This attack does 20 damage to each of them. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.) Brock's Onix can't attack during your next turn.",
             cost={PokemonTypes.FIGHTING: 3},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=tunneling,
         ),
     ],
 )

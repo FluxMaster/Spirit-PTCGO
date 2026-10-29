@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Erika's Exeggutor (GYM1 #44): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_bonus
 from spirit.game.card_effects.support_common import shuffle_hand_into_deck_draw
 
 
@@ -29,7 +26,6 @@ card = PokemonCardDef(
             title="Psychic Exchange",
             game_text="Shuffle your hand into your deck, then draw 5 cards.",
             cost={PokemonTypes.PSYCHIC: 1},
-            # STUB: attack effect not implemented
             effect=shuffle_hand_into_deck_draw(5),
         ),
         Attack(
@@ -38,8 +34,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 2},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_bonus(10),
         ),
     ],
 )

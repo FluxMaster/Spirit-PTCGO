@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Brock's Golbat (GYM1 #39): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import damage_all_unmodified
+
 
 card = PokemonCardDef(
     guid="f13daad2-c480-593e-9343-0eacef41f886",
@@ -33,8 +31,7 @@ card = PokemonCardDef(
             title="Spiral Dive",
             game_text="Does 10 damage to each of your opponent's Pok\u00e9mon. Don't apply Weakness and Resistance.",
             cost={PokemonTypes.COLORLESS: 3},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_all_unmodified(10),
         ),
     ],
 )

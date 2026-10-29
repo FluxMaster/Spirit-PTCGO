@@ -1,10 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Erika's Exeggcute (GYM1 #77): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-from spirit.game.card_effects.attacks_common import count_energy, damage_per
+from spirit.game.card_effects.attacks_common import count_energy, damage_per, flip_damage
 
 
 card = PokemonCardDef(
@@ -30,8 +26,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(coins_from=count_energy("self"), per_heads=10),
         ),
         Attack(
             title="Psychic",
@@ -39,8 +34,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 1},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=damage_per(count_energy('defender', cards=True), 10, base=10),
+            effect=damage_per(count_energy("defender", cards=True), 10, base=10),
         ),
     ],
 )

@@ -1,10 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Erika's Clefairy (GYM1 #25): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_damage
+from spirit.game.card_effects.support_common import search_to_hand
+from spirit.game.card_effects.trainers import is_basic_energy_card
 
 
 card = PokemonCardDef(
@@ -29,8 +27,10 @@ card = PokemonCardDef(
             title="Moonwatching",
             game_text="Search your deck for a basic Energy card. Show that card to your opponent, then put it into your hand. Shuffle your deck afterward.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=search_to_hand(
+                is_basic_energy_card, count=1, reveal=True,
+                prompt="Choose a basic Energy card to put into your hand.",
+            ),
         ),
         Attack(
             title="Comet Slap",
@@ -38,7 +38,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=10,
             damage_operator="x",
-            # STUB: attack effect not implemented
             effect=flip_damage(coins=3, per_heads=10),
         ),
     ],

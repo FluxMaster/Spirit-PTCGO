@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Erika's Clefable (GYM1 #3): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import fairy_power
+
 
 card = PokemonCardDef(
     guid="4d2083e5-1a2e-5060-987a-f295ac0eb0b1",
@@ -28,8 +26,7 @@ card = PokemonCardDef(
             title="Fairy Power",
             game_text="Flip a coin. If heads, you may return any number of your Pok\u00e9mon in play and all cards attached to them to your hand.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=fairy_power,
         ),
         Attack(
             title="Moon Impact",

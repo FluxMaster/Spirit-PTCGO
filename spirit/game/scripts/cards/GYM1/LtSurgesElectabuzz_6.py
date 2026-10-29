@@ -1,9 +1,12 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Lt. Surge's Electabuzz (GYM1 #6): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import attach_from_discard
+from spirit.game.card_effects.pokemon import is_lightning_energy
+from spirit.game.card_effects.ecard import (
+    discard_all_typed_energy_flip_damage,
+    has_typed_basic_energy,
+)
+
 
 card = PokemonCardDef(
     guid="03ba1522-2525-5ed9-a669-e1f3c8b17345",
@@ -26,8 +29,8 @@ card = PokemonCardDef(
             title="Charge",
             game_text="Take up to 2 Lightning Energy cards from your discard pile and attach them to Lt. Surge's Electabuzz.",
             cost={PokemonTypes.LIGHTNING: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=attach_from_discard(
+                predicate=is_lightning_energy, count=2, minimum=0),
         ),
         Attack(
             title="Discharge",
@@ -35,8 +38,9 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 1},
             damage=30,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            condition=has_typed_basic_energy(PokemonTypes.LIGHTNING),
+            effect=discard_all_typed_energy_flip_damage(
+                PokemonTypes.LIGHTNING, 30),
         ),
     ],
 )

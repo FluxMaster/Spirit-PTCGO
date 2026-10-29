@@ -1,10 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Erika's Dragonair (GYM1 #4): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-from spirit.game.card_effects.ecard import blizzard
+from spirit.game.card_effects.ecard import blizzard, take_away
 
 
 card = PokemonCardDef(
@@ -30,15 +26,13 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, this attack does 10 damage to each of your opponent's Benched Pok\u00e9mon. If tails, this attack does 10 damage to each of your own Benched Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.COLORLESS: 3},
             damage=30,
-            # STUB: attack effect not implemented
             effect=blizzard,
         ),
         Attack(
             title="Take Away",
             game_text="Shuffle Erika's Dragonair and all cards attached to it into your deck. Then, your opponent shuffles his or her Active Pok\u00e9mon and all cards attached to it into his or her deck.",
             cost={PokemonTypes.COLORLESS: 4},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=take_away,
         ),
     ],
 )

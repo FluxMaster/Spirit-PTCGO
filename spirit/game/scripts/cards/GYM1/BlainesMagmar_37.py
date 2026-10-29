@@ -1,10 +1,12 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Blaine's Magmar (GYM1 #37): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
+from spirit.game.data_utils import PokemonCardDef, Attack
+from spirit.game.attributes import AttrID, PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_bonus, mill_scaled_damage
+from spirit.game.card_effects.pokemon import is_energy_card
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-from spirit.game.card_effects.attacks_common import flip_bonus
+
+def _is_fire_energy_card(card):
+    types = card.get_attribute(AttrID.POKEMON_TYPES) or []
+    return is_energy_card(card) and PokemonTypes.FIRE.value in types
 
 
 card = PokemonCardDef(
@@ -30,7 +32,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 1},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
             effect=flip_bonus(10),
         ),
         Attack(
@@ -39,8 +40,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 3},
             damage=20,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=mill_scaled_damage(5, 20, pred=_is_fire_energy_card),
         ),
     ],
 )

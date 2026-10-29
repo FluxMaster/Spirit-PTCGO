@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Erika's Dratini (GYM1 #42): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import flip_bonus
+from spirit.game.card_effects.ecard import strange_barrier
 
 
 card = PokemonCardDef(
@@ -27,9 +24,8 @@ card = PokemonCardDef(
         Ability(
             title="Strange Barrier",
             game_text="Whenever an attack by a Basic Pok\u00e9mon (including your own) does 20 or more damage to Erika's Dratini (after applying Weakness and Resistance), reduce that damage to 10. (Any other effects of attacks still happen.) This power stops working while Erika's Dratini is Asleep, Confused, or Paralyzed.",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            passive=strange_barrier,
         ),
         Attack(
             title="Tail Strike",
@@ -37,7 +33,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
             effect=flip_bonus(20),
         ),
     ],

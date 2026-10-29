@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Erika's Exeggcute (GYM1 #43): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_damage
+from spirit.game.card_effects.ecard import deflector
+
 
 card = PokemonCardDef(
     guid="1d0f1309-5021-5403-a38c-0e6b5fd29df1",
@@ -26,16 +25,14 @@ card = PokemonCardDef(
             title="Deflector",
             game_text="During your opponent's next turn, whenever Erika's Exeggcute takes damage, divide that damage in half (rounded down to the nearest 10). (Any other effects still happen.)",
             cost={PokemonTypes.PSYCHIC: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=deflector,
         ),
         Attack(
             title="Egg Bomb",
             game_text="Flip a coin. If tails, this attack does nothing to the Defending Pok\u00e9mon and Erika's Exeggcute does 20 damage to itself.",
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 1},
             damage=40,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(coins=1, per_heads=40, tails_self_damage=20),
         ),
     ],
 )

@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Erika's Bellsprout (GYM1 #76): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import recoil_attack
+
 
 card = PokemonCardDef(
     guid="d54c95c0-f6e8-5f33-a49f-c8188d3e81d1",
@@ -27,8 +25,7 @@ card = PokemonCardDef(
             game_text="Erika's Bellsprout does 10 damage to itself.",
             cost={PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=recoil_attack(10),
         ),
     ],
 )

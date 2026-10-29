@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Brock's Golem (GYM1 #20): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import snipe_attack
+
 
 card = PokemonCardDef(
     guid="bf784213-8fac-53a0-ab2b-11dc694ad94f",
@@ -28,8 +26,10 @@ card = PokemonCardDef(
             game_text="If your opponent has any Benched Pok\u00e9mon, choose up to 3 of them. This attack does 10 damage to each of them. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.FIGHTING: 2, PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=snipe_attack(
+                10, pool="bench", count=3, also_base=True, optional=True,
+                prompt="Choose up to 3 of your opponent's Benched Pokémon",
+            ),
         ),
         Attack(
             title="Fissure",

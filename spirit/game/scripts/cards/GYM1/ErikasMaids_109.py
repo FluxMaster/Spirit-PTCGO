@@ -1,12 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Erika's Maids (GYM1 #109): trainer effect stubbed.
-
-Card text:
-  - Trade 2 of the other cards in your hand for up to 2 Basic Pokémon and/or Evolution cards with Erika in their names from your deck. Show those cards to your opponent, then put them into your hand. Shuffle your deck afterward.
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ecard import erikas_maids, erikas_maids_condition
+
 
 card = ItemCardDef(
     guid="113c011b-e436-551c-ae53-2dac3cff60c7",
@@ -18,6 +13,6 @@ card = ItemCardDef(
     collector_number=109,
     set_code="GYM1",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    condition=erikas_maids_condition,
+    effect=erikas_maids,
 )
