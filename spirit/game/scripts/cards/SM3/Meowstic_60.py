@@ -4,6 +4,9 @@ Meowstic (SM3 #60): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import draw_attack
+from spirit.game.card_effects.attacks_common import damage_per, count_hand
+
 
 card = PokemonCardDef(
     guid="f6a82dde-5e18-52b7-85bb-cfcfe54b18e9",
@@ -28,7 +31,7 @@ card = PokemonCardDef(
             game_text="Draw 3 cards.",
             cost={PokemonTypes.PSYCHIC: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=draw_attack(3),
         ),
         Attack(
             title="Hand Kinesis",
@@ -37,7 +40,7 @@ card = PokemonCardDef(
             damage=10,
             damage_operator="x",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_per(count_hand('mine'), 10),
         ),
     ],
 )

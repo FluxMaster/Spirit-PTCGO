@@ -4,6 +4,8 @@ Ralts (SM3 #91): one or more attacks/abilities use effect=unimplemented until a 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import heal_attack
+
 
 card = PokemonCardDef(
     guid="7c1c2171-084f-5ab7-8649-e0b84a909119",
@@ -30,7 +32,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FAIRY: 1},
             damage=10,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=heal_attack(10),
         ),
     ],
 )

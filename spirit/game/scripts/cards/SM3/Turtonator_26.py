@@ -4,6 +4,13 @@ Turtonator (SM3 #26): one or more attacks/abilities use effect=unimplemented unt
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import attach_from_discard
+from spirit.game.card_effects.pokemon import energy_provides_type
+
+
+def _is_fire_energy(card):
+    return energy_provides_type(card, PokemonTypes.FIRE.value)
+
 
 card = PokemonCardDef(
     guid="b435ba11-4a8c-5914-9b18-61feb6921e3c",
@@ -28,7 +35,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=attach_from_discard(predicate=_is_fire_energy),
         ),
         Attack(
             title="Heat Blast",

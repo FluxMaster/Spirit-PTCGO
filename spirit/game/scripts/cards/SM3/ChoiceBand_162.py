@@ -1,14 +1,12 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Choice Band (SM3 #162): trainer effect stubbed.
-
-Card text:
-  - Attach a Pokémon Tool to 1 of your Pokémon that doesn't already have a Pokémon Tool attached to it.
-  - The attacks of the Pokémon this card is attached to do 30 more damage to your opponent's Active Pokémon-GX or Active Pokémon-EX (before applying Weakness and Resistance).
-  - You may play as many Item cards as you like during your turn (before your attack).
-"""
-
-from spirit.game.data_utils import PokemonToolCardDef, unimplemented
+from spirit.game.data_utils import PokemonToolCardDef, subtypes_for
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.passives_common import typed_damage_boost_tool
+
+
+def _is_gx_or_ex(target):
+    subs = subtypes_for(target.archetype_id)
+    return "GX" in subs or "EX" in subs
+
 
 card = PokemonToolCardDef(
     guid="6b20d3a2-dbad-5db0-b917-83445ba707f0",
@@ -20,6 +18,5 @@ card = PokemonToolCardDef(
     collector_number=162,
     set_code="SM3",
     rarity=Rarities.RareSecret,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    passive=typed_damage_boost_tool(_is_gx_or_ex, 30),
 )

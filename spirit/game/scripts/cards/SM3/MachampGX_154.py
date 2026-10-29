@@ -4,6 +4,9 @@ Machamp-GX (SM3 #154): one or more attacks/abilities use effect=unimplemented un
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import bonus_if, active_is
+from spirit.game.session.effects import is_evolution_pokemon
+
 
 card = PokemonCardDef(
     guid="b80601e6-66ce-5386-8697-4af8ec3632eb",
@@ -30,7 +33,7 @@ card = PokemonCardDef(
             damage=60,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bonus_if(active_is(is_evolution_pokemon), 60),
         ),
         Attack(
             title="Bedrock Breaker",

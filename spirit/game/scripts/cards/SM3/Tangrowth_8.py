@@ -4,6 +4,16 @@ Tangrowth (SM3 #8): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_damage
+
+
+async def gulp_down(ctx):
+    """Heal from this Pokémon the same amount of damage you did to your
+    opponent's Active Pokémon."""
+    dealt = await ctx.deal_damage()
+    if dealt > 0:
+        await ctx.heal(dealt, ctx.attacker)
+
 
 card = PokemonCardDef(
     guid="41718543-1e23-57b9-9757-50188fb7a689",
@@ -29,7 +39,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=gulp_down,
         ),
         Attack(
             title="Crosswise Whip",
@@ -38,7 +48,7 @@ card = PokemonCardDef(
             damage=50,
             damage_operator="x",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(coins=4, per_heads=50),
         ),
     ],
 )

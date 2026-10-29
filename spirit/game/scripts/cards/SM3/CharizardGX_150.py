@@ -4,6 +4,8 @@ Charizard-GX (SM3 #150): one or more attacks/abilities use effect=unimplemented 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import self_energy_discard_attack
+
 
 card = PokemonCardDef(
     guid="4e2ee9b6-ab56-59eb-86c1-cf4ca4f3b763",
@@ -34,7 +36,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 3, PokemonTypes.COLORLESS: 2},
             damage=300,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=self_energy_discard_attack(count=3, energy_type=PokemonTypes.FIRE),
         ),
         Attack(
             title="Raging Out-GX",

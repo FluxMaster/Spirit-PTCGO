@@ -4,6 +4,14 @@ Wobbuffet (SM3 #49): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.attributes import AttrID
+from spirit.game.card_effects.attacks_common import damage_per
+
+
+def _defender_retreat_cost(ctx):
+    defender = ctx.defender
+    return int(defender.get_attribute(AttrID.RETREAT_COST) or 0) if defender else 0
+
 
 card = PokemonCardDef(
     guid="b00946fa-308f-5c71-8f17-337ebd9be754",
@@ -29,7 +37,7 @@ card = PokemonCardDef(
             damage=50,
             damage_operator="x",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_per(_defender_retreat_cost, 50),
         ),
     ],
 )

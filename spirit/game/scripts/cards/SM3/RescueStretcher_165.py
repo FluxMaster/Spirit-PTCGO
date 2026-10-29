@@ -1,15 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Rescue Stretcher (SM3 #165): trainer effect stubbed.
-
-Card text:
-  - Choose 1:
-• Put a Pokémon from your discard pile into your hand.
-• Shuffle 3 Pokémon from your discard pile into your deck.
-  - You may play as many Item cards as you like during your turn (before your attack).
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.scripts.cards.SM2.RescueStretcher_130 import (
+    rescue_stretcher, rescue_stretcher_playable,
+)
 
 card = ItemCardDef(
     guid="653e090e-d8be-5477-b622-30f83c5e6d06",
@@ -21,6 +14,6 @@ card = ItemCardDef(
     collector_number=165,
     set_code="SM3",
     rarity=Rarities.RareSecret,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    condition=rescue_stretcher_playable,
+    effect=rescue_stretcher,
 )

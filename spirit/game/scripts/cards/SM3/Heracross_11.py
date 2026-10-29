@@ -4,6 +4,9 @@ Heracross (SM3 #11): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.passives_common import guts_survive_passive
+from spirit.game.card_effects.support_common import gust_attack
+
 
 card = PokemonCardDef(
     guid="74a17627-7528-5313-b8ad-571720adfe0b",
@@ -27,7 +30,7 @@ card = PokemonCardDef(
             game_text="If this Pok\u00e9mon would be Knocked Out by damage from an attack, flip a coin. If heads, this Pok\u00e9mon is not Knocked Out, and its remaining HP becomes 10.",
             ability_type=AbilityTypes.POKE_ABILITY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=guts_survive_passive(hp_floor=10, title='Guts', flip=True),
         ),
         Attack(
             title="Pitch",
@@ -35,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 2},
             damage=50,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=gust_attack(opponent_chooses=True),
         ),
     ],
 )

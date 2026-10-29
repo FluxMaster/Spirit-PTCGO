@@ -4,6 +4,8 @@ Slowking (SM3 #48): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import search_to_hand
+
 
 card = PokemonCardDef(
     guid="5c3f338e-78df-5f09-87bb-8d8e1c99326a",
@@ -28,7 +30,7 @@ card = PokemonCardDef(
             game_text="Search your deck for a card and put it into your hand. Then, shuffle your deck.",
             cost={PokemonTypes.PSYCHIC: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=search_to_hand(count=1, minimum=0, reveal=False),
         ),
         Attack(
             title="Unarmed",

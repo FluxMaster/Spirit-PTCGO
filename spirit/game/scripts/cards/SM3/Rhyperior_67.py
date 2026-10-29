@@ -4,6 +4,14 @@ Rhyperior (SM3 #67): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.data_utils import Triggers
+
+
+async def mountain_roasting(ctx):
+    """On evolve: you may discard the top 3 cards of your opponent's deck."""
+    if await ctx.ask_yes_no("Discard the top 3 cards of your opponent's deck?"):
+        await ctx.discard_cards(ctx.deck_top(3, player_id=ctx.opponent_id))
+
 
 card = PokemonCardDef(
     guid="c86e11f5-7abb-5541-93c1-542d44f39371",
@@ -28,7 +36,8 @@ card = PokemonCardDef(
             game_text="When you play this Pok\u00e9mon from your hand to evolve 1 of your Pok\u00e9mon during your turn, you may discard the top 3 cards of your opponent's deck.",
             ability_type=AbilityTypes.POKE_ABILITY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=Triggers.ON_EVOLVE,
+            effect=mountain_roasting,
         ),
         Attack(
             title="Rock Wrecker",

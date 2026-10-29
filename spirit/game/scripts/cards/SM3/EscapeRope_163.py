@@ -1,12 +1,5 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Escape Rope (SM3 #163): trainer effect stubbed.
-
-Card text:
-  - Each player switches their Active Pokémon with 1 of their Benched Pokémon. Your opponent switches first. (If a player does not have a Benched Pokémon, that player doesn't switch Pokémon.)
-  - You may play as many Item cards as you like during your turn (before your attack).
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.card_effects.trainers import escape_rope, someone_has_bench
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
 
 card = ItemCardDef(
@@ -19,6 +12,6 @@ card = ItemCardDef(
     collector_number=163,
     set_code="SM3",
     rarity=Rarities.RareSecret,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=escape_rope,
+    condition=someone_has_bench
 )

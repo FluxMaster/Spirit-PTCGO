@@ -4,6 +4,8 @@ Metapod (SM3 #2): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import heal_attack
+
 
 card = PokemonCardDef(
     guid="a18bc024-0831-521a-ae14-01d2e686c3cf",
@@ -33,7 +35,7 @@ card = PokemonCardDef(
             game_text="Heal 40 damage from this Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 2},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=heal_attack(40, target='self'),
         ),
     ],
 )
