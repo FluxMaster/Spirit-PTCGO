@@ -2443,15 +2443,30 @@ class GameSession:
                 p.knockout_whole_stack(pokemon, c) for p, c in ko_passives
             )
             dest_area = self.board_state.find_player_area(owner_id, dest_name) or discard
+            hand = self.board_state.find_player_area(owner_id, "hand")
             stack = [pokemon] + _stack_descendants(pokemon)
             moves = []
             trailing = []
             if isinstance(pokemon, CompositePokemonEntity):
                 moves, trailing, _ = vunion.depart_composite(self, pokemon, dest_area, knockout=True)
             for entity in ([] if isinstance(pokemon, CompositePokemonEntity) else stack):
-                area = dest_area if (isinstance(entity, PokemonEntity) or whole_stack) else discard
+                recycle = (
+                    not isinstance(entity, PokemonEntity)
+                    and not whole_stack
+                    and hand is not None
+                    and getattr(def_for(entity.archetype_id),
+                                "return_to_hand_when_discarded_from_play", False)
+                )
+                if isinstance(entity, PokemonEntity) or whole_stack:
+                    area = dest_area
+                elif recycle:
+                    area = hand
+                else:
+                    area = discard
                 position = len(area.children)
                 if self.board_state.move_card(entity.entity_id, area.entity_id):
+                    if recycle:
+                        moves.append(self._entity_introduced_msg(entity))
                     moves.append(self._entity_moved_msg(
                         entity.entity_id, area.entity_id, position
                     ))
@@ -4108,7 +4123,7 @@ class GameSession:
         elif description == ACTION_PLAY_VUNION:
             return await vunion.execute_play(self, player_id, card)
         elif description == ACTION_PLAY_ENERGY:
-            await self._execute_attach_energy(player_id, card, entry, target_ids)
+            return bool(await self._execute_attach_energy(player_id, card, entry, target_ids))
         elif description == ACTION_ATTACH_TOOL:
             await self._execute_attach_tool(player_id, card, entry, target_ids)
         elif description == ACTION_EVOLVE:
@@ -4230,20 +4245,28 @@ class GameSession:
         return ends_turn
 
     async def fire_energy_attached_triggers(self, attaching_player_id: str,
-                                            energy, receiver):
+                                            energy, receiver) -> bool:
         """ON_ENERGY_ATTACHED for every in-play Pokemon on BOTH sides
         (Arctozolt observes the opponent's attach); the trigger ctx carries
-        attaching_player_id / attached_energy / energy_receiver."""
+        attaching_player_id / attached_energy / energy_receiver.
+        Returns True when a resolved trigger ends the turn (Lazy Howl)."""
         def _setup(c):
             c.attaching_player_id = attaching_player_id
             c.attached_energy = energy
             c.energy_receiver = receiver
+        ends_turn = False
         for pid in self._turn_order():
             for pokemon in list(self.board_state.pokemon_in_play(pid)):
-                await self._fire_triggered_abilities(
-                    pid, pokemon, Triggers.ON_ENERGY_ATTACHED, ctx_setup=_setup)
+                if await self._fire_triggered_abilities(
+                        pid, pokemon, Triggers.ON_ENERGY_ATTACHED, ctx_setup=_setup):
+                    ends_turn = True
         await self._fire_stadium_triggers(
             attaching_player_id, Triggers.ON_ENERGY_ATTACHED, _setup)
+        for passive, carrier in active_passives(self.board_state):
+            if passive.ends_turn_on_energy_attach(
+                    receiver, attaching_player_id, energy, carrier):
+                ends_turn = True
+        return ends_turn
 
     async def _fire_ally_evolved_triggers(self, player_id: str, evolution_card,
                                           pre_evolution):
@@ -4266,6 +4289,11 @@ class GameSession:
             await self._fire_triggered_abilities(
                 active_id, pokemon, Triggers.END_OF_TURN)
         await self._discard_end_of_attach_turn_energy()
+        until = self.turn_state.end_of_turn_draw_until.pop(active_id, None)
+        if until:
+            ctx = EffectContext(self, active_id, None, None)
+            await ctx.draw_until(until)
+            await self._flush_effect_runs(ctx)
 
     def _attached_special_energies(self):
         out = []
@@ -4332,10 +4360,15 @@ class GameSession:
 
     async def fire_pokemon_benched_triggers(self, benching_player_id: str, pokemon):
         """ON_POKEMON_BENCHED for a manual from-hand bench play only (Gapejaw
-        Bog does not observe effect-driven benching from the deck)."""
+        Bog does not observe effect-driven benching from the deck). Fires on
+        every in-play Pokemon first (Bursting Spores), then stadiums."""
         def _setup(c):
             c.benching_player_id = benching_player_id
             c.benched_pokemon = pokemon
+        for pid in self._turn_order():
+            for poke in list(self.board_state.pokemon_in_play(pid)):
+                await self._fire_triggered_abilities(
+                    pid, poke, Triggers.ON_POKEMON_BENCHED, ctx_setup=_setup)
         await self._fire_stadium_triggers(
             benching_player_id, Triggers.ON_POKEMON_BENCHED, _setup)
 
@@ -4445,7 +4478,7 @@ class GameSession:
             await self._flush_effect_runs(attach_ctx)
             await self.resolve_knockouts(attach_ctx)
         # A manual attach from hand is what ON_ENERGY_ATTACHED observes.
-        await self.fire_energy_attached_triggers(player_id, card, target)
+        return await self.fire_energy_attached_triggers(player_id, card, target)
 
     async def _resolve_attach_tax_flip(self, player_id: str, energy, taxer) -> bool:
         """Slimy Room flip on a manual energy attach: heads (True) proceeds;

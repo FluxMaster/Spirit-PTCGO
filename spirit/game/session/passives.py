@@ -373,6 +373,14 @@ class Passive:
         Snooze: 2, all heads wakes); 0 = no opinion. Highest wins."""
         return 0
 
+    def ends_turn_on_energy_attach(
+        self, pokemon: PokemonEntity, attaching_player_id: str, energy: BoardEntity,
+        carrier: BoardEntity,
+    ) -> bool:
+        """True to end the attaching player's turn after a manual Energy
+        attach from hand to `pokemon` (Slakoth Lazy Howl)."""
+        return False
+
     def tool_capacity(self, pokemon: PokemonEntity, carrier: BoardEntity) -> int:
         """Pokemon Tools `pokemon` may hold (GarbodorVMAX 2); highest wins."""
         return 1

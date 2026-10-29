@@ -191,6 +191,9 @@ class TurnState:
     # owner_id -> chooser_id: who picks the replacement Active after a KO
     # (Hypno Hypnotic Pendulum). Consumed by _promote_new_active.
     promotion_chooser: Dict[str, str] = field(default_factory=dict)
+    # player_id -> hand size to draw up to at the end of that player's turn
+    # (Blue's Tactics). Consumed by _fire_end_of_turn_triggers.
+    end_of_turn_draw_until: Dict[str, int] = field(default_factory=dict)
 
     def begin_turn(self, player_id: str, board: Optional[Any] = None):
         """Advances to the next turn, resets the once-per-turn flags, rotates
