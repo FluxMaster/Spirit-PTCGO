@@ -1,0 +1,41 @@
+"""STUB: effect not implemented — do not guess mechanics.
+Dark Raticate (BASE5 #51): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
+"""
+
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+card = PokemonCardDef(
+    guid="28547469-7fd4-51d0-bb80-fab6e181783f",
+    key="BASE5",
+    name="com.direwolfdigital.cake.data.archetypes.pokemon.DarkRaticate.Name",
+    display_name="Dark Raticate",
+    searchable_by=["Dark Raticate", "Stage 1", "DarkRaticate"],
+    subtypes=["Stage 1"],
+    collector_number=51,
+    set_code="BASE5",
+    rarity=Rarities.Common,
+    hp=50,
+    elements=[PokemonTypes.COLORLESS],
+    stage=PokemonStage.STAGE1,
+    retreat_cost=1,
+    weakness_type=PokemonTypes.FIGHTING,
+    resistance_type=PokemonTypes.PSYCHIC,
+    evolves_from="com.direwolfdigital.cake.data.archetypes.pokemon.Rattata.Name",
+    family_id=19,
+    abilities=[
+        Attack(
+            title="Gnaw",
+            cost={PokemonTypes.COLORLESS: 2},
+            damage=20,
+        ),
+        Attack(
+            title="Hyper Fang",
+            game_text="Flip a coin. If tails, this attack does nothing.",
+            cost={PokemonTypes.COLORLESS: 3},
+            damage=50,
+            # STUB: attack effect not implemented
+            effect=unimplemented,
+        ),
+    ],
+)
