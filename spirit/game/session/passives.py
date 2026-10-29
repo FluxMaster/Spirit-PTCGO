@@ -305,7 +305,8 @@ class Passive:
         return []
 
     def blocks_trainer_play(
-        self, card: BoardEntity, player_id: str, carrier: BoardEntity
+        self, card: BoardEntity, player_id: str, carrier: BoardEntity,
+        board: Optional[BoardState] = None,
     ) -> bool:
         """True to forbid `player_id` playing `card` from hand (Vileplume)."""
         return False
@@ -463,6 +464,21 @@ class Passive:
     ) -> bool:
         """True to keep Special Conditions on `pokemon` when it evolves or
         devolves (Sea of Nothingness)."""
+        return False
+
+    def keeps_condition_on_evolve(
+        self, pokemon: PokemonEntity, condition: str, carrier: BoardEntity
+    ) -> bool:
+        """True to keep one named Special Condition on `pokemon` through
+        evolve/devolve (Muk Poison Sacs: Poisoned only)."""
+        return False
+
+    def blocks_return_to_hand(
+        self, card: BoardEntity, carrier: BoardEntity,
+        board: Optional[BoardState] = None,
+    ) -> bool:
+        """True to keep an in-play `card` (or its attachments) from being
+        put into its owner's hand (Mr. Mime Scoop-Up Block)."""
         return False
 
     def trainer_play_flip(self, card: BoardEntity, player_id: str,
@@ -828,9 +844,14 @@ def ability_effects_blocked(board: BoardState, target: PokemonEntity) -> bool:
 
 def trainer_play_blocked(board: BoardState, player_id: str, card: BoardEntity) -> bool:
     """Whether a continuous passive forbids playing `card` from hand."""
+    def _blocked(passive, carrier) -> bool:
+        fn = passive.blocks_trainer_play
+        try:
+            return fn(card, player_id, carrier, board=board)
+        except TypeError:
+            return fn(card, player_id, carrier)
     return any(
-        passive.blocks_trainer_play(card, player_id, carrier)
-        for passive, carrier in active_passives(board)
+        _blocked(passive, carrier) for passive, carrier in active_passives(board)
     )
 
 
@@ -923,6 +944,38 @@ def keeps_conditions_on_evolve(board: BoardState, pokemon: PokemonEntity) -> boo
     """Whether a stadium/passive keeps Special Conditions through evolve/devolve."""
     return any(
         passive.keeps_conditions_on_evolve(pokemon, carrier)
+        for passive, carrier in active_passives(board)
+    )
+
+
+def conditions_kept_on_evolve(board: BoardState, pokemon: PokemonEntity) -> List[str]:
+    """Special Condition names that survive evolve/devolve on `pokemon`."""
+    names = list(pokemon.get_attribute(AttrID.SPECIAL_CONDITIONS) or [])
+    if not names:
+        return []
+    if keeps_conditions_on_evolve(board, pokemon):
+        return names
+    kept: List[str] = []
+    pairs = list(active_passives(board))
+    for name in names:
+        if any(passive.keeps_condition_on_evolve(pokemon, name, carrier)
+               for passive, carrier in pairs):
+            kept.append(name)
+    return kept
+
+
+def return_to_hand_blocked(board: BoardState, card: BoardEntity) -> bool:
+    """Whether an in-play card (or its attachments) cannot go to hand."""
+    pokemon = carrier_pokemon(card)
+    if pokemon is None:
+        return False
+    parent = getattr(pokemon, "parent", None)
+    if parent is None or isinstance(parent, CardEntity):
+        return False
+    if parent.get_attribute(AttrID.NAME) not in ("activePokemonArea", "bench"):
+        return False
+    return any(
+        passive.blocks_return_to_hand(card, carrier, board)
         for passive, carrier in active_passives(board)
     )
 
