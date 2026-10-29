@@ -4,6 +4,8 @@ Magneton (BASE3 #11): one or more attacks/abilities use effect=unimplemented unt
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import no_weakness_or_resistance
+
 
 card = PokemonCardDef(
     guid="615fcf65-0ae0-5539-92b3-ebebaf7953ca",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=no_weakness_or_resistance,
         ),
         Attack(
             title="Selfdestruct",
