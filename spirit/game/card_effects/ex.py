@@ -1486,3 +1486,356 @@ async def wallys_training(ctx):
         if picks:
             await ctx.evolve_pokemon(active, picks[0])
     await ctx.shuffle_deck()
+
+
+def _logic_name(card) -> str:
+    return card.get_attribute(AttrID.EVOLUTION_LOGIC_NAME) or ""
+
+
+def _display_name(card) -> str:
+    """Best-effort printable name for matching card text (e.g. 'Articuno ex')."""
+    d = def_for(getattr(card, "archetype_id", None) or "")
+    if d is not None and getattr(d, "display_name", None):
+        return d.display_name
+    raw = (card.get_attribute(AttrID.DISPLAY_NAME)
+           or card.get_attribute(AttrID.CARD_NAME)
+           or card.get_attribute(AttrID.NAME))
+    if isinstance(raw, dict):
+        return raw.get("id") or raw.get("en") or _logic_name(card)
+    return raw or _logic_name(card)
+
+
+class FrenzyVsNamedPassive(Passive):
+    """Poké-Body: this Pokémon's attacks do `bonus` more damage while the
+    opponent has any of `names` in play (Frenzy). Names match display_name."""
+
+    def __init__(self, names, bonus: int = 40):
+        self.names = tuple(names)
+        self.bonus = bonus
+
+    def modify_damage_dealt(self, calc, carrier):
+        if not (calc.is_attack and not calc.is_opposing):
+            return
+        poke = carrier_pokemon(carrier)
+        if poke is None or poke is not calc.attacker:
+            return
+        mine = calc.attacker.owning_player_id
+        opp_id = next((p for p in calc.board.player_ids if p != mine), None)
+        if opp_id is None:
+            return
+        names = set(self.names)
+        for p in calc.board.pokemon_in_play(opp_id):
+            if _display_name(p) in names:
+                calc.amount = calc.amount + self.bonus
+                return
+
+
+def frenzy_vs_named(*names, bonus: int = 40) -> Passive:
+    return FrenzyVsNamedPassive(names, bonus=bonus)
+
+
+class SynchronizedLiftPassive(Passive):
+    """Poké-Body: Retreat Cost is 0 while all `required_names` are in play
+    on your side (Synchronized Lift)."""
+
+    def __init__(self, *required_names):
+        self.required = tuple(required_names)
+
+    def modify_retreat_cost(self, cost, pokemon, carrier, board):
+        poke = carrier_pokemon(carrier) or carrier
+        if pokemon is not poke:
+            return cost
+        present = {_display_name(p) for p in board.pokemon_in_play(
+            pokemon.owning_player_id)}
+        if all(n in present for n in self.required):
+            return 0
+        return cost
+
+
+def synchronized_lift_passive(*required_names) -> Passive:
+    return SynchronizedLiftPassive(*required_names)
+
+
+def may_move_own_energy(energy_type=None):
+    """Deal printed damage, then you may move 1 matching Energy from this
+    Pokémon to another of your Pokémon (Ice/Flame/Thunder Gift)."""
+    type_value = (getattr(energy_type, "value", energy_type)
+                  if energy_type is not None else None)
+
+    async def effect(ctx):
+        await ctx.deal_damage(None)
+        attacker = ctx.attacker
+        if attacker is None:
+            return
+        others = [p for p in ctx.my_pokemon_in_play() if p is not attacker]
+        if not others:
+            return
+        pred = ((lambda c: energy_provides_type(c, type_value))
+                if type_value is not None else is_energy_card)
+        energies = [c for c in attacker.children if pred(c)]
+        if not energies:
+            return
+        pick = await ctx.choose_cards(
+            energies, 1, minimum=0,
+            prompt="You may move an Energy to another of your Pokémon.",
+        )
+        if not pick:
+            return
+        target = await ctx.choose_pokemon(
+            others, "Choose a Pokémon to move the Energy to")
+        if target is not None:
+            await ctx.move_energy(pick[0], target)
+
+    return effect
+
+
+def discard_self_energy_draw(draw: int = 3):
+    """Discard 1 Energy from self, then draw `draw` (The Third Eye)."""
+    async def effect(ctx):
+        await ctx.discard_energy_from(
+            ctx.attacker, 1,
+            prompt="Discard an Energy card attached to this Pokémon")
+        await ctx.draw_cards(draw)
+    return effect
+
+
+def _is_attached_trainer(card) -> bool:
+    """True for Tools/TMs attached to a Pokémon (not Energy)."""
+    if is_energy_card(card):
+        return False
+    tt = card.get_attribute(AttrID.TRAINER_TYPE)
+    if tt is not None:
+        return True
+    st = subtypes_for(getattr(card, "archetype_id", None) or "") or []
+    return any(s in st for s in (
+        "Pokémon Tool", "Pokemon Tool", "Tool", "Technical Machine", "TM"))
+
+
+def plunder_trainers(damage: Optional[int] = None):
+    """Before damage, discard all Trainer cards attached to the Defending
+    Pokémon (Plunder)."""
+    async def effect(ctx):
+        defender = ctx.defender
+        if defender is not None and not ctx.effects_blocked(defender):
+            tools = [c for c in list(defender.children)
+                     if _is_attached_trainer(c)]
+            if tools:
+                await ctx.discard_cards(tools)
+        await ctx.deal_damage(damage)
+    return effect
+
+
+def flip_heal_self(amount: int = 10):
+    """Deal printed damage; on heads, heal `amount` from self."""
+    async def effect(ctx):
+        await ctx.deal_damage(None)
+        results = await ctx.flip_coins(1, "Sporadic Sponging")
+        if results and results[0] and ctx.attacker is not None:
+            await ctx.heal(amount, ctx.attacker)
+    return effect
+
+
+def metal_charge(self_counters: int = 1):
+    """Deal printed damage, then put damage counters on self."""
+    async def effect(ctx):
+        await ctx.deal_damage(None)
+        if ctx.attacker is not None:
+            await ctx.deal_damage(
+                self_counters * 10, target=ctx.attacker, apply_modifiers=False)
+    return effect
+
+
+def hypno_wave(bonus: int = 20,
+               tails_condition=SpecialConditions.ASLEEP):
+    """Flip: heads = printed+bonus; tails = printed + condition."""
+    async def effect(ctx):
+        results = await ctx.flip_coins(1, "Hypno Wave")
+        heads = bool(results and results[0])
+        printed = (ctx.ability.damage if ctx.ability and ctx.ability.damage
+                   else 30)
+        await ctx.deal_damage(printed + (bonus if heads else 0))
+        if not heads and ctx.defender is not None:
+            await ctx.apply_special_condition(ctx.defender, tails_condition)
+    return effect
+
+
+def twister_attack(damage: Optional[int] = None):
+    """Flip 2 coins. Both tails → nothing. Else deal damage; discard 1 Energy
+    from defender per heads."""
+    async def effect(ctx):
+        results = await ctx.flip_coins(2, "Twister")
+        heads = sum(1 for r in results if r)
+        if heads == 0:
+            return
+        await ctx.deal_damage(damage)
+        defender = ctx.defender
+        if defender is not None and not ctx.effects_blocked(defender):
+            await ctx.discard_energy_from(
+                defender, heads,
+                prompt="Discard Energy from the Defending Pokémon")
+    return effect
+
+
+async def devolution_beam(ctx):
+    """Flip. If heads, choose 1 Evolved Pokémon (either side) and devolve
+    the highest stage into that player's hand."""
+    results = await ctx.flip_coins(1, "Devolution Beam")
+    if not (results and results[0]):
+        return
+    candidates = [
+        p for p in ctx.my_pokemon_in_play() + ctx.opponent_pokemon_in_play()
+        if devolvable(p)
+    ]
+    if not candidates:
+        return
+    target = await ctx.choose_pokemon(
+        candidates, "Choose an Evolved Pokémon to devolve")
+    if target is not None:
+        await ctx.devolve_pokemon(target, steps=1, destination="hand")
+
+
+def pure_body_on_attach(energy_type=PokemonTypes.WATER):
+    """Poké-Body: when attaching Water Energy from hand, discard an Energy
+    from this Pokémon (Pure Body). Pair with Triggers.ON_ENERGY_ATTACHED."""
+    type_value = getattr(energy_type, "value", energy_type)
+
+    async def effect(ctx):
+        if ctx.attaching_player_id != ctx.player_id \
+                or ctx.energy_receiver is not ctx.source:
+            return
+        energy = ctx.attached_energy
+        if energy is None or not energy_provides_type(energy, type_value):
+            return
+        # Must discard one Energy (can be the one just attached if alone)
+        await ctx.discard_energy_from(
+            ctx.source, 1,
+            prompt="Pure Body: discard an Energy card attached to Suicune")
+    return effect
+
+
+def burning_aura(counters: int = 1):
+    """Between turns while Active: put counters on each Active Pokémon.
+    Pair with Triggers.BETWEEN_TURNS."""
+    async def effect(ctx):
+        source = ctx.source
+        if source is None or not is_in_active_spot(source):
+            return
+        for pid in ctx.board.player_ids:
+            area = ctx.board.find_player_area(pid, "activePokemonArea")
+            for pokemon in (area.children if area else []):
+                await ctx.deal_damage(
+                    counters * 10, target=pokemon, apply_modifiers=False)
+    return effect
+
+
+async def championship_arena_end_turn(ctx):
+    """At end of each player's turn, if hand >= 8, discard down to 7.
+    Pair Stadium with Triggers.END_OF_TURN; ctx.player_id is the ending player."""
+    pid = ctx.player_id
+    hand = list(ctx.hand(pid))
+    if len(hand) < 8:
+        return
+    need = len(hand) - 7
+    picks = await ctx.choose_cards(
+        hand, need, minimum=need,
+        prompt=f"Championship Arena: discard {need} card(s)",
+        player_id=pid,
+    )
+    if picks:
+        await ctx.discard_cards(picks)
+
+
+async def tropical_wind(ctx):
+    """Flip: heads remove up to 2 damage counters from each Active; tails
+    each Active is Asleep."""
+    results = await ctx.flip_coins(1, "Tropical Wind")
+    actives = []
+    for pid in ctx.board.player_ids:
+        area = ctx.board.find_player_area(pid, "activePokemonArea")
+        actives.extend(area.children if area else [])
+    if results and results[0]:
+        for a in actives:
+            await ctx.heal(20, a)
+    else:
+        for a in actives:
+            await ctx.apply_special_condition(a, SpecialConditions.ASLEEP)
+
+
+async def tropical_tidal_wave(ctx):
+    """Flip: heads discard all opponent's in-play Trainers; tails discard
+    all your in-play Trainers excluding Supporters."""
+    results = await ctx.flip_coins(1, "Tropical Tidal Wave")
+    heads = bool(results and results[0])
+    pid = ctx.opponent_id if heads else ctx.player_id
+    exclude_supporter = not heads
+    to_discard = []
+    stadium = ctx.stadium_in_play()
+    if stadium is not None and stadium.owning_player_id == pid:
+        if not (exclude_supporter and is_supporter_card(stadium)):
+            to_discard.append(stadium)
+    for p in ctx.board.pokemon_in_play(pid):
+        for c in list(p.children):
+            if _is_attached_trainer(c):
+                if exclude_supporter and is_supporter_card(c):
+                    continue
+                to_discard.append(c)
+    if to_discard:
+        await ctx.discard_cards(to_discard)
+
+
+def healing_sound(heal: int = 30):
+    """Heal your Active; Defending is Asleep (Healing Sound)."""
+    async def effect(ctx):
+        active = ctx.my_active()
+        if active is not None:
+            await ctx.heal(heal, active)
+        if ctx.defender is not None:
+            await ctx.apply_special_condition(
+                ctx.defender, SpecialConditions.ASLEEP)
+    return effect
+
+
+def flip_or_nothing_paralyze(damage: Optional[int] = None):
+    """Flip: heads deal damage + Paralyze; tails do nothing (Dragonbreath)."""
+    async def effect(ctx):
+        results = await ctx.flip_coins(1, "Dragonbreath")
+        if not (results and results[0]):
+            return
+        await ctx.deal_damage(damage)
+        if ctx.defender is not None:
+            await ctx.apply_special_condition(
+                ctx.defender, SpecialConditions.PARALYZED)
+    return effect
+
+
+def mill_top_on_heads(count: int = 1):
+    """Deal printed damage; on heads opponent discards top `count` of deck."""
+    async def effect(ctx):
+        await ctx.deal_damage(None)
+        results = await ctx.flip_coins(1, "Mix-Up")
+        if results and results[0]:
+            await ctx.discard_cards(
+                ctx.deck_top(count, player_id=ctx.opponent_id))
+    return effect
+
+
+def snipe_own_bench(amount: int = 10):
+    """Deal printed damage; also `amount` to 1 of your Benched Pokémon."""
+    async def effect(ctx):
+        await ctx.deal_damage(None)
+        bench = ctx.my_bench()
+        if not bench:
+            return
+        target = await ctx.choose_pokemon(
+            bench, "Choose 1 of your Benched Pokémon")
+        if target is not None:
+            await ctx.deal_damage(amount, target=target, apply_modifiers=False)
+    return effect
+
+
+def damage_then(also):
+    """Deal printed damage, then run `also(ctx)`."""
+    async def effect(ctx):
+        await ctx.deal_damage(None)
+        await also(ctx)
+    return effect

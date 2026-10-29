@@ -4045,10 +4045,12 @@ class GameSession:
 
     async def _fire_end_of_turn_triggers(self, active_id: str):
         """END_OF_TURN for the turn player's in-play Pokemon, after their turn
-        ends and before the checkup (Radiant Venusaur's Sunny Bloom)."""
+        ends and before the checkup (Radiant Venusaur's Sunny Bloom). Also
+        fires END_OF_TURN on the in-play Stadium (Championship Arena)."""
         for pokemon in list(self.board_state.pokemon_in_play(active_id)):
             await self._fire_triggered_abilities(
                 active_id, pokemon, Triggers.END_OF_TURN)
+        await self._fire_stadium_triggers(active_id, Triggers.END_OF_TURN)
 
     async def _fire_stadium_triggers(self, acting_player_id: str, trigger: str,
                                      ctx_setup=None):
