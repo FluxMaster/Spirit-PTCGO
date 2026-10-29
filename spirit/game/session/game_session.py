@@ -128,6 +128,7 @@ from .passives import (
     granted_extra_attacks, retreat_energy_destination, tool_slots_free,
     tool_suppressed,
     stadium_suppressed,
+    stadium_nullifies_replacement,
 )
 from .legal_actions import (
     ACTION_ATTACH_TOOL,
@@ -4294,6 +4295,17 @@ class GameSession:
             ctx = EffectContext(self, active_id, None, None)
             await ctx.draw_until(until)
             await self._flush_effect_runs(ctx)
+        shuffle_until = self.turn_state.end_of_turn_shuffle_until.pop(active_id, None)
+        if shuffle_until is not None:
+            ctx = EffectContext(self, active_id, None, None)
+            extra = ctx.hand_size() - shuffle_until
+            if extra > 0:
+                picks = await ctx.choose_cards(
+                    ctx.hand(), extra, minimum=extra,
+                    prompt=f"Shuffle cards into your deck until you have {shuffle_until} cards in your hand")
+                if picks:
+                    await ctx.shuffle_into_deck(picks)
+            await self._flush_effect_runs(ctx)
 
     def _attached_special_energies(self):
         out = []
@@ -5474,6 +5486,8 @@ class GameSession:
         if not stadium_area:
             return
         existing = stadium_area.children[0] if stadium_area.children else None
+        nullify = existing is not None and stadium_nullifies_replacement(
+            self.board_state, card)
         position = len(stadium_area.children)
         if not self.board_state.move_card(card.entity_id, stadium_area.entity_id):
             return
@@ -5499,6 +5513,17 @@ class GameSession:
                 self.board_state.move_card(existing.entity_id, owner_discard.entity_id)
                 move_msg = self._entity_moved_msg(existing.entity_id, owner_discard.entity_id, discard_pos)
                 await self._send_play_sequence(player_id, GameSequence.GROUPED_MOVE, [move_msg], [])
+        if nullify:
+            # Chaotic Swell: the replacement Stadium is discarded with no effect.
+            owner_discard = self.board_state.find_player_area(player_id, "discard")
+            if owner_discard and card.parent is stadium_area:
+                discard_pos = len(owner_discard.children)
+                self.board_state.move_card(card.entity_id, owner_discard.entity_id)
+                move_msg = self._entity_moved_msg(
+                    card.entity_id, owner_discard.entity_id, discard_pos)
+                await self._send_play_sequence(
+                    player_id, GameSequence.GROUPED_MOVE, [move_msg], [])
+            return
         # Declared ON_PLAY hooks on the Stadium just played (Parallel City's
         # facing choice); runs before the bench shrink it may cause.
         await self._fire_triggered_abilities(player_id, card, Triggers.ON_PLAY)
