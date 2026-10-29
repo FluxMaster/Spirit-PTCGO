@@ -1,12 +1,25 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Darkness Cube 01 (ECARD2 #119): trainer effect stubbed.
+from spirit.game.data_utils import TrainerCardDef, Attack
+from spirit.game.card_effects.ecard import TechnicalMachinePassive, pokemon_has_type
+from spirit.game.attributes import AttrID, CardType, PokemonTypes, Rarities, TrainerType
 
-Card text:
-  - Attach this card to 1 of your Darkness Pokémon in play. That Pokémon may use this card's attack instead of its own. At the end of your turn, discard Darkness Cube 01.
-"""
 
-from spirit.game.data_utils import TrainerCardDef, unimplemented
-from spirit.game.attributes import Rarities, TrainerType
+async def plunder(ctx):
+    """Before damage, discard Trainer cards attached to the Defending Pokémon."""
+    defending = ctx.opponent_active()
+    if defending is not None:
+        trainers = [ch for ch in list(defending.children)
+                    if ch.get_attribute(AttrID.CARD_TYPE) == CardType.TRAINER.value]
+        if trainers:
+            await ctx.discard_cards(trainers)
+    await ctx.deal_damage()
+
+_attack = Attack(
+    title="Plunder",
+    game_text="Before doing damage, discard any Trainer cards attached to the Defending Pokémon.",
+    cost={PokemonTypes.DARKNESS: 1},
+    damage=10,
+    effect=plunder,
+    )
 
 card = TrainerCardDef(
     guid="ebdc4f65-897f-548f-9d54-8deab3d4aabc",
@@ -19,6 +32,7 @@ card = TrainerCardDef(
     set_code="ECARD2",
     rarity=Rarities.Uncommon,
     trainer_type=TrainerType.TECHNICAL_MACHINE,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    abilities=[_attack],
 )
+card.passive = TechnicalMachinePassive(_attack)
+card.attach_to = lambda p, _t=PokemonTypes.DARKNESS: pokemon_has_type(p, _t)

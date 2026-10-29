@@ -1,12 +1,17 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Grass Cube 01 (ECARD2 #124): trainer effect stubbed.
+from spirit.game.data_utils import TrainerCardDef, Attack
+from spirit.game.card_effects.ecard import TechnicalMachinePassive, pokemon_has_type
+from spirit.game.attributes import PokemonTypes, Rarities, TrainerType
+from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.attributes import SpecialConditions
 
-Card text:
-  - Attach this card to 1 of your Grass Pokémon in play. That Pokémon may use this card's attack instead of its own. At the end of your turn, discard Grass Cube 01.
-"""
 
-from spirit.game.data_utils import TrainerCardDef, unimplemented
-from spirit.game.attributes import Rarities, TrainerType
+_attack = Attack(
+    title="Sleep Poison",
+    game_text="The Defending Pokémon is now Asleep and Poisoned.",
+    cost={PokemonTypes.GRASS: 1},
+    damage=0,
+    effect=condition_attack(SpecialConditions.ASLEEP, SpecialConditions.POISONED),
+    )
 
 card = TrainerCardDef(
     guid="a7ab2f81-e315-5718-8609-c1b3d67d6e68",
@@ -19,6 +24,7 @@ card = TrainerCardDef(
     set_code="ECARD2",
     rarity=Rarities.Uncommon,
     trainer_type=TrainerType.TECHNICAL_MACHINE,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    abilities=[_attack],
 )
+card.passive = TechnicalMachinePassive(_attack)
+card.attach_to = lambda p, _t=PokemonTypes.GRASS: pokemon_has_type(p, _t)

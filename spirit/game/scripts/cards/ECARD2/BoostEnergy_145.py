@@ -1,12 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Boost Energy (ECARD2 #145): special energy provides/passive/attach rules stubbed until matched to a known energy pattern.
-
-Card text:
-  - Boost Energy can be attached only to an Evolved Pokémon. Discard Boost Energy at the end of the turn it was attached. Boost Energy provides ColorlessColorlessColorless Energy. The Pokémon Boost Energy is attached to can't retreat. When the Pokémon Boost Energy is attached to is no longer an Evolved Pokémon, discard Boost Energy.
-"""
-
 from spirit.game.data_utils import EnergyCardDef
 from spirit.game.attributes import PokemonTypes, Rarities
+from spirit.game.card_effects.ecard import BoostEnergyPassive, is_evolved_pokemon
 
 card = EnergyCardDef(
     guid="de289fd4-2c40-59aa-bb36-35c4e92d2fca",
@@ -20,5 +14,8 @@ card = EnergyCardDef(
     rarity=Rarities.Uncommon,
     energy_type=PokemonTypes.COLORLESS,
     is_special=True,
-    # STUB: special energy mechanics not implemented
+    provides=[[PokemonTypes.COLORLESS, PokemonTypes.COLORLESS, PokemonTypes.COLORLESS]],
+    attach_to=is_evolved_pokemon,
+    discard_end_of_attach_turn=True,
+    passive=BoostEnergyPassive(),
 )

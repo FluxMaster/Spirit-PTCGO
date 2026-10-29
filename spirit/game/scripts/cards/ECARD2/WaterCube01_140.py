@@ -1,12 +1,16 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Water Cube 01 (ECARD2 #140): trainer effect stubbed.
+from spirit.game.data_utils import TrainerCardDef, Attack
+from spirit.game.card_effects.ecard import TechnicalMachinePassive, pokemon_has_type
+from spirit.game.attributes import PokemonTypes, Rarities, TrainerType
+from spirit.game.card_effects.attacks_common import snipe_attack
 
-Card text:
-  - Attach this card to 1 of your Water Pokémon in play. That Pokémon may use this card's attack instead of its own. At the end of your turn, discard Water Cube 01.
-"""
 
-from spirit.game.data_utils import TrainerCardDef, unimplemented
-from spirit.game.attributes import Rarities, TrainerType
+_attack = Attack(
+    title="Splatter",
+    game_text="Choose 1 of your opponent's Pokémon. This attack does 20 damage to that Pokémon. Don't apply Weakness or Resistance.",
+    cost={PokemonTypes.WATER: 1},
+    damage=0,
+    effect=snipe_attack(20, apply_wr=False),
+    )
 
 card = TrainerCardDef(
     guid="acac7eec-f073-54fa-b4e7-67d254f65d31",
@@ -19,6 +23,7 @@ card = TrainerCardDef(
     set_code="ECARD2",
     rarity=Rarities.Uncommon,
     trainer_type=TrainerType.TECHNICAL_MACHINE,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    abilities=[_attack],
 )
+card.passive = TechnicalMachinePassive(_attack)
+card.attach_to = lambda p, _t=PokemonTypes.WATER: pokemon_has_type(p, _t)

@@ -1,12 +1,17 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Fire Cube 01 (ECARD2 #122): trainer effect stubbed.
+from spirit.game.data_utils import TrainerCardDef, Attack
+from spirit.game.card_effects.ecard import TechnicalMachinePassive, pokemon_has_type
+from spirit.game.attributes import PokemonTypes, Rarities, TrainerType
+from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.attributes import SpecialConditions
 
-Card text:
-  - Attach this card to 1 of your Fire Pokémon in play. That Pokémon may use this card's attack instead of its own. At the end of your turn, discard Fire Cube 01.
-"""
 
-from spirit.game.data_utils import TrainerCardDef, unimplemented
-from spirit.game.attributes import Rarities, TrainerType
+_attack = Attack(
+    title="Singe",
+    game_text="The Defending Pokémon is now Burned.",
+    cost={PokemonTypes.FIRE: 1},
+    damage=0,
+    effect=condition_attack(SpecialConditions.BURNED),
+    )
 
 card = TrainerCardDef(
     guid="61024ef9-d0d7-542b-8ef8-041f77f2d6da",
@@ -19,6 +24,7 @@ card = TrainerCardDef(
     set_code="ECARD2",
     rarity=Rarities.Uncommon,
     trainer_type=TrainerType.TECHNICAL_MACHINE,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    abilities=[_attack],
 )
+card.passive = TechnicalMachinePassive(_attack)
+card.attach_to = lambda p, _t=PokemonTypes.FIRE: pokemon_has_type(p, _t)

@@ -12,6 +12,7 @@ from spirit.game.attributes import (
     AttrID,
     CLIENT_POKEMON_TYPE_NAMES,
     CLIENT_SPECIAL_CONDITION_NAMES,
+    PokemonStage,
     PokemonTypes,
     SpecialConditions,
     TrainerType,
@@ -1073,3 +1074,125 @@ class ClassicMetalEnergyPassive(Passive):
             return
         calc.amount = max(0, calc.amount - 10)
 
+
+
+
+# --- Aquapolis / Skyridge Crystal Type + special Energies ---
+
+_CRYSTAL_TYPE_ATTR = "_crystal_type"
+
+
+class CrystalTypePassive(Passive):
+    """Poké-Power Crystal Type: while `_crystal_type` is set on the holder,
+    that value replaces the Pokémon's printed types (until end of turn)."""
+
+    def modify_pokemon_types(self, types, pokemon, carrier):
+        if pokemon is not carrier:
+            return types
+        override = pokemon.get_attribute(_CRYSTAL_TYPE_ATTR)
+        if override is None:
+            return types
+        return [override]
+
+
+def crystal_type_on_energy_attached(*allowed: PokemonTypes):
+    """ON_ENERGY_ATTACHED watcher: attaching an allowed basic Energy from hand
+    to this Pokémon sets its live type to that Energy's type until EOT."""
+    allowed_values = {t.value for t in allowed}
+
+    async def watch(ctx):
+        if ctx.energy_receiver is not ctx.source:
+            return
+        if ctx.attaching_player_id != ctx.player_id:
+            return
+        energy = ctx.attached_energy
+        if energy is None:
+            return
+        from spirit.game.card_effects.trainers import is_basic_energy_card
+        if not is_basic_energy_card(energy):
+            return
+        etypes = energy.get_attribute(AttrID.POKEMON_TYPES) or []
+        match = next((t for t in etypes if t in allowed_values), None)
+        if match is None:
+            return
+        ctx.source.set_attribute(_CRYSTAL_TYPE_ATTR, match)
+
+    return watch
+
+
+def clear_crystal_types(board, player_id):
+    """End-of-turn: drop Crystal Type overrides on `player_id`'s Pokémon."""
+    for pokemon in list(board.pokemon_in_play(player_id)):
+        if pokemon.get_attribute(_CRYSTAL_TYPE_ATTR) is not None:
+            pokemon.set_attribute(_CRYSTAL_TYPE_ATTR, None)
+
+
+class CrystalEnergyPassive(Passive):
+    """Provides 1 Energy of each type among basic Energies on the holder;
+    Colorless alone if none."""
+
+    def modify_energy_provided(self, options, energy, holder, board):
+        if holder is None:
+            return [[PokemonTypes.COLORLESS.value]]
+        from spirit.game.card_effects.trainers import is_basic_energy_card
+        found = []
+        for child in holder.children:
+            if child is energy or not is_basic_energy_card(child):
+                continue
+            for t in child.get_attribute(AttrID.POKEMON_TYPES) or []:
+                if t not in found:
+                    found.append(t)
+        return [found] if found else [[PokemonTypes.COLORLESS.value]]
+
+
+class BoostEnergyPassive(Passive):
+    """Provides CCC; holder can't retreat. Discarded at EOT of attach turn
+    via discard_end_of_attach_turn, and when holder is no longer Evolved."""
+
+    def blocks_retreat(self, pokemon, carrier):
+        return carrier_pokemon(carrier) is pokemon
+
+    def modify_energy_provided(self, options, energy, holder, board):
+        return [[
+            PokemonTypes.COLORLESS.value,
+            PokemonTypes.COLORLESS.value,
+            PokemonTypes.COLORLESS.value,
+        ]]
+
+
+def is_evolved_pokemon(pokemon) -> bool:
+    stage = pokemon.get_attribute(AttrID.STAGE)
+    return stage not in (None, PokemonStage.BASIC.value)
+
+
+async def warp_energy_on_attach(ctx):
+    """When attached from hand to the Active, switch it with a Benched Pokémon."""
+    target = ctx.attached_to
+    if target is None or target is not ctx.my_active():
+        return
+    bench = ctx.my_bench()
+    if not bench:
+        return
+    pick = await ctx.choose_pokemon(
+        bench, "Choose a Benched Pokémon to switch into the Active Spot"
+    ) or bench[0]
+    await ctx.switch_active(ctx.player_id, pick)
+
+
+async def rainbow_energy_on_attach(ctx):
+    """Put 1 damage counter on the Pokémon this is attached to."""
+    target = ctx.attached_to
+    if target is None:
+        return
+    await ctx.place_damage_counters(target, 1)
+
+
+class WeaknessGuardPassive(Passive):
+    """Attached Pokémon has no Weakness. Discarded at end of opponent's next turn
+    (tracked via `_weakness_guard_until_turn` on the tool)."""
+
+    def modify_weakness(self, calc, carrier):
+        pokemon = carrier_pokemon(carrier)
+        if pokemon is None or pokemon is not calc.target:
+            return
+        calc.weakness_applies = False

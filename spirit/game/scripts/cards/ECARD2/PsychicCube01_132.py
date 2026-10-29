@@ -1,12 +1,17 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Psychic Cube 01 (ECARD2 #132): trainer effect stubbed.
+from spirit.game.data_utils import TrainerCardDef, Attack
+from spirit.game.card_effects.ecard import TechnicalMachinePassive, pokemon_has_type
+from spirit.game.attributes import PokemonTypes, Rarities, TrainerType
+from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.attributes import SpecialConditions
 
-Card text:
-  - Attach this card to 1 of your Psychic Pokémon in play. That Pokémon may us this card's attack instead of its own. At the end of your turn, discard Psychic Cube 01.
-"""
 
-from spirit.game.data_utils import TrainerCardDef, unimplemented
-from spirit.game.attributes import Rarities, TrainerType
+_attack = Attack(
+    title="Psy Confuse",
+    game_text="The Defending Pokémon is now Confused.",
+    cost={PokemonTypes.PSYCHIC: 1},
+    damage=0,
+    effect=condition_attack(SpecialConditions.CONFUSED),
+    )
 
 card = TrainerCardDef(
     guid="864afb6b-aea4-595d-8320-b04e5990d7a5",
@@ -19,6 +24,7 @@ card = TrainerCardDef(
     set_code="ECARD2",
     rarity=Rarities.Uncommon,
     trainer_type=TrainerType.TECHNICAL_MACHINE,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    abilities=[_attack],
 )
+card.passive = TechnicalMachinePassive(_attack)
+card.attach_to = lambda p, _t=PokemonTypes.PSYCHIC: pokemon_has_type(p, _t)

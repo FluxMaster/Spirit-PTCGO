@@ -1,12 +1,31 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Lightning Cube 01 (ECARD2 #127): trainer effect stubbed.
+from spirit.game.data_utils import TrainerCardDef, Attack
+from spirit.game.card_effects.ecard import TechnicalMachinePassive, pokemon_has_type
+from spirit.game.attributes import AttrID, PokemonTypes, Rarities, TrainerType
 
-Card text:
-  - Attach this card to 1 of your Lightning Pokémon in play. That Pokémon may use this card's attack instead of its own. At the end of your turn, discard Lightning Cube 01.
-"""
 
-from spirit.game.data_utils import TrainerCardDef, unimplemented
-from spirit.game.attributes import Rarities, TrainerType
+async def discharge(ctx):
+    """Discard all Lightning Energy; flip that many coins; 40x heads."""
+    me = ctx.source
+    lightning = []
+    for ch in list(ctx.attached_energies(me)):
+        types = ch.get_attribute(AttrID.POKEMON_TYPES) or []
+        if PokemonTypes.LIGHTNING.value in types:
+            lightning.append(ch)
+    if not lightning:
+        return
+    await ctx.discard_cards(lightning)
+    await ctx.flip_coins(len(lightning))
+    heads = ctx.last_flip_heads
+    if heads:
+        await ctx.deal_damage(amount=40 * heads)
+
+_attack = Attack(
+    title="Discharge",
+    game_text="Discard all Lightning Energy cards attached to this Pokémon. Then, flip a number of coins equal to the number of Energy cards discarded that way. This attack does 40 damage times the number of heads.",
+    cost={PokemonTypes.LIGHTNING: 1},
+    damage=0,
+    effect=discharge,
+    )
 
 card = TrainerCardDef(
     guid="54711d47-a6a0-568e-9d1c-611671551d1c",
@@ -19,6 +38,7 @@ card = TrainerCardDef(
     set_code="ECARD2",
     rarity=Rarities.Uncommon,
     trainer_type=TrainerType.TECHNICAL_MACHINE,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    abilities=[_attack],
 )
+card.passive = TechnicalMachinePassive(_attack)
+card.attach_to = lambda p, _t=PokemonTypes.LIGHTNING: pokemon_has_type(p, _t)

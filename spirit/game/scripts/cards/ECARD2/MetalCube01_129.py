@@ -1,12 +1,27 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Metal Cube 01 (ECARD2 #129): trainer effect stubbed.
+from spirit.game.data_utils import TrainerCardDef, Attack
+from spirit.game.card_effects.ecard import TechnicalMachinePassive, pokemon_has_type
+from spirit.game.attributes import PokemonTypes, Rarities, TrainerType
 
-Card text:
-  - Attach this card to 1 of your Metal Pokémon in play. That Pokémon may use this card's attack instead of its own. At the end of your turn, discard Metal Cube 01.
-"""
 
-from spirit.game.data_utils import TrainerCardDef, unimplemented
-from spirit.game.attributes import Rarities, TrainerType
+async def metal_reversal(ctx):
+    """Optional: switch Defending with a Benched Pokémon, then deal damage."""
+    bench = ctx.opponent_bench()
+    if bench:
+        pick = await ctx.choose_pokemon(
+            bench, "You may choose a Benched Pokémon to switch into the Active Spot",
+            optional=True,
+        )
+        if pick:
+            await ctx.switch_active(ctx.opponent_id, pick)
+    await ctx.deal_damage()
+
+_attack = Attack(
+    title="Metal Reversal",
+    game_text="Before doing damage, you may choose 1 of your opponent's Benched Pokémon and switch it with the Defending Pokémon.",
+    cost={PokemonTypes.METAL: 1},
+    damage=10,
+    effect=metal_reversal,
+    )
 
 card = TrainerCardDef(
     guid="87584bc2-9241-51ed-b3b0-368b1887fa61",
@@ -19,6 +34,7 @@ card = TrainerCardDef(
     set_code="ECARD2",
     rarity=Rarities.Uncommon,
     trainer_type=TrainerType.TECHNICAL_MACHINE,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    abilities=[_attack],
 )
+card.passive = TechnicalMachinePassive(_attack)
+card.attach_to = lambda p, _t=PokemonTypes.METAL: pokemon_has_type(p, _t)

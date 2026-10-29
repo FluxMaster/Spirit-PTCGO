@@ -1,12 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Warp Energy (ECARD2 #147): special energy provides/passive/attach rules stubbed until matched to a known energy pattern.
-
-Card text:
-  - Warp Energy provides 1 Colorless Energy. When you attach Warp Energy from your hand to your Active Pokémon, switch your Active Pokémon with 1 of your Benched Pokémon.
-"""
-
 from spirit.game.data_utils import EnergyCardDef
 from spirit.game.attributes import PokemonTypes, Rarities
+from spirit.game.card_effects.ecard import warp_energy_on_attach
 
 card = EnergyCardDef(
     guid="e4ba5646-2bd4-5fa3-b05b-d4252c119468",
@@ -20,5 +14,6 @@ card = EnergyCardDef(
     rarity=Rarities.Uncommon,
     energy_type=PokemonTypes.COLORLESS,
     is_special=True,
-    # STUB: special energy mechanics not implemented
+    provides=[[PokemonTypes.COLORLESS]],
+    on_attach=warp_energy_on_attach,
 )

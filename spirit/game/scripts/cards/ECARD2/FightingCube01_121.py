@@ -1,12 +1,29 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Fighting Cube 01 (ECARD2 #121): trainer effect stubbed.
+from spirit.game.data_utils import TrainerCardDef, Attack
+from spirit.game.card_effects.ecard import TechnicalMachinePassive, pokemon_has_type
+from spirit.game.attributes import AttrID, PokemonTypes, Rarities, TrainerType
+from spirit.game.session.passives import effective_max_hp
 
-Card text:
-  - Attach this card to 1 of your Fighting Pokémon in play. That Pokémon my use this card's attack instead of its own. At the end of your turn, discard Fighting Cube 01.
-"""
 
-from spirit.game.data_utils import TrainerCardDef, unimplemented
-from spirit.game.attributes import Rarities, TrainerType
+async def violent_rage(ctx):
+    """Flip coins equal to damage counters on self; 10 damage times heads."""
+    me = ctx.source
+    hp = me.get_attribute(AttrID.HP, 0)
+    max_hp = effective_max_hp(ctx.board, me)
+    counters = max(0, (max_hp - hp) // 10)
+    if counters <= 0:
+        return
+    await ctx.flip_coins(counters)
+    heads = ctx.last_flip_heads
+    if heads:
+        await ctx.deal_damage(amount=10 * heads)
+
+_attack = Attack(
+    title="Violent Rage",
+    game_text="Flip a number of coins equal to the number of damage counters on this Pokémon. This attack does 10 damage times the number of heads.",
+    cost={PokemonTypes.FIGHTING: 1},
+    damage=0,
+    effect=violent_rage,
+    )
 
 card = TrainerCardDef(
     guid="8f288a6d-2d07-553c-9a8c-63c0cfabd9a4",
@@ -19,6 +36,7 @@ card = TrainerCardDef(
     set_code="ECARD2",
     rarity=Rarities.Uncommon,
     trainer_type=TrainerType.TECHNICAL_MACHINE,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    abilities=[_attack],
 )
+card.passive = TechnicalMachinePassive(_attack)
+card.attach_to = lambda p, _t=PokemonTypes.FIGHTING: pokemon_has_type(p, _t)
