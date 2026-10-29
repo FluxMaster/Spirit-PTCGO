@@ -1,10 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Alolan Raticate-GX (SM7 #85): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_or_nothing
+from spirit.game.card_effects.sm7 import (
+    chuck_away,
+    item_maniac_gx,
+)
 
 
 card = PokemonCardDef(
@@ -33,8 +33,7 @@ card = PokemonCardDef(
             cost={},
             damage=40,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=chuck_away,
         ),
         Attack(
             title="Hyper Fang",
@@ -48,8 +47,7 @@ card = PokemonCardDef(
             title="Item Maniac-GX",
             game_text="Search your deck for up to 6 Item cards, reveal them, and put them into your hand. Then, shuffle your deck. (You can't use more than 1 GX attack in a game.)",
             cost={},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=item_maniac_gx,
         ),
     ],
 )

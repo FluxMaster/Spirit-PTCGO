@@ -1,12 +1,11 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Palossand-GX (SM7 #82): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
 from spirit.game.card_effects.support_common import heal_attack
+from spirit.game.card_effects.sm7 import (
+    sandy_fear_gx,
+)
 
 
 card = PokemonCardDef(
@@ -49,8 +48,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 2, PokemonTypes.COLORLESS: 2},
             damage=60,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=sandy_fear_gx,
         ),
     ],
 )

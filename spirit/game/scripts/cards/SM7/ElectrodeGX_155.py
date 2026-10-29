@@ -1,9 +1,11 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Electrode-GX (SM7 #155): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm7 import (
+    crush_and_burn_gx,
+    extra_energy_bomb,
+    extra_energy_bomb_condition,
+)
+from spirit.game.data_utils import Activations
 
 card = PokemonCardDef(
     guid="eb82317e-8efc-5fc4-a26f-5ac886466407",
@@ -29,8 +31,9 @@ card = PokemonCardDef(
             title="Extra Energy Bomb",
             game_text="Once during your turn (before your attack), you may attach 5 Energy cards from your discard pile to your Pok\u00e9mon, except Pok\u00e9mon-GX or Pok\u00e9mon-EX, in any way you like. If you do, this Pok\u00e9mon is Knocked Out.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            effect=extra_energy_bomb,
+            condition=extra_energy_bomb_condition,
         ),
         Attack(
             title="Electro Ball",
@@ -43,8 +46,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=crush_and_burn_gx,
         ),
     ],
 )

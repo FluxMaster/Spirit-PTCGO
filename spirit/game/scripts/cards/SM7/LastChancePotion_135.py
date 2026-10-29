@@ -1,13 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Last Chance Potion (SM7 #135): trainer effect stubbed.
-
-Card text:
-  - Heal 120 damage from 1 of your Pokémon that has 30 HP or less remaining.
-  - You may play as many Item cards as you like during your turn (before your attack).
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.sm7 import (
+    last_chance_potion,
+    last_chance_potion_condition,
+)
 
 card = ItemCardDef(
     guid="ae195811-c19a-598c-97b5-c879564382f6",
@@ -19,6 +15,6 @@ card = ItemCardDef(
     collector_number=135,
     set_code="SM7",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=last_chance_potion,
+    condition=last_chance_potion_condition,
 )

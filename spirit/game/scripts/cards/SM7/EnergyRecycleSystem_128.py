@@ -1,15 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Energy Recycle System (SM7 #128): trainer effect stubbed.
-
-Card text:
-  - Choose 1:
-• Put a basic Energy card from your discard pile into your hand.
-• Shuffle 3 basic Energy cards from your discard pile into your deck.
-  - You may play as many Item cards as you like during your turn (before your attack).
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.sm7 import (
+    energy_recycle_system,
+    energy_recycle_system_condition,
+)
 
 card = ItemCardDef(
     guid="5d36af85-9b3d-50d4-9078-07db64b03353",
@@ -21,6 +15,6 @@ card = ItemCardDef(
     collector_number=128,
     set_code="SM7",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=energy_recycle_system,
+    condition=energy_recycle_system_condition,
 )

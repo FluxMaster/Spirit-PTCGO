@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Exploud (SM7 #119): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm7 import (
+    dangerous_concert,
+)
 
 card = PokemonCardDef(
     guid="d4dbb93d-4951-523b-86a1-6cefbf6dcc41",
@@ -28,8 +27,7 @@ card = PokemonCardDef(
             game_text="This attack does 30 damage to each of your opponent's Benched Pok\u00e9mon that has any damage counters on it. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.COLORLESS: 3},
             damage=80,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=dangerous_concert,
         ),
         Attack(
             title="Heavy Impact",

@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Seedot (SM7 #11): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm7 import (
+    harden,
+)
 
 card = PokemonCardDef(
     guid="c8b9c23f-338c-5ff2-891f-5a3c9bbbf5dc",
@@ -31,8 +30,7 @@ card = PokemonCardDef(
             title="Harden",
             game_text="During your opponent's next turn, prevent all damage done to this Pok\u00e9mon by attacks if that damage is 40 or less.",
             cost={PokemonTypes.GRASS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=harden,
         ),
     ],
 )

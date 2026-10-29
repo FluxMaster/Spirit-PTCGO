@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Ariados (SM7 #6): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm7 import (
+    reactive_poison,
+    spider_trap,
+)
 
 card = PokemonCardDef(
     guid="efd93e1c-7a4b-5865-9eef-d172f84fae42",
@@ -29,15 +29,13 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=20,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=reactive_poison,
         ),
         Attack(
             title="Spider Trap",
             game_text="You may switch 1 of your opponent's Benched Pok\u00e9mon with their Active Pok\u00e9mon. Your opponent's Active Pok\u00e9mon is now Asleep and Poisoned.",
             cost={PokemonTypes.GRASS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=spider_trap,
         ),
     ],
 )

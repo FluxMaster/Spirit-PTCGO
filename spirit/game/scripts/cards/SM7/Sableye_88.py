@@ -1,10 +1,11 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Sableye (SM7 #88): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.data_utils import def_for
+from spirit.game.card_effects.sm7 import (
+    deck_has_cards,
+    excavate,
+)
+from spirit.game.data_utils import Activations
 
 
 async def amnesia(ctx):
@@ -47,8 +48,9 @@ card = PokemonCardDef(
             title="Excavate",
             game_text="Once during your turn (before your attack), you may look at the top card of your deck. You may discard that card.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            effect=excavate,
+            condition=deck_has_cards,
         ),
         Attack(
             title="Disable",

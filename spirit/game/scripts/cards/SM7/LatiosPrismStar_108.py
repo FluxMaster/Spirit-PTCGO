@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Latios {*} (SM7 #108): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm7 import (
+    dragon_fleet,
+)
 
 card = PokemonCardDef(
     guid="88fd5ede-5c1c-5fc3-a4e4-e0e59433567b",
@@ -28,8 +27,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=50,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=dragon_fleet,
         ),
     ],
 )

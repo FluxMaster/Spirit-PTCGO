@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Grumpig (SM7 #60): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm7 import (
+    mirror_step,
+)
 
 card = PokemonCardDef(
     guid="8a406548-3740-5df9-b05d-87aefd61df76",
@@ -29,8 +28,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=mirror_step,
         ),
     ],
 )

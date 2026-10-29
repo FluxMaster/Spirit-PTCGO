@@ -1,10 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Scyther (SM7 #4): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.passives_common import flip_protection
+from spirit.game.card_effects.sm7 import (
+    twin_play,
+)
 
 
 card = PokemonCardDef(
@@ -28,8 +27,7 @@ card = PokemonCardDef(
             title="Twin Play",
             game_text="Search your deck for up to 2 Scyther and put them onto your Bench. Then, shuffle your deck.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=twin_play,
         ),
         Attack(
             title="Agility",

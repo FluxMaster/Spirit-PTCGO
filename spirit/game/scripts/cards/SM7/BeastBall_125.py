@@ -1,13 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Beast Ball (SM7 #125): trainer effect stubbed.
-
-Card text:
-  - Look at your face-down Prize cards. You may reveal an Ultra Beast card you find there, put it into your hand, and put this Beast Ball in its place. (If you don't reveal an Ultra Beast card, put this card in the discard pile.) Then, shuffle your face-down Prize cards.
-  - You may play as many Item cards as you like during your turn (before your attack).
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.sm7 import (
+    beast_ball,
+    beast_ball_condition,
+)
 
 card = ItemCardDef(
     guid="97afc8bc-4058-5226-a109-58e7ee8cfa6a",
@@ -19,6 +15,6 @@ card = ItemCardDef(
     collector_number=125,
     set_code="SM7",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=beast_ball,
+    condition=beast_ball_condition,
 )

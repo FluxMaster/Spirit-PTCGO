@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Onix (SM7 #71): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm7 import (
+    onix_rage,
+    onix_screech,
+)
 
 card = PokemonCardDef(
     guid="affe6eac-3dc0-56f0-b869-29245ae8929c",
@@ -26,8 +26,7 @@ card = PokemonCardDef(
             title="Screech",
             game_text="During your next turn, the Defending Pok\u00e9mon takes 20 more damage from attacks (after applying Weakness and Resistance).",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=onix_screech,
         ),
         Attack(
             title="Rage",
@@ -35,8 +34,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 2},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=onix_rage,
         ),
     ],
 )

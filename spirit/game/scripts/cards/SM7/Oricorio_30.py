@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Oricorio (SM7 #30): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm7 import (
+    captivating_salsa,
+    opponent_benched,
+)
 
 card = PokemonCardDef(
     guid="6ee2b98b-b49c-5cc2-8767-67b7b7ab3f07",
@@ -28,8 +28,8 @@ card = PokemonCardDef(
             title="Captivating Salsa",
             game_text="Switch 1 of your opponent's Benched Pok\u00e9mon with their Active Pok\u00e9mon. The new Active Pok\u00e9mon is now Burned and Confused.",
             cost={PokemonTypes.FIRE: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=captivating_salsa,
+            condition=opponent_benched,
         ),
         Attack(
             title="Heat Blast",

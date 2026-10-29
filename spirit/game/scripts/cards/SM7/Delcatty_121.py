@@ -1,9 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Delcatty (SM7 #121): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm7 import (
+    search_for_friends,
+    search_for_friends_condition,
+)
+from spirit.game.data_utils import Triggers
 
 card = PokemonCardDef(
     guid="274b3c8b-df19-5d07-9347-fa9e7b7761db",
@@ -27,8 +28,9 @@ card = PokemonCardDef(
             title="Search for Friends",
             game_text="When you play this Pok\u00e9mon from your hand to evolve 1 of your Pok\u00e9mon during your turn, you may put 2 Supporter cards from your discard pile into your hand.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=Triggers.ON_EVOLVE,
+            effect=search_for_friends,
+            condition=search_for_friends_condition,
         ),
         Attack(
             title="Cat Kick",

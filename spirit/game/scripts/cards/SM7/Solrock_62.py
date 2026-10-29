@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Solrock (SM7 #62): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm7 import (
+    scorching_light,
+    sunbeam_passive,
+)
 
 card = PokemonCardDef(
     guid="ae8890a1-d3f2-5696-8ede-af04a95cd9a9",
@@ -26,15 +26,13 @@ card = PokemonCardDef(
             title="Sunbeam",
             game_text="The maximum HP of each of your Lunatone in play is 130.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=sunbeam_passive,
         ),
         Attack(
             title="Scorching Light",
             game_text="Flip a coin. If heads, your opponent's Active Pok\u00e9mon is now Paralyzed. If tails, your opponent's Active Pok\u00e9mon is now Burned.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=scorching_light,
         ),
     ],
 )

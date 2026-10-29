@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Shelgon (SM7 #105): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm7 import (
+    raging_blade,
+)
 
 card = PokemonCardDef(
     guid="7d1b9d4b-079b-5330-91ad-ad8e7e3f401e",
@@ -29,8 +28,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 1, PokemonTypes.WATER: 1},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=raging_blade,
         ),
     ],
 )

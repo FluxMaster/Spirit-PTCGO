@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Sceptile (SM7 #10a): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm7 import (
+    power_of_nature_passive,
+    powerful_storm,
+)
 
 card = PokemonCardDef(
     guid="a8011617-270c-5286-ae8e-c0476ae677e8",
@@ -27,8 +27,7 @@ card = PokemonCardDef(
             title="Power of Nature",
             game_text="Prevent all damage done to your Pok\u00e9mon that have any Grass Energy attached to them by attacks from your opponent's Ultra Beasts.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=power_of_nature_passive,
         ),
         Attack(
             title="Powerful Storm",
@@ -36,8 +35,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1},
             damage=20,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=powerful_storm,
         ),
     ],
 )

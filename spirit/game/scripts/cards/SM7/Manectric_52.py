@@ -1,9 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Manectric (SM7 #52): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
+"""Manectric Electric Start is a deliberate pregame-only STUB.
 """
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm7 import (
+    double_charge,
+)
 
 card = PokemonCardDef(
     guid="f690bb93-96c6-5f35-ae92-48962a0602ac",
@@ -29,7 +30,7 @@ card = PokemonCardDef(
             title="Electric Start",
             game_text="If you go second, and if this Pok\u00e9mon is in your hand when you are setting up to play, you may put it face down as your Active Pok\u00e9mon or on your Bench.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
+            # STUB: pregame-only setup is out of engine scope
             effect=unimplemented,
         ),
         Attack(
@@ -37,8 +38,7 @@ card = PokemonCardDef(
             game_text="You may attach up to 2 basic Energy cards from your hand to 1 of your Benched Pok\u00e9mon.",
             cost={PokemonTypes.LIGHTNING: 1},
             damage=40,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=double_charge,
         ),
     ],
 )

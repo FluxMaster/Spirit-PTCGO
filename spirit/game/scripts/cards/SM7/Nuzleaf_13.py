@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Nuzleaf (SM7 #13): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm7 import (
+    clear_the_room,
+)
 
 card = PokemonCardDef(
     guid="94da8040-4ea3-5d79-8191-246efeb16601",
@@ -32,8 +31,7 @@ card = PokemonCardDef(
             title="Clear the Room",
             game_text="Your opponent reveals their hand. Choose a Supporter card you find there. Your opponent shuffles that card into their deck.",
             cost={PokemonTypes.COLORLESS: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=clear_the_room,
         ),
     ],
 )

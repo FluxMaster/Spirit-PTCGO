@@ -1,8 +1,4 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Metagross (SM7 #95): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.passives_common import boost_own_next_turn
 
@@ -31,8 +27,6 @@ card = PokemonCardDef(
             title="Extend",
             game_text="As long as this Pok\u00e9mon is your Active Pok\u00e9mon, your turn does not end when you play Steven's Resolve.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
         ),
         Attack(
             title="Meteor Mash",

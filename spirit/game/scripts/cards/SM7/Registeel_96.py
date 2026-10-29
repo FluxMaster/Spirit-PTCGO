@@ -1,10 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Registeel (SM7 #96): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.passives_common import takes_less_passive
+from spirit.game.card_effects.sm7 import (
+    silver_fist,
+)
 
 
 card = PokemonCardDef(
@@ -39,8 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.METAL: 1, PokemonTypes.COLORLESS: 2},
             damage=60,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=silver_fist,
         ),
     ],
 )

@@ -1,9 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Salamence (SM7 #106): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm7 import (
+    dragon_wind,
+    dragon_wind_condition,
+)
+from spirit.game.data_utils import Activations
 
 card = PokemonCardDef(
     guid="573149ba-f905-5069-836f-e98befd0c542",
@@ -27,8 +28,9 @@ card = PokemonCardDef(
             title="Dragon Wind",
             game_text="If this Pok\u00e9mon is your Active Pok\u00e9mon, once during your turn (before your attack), you may switch 1 of your opponent's Benched Pok\u00e9mon with their Active Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            effect=dragon_wind,
+            condition=dragon_wind_condition,
         ),
         Attack(
             title="Dragon Claw",

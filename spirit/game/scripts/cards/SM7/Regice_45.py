@@ -1,11 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Regice (SM7 #45): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.sm7 import (
+    icy_barrier_passive,
+)
 
 
 card = PokemonCardDef(
@@ -29,8 +28,7 @@ card = PokemonCardDef(
             title="Icy Barrier",
             game_text="As long as this Pok\u00e9mon is your Active Pok\u00e9mon, your opponent can't play any Stadium cards from their hand.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=icy_barrier_passive,
         ),
         Attack(
             title="Icy Wind",

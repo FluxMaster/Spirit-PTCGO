@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Plusle (SM7 #53): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm7 import (
+    draw_for_everybody,
+)
 
 card = PokemonCardDef(
     guid="76211cf9-f3b1-56ea-a936-fde4fa0278d1",
@@ -28,8 +27,7 @@ card = PokemonCardDef(
             title="Draw for Everybody",
             game_text="Shuffle your hand into your deck. Then, draw a card for each Benched Pok\u00e9mon (both yours and your opponent's).",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=draw_for_everybody,
         ),
         Attack(
             title="Electro Ball",

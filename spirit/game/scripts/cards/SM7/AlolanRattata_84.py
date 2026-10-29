@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Alolan Rattata (SM7 #84): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm7 import (
+    call_for_the_boss,
+)
 
 card = PokemonCardDef(
     guid="cd1ff823-3850-5f79-82fe-0c55fcfc31d0",
@@ -28,8 +27,7 @@ card = PokemonCardDef(
             title="Call for the Boss",
             game_text="Search your deck for Alolan Raticate or Alolan Raticate-GX, reveal it, and put it into your hand. Then, shuffle your deck.",
             cost={},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=call_for_the_boss,
         ),
         Attack(
             title="Gnaw",

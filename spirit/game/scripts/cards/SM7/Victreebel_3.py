@@ -1,11 +1,12 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Victreebel (SM7 #3): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.sm7 import (
+    fragrance_trap,
+    fragrance_trap_condition,
+)
+from spirit.game.data_utils import Activations
 
 
 card = PokemonCardDef(
@@ -30,8 +31,9 @@ card = PokemonCardDef(
             title="Fragrance Trap",
             game_text="Once during your turn (before your attack), you may flip a coin. If heads, switch 1 of your opponent's Benched Pok\u00e9mon with their Active Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            effect=fragrance_trap,
+            condition=fragrance_trap_condition,
         ),
         Attack(
             title="Corrosive Acid",

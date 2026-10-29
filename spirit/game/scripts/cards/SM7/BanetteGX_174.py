@@ -1,9 +1,11 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Banette-GX (SM7 #174): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm7 import (
+    shadow_chant,
+    shady_move,
+    shady_move_condition,
+)
+from spirit.game.data_utils import Activations
 
 
 async def _hollow_hunt(ctx):
@@ -41,8 +43,9 @@ card = PokemonCardDef(
             title="Shady Move",
             game_text="Once during your turn (before your attack), if this Pok\u00e9mon is your Active Pok\u00e9mon, you may move 1 damage counter from 1 Pok\u00e9mon to another Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=shady_move_condition,
+            effect=shady_move,
         ),
         Attack(
             title="Shadow Chant",
@@ -50,8 +53,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 1},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=shadow_chant,
         ),
         Attack(
             title="Tomb Hunt-GX",

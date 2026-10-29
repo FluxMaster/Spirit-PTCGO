@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Beldum (SM7 #92): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm7 import (
+    conductive_body_passive,
+)
 
 card = PokemonCardDef(
     guid="f8410b8f-5584-5193-a075-c8f7e4392c84",
@@ -28,8 +27,7 @@ card = PokemonCardDef(
             title="Conductive Body",
             game_text="As long as this Pok\u00e9mon is your Active Pok\u00e9mon, its Retreat Cost is Colorless less for each Beldum on your Bench.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=conductive_body_passive,
         ),
         Attack(
             title="Ram",

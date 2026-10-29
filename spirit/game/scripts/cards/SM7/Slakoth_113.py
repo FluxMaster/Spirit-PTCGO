@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Slakoth (SM7 #113): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_or_nothing
+from spirit.game.card_effects.support_common import heal_attack
 
 
 card = PokemonCardDef(
@@ -36,8 +33,8 @@ card = PokemonCardDef(
             title="Slack Off",
             game_text="Heal all damage from this Pok\u00e9mon. It can't attack during your next turn.",
             cost={PokemonTypes.COLORLESS: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=heal_attack(all_damage=True),
+            locks_next_turn=True,
         ),
     ],
 )

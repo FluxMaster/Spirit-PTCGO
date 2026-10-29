@@ -1,10 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Heatran (SM7 #98): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import recoil_attack
+from spirit.game.card_effects.sm7 import (
+    steelworks,
+)
 
 
 card = PokemonCardDef(
@@ -30,8 +29,7 @@ card = PokemonCardDef(
             title="Steelworks",
             game_text="Look at the top 4 cards of your deck and attach any number of Metal Energy cards you find there to 1 of your Pok\u00e9mon. Shuffle the other cards back into your deck.",
             cost={PokemonTypes.METAL: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=steelworks,
         ),
         Attack(
             title="Steel Tackle",

@@ -1,11 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Torkoal (SM7 #29): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.sm7 import (
+    flaming_honk,
+)
 
 
 card = PokemonCardDef(
@@ -30,8 +29,7 @@ card = PokemonCardDef(
             game_text="Discard the top 4 cards of your deck. If any of those cards are Fire Energy cards, attach them to your Pok\u00e9mon in any way you like.",
             cost={PokemonTypes.COLORLESS: 2},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flaming_honk,
         ),
         Attack(
             title="Searing Flame",

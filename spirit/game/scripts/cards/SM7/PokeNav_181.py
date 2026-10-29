@@ -1,13 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-PokéNav (SM7 #181): trainer effect stubbed.
-
-Card text:
-  - Look at the top 3 cards of your deck. You may reveal a Pokémon or Energy card you find there and put it into your hand. Put the other cards back in any order.
-  - You may play as many Item cards as you like during your turn (before your attack).
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.sm7 import (
+    poke_nav,
+)
+from spirit.game.card_effects.trainers import deck_nonempty
 
 card = ItemCardDef(
     guid="457c7e1e-431b-5ea9-a9a2-aafba43a9d11",
@@ -19,6 +15,6 @@ card = ItemCardDef(
     collector_number=181,
     set_code="SM7",
     rarity=Rarities.RareSecret,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=poke_nav,
+    condition=deck_nonempty,
 )

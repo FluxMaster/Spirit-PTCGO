@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Mawile (SM7 #91): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm7 import (
+    bite_off,
+    mining,
+)
 
 card = PokemonCardDef(
     guid="a4b517a3-2b29-5dc0-ab72-4dbbe747d561",
@@ -28,8 +28,7 @@ card = PokemonCardDef(
             title="Mining",
             game_text="Search your deck for an Item card, reveal it, and put it into your hand. Then, shuffle your deck. If that card is a Pok\u00e9mon Tool card, instead of putting it into your hand, you may attach it to 1 of your Pok\u00e9mon that doesn't already have a Pok\u00e9mon Tool attached to it.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=mining,
         ),
         Attack(
             title="Bite Off",
@@ -37,8 +36,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.METAL: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bite_off,
         ),
     ],
 )

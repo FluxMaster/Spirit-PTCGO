@@ -1,11 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dunsparce (SM7 #110): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.sm7 import (
+    strike_and_run,
+)
 
 
 card = PokemonCardDef(
@@ -29,8 +28,7 @@ card = PokemonCardDef(
             title="Strike and Run",
             game_text="Search your deck for up to 3 Basic Pok\u00e9mon and put them onto your Bench. Then, shuffle your deck. If you put any Pok\u00e9mon onto your Bench in this way, you may switch this Pok\u00e9mon with 1 of your Benched Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=strike_and_run,
         ),
         Attack(
             title="Sudden Flash",

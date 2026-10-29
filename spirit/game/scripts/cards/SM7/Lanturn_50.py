@@ -1,9 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Lanturn (SM7 #50): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm7 import (
+    energy_grounding,
+    lightning_strike,
+)
+from spirit.game.data_utils import Triggers
 
 card = PokemonCardDef(
     guid="a391be4e-1923-59cf-81fe-53e98dcd82bf",
@@ -29,8 +30,8 @@ card = PokemonCardDef(
             title="Energy Grounding",
             game_text="When 1 of your Pok\u00e9mon is Knocked Out by damage from an opponent's attack, you may move a basic Energy card from that Pok\u00e9mon to this Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=Triggers.ON_ALLY_KNOCKED_OUT,
+            effect=energy_grounding,
         ),
         Attack(
             title="Lightning Strike",
@@ -38,8 +39,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 2, PokemonTypes.COLORLESS: 1},
             damage=70,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=lightning_strike,
         ),
     ],
 )

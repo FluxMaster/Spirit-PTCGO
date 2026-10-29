@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Kyogre (SM7 #46): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm7 import (
+    dual_splash,
+)
 
 card = PokemonCardDef(
     guid="acd8ee21-b269-519c-a213-6703c31b5016",
@@ -26,16 +25,14 @@ card = PokemonCardDef(
             title="Dual Splash",
             game_text="This attack does 30 damage to 2 of your opponent's Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=dual_splash,
         ),
         Attack(
             title="Grand Wave",
             game_text="This Pok\u00e9mon can't use Grand Wave during your next turn.",
             cost={PokemonTypes.WATER: 2, PokemonTypes.COLORLESS: 1},
             damage=120,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            locks_next_turn=True,
         ),
     ],
 )

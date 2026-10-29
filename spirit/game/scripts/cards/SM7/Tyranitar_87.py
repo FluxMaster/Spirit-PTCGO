@@ -1,10 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Tyranitar (SM7 #87): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_damage
+from spirit.game.card_effects.sm7 import (
+    trample,
+)
 
 
 card = PokemonCardDef(
@@ -41,8 +40,7 @@ card = PokemonCardDef(
             game_text="For each Benched Pok\u00e9mon (both yours and your opponent's), flip a coin. If heads, this attack does 60 damage to that Pok\u00e9mon. This attack's damage isn't affected by Weakness or Resistance.",
             cost={PokemonTypes.DARKNESS: 2, PokemonTypes.COLORLESS: 2},
             damage=120,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=trample,
         ),
     ],
 )

@@ -1,10 +1,11 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Minior (SM7 #83): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import ignore_effects_attack
+from spirit.game.card_effects.sm7 import (
+    falling_star,
+    falling_star_condition,
+)
+from spirit.game.data_utils import Activations
 
 
 card = PokemonCardDef(
@@ -28,8 +29,10 @@ card = PokemonCardDef(
             title="Falling Star",
             game_text="Once during your turn (before your attack), if this Pok\u00e9mon is in your hand and your Bench isn't full, you may move your Active Pok\u00e9mon to your Bench and play this Pok\u00e9mon as your new Active Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            usable_from="hand",
+            condition=falling_star_condition,
+            effect=falling_star,
         ),
         Attack(
             title="Swift",

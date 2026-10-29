@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Whismur (SM7 #116): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm7 import (
+    bawl,
+)
+from spirit.game.card_effects.sm5 import go_second_first_turn
 
 card = PokemonCardDef(
     guid="d1c358bc-9743-5e66-8c68-dfea6639d5e7",
@@ -26,8 +26,8 @@ card = PokemonCardDef(
             title="Bawl",
             game_text="You can use this attack only if you go second, and only on your first turn. Your opponent can't play any Trainer cards from their hand during their next turn.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bawl,
+            condition=go_second_first_turn,
         ),
         Attack(
             title="Pound",

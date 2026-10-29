@@ -1,13 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Underground Expedition (SM7 #168): trainer effect stubbed.
-
-Card text:
-  - Look at the bottom 4 cards of your deck and put 2 of them into your hand. Put the other cards back on the bottom of your deck in any order.
-  - You may play only 1 Supporter card during your turn (before your attack).
-"""
-
-from spirit.game.data_utils import SupporterCardDef, unimplemented
+from spirit.game.data_utils import SupporterCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.sm7 import (
+    underground_expedition,
+    underground_expedition_condition,
+)
 
 card = SupporterCardDef(
     guid="50cfd7d5-0839-5841-b2aa-3702bb9caac1",
@@ -19,6 +15,6 @@ card = SupporterCardDef(
     collector_number=168,
     set_code="SM7",
     rarity=Rarities.RareUltra,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=underground_expedition,
+    condition=underground_expedition_condition,
 )

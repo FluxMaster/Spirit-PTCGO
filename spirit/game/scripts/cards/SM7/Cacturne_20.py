@@ -1,12 +1,11 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Cacturne (SM7 #20): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.data_utils import Triggers
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.pokemon import in_active_spot
+from spirit.game.card_effects.sm7 import (
+    feint_attack,
+)
 
 
 async def poison_point(ctx):
@@ -50,8 +49,7 @@ card = PokemonCardDef(
             title="Feint Attack",
             game_text="This attack does 50 damage to 1 of your opponent's Pok\u00e9mon. This damage isn't affected by Weakness, Resistance, or any other effects on that Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 3},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=feint_attack,
         ),
     ],
 )

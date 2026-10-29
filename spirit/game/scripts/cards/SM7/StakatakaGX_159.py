@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Stakataka-GX (SM7 #159): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm7 import (
+    assembly_gx,
+    ultra_wall_passive,
+)
 
 card = PokemonCardDef(
     guid="bc5a4bea-ab3b-53fc-8582-738f2378310e",
@@ -28,8 +28,7 @@ card = PokemonCardDef(
             title="Ultra Wall",
             game_text="Your Ultra Beasts take 10 less damage from your opponent's attacks (after applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=ultra_wall_passive,
         ),
         Attack(
             title="Gigaton Stomp",
@@ -42,8 +41,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.METAL: 2, PokemonTypes.COLORLESS: 1},
             damage=50,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=assembly_gx,
         ),
     ],
 )

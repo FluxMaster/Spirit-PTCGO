@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Kecleon (SM7 #122): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm7 import (
+    unit_color_2_passive,
+)
 
 card = PokemonCardDef(
     guid="01cfb2a3-f905-5c36-9f59-43d08d646dc9",
@@ -26,8 +25,7 @@ card = PokemonCardDef(
             title="Unit Color 2",
             game_text="As long as this Pok\u00e9mon has Unit Energy LightningPsychicMetal attached to it, it is a Lightning, Psychic, and Metal Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=unit_color_2_passive,
         ),
         Attack(
             title="Slash",

@@ -1,10 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Masquerain (SM7 #16): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_damage
+from spirit.game.card_effects.sm7 import (
+    surprising_pattern,
+)
 
 
 card = PokemonCardDef(
@@ -29,8 +28,7 @@ card = PokemonCardDef(
             title="Surprising Pattern",
             game_text="Discard all Special Energy from each of your opponent's Pok\u00e9mon.",
             cost={PokemonTypes.GRASS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=surprising_pattern,
         ),
         Attack(
             title="Hurricane Wing",

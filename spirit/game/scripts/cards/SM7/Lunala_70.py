@@ -1,10 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Lunala (SM7 #70): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.sm5 import psychic_60_plus
+from spirit.game.card_effects.sm7 import (
+    shadow_shield_passive,
+)
 
 
 card = PokemonCardDef(
@@ -31,8 +30,7 @@ card = PokemonCardDef(
             title="Shadow Shield",
             game_text="If this Pok\u00e9mon has any Psychic Energy attached to it, it takes 20 less damage from attacks (after applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=shadow_shield_passive,
         ),
         Attack(
             title="Full Moon Ray",

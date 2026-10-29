@@ -1,11 +1,11 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Shiftry-GX (SM7 #152): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.sm7 import (
+    den_of_iniquity_gx,
+    extrasensory,
+)
 
 
 card = PokemonCardDef(
@@ -40,15 +40,13 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 2},
             damage=90,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=extrasensory,
         ),
         Attack(
             title="Den of Iniquity-GX",
             game_text="Choose 1 of your opponent's Pok\u00e9mon. Your opponent shuffles that Pok\u00e9mon and all cards attached to it into their deck. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=den_of_iniquity_gx,
         ),
     ],
 )

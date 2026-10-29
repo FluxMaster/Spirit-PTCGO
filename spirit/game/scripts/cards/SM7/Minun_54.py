@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Minun (SM7 #54): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm7 import (
+    ditch_and_draw,
+)
 
 card = PokemonCardDef(
     guid="2c3095ba-b2e3-55b0-baae-b7c7a0f48888",
@@ -28,8 +27,7 @@ card = PokemonCardDef(
             title="Ditch and Draw",
             game_text="You may discard any number of cards from your hand. Then, draw cards until you have 5 cards in your hand.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=ditch_and_draw,
         ),
         Attack(
             title="Electro Ball",

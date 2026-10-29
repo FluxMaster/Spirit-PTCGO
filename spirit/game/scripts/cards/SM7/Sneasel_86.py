@@ -1,10 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Sneasel (SM7 #86): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_damage
+from spirit.game.card_effects.sm7 import (
+    beat_up,
+)
 
 
 card = PokemonCardDef(
@@ -41,8 +40,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.DARKNESS: 2},
             damage=30,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=beat_up,
         ),
     ],
 )
