@@ -1,10 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Venomoth (ECARD3 #111): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-from spirit.game.card_effects.ecard import miracle_tail
+from spirit.game.card_effects.ecard import healing_dust, miracle_tail
 
 
 card = PokemonCardDef(
@@ -29,15 +25,13 @@ card = PokemonCardDef(
             title="Healing Dust",
             game_text="Flip 2 coins. For each heads, remove 1 damage counter from each of your Pok\u00e9mon. If a Pok\u00e9mon has fewer damage counters than the number of heads, remove all of them.",
             cost={PokemonTypes.COLORLESS: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=healing_dust,
         ),
         Attack(
             title="Miracle Powder",
             game_text="Flip a coin. If heads, choose a Special Condition (Asleep, Burned, Confused, Paralyzed, or Poisoned). The Defending Pok\u00e9mon is now affected by that Special Condition.",
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 2},
             damage=30,
-            # STUB: attack effect not implemented
             effect=miracle_tail,
         ),
     ],

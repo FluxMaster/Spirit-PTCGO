@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Starmie (ECARD3 #H28): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import count_energy, damage_per, flip_or_nothing
+from spirit.game.card_effects.support_common import attach_from_discard
+from spirit.game.card_effects.trainers import is_basic_energy_card
+
 
 card = PokemonCardDef(
     guid="5fe74d77-646f-5ff0-a2e9-66793e67de1d",
@@ -29,16 +29,21 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 1},
             damage=10,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_or_nothing(then=damage_per(
+                lambda ctx: count_energy("self", cards=True)(ctx)
+                + count_energy("defender", cards=True)(ctx),
+                per=10,
+            )),
         ),
         Attack(
             title="Star Back",
             game_text="Attach a basic Energy card from your discard pile to 1 of your Pok\u00e9mon.",
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 2},
             damage=40,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=attach_from_discard(
+                predicate=is_basic_energy_card, count=1, target="choice",
+                prompt="Choose a basic Energy card to attach",
+            ),
         ),
     ],
 )

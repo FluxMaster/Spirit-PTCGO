@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Magcargo (ECARD3 #18): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ecard import crushing_lava, streaming_mantle
+
 
 card = PokemonCardDef(
     guid="94b1c919-99df-5e87-80ad-52bebd30af15",
@@ -27,8 +25,8 @@ card = PokemonCardDef(
             title="Streaming Mantle",
             game_text="When you play Magcargo from your hand to evolve your Active Pok\u00e9mon, you may discard the top 3 cards of your deck and and then shuffle 3 basic Energy cards from your discard pile into your deck. If you do, your opponent does the same.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=Triggers.ON_EVOLVE,
+            effect=streaming_mantle,
         ),
         Attack(
             title="Crushing Lava",
@@ -36,8 +34,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 2},
             damage=40,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=crushing_lava,
         ),
     ],
 )

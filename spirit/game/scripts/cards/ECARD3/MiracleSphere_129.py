@@ -1,12 +1,18 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Miracle Sphere α (ECARD3 #129): trainer effect stubbed.
+from spirit.game.data_utils import TrainerCardDef, Attack
+from spirit.game.card_effects.ecard import (
+    TechnicalMachinePassive, evolved_of_types, fire_force,
+)
+from spirit.game.attributes import PokemonTypes, Rarities, TrainerType
 
-Card text:
-  - Attach this card to 1 of your Evolved Fire, Lightning, or Fighting Pokémon in play. That Pokémon may use this card's attack instead of its own. At the end of your turn, discard Miracle Plate α.
-"""
 
-from spirit.game.data_utils import TrainerCardDef, unimplemented
-from spirit.game.attributes import Rarities, TrainerType
+_attack = Attack(
+    title="Fire Force",
+    game_text="If the Pokémon using this attack has Fire and Lightning basic Energy cards attached to it, the Defending Pokémon is now Confused. If the Pokémon using this attack has Fire and Fighting basic Energy cards attached to it, this attack does 30 damage plus 10 more damage and removes 3 damage counters from the Pokémon that Miracle Sphere α is attached to.",
+    cost={PokemonTypes.FIRE: 1, PokemonTypes.COLORLESS: 2},
+    damage=30,
+    damage_operator="+",
+    effect=fire_force,
+)
 
 card = TrainerCardDef(
     guid="a3d4bb05-9af5-5fd7-b5e4-c5266ebf9123",
@@ -19,6 +25,8 @@ card = TrainerCardDef(
     set_code="ECARD3",
     rarity=Rarities.Uncommon,
     trainer_type=TrainerType.TECHNICAL_MACHINE,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    abilities=[_attack],
 )
+card.passive = TechnicalMachinePassive(_attack)
+card.attach_to = evolved_of_types(
+    PokemonTypes.FIRE, PokemonTypes.LIGHTNING, PokemonTypes.FIGHTING)

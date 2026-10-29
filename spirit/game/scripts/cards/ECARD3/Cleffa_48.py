@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Cleffa (ECARD3 #48): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import recover_from_discard
+from spirit.game.card_effects.trainers import is_basic_energy_card
+
 
 card = PokemonCardDef(
     guid="95b345b3-2ea3-50fc-99e2-5f3ec6e04fd3",
@@ -25,8 +24,10 @@ card = PokemonCardDef(
             title="Energy Recycle",
             game_text="Shuffle a basic Energy card from your discard pile into your deck.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=recover_from_discard(
+                is_basic_energy_card, count=1, minimum=1, to="deck_shuffle",
+                prompt="Choose a basic Energy card to shuffle into your deck",
+            ),
         ),
     ],
 )

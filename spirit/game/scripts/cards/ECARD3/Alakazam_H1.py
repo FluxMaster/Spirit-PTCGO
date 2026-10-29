@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Alakazam (ECARD3 #H1): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import count_energy, damage_per
+from spirit.game.card_effects.ecard import energy_jump, energy_jump_condition
+
 
 card = PokemonCardDef(
     guid="a91ce11f-0b0b-51c7-b7d4-041e5487b107",
@@ -27,8 +26,9 @@ card = PokemonCardDef(
             title="Energy Jump",
             game_text="Once during your turn (before your attack), you may move an Energy card from 1 of your Pok\u00e9mon to another of your Pok\u00e9mon. This power can't be used if Alakazam is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=energy_jump_condition,
+            effect=energy_jump,
         ),
         Attack(
             title="Psychic",
@@ -36,8 +36,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_per(count_energy("defender", cards=True), 10, base=30),
         ),
     ],
 )

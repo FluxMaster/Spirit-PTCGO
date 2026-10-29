@@ -1,13 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Star Piece (ECARD3 #139): trainer effect stubbed.
-
-Card text:
-  - Attach Star Piece to 1 of your Pokémon that doesn't already have a Pokémon Tool attached to it. If that Pokémon is Knocked Out, discard this card.
-  - At any time between turns, if the Pokémon this card is attached to is Benched and has 2 or more damage counters on it, search your deck for an Evolution card that Pokémon evolves into and put it on top of that Pokémon. (This counts as evolving that Pokémon.) Shuffle your deck afterward. Then, discard Star Piece.
-"""
-
-from spirit.game.data_utils import PokemonToolCardDef, unimplemented
+from spirit.game.data_utils import PokemonToolCardDef, Ability, Triggers
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ecard import star_piece_between_turns
+
 
 card = PokemonToolCardDef(
     guid="2dd3e3fd-7057-5a31-9a5b-db28082522d8",
@@ -19,6 +13,12 @@ card = PokemonToolCardDef(
     collector_number=139,
     set_code="ECARD3",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    granted_abilities=[
+        Ability(
+            title="Star Piece",
+            game_text="At any time between turns, if the Pokémon this card is attached to is Benched and has 2 or more damage counters on it, search your deck for an Evolution card that Pokémon evolves into and put it on top of that Pokémon. (This counts as evolving that Pokémon.) Shuffle your deck afterward. Then, discard Star Piece.",
+            trigger=Triggers.BETWEEN_TURNS,
+            effect=star_piece_between_turns,
+        ),
+    ],
 )

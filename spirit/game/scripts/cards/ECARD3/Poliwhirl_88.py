@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Poliwhirl (ECARD3 #88): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-from spirit.game.card_effects.attacks_common import flip_damage
+from spirit.game.attributes import SpecialConditions
+from spirit.game.card_effects.attacks_common import condition_attack, flip_damage
 
 
 card = PokemonCardDef(
@@ -29,8 +26,10 @@ card = PokemonCardDef(
             title="Twiddle",
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon is now Confused. If tails, the Defending Pok\u00e9mon is now Asleep.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(
+                SpecialConditions.CONFUSED, flip=True,
+                tails_conditions=(SpecialConditions.ASLEEP,),
+            ),
         ),
         Attack(
             title="Double Kick",
@@ -38,7 +37,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=30,
             damage_operator="x",
-            # STUB: attack effect not implemented
             effect=flip_damage(coins=2, per_heads=30),
         ),
     ],

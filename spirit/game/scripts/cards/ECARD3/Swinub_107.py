@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Swinub (ECARD3 #107): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.attributes import SpecialConditions
+from spirit.game.card_effects.attacks_common import condition_attack
+
 
 card = PokemonCardDef(
     guid="1cc44b3f-2357-5283-b1e2-305681888ea4",
@@ -31,8 +30,10 @@ card = PokemonCardDef(
             title="Freezing Breath",
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon is now Paralyzed. If tails, the Defending Pok\u00e9mon is now Asleep.",
             cost={PokemonTypes.WATER: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(
+                SpecialConditions.PARALYZED, flip=True,
+                tails_conditions=(SpecialConditions.ASLEEP,),
+            ),
         ),
     ],
 )

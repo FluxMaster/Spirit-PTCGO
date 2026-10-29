@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Igglybuff (ECARD3 #67): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import energy_heal
+
 
 card = PokemonCardDef(
     guid="e1af3fe8-1828-5c6c-a16f-11dcc5ecc893",
@@ -25,8 +23,7 @@ card = PokemonCardDef(
             title="Energy Heal",
             game_text="Choose 1 of your Pok\u00e9mon with an Energy card attached to it. Remove 1 damage counter from that Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=energy_heal,
         ),
     ],
 )

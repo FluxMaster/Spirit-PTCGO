@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Starmie (ECARD3 #44): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import damage_per
+from spirit.game.card_effects.ecard import special_energy_on_defender, unused_energy_bonus
+
 
 card = PokemonCardDef(
     guid="20020c6f-540d-5e19-920b-296975f08eea",
@@ -29,8 +28,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=unused_energy_bonus(per=20, cap=40, energy_type=PokemonTypes.WATER),
         ),
         Attack(
             title="Core Blast",
@@ -38,8 +36,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_per(special_energy_on_defender, per=20, base=30),
         ),
     ],
 )

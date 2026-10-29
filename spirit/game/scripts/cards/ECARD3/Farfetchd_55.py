@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Farfetch'd (ECARD3 #55): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_damage
+from spirit.game.card_effects.support_common import gust_attack
 
 
 card = PokemonCardDef(
@@ -29,8 +26,7 @@ card = PokemonCardDef(
             title="Whirlwind",
             game_text="Your opponent switches the Defending Pok\u00e9mon with 1 of his or her Benched Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=gust_attack(damage_before=0, opponent_chooses=True),
         ),
         Attack(
             title="Leek Rush",
@@ -38,7 +34,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
             damage_operator="x",
-            # STUB: attack effect not implemented
             effect=flip_damage(until_tails=True, per_heads=10),
         ),
     ],

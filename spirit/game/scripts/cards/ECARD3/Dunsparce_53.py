@@ -1,11 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dunsparce (ECARD3 #53): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ecard import SlipperySkinPassive
 
 
 card = PokemonCardDef(
@@ -29,15 +26,13 @@ card = PokemonCardDef(
             title="Slippery Skin",
             game_text="As long as the Defending Pok\u00e9mon is an Evolved Pok\u00e9mon, Dunsparce's Retreat Cost is 0.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=SlipperySkinPassive(),
         ),
         Attack(
             title="Tail Shake",
             game_text="The Defending Pok\u00e9mon is now Asleep.",
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.ASLEEP),
         ),
     ],

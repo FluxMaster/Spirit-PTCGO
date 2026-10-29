@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Articuno (ECARD3 #4): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ecard import (
+    AntiWaterPassive, collect_energy_from_discard, ice_cyclone,
+)
+
 
 card = PokemonCardDef(
     guid="70ae7e58-4d9e-512d-a8a5-14dfe929790f",
@@ -27,24 +27,21 @@ card = PokemonCardDef(
             title="Water Immunity",
             game_text="You can't attach Water Energy cards from your hand to Articuno.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=AntiWaterPassive(),
         ),
         Attack(
             title="Freeze Solid",
             game_text="If there are any Water Energy cards in your discard pile, flip a coin. If heads, attach 1 of them to Articuno.",
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=collect_energy_from_discard(PokemonTypes.WATER),
         ),
         Attack(
             title="Ice Cyclone",
             game_text="Flip a coin. If heads, this attack does 10 damage to each of your opponent's Benched Pok\u00e9mon. If tails, this attack does 10 damage to each of your Pok\u00e9mon in play. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.WATER: 2, PokemonTypes.COLORLESS: 2},
             damage=50,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=ice_cyclone,
         ),
     ],
 )

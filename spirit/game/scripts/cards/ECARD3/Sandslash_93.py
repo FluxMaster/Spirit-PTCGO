@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Sandslash (ECARD3 #93): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import snipe_attack
+from spirit.game.card_effects.ecard import poison_needle_rush
+
 
 card = PokemonCardDef(
     guid="ba1d0dc6-9a54-53dd-81eb-d9c1180cb05f",
@@ -29,8 +28,7 @@ card = PokemonCardDef(
             game_text="If your opponent has any Benched Pok\u00e9mon, choose up to 2 of them. This attack does 10 damage to each of them. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 1},
             damage=10,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=snipe_attack(10, pool="bench", count=2, also_base=True, optional=True),
         ),
         Attack(
             title="Poison Needle Rush",
@@ -38,8 +36,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 2},
             damage=20,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=poison_needle_rush,
         ),
     ],
 )

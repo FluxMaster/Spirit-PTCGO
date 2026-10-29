@@ -1,10 +1,11 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Crobat (ECARD3 #147): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
-from spirit.game.card_effects.attacks_common import flip_damage
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
+from spirit.game.attributes import (
+    PokemonTypes, PokemonStage, Rarities, AbilityTypes, SpecialConditions,
+)
+from spirit.game.card_effects.attacks_common import condition_attack, flip_damage
+from spirit.game.card_effects.ecard import (
+    CrystalTypePassive, crystal_type_on_energy_attached,
+)
 
 
 card = PokemonCardDef(
@@ -29,16 +30,19 @@ card = PokemonCardDef(
             title="Crystal Type",
             game_text="Whenever you attach a Grass, Fire, or Psychic basic Energy card from your hand to Crobat, Crobat's type (color) becomes the same as that type of Energy until the end of the turn.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=CrystalTypePassive(),
+            trigger=Triggers.ON_ENERGY_ATTACHED,
+            effect=crystal_type_on_energy_attached(
+                PokemonTypes.GRASS, PokemonTypes.FIRE, PokemonTypes.PSYCHIC,
+            ),
         ),
         Attack(
             title="Poison Flame",
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon is now Burned and Poisoned.",
             cost={PokemonTypes.GRASS: 1, PokemonTypes.FIRE: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(
+                SpecialConditions.BURNED, SpecialConditions.POISONED, flip=True),
         ),
         Attack(
             title="Squared Attack",
@@ -46,7 +50,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1, PokemonTypes.PSYCHIC: 2},
             damage=20,
             damage_operator="x",
-            # STUB: attack effect not implemented
             effect=flip_damage(coins=4, per_heads=20),
         ),
     ],

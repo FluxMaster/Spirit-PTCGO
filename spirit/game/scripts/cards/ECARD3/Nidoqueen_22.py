@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Nidoqueen (ECARD3 #22): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import flip_damage
+from spirit.game.card_effects.ecard import evolution_helper, evolution_helper_condition
 
 
 card = PokemonCardDef(
@@ -29,8 +26,9 @@ card = PokemonCardDef(
             title="Evolution Helper",
             game_text="Once during your turn (before your attack), if Nidoqueen is on your Bench, you may search your deck for a card that evolves from your Active Pok\u00e9mon and attach it to your Active Pok\u00e9mon. (This counts as evolving that Pok\u00e9mon.) Shuffle your deck afterward.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=evolution_helper_condition,
+            effect=evolution_helper,
         ),
         Attack(
             title="Double Claw",
@@ -38,7 +36,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 2},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
             effect=flip_damage(coins=2, bonus_per_heads=20),
         ),
     ],

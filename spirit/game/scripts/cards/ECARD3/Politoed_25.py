@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Politoed (ECARD3 #25): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_bonus
+from spirit.game.card_effects.ecard import attach_hand_energy, energy_splash
+from spirit.game.card_effects.trainers import is_basic_energy_card
+
 
 card = PokemonCardDef(
     guid="1cb48aad-761f-57dd-9811-73641245636e",
@@ -27,8 +27,7 @@ card = PokemonCardDef(
             title="Sudden Growth",
             game_text="Attach any number of basic Energy cards from your hand to Politoed.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=attach_hand_energy(count=99, predicate=is_basic_energy_card),
         ),
         Attack(
             title="Frog Hop",
@@ -36,16 +35,14 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 2},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_bonus(20),
         ),
         Attack(
             title="Energy Splash",
             game_text="Move 2 Water Energy cards attached to Politoed to 1 or 2 of your Benched Pok\u00e9mon. (You may put both on the same Pok\u00e9mon or 1 each on 2 different Pok\u00e9mon.) If you have no Benched Pok\u00e9mon, ignore this effect.",
             cost={PokemonTypes.WATER: 2, PokemonTypes.COLORLESS: 3},
             damage=70,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=energy_splash,
         ),
     ],
 )

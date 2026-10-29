@@ -1,12 +1,15 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Mystery Plate δ (ECARD3 #136): trainer effect stubbed.
+from spirit.game.data_utils import TrainerCardDef, Attack
+from spirit.game.attributes import PokemonTypes, Rarities, TrainerType
+from spirit.game.card_effects.ecard import TechnicalMachinePassive, mystery_plate_delta
 
-Card text:
-  - Attach this card to 1 of your Pokémon in play. That Pokémon may use this card's attack instead of its own. At the end of your turn, discard Mystery Plate δ.
-"""
 
-from spirit.game.data_utils import TrainerCardDef, unimplemented
-from spirit.game.attributes import Rarities, TrainerType
+_attack = Attack(
+    title="Healing Oasis",
+    game_text="If your opponent has 5 or more Prizes, search your deck for up to 3 basic Energy cards, show them to your opponent, and put them into your hand. Shuffle your deck afterward. If your opponent has exactly 2 Prizes, remove all damage counters from 1 of your Pokémon.",
+    cost={PokemonTypes.COLORLESS: 1},
+    damage=0,
+    effect=mystery_plate_delta,
+)
 
 card = TrainerCardDef(
     guid="80309a3f-6cbc-5966-b3af-13753e616cdd",
@@ -19,6 +22,6 @@ card = TrainerCardDef(
     set_code="ECARD3",
     rarity=Rarities.Uncommon,
     trainer_type=TrainerType.TECHNICAL_MACHINE,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    abilities=[_attack],
 )
+card.passive = TechnicalMachinePassive(_attack)

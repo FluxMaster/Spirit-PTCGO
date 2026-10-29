@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dugtrio (ECARD3 #52): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import snipe_attack
+from spirit.game.card_effects.passives_common import flip_protection
+
 
 card = PokemonCardDef(
     guid="b0aaae04-4482-5e62-9ff0-a9478a2593fa",
@@ -29,15 +28,13 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, prevent all damage done by attacks to Dugtrio during your opponent's next turn. (Any other effects of attacks still happen.)",
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_protection(prevent=True),
         ),
         Attack(
             title="Dig Under",
             game_text="Choose 1 of your opponent's Pok\u00e9mon. This attack does 30 damage to that Pok\u00e9mon. Don't apply Weakness or Resistance. (Any other effects that would happen after applying Weakness and Resistance still happen.)",
             cost={PokemonTypes.COLORLESS: 3},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=snipe_attack(30, pool="any", apply_modifiers=False),
         ),
     ],
 )

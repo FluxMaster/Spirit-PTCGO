@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Noctowl (ECARD3 #40): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import flip_damage
+from spirit.game.card_effects.ecard import investigate, no_special_conditions
+
 
 card = PokemonCardDef(
     guid="1651a25a-8c8b-5482-9027-ffc70ba05f7a",
@@ -28,8 +27,9 @@ card = PokemonCardDef(
             title="Investigate",
             game_text="Once during your turn (before your attack), you may look at the top 2 cards of any player's deck or at up to 2 of any player's Prizes. Put any cards you looked at back in the same order. This power can't be used if Noctowl is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=no_special_conditions,
+            effect=investigate,
         ),
         Attack(
             title="Triple Smash",
@@ -37,8 +37,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(coins=3, bonus_per_heads=10),
         ),
     ],
 )

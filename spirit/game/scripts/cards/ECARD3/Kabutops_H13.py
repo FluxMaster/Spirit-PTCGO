@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Kabutops (ECARD3 #H13): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import flip_damage
+from spirit.game.card_effects.ecard import PrimalAuraPassive
 
 
 card = PokemonCardDef(
@@ -29,8 +26,7 @@ card = PokemonCardDef(
             title="Primal Aura",
             game_text="As long as Kabutops is your Active Pok\u00e9mon, neither player can play Basic Pok\u00e9mon or Evolution cards from his or her hand to evolve Benched Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=PrimalAuraPassive(),
         ),
         Attack(
             title="Dual Cut",
@@ -38,7 +34,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 2, PokemonTypes.COLORLESS: 1},
             damage=50,
             damage_operator="x",
-            # STUB: attack effect not implemented
             effect=flip_damage(coins=2, per_heads=50),
         ),
     ],

@@ -1,12 +1,15 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Mystery Plate γ (ECARD3 #135): trainer effect stubbed.
+from spirit.game.data_utils import TrainerCardDef, Attack
+from spirit.game.attributes import PokemonTypes, Rarities, TrainerType
+from spirit.game.card_effects.ecard import TechnicalMachinePassive, mystery_plate_gamma
 
-Card text:
-  - Attach this card to 1 of your Pokémon in play. That Pokémon may use this card's attack instead of its own. At the end of your turn, discard Mystery Plate γ.
-"""
 
-from spirit.game.data_utils import TrainerCardDef, unimplemented
-from spirit.game.attributes import Rarities, TrainerType
+_attack = Attack(
+    title="Retro Cave",
+    game_text="If your opponent has 5 or more Prizes, shuffle your hand into your deck and then draw 6 cards. If your opponent has exactly 2 Prizes, choose 1 of your opponent's Evolved Pokémon. Your opponent puts the top card on that Evolved Pokémon on the bottom of his or her deck. (This counts as devolving that Pokémon.)",
+    cost={PokemonTypes.COLORLESS: 1},
+    damage=0,
+    effect=mystery_plate_gamma,
+)
 
 card = TrainerCardDef(
     guid="2df7341b-3e56-5074-bb39-e25cf8758790",
@@ -19,6 +22,6 @@ card = TrainerCardDef(
     set_code="ECARD3",
     rarity=Rarities.Uncommon,
     trainer_type=TrainerType.TECHNICAL_MACHINE,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    abilities=[_attack],
 )
+card.passive = TechnicalMachinePassive(_attack)

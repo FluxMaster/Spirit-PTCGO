@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Moltres (ECARD3 #21): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ecard import (
+    AntiFirePassive, collect_energy_from_discard, fireworks,
+)
+
 
 card = PokemonCardDef(
     guid="25474400-6de7-567e-9cdd-3bbf29e0bea6",
@@ -27,24 +27,21 @@ card = PokemonCardDef(
             title="Fire Immunity",
             game_text="You can't attach Fire Energy cards from your hand to Moltres.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=AntiFirePassive(),
         ),
         Attack(
             title="Collect Fire",
             game_text="If there are any Fire Energy cards in your discard pile, flip a coin. If heads, attach 1 of them to Moltres.",
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=collect_energy_from_discard(PokemonTypes.FIRE),
         ),
         Attack(
             title="Burning Tail",
             game_text="Flip a coin. If tails, discard a Fire Energy card attached to Moltres.",
             cost={PokemonTypes.FIRE: 2, PokemonTypes.COLORLESS: 2},
             damage=60,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=fireworks,
         ),
     ],
 )

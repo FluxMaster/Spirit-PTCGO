@@ -1,10 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Charizard (ECARD3 #146): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
-from spirit.game.card_effects.attacks_common import flip_damage
+from spirit.game.card_effects.attacks_common import flip_damage, self_energy_discard_attack
+from spirit.game.card_effects.ecard import (
+    CrystalTypePassive, crystal_type_on_energy_attached,
+)
 
 
 card = PokemonCardDef(
@@ -29,16 +28,18 @@ card = PokemonCardDef(
             title="Crystal Type",
             game_text="Whenever you attach a Fire, Lightning, or Fighting basic Energy card from your hand to Charizard, Charizard's type (color) becomes the same as that type of Energy until the end of the turn.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=CrystalTypePassive(),
+            trigger=Triggers.ON_ENERGY_ATTACHED,
+            effect=crystal_type_on_energy_attached(
+                PokemonTypes.FIRE, PokemonTypes.LIGHTNING, PokemonTypes.FIGHTING,
+            ),
         ),
         Attack(
             title="Fireblast",
             game_text="Discard an Energy card attached to Charizard.",
             cost={PokemonTypes.FIRE: 2, PokemonTypes.FIGHTING: 1},
             damage=40,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=self_energy_discard_attack(1),
         ),
         Attack(
             title="Dragon Tail",
@@ -46,7 +47,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 1, PokemonTypes.LIGHTNING: 2, PokemonTypes.COLORLESS: 1},
             damage=50,
             damage_operator="x",
-            # STUB: attack effect not implemented
             effect=flip_damage(coins=2, per_heads=50),
         ),
     ],

@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Natu (ECARD3 #80): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import foresight, removal_beam
+
 
 card = PokemonCardDef(
     guid="a1889e42-ab96-5ecc-9c39-096f8ff03dc7",
@@ -26,16 +24,14 @@ card = PokemonCardDef(
             title="Foresight",
             game_text="Look at the top 3 cards of either player's deck and rearrange them as you like.",
             cost={PokemonTypes.PSYCHIC: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=foresight,
         ),
         Attack(
             title="Removal Beam",
             game_text="If the Defending Pok\u00e9mon has any Energy cards attached to it, flip a coin. If heads, choose 1 of those Energy cards and discard it.",
             cost={PokemonTypes.COLORLESS: 2},
             damage=10,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=removal_beam,
         ),
     ],
 )

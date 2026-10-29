@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Umbreon (ECARD3 #H30): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import flip_bonus
+from spirit.game.card_effects.ecard import dark_gaze_passive
+
 
 card = PokemonCardDef(
     guid="a5a922e4-7c78-51b0-bd5b-a4b3d227b33a",
@@ -28,8 +27,7 @@ card = PokemonCardDef(
             title="Dark Gaze",
             game_text="As long as Umbreon is your Active Pok\u00e9mon, Benched Pok\u00e9mon (yours and your opponent's) can't use Pok\u00e9-Powers.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=dark_gaze_passive,
         ),
         Attack(
             title="Sharp Claws",
@@ -37,8 +35,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.DARKNESS: 1, PokemonTypes.COLORLESS: 1},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_bonus(30),
         ),
     ],
 )

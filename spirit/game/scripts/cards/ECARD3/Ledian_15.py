@@ -1,10 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Ledian (ECARD3 #15): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-from spirit.game.card_effects.ecard import swift
+from spirit.game.card_effects.ecard import pollen_shield, swift
 
 
 card = PokemonCardDef(
@@ -30,15 +26,13 @@ card = PokemonCardDef(
             game_text="During your opponent's next turn, Ledian can't become affected by a Special Condition. (Any other effects of attacks, Pok\u00e9-Powers, Pok\u00e9-Bodies, and Trainer cards still happen.)",
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=pollen_shield,
         ),
         Attack(
             title="Swift",
             game_text="This attack's damage isn't affected by Weakness, Resistance, Pok\u00e9-Powers, Pok\u00e9-Bodies, or any other effects on the Defending Pok\u00e9mon.",
             cost={PokemonTypes.GRASS: 2, PokemonTypes.COLORLESS: 1},
             damage=50,
-            # STUB: attack effect not implemented
             effect=swift,
         ),
     ],

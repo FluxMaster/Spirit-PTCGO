@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Poliwrath (ECARD3 #H24): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import flip_damage
+from spirit.game.card_effects.ecard import strange_spiral, strange_spiral_condition
+
 
 card = PokemonCardDef(
     guid="fccab15a-4dc4-5b22-8485-a8e84f561bdf",
@@ -27,8 +26,9 @@ card = PokemonCardDef(
             title="Strange Spiral",
             game_text="Once during your turn (before your attack), if Poliwrath is your Active Pok\u00e9mon, you may discard a basic Energy card attached to Poliwrath. If you do, the Defending Pok\u00e9mon is now Confused. This power can't be used if Poliwrath is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=strange_spiral_condition,
+            effect=strange_spiral,
         ),
         Attack(
             title="Spiral Punch",
@@ -36,8 +36,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 2, PokemonTypes.COLORLESS: 1},
             damage=40,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(until_tails=True, bonus_per_heads=20),
         ),
     ],
 )

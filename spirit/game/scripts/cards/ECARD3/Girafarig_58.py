@@ -1,10 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Girafarig (ECARD3 #58): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-from spirit.game.card_effects.ecard import energy_patch
+from spirit.game.card_effects.ecard import energy_patch, syncroblast_damage
 
 
 card = PokemonCardDef(
@@ -28,7 +24,6 @@ card = PokemonCardDef(
             title="Energy Patch",
             game_text="Take a basic Energy card attached to 1 of your Pok\u00e9mon and attach it to another of your Pok\u00e9mon.",
             cost={PokemonTypes.PSYCHIC: 1},
-            # STUB: attack effect not implemented
             effect=energy_patch,
         ),
         Attack(
@@ -36,8 +31,7 @@ card = PokemonCardDef(
             game_text="If Girafarig and the Defending Pok\u00e9mon don't have the same number of Energy cards attached to them, this attack's base damage is 10 instead of 40.",
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 1},
             damage=40,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=syncroblast_damage(40, 10),
         ),
     ],
 )

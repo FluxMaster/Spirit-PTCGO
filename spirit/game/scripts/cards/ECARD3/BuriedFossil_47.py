@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Buried Fossil (ECARD3 #47): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ecard import reconstruction, reconstruction_condition
+
 
 card = PokemonCardDef(
     guid="a5fa50a4-b584-595e-bf0d-6fac0b73fd36",
@@ -24,8 +22,9 @@ card = PokemonCardDef(
             title="Reconstruction",
             game_text="Once during your turn (before your attack), if you have a basic Energy card in your hand, you may search your deck for an Omanyte or Kabuto card, show it to your opponent, and put it into your hand. Then put a basic Energy card from your hand into your deck. Shuffle your deck afterward.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=reconstruction_condition,
+            effect=reconstruction,
         ),
     ],
 )

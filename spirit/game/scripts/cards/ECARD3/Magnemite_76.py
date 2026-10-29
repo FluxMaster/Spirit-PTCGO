@@ -1,11 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Magnemite (ECARD3 #76): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ecard import magnetic_lines
 
 
 card = PokemonCardDef(
@@ -29,7 +26,6 @@ card = PokemonCardDef(
             title="Thunder Wave",
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon is now Paralyzed.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.PARALYZED, flip=True),
         ),
         Attack(
@@ -37,8 +33,7 @@ card = PokemonCardDef(
             game_text="If the Defending Pok\u00e9mon has any basic Energy cards attached to it, flip a coin. If heads, choose 1 of those Energy cards and move it to 1 of your opponent's Benched Pok\u00e9mon. If your opponent has no Benched Pok\u00e9mon, ignore this effect.",
             cost={PokemonTypes.LIGHTNING: 1},
             damage=10,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=magnetic_lines,
         ),
     ],
 )

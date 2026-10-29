@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Steelix (ECARD3 #31): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.attributes import SpecialConditions
+from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ecard import RareMetalPassive, metal_tail
+
 
 card = PokemonCardDef(
     guid="5c53fb3e-a892-5acd-b349-6a92ebc52963",
@@ -28,8 +28,7 @@ card = PokemonCardDef(
             title="Rare Metal",
             game_text="All basic Energy cards attached to Steelix provide Metal Energy instead of their usual types.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=RareMetalPassive(),
         ),
         Attack(
             title="Squeeze",
@@ -37,16 +36,15 @@ card = PokemonCardDef(
             cost={PokemonTypes.METAL: 2, PokemonTypes.COLORLESS: 1},
             damage=20,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(
+                SpecialConditions.PARALYZED, flip=True, heads_bonus_damage=10),
         ),
         Attack(
             title="Metal Tail",
             game_text="Before doing damage, you may flip a coin. If heads, this attack does 80 damage. If tails, this attack does nothing.",
             cost={PokemonTypes.METAL: 3, PokemonTypes.COLORLESS: 1},
             damage=40,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=metal_tail,
         ),
     ],
 )

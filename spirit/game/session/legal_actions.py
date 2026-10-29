@@ -45,6 +45,7 @@ from .passives import (
     energy_provided_options,
     evolution_blocked,
     retreat_blocked,
+    tool_attach_allowed,
     tool_slots_free,
     trainer_play_blocked,
 )
@@ -564,11 +565,10 @@ def compute_legal_actions(
                     TrainerType.TECHNICAL_MACHINE.value,
             ):
                 # e-Card Technical Machines attach like Tools and grant an attack.
-                tool_attach_to = getattr(definition, "attach_to", None)
                 tool_targets = [
                     p.entity_id for p in in_play
                     if tool_slots_free(board, p) > 0
-                    and (tool_attach_to is None or tool_attach_to(p))
+                    and tool_attach_allowed(board, card, p)
                 ]
                 if tool_targets:
                     entries.append(_target_map_entry(

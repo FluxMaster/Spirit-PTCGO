@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Meowth (ECARD3 #78): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import sudden_swipe
+
 
 card = PokemonCardDef(
     guid="d82d1e94-b230-5c8a-a2fe-6815cea164f6",
@@ -27,8 +25,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, look at your opponent's hand. If he or she has any Energy cards there, choose 1 of them. Your opponent shuffles that card into his or her deck.",
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=sudden_swipe,
         ),
     ],
 )

@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Heracross (ECARD3 #64): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import bonus_if, damage_counters_on
+
 
 card = PokemonCardDef(
     guid="de73cf36-462b-5e67-9c0f-b71c12f3dbe7",
@@ -32,8 +30,7 @@ card = PokemonCardDef(
             game_text="If there are 4 or more damage counters on Heracross, this attack's base damage is 50 instead of 30.",
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 2},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bonus_if(lambda ctx: damage_counters_on("self")(ctx) >= 4, 20),
         ),
     ],
 )

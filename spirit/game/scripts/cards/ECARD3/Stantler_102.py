@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Stantler (ECARD3 #102): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import antler_swipe, threaten
+
 
 card = PokemonCardDef(
     guid="e367bced-5648-50f5-add5-0cd7ca416aa4",
@@ -26,15 +24,13 @@ card = PokemonCardDef(
             title="Threaten",
             game_text="Flip a coin. If heads, look at your opponent's hand. If he or she has any Trainer cards there, choose 1 of them. Your opponent shuffles that card into his or her deck.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=threaten,
         ),
         Attack(
             title="Antler Swipe",
             game_text="Flip a coin. If heads, this attack does 20 damage to the Defending Pok\u00e9mon (don't apply Weakness or Resistance). If tails and your opponent has any Benched Pok\u00e9mon, choose 1 of them and this attack does 20 damage to it. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.COLORLESS: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=antler_swipe,
         ),
     ],
 )

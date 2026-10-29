@@ -1,11 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Kakuna (ECARD3 #70): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.passives_common import takes_less_passive
 
 
 card = PokemonCardDef(
@@ -30,14 +27,12 @@ card = PokemonCardDef(
             title="Exoskeleton",
             game_text="All damage by attacks to Kakuna is reduced by 10 (after applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=takes_less_passive(10),
         ),
         Attack(
             title="Poisonpowder",
             game_text="The Defending Pok\u00e9mon is now Poisoned.",
             cost={PokemonTypes.GRASS: 1},
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.POISONED),
         ),
     ],

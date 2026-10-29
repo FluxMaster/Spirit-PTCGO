@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dewgong (ECARD3 #H6): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import crushing_ice, freeze_lock
+
 
 card = PokemonCardDef(
     guid="4ba68a30-2326-59ac-a144-ac713c85afeb",
@@ -28,8 +26,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, your opponent can't attach Energy cards from his or her hand to his or her Active Pok\u00e9mon during his or her next turn.",
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=freeze_lock,
         ),
         Attack(
             title="Crushing Ice",
@@ -37,8 +34,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 2, PokemonTypes.COLORLESS: 2},
             damage=40,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=crushing_ice,
         ),
     ],
 )

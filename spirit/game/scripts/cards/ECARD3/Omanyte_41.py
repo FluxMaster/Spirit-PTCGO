@@ -1,22 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Omanyte (ECARD3 #41): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-
-
-async def metal_reversal(ctx):
-    """Optional: switch Defending with a Benched Pokémon, then deal damage."""
-    bench = ctx.opponent_bench()
-    if bench:
-        pick = await ctx.choose_pokemon(
-            bench, "You may choose a Benched Pokémon to switch into the Active Spot",
-            optional=True,
-        )
-        if pick:
-            await ctx.switch_active(ctx.opponent_id, pick)
-    await ctx.deal_damage()
+from spirit.game.card_effects.ecard import evolve_from_hand, optional_drag_off
 
 
 card = PokemonCardDef(
@@ -41,16 +25,14 @@ card = PokemonCardDef(
             title="Water of Evolution",
             game_text="Put an Omastar from your hand onto Omanyte. This counts as evolving Omanyte.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=evolve_from_hand("Omastar"),
         ),
         Attack(
             title="Drag Off",
             game_text="Before doing damage, you may choose 1 of your opponent's Benched Pok\u00e9mon and switch it with the Defending Pok\u00e9mon.",
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=metal_reversal,
+            effect=optional_drag_off,
         ),
     ],
 )

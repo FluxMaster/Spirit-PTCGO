@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Persian (ECARD3 #42): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_or_nothing
+from spirit.game.card_effects.ecard import surprise_slash
 
 
 card = PokemonCardDef(
@@ -30,15 +27,13 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, look at your opponent's hand. If he or she has any Trainer cards there, choose 1 of them. You opponent shuffles that card into his or her deck.",
             cost={PokemonTypes.COLORLESS: 2},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=surprise_slash,
         ),
         Attack(
             title="Lunge",
             game_text="Flip a coin. If tails, this attack does nothing.",
             cost={PokemonTypes.COLORLESS: 2},
             damage=50,
-            # STUB: attack effect not implemented
             effect=flip_or_nothing(),
         ),
     ],

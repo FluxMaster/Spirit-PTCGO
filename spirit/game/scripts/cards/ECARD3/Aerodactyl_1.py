@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Aerodactyl (ECARD3 #1): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import flip_bonus
+from spirit.game.card_effects.ecard import ancient_wind, ancient_wind_condition
+
 
 card = PokemonCardDef(
     guid="6bf39af7-4042-54a1-9432-908bf7205770",
@@ -27,8 +26,9 @@ card = PokemonCardDef(
             title="Ancient Wind",
             game_text="Once during your turn (before your attack), if Aerodactyl is your Active Pok\u00e9mon, you may ignore all Pok\u00e9-Bodies until the end of your turn. This power can't be used if Aerodactyl is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=ancient_wind_condition,
+            effect=ancient_wind,
         ),
         Attack(
             title="Rising Lunge",
@@ -36,8 +36,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_bonus(20),
         ),
     ],
 )

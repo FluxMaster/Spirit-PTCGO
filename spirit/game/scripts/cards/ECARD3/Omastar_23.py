@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Omastar (ECARD3 #23): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ecard import PrimalStarePassive
 
 
 card = PokemonCardDef(
@@ -29,15 +26,13 @@ card = PokemonCardDef(
             title="Primal Stare",
             game_text="As long as Omastar is your Active Pok\u00e9mon, your opponent can't play Basic Pok\u00e9mon or Evolution cards from his or her hand to evolve his or her Active Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=PrimalStarePassive(),
         ),
         Attack(
             title="Spook",
             game_text="The Defending Pok\u00e9mon can't retreat during your opponent's next turn.",
             cost={PokemonTypes.WATER: 2, PokemonTypes.COLORLESS: 1},
             damage=50,
-            # STUB: attack effect not implemented
             effect=condition_attack(no_retreat=True),
         ),
     ],

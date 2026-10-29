@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Magikarp (ECARD3 #75): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, evolves_from
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_or_nothing
+from spirit.game.card_effects.support_common import search_to_hand
+
 
 card = PokemonCardDef(
     guid="8ca7dc98-9308-5cb7-a6d4-57e9d2f5b010",
@@ -26,8 +25,11 @@ card = PokemonCardDef(
             title="Signs of Evolution",
             game_text="Flip a coin. If heads, search your deck for a card that evolves from Magikarp, show it to your opponent, and put it into your hand. Shuffle your deck afterward.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_or_nothing(then=search_to_hand(
+                predicate=lambda c: evolves_from(c.archetype_id, "Magikarp"),
+                count=1, minimum=0, reveal=True,
+                prompt="Choose a card that evolves from Magikarp.",
+            )),
         ),
         Attack(
             title="Splash",

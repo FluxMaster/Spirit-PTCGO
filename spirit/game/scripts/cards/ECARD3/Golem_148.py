@@ -1,9 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Golem (ECARD3 #148): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import recoil_attack, spread_damage
+from spirit.game.card_effects.ecard import (
+    CrystalTypePassive, crystal_type_on_energy_attached,
+)
+
 
 card = PokemonCardDef(
     guid="2e20bd34-7668-5458-b9a4-613185ea75d6",
@@ -27,8 +28,11 @@ card = PokemonCardDef(
             title="Crystal Type",
             game_text="Whenever you attach a Grass, Fire, or Fighting basic Energy card from your hand to Golem, Golem's type (color) becomes the same as that type of Energy until the end of the turn.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=CrystalTypePassive(),
+            trigger=Triggers.ON_ENERGY_ATTACHED,
+            effect=crystal_type_on_energy_attached(
+                PokemonTypes.GRASS, PokemonTypes.FIRE, PokemonTypes.FIGHTING,
+            ),
         ),
         Attack(
             title="Rock Throw",
@@ -40,8 +44,7 @@ card = PokemonCardDef(
             game_text="Golem does 20 damage to itself. This attack also does 10 damage to each Benched Pok\u00e9mon (yours and your opponent's). (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.GRASS: 1, PokemonTypes.FIRE: 1, PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 1},
             damage=50,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=recoil_attack(20, also=spread_damage(10, side="both")),
         ),
     ],
 )

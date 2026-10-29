@@ -1,12 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Fast Ball (ECARD3 #124): trainer effect stubbed.
-
-Card text:
-  - Reveal cards from your deck until you reveal an Evolution card. Show that card to your opponent and put it into your hand. Shuffle the other revealed cards into your deck. (If you don't reveal an Evolution card, shuffle all the revealed cards back into your deck.)
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ecard import fast_ball
+from spirit.game.card_effects.trainers import deck_nonempty
 
 card = ItemCardDef(
     guid="b061d93d-7948-5f3f-9d2b-9528b82c0ad1",
@@ -18,6 +13,6 @@ card = ItemCardDef(
     collector_number=124,
     set_code="ECARD3",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    condition=deck_nonempty,
+    effect=fast_ball,
 )

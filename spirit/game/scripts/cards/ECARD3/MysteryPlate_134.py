@@ -1,12 +1,15 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Mystery Plate β (ECARD3 #134): trainer effect stubbed.
+from spirit.game.data_utils import TrainerCardDef, Attack
+from spirit.game.attributes import PokemonTypes, Rarities, TrainerType
+from spirit.game.card_effects.ecard import TechnicalMachinePassive, mystery_plate_beta
 
-Card text:
-  - Attach this card to 1 of your Pokémon in play. That Pokémon may use this card's attack instead of its own. At the end of your turn, discard Mystery Plate β.
-"""
 
-from spirit.game.data_utils import TrainerCardDef, unimplemented
-from spirit.game.attributes import Rarities, TrainerType
+_attack = Attack(
+    title="Stone Crush",
+    game_text="If your opponent has 5 or more Prizes, draw 3 cards. If your opponent has only 1 Prize, choose 2 Energy cards attached to the Defending Pokémon (1 if there is only 1). Your opponent shuffles those cards into his or her deck.",
+    cost={PokemonTypes.COLORLESS: 1},
+    damage=0,
+    effect=mystery_plate_beta,
+)
 
 card = TrainerCardDef(
     guid="476b9808-6971-5be2-ad19-73e228ec2598",
@@ -19,6 +22,6 @@ card = TrainerCardDef(
     set_code="ECARD3",
     rarity=Rarities.Uncommon,
     trainer_type=TrainerType.TECHNICAL_MACHINE,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    abilities=[_attack],
 )
+card.passive = TechnicalMachinePassive(_attack)

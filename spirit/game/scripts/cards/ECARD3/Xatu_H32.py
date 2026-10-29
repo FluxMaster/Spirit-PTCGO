@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Xatu (ECARD3 #H32): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ecard import SynchronicityPassive, warp_hole
+
 
 card = PokemonCardDef(
     guid="c01711e7-dc16-5eef-a1df-a03d8624d4fb",
@@ -27,16 +25,14 @@ card = PokemonCardDef(
             title="Synchronicity",
             game_text="You may attach any Technical Machine to Xatu.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=SynchronicityPassive(),
         ),
         Attack(
             title="Warp Hole",
             game_text="Flip a coin. If heads, choose a card from your discard pile and put it on top of your deck.",
             cost={PokemonTypes.COLORLESS: 3},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=warp_hole,
         ),
     ],
 )

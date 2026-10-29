@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Machoke (ECARD3 #38): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.passives_common import boost_own_next_turn
+
 
 card = PokemonCardDef(
     guid="745c4bec-a21f-555a-abe9-75ae0d94f93e",
@@ -27,8 +25,7 @@ card = PokemonCardDef(
             title="Focus Energy",
             game_text="During your next turn, Machoke's Mega Punch attack's base damage is 80.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=boost_own_next_turn(40, attack_title="Mega Punch"),
         ),
         Attack(
             title="Mega Punch",

@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Forretress (ECARD3 #56): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
-from spirit.game.card_effects.attacks_common import flip_damage
+from spirit.game.card_effects.attacks_common import flip_damage, spread_damage
+from spirit.game.card_effects.passives_common import takes_less_passive
 
 
 card = PokemonCardDef(
@@ -29,15 +26,13 @@ card = PokemonCardDef(
             title="Exoskeleton",
             game_text="All damage done by attacks to Forretress is reduced by 10 (after applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=takes_less_passive(10),
         ),
         Attack(
             title="Shell Rupture",
             game_text="This attack does 10 damage to each of your opponent's Benched Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=spread_damage(10),
         ),
         Attack(
             title="Double Spin",
@@ -45,7 +40,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 2},
             damage=40,
             damage_operator="x",
-            # STUB: attack effect not implemented
             effect=flip_damage(coins=2, per_heads=40),
         ),
     ],

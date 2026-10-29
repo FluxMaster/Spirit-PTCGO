@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Magneton (ECARD3 #H18): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ecard import attract_energy, electric_blast
+
 
 card = PokemonCardDef(
     guid="d015a81a-2205-54c5-a271-ada3dcfefaca",
@@ -27,16 +25,15 @@ card = PokemonCardDef(
             title="Attract Energy",
             game_text="When you play Magneton from your hand to evolve 1 of your Pok\u00e9mon, you may move any number of basic Energy cards attached to your other Pok\u00e9mon to Magneton.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=Triggers.ON_EVOLVE,
+            effect=attract_energy,
         ),
         Attack(
             title="Electric Blast",
             game_text="You may discard all Lightning Energy cards attached to Magneton when you use this attack. If you do, put damage counters equal to the amount of Energy cards removed in this way on any number of your opponent's Benched Pok\u00e9mon in the way you like. (For example, if you discard 3 Lightning Energy cards, you can put 1 damage counter on 1 of your opponent's Benched Pok\u00e9mon and 2 on another.)",
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 2},
             damage=40,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=electric_blast,
         ),
     ],
 )

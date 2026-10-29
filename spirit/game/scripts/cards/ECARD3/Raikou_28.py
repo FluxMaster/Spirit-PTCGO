@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Raikou (ECARD3 #28): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ecard import lightning_sphere, pure_body_on_energy_attached
+
 
 card = PokemonCardDef(
     guid="16f3a4c2-9e63-5bca-918a-11dbb4ed72f8",
@@ -26,8 +24,8 @@ card = PokemonCardDef(
             title="Pure Body",
             game_text="To attach a Lightning Energy card from your hand to Raikou, you must discard an Energy card attached to Raikou. (Attach the Lightning Energy, and then discard an Energy card from Raikou.)",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=Triggers.ON_ENERGY_ATTACHED,
+            effect=pure_body_on_energy_attached(PokemonTypes.LIGHTNING),
         ),
         Attack(
             title="Lightning Sphere",
@@ -35,8 +33,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 2},
             damage=40,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=lightning_sphere,
         ),
     ],
 )

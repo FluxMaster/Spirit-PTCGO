@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Beedrill (ECARD3 #H4): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ecard import needle_rush, venom_spray
+
 
 card = PokemonCardDef(
     guid="b705fe7b-3337-5f61-9943-4961da2ab077",
@@ -27,8 +25,8 @@ card = PokemonCardDef(
             title="Venom Spray",
             game_text="When you play Beedrill from your hand to evolve your Active Pok\u00e9mon, the Defending Pok\u00e9mon is now Paralyzed and Poisoned.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=Triggers.ON_EVOLVE,
+            effect=venom_spray,
         ),
         Attack(
             title="Needle Rush",
@@ -36,8 +34,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=needle_rush,
         ),
     ],
 )

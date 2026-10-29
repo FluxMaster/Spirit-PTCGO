@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Piloswine (ECARD3 #H22): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.attributes import SpecialConditions
+from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ecard import trample
+
 
 card = PokemonCardDef(
     guid="7d43c607-45af-549d-9a99-68651b315081",
@@ -28,16 +28,17 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon is now Paralyzed. If tails, the Defending Pok\u00e9mon is now Asleep.",
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 2},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(
+                SpecialConditions.PARALYZED, flip=True,
+                tails_conditions=(SpecialConditions.ASLEEP,),
+            ),
         ),
         Attack(
             title="Trample",
             game_text="For each Benched Pok\u00e9mon (yours and your opponent's), flip a coin. If heads, this attack does 20 damage to that Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 3},
             damage=40,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=trample,
         ),
     ],
 )

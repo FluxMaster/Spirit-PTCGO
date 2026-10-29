@@ -1,11 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Lapras (ECARD3 #71): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.support_common import search_to_hand
+from spirit.game.session.effects import is_supporter_card
 
 
 card = PokemonCardDef(
@@ -29,15 +27,16 @@ card = PokemonCardDef(
             title="Assist",
             game_text="Search your deck for a Supporter card, show it to your opponent, and put it into your hand. Shuffle your deck afterward.",
             cost={PokemonTypes.COLORLESS: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=search_to_hand(
+                is_supporter_card, count=1, reveal=True,
+                prompt="Choose a Supporter card.",
+            ),
         ),
         Attack(
             title="Hypnoblast",
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon is now Asleep.",
             cost={PokemonTypes.WATER: 2, PokemonTypes.COLORLESS: 1},
             damage=30,
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.ASLEEP, flip=True),
         ),
     ],

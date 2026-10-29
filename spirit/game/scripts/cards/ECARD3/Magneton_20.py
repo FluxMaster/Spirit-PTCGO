@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Magneton (ECARD3 #20): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import damage_per
+from spirit.game.card_effects.ecard import bounce_off
+
 
 card = PokemonCardDef(
     guid="15e2ddc4-b2cc-5872-9a65-1d76d0e3c99e",
@@ -29,8 +28,7 @@ card = PokemonCardDef(
             game_text="If Magneton and the Defending Pok\u00e9mon don't have the same number of Energy cards attached to them, the player controlling the Active Pok\u00e9mon with the fewest number of Energy cards attached to it switches 1 of his or her Benched Pok\u00e9mon with his or her Active Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 2},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bounce_off,
         ),
         Attack(
             title="Magnetic Wave",
@@ -38,8 +36,10 @@ card = PokemonCardDef(
             cost={PokemonTypes.METAL: 2, PokemonTypes.COLORLESS: 1},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_per(
+                lambda ctx: max(0, len(ctx.my_bench()) - len(ctx.opponent_bench())),
+                per=10, base=30,
+            ),
         ),
     ],
 )

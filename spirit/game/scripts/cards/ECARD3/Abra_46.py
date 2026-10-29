@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Abra (ECARD3 #46): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ecard import PsychoflowPassive
+
 
 card = PokemonCardDef(
     guid="4c489076-6601-5535-806a-2a30f7b9a287",
@@ -26,8 +24,7 @@ card = PokemonCardDef(
             title="Psychoflow",
             game_text="As long as there is a Psychic Energy card attached to Abra, its Retreat Cost is 0.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=PsychoflowPassive(),
         ),
         Attack(
             title="Headbutt",

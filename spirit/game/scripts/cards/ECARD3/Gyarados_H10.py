@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Gyarados (ECARD3 #H10): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import bonus_if, damage_counters_on
+from spirit.game.card_effects.ecard import flame_vapor
+
 
 card = PokemonCardDef(
     guid="484f9f61-275c-5f0e-b0e9-4b25f6f3198a",
@@ -27,16 +26,15 @@ card = PokemonCardDef(
             title="Flame Vapor",
             game_text="When you play Gyarados from your hand to evolve your Active Pok\u00e9mon, you may flip 2 coins. For each heads, discard an Energy card attached to the Defending Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=Triggers.ON_EVOLVE,
+            effect=flame_vapor,
         ),
         Attack(
             title="Dragon's Vengeance",
             game_text="If Gyarados has 7 or more damage counters on it, this attack's base damage is 100.",
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 3},
             damage=50,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bonus_if(lambda ctx: damage_counters_on("self")(ctx) >= 7, 50),
         ),
     ],
 )

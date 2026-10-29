@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Slugma (ECARD3 #98): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import has_typed_basic_energy, scorching_lava
+
 
 card = PokemonCardDef(
     guid="d700ffb7-0af2-5166-a4b7-99aeb02a7f5e",
@@ -31,8 +29,8 @@ card = PokemonCardDef(
             title="Scorching Lava",
             game_text="Discard a Fire Energy card attached to Slugma in order to use this attack. The Defending Pok\u00e9mon is now Burned.",
             cost={PokemonTypes.FIRE: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            condition=has_typed_basic_energy(PokemonTypes.FIRE),
+            effect=scorching_lava,
         ),
     ],
 )

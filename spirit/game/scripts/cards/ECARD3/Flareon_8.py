@@ -1,11 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Flareon (ECARD3 #8): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import condition_attack
 from spirit.game.attributes import SpecialConditions
+from spirit.game.card_effects.ecard import (
+    burn_booster, has_attached_energy, self_healing_on_energy_attached,
+)
 
 
 card = PokemonCardDef(
@@ -30,14 +29,13 @@ card = PokemonCardDef(
             title="Self-healing",
             game_text="Whenever you attach a Fire Energy card from your hand to Flareon, remove all Special Conditions affecting Flareon.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=Triggers.ON_ENERGY_ATTACHED,
+            effect=self_healing_on_energy_attached(PokemonTypes.FIRE),
         ),
         Attack(
             title="Singe",
             game_text="The Defending Pok\u00e9mon is now Burned.",
             cost={PokemonTypes.FIRE: 1},
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.BURNED),
         ),
         Attack(
@@ -46,8 +44,8 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=40,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            condition=has_attached_energy,
+            effect=burn_booster,
         ),
     ],
 )
