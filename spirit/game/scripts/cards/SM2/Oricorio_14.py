@@ -5,6 +5,19 @@ Oricorio (SM2 #14): one or more attacks/abilities use effect=unimplemented until
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 
+
+async def axe_slash(ctx):
+    """Discard an Energy from this Pokémon. If you do, discard an Energy from your opponent's Active Pokémon."""
+    await ctx.deal_damage()
+    discarded = await ctx.discard_energy_from(ctx.attacker, 1)
+    if not discarded:
+        return
+    defender = ctx.opponent_active()
+    if defender is None or ctx.effects_blocked(defender):
+        return
+    await ctx.discard_energy_from(defender, 1)
+
+
 card = PokemonCardDef(
     guid="ee8df031-bc12-5795-a3d0-ff67484be0d4",
     key="SM2",
@@ -35,7 +48,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 2},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=axe_slash,
         ),
     ],
 )

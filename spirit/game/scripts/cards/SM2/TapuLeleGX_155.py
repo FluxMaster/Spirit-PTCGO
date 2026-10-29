@@ -4,6 +4,9 @@ Tapu Lele-GX (SM2 #155): one or more attacks/abilities use effect=unimplemented 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.pokemon import luminous_sign
+from spirit.game.data_utils import Triggers
+
 
 card = PokemonCardDef(
     guid="2cf42b5b-c57e-501a-81da-6c99170eb205",
@@ -26,7 +29,8 @@ card = PokemonCardDef(
             game_text="When you play this Pok\u00e9mon from your hand onto your Bench during your turn, you may search your deck for a Supporter card, reveal it, and put it into your hand. Then, shuffle your deck.",
             ability_type=AbilityTypes.POKE_ABILITY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=Triggers.ON_PLAY,
+            effect=luminous_sign,
         ),
         Attack(
             title="Energy Drive",

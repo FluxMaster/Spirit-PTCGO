@@ -1,9 +1,12 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Incineroar-GX (SM2 #147): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.attributes import AttrID, SpecialConditions
+from spirit.game.card_effects.attacks_common import damage_per, count_bench, flip_damage, condition_attack
+
+
+def _is_fire_pokemon(card):
+    return PokemonTypes.FIRE.value in (card.get_attribute(AttrID.POKEMON_TYPES) or [])
+
 
 card = PokemonCardDef(
     guid="93ca9daf-f934-590d-9102-9d0f59958036",
@@ -21,7 +24,7 @@ card = PokemonCardDef(
     retreat_cost=3,
     weakness_type=PokemonTypes.WATER,
     evolves_from="com.direwolfdigital.cake.data.archetypes.pokemon.Torracat.Name",
-    family_id=727,
+    family_id=725,
     abilities=[
         Attack(
             title="Hustling Strike",
@@ -29,8 +32,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 1},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_per(count_bench('mine', pred=_is_fire_pokemon), 20, base=10),
         ),
         Attack(
             title="Tiger Swing",
@@ -38,16 +40,14 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 2, PokemonTypes.COLORLESS: 1},
             damage=80,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(coins=2, bonus_per_heads=50),
         ),
         Attack(
             title="Burning Slam-GX",
             game_text="Your opponent's Active Pok\u00e9mon is now Burned. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.FIRE: 2, PokemonTypes.COLORLESS: 1},
             damage=200,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(SpecialConditions.BURNED),
         ),
     ],
 )

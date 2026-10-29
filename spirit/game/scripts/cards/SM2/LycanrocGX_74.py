@@ -4,6 +4,25 @@ Lycanroc-GX (SM2 #74): one or more attacks/abilities use effect=unimplemented un
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.data_utils import Triggers
+
+
+async def dark_signal(ctx):
+    """When you play this Pokémon from your hand to evolve 1 of your Pokémon
+    during your turn, you may switch 1 of your opponent's Benched Pokémon
+    with their Active Pokémon."""
+    bench = ctx.opponent_bench()
+    active = ctx.opponent_active()
+    if not bench or active is None or ctx.effects_blocked(active):
+        return
+    if await ctx.ask_yes_no(
+        "Switch 1 of your opponent's Benched Pokémon with their Active Pokémon?"
+    ):
+        target = await ctx.choose_pokemon(
+            bench, "Choose the opponent's new Active Pokémon"
+        ) or bench[0]
+        await ctx.switch_active(ctx.opponent_id, target)
+
 
 card = PokemonCardDef(
     guid="da0e4d5c-0510-5949-9872-00916d52ec39",
@@ -28,7 +47,8 @@ card = PokemonCardDef(
             game_text="When you play this Pok\u00e9mon from your hand to evolve 1 of your Pok\u00e9mon during your turn, you may switch 1 of your opponent's Benched Pok\u00e9mon with their Active Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=Triggers.ON_EVOLVE,
+            effect=dark_signal,
         ),
         Attack(
             title="Claw Slash",

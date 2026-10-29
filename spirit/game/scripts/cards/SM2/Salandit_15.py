@@ -4,6 +4,9 @@ Salandit (SM2 #15): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import bonus_if, defender_has_condition
+from spirit.game.attributes import SpecialConditions
+
 
 card = PokemonCardDef(
     guid="2c443318-45f3-506e-8f97-f0dd6b756fb5",
@@ -34,7 +37,7 @@ card = PokemonCardDef(
             damage=20,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bonus_if(defender_has_condition(SpecialConditions.POISONED), 40),
         ),
     ],
 )

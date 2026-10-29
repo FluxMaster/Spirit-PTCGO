@@ -4,6 +4,8 @@ Alolan Ninetales-GX (SM2 #22): one or more attacks/abilities use effect=unimplem
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import snipe_attack, self_energy_discard_attack
+
 
 card = PokemonCardDef(
     guid="bc4c4714-ebb9-50b0-8b44-6caa55bbea8c",
@@ -28,7 +30,7 @@ card = PokemonCardDef(
             game_text="This attack does 50 damage to 1 of your opponent's Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.COLORLESS: 2},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=snipe_attack(50, pool='any', count=1),
         ),
         Attack(
             title="Blizzard Edge",
@@ -36,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 2, PokemonTypes.COLORLESS: 1},
             damage=160,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=self_energy_discard_attack(count=2),
         ),
         Attack(
             title="Ice Path-GX",

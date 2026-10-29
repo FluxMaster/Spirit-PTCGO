@@ -5,6 +5,12 @@ Lunala (SM2 #61): one or more attacks/abilities use effect=unimplemented until a
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 
+
+async def earthen_boom(ctx):
+    await ctx.deal_damage()
+    await ctx.move_energy_freely([ctx.attacker], ctx.my_bench())
+
+
 card = PokemonCardDef(
     guid="e2aca28c-ff91-5ea3-a54d-0c56211f8421",
     key="SM2",
@@ -40,7 +46,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 3},
             damage=130,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=earthen_boom,
         ),
     ],
 )

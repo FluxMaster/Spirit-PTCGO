@@ -1,13 +1,23 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Energy Loto (SM2 #122): trainer effect stubbed.
-
-Card text:
-  - Look at the top 7 cards of your deck. You may reveal an Energy card you find there and put it into your hand. Shuffle the other cards back into your deck.
-  - You may play as many Item cards as you like during your turn (before your attack).
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.trainers import is_energy_card
+
+
+async def energy_loto(ctx):
+    """Look at the top 7 cards of your deck. You may reveal an Energy card
+    you find there and put it into your hand. Shuffle the rest back."""
+    top = ctx.deck_top(7)
+    if top:
+        candidates = [c for c in top if is_energy_card(c)]
+        # No matches still shows the looked-at cards (nothing selectable).
+        picks = await ctx.choose_cards(
+            candidates, 1, minimum=0,
+            prompt="You may choose an Energy card to reveal and put into your hand.",
+            display_cards=top if len(candidates) < len(top) else None,
+        )
+        await ctx.put_in_hand(picks, reveal=True)
+    await ctx.shuffle_deck()
+
 
 card = ItemCardDef(
     guid="1a060d31-9c23-515d-8360-738b65244ff4",
@@ -19,6 +29,5 @@ card = ItemCardDef(
     collector_number=122,
     set_code="SM2",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=energy_loto,
 )

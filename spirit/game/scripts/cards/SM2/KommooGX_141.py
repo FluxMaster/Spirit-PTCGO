@@ -4,6 +4,9 @@ Kommo-o-GX (SM2 #141): one or more attacks/abilities use effect=unimplemented un
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.passives_common import protect_next_turn
+from spirit.game.card_effects.pokemon import shred
+
 
 card = PokemonCardDef(
     guid="d775f260-9423-5cb6-adeb-5c2f2ad58d26",
@@ -29,7 +32,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=protect_next_turn(reduce=30),
         ),
         Attack(
             title="Shred",
@@ -37,7 +40,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 2},
             damage=130,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=shred,
         ),
         Attack(
             title="Ultra Uppercut-GX",

@@ -4,6 +4,9 @@ Vikavolt-GX (SM2 #134): one or more attacks/abilities use effect=unimplemented u
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import attach_from_discard
+from spirit.game.card_effects.attacks_common import self_energy_discard_attack
+
 
 card = PokemonCardDef(
     guid="656b0d9a-70b8-5e2b-a96c-0d761c275319",
@@ -31,7 +34,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 1},
             damage=50,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=attach_from_discard(),
         ),
         Attack(
             title="Super Zap Cannon",
@@ -39,7 +42,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 3},
             damage=180,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=self_energy_discard_attack(count=2),
         ),
         Attack(
             title="Gigatron-GX",

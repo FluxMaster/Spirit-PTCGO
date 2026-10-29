@@ -4,6 +4,8 @@ Lilligant (SM2 #5): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import damage_all_opponents
+
 
 card = PokemonCardDef(
     guid="429b93bc-63ea-5d83-9140-1fb891c23b82",
@@ -28,7 +30,7 @@ card = PokemonCardDef(
             game_text="This attack does 10 damage to each of your opponent's Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_all_opponents(10),
         ),
         Attack(
             title="Petal Dance",

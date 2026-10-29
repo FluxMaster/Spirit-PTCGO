@@ -1,13 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Hau (SM2 #144): trainer effect stubbed.
-
-Card text:
-  - Draw 3 cards.
-  - You may play only 1 Supporter card during your turn (before your attack).
-"""
-
-from spirit.game.data_utils import SupporterCardDef, unimplemented
+from spirit.game.data_utils import SupporterCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.support_common import draw_attack
+from spirit.game.card_effects.trainers import deck_nonempty
 
 card = SupporterCardDef(
     guid="5a3e6ba1-fe8c-5de0-bcc6-8505eb765d3f",
@@ -19,6 +13,6 @@ card = SupporterCardDef(
     collector_number=144,
     set_code="SM2",
     rarity=Rarities.RareUltra,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=draw_attack(3),
+    condition=deck_nonempty
 )

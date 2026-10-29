@@ -4,6 +4,8 @@ Gliscor (SM2 #68): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import bonus_if, has_damage
+
 
 card = PokemonCardDef(
     guid="1eab73c3-6b4a-51c0-a720-c2673b9200b3",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1},
             damage=70,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bonus_if(has_damage('defender'), 0, else_nothing=True),
         ),
         Attack(
             title="Guillotine",

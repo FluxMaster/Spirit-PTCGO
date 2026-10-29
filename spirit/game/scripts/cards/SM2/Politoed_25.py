@@ -4,6 +4,8 @@ Politoed (SM2 #25): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import remove_self_from_play
+
 
 card = PokemonCardDef(
     guid="8c2c52cb-51c3-5da5-a799-f226be89032f",
@@ -36,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 2},
             damage=100,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=remove_self_from_play('deck', optional=True),
         ),
     ],
 )

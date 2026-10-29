@@ -4,6 +4,24 @@ Talonflame (SM2 #111): one or more attacks/abilities use effect=unimplemented un
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.attributes import AttrID
+from spirit.game.card_effects.trainers import is_energy_card
+from spirit.game.card_effects.support_common import search_attach_energy
+
+
+def _is_fire_energy(card):
+    types = card.get_attribute(AttrID.POKEMON_TYPES) or []
+    return is_energy_card(card) and PokemonTypes.FIRE.value in types
+
+
+async def blizzard_loop(ctx):
+    """160 damage, then put all Energy attached to this Pokemon into your
+    hand."""
+    await ctx.deal_damage()
+    energies = ctx.attached_energies(ctx.attacker)
+    if energies:
+        await ctx.put_in_hand(energies, reveal=False)
+
 
 card = PokemonCardDef(
     guid="6f6cb748-ecb2-59ba-8969-8e71c94df424",
@@ -31,7 +49,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=search_attach_energy(predicate=_is_fire_energy, count=1, to_self=True),
         ),
         Attack(
             title="Loop-the-Loop",
@@ -39,7 +57,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=90,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=blizzard_loop,
         ),
     ],
 )

@@ -4,6 +4,8 @@ Probopass (SM2 #86): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import attach_from_discard
+
 
 card = PokemonCardDef(
     guid="f2238040-2e03-5929-9af6-26f8b432f487",
@@ -31,7 +33,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.METAL: 1},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=attach_from_discard(),
         ),
         Attack(
             title="Power Gem",

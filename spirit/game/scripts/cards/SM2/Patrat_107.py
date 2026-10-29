@@ -5,6 +5,16 @@ Patrat (SM2 #107): one or more attacks/abilities use effect=unimplemented until 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 
+
+async def glance(ctx):
+    """Look at the top card of your opponent's deck."""
+    top = ctx.deck_top(1, player_id=ctx.opponent_id)
+    if not top:
+        return
+    await ctx.present_card_choice(
+        top[0], "Top card of your opponent's deck", ["OK"])
+
+
 card = PokemonCardDef(
     guid="4a7659c5-0e60-5cfe-ab0a-00833959bba2",
     key="SM2",
@@ -27,7 +37,7 @@ card = PokemonCardDef(
             game_text="Look at the top card of your opponent's deck.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=glance,
         ),
         Attack(
             title="Tackle",
