@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Cacnea (SM4 #5): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm4 import sucker_punch
 
 card = PokemonCardDef(
     guid="b7751824-7b26-5ec0-893e-72340b07bc94",
@@ -28,8 +25,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=sucker_punch,
         ),
     ],
 )

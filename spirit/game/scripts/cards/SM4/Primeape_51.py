@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Primeape (SM4 #51): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm4 import lucha_fight
 
 card = PokemonCardDef(
     guid="922d7854-73de-5b5c-ba27-32d854282807",
@@ -33,8 +30,7 @@ card = PokemonCardDef(
             game_text="During your opponent's next turn, the Defending Pok\u00e9mon's attacks do 30 more damage (before applying Weakness and Resistance).",
             cost={PokemonTypes.FIGHTING: 2},
             damage=90,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=lucha_fight,
         ),
     ],
 )

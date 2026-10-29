@@ -1,4 +1,4 @@
-from spirit.game.data_utils import PokemonToolCardDef, unimplemented
+from spirit.game.data_utils import PokemonToolCardDef
 from spirit.game.attributes import Rarities
 from spirit.game.card_effects.sm3 import wishful_baton_ko
 

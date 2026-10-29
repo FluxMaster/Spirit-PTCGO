@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Cinccino (SM4 #86): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm4 import amazing_plea
 
 card = PokemonCardDef(
     guid="4c0be209-e950-5f34-bbbd-59ee46dda1eb",
@@ -27,8 +24,7 @@ card = PokemonCardDef(
             title="Amazing Plea",
             game_text="Choose 2 cards from your discard pile. Then, ask your opponent if you may put them into your hand. If yes, put those cards into your hand. If no, this attack does 80 damage to your opponent's Active Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=amazing_plea,
         ),
     ],
 )

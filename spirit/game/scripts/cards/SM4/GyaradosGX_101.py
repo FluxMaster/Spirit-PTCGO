@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Gyarados-GX (SM4 #101): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm4 import draconic_disaster, dread_storm_gx
 
 card = PokemonCardDef(
     guid="8fc1e526-d3c5-502c-9d19-526ef6164cc8",
@@ -34,15 +31,13 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 4},
             damage=100,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=draconic_disaster,
         ),
         Attack(
             title="Dread Storm-GX",
             game_text="Discard an Energy from each of your opponent's Pok\u00e9mon. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.WATER: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=dread_storm_gx,
         ),
     ],
 )

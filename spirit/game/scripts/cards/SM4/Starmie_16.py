@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Starmie (SM4 #16): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm4 import escape
 
 card = PokemonCardDef(
     guid="a15c94b9-a741-5319-82c5-46ddd5d8344d",
@@ -27,8 +24,8 @@ card = PokemonCardDef(
             title="Escape",
             game_text="Once during your turn (before your attack), you may shuffle this Pok\u00e9mon and all cards attached to it into your deck.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=escape,
+            activation=Activations.ONCE_PER_TURN,
         ),
         Attack(
             title="Spinning Attack",

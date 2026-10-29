@@ -1,11 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Alolan Exeggutor-GX (SM4 #74): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import count_energy, condition_attack
 from spirit.game.attributes import SpecialConditions
+from spirit.game.card_effects.sm4 import tower_go_round_gx
 
 
 async def power_whip(ctx):
@@ -61,8 +58,7 @@ card = PokemonCardDef(
             game_text="Move any number of Energy from your Pok\u00e9mon to your other Pok\u00e9mon in any way you like. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 3},
             damage=180,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=tower_go_round_gx,
         ),
     ],
 )

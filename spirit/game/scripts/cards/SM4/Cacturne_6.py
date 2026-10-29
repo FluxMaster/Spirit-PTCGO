@@ -1,8 +1,4 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Cacturne (SM4 #6): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import bonus_if, has_damage
 from spirit.game.card_effects.support_common import gust_attack

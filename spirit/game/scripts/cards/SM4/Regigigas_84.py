@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Regigigas (SM4 #84): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.sm3 import bedrock_breaker
+from spirit.game.card_effects.sm4 import SealOfAntiquityPassive
 
 
 card = PokemonCardDef(
@@ -28,8 +25,7 @@ card = PokemonCardDef(
             title="Seal of Antiquity",
             game_text="This Pok\u00e9mon can't attack unless Regirock, Regice, and Registeel are on your Bench.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=SealOfAntiquityPassive(),
         ),
         Attack(
             title="Giant Stomp",

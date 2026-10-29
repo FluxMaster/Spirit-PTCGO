@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Beedrill (SM4 #3): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm4 import sudden_sting
 
 card = PokemonCardDef(
     guid="404ba0e5-ac58-5a0a-a051-beb3c61970c7",
@@ -28,8 +25,7 @@ card = PokemonCardDef(
             game_text="If this Pok\u00e9mon evolved from Kakuna during this turn, your opponent's Active Pok\u00e9mon is now Paralyzed and Poisoned.",
             cost={PokemonTypes.GRASS: 1},
             damage=10,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=sudden_sting,
         ),
         Attack(
             title="Sharp Sting",

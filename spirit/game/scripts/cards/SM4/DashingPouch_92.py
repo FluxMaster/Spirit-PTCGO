@@ -1,14 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dashing Pouch (SM4 #92): trainer effect stubbed.
-
-Card text:
-  - Attach a Pokémon Tool to 1 of your Pokémon that doesn't already have a Pokémon Tool attached to it.
-  - If the Pokémon this card is attached to discards Energy for its Retreat Cost, put that Energy into your hand instead of the discard pile.
-  - You may play as many Item cards as you like during your turn (before your attack).
-"""
-
-from spirit.game.data_utils import PokemonToolCardDef, unimplemented
+from spirit.game.data_utils import PokemonToolCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.sm4 import DashingPouchPassive
 
 card = PokemonToolCardDef(
     guid="12426934-c087-57bc-afef-a4042c424aed",
@@ -20,6 +12,5 @@ card = PokemonToolCardDef(
     collector_number=92,
     set_code="SM4",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    passive=DashingPouchPassive(),
 )

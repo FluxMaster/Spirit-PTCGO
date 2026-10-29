@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Staraptor (SM4 #83): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.sm4 import sky_hunting
 
 
 card = PokemonCardDef(
@@ -40,8 +37,7 @@ card = PokemonCardDef(
             game_text="If your opponent's Pok\u00e9mon is Knocked Out by the damage from this attack, switch this Pok\u00e9mon with 1 of your Benched Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 4},
             damage=120,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=sky_hunting,
         ),
     ],
 )

@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Haunter (SM4 #37): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm4 import pain_amplifier
 
 card = PokemonCardDef(
     guid="434dc6d8-6496-51eb-b61b-e0ae778a4cb5",
@@ -29,8 +26,7 @@ card = PokemonCardDef(
             title="Pain Amplifier",
             game_text="Put 2 damage counters on each of your opponent's Pok\u00e9mon that has any damage counters on it.",
             cost={PokemonTypes.PSYCHIC: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=pain_amplifier,
         ),
     ],
 )

@@ -1,14 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Counter Catcher (SM4 #120): trainer effect stubbed.
-
-Card text:
-  - You can play this card only if you have more Prize cards remaining than your opponent.
-  - Switch 1 of your opponent's Benched Pokémon with their Active Pokémon.
-  - You may play as many Item cards as you like during your turn (before your attack).
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.sm4 import (
+    counter_catcher, counter_catcher_condition, opponent_play_targets,
+)
 
 card = ItemCardDef(
     guid="8f9c9ca5-b3b6-5388-a3c6-651ee30c3d0b",
@@ -20,6 +14,7 @@ card = ItemCardDef(
     collector_number=120,
     set_code="SM4",
     rarity=Rarities.RareSecret,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=counter_catcher,
+    condition=counter_catcher_condition,
+    play_targets=opponent_play_targets(bench_only=True),
 )

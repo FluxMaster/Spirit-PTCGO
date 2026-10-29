@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Kakuna (SM4 #2): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm4 import kakuna_multiply
 
 card = PokemonCardDef(
     guid="0a440c57-a32f-505a-9f49-53c14ece3495",
@@ -27,8 +24,7 @@ card = PokemonCardDef(
             title="Multiply",
             game_text="Search your deck for up to 3 Kakuna and put them onto your Bench. Then, shuffle your deck.",
             cost={PokemonTypes.GRASS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=kakuna_multiply,
         ),
     ],
 )

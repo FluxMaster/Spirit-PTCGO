@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Kommo-o (SM4 #77): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm4 import clanging_scales, war_cry
 
 card = PokemonCardDef(
     guid="df1d9c4c-1642-5307-a7d6-4cab0872af1d",
@@ -29,16 +26,14 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=war_cry,
         ),
         Attack(
             title="Clanging Scales",
             game_text="During your opponent's next turn, this Pok\u00e9mon takes 30 more damage from attacks (after applying Weakness and Resistance).",
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 1},
             damage=130,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=clanging_scales,
         ),
     ],
 )

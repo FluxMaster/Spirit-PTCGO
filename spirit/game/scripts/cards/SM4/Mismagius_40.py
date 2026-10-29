@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Mismagius (SM4 #40): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import damage_per, count_hand
+from spirit.game.card_effects.sm4 import chaos_wheel
 
 
 card = PokemonCardDef(
@@ -32,8 +29,7 @@ card = PokemonCardDef(
             game_text="Your opponent can't play any Pok\u00e9mon Tool, Special Energy, or Stadium cards from their hand during their next turn.",
             cost={PokemonTypes.PSYCHIC: 1},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=chaos_wheel,
         ),
         Attack(
             title="Dark Arts",

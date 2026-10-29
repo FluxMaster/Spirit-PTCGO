@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Buzzwole-GX (SM4 #57): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import snipe_attack, lock_all_attacks
+from spirit.game.card_effects.sm4 import absorption_gx
 
 
 async def _freeze_shock(ctx):
@@ -36,7 +33,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1},
             damage=30,
             # STUB: attack effect not implemented
-            effect=snipe_attack(30),
+            effect=snipe_attack(30, also_base=True),
         ),
         Attack(
             title="Knuckle Impact",
@@ -52,8 +49,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 3},
             damage=40,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=absorption_gx,
         ),
     ],
 )

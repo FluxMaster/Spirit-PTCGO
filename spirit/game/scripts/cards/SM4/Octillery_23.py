@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Octillery (SM4 #23): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm4 import ink_spit, special_artillery
 
 card = PokemonCardDef(
     guid="dcf08b92-6ed3-561a-8a4b-c861d210bc11",
@@ -27,8 +24,7 @@ card = PokemonCardDef(
             title="Ink Spit",
             game_text="If the Defending Pok\u00e9mon tries to attack during your opponent's next turn, your opponent flips a coin. If tails, that attack does nothing.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=ink_spit,
         ),
         Attack(
             title="Special Artillery",
@@ -36,8 +32,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 1},
             damage=40,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=special_artillery,
         ),
     ],
 )

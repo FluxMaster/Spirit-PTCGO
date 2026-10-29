@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Piloswine (SM4 #20): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm4 import rest
 
 card = PokemonCardDef(
     guid="bb1de76e-c82a-5232-8e35-a3c6a8b2d19c",
@@ -32,8 +29,7 @@ card = PokemonCardDef(
             title="Rest",
             game_text="This Pok\u00e9mon is now Asleep. Heal 90 damage from it.",
             cost={PokemonTypes.COLORLESS: 4},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=rest,
         ),
     ],
 )

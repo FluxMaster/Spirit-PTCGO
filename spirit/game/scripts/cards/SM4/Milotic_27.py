@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Milotic (SM4 #27): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import spread_damage
+from spirit.game.card_effects.sm4 import tlc, tlc_condition
 
 
 card = PokemonCardDef(
@@ -29,8 +26,8 @@ card = PokemonCardDef(
             title="TLC",
             game_text="Shuffle 1 of your opponent's Benched Pok\u00e9mon that has any damage counters on it and all cards attached to it into their deck.",
             cost={PokemonTypes.WATER: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=tlc,
+            condition=tlc_condition,
         ),
         Attack(
             title="Ocean Cyclone",

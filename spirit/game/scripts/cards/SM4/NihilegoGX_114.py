@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Nihilego-GX (SM4 #114): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.sm4 import empty_light, symbiont_gx
 
 
 card = PokemonCardDef(
@@ -28,8 +25,8 @@ card = PokemonCardDef(
             title="Empty Light",
             game_text="When you play this Pok\u00e9mon from your hand onto your Bench during your turn, you may leave both Active Pok\u00e9mon Confused and Poisoned.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=empty_light,
+            trigger=Triggers.ON_PLAY,
         ),
         Attack(
             title="Lock Up",
@@ -43,8 +40,7 @@ card = PokemonCardDef(
             title="Symbiont-GX",
             game_text="Add the top 2 cards of your opponent's deck to their Prize cards. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.PSYCHIC: 3},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=symbiont_gx,
         ),
     ],
 )

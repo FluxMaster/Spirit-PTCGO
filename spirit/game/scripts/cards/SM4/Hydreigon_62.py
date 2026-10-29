@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Hydreigon (SM4 #62): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm4 import weed_out, weed_out_condition
 
 
 async def radiating_heat(ctx):
@@ -47,8 +44,9 @@ card = PokemonCardDef(
             title="Weed Out",
             game_text="Once during your turn (before your attack), you may choose 3 of your Benched Pok\u00e9mon. Then, discard your other Benched Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=weed_out,
+            activation=Activations.ONCE_PER_TURN,
+            condition=weed_out_condition,
         ),
         Attack(
             title="Dark Destruction",

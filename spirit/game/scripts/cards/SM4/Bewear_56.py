@@ -1,11 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Bewear (SM4 #56): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import bonus_if, active_is
 from spirit.game.session.effects import is_evolution_pokemon
+from spirit.game.card_effects.sm4 import fluffy_passive
 
 
 card = PokemonCardDef(
@@ -30,8 +27,7 @@ card = PokemonCardDef(
             title="Fluffy",
             game_text="This Pok\u00e9mon takes 30 less damage from the attacks of your opponent's non-Fire Pok\u00e9mon (after applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=fluffy_passive,
         ),
         Attack(
             title="Cross-Cut",

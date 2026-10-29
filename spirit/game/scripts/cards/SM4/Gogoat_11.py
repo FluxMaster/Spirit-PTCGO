@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Gogoat (SM4 #11): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.support_common import heal_attack
+from spirit.game.card_effects.sm4 import sap_sipper_passive
 
 
 card = PokemonCardDef(
@@ -29,8 +26,7 @@ card = PokemonCardDef(
             title="Sap Sipper",
             game_text="This Pok\u00e9mon's attacks do 80 more damage to your opponent's Grass Pok\u00e9mon (before applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=sap_sipper_passive,
         ),
         Attack(
             title="Horn Leech",

@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Alolan Graveler (SM4 #33): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm4 import self_destruct
 
 card = PokemonCardDef(
     guid="81e69653-8a13-519c-88a7-f0d7c0ba125d",
@@ -35,8 +32,7 @@ card = PokemonCardDef(
             game_text="This Pok\u00e9mon does 100 damage to itself.",
             cost={PokemonTypes.LIGHTNING: 2, PokemonTypes.COLORLESS: 1},
             damage=100,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=self_destruct,
         ),
     ],
 )

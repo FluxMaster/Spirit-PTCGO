@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Oranguru (SM4 #48): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm4 import fixer_of_the_forest
 
 card = PokemonCardDef(
     guid="51828f4d-b3a1-55d9-8f9a-a2908109d60e",
@@ -26,8 +23,7 @@ card = PokemonCardDef(
             title="Fixer of the Forest",
             game_text="Put 3 Pok\u00e9mon Tool cards from your discard pile into your hand.",
             cost={PokemonTypes.PSYCHIC: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=fixer_of_the_forest,
         ),
         Attack(
             title="Zen Headbutt",

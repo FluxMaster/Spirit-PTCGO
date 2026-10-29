@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Emolga (SM4 #35): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm4 import energy_catch, volt_switch
 
 card = PokemonCardDef(
     guid="3b67b090-5e26-51f4-831c-903cf259bad5",
@@ -28,16 +25,14 @@ card = PokemonCardDef(
             title="Energy Catch",
             game_text="Put 3 basic Energy cards from your discard pile into your hand.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=energy_catch,
         ),
         Attack(
             title="Volt Switch",
             game_text="Switch this Pok\u00e9mon with 1 of your Benched Lightning Pok\u00e9mon.",
             cost={PokemonTypes.LIGHTNING: 1},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=volt_switch,
         ),
     ],
 )

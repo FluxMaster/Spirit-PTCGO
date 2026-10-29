@@ -1,13 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Silvally-GX (SM4 #119): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.support_common import attach_from_discard
 from spirit.game.card_effects.trainers import is_basic_energy_card
 from spirit.game.card_effects.passives_common import is_in_active_spot
 from spirit.game.card_effects.attacks_common import damage_per, count_bench
+from spirit.game.card_effects.sm4 import gyro_unit_passive
 
 
 card = PokemonCardDef(
@@ -32,8 +29,7 @@ card = PokemonCardDef(
             title="Gyro Unit",
             game_text="Your Basic Pok\u00e9mon in play have no Retreat Cost.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=gyro_unit_passive,
         ),
         Attack(
             title="Turbo Drive",

@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Alolan Marowak (SM4 #12): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm4 import burning_bonemerang, dance_of_flames
 
 card = PokemonCardDef(
     guid="94a6977f-b587-570d-9014-692268f1958a",
@@ -27,8 +24,7 @@ card = PokemonCardDef(
             title="Dance of Flames",
             game_text="For each Energy attached to your opponent's Pok\u00e9mon, attach a Fire Energy card from your discard pile to your Pok\u00e9mon in any way you like.",
             cost={},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=dance_of_flames,
         ),
         Attack(
             title="Burning Bonemerang",
@@ -36,8 +32,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 2, PokemonTypes.COLORLESS: 1},
             damage=70,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=burning_bonemerang,
         ),
     ],
 )
