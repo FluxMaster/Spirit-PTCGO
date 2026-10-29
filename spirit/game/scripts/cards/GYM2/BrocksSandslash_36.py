@@ -4,6 +4,10 @@ Brock's Sandslash (GYM2 #36): one or more attacks/abilities use effect=unimpleme
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import swift
+from spirit.game.attributes import SpecialConditions
+from spirit.game.card_effects.attacks_common import condition_attack
+
 
 card = PokemonCardDef(
     guid="966dddc2-4b78-59ac-8d4b-f4c53412b83c",
@@ -30,7 +34,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=swift,
         ),
         Attack(
             title="Needle Ball",
@@ -38,7 +42,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 2},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(SpecialConditions.POISONED, flip=True),
         ),
     ],
 )

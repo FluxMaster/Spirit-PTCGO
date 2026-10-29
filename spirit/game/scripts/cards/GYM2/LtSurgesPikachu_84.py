@@ -4,6 +4,8 @@ Lt. Surge's Pikachu (GYM2 #84): one or more attacks/abilities use effect=unimple
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_bonus
+
 
 card = PokemonCardDef(
     guid="fa7336bd-6e53-503a-a19c-de4da71cc410",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             damage=10,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_bonus(20),
         ),
     ],
 )

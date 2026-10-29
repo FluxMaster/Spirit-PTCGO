@@ -4,6 +4,8 @@ Brock's Diglett (GYM2 #67): one or more attacks/abilities use effect=unimplement
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_or_nothing, spread_damage
+
 
 card = PokemonCardDef(
     guid="24f0220e-cccf-5b1e-aee7-5346cc7fe6ab",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_or_nothing(),
         ),
         Attack(
             title="Tremor",
@@ -37,7 +39,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 1},
             damage=40,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=spread_damage(10, side='mine', also_base=True),
         ),
     ],
 )

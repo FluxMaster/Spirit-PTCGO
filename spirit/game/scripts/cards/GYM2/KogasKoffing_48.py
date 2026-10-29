@@ -4,6 +4,8 @@ Koga's Koffing (GYM2 #48): one or more attacks/abilities use effect=unimplemente
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import smokescreen_attack
+
 
 card = PokemonCardDef(
     guid="c7d26fbc-0e84-5bc9-b2ad-b9b7414cff1b",
@@ -28,7 +30,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1},
             damage=10,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=smokescreen_attack(),
         ),
         Attack(
             title="Obscuring Gas",

@@ -4,6 +4,8 @@ Giovanni's Nidoran ♂ (GYM2 #76): one or more attacks/abilities use effect=unim
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_damage
+
 
 card = PokemonCardDef(
     guid="37da7e0d-959a-5c72-8bae-41b38ab089fc",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             damage=10,
             damage_operator="x",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(coins=2, per_heads=10),
         ),
         Attack(
             title="Retaliation",

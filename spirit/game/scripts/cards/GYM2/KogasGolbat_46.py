@@ -4,6 +4,9 @@ Koga's Golbat (GYM2 #46): one or more attacks/abilities use effect=unimplemented
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.attributes import SpecialConditions
+
 
 card = PokemonCardDef(
     guid="2ffc9bd2-ead4-5411-89c1-1dad8b73e7b7",
@@ -35,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 3},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(SpecialConditions.CONFUSED, flip=True),
         ),
     ],
 )

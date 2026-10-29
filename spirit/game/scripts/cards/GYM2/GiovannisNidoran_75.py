@@ -4,6 +4,8 @@ Giovanni's Nidoran ♀ (GYM2 #75): one or more attacks/abilities use effect=unim
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_or_nothing
+
 
 card = PokemonCardDef(
     guid="39abcbb3-6bac-5c28-8e05-9b92793ba027",
@@ -28,7 +30,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_or_nothing(),
         ),
         Attack(
             title="Double-edge",

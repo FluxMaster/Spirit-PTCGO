@@ -4,6 +4,8 @@ Koga's Pidgey (GYM2 #80): one or more attacks/abilities use effect=unimplemented
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import smokescreen_attack
+
 
 card = PokemonCardDef(
     guid="3693e04c-3d7f-5d63-992a-fb9ad15f75d5",
@@ -34,7 +36,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=smokescreen_attack(),
         ),
     ],
 )

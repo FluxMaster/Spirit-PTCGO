@@ -4,6 +4,8 @@ Giovanni's Pinsir (GYM2 #24): one or more attacks/abilities use effect=unimpleme
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_bonus
+
 
 card = PokemonCardDef(
     guid="d8f48dd7-cc11-55b6-b9f6-f95b90b23556",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             damage=10,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_bonus(10),
         ),
         Attack(
             title="Overhead Toss",

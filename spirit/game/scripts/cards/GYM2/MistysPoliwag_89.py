@@ -4,6 +4,8 @@ Misty's Poliwag (GYM2 #89): one or more attacks/abilities use effect=unimplement
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import amnesia
+
 
 card = PokemonCardDef(
     guid="06d44465-a117-5a1f-a2f3-098161f9d803",
@@ -35,7 +37,7 @@ card = PokemonCardDef(
             game_text="Choose 1 of the Defending Pok\u00e9mon's attacks. That Pok\u00e9mon can't use that attack during your opponent's next turn.",
             cost={PokemonTypes.WATER: 2},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=amnesia,
         ),
     ],
 )

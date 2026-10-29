@@ -4,6 +4,9 @@ Koga's Weedle (GYM2 #82): one or more attacks/abilities use effect=unimplemented
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.attributes import SpecialConditions
+from spirit.game.card_effects.attacks_common import condition_attack
+
 
 card = PokemonCardDef(
     guid="ed31315a-6692-5053-80c1-c1c05031641f",
@@ -33,7 +36,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 1},
             damage=10,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(SpecialConditions.POISONED, flip=True, tails_conditions=(SpecialConditions.PARALYZED,)),
         ),
     ],
 )

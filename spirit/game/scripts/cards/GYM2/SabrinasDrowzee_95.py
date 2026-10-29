@@ -4,6 +4,8 @@ Sabrina's Drowzee (GYM2 #95): one or more attacks/abilities use effect=unimpleme
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import no_weakness_or_resistance
+
 
 card = PokemonCardDef(
     guid="06251efa-e95a-5361-bf88-37b51873890a",
@@ -35,7 +37,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=no_weakness_or_resistance,
         ),
     ],
 )

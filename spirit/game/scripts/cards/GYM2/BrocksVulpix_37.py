@@ -4,6 +4,9 @@ Brock's Vulpix (GYM2 #37): one or more attacks/abilities use effect=unimplemente
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.attributes import SpecialConditions
+from spirit.game.card_effects.attacks_common import condition_attack, snipe_attack
+
 
 card = PokemonCardDef(
     guid="5b496852-4f8c-5145-9ffb-ed6654aa2524",
@@ -27,7 +30,7 @@ card = PokemonCardDef(
             game_text="The Defending Pok\u00e9mon is now Asleep.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(SpecialConditions.ASLEEP),
         ),
         Attack(
             title="Fire Ring",
@@ -35,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 2},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=snipe_attack(10, also_base=True),
         ),
     ],
 )

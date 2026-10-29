@@ -4,6 +4,8 @@ Blaine's Mankey (GYM2 #63): one or more attacks/abilities use effect=unimplement
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_damage
+
 
 card = PokemonCardDef(
     guid="d2874d19-358f-500c-8153-8b03a55d18d3",
@@ -36,7 +38,7 @@ card = PokemonCardDef(
             damage=10,
             damage_operator="x",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(coins=3, per_heads=10),
         ),
     ],
 )
