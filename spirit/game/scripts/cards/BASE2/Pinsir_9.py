@@ -1,0 +1,39 @@
+"""STUB: effect not implemented — do not guess mechanics.
+Pinsir (BASE2 #9): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
+"""
+
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+card = PokemonCardDef(
+    guid="fa26341c-efe0-5e5e-822a-09a08a47195b",
+    key="BASE2",
+    name="com.direwolfdigital.cake.data.archetypes.pokemon.Pinsir.Name",
+    display_name="Pinsir",
+    searchable_by=["Pinsir", "Basic", "Pinsir"],
+    subtypes=["Basic"],
+    collector_number=9,
+    set_code="BASE2",
+    rarity=Rarities.RareHolo,
+    hp=60,
+    elements=[PokemonTypes.GRASS],
+    stage=PokemonStage.BASIC,
+    retreat_cost=1,
+    weakness_type=PokemonTypes.FIRE,
+    family_id=127,
+    abilities=[
+        Attack(
+            title="Irongrip",
+            game_text="Flip a coin. If heads, the Defending Pok\u00e9mon is now Paralyzed.",
+            cost={PokemonTypes.GRASS: 2},
+            damage=20,
+            # STUB: attack effect not implemented
+            effect=unimplemented,
+        ),
+        Attack(
+            title="Guillotine",
+            cost={PokemonTypes.GRASS: 2, PokemonTypes.COLORLESS: 2},
+            damage=50,
+        ),
+    ],
+)
