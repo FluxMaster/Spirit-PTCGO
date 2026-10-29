@@ -164,6 +164,10 @@ class Triggers:
     # BEFORE the KO'd stack moves (energies still attached); ctx carries
     # ko_pokemon / ko_from_attack / ko_attacker.
     ON_ALLY_KNOCKED_OUT = "on_ally_knocked_out"
+    # An opposing Pokemon was Knocked Out (Hypno Hypnotic Pendulum). Fires
+    # after the KO'd stack leaves play and before promotion; ctx carries
+    # ko_pokemon / was_active_at_ko / ko_from_attack / ko_attacker.
+    ON_OPPONENT_KNOCKED_OUT = "on_opponent_knocked_out"
     # Either player manually put a Basic from hand onto their Bench (Gapejaw
     # Bog); ctx carries benching_player_id / benched_pokemon.
     ON_POKEMON_BENCHED = "on_pokemon_benched"

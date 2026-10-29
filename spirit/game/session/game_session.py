@@ -2339,6 +2339,7 @@ class GameSession:
         passive_pairs = active_passives(self.board_state)
         prize_plans: List[Tuple[str, int, str]] = []
         ally_triggers: List[Tuple[PokemonEntity, str, Ability, PokemonEntity, bool]] = []
+        opp_ko_triggers: List[Tuple[PokemonEntity, str, Ability, PokemonEntity, bool]] = []
         for pokemon in ctx.knockouts:
             owner_id = pokemon.owning_player_id
             if owner_id is None:
@@ -2383,6 +2384,22 @@ class GameSession:
                         continue
                     ally_triggers.append(
                         (ally, owner_id, ability, pokemon, ko_from_attack))
+            was_active_now = self.board_state.active_pokemon(owner_id) is pokemon
+            if was_active_now:
+                opp_id = self._opponent_id(owner_id)
+                for watcher in self.board_state.pokemon_in_play(opp_id):
+                    locked = ability_locked(self.board_state, watcher)
+                    for entry in watcher.get_attribute(AttrID.PIE_ABILITIES) or []:
+                        if not isinstance(entry, dict):
+                            continue
+                        ability = ABILITIES_BY_ID.get(entry.get("abilityID"))
+                        if ability is None or not ability.has_trigger(
+                                Triggers.ON_OPPONENT_KNOCKED_OUT):
+                            continue
+                        if locked and not ability.is_granted:
+                            continue
+                        opp_ko_triggers.append(
+                            (watcher, opp_id, ability, pokemon, True))
         # ON_ALLY_KNOCKED_OUT fires pre-discard: the KO'd stack is still on
         # board with its energies attached (Exp. Share moves one off it).
         for ally, owner_id, ability, victim, from_attack in ally_triggers:
@@ -2548,6 +2565,19 @@ class GameSession:
             await hook(hook_ctx)
             if hook_ctx._messages:
                 await self._flush_effect_runs(hook_ctx)
+
+        for watcher, watcher_id, ability, victim, was_active in opp_ko_triggers:
+            def _opp_setup(c, _victim=victim, _was_active=was_active,
+                           _from_attack=_damage_ko(victim) and ctx.attacker is not None
+                           and ctx.attacker.owning_player_id != victim.owning_player_id):
+                c.ko_pokemon = _victim
+                c.was_active_at_ko = _was_active
+                c.ko_from_attack = _from_attack
+                c.ko_attacker = ctx.attacker if _from_attack else None
+            await resolve_triggered_ability(
+                self, watcher_id, watcher, ability, ctx_setup=_opp_setup,
+                _ko_depth=_ko_depth + 1,
+            )
 
         for (taker_id, mode), count in prize_awards.items():
             await self._take_prizes(taker_id, count, destination=mode)
@@ -3021,11 +3051,12 @@ class GameSession:
         candidates = [c for c in bench_area.children if isinstance(c, PokemonEntity)]
         if not candidates:
             return False
-        player = self.players[player_id]
+        chooser_id = self.turn_state.promotion_chooser.pop(player_id, player_id)
+        player = self.players[chooser_id]
         picked = candidates[0]
         if not isinstance(player, AIPlayer) and len(candidates) > 1:
             offer = self._placement_offer_value(
-                player_id, PROMPT_CHOOSE_NEW_ACTIVE, candidates, TARGET_TYPE_ACTIVE
+                chooser_id, PROMPT_CHOOSE_NEW_ACTIVE, candidates, TARGET_TYPE_ACTIVE
             )
             for _ in range(MAX_SELECTION_RETRIES):
                 reply = await self.prompt_selection_message(
@@ -3039,7 +3070,7 @@ class GameSession:
                     picked = self.board_state.get_entity(card_id) or picked
                     break
                 offer = self._placement_offer_value(
-                    player_id, PROMPT_CHOOSE_NEW_ACTIVE, candidates, TARGET_TYPE_ACTIVE
+                    chooser_id, PROMPT_CHOOSE_NEW_ACTIVE, candidates, TARGET_TYPE_ACTIVE
                 )
         board.move_card(picked.entity_id, active_area.entity_id)
         self.turn_state.became_active_turn[picked.entity_id] = \

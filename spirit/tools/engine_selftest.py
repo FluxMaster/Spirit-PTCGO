@@ -16,7 +16,8 @@ import uuid
 from typing import Any, Dict
 
 from spirit.game.attributes import (
-    AttrID, PokemonStage, PokemonTypes, SpecialConditions, TrainerType,
+    AttrID, CLIENT_SPECIAL_CONDITION_NAMES, PokemonStage, PokemonTypes,
+    SpecialConditions, TrainerType,
 )
 from spirit.game.card_effects.attacks_common import smokescreen_attack
 from spirit.game.card_effects.passives_common import (
@@ -1080,6 +1081,85 @@ async def test_on_ally_knocked_out():
         ABILITIES_BY_ID.pop(aid, None)
 
 
+async def test_on_opponent_knocked_out():
+    rig, e = new_rig()
+    session, board, ts = rig.session, rig.board, rig.session.turn_state
+    recorded = []
+
+    async def _pendulum(c):
+        recorded.append((c.ko_pokemon, c.was_active_at_ko, c.ko_from_attack,
+                         c.ko_pokemon._containing_area_name()))
+        c.session.turn_state.promotion_chooser[c.ko_pokemon.owning_player_id] = (
+            c.player_id)
+
+    ability = Ability("Test Hypnotic Pendulum",
+                      trigger=Triggers.ON_OPPONENT_KNOCKED_OUT,
+                      effect=_pendulum)
+    aid = register_ability(ability)
+    try:
+        watcher = e["p2_active"]
+        _pie_entry(watcher, aid)
+        victim = e["p1_active"]
+        ctx = EffectContext(session, P2, watcher,
+                            Attack("Test Crunch", cost={}, damage=200))
+        victim.set_attribute(AttrID.HP, 0)
+        ctx.attack_damage[victim.entity_id] = (200, 180)
+        ctx.knockouts.append(victim)
+        await session.resolve_knockouts(ctx)
+        assert len(recorded) == 1
+        ko_pokemon, was_active, from_attack, area = recorded[0]
+        assert ko_pokemon is victim and was_active is True and from_attack is True
+        assert area == "discard", "fires after the KO'd stack has left play"
+        assert victim.owning_player_id not in ts.promotion_chooser, \
+            "promotion_chooser is consumed by _promote_new_active"
+        assert board.active_pokemon(P1) is not None
+
+        benched = next(c for c in board.find_player_area(P1, "bench").children
+                       if isinstance(c, PokemonEntity))
+        ctx2 = EffectContext(session, P2, watcher,
+                             Attack("Test Crunch", cost={}, damage=200))
+        await ctx2.knock_out(benched)
+        await session.resolve_knockouts(ctx2)
+        assert len(recorded) == 1, "bench KOs must not fire ON_OPPONENT_KNOCKED_OUT"
+    finally:
+        ABILITIES_BY_ID.pop(aid, None)
+
+
+async def test_keeps_condition_on_trainer_switch():
+    rig, e = new_rig()
+    session, board = rig.session, rig.board
+    poison_name = CLIENT_SPECIAL_CONDITION_NAMES[SpecialConditions.POISONED]
+    trainer = next(c for c in board.find_player_area(P1, "hand").children
+                   if is_item_card(c))
+    old_active = e["p1_active"]
+    new_active = next(c for c in board.find_player_area(P1, "bench").children
+                      if isinstance(c, PokemonEntity))
+
+    class DustIsland(Passive):
+        def keeps_condition_on_trainer_switch(self, pokemon, condition, carrier):
+            return condition == poison_name
+
+    ctx = EffectContext(session, P1, trainer, None)
+    await ctx.apply_special_condition(old_active, SpecialConditions.POISONED,
+                                      poison_counters=3)
+    ctx.add_temporary_passive(old_active, DustIsland())
+    assert await ctx.switch_active(P1, new_active)
+    assert poison_name in (new_active.get_attribute(AttrID.SPECIAL_CONDITIONS) or [])
+    assert session.poison_counters.get(new_active.entity_id) == 3
+    assert poison_name not in (old_active.get_attribute(AttrID.SPECIAL_CONDITIONS) or [])
+
+    # Non-trainer switches still drop Poison even with the passive in play.
+    other_bench = next(
+        c for c in board.find_player_area(P1, "bench").children
+        if isinstance(c, PokemonEntity) and c is not old_active)
+    atk = attack_ctx(rig, e)
+    atk.add_temporary_passive(new_active, DustIsland())
+    await atk.apply_special_condition(new_active, SpecialConditions.POISONED,
+                                      poison_counters=2)
+    assert await atk.switch_active(P1, other_bench)
+    assert poison_name not in (other_bench.get_attribute(AttrID.SPECIAL_CONDITIONS) or [])
+
+
 async def test_evolution_gate_passives():
     rig, e = new_rig()
     board, ts = rig.board, rig.session.turn_state
@@ -2084,6 +2164,8 @@ TESTS = [
     test_hyper_potion_double_turbo_energy,
     test_on_move_to_active_once,
     test_on_ally_knocked_out,
+    test_on_opponent_knocked_out,
+    test_keeps_condition_on_trainer_switch,
     test_evolution_gate_passives,
     test_burn_hooks,
     test_stacking_key_dedup,
