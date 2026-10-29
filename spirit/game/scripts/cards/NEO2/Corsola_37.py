@@ -1,10 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Corsola (NEO2 #37): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_damage
+from spirit.game.card_effects.ecard import (
+    has_typed_basic_energy, recover_discarding_energy,
+)
 
 
 card = PokemonCardDef(
@@ -28,8 +27,8 @@ card = PokemonCardDef(
             title="Recover",
             game_text="Discard 1 Water Energy card attached to Corsola or this attack does nothing. Remove all damage counters from Corsola.",
             cost={PokemonTypes.WATER: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            condition=has_typed_basic_energy(PokemonTypes.WATER),
+            effect=recover_discarding_energy(PokemonTypes.WATER),
         ),
         Attack(
             title="Spike Cannon",
@@ -37,7 +36,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 2},
             damage=30,
             damage_operator="x",
-            # STUB: attack effect not implemented
             effect=flip_damage(coins=2, per_heads=30),
         ),
     ],

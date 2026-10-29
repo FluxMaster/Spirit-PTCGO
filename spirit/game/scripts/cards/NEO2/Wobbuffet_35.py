@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Wobbuffet (NEO2 #35): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import counter
+
 
 card = PokemonCardDef(
     guid="7e67dac2-815e-595e-b882-5f170b29ab91",
@@ -26,8 +24,7 @@ card = PokemonCardDef(
             title="Counter",
             game_text="If an attack damages Wobbuffet during your opponent's next turn (even if Wobbuffet is Knocked Out), flip a coin. If heads, Wobbuffet attacks the Defending Pok\u00e9mon for an equal amount of damage.",
             cost={PokemonTypes.PSYCHIC: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=counter,
         ),
     ],
 )

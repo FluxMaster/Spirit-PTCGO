@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Metapod (NEO2 #42): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import harden, hatch
+
 
 card = PokemonCardDef(
     guid="334b2daf-851e-53ea-b594-10e5c0b74336",
@@ -27,15 +25,13 @@ card = PokemonCardDef(
             title="Harden",
             game_text="During your opponent's next turn, whenever 20 or less damage is done to Metapod (after applying Weakness and Resistance), prevent that damage. (Any other effects of attacks still happen).",
             cost={PokemonTypes.COLORLESS: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=harden(20),
         ),
         Attack(
             title="Hatch",
             game_text="Flip a coin. If heads, remove all damage counters from Metapod. Then, search your deck for a card that evolves from Metapod and attach that card to Metapod. This counts as evolving Metapod. Shuffle your deck afterward.",
             cost={PokemonTypes.GRASS: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=hatch,
         ),
     ],
 )

@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Pupitar (NEO2 #45): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import damage_each_in_play_unmodified
+
 
 card = PokemonCardDef(
     guid="e2055332-f46d-5d19-9ef2-1e5cbbac9d3d",
@@ -33,8 +31,8 @@ card = PokemonCardDef(
             title="Dust Devil",
             game_text="Does 10 damage to each non-Fighting Pok\u00e9mon in play. Don't apply Weakness and Resistance.",
             cost={PokemonTypes.FIGHTING: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_each_in_play_unmodified(
+                10, exclude_type=PokemonTypes.FIGHTING),
         ),
     ],
 )

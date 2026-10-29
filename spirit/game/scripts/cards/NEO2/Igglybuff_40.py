@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Igglybuff (NEO2 #40): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ecard import gaze, gaze_condition
+
 
 card = PokemonCardDef(
     guid="b332161b-24e0-5838-98f6-b30a9f5003bb",
@@ -24,9 +22,10 @@ card = PokemonCardDef(
         Ability(
             title="Gaze",
             game_text="Once during your turn (before your attack), choose 1 of your opponent's Benched Pok\u00e9mon that has a Pok\u00e9mon Power. That power stops working until the end of this turn. This effect ends if that Pok\u00e9mon leaves the Bench.",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            activation=Activations.ONCE_PER_TURN,
+            condition=gaze_condition,
+            effect=gaze,
         ),
     ],
 )

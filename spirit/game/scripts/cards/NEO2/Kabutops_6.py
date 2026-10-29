@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Kabutops (NEO2 #6): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import hydrocutter
+
 
 card = PokemonCardDef(
     guid="1cd590b5-d823-54a4-84f1-ab677443c69d",
@@ -34,8 +32,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1},
             damage=40,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=hydrocutter,
         ),
     ],
 )

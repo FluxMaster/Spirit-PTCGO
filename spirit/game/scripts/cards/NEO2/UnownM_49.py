@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Unown [M] (NEO2 #49): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ecard import unown_type_reduce_passive
+
 
 card = PokemonCardDef(
     guid="5b29ac3d-5a9c-5ea3-bb59-882a8f133b16",
@@ -25,9 +23,8 @@ card = PokemonCardDef(
         Ability(
             title="[Metal]",
             game_text="Whenever a Metal Pok\u00e9mon damages 1 of your Pok\u00e9mon, reduce that damage by 30 (after applying Weakness and Resistance). This power stops working if you have more than 1 Unown [M] in play. (This power works even if Unown [M] is Asleep, Confused, or Paralyzed.)",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            passive=unown_type_reduce_passive(PokemonTypes.METAL, "M"),
         ),
         Attack(
             title="Hidden Power",

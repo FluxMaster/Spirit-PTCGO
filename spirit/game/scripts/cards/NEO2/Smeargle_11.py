@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Smeargle (NEO2 #11): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import sketch
+
 
 card = PokemonCardDef(
     guid="59ff1498-e348-51dd-a43d-e106ab2bff47",
@@ -27,8 +25,7 @@ card = PokemonCardDef(
             title="Sketch",
             game_text="If the Defending Pok\u00e9mon attacked last turn, and Smeargle was in play during that attack, Smeargle copies that attack except for its Energy costs and anything else required in order to use that attack.",
             cost={PokemonTypes.COLORLESS: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=sketch,
         ),
     ],
 )

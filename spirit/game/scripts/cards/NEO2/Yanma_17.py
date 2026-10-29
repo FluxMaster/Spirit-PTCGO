@@ -1,10 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Yanma (NEO2 #17): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-from spirit.game.card_effects.ecard import swift
+from spirit.game.card_effects.ecard import shockwave, swift
 
 
 card = PokemonCardDef(
@@ -29,15 +25,13 @@ card = PokemonCardDef(
             title="Shockwave",
             game_text="Flip a coin. If heads, this attack does 10 damage to each of your opponent's Pok\u00e9mon. Don't apply Weakness and Resistance. Then, if your opponent has any Benched Pok\u00e9mon, he or she chooses 1 of them and switches it with the Defending Pok\u00e9mon.",
             cost={PokemonTypes.GRASS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=shockwave,
         ),
         Attack(
             title="Swift",
             game_text="This attack's damage isn't affected by Weakness, Resistance, Pok\u00e9mon Powers, or any other effects on the Defending Pok\u00e9mon.",
             cost={PokemonTypes.GRASS: 3},
             damage=30,
-            # STUB: attack effect not implemented
             effect=swift,
         ),
     ],

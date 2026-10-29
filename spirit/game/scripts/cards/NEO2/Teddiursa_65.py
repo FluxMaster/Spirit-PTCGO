@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Teddiursa (NEO2 #65): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import nap_time
+
 
 card = PokemonCardDef(
     guid="f6e89ebc-4755-5494-9d93-bcb3cb8e8810",
@@ -32,8 +30,7 @@ card = PokemonCardDef(
             title="Nap Time",
             game_text="Remove all damage counters from Teddiursa. Teddiursa is now Asleep.",
             cost={PokemonTypes.COLORLESS: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=nap_time,
         ),
     ],
 )

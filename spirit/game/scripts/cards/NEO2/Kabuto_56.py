@@ -1,9 +1,11 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Kabuto (NEO2 #56): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ecard import (
+    revive_friends,
+    revive_friends_condition,
+    work_together,
+)
+
 
 card = PokemonCardDef(
     guid="0878618a-4d98-5fe7-93df-46bce293a60a",
@@ -26,9 +28,10 @@ card = PokemonCardDef(
         Ability(
             title="Revive Friends",
             game_text="Once during your turn (before your attack), you may flip a coin. If heads, search your deck for a card named Kabuto and put it on your Bench. Shuffle your deck afterward. Treat the new Kabuto as a Basic Pok\u00e9mon. This power can't be used if Kabuto is Asleep, Confused, or Paralyzed (or if your Bench is full).",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            activation=Activations.ONCE_PER_TURN,
+            condition=revive_friends_condition,
+            effect=revive_friends,
         ),
         Attack(
             title="Work Together",
@@ -36,8 +39,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 1},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=work_together,
         ),
     ],
 )

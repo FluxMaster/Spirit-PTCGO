@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Wooper (NEO2 #71): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import slime
+
 
 card = PokemonCardDef(
     guid="0ad2e3d0-094d-58cd-b663-ebd5edb5af4d",
@@ -27,8 +25,7 @@ card = PokemonCardDef(
             title="Slime",
             game_text="If an attack would do damage to Wooper during your opponent's next turn, your opponent flips a coin. If tails, prevent all damage to Wooper from that attack. (Any other effects of that attack happen.)",
             cost={PokemonTypes.WATER: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=slime,
         ),
         Attack(
             title="Tail Slap",

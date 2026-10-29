@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Butterfree (NEO2 #19): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import hyper_reverse, magic_pollen
+
 
 card = PokemonCardDef(
     guid="a90c69a6-4aa7-5360-a3c7-09d9541e585b",
@@ -29,15 +27,13 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon is now either Asleep, Confused, Paralyzed, or Poisoned (your choice).",
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=magic_pollen,
         ),
         Attack(
             title="Hyper Reverse",
             game_text="Does 10 damage times the number of Energy attached to the Defending Pok\u00e9mon. After doing damage, remove a number of damage counters from Butterfree equal to the amount of damage done to the Defending Pok\u00e9mon (after applying Weakness and Resistance).",
             cost={PokemonTypes.GRASS: 2, PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=hyper_reverse,
         ),
     ],
 )

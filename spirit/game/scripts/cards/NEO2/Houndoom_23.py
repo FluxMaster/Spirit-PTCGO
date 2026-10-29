@@ -1,10 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Houndoom (NEO2 #23): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-from spirit.game.card_effects.ecard import screech
+from spirit.game.card_effects.ecard import discard_fire_or_nothing, screech
 
 
 card = PokemonCardDef(
@@ -30,7 +26,6 @@ card = PokemonCardDef(
             game_text="Until the end of your next turn, if an attack damages the Defending Pok\u00e9mon (after applying Weakness and Resistance), that attack does 20 more damage to the Defending Pok\u00e9mon.",
             cost={PokemonTypes.DARKNESS: 1, PokemonTypes.COLORLESS: 2},
             damage=30,
-            # STUB: attack effect not implemented
             effect=screech(),
         ),
         Attack(
@@ -38,8 +33,7 @@ card = PokemonCardDef(
             game_text="Discard 1 Fire Energy card attached to Houndoom or this attack does nothing.",
             cost={PokemonTypes.FIRE: 2, PokemonTypes.COLORLESS: 1},
             damage=50,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=discard_fire_or_nothing,
         ),
     ],
 )

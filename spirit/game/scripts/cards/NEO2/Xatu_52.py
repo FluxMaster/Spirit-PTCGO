@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Xatu (NEO2 #52): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import energy_cycle
+
 
 card = PokemonCardDef(
     guid="1c62ca92-0fbe-555a-8471-2ffe9046b56f",
@@ -28,8 +26,7 @@ card = PokemonCardDef(
             title="Energy Cycle",
             game_text="Flip a coin. If heads, choose 1 Energy card attached to the Defending Pok\u00e9mon and 1 of your opponent's Benched Pok\u00e9mon. Attach that Energy card to that Pok\u00e9mon.",
             cost={PokemonTypes.PSYCHIC: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=energy_cycle,
         ),
         Attack(
             title="Super Psy",

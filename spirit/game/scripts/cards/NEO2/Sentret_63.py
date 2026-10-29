@@ -1,8 +1,4 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Sentret (NEO2 #63): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.ecard import look_at_opponent_hand
 
@@ -29,7 +25,6 @@ card = PokemonCardDef(
             title="Scout",
             game_text="Look at your opponent's hand.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=look_at_opponent_hand,
         ),
         Attack(

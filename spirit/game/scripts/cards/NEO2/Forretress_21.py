@@ -1,10 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Forretress (NEO2 #21): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
-from spirit.game.card_effects.ecard import rapid_spin
+from spirit.game.card_effects.ecard import rapid_spin, spikes
 
 
 card = PokemonCardDef(
@@ -29,16 +25,15 @@ card = PokemonCardDef(
         Ability(
             title="Spikes",
             game_text="During your opponent's turn, whenever 1 of your opponent's Benched Pok\u00e9mon becomes his or her Active Pok\u00e9mon, Forretress does 10 damage to it. (Don't apply Weakness and Resistance.) This power stops working if Forretress is Asleep, Confused, or Paralyzed.",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            trigger=Triggers.ON_BENCH_TO_ACTIVE,
+            effect=spikes,
         ),
         Attack(
             title="Rapid Spin",
             game_text="If your opponent has any Benched Pok\u00e9mon, he or she chooses 1 of them and switches it with his or her Active Pok\u00e9mon, then, if you have any Benched Pok\u00e9mon, you switch 1 of them with your Active Pok\u00e9mon. (Do the damage before switching the Pok\u00e9mon.)",
             cost={PokemonTypes.METAL: 1, PokemonTypes.COLORLESS: 2},
             damage=30,
-            # STUB: attack effect not implemented
             effect=rapid_spin,
         ),
     ],

@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Umbreon (NEO2 #32): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_bonus
+from spirit.game.card_effects.ecard import pursuit
 
 
 card = PokemonCardDef(
@@ -31,7 +28,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
             effect=flip_bonus(20),
         ),
         Attack(
@@ -39,8 +35,7 @@ card = PokemonCardDef(
             game_text="During your opponent's next turn, if the Defending Pok\u00e9mon tries to retreat, do 10 damage to it. (Don't apply Weakness and Resistance.)",
             cost={PokemonTypes.DARKNESS: 1, PokemonTypes.COLORLESS: 2},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=pursuit,
         ),
     ],
 )

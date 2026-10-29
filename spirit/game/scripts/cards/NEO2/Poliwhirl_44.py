@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Poliwhirl (NEO2 #44): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import belly_drum, unused_energy_bonus
+
 
 card = PokemonCardDef(
     guid="bad06b9d-e824-54ba-8659-afaa7852225e",
@@ -27,8 +25,7 @@ card = PokemonCardDef(
             title="Belly Drum",
             game_text="Put 3 damage counters on Poliwhirl. If this doesn't Knock Out Poliwhirl, search your deck for 2 Basic Energy cards and attach them to Poliwhirl. Shuffle your deck afterward.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=belly_drum,
         ),
         Attack(
             title="Water Gun",
@@ -36,8 +33,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 2, PokemonTypes.COLORLESS: 1},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=unused_energy_bonus(10, 20, energy_type=PokemonTypes.WATER),
         ),
     ],
 )

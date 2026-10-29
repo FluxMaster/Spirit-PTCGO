@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Scizor (NEO2 #29): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_damage
+from spirit.game.card_effects.ecard import false_swipe
 
 
 card = PokemonCardDef(
@@ -30,8 +27,7 @@ card = PokemonCardDef(
             title="False Swipe",
             game_text="Does damage equal to half the Defending Pok\u00e9mon's remaining HP (rounded down to the nearest 10).",
             cost={PokemonTypes.METAL: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=false_swipe,
         ),
         Attack(
             title="Double Claw",
@@ -39,7 +35,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=20,
             damage_operator="+",
-            # STUB: attack effect not implemented
             effect=flip_damage(coins=2, per_heads=20),
         ),
     ],

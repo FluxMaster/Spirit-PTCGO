@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Magnemite (NEO2 #7): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import electric_bolt, lock_on
+
 
 card = PokemonCardDef(
     guid="13c153c4-121d-5666-9808-877b592c0483",
@@ -27,16 +25,14 @@ card = PokemonCardDef(
             title="Lock-on",
             game_text="During your next turn, treat any tails flipped when using Magnemite's Electric Bolt attack as if they were heads. (Benching or evolving either Pok\u00e9mon ends this effect.)",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=lock_on,
         ),
         Attack(
             title="Electric Bolt",
             game_text="Flip 2 coins. If both are heads, the Defending Pok\u00e9mon is now Paralyzed. If either of them is tails, this attack does nothing (not even damage).",
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 1},
             damage=50,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=electric_bolt,
         ),
     ],
 )

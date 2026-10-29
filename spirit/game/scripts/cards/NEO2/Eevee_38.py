@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Eevee (NEO2 #38): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ecard import energy_evolution
+
 
 card = PokemonCardDef(
     guid="10b3c8c7-c86b-5044-9a9a-2b6b454c20dd",
@@ -26,9 +24,9 @@ card = PokemonCardDef(
         Ability(
             title="Energy Evolution",
             game_text="Whenever you attach an Energy card to Eevee, flip a coin. If heads, search your deck for a card that evolves from Eevee that is the same type as the Energy card you attached to Eevee. Attach that card to Eevee. This counts as evolving Eevee. Shuffle your deck afterward. This power can't be used if Eevee is Asleep, Confused, or Paralyzed.",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            trigger=Triggers.ON_ENERGY_ATTACHED,
+            effect=energy_evolution,
         ),
         Attack(
             title="Smash Kick",

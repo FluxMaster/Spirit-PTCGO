@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Unown [O] (NEO2 #69): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ecard import unown_observe, unown_observe_condition
+
 
 card = PokemonCardDef(
     guid="175cae85-4c9c-510d-9e5c-951624feb3f7",
@@ -25,9 +23,10 @@ card = PokemonCardDef(
         Ability(
             title="[Observe]",
             game_text="Once during your turn (before your attack), you may look at 5 cards from the top of your opponent's deck and put them back in the same order.",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            activation=Activations.ONCE_PER_TURN,
+            condition=unown_observe_condition,
+            effect=unown_observe,
         ),
         Attack(
             title="Hidden Power",
