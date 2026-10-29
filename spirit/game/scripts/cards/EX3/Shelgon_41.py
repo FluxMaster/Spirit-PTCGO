@@ -2,8 +2,9 @@
 Shelgon (EX3 #41): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import energy_guard_passive
 
 card = PokemonCardDef(
     guid="2e0cff27-d6bd-570b-a351-c5c15cfbb9ee",
@@ -27,7 +28,7 @@ card = PokemonCardDef(
             game_text="As long as Shelgon has any basic Energy cards attached to it, damage done to Shelgon by an opponent's attack is reduced by 10 (after applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=energy_guard_passive(10),
         ),
         Attack(
             title="Rollout",

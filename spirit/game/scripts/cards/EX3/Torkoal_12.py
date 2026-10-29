@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Torkoal (EX3 #12): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import recover_from_discard
+from spirit.game.card_effects.trainers import is_basic_energy_card
+from spirit.game.card_effects.ex import burn_flip_tails_discard_energy
 
 card = PokemonCardDef(
     guid="862f6fae-e2c2-5f06-955e-fa1b1a9e0dcc",
@@ -27,14 +26,14 @@ card = PokemonCardDef(
             game_text="Search your discard pile for up to 2 basic Energy cards, show them to your opponent, and put them into your hand.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=recover_from_discard(predicate=is_basic_energy_card, count=2, minimum=0, reveal=True),
         ),
         Attack(
             title="Scorching Smoke",
             game_text="The Defending Pok\u00e9mon is now Burned. Flip a coin. If tails, discard a Fire Energy card attached to Torkoal.",
             cost={PokemonTypes.FIRE: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=burn_flip_tails_discard_energy(PokemonTypes.FIRE),
         ),
     ],
 )

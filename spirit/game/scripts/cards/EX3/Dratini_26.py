@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dratini (EX3 #26): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import heal_item
 
 card = PokemonCardDef(
     guid="5a517d14-698e-5674-a558-d9aec9ce784d",
@@ -28,7 +25,7 @@ card = PokemonCardDef(
             game_text="Remove 2 damage counters from 1 of your Pok\u00e9mon (remove 1 if there is only 1).",
             cost={PokemonTypes.WATER: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=heal_item(20, scope="choice"),
         ),
         Attack(
             title="Tail Slap",

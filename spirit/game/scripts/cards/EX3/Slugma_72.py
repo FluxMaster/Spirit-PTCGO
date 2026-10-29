@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Slugma (EX3 #72): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import gust_attack
 
 card = PokemonCardDef(
     guid="1b679fba-8c96-5cae-be84-d6938016b739",
@@ -32,7 +29,7 @@ card = PokemonCardDef(
             game_text="Switch 1 of your opponent's Benched Pok\u00e9mon with 1 of the Defending Pok\u00e9mon. Your opponent chooses the Defending Pok\u00e9mon to switch. The new Defending Pok\u00e9mon is now Burned.",
             cost={PokemonTypes.FIRE: 1, PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=gust_attack(opponent_chooses=True),
         ),
     ],
 )

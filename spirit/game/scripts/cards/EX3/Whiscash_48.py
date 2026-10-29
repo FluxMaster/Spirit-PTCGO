@@ -2,9 +2,10 @@
 Whiscash (EX3 #48): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import spread_damage
+from spirit.game.card_effects.ex import submerge_passive
 
 
 card = PokemonCardDef(
@@ -30,7 +31,7 @@ card = PokemonCardDef(
             game_text="As long as Whiscash is on your Bench, prevent all damage done to Whiscash by your opponent's attacks.",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=submerge_passive(),
         ),
         Attack(
             title="Surf",

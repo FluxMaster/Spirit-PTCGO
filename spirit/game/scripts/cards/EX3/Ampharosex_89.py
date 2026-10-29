@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Ampharos ex (EX3 #89): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import gigavolt, conductivity_on_attach
 
 card = PokemonCardDef(
     guid="5c94083a-52e8-5cfe-b43a-30fb1c63d832",
@@ -28,8 +25,9 @@ card = PokemonCardDef(
             title="Conductivity",
             game_text="As long as Ampharos ex is in play, whenever your opponent attaches an Energy card to his or her Pok\u00e9mon from hand, put 1 damage counter on that Pok\u00e9mon. You can't put more than 1 damage counter even if there is more than 1 Ampharos ex in play.",
             ability_type=AbilityTypes.POKE_BODY,
+            trigger=Triggers.ON_ENERGY_ATTACHED,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=conductivity_on_attach,
         ),
         Attack(
             title="Gigavolt",
@@ -38,7 +36,7 @@ card = PokemonCardDef(
             damage=40,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=gigavolt(40, 30),
         ),
     ],
 )

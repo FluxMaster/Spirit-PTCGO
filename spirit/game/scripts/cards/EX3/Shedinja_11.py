@@ -2,8 +2,9 @@
 Shedinja (EX3 #11): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import wonder_guard_passive, damage_curse
 
 card = PokemonCardDef(
     guid="c985a9ad-7317-52cf-a6fc-46de3c4d3774",
@@ -27,14 +28,14 @@ card = PokemonCardDef(
             game_text="Prevent all effects of attacks, including damage, done to Shedinja by your opponent's Evolved Pok\u00e9mon and Pok\u00e9mon-ex.",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=wonder_guard_passive(),
         ),
         Attack(
             title="Damage Curse",
             game_text="Put 1 damage counter, plus 1 more damage counter for each damage counter on Shedinja, on the Defending Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_curse(),
         ),
     ],
 )

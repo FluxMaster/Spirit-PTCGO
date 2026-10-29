@@ -2,9 +2,10 @@
 Swellow (EX3 #45): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ex import quick_dive
 
 
 card = PokemonCardDef(
@@ -39,7 +40,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, choose 1 of your opponent's Pok\u00e9mon. This attack does 50 damage to that Pok\u00e9mon. This attack's damage isn't affected by Weakness or Resistance.",
             cost={PokemonTypes.COLORLESS: 2},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=quick_dive(50),
         ),
     ],
 )

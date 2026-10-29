@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Shelgon (EX3 #20): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.passives_common import flip_protection
 
 card = PokemonCardDef(
     guid="fa17d311-9d66-5a49-b53d-a5d0e9335adb",
@@ -29,7 +26,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, prevent all damage done to Shelgon during your opponent's next turn. (Any other effects of attacks still happen.)",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_protection(prevent=True, effects_too=False),
         ),
         Attack(
             title="Rolling Attack",

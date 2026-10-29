@@ -2,8 +2,9 @@
 Skarmory (EX3 #21): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import pick_on_look, power_count
 
 card = PokemonCardDef(
     guid="4289d850-7f06-5370-83a9-7716b5ca45ba",
@@ -28,7 +29,7 @@ card = PokemonCardDef(
             game_text="If the number of cards in your opponent's hand is at least 6, look at his or her hand. Choose a number of cards there until your opponent has 5 cards left in his or her hand and have your opponent shuffle the cards you chose into his or her deck.",
             cost={PokemonTypes.METAL: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=pick_on_look(5),
         ),
         Attack(
             title="Power Count",
@@ -37,7 +38,7 @@ card = PokemonCardDef(
             damage=20,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=power_count(20, 30),
         ),
     ],
 )

@@ -2,8 +2,11 @@
 Charizard (EX3 #100): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import flip_attach_n_from_discard, may_discard_energy_then_snipe
+from spirit.game.card_effects.trainers import is_basic_energy_card
+from spirit.game.card_effects.pokemon import energy_provides_type
 
 card = PokemonCardDef(
     guid="cb6b707c-0aa9-5069-bb81-01822a57c8ab",
@@ -29,7 +32,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_attach_n_from_discard(2, predicate=lambda c: is_basic_energy_card(c) and energy_provides_type(c, PokemonTypes.FIRE.value)),
         ),
         Attack(
             title="Flame Pillar",
@@ -37,7 +40,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 1, PokemonTypes.COLORLESS: 3},
             damage=60,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=may_discard_energy_then_snipe(PokemonTypes.FIRE, 30),
         ),
     ],
 )

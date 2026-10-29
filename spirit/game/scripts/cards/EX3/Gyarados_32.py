@@ -2,9 +2,10 @@
 Gyarados (EX3 #32): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import ignore_resistance_attack
+from spirit.game.card_effects.ex import dragon_crush
 
 
 card = PokemonCardDef(
@@ -30,7 +31,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, this attack does 10 damage to each Defending Pok\u00e9mon. Discard an Energy card from each Defending Pok\u00e9mon.",
             cost={PokemonTypes.WATER: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=dragon_crush(10),
         ),
         Attack(
             title="Aqua Sonic",

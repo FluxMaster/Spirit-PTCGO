@@ -2,10 +2,11 @@
 Altaria (EX3 #2): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ex import dragon_dance
 
 
 card = PokemonCardDef(
@@ -32,7 +33,7 @@ card = PokemonCardDef(
             game_text="During your next turn, if any of your current Active Pok\u00e9mon does damage to any Defending Pok\u00e9mon, this attack does 40 more damage (before applying Weakness and Resistance).",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=dragon_dance(40),
         ),
         Attack(
             title="Dragon Song",

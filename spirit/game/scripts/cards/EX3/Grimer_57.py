@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Grimer (EX3 #57): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import discard_energy_then_condition
+from spirit.game.attributes import SpecialConditions
 
 card = PokemonCardDef(
     guid="46b201c2-5b7e-543f-b6f8-1d2cc782ea46",
@@ -32,7 +30,7 @@ card = PokemonCardDef(
             game_text="Discard a Grass Energy card attached to Grimer. The Defending Pok\u00e9mon is now Poisoned.",
             cost={PokemonTypes.GRASS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=discard_energy_then_condition(PokemonTypes.GRASS, SpecialConditions.POISONED),
         ),
     ],
 )

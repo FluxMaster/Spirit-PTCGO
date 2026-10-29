@@ -2,8 +2,9 @@
 Vibrava (EX3 #46): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import levitate_passive
 
 card = PokemonCardDef(
     guid="2cbb9273-cb96-5319-9f4a-6417e141ccbc",
@@ -27,7 +28,7 @@ card = PokemonCardDef(
             game_text="If Vibrava has any basic Energy cards attached to it, Vibrava's Retreat Cost is 0.",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=levitate_passive(),
         ),
         Attack(
             title="Razor Wing",

@@ -1,11 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Flygon (EX3 #4): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.trainers import is_basic_energy_card
 from spirit.game.card_effects.support_common import distribute_energy
+from spirit.game.card_effects.ex import rainbow_burn
 
 
 async def decorate(ctx):
@@ -55,7 +52,7 @@ card = PokemonCardDef(
             damage=30,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=rainbow_burn(30, 10),
         ),
     ],
 )

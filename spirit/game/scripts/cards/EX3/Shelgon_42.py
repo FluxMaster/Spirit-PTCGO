@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Shelgon (EX3 #42): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.passives_common import protect_next_turn
 
 card = PokemonCardDef(
     guid="4a2c5a58-3fa3-5eeb-a025-49dffe7add2a",
@@ -28,7 +25,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=protect_next_turn(reduce=10),
         ),
         Attack(
             title="Flare",

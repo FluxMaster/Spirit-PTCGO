@@ -2,8 +2,9 @@
 Magcargo ex (EX3 #95): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import melting_mountain, lava_flow
 
 card = PokemonCardDef(
     guid="2bc3e705-afe2-57be-9111-677a3e445566",
@@ -29,7 +30,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 1},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=melting_mountain(),
         ),
         Attack(
             title="Lava Flow",
@@ -38,7 +39,7 @@ card = PokemonCardDef(
             damage=40,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=lava_flow(40, 20),
         ),
     ],
 )

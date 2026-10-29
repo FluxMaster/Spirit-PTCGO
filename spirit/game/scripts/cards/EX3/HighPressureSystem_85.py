@@ -1,13 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-High Pressure System (EX3 #85): trainer effect stubbed.
-
-Card text:
-  - This card stays in play when you play it. Discard this card if another Stadium card comes into play.
-  - Each player pays Colorless less to retreat his or her Fire and Water Pokémon.
-"""
-
-from spirit.game.data_utils import StadiumCardDef, unimplemented
+from spirit.game.data_utils import StadiumCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ex import high_pressure_passive
 
 card = StadiumCardDef(
     guid="09d88e23-ac14-5d36-8758-156b04401644",
@@ -19,6 +12,5 @@ card = StadiumCardDef(
     collector_number=85,
     set_code="EX3",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    passive=high_pressure_passive(),
 )

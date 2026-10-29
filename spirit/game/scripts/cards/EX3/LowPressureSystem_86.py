@@ -1,13 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Low Pressure System (EX3 #86): trainer effect stubbed.
-
-Card text:
-  - This card stays in play when you play it. Discard this card if another Stadium card comes into play.
-  - Each Grass and Lightning Pokémon in play (both yours and your opponent's) gets +10 HP.
-"""
-
-from spirit.game.data_utils import StadiumCardDef, unimplemented
+from spirit.game.data_utils import StadiumCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ex import low_pressure_passive
 
 card = StadiumCardDef(
     guid="f6ed8a60-ba95-5aeb-bac2-ee619b612f81",
@@ -19,6 +12,5 @@ card = StadiumCardDef(
     collector_number=86,
     set_code="EX3",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    passive=low_pressure_passive(10),
 )

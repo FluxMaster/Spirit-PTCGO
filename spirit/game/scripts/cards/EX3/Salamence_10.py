@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Salamence (EX3 #10): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.passives_common import flip_protection
+from spirit.game.card_effects.support_common import gust_attack
+from spirit.game.card_effects.ex import poke_power_condition, is_active_pokemon
 
 card = PokemonCardDef(
     guid="be610a12-b14c-58a4-9e3e-d5b97f27d52f",
@@ -28,8 +27,10 @@ card = PokemonCardDef(
             title="Dragon Wind",
             game_text="Once during your turn (before your attack), if Salamence is your Active Pok\u00e9mon, you may switch 1 of your opponent's Benched Pok\u00e9mon with 1 of the Defending Pok\u00e9mon. Your opponent chooses the Defending Pok\u00e9mon to switch. This power can't be used if Salamence is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
+            activation=Activations.ONCE_PER_TURN,
+            condition=poke_power_condition(is_active_pokemon),
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=gust_attack(opponent_chooses=True),
         ),
         Attack(
             title="Agility",
@@ -37,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_protection(prevent=True, effects_too=True),
         ),
         Attack(
             title="Dragon Claw",

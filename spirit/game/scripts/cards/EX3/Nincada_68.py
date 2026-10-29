@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Nincada (EX3 #68): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import heal_equal_to_damage
 
 card = PokemonCardDef(
     guid="a4d03138-ed9c-50da-b09c-1ae6339c3ae6",
@@ -28,7 +25,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1},
             damage=10,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=heal_equal_to_damage(),
         ),
     ],
 )

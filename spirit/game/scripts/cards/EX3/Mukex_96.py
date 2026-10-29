@@ -2,10 +2,11 @@
 Muk ex (EX3 #96): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ex import toxic_gas_passive, slimy_water
 
 
 card = PokemonCardDef(
@@ -31,7 +32,7 @@ card = PokemonCardDef(
             game_text="As long as Muk ex is your Active Pok\u00e9mon, ignore all Pok\u00e9-Powers and Pok\u00e9-Bodies other than Toxic Gas.",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=toxic_gas_passive(),
         ),
         Attack(
             title="Poison Breath",
@@ -48,7 +49,7 @@ card = PokemonCardDef(
             damage=40,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=slimy_water(40, 10),
         ),
     ],
 )

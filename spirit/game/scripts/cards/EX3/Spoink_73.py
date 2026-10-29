@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Spoink (EX3 #73): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import switch_self_attack
 
 card = PokemonCardDef(
     guid="3999a695-0983-5587-8bdc-6f7e8506d52b",
@@ -28,7 +25,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=switch_self_attack(optional=True),
         ),
     ],
 )

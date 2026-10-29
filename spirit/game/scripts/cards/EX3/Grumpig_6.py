@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Grumpig (EX3 #6): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import damage_per, count_energy
+from spirit.game.card_effects.ex import mind_trip
 
 card = PokemonCardDef(
     guid="176ff3b9-568f-5720-a1d8-78e7d77af762",
@@ -30,7 +28,7 @@ card = PokemonCardDef(
             damage=20,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_per(count_energy("defender"), 10, base=20),
         ),
         Attack(
             title="Mind Trip",
@@ -38,7 +36,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 2},
             damage=50,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=mind_trip(),
         ),
     ],
 )

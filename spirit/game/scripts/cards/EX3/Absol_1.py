@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Absol (EX3 #1): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import prize_lead_bonus
+from spirit.game.card_effects.ex import discard_opponent_hand_down_to
 
 card = PokemonCardDef(
     guid="dbd32d3b-9d48-52d8-8285-cedb6edf1636",
@@ -28,7 +26,7 @@ card = PokemonCardDef(
             game_text="If the number of cards in your opponent's hand is at least 6, choose a number of cards there, without looking, until your opponent has 5 cards left. Have your opponent discard the cards you chose.",
             cost={PokemonTypes.DARKNESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=discard_opponent_hand_down_to(5),
         ),
         Attack(
             title="Prize Count",
@@ -37,7 +35,7 @@ card = PokemonCardDef(
             damage=20,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=prize_lead_bonus(20, base=20),
         ),
     ],
 )

@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Golem (EX3 #5): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import snipe_attack
+from spirit.game.card_effects.attacks_common import damage_per, damage_counters_on
 
 card = PokemonCardDef(
     guid="73766da8-7f1e-546a-9018-398a04c798a4",
@@ -30,7 +28,7 @@ card = PokemonCardDef(
             damage=20,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_per(damage_counters_on("self"), 10, base=20),
         ),
         Attack(
             title="Rock Slide",
@@ -38,7 +36,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 2, PokemonTypes.COLORLESS: 3},
             damage=60,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=snipe_attack(20, pool="bench", count=2),
         ),
     ],
 )

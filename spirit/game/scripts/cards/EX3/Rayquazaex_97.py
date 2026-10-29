@@ -2,8 +2,9 @@
 Rayquaza ex (EX3 #97): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import spiral_growth, dragon_burst
 
 card = PokemonCardDef(
     guid="22151d83-5406-504e-aa1c-b325bf3af9da",
@@ -28,7 +29,7 @@ card = PokemonCardDef(
             game_text="Flip a coin until you get tails. For each heads, search your discard pile for a basic Energy card and attach it to Rayquaza ex.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=spiral_growth(),
         ),
         Attack(
             title="Dragon Burst",
@@ -37,7 +38,7 @@ card = PokemonCardDef(
             damage=40,
             damage_operator="x",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=dragon_burst(40),
         ),
     ],
 )

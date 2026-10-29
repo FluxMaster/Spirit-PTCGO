@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Plusle (EX3 #8): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.support_common import heal_targets
+from spirit.game.card_effects.ex import extra_circuit
 
 card = PokemonCardDef(
     guid="a7a9f153-e3a6-5d81-8b43-c5d95dba6f41",
@@ -35,14 +33,14 @@ card = PokemonCardDef(
             game_text="Remove 1 damage counter from each of your Pok\u00e9mon (including Plusle).",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=heal_targets(10, scope="each_own"),
         ),
         Attack(
             title="Extra Circuit",
             game_text="Choose 1 of your opponent's Pok\u00e9mon. This attack does 20 damage to that Pok\u00e9mon. If you choose Pok\u00e9mon-ex, this attack does 40 damage instead. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=extra_circuit(20, 40),
         ),
     ],
 )

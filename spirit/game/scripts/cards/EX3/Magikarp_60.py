@@ -2,8 +2,9 @@
 Magikarp (EX3 #60): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import search_to_bench_named
 
 card = PokemonCardDef(
     guid="2172c5f5-a6a6-546f-be8d-db4815457bfe",
@@ -27,7 +28,7 @@ card = PokemonCardDef(
             game_text="Search your deck for Magikarp and put as many of them as you like onto your Bench. Shuffle your deck afterward.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=search_to_bench_named("Magikarp"),
         ),
         Attack(
             title="Tackle",

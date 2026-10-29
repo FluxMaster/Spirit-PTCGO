@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Grovyle (EX3 #31): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import fury_cutter
 
 card = PokemonCardDef(
     guid="0dd8546d-d205-520a-8257-74c9967aaa2f",
@@ -31,7 +28,7 @@ card = PokemonCardDef(
             damage=10,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=fury_cutter(10, 10, 60, 4),
         ),
     ],
 )

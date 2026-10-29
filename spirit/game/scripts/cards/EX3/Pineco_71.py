@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Pineco (EX3 #71): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.passives_common import takes_less_passive
 
 card = PokemonCardDef(
     guid="31042df3-b85c-53fa-839f-a7356002e795",
@@ -27,7 +24,7 @@ card = PokemonCardDef(
             game_text="Any damage done to Pineco by attacks is reduced by 10 (after applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=takes_less_passive(10),
         ),
         Attack(
             title="Tackle",

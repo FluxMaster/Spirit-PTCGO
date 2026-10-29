@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Numel (EX3 #70): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import kindle_discard_both
 
 card = PokemonCardDef(
     guid="966c4fba-6504-54a8-9ef0-3c77ceb229cc",
@@ -33,7 +30,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 1},
             damage=10,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=kindle_discard_both(PokemonTypes.FIRE),
         ),
     ],
 )

@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Flaaffy (EX3 #27): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import attach_from_discard
+from spirit.game.card_effects.trainers import is_basic_energy_card
 
 card = PokemonCardDef(
     guid="84313284-563f-5100-8a4a-6c5a20b54281",
@@ -29,7 +27,7 @@ card = PokemonCardDef(
             game_text="Attach up to 2 basic Energy cards from your discard pile to Flaaffy.",
             cost={PokemonTypes.LIGHTNING: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=attach_from_discard(predicate=is_basic_energy_card, count=2, target="self", minimum=0),
         ),
         Attack(
             title="Lightning Ball",

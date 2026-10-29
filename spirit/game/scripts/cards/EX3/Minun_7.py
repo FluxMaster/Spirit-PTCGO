@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Minun (EX3 #7): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.support_common import heal_targets
+from spirit.game.card_effects.ex import special_circuit
 
 card = PokemonCardDef(
     guid="1a7fcd57-5438-5262-86d9-6dad01a1bfdc",
@@ -35,14 +33,14 @@ card = PokemonCardDef(
             game_text="Remove 1 damage counter from each of your Pok\u00e9mon (including Minun).",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=heal_targets(10, scope="each_own"),
         ),
         Attack(
             title="Special Circuit",
             game_text="Choose 1 of your opponent's Pok\u00e9mon. This attack does 20 damage to that Pok\u00e9mon. If you choose Pok\u00e9mon that has a Pok\u00e9-Power or Pok\u00e9-Body, this attack does 40 damage instead. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=special_circuit(20, 40),
         ),
     ],
 )

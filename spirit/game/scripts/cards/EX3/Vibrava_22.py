@@ -2,8 +2,9 @@
 Vibrava (EX3 #22): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import quick_charge_different_types, flip_spread_all
 
 card = PokemonCardDef(
     guid="c7ed75ea-1fca-56e8-8e57-4e05ba97ac94",
@@ -29,14 +30,14 @@ card = PokemonCardDef(
             game_text="Search your deck for up to 3 different types of basic Energy cards, show them to your opponent, and put them into your hand. Shuffle your deck afterward.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=quick_charge_different_types(3),
         ),
         Attack(
             title="Dragon Spark",
             game_text="Flip a coin. If heads, this attack does 20 damage to each of your opponent's Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.GRASS: 1, PokemonTypes.LIGHTNING: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_spread_all(20),
         ),
     ],
 )

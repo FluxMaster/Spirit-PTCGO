@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Kingdra ex (EX3 #92): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import extra_energy_damage
 
 card = PokemonCardDef(
     guid="21ae8767-3507-5605-9048-29effbbc110b",
@@ -37,7 +34,7 @@ card = PokemonCardDef(
             damage=50,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=extra_energy_damage(20, base=50, energy_type=PokemonTypes.WATER),
         ),
     ],
 )

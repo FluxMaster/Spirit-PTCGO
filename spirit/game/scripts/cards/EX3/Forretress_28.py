@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Forretress (EX3 #28): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import place_counters
+from spirit.game.card_effects.ex import backspin
 
 card = PokemonCardDef(
     guid="b9bee763-7217-58d3-8638-1b73c5c053d0",
@@ -29,7 +27,7 @@ card = PokemonCardDef(
             game_text="Put 2 damage counters on each Defending Pok\u00e9mon.",
             cost={PokemonTypes.METAL: 1, PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=place_counters(2, target="opponent_active"),
         ),
         Attack(
             title="Backspin",
@@ -37,7 +35,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=40,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=backspin(),
         ),
     ],
 )

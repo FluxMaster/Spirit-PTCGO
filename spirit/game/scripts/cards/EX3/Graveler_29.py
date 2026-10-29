@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Graveler (EX3 #29): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import damage_per, count_energy
+from spirit.game.card_effects.ex import damage_each_active
 
 card = PokemonCardDef(
     guid="71f9ed92-b48b-56f7-bea5-5ea0786f2eba",
@@ -30,14 +28,14 @@ card = PokemonCardDef(
             damage=10,
             damage_operator="x",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_per(count_energy("self"), 10),
         ),
         Attack(
             title="Big Explosion",
             game_text="Does 80 damage to each Active Pok\u00e9mon (both yours and your opponent's).",
             cost={PokemonTypes.FIGHTING: 2, PokemonTypes.COLORLESS: 2},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_each_active(80),
         ),
     ],
 )

@@ -2,10 +2,12 @@
 Roselia (EX3 #9): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.passives_common import condition_immunity_passive
+from spirit.game.card_effects.ex import speed_growth
 
 
 card = PokemonCardDef(
@@ -30,14 +32,14 @@ card = PokemonCardDef(
             game_text="Roselia can't be affected by any Special Conditions.",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=condition_immunity_passive(),
         ),
         Attack(
             title="Speed Growth",
             game_text="Attach up to 2 Grass Energy cards from your hand to your Pok\u00e9mon in any way you like.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=speed_growth(2, PokemonTypes.GRASS),
         ),
         Attack(
             title="Sleep Powder",

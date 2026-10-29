@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Flygon (EX3 #15): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import flip_tails_discard_energy, flip_reduce_damage_passive
 
 card = PokemonCardDef(
     guid="3c8c873f-9227-5080-90be-0d971c529c0e",
@@ -27,7 +24,7 @@ card = PokemonCardDef(
             game_text="Whenever Flygon would be damaged by your opponent's attack (after applying Weakness and Resistance), flip a coin. If heads, reduce that damage by 20.",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=flip_reduce_damage_passive(20, title="Sand Guard"),
         ),
         Attack(
             title="Air Slash",
@@ -35,7 +32,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1, PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 1},
             damage=60,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_tails_discard_energy(),
         ),
     ],
 )

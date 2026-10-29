@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Latios ex (EX3 #94): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import self_energy_discard_attack
+from spirit.game.card_effects.ex import flip_attach_from_discard
+from spirit.game.card_effects.trainers import is_basic_energy_card
 
 card = PokemonCardDef(
     guid="38f39a28-dc01-570d-aba1-d6db7fe3a901",
@@ -29,7 +28,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_attach_from_discard(predicate=is_basic_energy_card),
         ),
         Attack(
             title="Luster Purge",
@@ -37,7 +36,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1, PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 1},
             damage=100,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=self_energy_discard_attack(count=3),
         ),
     ],
 )
