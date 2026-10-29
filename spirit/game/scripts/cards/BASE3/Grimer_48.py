@@ -1,11 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Grimer (BASE3 #48): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.passives_common import protect_next_turn
 
 
 card = PokemonCardDef(
@@ -30,15 +27,13 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon is now Paralyzed.",
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.PARALYZED, flip=True),
         ),
         Attack(
             title="Minimize",
             game_text="All damage done by attacks to Grimer during your opponent's next turn is reduced by 20 (after applying Weakness and Resistance).",
             cost={PokemonTypes.GRASS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=protect_next_turn(reduce=20),
         ),
     ],
 )

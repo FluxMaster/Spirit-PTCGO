@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Psyduck (BASE3 #53): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_damage
+from spirit.game.card_effects.ecard import headache
 
 
 card = PokemonCardDef(
@@ -28,8 +25,7 @@ card = PokemonCardDef(
             title="Headache",
             game_text="Your opponent can't play Trainer cards during his or her next turn.",
             cost={PokemonTypes.PSYCHIC: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=headache,
         ),
         Attack(
             title="Fury Swipes",
@@ -37,7 +33,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1},
             damage=10,
             damage_operator="x",
-            # STUB: attack effect not implemented
             effect=flip_damage(coins=3, per_heads=10),
         ),
     ],

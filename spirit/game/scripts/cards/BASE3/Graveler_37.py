@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Graveler (BASE3 #37): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import harden
+
 
 card = PokemonCardDef(
     guid="562380f1-54a8-5c5b-9516-da5e2c13f8c6",
@@ -27,8 +25,7 @@ card = PokemonCardDef(
             title="Harden",
             game_text="During your opponent's next turn, whenever 30 or less damage is done to Graveler (after applying Weakness and Resistance), prevent that damage. (Any other effects of attacks still happen.)",
             cost={PokemonTypes.FIGHTING: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=harden(30),
         ),
         Attack(
             title="Rock Throw",

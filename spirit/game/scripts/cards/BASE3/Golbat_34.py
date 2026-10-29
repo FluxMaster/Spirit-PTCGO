@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Golbat (BASE3 #34): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import leech_life
+
 
 card = PokemonCardDef(
     guid="3698c10b-fe77-5951-800e-dbb63c25cb61",
@@ -34,8 +32,7 @@ card = PokemonCardDef(
             game_text="Remove a number of damage counters from Golbat equal to the damage done to the Defending Pok\u00e9mon (after applying Weakness and Resistance). If Golbat has fewer damage counters than that, remove all of them.",
             cost={PokemonTypes.GRASS: 2, PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=leech_life,
         ),
     ],
 )

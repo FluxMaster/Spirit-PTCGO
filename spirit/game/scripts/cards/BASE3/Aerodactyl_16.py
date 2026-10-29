@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Aerodactyl (BASE3 #16): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ecard import prehistoric_power
+
 
 card = PokemonCardDef(
     guid="6b2f6d72-5830-54dc-bd86-595a350f32fa",
@@ -27,9 +25,8 @@ card = PokemonCardDef(
         Ability(
             title="Prehistoric Power",
             game_text="No more Evolution cards can be played. This power stops working while Aerodactyl is Asleep, Confused, or Paralyzed.",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            passive=prehistoric_power,
         ),
         Attack(
             title="Wing Attack",

@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Kabuto (BASE3 #50): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ecard import kabuto_armor
+
 
 card = PokemonCardDef(
     guid="3061cd69-77ed-5bf8-8af4-74fbac8ef597",
@@ -26,9 +24,8 @@ card = PokemonCardDef(
         Ability(
             title="Kabuto Armor",
             game_text="Whenever an attack (even your own) does damage to Kabuto (after applying Weakness and Resistance), that attack does half the damage to Kabuto (rounded down to the nearest 10). (Any other effects of attacks still happen.) This power stops working while Kabuto is Asleep, Confused, or Paralyzed.",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            passive=kabuto_armor,
         ),
         Attack(
             title="Scratch",

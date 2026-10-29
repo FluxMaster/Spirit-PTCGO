@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Krabby (BASE3 #51): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import call_for_family_condition, named_basic
+from spirit.game.card_effects.support_common import search_to_bench
+
 
 card = PokemonCardDef(
     guid="aac1a720-4b2b-55f3-8b65-76cb56c0b567",
@@ -26,8 +25,11 @@ card = PokemonCardDef(
             title="Call for Family",
             game_text="Search your deck for a Basic Pok\u00e9mon named Krabby and put it onto your Bench. Shuffle your deck afterward. (You can't use this attack if your Bench if full.)",
             cost={PokemonTypes.WATER: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            condition=call_for_family_condition,
+            effect=search_to_bench(
+                named_basic("Krabby"),
+                prompt="Choose a Basic Pokémon named Krabby to put onto your Bench.",
+            ),
         ),
         Attack(
             title="Irongrip",

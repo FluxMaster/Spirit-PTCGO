@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Ditto (BASE3 #18): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ecard import ditto_transform
+
 
 card = PokemonCardDef(
     guid="f17cea0b-f796-5e3a-9806-5f517dcdc483",
@@ -26,9 +24,8 @@ card = PokemonCardDef(
         Ability(
             title="Transform",
             game_text="If Ditto is your Active Pok\u00e9mon, treat it as if it were the same card as the Defending Pok\u00e9mon, including type, Hit Points, Weakness, and so on, except Ditto can't evolve, always has this Pok\u00e9mon Power, and you may treat any Energy attached to Ditto as Energy of any type. Ditto isn't a copy of any other Pok\u00e9mon while Ditto is Asleep, Confused, or Paralyzed.",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            passive=ditto_transform,
         ),
     ],
 )

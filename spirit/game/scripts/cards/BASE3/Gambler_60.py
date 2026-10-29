@@ -1,11 +1,5 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Gambler (BASE3 #60): trainer effect stubbed.
-
-Card text:
-  - Shuffle your hand into your deck. Flip a coin. If heads, draw 8 cards. If tails, draw 1 card.
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.card_effects.ecard import gambler
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
 
 card = ItemCardDef(
@@ -18,6 +12,5 @@ card = ItemCardDef(
     collector_number=60,
     set_code="BASE3",
     rarity=Rarities.Common,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=gambler,
 )

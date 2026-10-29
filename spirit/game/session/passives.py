@@ -275,6 +275,13 @@ class Passive:
         """True to forbid `player_id` playing `card` from hand (Vileplume)."""
         return False
 
+    def reveals_hand(
+        self, owner_id: str, viewer_id: str, carrier: BoardEntity
+    ) -> bool:
+        """True to make `owner_id`'s hand public to `viewer_id` (Omanyte
+        Clairvoyance: the opponent plays with their hand face up)."""
+        return False
+
     def may_evolve_early(self, pokemon: PokemonEntity, carrier: BoardEntity) -> bool:
         """True to exempt `pokemon` from the just-played/first-turn evolution
         gates (Caterpie's Adaptive Evolution)."""
@@ -732,6 +739,30 @@ def trainer_play_blocked(board: BoardState, player_id: str, card: BoardEntity) -
         passive.blocks_trainer_play(card, player_id, carrier)
         for passive, carrier in active_passives(board)
     )
+
+
+def hand_is_public(board: BoardState, owner_id: str, viewer_id: str) -> bool:
+    """Whether `viewer_id` may see the faces of `owner_id`'s hand cards."""
+    if owner_id == viewer_id:
+        return True
+    return any(
+        passive.reveals_hand(owner_id, viewer_id, carrier)
+        for passive, carrier in active_passives(board)
+    )
+
+
+def public_hand_pairs(board: BoardState) -> Set[Tuple[str, str]]:
+    """(owner, viewer) pairs whose hands a Clairvoyance-style passive opens."""
+    pairs: Set[Tuple[str, str]] = set()
+    player_ids = list(board.player_ids)
+    triples = active_passives(board)
+    for owner in player_ids:
+        for viewer in player_ids:
+            if owner == viewer:
+                continue
+            if any(p.reveals_hand(owner, viewer, c) for p, c in triples):
+                pairs.add((owner, viewer))
+    return pairs
 
 
 def discard_blocked(board: BoardState, card: BoardEntity) -> bool:

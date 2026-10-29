@@ -128,7 +128,8 @@ from .passives import (
     burn_recovery_blocked, effective_bench_capacity, effective_max_hp,
     effective_retreat_cost, energy_attach_blocked, energy_attach_taxer,
     evolve_heal_amount,
-    granted_extra_attacks, poke_bodies_ignored,
+    granted_extra_attacks, hand_is_public, poke_bodies_ignored,
+    public_hand_pairs,
     retreat_discards_remaining_energy,
     retreat_energy_destination, retreat_flip_required,
     tool_attach_allowed, tool_slots_free, tool_suppressed,
@@ -2150,6 +2151,33 @@ class GameSession:
                 if msgs:
                     await self.send_game_sequence([viewer], name, msgs)
 
+    async def _sync_public_hands(self):
+        """Introduce or re-hide hand cards as Clairvoyance-style passives toggle."""
+        desired = public_hand_pairs(self.board_state)
+        previous = getattr(self, "_public_hand_viewers", set())
+        self._public_hand_viewers = desired
+        newly_on = desired - previous
+        newly_off = previous - desired
+        if not newly_on and not newly_off:
+            return
+        for owner_id, viewer_id in newly_on:
+            viewer = self.players.get(viewer_id)
+            area = self.board_state.find_player_area(owner_id, "hand")
+            if viewer is None or not area or not area.children:
+                continue
+            intros = [self._entity_introduced_msg(card) for card in area.children]
+            await self.send_game_sequence(
+                [viewer], GameSequence.SERIAL_SEQUENCE, intros)
+        for owner_id, viewer_id in newly_off:
+            viewer = self.players.get(viewer_id)
+            area = self.board_state.find_player_area(owner_id, "hand")
+            if viewer is None or not area or not area.children:
+                continue
+            resets = [self._attributes_reset_msg(card.entity_id)
+                      for card in area.children]
+            await self.send_game_sequence(
+                [viewer], GameSequence.GROUPED_MOVE, resets)
+
     # ------------------------------------------------------------------
     # Knockouts, prizes, promotion, game end
     # ------------------------------------------------------------------
@@ -3255,6 +3283,7 @@ class GameSession:
                 )
         # Checkup KOs/triggers may have toggled bench-capacity passives.
         await self.enforce_bench_capacity()
+        await self._sync_public_hands()
 
     async def _checkup_poison(self, active):
         """Poison tick: 10 * poison_counters (default 1) raw damage."""
@@ -3496,10 +3525,12 @@ class GameSession:
         ])
         intros = [self._entity_introduced_msg(d["card"]) for d in drawn]
         for pid, player in self.players.items():
+            show_faces = pid == player_id or hand_is_public(
+                self.board_state, player_id, pid)
             await self.send_game_sequence(
                 [player],
                 GameSequence.DRAW,
-                (intros + [nested_moves]) if pid == player_id else [nested_moves],
+                (intros + [nested_moves]) if show_faces else [nested_moves],
             )
         return drawn
 
@@ -3796,6 +3827,7 @@ class GameSession:
             turn_over = await self._run_state_unit(
                 self._apply_player_action(active_id, entry, target_ids)
             )
+            await self._sync_public_hands()
             if turn_over:
                 return
         logging.warning(

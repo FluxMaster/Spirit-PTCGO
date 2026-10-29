@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Kingler (BASE3 #38): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import damage_counters_on, damage_per
+
 
 card = PokemonCardDef(
     guid="4ac6770e-49b1-5c00-983a-14ceca6e0937",
@@ -29,8 +27,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1},
             damage=10,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_per(damage_counters_on("self"), 10),
         ),
         Attack(
             title="Crabhammer",

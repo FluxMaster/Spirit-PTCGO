@@ -1,11 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Slowbro (BASE3 #43): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ecard import strange_behavior, strange_behavior_condition
 
 
 card = PokemonCardDef(
@@ -29,16 +26,16 @@ card = PokemonCardDef(
         Ability(
             title="Strange Behavior",
             game_text="As often as you like during your turn (before your attack), you may move 1 damage counter from 1 of your Pok\u00e9mon to Slowbro as long as you don't Knock Out Slowbro. This power can't be used if Slowbro is Asleep, Confused, or Paralyzed.",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            activation=Activations.UNLIMITED,
+            condition=strange_behavior_condition,
+            effect=strange_behavior,
         ),
         Attack(
             title="Psyshock",
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon is now Paralyzed.",
             cost={PokemonTypes.PSYCHIC: 2},
             damage=20,
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.PARALYZED, flip=True),
         ),
     ],

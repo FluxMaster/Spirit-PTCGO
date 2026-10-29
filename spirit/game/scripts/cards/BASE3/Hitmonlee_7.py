@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Hitmonlee (BASE3 #7): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import snipe_attack
+
 
 card = PokemonCardDef(
     guid="7370cbee-2ba0-5075-b988-526ad0bcd720",
@@ -26,8 +24,7 @@ card = PokemonCardDef(
             title="Stretch Kick",
             game_text="If your opponent has any Benched Pok\u00e9mon, choose 1 of them and this attack does 20 damage to it. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.FIGHTING: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=snipe_attack(20),
         ),
         Attack(
             title="High Jump Kick",

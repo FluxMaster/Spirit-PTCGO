@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Kabutops (BASE3 #9): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import mega_drain
+
 
 card = PokemonCardDef(
     guid="a6ee0858-3fe3-5ac0-8308-8e6c73f60f22",
@@ -33,8 +31,7 @@ card = PokemonCardDef(
             game_text="Remove a number of damage counters from Kabutops equal to half the damage done to the Defending Pok\u00e9mon (after applying Weakness and Resistance) (rounded up to the nearest 10). If Kabutops has fewer damage counters than that, remove all of them.",
             cost={PokemonTypes.FIGHTING: 4},
             damage=40,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=mega_drain,
         ),
     ],
 )

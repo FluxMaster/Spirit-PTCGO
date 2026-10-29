@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Tentacool (BASE3 #56): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ecard import cowardice, cowardice_condition
+
 
 card = PokemonCardDef(
     guid="39879b44-da05-574a-99e8-09cae0b17da1",
@@ -25,9 +23,10 @@ card = PokemonCardDef(
         Ability(
             title="Cowardice",
             game_text="At any time during your turn (before your attack), you may return Tentacool to your hand. (Discard all cards attached to Tentacool.) This power can't be used the turn you put Tentacool into play or if Tentacool is Asleep, Confused, or Paralyzed.",
-            ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            activation=Activations.ONCE_PER_TURN,
+            condition=cowardice_condition,
+            effect=cowardice,
         ),
         Attack(
             title="Acid",

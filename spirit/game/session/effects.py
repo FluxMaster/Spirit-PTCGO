@@ -61,6 +61,7 @@ from .passives import (
     healing_blocked,
     supporter_effect_replacement,
     trainer_effects_blocked,
+    hand_is_public,
 )
 
 # CakeAttackEffect's damageType is a string array of client type names.
@@ -1336,6 +1337,10 @@ class EffectContext:
             else:
                 self._queue(self.session._entity_introduced_msg(card), viewer_id=owner)
                 self._queue(move, viewer_id=owner)
+                if opponent and hand_is_public(self.board, owner, opponent):
+                    self._queue(
+                        self.session._entity_introduced_msg(card),
+                        viewer_id=opponent)
                 self._queue(move, viewer_id=opponent)
         for vid, entries in reveal_batches.items():
             self._queue_reveal_batch(entries, vid)

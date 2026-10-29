@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Golem (BASE3 #36): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ecard import selfdestruct_attack
+
 
 card = PokemonCardDef(
     guid="b5362e7e-9a23-5934-9fcc-657b33a929f7",
@@ -33,8 +31,7 @@ card = PokemonCardDef(
             game_text="Does 20 damage to each Pok\u00e9mon on each player's Bench. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.) Golem does 100 damage to itself.",
             cost={PokemonTypes.FIGHTING: 4},
             damage=100,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=selfdestruct_attack(bench_damage=20, self_damage=100),
         ),
     ],
 )

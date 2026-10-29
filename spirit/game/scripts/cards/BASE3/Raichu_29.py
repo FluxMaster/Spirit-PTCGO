@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Raichu (BASE3 #29): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import snipe_attack
+
 
 card = PokemonCardDef(
     guid="91b447d4-16a0-5b08-9194-cc771eef8f3c",
@@ -28,8 +26,7 @@ card = PokemonCardDef(
             game_text="Choose 3 of your opponent's Benched Pok\u00e9mon and this attack does 10 damage to each of them. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.) If your opponent has fewer than 3 Benched Pok\u00e9mon, do that damage to each of them.",
             cost={PokemonTypes.LIGHTNING: 4},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=snipe_attack(10, count=3, also_base=True),
         ),
     ],
 )

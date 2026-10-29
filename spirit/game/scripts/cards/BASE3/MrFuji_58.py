@@ -1,12 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Mr. Fuji (BASE3 #58): trainer effect stubbed.
-
-Card text:
-  - Choose a Pokémon on your Bench. Shuffle it and any cards attached to it into your deck.
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ecard import mr_fuji
+from spirit.game.card_effects.trainers import player_has_bench, play_targets
+
 
 card = ItemCardDef(
     guid="adf5c669-018e-5a78-82f9-21f3013e9322",
@@ -18,6 +14,8 @@ card = ItemCardDef(
     collector_number=58,
     set_code="BASE3",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=mr_fuji,
+    play_targets=play_targets(opponent=False, bench_only=True),
+    play_target_prompt="",
+    condition=player_has_bench,
 )

@@ -1,11 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Shellder (BASE3 #54): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.passives_common import flip_protection
 
 
 card = PokemonCardDef(
@@ -29,15 +26,13 @@ card = PokemonCardDef(
             title="Supersonic",
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon is now Confused.",
             cost={PokemonTypes.WATER: 1},
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.CONFUSED, flip=True),
         ),
         Attack(
             title="Hide in Shell",
             game_text="Flip a coin. If heads, prevent all damage done to Shellder during your opponent's next turn. (Any other effects of attacks still happen.)",
             cost={PokemonTypes.WATER: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_protection(prevent=True),
         ),
     ],
 )

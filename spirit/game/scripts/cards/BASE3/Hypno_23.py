@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Hypno (BASE3 #23): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import snipe_attack
+from spirit.game.card_effects.ecard import foresight
 
 
 card = PokemonCardDef(
@@ -29,15 +26,13 @@ card = PokemonCardDef(
             title="Prophecy",
             game_text="Look at up to 3 cards from the top of either player's deck and rearrange them as you like.",
             cost={PokemonTypes.PSYCHIC: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=foresight,
         ),
         Attack(
             title="Dark Mind",
             game_text="If your opponent has any Benched Pok\u00e9mon, choose 1 of them and this attack does 10 damage to it. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.PSYCHIC: 3},
             damage=30,
-            # STUB: attack effect not implemented
             effect=snipe_attack(10, also_base=True),
         ),
     ],
