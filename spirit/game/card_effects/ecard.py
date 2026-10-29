@@ -753,3 +753,44 @@ async def super_scoop_up(ctx):
                     f"{screen_name} has no Pokémon left",
                 )
         ctx.after_effects.append(_promote)
+
+
+# ----------------------------------------------------------------------
+# Tyranitar — Dark Aura / Venusaur — Harvest Bounty
+# ----------------------------------------------------------------------
+
+def _is_in_active_area(pokemon) -> bool:
+    parent = getattr(pokemon, "parent", None)
+    while parent is not None:
+        name = parent.get_attribute(AttrID.NAME) if hasattr(parent, "get_attribute") else None
+        if isinstance(name, dict):
+            name = name.get("id")
+        if name == "activePokemonArea":
+            return True
+        parent = getattr(parent, "parent", None)
+    return False
+
+
+class DarkAuraPassive(Passive):
+    """All Energy attached to the carrier provides Darkness instead."""
+
+    def modify_energy_provided(self, options, energy, holder, board):
+        if holder is None or getattr(energy, "parent_id", None) != holder.entity_id:
+            return options
+        dark = PokemonTypes.DARKNESS.value
+        if not options:
+            return [[dark]]
+        return [[dark] * max(1, len(option)) for option in options]
+
+
+class HarvestBountyPassive(Passive):
+    """Second Energy attach to Active after first manual attach this turn.
+    Off while Venusaur has a Special Condition (Poké-Power restriction)."""
+
+    def allows_second_energy_attach(self, pokemon, carrier):
+        if pokemon.owning_player_id != carrier.owning_player_id:
+            return False
+        if carrier.get_attribute(AttrID.SPECIAL_CONDITIONS):
+            return False
+        return _is_in_active_area(pokemon)
+

@@ -4153,6 +4153,14 @@ class GameSession:
         position = len(target.children)
         if not self.board_state.attach_card(card.entity_id, target_id):
             return
+        from spirit.game.session.passives import active_passives
+        if self.turn_state.energy_attached:
+            self.turn_state.alpha_growth_target = None  # 2nd attach used
+        elif any(
+            p.allows_second_energy_attach(target, c)
+            for p, c in active_passives(self.board_state)
+        ):
+            self.turn_state.alpha_growth_target = target.entity_id
         self.turn_state.energy_attached = True
         self.stat_add(player_id, "energyplayed")
         logging.info(

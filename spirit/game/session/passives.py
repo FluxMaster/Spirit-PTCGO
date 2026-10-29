@@ -203,6 +203,13 @@ class Passive:
         """Area name replacing "discard" for a knocked-out Pokemon (e.g. "lostZone")."""
         return None
 
+    def allows_second_energy_attach(
+        self, pokemon: PokemonEntity, carrier: BoardEntity
+    ) -> bool:
+        """True to let the owner attach a second Energy from hand to `pokemon`
+        this turn after the first manual attach (Venusaur Harvest Bounty)."""
+        return False
+
     def modify_prizes_for_knockout(
         self, pokemon: PokemonEntity, ctx: Any, count: int, carrier: BoardEntity
     ) -> int:
