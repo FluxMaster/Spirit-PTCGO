@@ -4,6 +4,8 @@ Lycanroc (Promo_SM #SM105): one or more attacks/abilities use effect=unimplement
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_bonus
+
 
 card = PokemonCardDef(
     guid="eeab892b-dc52-5f08-90ca-43c363e822fd",
@@ -35,7 +37,7 @@ card = PokemonCardDef(
             damage=90,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_bonus(30),
         ),
     ],
 )

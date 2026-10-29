@@ -1,9 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Charizard (Promo_SM #SM158): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.sm9 import (
+    continuous_blaze_ball,
+    roaring_resolve,
+)
 
 card = PokemonCardDef(
     guid="8cae49b3-008d-557a-a23f-28662866bc00",
@@ -21,14 +22,14 @@ card = PokemonCardDef(
     retreat_cost=2,
     weakness_type=PokemonTypes.WATER,
     evolves_from="com.direwolfdigital.cake.data.archetypes.pokemon.Charmeleon.Name",
-    family_id=6,
+    family_id=4,
     abilities=[
         Ability(
             title="Roaring Resolve",
             game_text="Once during your turn (before your attack), you may put 2 damage counters on this Pok\u00e9mon. If you do, search your deck for up to 2 Fire Energy cards and attach them to this Pok\u00e9mon. Then, shuffle your deck.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=roaring_resolve,
+            activation=Activations.ONCE_PER_TURN,
         ),
         Attack(
             title="Continuous Blaze Ball",
@@ -36,8 +37,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 2},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=continuous_blaze_ball,
         ),
     ],
 )

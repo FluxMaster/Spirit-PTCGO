@@ -1,9 +1,12 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Turtonator (Promo_SM #SM27): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import attach_from_discard
+from spirit.game.card_effects.pokemon import energy_provides_type
+
+
+def _is_fire_energy(card):
+    return energy_provides_type(card, PokemonTypes.FIRE.value)
+
 
 card = PokemonCardDef(
     guid="5a028157-0999-54ec-9dde-508ac86ea58c",
@@ -28,7 +31,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=attach_from_discard(predicate=_is_fire_energy),
         ),
         Attack(
             title="Heat Blast",

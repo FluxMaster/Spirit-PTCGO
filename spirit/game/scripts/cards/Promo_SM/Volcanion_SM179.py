@@ -1,9 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Volcanion (Promo_SM #SM179): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm10 import (
+    flare_starter,
+    high_heat_blast,
+)
 
 card = PokemonCardDef(
     guid="ecd53342-890c-5fca-9d11-a0ec65c47e3e",
@@ -26,8 +27,7 @@ card = PokemonCardDef(
             title="Flare Starter",
             game_text="Search your deck for a Fire Energy card and attach it to 1 of your Pok\u00e9mon. If you go second and it's your first turn, instead search for up to 3 Fire Energy cards and attach them to your Pok\u00e9mon in any way you like. Then, shuffle your deck.",
             cost={PokemonTypes.FIRE: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flare_starter
         ),
         Attack(
             title="High-Heat Blast",
@@ -35,8 +35,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 2},
             damage=50,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=high_heat_blast
         ),
     ],
 )

@@ -4,6 +4,8 @@ Flareon-GX (Promo_SM #SM171): one or more attacks/abilities use effect=unimpleme
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import self_energy_discard_attack
+
 
 card = PokemonCardDef(
     guid="d64e09fa-2b87-595d-bfbd-6de809a1582e",
@@ -37,7 +39,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 2, PokemonTypes.COLORLESS: 1},
             damage=190,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=self_energy_discard_attack(count=2, energy_type=PokemonTypes.FIRE),
         ),
         Attack(
             title="Power Burner-GX",

@@ -4,6 +4,18 @@ Snorlax-GX (Promo_SM #SM05): one or more attacks/abilities use effect=unimplemen
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.attributes import SpecialConditions, AttrID, CLIENT_SPECIAL_CONDITION_NAMES
+from spirit.game.card_effects.attacks_common import condition_attack
+
+
+async def hypno_roll(ctx):
+    """100 damage only while this Pokémon is Asleep."""
+    asleep = CLIENT_SPECIAL_CONDITION_NAMES[SpecialConditions.ASLEEP]
+    current = (ctx.attacker.get_attribute(AttrID.SPECIAL_CONDITIONS) or []) if ctx.attacker else []
+    if asleep not in current:
+        return
+    await ctx.deal_damage()
+
 
 card = PokemonCardDef(
     guid="284585c5-ca7c-5de6-9720-26d4cd90b869",
@@ -28,7 +40,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=80,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(self_conditions=(SpecialConditions.ASLEEP,)),
         ),
         Attack(
             title="Thunderous Snore",
@@ -36,7 +48,8 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 5},
             damage=180,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            usable_despite_conditions=True,
+            effect=hypno_roll,
         ),
         Attack(
             title="Pulverizing Pancake-GX",

@@ -1,9 +1,16 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Oranguru (Promo_SM #SM13): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.data_utils import Activations
+from spirit.game.card_effects.attacks_common import damage_per, count_energy
+
+def _instruct_condition(board, player_id, pokemon=None):
+    hand = board.find_player_area(player_id, "hand")
+    deck = board.find_player_area(player_id, "deck")
+    return len(hand.children if hand else []) < 3 and bool(deck and deck.children)
+
+async def _instruct(ctx):
+    """Draw cards until you have 3 cards in your hand."""
+    await ctx.draw_until(3)
 
 card = PokemonCardDef(
     guid="c5b0b08a-91d9-5413-9649-dfe687bf0905",
@@ -26,8 +33,9 @@ card = PokemonCardDef(
             title="Instruct",
             game_text="Once during your turn (before your attack), you may draw cards until you have 3 cards in your hand.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=_instruct_condition,
+            effect=_instruct,
         ),
         Attack(
             title="Psychic",
@@ -35,8 +43,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=60,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_per(count_energy('defender'), 20, base=60),
         ),
     ],
 )

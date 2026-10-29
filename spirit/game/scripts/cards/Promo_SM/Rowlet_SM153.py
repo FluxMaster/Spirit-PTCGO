@@ -4,6 +4,8 @@ Rowlet (Promo_SM #SM153): one or more attacks/abilities use effect=unimplemented
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_bonus
+
 
 card = PokemonCardDef(
     guid="6d3f1269-284e-5f57-b1bc-10f974a55a2b",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             damage=10,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_bonus(30),
         ),
     ],
 )

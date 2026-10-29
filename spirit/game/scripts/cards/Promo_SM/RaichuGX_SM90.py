@@ -1,9 +1,14 @@
 """STUB: effect not implemented — do not guess mechanics.
-Raichu-GX (Promo_SM #SM90): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
+Raichu-GX (SL #29): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import (
+    condition_attack, count_energy, damage_per, recoil_attack,
+)
+from spirit.game.attributes import SpecialConditions
+
 
 card = PokemonCardDef(
     guid="2f6ab80d-a9c2-54fa-b380-e554ac7dcc1b",
@@ -31,8 +36,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=20,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_per(count_energy("mine", PokemonTypes.LIGHTNING), 20, base=20),
         ),
         Attack(
             title="Thunder",
@@ -40,7 +44,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 2, PokemonTypes.COLORLESS: 1},
             damage=160,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=recoil_attack(30),
         ),
         Attack(
             title="Voltail-GX",
@@ -48,7 +52,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 2, PokemonTypes.COLORLESS: 1},
             damage=120,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(SpecialConditions.PARALYZED),
         ),
     ],
 )

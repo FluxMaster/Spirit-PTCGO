@@ -4,6 +4,9 @@ Tornadus-GX (Promo_SM #SM134): one or more attacks/abilities use effect=unimplem
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_damage
+from spirit.game.card_effects.hf import psycrush_gx
+
 
 card = PokemonCardDef(
     guid="8184e12f-0cb6-546e-a819-355e8346242c",
@@ -36,7 +39,7 @@ card = PokemonCardDef(
             damage=90,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(until_tails=True, bonus_per_heads=30),
         ),
         Attack(
             title="Destructive Cyclone-GX",
@@ -44,7 +47,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=130,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=psycrush_gx,
         ),
     ],
 )

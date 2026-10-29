@@ -4,6 +4,8 @@ Shining Lugia (Promo_SM #SM82): one or more attacks/abilities use effect=unimple
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm7 import silver_fist
+
 
 card = PokemonCardDef(
     guid="716075ec-3ba0-526f-87bd-7a4193e7cd93",
@@ -31,7 +33,7 @@ card = PokemonCardDef(
             damage=60,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=silver_fist,
         ),
         Attack(
             title="Aero Force",

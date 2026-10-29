@@ -4,6 +4,8 @@ Alolan Sandslash (Promo_SM #SM127): one or more attacks/abilities use effect=uni
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_bonus
+
 
 card = PokemonCardDef(
     guid="f5caccac-bcd2-52e4-a490-7182b6b6afe7",
@@ -37,7 +39,7 @@ card = PokemonCardDef(
             damage=80,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_bonus(40),
         ),
     ],
 )

@@ -4,6 +4,8 @@ Vaporeon-GX (Promo_SM #SM172): one or more attacks/abilities use effect=unimplem
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm9 import hydro_pump
+
 
 card = PokemonCardDef(
     guid="10b9217c-fcec-5f3c-8db6-c4ce6e7ac44c",
@@ -37,7 +39,7 @@ card = PokemonCardDef(
             damage=40,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=hydro_pump,
         ),
         Attack(
             title="Cure Shower-GX",

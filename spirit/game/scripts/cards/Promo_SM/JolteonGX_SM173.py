@@ -4,6 +4,9 @@ Jolteon-GX (Promo_SM #SM173): one or more attacks/abilities use effect=unimpleme
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm8 import lava_burn
+from spirit.game.card_effects.passives_common import protect_next_turn
+
 
 card = PokemonCardDef(
     guid="a58f79c2-8821-5282-aba7-9ccbec570120",
@@ -31,7 +34,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 1},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=lava_burn,
         ),
         Attack(
             title="Head Bolt",
@@ -44,7 +47,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 1},
             damage=110,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=protect_next_turn(prevent=True, effects_too=True),
         ),
     ],
 )

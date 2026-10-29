@@ -4,6 +4,8 @@ Regigigas (Promo_SM #SM243): one or more attacks/abilities use effect=unimplemen
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import mill_attack
+
 
 card = PokemonCardDef(
     guid="c162ea61-d52e-5a6b-9780-f95fc8214c0c",
@@ -33,7 +35,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1, PokemonTypes.FIGHTING: 1, PokemonTypes.METAL: 1, PokemonTypes.COLORLESS: 2},
             damage=180,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=mill_attack(1),
         ),
     ],
 )

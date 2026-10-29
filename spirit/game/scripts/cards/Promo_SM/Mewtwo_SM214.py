@@ -1,9 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Mewtwo (Promo_SM #SM214): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.pokemon import shred
+
+from spirit.game.card_effects.sm10 import (
+    mind_report,
+)
 
 card = PokemonCardDef(
     guid="58de1262-e972-54ea-9e6f-182eb64eb3ac",
@@ -26,16 +27,15 @@ card = PokemonCardDef(
             title="Mind Report",
             game_text="When you play this Pok\u00e9mon from your hand onto your Bench during your turn, you may put a Supporter card from your discard pile on top of your deck.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=Triggers.ON_PLAY,
+            effect=mind_report
         ),
         Attack(
             title="Psyshock",
             game_text="This attack's damage isn't affected by any effects on your opponent's Active Pok\u00e9mon.",
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 2},
             damage=70,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=shred,
         ),
     ],
 )

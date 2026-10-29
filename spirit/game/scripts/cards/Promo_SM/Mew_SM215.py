@@ -1,9 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Mew (Promo_SM #SM215): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import place_counters
+
+from spirit.game.card_effects.sm10 import (
+    bench_barrier_passive,
+)
 
 card = PokemonCardDef(
     guid="ad2a3698-801f-5103-89ba-3efdeff4f1d9",
@@ -26,15 +27,13 @@ card = PokemonCardDef(
             title="Bench Barrier",
             game_text="Prevent all damage done to your Benched Pok\u00e9mon by your opponent's attacks.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=bench_barrier_passive
         ),
         Attack(
             title="Psypower",
             game_text="Put 3 damage counters on your opponent's Pok\u00e9mon in any way you like.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=place_counters(3, 'choose_any_opponent'),
         ),
     ],
 )

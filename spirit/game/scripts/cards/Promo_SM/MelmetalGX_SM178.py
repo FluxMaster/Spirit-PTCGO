@@ -4,6 +4,8 @@ Melmetal-GX (Promo_SM #SM178): one or more attacks/abilities use effect=unimplem
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.passives_common import takes_less_passive
+
 
 card = PokemonCardDef(
     guid="95696891-373f-50df-bb36-b613d5a4b601",
@@ -30,7 +32,7 @@ card = PokemonCardDef(
             game_text="This Pok\u00e9mon takes 30 less damage from attacks (after applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_ABILITY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=takes_less_passive(30),
         ),
         Attack(
             title="Metal Blast",

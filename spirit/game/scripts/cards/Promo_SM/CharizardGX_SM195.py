@@ -4,6 +4,8 @@ Charizard-GX (Promo_SM #SM195): one or more attacks/abilities use effect=unimple
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm4 import dread_storm_gx
+
 
 card = PokemonCardDef(
     guid="503aba75-0ade-54b6-a582-12e9015d4b76",
@@ -41,7 +43,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 2, PokemonTypes.COLORLESS: 3},
             damage=250,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=dread_storm_gx,
         ),
     ],
 )

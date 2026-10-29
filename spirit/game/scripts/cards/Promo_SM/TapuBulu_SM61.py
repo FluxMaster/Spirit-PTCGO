@@ -4,6 +4,9 @@ Tapu Bulu (Promo_SM #SM61): one or more attacks/abilities use effect=unimplement
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import heal_attack
+from spirit.game.card_effects.sm6 import calm_strike
+
 
 card = PokemonCardDef(
     guid="d1f8a989-602f-5c34-88dc-85e464acecf3",
@@ -28,7 +31,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=heal_attack(30, target='self'),
         ),
         Attack(
             title="Calm Strike",
@@ -37,7 +40,7 @@ card = PokemonCardDef(
             damage=60,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=calm_strike,
         ),
     ],
 )

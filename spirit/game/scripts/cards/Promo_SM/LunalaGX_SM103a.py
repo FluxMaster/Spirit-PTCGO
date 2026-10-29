@@ -4,6 +4,8 @@ Lunala-GX (Promo_SM #SM103a): one or more attacks/abilities use effect=unimpleme
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.gum import break_burn
+
 
 card = PokemonCardDef(
     guid="f246fe26-83f3-5cb3-b632-fd7942d17a69",
@@ -36,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 2, PokemonTypes.COLORLESS: 2},
             damage=200,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=break_burn,
         ),
         Attack(
             title="Requiem-GX",
@@ -44,7 +46,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 3, PokemonTypes.COLORLESS: 1},
             damage=250,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=None,
         ),
     ],
 )

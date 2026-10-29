@@ -4,6 +4,36 @@ Solgaleo-GX (Promo_SM #SM104): one or more attacks/abilities use effect=unimplem
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.trainers import is_basic_energy_card
+
+
+async def turbo_storm(ctx):
+    """30 damage; attach 2 basic Energy from discard to 1 Benched Pokémon."""
+    await ctx.deal_damage()
+    bench = ctx.my_bench()
+    if not bench:
+        return
+    pool = [c for c in ctx.discard_pile() if is_basic_energy_card(c)]
+    if not pool:
+        return
+    picks = await ctx.choose_cards(
+        pool, 2, minimum=0,
+        prompt="Choose up to 2 basic Energy cards to attach",
+    )
+    if not picks:
+        return
+    target = await ctx.choose_pokemon(bench, "Choose a Benched Pokémon to attach the Energy to")
+    if target is None:
+        return
+    for energy in picks:
+        await ctx.attach_energy(energy, target)
+
+
+async def _grand_echo(ctx):
+    """Heal all damage from all of your Pokemon."""
+    for p in ctx.my_pokemon_in_play():
+        await ctx.heal(ctx.max_hp(p), p)
+
 
 card = PokemonCardDef(
     guid="a7921108-dc5d-545a-8d3b-d63b3adc1198",
@@ -38,14 +68,14 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=120,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=turbo_storm,
         ),
         Attack(
             title="Prominence-GX",
             game_text="Heal all damage from all of your Pok\u00e9mon. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.COLORLESS: 2},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=_grand_echo,
         ),
     ],
 )

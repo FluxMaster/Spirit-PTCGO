@@ -4,6 +4,13 @@ Tsareena-GX (Promo_SM #SM56): one or more attacks/abilities use effect=unimpleme
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.attributes import SpecialConditions
+from spirit.game.card_effects.support_common import gust_then
+
+
+async def _alluring_dance_confuse(ctx, new_active):
+    await ctx.apply_special_condition(new_active, SpecialConditions.CONFUSED)
+
 
 card = PokemonCardDef(
     guid="f2c11361-ca14-5028-b624-4d9259aa460a",
@@ -28,7 +35,7 @@ card = PokemonCardDef(
             game_text="Switch 1 of your opponent's Benched Pok\u00e9mon with their Active Pok\u00e9mon. The new Active Pok\u00e9mon is now Confused.",
             cost={PokemonTypes.GRASS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=gust_then(_alluring_dance_confuse),
         ),
         Attack(
             title="Jumping Side Kick",

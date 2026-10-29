@@ -1,9 +1,12 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Regirock (Promo_SM #SM74): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm4 import rock_peak_growl_passive
+
+
+async def feint(ctx):
+    """30. This attack's damage isn't affected by Resistance."""
+    await ctx.deal_damage(ignore_resistance=True)
+
 
 card = PokemonCardDef(
     guid="cd9d9c7c-6d5f-5537-b8b1-178ccd61630f",
@@ -26,8 +29,7 @@ card = PokemonCardDef(
             title="Rock Peak Growl",
             game_text="Your Registeel's attacks do 10 more damage to your opponent's Active Pok\u00e9mon (before applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=rock_peak_growl_passive,
         ),
         Attack(
             title="Tough Swing",
@@ -35,7 +37,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 2, PokemonTypes.COLORLESS: 1},
             damage=110,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=feint,
         ),
     ],
 )

@@ -4,6 +4,16 @@ Mimikyu (Promo_SM #SM163): one or more attacks/abilities use effect=unimplemente
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_bonus
+
+
+async def synchrodraw(ctx):
+    """Shuffle your hand into your deck. Then, draw a card for each card in
+    your opponent's hand."""
+    draw_count = ctx.hand_size(ctx.opponent_id)
+    await ctx.shuffle_into_deck(ctx.hand(), ctx.player_id)
+    await ctx.draw_cards(draw_count)
+
 
 card = PokemonCardDef(
     guid="6e0cb3ea-0956-54bb-98d2-4eddf01be725",
@@ -26,7 +36,7 @@ card = PokemonCardDef(
             game_text="Shuffle your hand into your deck. Then, draw a card for each card in your opponent's hand.",
             cost={PokemonTypes.FAIRY: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=synchrodraw,
         ),
         Attack(
             title="Play Rough",
@@ -35,7 +45,7 @@ card = PokemonCardDef(
             damage=20,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_bonus(20),
         ),
     ],
 )

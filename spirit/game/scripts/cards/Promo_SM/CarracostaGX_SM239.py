@@ -4,6 +4,8 @@ Carracosta-GX (Promo_SM #SM239): one or more attacks/abilities use effect=unimpl
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import condition_attack
+
 
 card = PokemonCardDef(
     guid="6d49c709-36f0-5e9b-bc64-c132bdb29805",
@@ -36,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 3},
             damage=160,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(no_retreat=True),
         ),
         Attack(
             title="Stone Age-GX",

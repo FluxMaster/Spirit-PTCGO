@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Venusaur & Snivy-GX (Promo_SM #SM229): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm12 import shining_vine, solar_plant_gx
 
 card = PokemonCardDef(
     guid="b7d1166c-3630-5ca9-8770-8eec68c5d4f2",
@@ -26,8 +23,9 @@ card = PokemonCardDef(
             title="Shining Vine",
             game_text="Once during your turn, if this Pok\u00e9mon is your Active Pok\u00e9mon, when you attach a Grass Energy card from your hand to it, you may switch 1 of your opponent's Benched Pok\u00e9mon with their Active Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=Triggers.ON_ENERGY_ATTACHED,
+            shared_once_per_turn="Shining Vine",
+            effect=shining_vine,
         ),
         Attack(
             title="Forest Dump",
@@ -38,8 +36,7 @@ card = PokemonCardDef(
             title="Solar Plant-GX",
             game_text="This attack does 50 damage to each of your opponent's Pok\u00e9mon. If this Pok\u00e9mon has at least 2 extra Energy attached to it (in addition to this attack's cost), heal all damage from all of your Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.) (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.COLORLESS: 3},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=solar_plant_gx,
         ),
     ],
 )

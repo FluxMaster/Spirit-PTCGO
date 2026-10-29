@@ -4,6 +4,8 @@ Zoroark (Promo_SM #SM89): one or more attacks/abilities use effect=unimplemented
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.hf import wrap
+
 
 card = PokemonCardDef(
     guid="73ae53b1-64c8-550a-ab78-61b52ead1d10",
@@ -31,7 +33,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=wrap,
         ),
         Attack(
             title="Doom Crush",

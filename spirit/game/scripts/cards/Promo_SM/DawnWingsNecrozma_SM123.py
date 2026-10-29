@@ -4,6 +4,8 @@ Dawn Wings Necrozma (Promo_SM #SM123): one or more attacks/abilities use effect=
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import self_energy_discard_attack
+
 
 card = PokemonCardDef(
     guid="0666f414-32cd-5e9a-a1ff-ef7dd9de7a7f",
@@ -39,7 +41,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 3},
             damage=130,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=self_energy_discard_attack(count=2),
         ),
     ],
 )

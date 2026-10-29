@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Tapu Lele (Promo_SM #SM152): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.sm8 import (
+    charmed_charm,
+)
 
 card = PokemonCardDef(
     guid="c9ec63b8-9a6d-5f19-948f-f572ddd7032e",
@@ -28,8 +28,8 @@ card = PokemonCardDef(
             title="Charmed Charm",
             game_text="Whenever you attach a Pok\u00e9mon Tool card that has \"Fairy Charm\" in its name from your hand to this Pok\u00e9mon during your turn, you may leave your opponent's Active Pok\u00e9mon Confused.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=charmed_charm,
+            trigger=Triggers.ON_TOOL_ATTACHED,
         ),
         Attack(
             title="Magical Shot",

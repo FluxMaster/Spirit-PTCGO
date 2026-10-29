@@ -4,6 +4,8 @@ Vikavolt (Promo_SM #SM208): one or more attacks/abilities use effect=unimplement
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm10 import stealthy_body_passive, electricannon
+
 
 card = PokemonCardDef(
     guid="061ac64c-5ca1-57cb-a0af-610ad9b2f227",
@@ -30,7 +32,7 @@ card = PokemonCardDef(
             game_text="If there is any Stadium card in play, this Pok\u00e9mon has no Weakness.",
             ability_type=AbilityTypes.POKE_ABILITY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=stealthy_body_passive,
         ),
         Attack(
             title="Electricannon",
@@ -39,7 +41,7 @@ card = PokemonCardDef(
             damage=120,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=electricannon,
         ),
     ],
 )

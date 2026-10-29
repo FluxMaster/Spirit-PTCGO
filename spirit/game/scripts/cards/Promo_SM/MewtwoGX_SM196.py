@@ -4,6 +4,9 @@ Mewtwo-GX (Promo_SM #SM196): one or more attacks/abilities use effect=unimplemen
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import snipe_attack, condition_attack
+from spirit.game.attributes import SpecialConditions
+
 
 card = PokemonCardDef(
     guid="7a4af434-c6b0-56aa-ba20-f767a02a4688",
@@ -27,7 +30,7 @@ card = PokemonCardDef(
             game_text="This attack does 50 damage to 1 of your opponent's Pok\u00e9mon. This damage isn't affected by Weakness or Resistance.",
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=snipe_attack(50, pool='any', apply_modifiers=False),
         ),
         Attack(
             title="Reigning Pulse",
@@ -35,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 2, PokemonTypes.COLORLESS: 2},
             damage=120,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(SpecialConditions.CONFUSED),
         ),
         Attack(
             title="Psychic Nova-GX",

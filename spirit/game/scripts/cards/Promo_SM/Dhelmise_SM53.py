@@ -1,9 +1,15 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dhelmise (Promo_SM #SM53): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.attributes import AttrID, PokemonTypes
+
+
+from spirit.game.card_effects.passives_common import team_damage_boost_passive
+
+
+def _is_metal_pokemon(pokemon):
+    return PokemonTypes.METAL.value in (pokemon.get_attribute(AttrID.POKEMON_TYPES) or [])
+
 
 card = PokemonCardDef(
     guid="7ac89f64-5e0f-5dc9-846b-db66b69015d0",
@@ -28,16 +34,15 @@ card = PokemonCardDef(
             title="Steelworker",
             game_text="Your Metal Pok\u00e9mon's attacks do 10 more damage to your opponent's Active Pok\u00e9mon (before applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=team_damage_boost_passive(10, attacker_pred=_is_metal_pokemon),
+            effect=None,
         ),
         Attack(
             title="Anchor Shot",
             game_text="The Defending Pok\u00e9mon can't retreat during your opponent's next turn.",
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 2},
             damage=70,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(no_retreat=True),
         ),
     ],
 )

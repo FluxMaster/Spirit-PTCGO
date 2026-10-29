@@ -4,6 +4,8 @@ Manectric (Promo_SM #SM130): one or more attacks/abilities use effect=unimplemen
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm7 import double_charge
+
 
 card = PokemonCardDef(
     guid="c8471fcc-7d43-5ef5-92c0-7576dd85f850",
@@ -38,7 +40,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 1},
             damage=40,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=double_charge,
         ),
     ],
 )

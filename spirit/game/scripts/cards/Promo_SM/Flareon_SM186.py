@@ -4,6 +4,8 @@ Flareon (Promo_SM #SM186): one or more attacks/abilities use effect=unimplemente
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import self_energy_discard_attack
+
 
 card = PokemonCardDef(
     guid="941ec40a-92a5-55d2-9e43-d72247c951a8",
@@ -34,7 +36,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 2, PokemonTypes.COLORLESS: 1},
             damage=130,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=self_energy_discard_attack(count=2, energy_type=PokemonTypes.FIRE),
         ),
     ],
 )

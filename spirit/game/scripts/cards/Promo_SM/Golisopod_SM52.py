@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Golisopod (Promo_SM #SM52): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.passives_common import takes_less_passive
+from spirit.game.card_effects.attacks_common import bonus_if
+from spirit.game.data_utils import subtypes_for
+
 
 card = PokemonCardDef(
     guid="794368df-21fd-5df6-8d58-0c4850adb6f0",
@@ -21,14 +21,13 @@ card = PokemonCardDef(
     retreat_cost=2,
     weakness_type=PokemonTypes.FIRE,
     evolves_from="com.direwolfdigital.cake.data.archetypes.pokemon.Wimpod.Name",
-    family_id=768,
+    family_id=767,
     abilities=[
         Ability(
             title="Armor",
             game_text="This Pok\u00e9mon takes 30 less damage from attacks (after applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=takes_less_passive(30),
         ),
         Attack(
             title="Resolute Claws",
@@ -36,8 +35,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 2},
             damage=80,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bonus_if(lambda ctx: ctx.defender is not None and ('GX' in subtypes_for(ctx.defender.archetype_id) or 'EX' in subtypes_for(ctx.defender.archetype_id)), 70),
         ),
     ],
 )

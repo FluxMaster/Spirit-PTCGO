@@ -4,6 +4,8 @@ Zygarde-GX (Promo_SM #SM122): one or more attacks/abilities use effect=unimpleme
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import heal_attack
+
 
 card = PokemonCardDef(
     guid="5a96fb64-d01d-5301-962a-7f4222ed7189",
@@ -33,7 +35,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 2},
             damage=80,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=heal_attack(30, target='self'),
         ),
         Attack(
             title="Liberation-GX",

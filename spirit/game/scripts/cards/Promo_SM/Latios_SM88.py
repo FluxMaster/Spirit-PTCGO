@@ -1,9 +1,11 @@
 """STUB: effect not implemented — do not guess mechanics.
-Latios (Promo_SM #SM88): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
+Latios (SL #41): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import snipe_attack
+
 
 card = PokemonCardDef(
     guid="e5ae55da-c120-5572-a8ec-a843ad50e35f",
@@ -28,7 +30,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=snipe_attack(30),
         ),
         Attack(
             title="Lagoon Flight",

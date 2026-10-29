@@ -4,6 +4,8 @@ Bewear-GX (Promo_SM #SM34): one or more attacks/abilities use effect=unimplement
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import condition_attack, flip_damage
+
 
 card = PokemonCardDef(
     guid="cdcefae1-d890-537e-93d1-aa877b231586",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=80,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(no_retreat=True),
         ),
         Attack(
             title="Double Impact",
@@ -38,7 +40,7 @@ card = PokemonCardDef(
             damage=100,
             damage_operator="x",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(coins=2, per_heads=100),
         ),
         Attack(
             title="Big Throw-GX",

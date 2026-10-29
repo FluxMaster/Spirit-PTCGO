@@ -4,6 +4,8 @@ Glaceon (Promo_SM #SM238): one or more attacks/abilities use effect=unimplemente
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.passives_common import flip_protection
+
 
 card = PokemonCardDef(
     guid="1ab11779-bf49-5142-a930-b36cb2ccce9c",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_protection(prevent=True, effects_too=True),
         ),
         Attack(
             title="Hypnotic Blizzard",

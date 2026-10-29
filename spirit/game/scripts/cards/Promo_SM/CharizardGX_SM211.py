@@ -1,8 +1,4 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Charizard-GX (Promo_SM #SM211): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 
 card = PokemonCardDef(
@@ -21,7 +17,7 @@ card = PokemonCardDef(
     retreat_cost=3,
     weakness_type=PokemonTypes.WATER,
     evolves_from="com.direwolfdigital.cake.data.archetypes.pokemon.Charmeleon.Name",
-    family_id=6,
+    family_id=4,
     abilities=[
         Attack(
             title="Flamethrower",
@@ -33,8 +29,7 @@ card = PokemonCardDef(
             game_text="(You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.FIRE: 2, PokemonTypes.COLORLESS: 2},
             damage=300,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=None,
         ),
     ],
 )

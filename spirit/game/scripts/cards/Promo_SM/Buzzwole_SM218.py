@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Buzzwole (Promo_SM #SM218): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.support_common import heal_attack
+from spirit.game.card_effects.sm12 import beast_boost_passive
+
 
 card = PokemonCardDef(
     guid="e0144fb3-8739-5b2a-b914-eb5d0c1bb964",
@@ -26,16 +25,14 @@ card = PokemonCardDef(
             title="Beast Boost",
             game_text="This Pok\u00e9mon's attacks do 20 more damage to your opponent's Active Pok\u00e9mon for each Prize card you have taken (before applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=beast_boost_passive,
         ),
         Attack(
             title="Touchdown",
             game_text="Heal 30 damage from this Pok\u00e9mon.",
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 1},
             damage=60,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=heal_attack(30),
         ),
     ],
 )

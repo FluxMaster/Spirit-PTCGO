@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Tapu Koko-GX (Promo_SM #SM50): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.scripts.cards.SM2.TapuKokoGX_47 import aero_trail
+from spirit.game.data_utils import Triggers
+from spirit.game.card_effects.attacks_common import damage_per, count_energy
 
 card = PokemonCardDef(
     guid="a24e144f-3140-52f2-89ba-f52a468767fc",
@@ -25,8 +24,8 @@ card = PokemonCardDef(
             title="Aero Trail",
             game_text="When you play this Pok\u00e9mon from your hand onto your Bench during your turn, you may move any number of Lightning Energy from your other Pok\u00e9mon to this Pok\u00e9mon. If you do, switch this Pok\u00e9mon with your Active Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=Triggers.ON_PLAY,
+            effect=aero_trail,
         ),
         Attack(
             title="Sky-High Claws",
@@ -39,8 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 2, PokemonTypes.COLORLESS: 1},
             damage=50,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_per(count_energy('opponent'), 50),
         ),
     ],
 )

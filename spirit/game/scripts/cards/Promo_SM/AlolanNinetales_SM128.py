@@ -4,6 +4,8 @@ Alolan Ninetales (Promo_SM #SM128): one or more attacks/abilities use effect=uni
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import heal_attack
+
 
 card = PokemonCardDef(
     guid="c81ba248-4352-5fad-ad40-a41f00b8de0c",
@@ -36,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FAIRY: 2, PokemonTypes.COLORLESS: 1},
             damage=80,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=heal_attack(30, target='self'),
         ),
     ],
 )

@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dusk Mane Necrozma-GX (Promo_SM #SM102): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import self_energy_discard_attack
+from spirit.game.card_effects.sm5 import more_prizes_remaining, suns_eclipse_gx
 
 card = PokemonCardDef(
     guid="9075272f-6470-55b1-8bfe-a30cfb5fba84",
@@ -35,15 +33,15 @@ card = PokemonCardDef(
             cost={PokemonTypes.METAL: 3, PokemonTypes.COLORLESS: 1},
             damage=220,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=self_energy_discard_attack(count=3),
         ),
         Attack(
             title="Sun's Eclipse-GX",
             game_text="You can use this attack only if you have more Prize cards remaining than your opponent. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.METAL: 3},
             damage=250,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=suns_eclipse_gx,
+            condition=more_prizes_remaining,
         ),
     ],
 )

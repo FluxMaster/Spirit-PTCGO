@@ -1,9 +1,35 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Vikavolt (Promo_SM #SM28): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.data_utils import Activations
+from spirit.game.card_effects.attacks_common import self_energy_discard_attack
+from spirit.game.card_effects.support_common import distribute_energy
+from spirit.game.card_effects.trainers import is_basic_energy_card, deck_nonempty
+from spirit.game.card_effects.pokemon import energy_provides_type
+
+
+def _is_grass_energy(card):
+    return is_basic_energy_card(card) and energy_provides_type(card, PokemonTypes.GRASS.value)
+
+
+def _is_lightning_energy(card):
+    return is_basic_energy_card(card) and energy_provides_type(card, PokemonTypes.LIGHTNING.value)
+
+
+def _strong_charge_condition(board, player_id, pokemon=None):
+    return deck_nonempty(board, player_id)
+
+
+async def _strong_charge(ctx):
+    """Search for a Grass and a Lightning Energy card; attach them to your Pokemon in any way."""
+    grass, lightning = await ctx.search_deck_groups(
+        [(_is_grass_energy, 1, "Grass Energy"), (_is_lightning_energy, 1, "Lightning Energy")],
+        prompt="Choose a Grass Energy card and a Lightning Energy card",
+    )
+    picks = list(grass) + list(lightning)
+    if picks:
+        await distribute_energy(ctx, picks, ctx.my_pokemon_in_play())
+    await ctx.shuffle_deck()
+
 
 card = PokemonCardDef(
     guid="5a427e0f-e3b5-5b44-8e93-262725c24d27",
@@ -23,22 +49,22 @@ card = PokemonCardDef(
     resistance_type=PokemonTypes.METAL,
     resistance_amount=20,
     evolves_from="com.direwolfdigital.cake.data.archetypes.pokemon.Charjabug.Name",
-    family_id=738,
+    family_id=736,
     abilities=[
         Ability(
             title="Strong Charge",
             game_text="Once during your turn (before your attack), you may search your deck for a Grass Energy card and a Lightning Energy card and attach them to your Pok\u00e9mon in any way you like. Then, shuffle your deck.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=_strong_charge_condition,
+            effect=_strong_charge,
         ),
         Attack(
             title="Electro Cannon",
             game_text="Discard 3 Energy from this Pok\u00e9mon.",
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 3},
             damage=150,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=self_energy_discard_attack(count=3),
         ),
     ],
 )

@@ -1,9 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Reshiram & Charizard-GX (Promo_SM #SM247): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm7 import onix_rage
+
+from spirit.game.card_effects.sm10 import (
+    double_blaze_gx,
+)
 
 card = PokemonCardDef(
     guid="ce9b5efc-5417-53c3-952a-333fb8b37d24",
@@ -28,16 +29,14 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=onix_rage,
         ),
         Attack(
             title="Flare Strike",
             game_text="This Pok\u00e9mon can't use Flare Strike during your next turn.",
             cost={PokemonTypes.FIRE: 3, PokemonTypes.COLORLESS: 1},
             damage=230,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            locks_next_turn=True
         ),
         Attack(
             title="Double Blaze-GX",
@@ -45,8 +44,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 3},
             damage=200,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=double_blaze_gx
         ),
     ],
 )

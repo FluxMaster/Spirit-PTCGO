@@ -4,6 +4,8 @@ Zekrom-GX (Promo_SM #SM138): one or more attacks/abilities use effect=unimplemen
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import ignore_effects_attack
+
 
 card = PokemonCardDef(
     guid="48930db6-53ac-50f4-a169-0e798737cd29",
@@ -48,7 +50,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 3, PokemonTypes.COLORLESS: 1},
             damage=200,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=ignore_effects_attack(),
         ),
     ],
 )

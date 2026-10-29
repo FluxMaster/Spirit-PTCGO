@@ -1,8 +1,4 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Gyarados-GX (Promo_SM #SM212): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 
 card = PokemonCardDef(
@@ -21,7 +17,7 @@ card = PokemonCardDef(
     retreat_cost=3,
     weakness_type=PokemonTypes.LIGHTNING,
     evolves_from="com.direwolfdigital.cake.data.archetypes.pokemon.Magikarp.Name",
-    family_id=130,
+    family_id=129,
     abilities=[
         Attack(
             title="Dragon Rage",
@@ -33,8 +29,7 @@ card = PokemonCardDef(
             game_text="(You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.WATER: 3, PokemonTypes.COLORLESS: 1},
             damage=240,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=None,
         ),
     ],
 )

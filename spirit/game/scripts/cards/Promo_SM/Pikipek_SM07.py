@@ -4,6 +4,8 @@ Pikipek (Promo_SM #SM07): one or more attacks/abilities use effect=unimplemented
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import recoil_attack
+
 
 card = PokemonCardDef(
     guid="8739e6b5-f8e0-5ffb-a3fe-525a7af8d677",
@@ -30,7 +32,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=40,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=recoil_attack(20),
         ),
     ],
 )

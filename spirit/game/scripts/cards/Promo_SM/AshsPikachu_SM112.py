@@ -4,6 +4,8 @@ Ash's Pikachu (Promo_SM #SM112): one or more attacks/abilities use effect=unimpl
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_bonus
+
 
 card = PokemonCardDef(
     guid="199a877c-1874-546d-8bf7-feabc0503e44",
@@ -31,7 +33,7 @@ card = PokemonCardDef(
             damage=10,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_bonus(10),
         ),
         Attack(
             title="Electro Ball",

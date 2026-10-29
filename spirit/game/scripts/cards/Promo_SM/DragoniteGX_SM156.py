@@ -1,9 +1,14 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dragonite-GX (Promo_SM #SM156): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import lock_all_attacks
+from spirit.game.card_effects.dm import (
+    dragonporter_gx,
+)
+
+async def _freeze_shock(ctx):
+    """Printed damage; this Pokemon can't attack during your next turn."""
+    await ctx.deal_damage()
+    lock_all_attacks(ctx, ctx.attacker)
 
 card = PokemonCardDef(
     guid="3cd923f5-73c1-57db-869e-e52c094162ef",
@@ -21,7 +26,7 @@ card = PokemonCardDef(
     retreat_cost=3,
     weakness_type=PokemonTypes.FAIRY,
     evolves_from="com.direwolfdigital.cake.data.archetypes.pokemon.Dragonair.Name",
-    family_id=149,
+    family_id=147,
     abilities=[
         Attack(
             title="Dragon Claw",
@@ -33,15 +38,13 @@ card = PokemonCardDef(
             game_text="This Pok\u00e9mon can't attack during your next turn.",
             cost={PokemonTypes.WATER: 1, PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 2},
             damage=200,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=_freeze_shock,
         ),
         Attack(
             title="Dragonporter-GX",
             game_text="Put 3 Dragon Pok\u00e9mon from your discard pile onto your Bench. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.COLORLESS: 3},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=dragonporter_gx,
         ),
     ],
 )

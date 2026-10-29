@@ -4,6 +4,8 @@ Passimian (Promo_SM #SM12): one or more attacks/abilities use effect=unimplement
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm8 import lava_burn
+
 
 card = PokemonCardDef(
     guid="1cf199c4-157d-511d-a13e-3514108792e7",
@@ -27,7 +29,7 @@ card = PokemonCardDef(
             game_text="This attack does 30 damage to 1 of your opponent's Benched Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.FIGHTING: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=lava_burn,
         ),
         Attack(
             title="Team Play",

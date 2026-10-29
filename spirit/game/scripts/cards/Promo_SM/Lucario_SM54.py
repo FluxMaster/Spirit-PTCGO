@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Lucario (Promo_SM #SM54): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm3 import stance
 
 card = PokemonCardDef(
     guid="119639d7-4187-5c70-bd50-acb8c52488d7",
@@ -21,14 +18,14 @@ card = PokemonCardDef(
     retreat_cost=1,
     weakness_type=PokemonTypes.PSYCHIC,
     evolves_from="com.direwolfdigital.cake.data.archetypes.pokemon.Riolu.Name",
-    family_id=448,
+    family_id=447,
     abilities=[
         Ability(
             title="Stance",
             game_text="When you play this Pok\u00e9mon from your hand to evolve 1 of your Pok\u00e9mon during your turn, you may prevent all effects of your opponent's attacks, including damage, done to this Pok\u00e9mon until the end of your opponent's next turn.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=Triggers.ON_EVOLVE,
+            effect=stance,
         ),
         Attack(
             title="Submarine Blow",

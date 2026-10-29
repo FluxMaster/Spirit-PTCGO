@@ -4,6 +4,8 @@ Jangmo-o (Promo_SM #SM40): one or more attacks/abilities use effect=unimplemente
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.passives_common import flip_protection
+
 
 card = PokemonCardDef(
     guid="3b72e191-de85-5c07-b856-6a5a397edf56",
@@ -27,7 +29,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, prevent all damage done to this Pok\u00e9mon by attacks during your opponent's next turn.",
             cost={PokemonTypes.FIGHTING: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_protection(prevent=True),
         ),
         Attack(
             title="Tackle",

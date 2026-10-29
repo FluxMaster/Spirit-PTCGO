@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Cosmog (Promo_SM #SM42): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import draw_attack
+
 
 card = PokemonCardDef(
     guid="a800ca3d-6856-5b29-aefc-4b6c7b07ed1d",
@@ -26,8 +24,7 @@ card = PokemonCardDef(
             title="Dust Gathering",
             game_text="Draw a card.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=draw_attack(1),
         ),
     ],
 )

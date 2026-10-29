@@ -4,6 +4,8 @@ Latias (Promo_SM #SM87): one or more attacks/abilities use effect=unimplemented 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sm6 import diamond_rain
+
 
 card = PokemonCardDef(
     guid="78602eea-0ffe-5207-bd42-408cff16bb51",
@@ -35,7 +37,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 1},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=diamond_rain,
         ),
     ],
 )

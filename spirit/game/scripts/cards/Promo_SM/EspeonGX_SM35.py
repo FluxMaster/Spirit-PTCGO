@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Espeon-GX (Promo_SM #SM35): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.attributes import SpecialConditions
+from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.attacks_common import damage_per, count_energy, place_counters
 
 card = PokemonCardDef(
     guid="7948e34f-65d2-5931-a93b-8811a6b1be7a",
@@ -28,8 +27,7 @@ card = PokemonCardDef(
             game_text="Your opponent's Active Pok\u00e9mon is now Confused.",
             cost={PokemonTypes.PSYCHIC: 1},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(SpecialConditions.CONFUSED),
         ),
         Attack(
             title="Psychic",
@@ -37,15 +35,13 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 2},
             damage=60,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_per(count_energy('defender'), 30, base=60),
         ),
         Attack(
             title="Divide-GX",
             game_text="Put 10 damage counters on your opponent's Pok\u00e9mon in any way you like. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=place_counters(10, 'choose_any_opponent'),
         ),
     ],
 )

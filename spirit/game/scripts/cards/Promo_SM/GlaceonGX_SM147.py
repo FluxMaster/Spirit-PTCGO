@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Glaceon-GX (Promo_SM #SM147): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import snipe_attack
+from spirit.game.card_effects.sm5 import FreezingGazePassive, polar_spear_gx
 
 card = PokemonCardDef(
     guid="ab0d18a5-c3e8-5170-a2b9-a2f96f5bde4c",
@@ -27,16 +25,14 @@ card = PokemonCardDef(
             title="Freezing Gaze",
             game_text="As long as this Pok\u00e9mon is your Active Pok\u00e9mon, your opponent's Pok\u00e9mon-GX and Pok\u00e9mon-EX in play, in their hand, and in their discard pile have no Abilities, except for Freezing Gaze.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=FreezingGazePassive(),
         ),
         Attack(
             title="Frost Bullet",
             game_text="This attack does 30 damage to 1 of your opponent's Benched Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 2},
             damage=90,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=snipe_attack(30, also_base=True),
         ),
         Attack(
             title="Polar Spear-GX",
@@ -44,8 +40,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 2},
             damage=50,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=polar_spear_gx,
         ),
     ],
 )

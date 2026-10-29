@@ -1,9 +1,16 @@
 """STUB: effect not implemented — do not guess mechanics.
-Marshadow (Promo_SM #SM85): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
+Marshadow (SL #45): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.sl import let_loose
+
+
+async def puncture(ctx):
+    """This attack's damage isn't affected by Resistance."""
+    await ctx.deal_damage(ignore_resistance=True)
+
 
 card = PokemonCardDef(
     guid="0efb5ee6-966b-5e78-b1bd-64f6623f2d0f",
@@ -28,8 +35,8 @@ card = PokemonCardDef(
             title="Let Loose",
             game_text="When you play this Pok\u00e9mon from your hand onto your Bench during your turn, you may have each player shuffle their hand into their deck and draw 4 cards.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=Triggers.ON_PLAY,
+            effect=let_loose,
         ),
         Attack(
             title="Shadow Punch",
@@ -37,7 +44,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=puncture,
         ),
     ],
 )

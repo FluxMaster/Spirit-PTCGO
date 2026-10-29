@@ -4,6 +4,8 @@ Tapu Koko (Promo_SM #SM30): one or more attacks/abilities use effect=unimplement
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import damage_all_opponents
+
 
 card = PokemonCardDef(
     guid="807a0f6f-7a02-5414-92e2-b9944f689867",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             game_text="This attack does 20 damage to each of your opponent's Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.COLORLESS: 2},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_all_opponents(20),
         ),
         Attack(
             title="Electric Ball",

@@ -4,6 +4,8 @@ Greninja-GX (Promo_SM #SM197): one or more attacks/abilities use effect=unimplem
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import ignore_effects_attack
+
 
 card = PokemonCardDef(
     guid="22356117-cc47-58bb-a78e-59026305aa46",
@@ -36,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 1},
             damage=130,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=ignore_effects_attack(ignore_weakness=True, ignore_resistance=True),
         ),
         Attack(
             title="Dark Mist-GX",

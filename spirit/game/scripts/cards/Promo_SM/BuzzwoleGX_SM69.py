@@ -1,9 +1,12 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Buzzwole-GX (Promo_SM #SM69): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import snipe_attack, lock_all_attacks
+from spirit.game.card_effects.sm4 import absorption_gx
+
+async def _freeze_shock(ctx):
+    """Printed damage; this Pokemon can't attack during your next turn."""
+    await ctx.deal_damage()
+    lock_all_attacks(ctx, ctx.attacker)
 
 card = PokemonCardDef(
     guid="a238d9b6-0462-5918-95bc-20c56d5e7c22",
@@ -27,16 +30,14 @@ card = PokemonCardDef(
             game_text="This attack does 30 damage to 1 of your opponent's Benched Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.FIGHTING: 1},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=snipe_attack(30, also_base=True),
         ),
         Attack(
             title="Knuckle Impact",
             game_text="This Pok\u00e9mon can't attack during your next turn.",
             cost={PokemonTypes.FIGHTING: 3},
             damage=160,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=_freeze_shock,
         ),
         Attack(
             title="Absorption-GX",
@@ -44,8 +45,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 3},
             damage=40,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=absorption_gx,
         ),
     ],
 )

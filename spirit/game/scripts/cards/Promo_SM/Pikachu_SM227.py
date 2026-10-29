@@ -4,6 +4,8 @@ Pikachu (Promo_SM #SM227): one or more attacks/abilities use effect=unimplemente
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_bonus, self_energy_discard_attack
+
 
 card = PokemonCardDef(
     guid="9bde85de-f865-53e2-be40-69134efa8ebe",
@@ -31,7 +33,7 @@ card = PokemonCardDef(
             damage=10,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_bonus(10),
         ),
         Attack(
             title="Thunderbolt",
@@ -39,7 +41,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 2, PokemonTypes.COLORLESS: 1},
             damage=80,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=self_energy_discard_attack(all_energy=True),
         ),
     ],
 )

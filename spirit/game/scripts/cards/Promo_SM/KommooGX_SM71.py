@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Kommo-o-GX (Promo_SM #SM71): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.passives_common import protect_next_turn
+from spirit.game.card_effects.pokemon import shred
+
 
 card = PokemonCardDef(
     guid="2c42b9d0-5709-5e8c-8693-f9f908e191d5",
@@ -21,31 +20,28 @@ card = PokemonCardDef(
     retreat_cost=2,
     weakness_type=PokemonTypes.FAIRY,
     evolves_from="com.direwolfdigital.cake.data.archetypes.pokemon.Hakamoo.Name",
-    family_id=784,
+    family_id=782,
     abilities=[
         Attack(
             title="Adamantine Press",
             game_text="During your opponent's next turn, this Pok\u00e9mon takes 30 less damage from attacks (after applying Weakness and Resistance).",
             cost={PokemonTypes.COLORLESS: 1},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=protect_next_turn(reduce=30),
         ),
         Attack(
             title="Shred",
             game_text="This attack's damage isn't affected by any effects on your opponent's Active Pok\u00e9mon.",
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 2},
             damage=130,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=shred,
         ),
         Attack(
             title="Ultra Uppercut-GX",
             game_text="(You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 2},
             damage=240,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=None,
         ),
     ],
 )

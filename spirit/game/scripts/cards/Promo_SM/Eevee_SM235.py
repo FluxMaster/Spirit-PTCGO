@@ -4,6 +4,8 @@ Eevee (Promo_SM #SM235): one or more attacks/abilities use effect=unimplemented 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_damage
+
 
 card = PokemonCardDef(
     guid="55ef1d02-1456-562d-9592-f2f549344bb7",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             damage=30,
             damage_operator="x",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(until_tails=True, per_heads=30),
         ),
     ],
 )

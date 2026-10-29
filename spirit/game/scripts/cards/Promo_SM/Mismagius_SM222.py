@@ -4,6 +4,21 @@ Mismagius (Promo_SM #SM222): one or more attacks/abilities use effect=unimplemen
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm5 import psywave
+import random
+
+
+async def astonish(ctx):
+    """Choose a random card from the opponent's hand, reveal it, shuffle into their deck."""
+    await ctx.deal_damage()
+    opponent = ctx.opponent_id
+    hand = ctx.hand(opponent)
+    if not hand:
+        return
+    card = random.choice(hand)
+    await ctx.reveal_cards([card])
+    await ctx.shuffle_into_deck([card], player_id=opponent)
+
 
 card = PokemonCardDef(
     guid="d9b8204e-c5eb-5b84-ba95-c5c01acd9c22",
@@ -32,7 +47,7 @@ card = PokemonCardDef(
             damage=20,
             damage_operator="x",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=psywave,
         ),
         Attack(
             title="Astonish",
@@ -40,7 +55,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=40,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=astonish,
         ),
     ],
 )

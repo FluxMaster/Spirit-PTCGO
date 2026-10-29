@@ -4,6 +4,9 @@ Pikachu (Promo_SM #SM157): one or more attacks/abilities use effect=unimplemente
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.attributes import SpecialConditions
+from spirit.game.card_effects.passives_common import condition_immunity_passive
+
 
 card = PokemonCardDef(
     guid="ca6e3ebb-9758-5c68-9a85-93fa00679c1b",
@@ -29,7 +32,7 @@ card = PokemonCardDef(
             game_text="This Pok\u00e9mon can't be Paralyzed.",
             ability_type=AbilityTypes.POKE_ABILITY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=condition_immunity_passive(SpecialConditions.PARALYZED),
         ),
         Attack(
             title="Static Shock",

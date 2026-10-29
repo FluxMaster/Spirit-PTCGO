@@ -4,6 +4,10 @@ Silvally (Promo_SM #SM64): one or more attacks/abilities use effect=unimplemente
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import search_to_hand
+from spirit.game.session.effects import is_item_card
+from spirit.game.card_effects.attacks_common import flip_bonus
+
 
 card = PokemonCardDef(
     guid="abea2da9-069b-57ee-9f51-87dee3f78ad2",
@@ -28,7 +32,7 @@ card = PokemonCardDef(
             game_text="Search your deck for an Item card, reveal it, and put it into your hand. Then, shuffle your deck.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=search_to_hand(is_item_card, count=1, minimum=0, reveal=True),
         ),
         Attack(
             title="X-Scissor",
@@ -37,7 +41,7 @@ card = PokemonCardDef(
             damage=90,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_bonus(30),
         ),
     ],
 )

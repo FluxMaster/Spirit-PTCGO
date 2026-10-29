@@ -4,6 +4,8 @@ Alolan Raichu (Promo_SM #SM65): one or more attacks/abilities use effect=unimple
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_bonus
+
 
 card = PokemonCardDef(
     guid="ff8d3704-ebc7-5320-a885-3bb751060965",
@@ -32,7 +34,7 @@ card = PokemonCardDef(
             damage=10,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_bonus(30),
         ),
         Attack(
             title="Electric Surfer",

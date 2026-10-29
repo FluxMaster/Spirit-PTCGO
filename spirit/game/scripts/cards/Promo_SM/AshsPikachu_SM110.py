@@ -4,6 +4,8 @@ Ash's Pikachu (Promo_SM #SM110): one or more attacks/abilities use effect=unimpl
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_damage
+
 
 card = PokemonCardDef(
     guid="6fcccba5-6c74-5a8d-ad30-b61ebd49e33b",
@@ -31,7 +33,7 @@ card = PokemonCardDef(
             damage=20,
             damage_operator="x",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(until_tails=True, per_heads=20),
         ),
         Attack(
             title="Thunder",

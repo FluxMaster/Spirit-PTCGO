@@ -4,6 +4,8 @@ Raikou-GX (Promo_SM #SM121): one or more attacks/abilities use effect=unimplemen
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.dm import bolt_strike
+
 
 card = PokemonCardDef(
     guid="7232ee98-1a1f-51ba-bfc7-f25f1b6e404c",
@@ -35,7 +37,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 2, PokemonTypes.COLORLESS: 2},
             damage=150,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bolt_strike,
         ),
         Attack(
             title="Thunderous Rain-GX",

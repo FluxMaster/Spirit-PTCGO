@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Lycanroc-GX (Promo_SM #SM14): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.pokemon import rock_crush
+from spirit.game.card_effects.attacks_common import self_energy_discard_attack
+
 
 card = PokemonCardDef(
     guid="0d61e758-2a44-5767-b3da-ddcc84805658",
@@ -21,7 +20,7 @@ card = PokemonCardDef(
     retreat_cost=1,
     weakness_type=PokemonTypes.GRASS,
     evolves_from="com.direwolfdigital.cake.data.archetypes.pokemon.Rockruff.Name",
-    family_id=744,
+    family_id=745,
     abilities=[
         Attack(
             title="Crunch",
@@ -29,7 +28,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=rock_crush,
         ),
         Attack(
             title="Accelerock",
@@ -41,8 +40,7 @@ card = PokemonCardDef(
             game_text="Discard 2 Energy from this Pok\u00e9mon. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.FIGHTING: 2, PokemonTypes.COLORLESS: 1},
             damage=200,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=self_energy_discard_attack(count=2),
         ),
     ],
 )

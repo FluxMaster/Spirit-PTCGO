@@ -4,6 +4,8 @@ Shining Ho-Oh (Promo_SM #SM70): one or more attacks/abilities use effect=unimple
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import self_energy_discard_attack
+
 
 card = PokemonCardDef(
     guid="e05a32cd-0060-560b-a9c1-81b8f736b66c",
@@ -37,7 +39,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 1, PokemonTypes.COLORLESS: 3},
             damage=110,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=self_energy_discard_attack(count=1),
         ),
     ],
 )

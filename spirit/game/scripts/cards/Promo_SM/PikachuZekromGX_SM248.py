@@ -1,9 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Pikachu & Zekrom-GX (Promo_SM #SM248): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.sm9 import (
+    full_blitz,
+    tag_bolt_gx,
+)
 
 card = PokemonCardDef(
     guid="fcde684c-c4c1-5462-882f-821a89f2027c",
@@ -26,19 +27,17 @@ card = PokemonCardDef(
     abilities=[
         Attack(
             title="Full Blitz",
-            game_text="Search your deck for up to 3 Lightning Energy cards and attach them to 1 of your Pokemon. Then, shuffle your deck.",
+            game_text="Search your deck for up to 3 Lightning Energy cards and attach them to 1 of your Pok\u00e9mon. Then, shuffle your deck.",
             cost={PokemonTypes.LIGHTNING: 3},
             damage=150,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=full_blitz,
         ),
         Attack(
             title="Tag Bolt-GX",
-            game_text="If this Pokemon has at least 3 extra Lightning Energy attached to it (in addition to this attack's cost), this attack does 170 damage to 1 of your opponent's Benched Pokemon. (Don't apply Weakness and Resistance for Benched Pokemon.) (You can't use more than 1 GX attack in a game.)",
+            game_text="If this Pok\u00e9mon has at least 3 extra Lightning Energy attached to it (in addition to this attack's cost), this attack does 170 damage to 1 of your opponent's Benched Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.) (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.LIGHTNING: 3},
             damage=200,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=tag_bolt_gx,
         ),
     ],
 )

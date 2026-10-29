@@ -4,6 +4,8 @@ Articuno (Promo_SM #SM144): one or more attacks/abilities use effect=unimplement
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm9 import tail_whip
+
 
 card = PokemonCardDef(
     guid="af9ec5ef-6bd8-579f-9790-652d3d338395",
@@ -35,7 +37,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 2, PokemonTypes.COLORLESS: 1},
             damage=100,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=tail_whip,
         ),
     ],
 )

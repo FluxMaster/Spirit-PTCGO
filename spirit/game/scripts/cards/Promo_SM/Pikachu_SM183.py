@@ -4,6 +4,8 @@ Pikachu (Promo_SM #SM183): one or more attacks/abilities use effect=unimplemente
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import recoil_attack
+
 
 card = PokemonCardDef(
     guid="73207f8f-c661-5c7c-88bf-36a10c241f3a",
@@ -30,7 +32,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 1},
             damage=40,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=recoil_attack(20),
         ),
     ],
 )

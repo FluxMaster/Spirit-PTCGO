@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Zygarde (Promo_SM #SM48): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm3 import core_enforcer
 
 card = PokemonCardDef(
     guid="5bf1ecb8-e7ff-50e2-8660-a45c7860ec4d",
@@ -32,8 +29,7 @@ card = PokemonCardDef(
             game_text="Discard a Darkness Energy and a Fairy Energy attached to this Pok\u00e9mon.",
             cost={PokemonTypes.DARKNESS: 1, PokemonTypes.FAIRY: 1, PokemonTypes.COLORLESS: 2},
             damage=150,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=core_enforcer,
         ),
     ],
 )

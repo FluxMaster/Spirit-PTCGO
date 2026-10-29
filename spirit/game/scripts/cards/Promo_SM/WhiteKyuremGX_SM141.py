@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-White Kyurem-GX (Promo_SM #SM141): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.pokemon import shred
+from spirit.game.card_effects.attacks_common import bonus_if, has_damage
+from spirit.game.card_effects.dm import dragon_nova_gx
 
 card = PokemonCardDef(
     guid="2b5612aa-a9c8-5704-87e6-9f3f09f1906b",
@@ -27,8 +26,7 @@ card = PokemonCardDef(
             game_text="This attack's damage isn't affected by any effects on your opponent's Active Pok\u00e9mon.",
             cost={PokemonTypes.FIRE: 1},
             damage=40,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=shred,
         ),
         Attack(
             title="Raging Blade",
@@ -36,16 +34,14 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 1, PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 1},
             damage=80,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bonus_if(has_damage('self'), 80),
         ),
         Attack(
             title="Dragon Nova-GX",
             game_text="Your opponent's Active Pok\u00e9mon is now Burned and Paralyzed. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.FIRE: 2, PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 1},
             damage=200,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=dragon_nova_gx,
         ),
     ],
 )

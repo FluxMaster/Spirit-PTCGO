@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Gumshoos (Promo_SM #SM97): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm5 import identify
 
 card = PokemonCardDef(
     guid="2bcff3a3-22fc-50b3-b1b9-1efac60e01a3",
@@ -21,7 +18,7 @@ card = PokemonCardDef(
     retreat_cost=2,
     weakness_type=PokemonTypes.FIGHTING,
     evolves_from="com.direwolfdigital.cake.data.archetypes.pokemon.Yungoos.Name",
-    family_id=735,
+    family_id=734,
     abilities=[
         Attack(
             title="Identify",
@@ -29,8 +26,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=20,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=identify,
         ),
         Attack(
             title="Whap Down",

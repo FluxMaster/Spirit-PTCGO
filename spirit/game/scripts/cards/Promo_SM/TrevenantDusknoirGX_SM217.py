@@ -4,6 +4,19 @@ Trevenant & Dusknoir-GX (Promo_SM #SM217): one or more attacks/abilities use eff
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+import random
+
+
+async def bend(ctx):
+    """Choose 2 random cards from the opponent's hand, reveal, shuffle into their deck."""
+    await ctx.deal_damage()
+    hand = ctx.hand(ctx.opponent_id)
+    if not hand:
+        return
+    picks = random.sample(hand, min(2, len(hand)))
+    await ctx.reveal_cards(picks, to_player=ctx.player_id)
+    await ctx.shuffle_into_deck(picks, ctx.opponent_id)
+
 
 card = PokemonCardDef(
     guid="8aaf5b56-d8d6-535a-987f-29e9db869b6d",
@@ -30,7 +43,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 3},
             damage=150,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bend,
         ),
         Attack(
             title="Pale Moon-GX",

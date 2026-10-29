@@ -1,9 +1,11 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Celebi & Venusaur-GX (Promo_SM #SM167): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.attributes import SpecialConditions
+from spirit.game.card_effects.attacks_common import condition_attack
+
+from spirit.game.card_effects.sm9 import (
+    evergreen_gx,
+)
 
 card = PokemonCardDef(
     guid="f7c1046d-f967-5210-bb10-79b3f875da0b",
@@ -27,8 +29,7 @@ card = PokemonCardDef(
             game_text="Your opponent's Active Pok\u00e9mon is now Burned, Confused, and Poisoned.",
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 2},
             damage=50,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(SpecialConditions.BURNED, SpecialConditions.CONFUSED, SpecialConditions.POISONED),
         ),
         Attack(
             title="Solar Beam",
@@ -40,8 +41,7 @@ card = PokemonCardDef(
             game_text="Heal all damage from this Pok\u00e9mon. If this Pok\u00e9mon has at least 1 extra Grass Energy attached to it (in addition to this attack's cost), shuffle all cards from your discard pile into your deck. (You can't use more than 1 GX attack in a game.)",
             cost={PokemonTypes.GRASS: 2, PokemonTypes.COLORLESS: 2},
             damage=180,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=evergreen_gx,
         ),
     ],
 )

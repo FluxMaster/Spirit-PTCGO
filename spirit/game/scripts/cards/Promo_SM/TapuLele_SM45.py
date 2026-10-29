@@ -4,6 +4,8 @@ Tapu Lele (Promo_SM #SM45): one or more attacks/abilities use effect=unimplement
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.sm5 import psywave, magical_swap
+
 
 card = PokemonCardDef(
     guid="3de42148-f79a-5275-a898-22de15932a23",
@@ -29,14 +31,14 @@ card = PokemonCardDef(
             damage=20,
             damage_operator="x",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=psywave,
         ),
         Attack(
             title="Magical Swap",
             game_text="Move any number of damage counters on your opponent's Pok\u00e9mon to their other Pok\u00e9mon in any way you like.",
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=magical_swap,
         ),
     ],
 )

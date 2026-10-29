@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Salazzle (Promo_SM #SM73): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import search_to_hand
+from spirit.game.card_effects.sm4 import severe_poison
+
 
 card = PokemonCardDef(
     guid="f5ef0724-45a4-5cfc-ae48-963c80c5e6d3",
@@ -28,14 +27,13 @@ card = PokemonCardDef(
             game_text="Search your deck for up to 2 cards and put them into your hand. Then, shuffle your deck.",
             cost={PokemonTypes.PSYCHIC: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=search_to_hand(count=2),
         ),
         Attack(
             title="Severe Poison",
             game_text="Your opponent's Active Pok\u00e9mon is now Poisoned. Put 4 damage counters instead of 1 on that Pok\u00e9mon between turns.",
             cost={PokemonTypes.PSYCHIC: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=severe_poison,
         ),
     ],
 )

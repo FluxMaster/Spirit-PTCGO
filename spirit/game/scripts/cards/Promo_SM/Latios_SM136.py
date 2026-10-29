@@ -4,6 +4,9 @@ Latios (Promo_SM #SM136): one or more attacks/abilities use effect=unimplemented
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.trainers import is_basic_energy_card
+from spirit.game.card_effects.support_common import search_attach_energy
+
 
 card = PokemonCardDef(
     guid="18cf9f10-3edf-513c-89aa-d20d8603df15",
@@ -28,7 +31,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=search_attach_energy(predicate=is_basic_energy_card, count=1, to_self=True),
         ),
         Attack(
             title="Luster Purge",

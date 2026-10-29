@@ -4,6 +4,10 @@ Suicune (Promo_SM #SM149): one or more attacks/abilities use effect=unimplemente
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.data_utils import Activations
+from spirit.game.card_effects.sm8 import frozen_flow, frozen_flow_condition
+from spirit.game.card_effects.support_common import heal_attack
+
 
 card = PokemonCardDef(
     guid="0eecedee-c74a-5749-8868-450db06b8f87",
@@ -27,7 +31,9 @@ card = PokemonCardDef(
             game_text="Once during your turn (before your attack), if this Pok\u00e9mon is your Active Pok\u00e9mon, you may have your opponent switch their Active Pok\u00e9mon with 1 of their Benched Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_ABILITY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=frozen_flow,
+            activation=Activations.ONCE_PER_TURN,
+            condition=frozen_flow_condition,
         ),
         Attack(
             title="Aurora Gain",
@@ -35,7 +41,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 2},
             damage=70,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=heal_attack(30, target='self'),
         ),
     ],
 )

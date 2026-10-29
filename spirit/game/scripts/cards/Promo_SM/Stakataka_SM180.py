@@ -1,9 +1,17 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Stakataka (Promo_SM #SM180): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.sm10 import (
+    wall_of_stone_passive,
+)
+
+async def deck_distiller(ctx):
+    heads = await ctx.flip_until_tails("Deck Distiller")
+    if heads <= 0:
+        return
+    top_cards = ctx.deck_top(heads, ctx.opponent_id)
+    if top_cards:
+        await ctx.discard_cards(top_cards)
 
 card = PokemonCardDef(
     guid="5a81c427-f77e-5480-a1f9-98a04c933ec8",
@@ -26,16 +34,14 @@ card = PokemonCardDef(
             title="Wall of Stone",
             game_text="If your opponent has 3 or fewer Prize cards remaining, this Pok\u00e9mon's maximum HP is 200.",
             ability_type=AbilityTypes.POKE_ABILITY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=wall_of_stone_passive
         ),
         Attack(
             title="Top Down",
             game_text="Flip a coin until you get tails. For each heads, discard the top card of your opponent's deck.",
             cost={PokemonTypes.FIGHTING: 2, PokemonTypes.COLORLESS: 1},
             damage=110,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=deck_distiller,
         ),
     ],
 )
