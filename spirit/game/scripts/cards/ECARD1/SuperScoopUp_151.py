@@ -1,6 +1,6 @@
 from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
-from spirit.game.card_effects.sm3 import super_scoop_up
+from spirit.game.card_effects.ecard import super_scoop_up
 
 card = ItemCardDef(
     guid="bcae4fe8-399d-52d0-913f-94576ffb37c0",

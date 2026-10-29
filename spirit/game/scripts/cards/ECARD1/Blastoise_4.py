@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Blastoise (ECARD1 #4): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ecard import (
+    jet_stream, jet_stream_condition, unused_energy_bonus,
+)
+
 
 card = PokemonCardDef(
     guid="21a4ec20-50d6-5854-a009-6e803db90b99",
@@ -27,8 +27,9 @@ card = PokemonCardDef(
             title="Jet Stream",
             game_text="Once during your turn (before your attack), if Blastoise is your Active Pok\u00e9mon, you may flip a coin. If heads, discard an Energy card attached to Blastoise, if any. Then, if there are any Energy cards attached to the Defending Pok\u00e9mon, choose 1 of them and discard it. This power can't be used if Blastoise is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=jet_stream_condition,
+            effect=jet_stream,
         ),
         Attack(
             title="Energy Cannon",
@@ -36,8 +37,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 2, PokemonTypes.COLORLESS: 1},
             damage=40,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=unused_energy_bonus(per=10, cap=20),
         ),
     ],
 )

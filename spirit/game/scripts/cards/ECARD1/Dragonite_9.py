@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dragonite (ECARD1 #9): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import flip_damage
+from spirit.game.card_effects.ecard import tailwind, tailwind_condition
+
 
 card = PokemonCardDef(
     guid="f9d08e6c-bf52-5515-9d41-925536228fd0",
@@ -26,8 +25,9 @@ card = PokemonCardDef(
             title="Tailwind",
             game_text="Once during your turn (before your attack), if Dragonite is on your Bench, you may reduce your Active Pok\u00e9mon's Retreat Cost to 0.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=tailwind_condition,
+            effect=tailwind,
         ),
         Attack(
             title="Dragon Tail",
@@ -35,8 +35,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.WATER: 1, PokemonTypes.FIGHTING: 1},
             damage=40,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(coins=2, per_heads=40),
         ),
     ],
 )

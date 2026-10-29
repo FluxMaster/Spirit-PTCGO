@@ -1,6 +1,6 @@
 from spirit.game.data_utils import SupporterCardDef
 from spirit.game.attributes import Rarities
-from spirit.game.card_effects.sm7 import (
+from spirit.game.card_effects.ecard import (
     bills_maintenance,
     bills_maintenance_condition,
 )

@@ -1,7 +1,7 @@
 from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
 
-from spirit.game.card_effects.sm8 import (
+from spirit.game.card_effects.ecard import (
     moomoo_milk,
 )
 
