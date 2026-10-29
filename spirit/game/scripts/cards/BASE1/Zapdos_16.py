@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Zapdos (BASE1 #16): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_damage, self_energy_discard_attack
+from spirit.game.card_effects.ecard import has_energy_cards_attached
+
 
 card = PokemonCardDef(
     guid="5000e30b-414e-545f-8e48-82314e5d2a9d",
@@ -27,16 +26,15 @@ card = PokemonCardDef(
             game_text="Flip a coin. If tails, Zapdos does 30 damage to itself.",
             cost={PokemonTypes.LIGHTNING: 3, PokemonTypes.COLORLESS: 1},
             damage=60,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(tails_self_damage=30),
         ),
         Attack(
             title="Thunderbolt",
             game_text="Discard all Energy cards attached to Zapdos in order to use this attack.",
             cost={PokemonTypes.LIGHTNING: 4},
             damage=100,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            condition=has_energy_cards_attached(),
+            effect=self_energy_discard_attack(all_energy=True, before_damage=True),
         ),
     ],
 )

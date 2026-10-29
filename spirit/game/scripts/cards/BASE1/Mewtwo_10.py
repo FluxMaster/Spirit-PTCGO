@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Mewtwo (BASE1 #10): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import count_energy, damage_per
+from spirit.game.card_effects.ecard import barrier, has_psychic_energy_attached
 
 
 card = PokemonCardDef(
@@ -30,15 +27,14 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 1},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=damage_per(count_energy('defender', cards=True), 10, base=10),
+            effect=damage_per(count_energy("defender", cards=True), 10, base=10),
         ),
         Attack(
             title="Barrier",
             game_text="Discard 1 Psychic Energy card attached to Mewtwo in order to prevent all effects of attacks, including damage, done to Mewtwo during your opponent's next turn.",
             cost={PokemonTypes.PSYCHIC: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            condition=has_psychic_energy_attached,
+            effect=barrier,
         ),
     ],
 )

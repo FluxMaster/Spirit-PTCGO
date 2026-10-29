@@ -1,10 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Porygon (BASE1 #39): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-from spirit.game.card_effects.ecard import conversion_1
+from spirit.game.card_effects.ecard import conversion_1, conversion_2
 
 
 card = PokemonCardDef(
@@ -29,15 +25,13 @@ card = PokemonCardDef(
             title="Conversion 1",
             game_text="If the Defending Pok\u00e9mon has a Weakness, you may change it to a type of your choice other than Colorless.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=conversion_1,
         ),
         Attack(
             title="Conversion 2",
             game_text="Change Porygon's Resistance to a type of your choice other than Colorless.",
             cost={PokemonTypes.COLORLESS: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=conversion_2,
         ),
     ],
 )

@@ -1,12 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Pokédex (BASE1 #87): trainer effect stubbed.
-
-Card text:
-  - Look at up to 5 cards from the top of your deck and rearrange them as you like.
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ecard import has_cards_in_deck, pokedex
+
 
 card = ItemCardDef(
     guid="32acf046-cf2f-527e-9d42-a512df600cee",
@@ -18,6 +13,6 @@ card = ItemCardDef(
     collector_number=87,
     set_code="BASE1",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    condition=has_cards_in_deck,
+    effect=pokedex,
 )

@@ -1,12 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Pokémon Flute (BASE1 #86): trainer effect stubbed.
-
-Card text:
-  - Choose 1 Basic Pokémon card from your opponent's discard pile and put it onto his or her Bench. (You can't play Pokémon Flute if your opponent's Bench is full.)
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ecard import pokemon_flute, pokemon_flute_condition
+
 
 card = ItemCardDef(
     guid="c0600115-ca94-5116-8c10-f7105ac806f4",
@@ -18,6 +13,6 @@ card = ItemCardDef(
     collector_number=86,
     set_code="BASE1",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    condition=pokemon_flute_condition,
+    effect=pokemon_flute,
 )
