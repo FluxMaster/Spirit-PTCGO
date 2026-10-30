@@ -207,6 +207,10 @@ class Passive:
         """True to let `pokemon` attack even while Asleep/Paralyzed (Windup Arm)."""
         return False
 
+    def asleep_coins_required(self, pokemon: PokemonEntity, carrier: BoardEntity):
+        """Override coin count for Asleep checkup (Deep Sleep); None = no change."""
+        return None
+
     def blocks_special_conditions(
         self, target: PokemonEntity, condition: Any, carrier: BoardEntity
     ) -> bool:
