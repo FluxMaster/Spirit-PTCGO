@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Cherubi (POP6 #13): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
+from spirit.game.data_utils import PokemonCardDef, Attack
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, SpecialConditions
+from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ex import leech_seed_heal_one_counter
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 
 card = PokemonCardDef(
     guid="86189593-002d-5d8c-af32-8aaf9f8d4cdc",
@@ -28,16 +27,14 @@ card = PokemonCardDef(
             title="Sleep Powder",
             game_text="The Defending Pok\u00e9mon is now Asleep.",
             cost={PokemonTypes.GRASS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(SpecialConditions.ASLEEP),
         ),
         Attack(
             title="Leech Seed",
             game_text="If this attack does any damage to the Defending Pok\u00e9mon (after applying Weakness and Resistance), remove 1 damage counter from Cherubi.",
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=leech_seed_heal_one_counter(20),
         ),
     ],
 )

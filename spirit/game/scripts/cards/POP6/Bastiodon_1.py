@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Bastiodon (POP6 #1): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import sand_veil_bench_protect, anger_revenge_snipe
+
 
 card = PokemonCardDef(
     guid="97355b86-2b6b-53ab-b2f1-46626e02761c",
@@ -29,16 +27,15 @@ card = PokemonCardDef(
             title="Protective Wall",
             game_text="Prevent all damage done to your Benched Pok\u00e9mon by your opponent's attacks.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=sand_veil_bench_protect(),
+            effect=None,
         ),
         Attack(
             title="Anger Revenge",
             game_text="If Bastiodon was damaged by an attack during your opponent's last turn, this attack does 40 damage to 1 of your opponent's Benched Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.METAL: 2, PokemonTypes.COLORLESS: 1},
             damage=60,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=anger_revenge_snipe(40),
         ),
     ],
 )
