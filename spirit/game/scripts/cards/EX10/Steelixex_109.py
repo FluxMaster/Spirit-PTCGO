@@ -3,7 +3,9 @@ Steelix ex (EX10 #109): one or more attacks/abilities use effect=unimplemented u
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.attributes import AbilityTypes, PokemonStage, PokemonTypes, Rarities, SpecialConditions
+from spirit.game.card_effects.passives_common import condition_immunity_passive
+from spirit.game.card_effects.ex import metal_charge_self_counter
 
 card = PokemonCardDef(
     guid="f12505da-6a31-5d55-be47-3e16c810debc",
@@ -28,16 +30,14 @@ card = PokemonCardDef(
             title="Poison Resistance",
             game_text="Steelix ex can't be Poisoned.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=condition_immunity_passive(SpecialConditions.POISONED),
         ),
         Attack(
             title="Metal Charge",
             game_text="Put 1 damage counter on Steelix ex.",
             cost={PokemonTypes.METAL: 1, PokemonTypes.COLORLESS: 2},
             damage=70,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=metal_charge_self_counter(1),
         ),
         Attack(
             title="Mudslide",

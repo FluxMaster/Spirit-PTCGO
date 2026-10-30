@@ -4,6 +4,7 @@ Feraligatr (EX10 #4): one or more attacks/abilities use effect=unimplemented unt
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import intimidating_fang_passive, pull_away_to_4_hand, tonnage_optional_recoil
 
 card = PokemonCardDef(
     guid="ff72bdfe-f699-5b05-aa28-3d0d06200cf2",
@@ -27,16 +28,14 @@ card = PokemonCardDef(
             title="Intimidating Fang",
             game_text="As long as Feraligatr is your Active Pok\u00e9mon, any damage done by an opponent's attack is reduced by 10 (before applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=intimidating_fang_passive(10),
         ),
         Attack(
             title="Pull Away",
             game_text="If your opponent has 5 of more cards in his or her hand, your opponent discards a number of cards until your opponent has 4 cards left in his or her hand.",
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=pull_away_to_4_hand(),
         ),
         Attack(
             title="Tonnage",
@@ -44,8 +43,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 2},
             damage=50,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=tonnage_optional_recoil(50, 30, 30),
         ),
     ],
 )

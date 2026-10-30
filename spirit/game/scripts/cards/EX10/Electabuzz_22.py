@@ -4,8 +4,11 @@ Electabuzz (EX10 #22): one or more attacks/abilities use effect=unimplemented un
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
-from spirit.game.card_effects.ex import flip_damage_paralyze_on_heads
-
+from spirit.game.card_effects.ex import (
+    discard_energy_n,
+    flip_damage_paralyze_on_heads,
+    stages_vs_special_energy_takes_less,
+)
 
 card = PokemonCardDef(
     guid="8cede604-c67d-5566-952a-93b7f145bd8f",
@@ -28,8 +31,7 @@ card = PokemonCardDef(
             title="Stages of Evolution",
             game_text="As long as Electabuzz is an Evolved Pok\u00e9mon, any damage done to Electabuzz by attacks from your opponent's Pok\u00e9mon that has any Special Energy cards attached to it is reduced by 40 (after applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=stages_vs_special_energy_takes_less(40),
         ),
         Attack(
             title="Double Shock",
@@ -45,8 +47,7 @@ card = PokemonCardDef(
             game_text="Discard 3 Energy attached to Electabuzz.",
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 3},
             damage=70,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=discard_energy_n(3),
         ),
     ],
 )

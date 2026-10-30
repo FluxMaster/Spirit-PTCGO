@@ -5,6 +5,7 @@ Granbull (EX10 #39): one or more attacks/abilities use effect=unimplemented unti
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import flip_damage
+from spirit.game.card_effects.ex import intimidating_fang_passive, may_discard_defender_energy_on_heads
 
 
 card = PokemonCardDef(
@@ -29,16 +30,14 @@ card = PokemonCardDef(
             title="Intimidating Fang",
             game_text="As long as Granbull is your Active Pok\u00e9mon, any damage done by an opponent's attack is reduced by 10 (after applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=intimidating_fang_passive(10),
         ),
         Attack(
             title="Crushing Blow",
             game_text="Flip a coin. If heads, discard an Energy attached to the Defending Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 2},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=may_discard_defender_energy_on_heads(),
         ),
         Attack(
             title="Double Lariat",

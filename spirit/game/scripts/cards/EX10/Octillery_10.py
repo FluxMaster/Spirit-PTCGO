@@ -4,6 +4,7 @@ Octillery (EX10 #10): one or more attacks/abilities use effect=unimplemented unt
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import suction_cups_no_retreat_passive
 
 card = PokemonCardDef(
     guid="513dd1dd-080f-5bee-a43a-30bd9a33692c",
@@ -27,8 +28,7 @@ card = PokemonCardDef(
             title="Super Suction Cups",
             game_text="As long as Octillery is your Active Pok\u00e9mon, your opponent's Pok\u00e9mon can't retreat.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=suction_cups_no_retreat_passive(),
         ),
         Attack(
             title="Standing By",

@@ -2,8 +2,9 @@
 Tyrogue (EX10 #33): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import Ability, Activations, Attack, PokemonCardDef, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import baby_evolution_any, baby_evolution_any_condition
 
 card = PokemonCardDef(
     guid="79e2ea2c-54d2-5b58-b060-f35beceaf117",
@@ -24,10 +25,11 @@ card = PokemonCardDef(
     abilities=[
         Ability(
             title="Baby Evolution",
+            activation=Activations.ONCE_PER_TURN,
+            condition=baby_evolution_any_condition("Hitmonlee", "Hitmonchan", "Hitmontop"),
             game_text="Once during your turn (before your attack), you may put Hitmonlee, Hitmonchan, or Hitmontop from your hand onto Tyrogue (this counts as evolving Tyrogue) and remove all damage counters from Tyrogue.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=baby_evolution_any("Hitmonlee", "Hitmonchan", "Hitmontop"),
         ),
         Attack(
             title="Desperate Punch",

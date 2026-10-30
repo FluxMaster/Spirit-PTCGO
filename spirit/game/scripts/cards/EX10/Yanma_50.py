@@ -4,7 +4,7 @@ Yanma (EX10 #50): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-from spirit.game.card_effects.ex import flip_spread_all
+from spirit.game.card_effects.ex import draw_then_may_switch, flip_spread_all
 
 
 card = PokemonCardDef(
@@ -28,8 +28,7 @@ card = PokemonCardDef(
             title="Grand Loop",
             game_text="Draw 2 cards. You may switch Yanma with 1 of your Benched Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=draw_then_may_switch(2),
         ),
         Attack(
             title="Spinning Tail",

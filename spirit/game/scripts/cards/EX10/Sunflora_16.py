@@ -3,8 +3,9 @@ Sunflora (EX10 #16): one or more attacks/abilities use effect=unimplemented unti
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.attributes import PokemonStage, PokemonTypes, Rarities, SpecialConditions
 from spirit.game.card_effects.ex import dazzle_dance_confuse
+from spirit.game.card_effects.attacks_common import condition_attack
 
 
 card = PokemonCardDef(
@@ -39,8 +40,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=20,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(SpecialConditions.CONFUSED),
         ),
     ],
 )

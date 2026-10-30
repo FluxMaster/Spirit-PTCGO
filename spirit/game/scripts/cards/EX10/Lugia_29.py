@@ -4,6 +4,7 @@ Lugia (EX10 #29): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_damage
 
 card = PokemonCardDef(
     guid="99d95e3f-d35e-5151-b53a-5bd7b115339b",
@@ -28,8 +29,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=20,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(coins=2, per_heads=20, base=20),
         ),
     ],
 )

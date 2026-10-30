@@ -4,6 +4,7 @@ Raikou ★ (EX10 #114): one or more attacks/abilities use effect=unimplemented u
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import smash_turn
 
 card = PokemonCardDef(
     guid="96f6bc55-128e-50bf-b26c-5780d8ba3b4e",
@@ -27,8 +28,7 @@ card = PokemonCardDef(
             game_text="Switch Raikou Star with 1 of your Benched Pok\u00e9mon.",
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=smash_turn(),
         ),
         Attack(
             title="Meta Voltage",

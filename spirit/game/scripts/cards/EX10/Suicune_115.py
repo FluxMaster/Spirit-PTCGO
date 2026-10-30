@@ -4,6 +4,7 @@ Suicune ★ (EX10 #115): one or more attacks/abilities use effect=unimplemented 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import smash_turn
 
 card = PokemonCardDef(
     guid="f0598f18-efd0-5830-9758-4f108b01dbcb",
@@ -27,8 +28,7 @@ card = PokemonCardDef(
             game_text="Switch Suicune Star with 1 of your Benched Pok\u00e9mon.",
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=smash_turn(),
         ),
         Attack(
             title="Cross Wind",

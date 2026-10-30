@@ -2,9 +2,10 @@
 Cleffa (EX10 #21): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import Ability, Activations, Attack, PokemonCardDef, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.support_common import shuffle_hand_into_deck_draw
+from spirit.game.card_effects.ex import baby_evolution, baby_evolution_condition
 
 
 card = PokemonCardDef(
@@ -26,10 +27,11 @@ card = PokemonCardDef(
     abilities=[
         Ability(
             title="Baby Evolution",
+            activation=Activations.ONCE_PER_TURN,
+            condition=baby_evolution_condition("Clefairy"),
             game_text="Once during your turn (before your attack), you may put Clefairy from your hand onto Cleffa (this counts as evolving Cleffa) and remove all damage counters from Cleffa.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=baby_evolution("Clefairy"),
         ),
         Attack(
             title="Eeeeeeek",

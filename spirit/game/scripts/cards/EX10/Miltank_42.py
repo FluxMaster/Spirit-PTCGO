@@ -3,9 +3,10 @@ Miltank (EX10 #42): one or more attacks/abilities use effect=unimplemented until
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.attributes import AbilityTypes, PokemonStage, PokemonTypes, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ex import thick_fat_vs_types
 
 
 card = PokemonCardDef(
@@ -29,8 +30,7 @@ card = PokemonCardDef(
             title="Thick Fat",
             game_text="Any damage done to Miltank by attacks from Fire Pok\u00e9mon and Water Pok\u00e9mon is reduced by 30 (after applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=thick_fat_vs_types(30, PokemonTypes.FIRE, PokemonTypes.WATER),
         ),
         Attack(
             title="Healing Milk",

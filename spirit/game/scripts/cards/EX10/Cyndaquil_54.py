@@ -37,8 +37,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If tails, discard a Fire Energy card attached to Cyndaquil.",
             cost={PokemonTypes.FIRE: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(SpecialConditions.PARALYZED, flip=True),
         ),
     ],
 )

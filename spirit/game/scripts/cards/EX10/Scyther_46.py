@@ -4,6 +4,7 @@ Scyther (EX10 #46): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import flip_agility_protect
 
 card = PokemonCardDef(
     guid="2c6b3f69-0416-5873-b872-76637b6ca60d",
@@ -34,8 +35,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, prevent all effects of an attack, including damage, done to Scyther during your opponent's next turn.",
             cost={PokemonTypes.COLORLESS: 2},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_agility_protect(),
         ),
     ],
 )

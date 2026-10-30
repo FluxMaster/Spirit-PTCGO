@@ -3,7 +3,8 @@ Slowbro (EX10 #13): one or more attacks/abilities use effect=unimplemented until
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.attributes import AbilityTypes, PokemonStage, PokemonTypes, Rarities
+from spirit.game.card_effects.ex import dual_armor_if_energy
 
 card = PokemonCardDef(
     guid="b64fc42a-4bd7-53d6-8c65-26ee548c2279",
@@ -27,8 +28,7 @@ card = PokemonCardDef(
             title="Dual Armor",
             game_text="As long as Slowbro has any Psychic Energy attached to it, Slowbro is both Water and Psychic type.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=dual_armor_if_energy(PokemonTypes.PSYCHIC, PokemonTypes.WATER, PokemonTypes.PSYCHIC),
         ),
         Attack(
             title="Parallel Gain",

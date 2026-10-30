@@ -5,6 +5,7 @@ Tyranitar ex (EX10 #111): one or more attacks/abilities use effect=unimplemented
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import mill_attack
+from spirit.game.card_effects.ex import discard_special_energy_from_defender, discard_stadium_then_damage, mill_opponent_top
 
 
 card = PokemonCardDef(
@@ -31,24 +32,21 @@ card = PokemonCardDef(
             game_text="Discard any Stadium card in play.",
             cost={PokemonTypes.FIGHTING: 1},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=discard_stadium_then_damage(),
         ),
         Attack(
             title="Derail",
             game_text="Discard a Special Energy card, if any, attached to the Defending Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 2},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=discard_special_energy_from_defender(),
         ),
         Attack(
             title="Mix-Up",
             game_text="Your opponent discards the top card of his or her deck.",
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.DARKNESS: 1, PokemonTypes.COLORLESS: 1},
             damage=70,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=mill_opponent_top(1),
         ),
         Attack(
             title="Losing Control",

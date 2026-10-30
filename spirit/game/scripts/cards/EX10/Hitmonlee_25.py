@@ -5,6 +5,7 @@ Hitmonlee (EX10 #25): one or more attacks/abilities use effect=unimplemented unt
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import snipe_attack
+from spirit.game.card_effects.ex import stages_damage_boost
 
 
 card = PokemonCardDef(
@@ -28,8 +29,7 @@ card = PokemonCardDef(
             title="Stages of Evolution",
             game_text="As long as Hitmonlee is an Evolved Pok\u00e9mon, Hitmonlee's attacks do 20 more damage to your opponent's Pok\u00e9mon (before applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=stages_damage_boost(20),
         ),
         Attack(
             title="Stretch Kick",

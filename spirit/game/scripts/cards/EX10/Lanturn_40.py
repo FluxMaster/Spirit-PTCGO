@@ -4,6 +4,7 @@ Lanturn (EX10 #40): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import recoil_attack
 
 card = PokemonCardDef(
     guid="efe37608-2dbd-5850-8185-ba4d2e05c620",
@@ -36,8 +37,7 @@ card = PokemonCardDef(
             game_text="Lanturn does 10 damage to itself.",
             cost={PokemonTypes.COLORLESS: 3},
             damage=50,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=recoil_attack(10),
         ),
     ],
 )

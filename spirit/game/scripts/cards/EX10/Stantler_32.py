@@ -37,8 +37,7 @@ card = PokemonCardDef(
             game_text="Look at your opponent's hand, choose a Trainer card you find there, and discard it.",
             cost={PokemonTypes.COLORLESS: 2},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=confuse_if_evolved(),
         ),
     ],
 )

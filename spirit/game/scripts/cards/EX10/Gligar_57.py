@@ -6,6 +6,7 @@ from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemente
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ex import free_flight_no_energy_passive
 
 
 card = PokemonCardDef(
@@ -29,8 +30,7 @@ card = PokemonCardDef(
             title="Free Flight",
             game_text="If Gligar has no Energy cards attached to it, Gligar's Retreat Cost is 0.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=free_flight_no_energy_passive(),
         ),
         Attack(
             title="Toxic Grip",

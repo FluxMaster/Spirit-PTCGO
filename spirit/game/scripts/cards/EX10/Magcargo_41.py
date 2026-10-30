@@ -3,8 +3,9 @@ Magcargo (EX10 #41): one or more attacks/abilities use effect=unimplemented unti
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.attributes import AbilityTypes, PokemonStage, PokemonTypes, Rarities
 from spirit.game.card_effects.attacks_common import smokescreen_attack
+from spirit.game.card_effects.ex import dual_armor_if_energy
 
 
 card = PokemonCardDef(
@@ -29,8 +30,7 @@ card = PokemonCardDef(
             title="Dual Armor",
             game_text="As long as Magcargo has any Fighting Energy attached to it, Magcargo is both Fire and Fighting type.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=dual_armor_if_energy(PokemonTypes.FIGHTING, PokemonTypes.FIRE, PokemonTypes.FIGHTING),
         ),
         Attack(
             title="Smokescreen",

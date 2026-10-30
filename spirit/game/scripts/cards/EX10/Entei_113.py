@@ -4,6 +4,7 @@ Entei ★ (EX10 #113): one or more attacks/abilities use effect=unimplemented un
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import smash_turn
 
 card = PokemonCardDef(
     guid="9a8eb953-5a26-5997-a968-357c73a5a732",
@@ -27,8 +28,7 @@ card = PokemonCardDef(
             game_text="Switch Entei Star with 1 of your Benched Pok\u00e9mon.",
             cost={PokemonTypes.FIRE: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=smash_turn(),
         ),
         Attack(
             title="Detonation",

@@ -4,6 +4,7 @@ Hitmontop (EX10 #26): one or more attacks/abilities use effect=unimplemented unt
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import bonus_if_damaged
 
 card = PokemonCardDef(
     guid="6c5c3726-3020-5a9a-87e9-1932039bb8bb",
@@ -35,8 +36,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bonus_if_damaged(30, base=20),
         ),
         Attack(
             title="Spiral Kick",

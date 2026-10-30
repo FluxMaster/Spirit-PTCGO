@@ -6,6 +6,7 @@ from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemente
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ex import extra_tight_vs_ex_passive
 
 
 card = PokemonCardDef(
@@ -29,8 +30,7 @@ card = PokemonCardDef(
             title="Extra-tight",
             game_text="Prevent all damage done to Shuckle by attacks from your opponent's Pok\u00e9mon-ex.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=extra_tight_vs_ex_passive(),
         ),
         Attack(
             title="Toxic",

@@ -2,8 +2,9 @@
 Unown (EX10 #V): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import Ability, Activations, Attack, PokemonCardDef, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import unown_shuffle, unown_shuffle_condition, damage_capped_from_discard_basics_evos
 
 card = PokemonCardDef(
     guid="3a50eb71-1eff-56c0-8e82-d371829d40e3",
@@ -24,10 +25,12 @@ card = PokemonCardDef(
     abilities=[
         Ability(
             title="Shuffle",
+            activation=Activations.ONCE_PER_TURN,
+            shared_once_per_turn="Shuffle",
+            condition=unown_shuffle_condition(),
             game_text="Once during your turn (before your attack), you may search your deck for another Unown and switch it with Unown. (Any cards attached to Unown, damage counters, Special Conditions, and effects on it are now on the new Pok\u00e9mon.) If you do, put Unown on top of your deck. Shuffle your deck afterward. You can't use more than 1 Shuffle Pok\u00e9-Power each turn.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=unown_shuffle(),
         ),
         Attack(
             title="Hidden Power",
@@ -35,8 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 2},
             damage=20,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_capped_from_discard_basics_evos(20, 10, 60),
         ),
     ],
 )

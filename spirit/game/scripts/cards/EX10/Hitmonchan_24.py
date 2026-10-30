@@ -5,6 +5,7 @@ Hitmonchan (EX10 #24): one or more attacks/abilities use effect=unimplemented un
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import swift_attack
+from spirit.game.card_effects.ex import stages_hp_boost
 
 
 card = PokemonCardDef(
@@ -28,8 +29,7 @@ card = PokemonCardDef(
             title="Stages of Evolution",
             game_text="As long as Hitmonchan is an Evolved Pok\u00e9mon, Hitmonchan gets +30 HP.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=stages_hp_boost(30),
         ),
         Attack(
             title="Heavy Punch",

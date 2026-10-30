@@ -4,6 +4,7 @@ Ariados (EX10 #2): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import reactive_poison
 
 card = PokemonCardDef(
     guid="3d71c266-f70d-5d5d-8d2e-c6acd87368cb",
@@ -29,8 +30,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=reactive_poison(10, 30),
         ),
         Attack(
             title="Spider Trap",

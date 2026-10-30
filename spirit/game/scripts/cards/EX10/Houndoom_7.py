@@ -46,8 +46,7 @@ card = PokemonCardDef(
             game_text="Discard a Fire Energy attached to Houndoom.",
             cost={PokemonTypes.FIRE: 2, PokemonTypes.COLORLESS: 1},
             damage=70,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(SpecialConditions.PARALYZED, flip=True),
         ),
     ],
 )

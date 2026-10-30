@@ -2,8 +2,9 @@
 Ampharos (EX10 #1): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import Ability, Activations, Attack, PokemonCardDef, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import energy_connect_basic, energy_connect_condition
 
 card = PokemonCardDef(
     guid="d3927961-346e-5077-9a8a-c8772bac5ed0",
@@ -26,10 +27,11 @@ card = PokemonCardDef(
     abilities=[
         Ability(
             title="Energy Connect",
+            activation=Activations.UNLIMITED,
+            condition=energy_connect_condition(),
             game_text="As often as you like during your turn (before your attack), you may move a basic Energy card attached to 1 of your Benched Pok\u00e9mon to your Active Pok\u00e9mon. This power can't be used if Ampharos is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=energy_connect_basic(),
         ),
         Attack(
             title="Miraculous Thunder",
