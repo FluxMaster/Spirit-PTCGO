@@ -27,6 +27,7 @@ from spirit.game.session.effects import (
     is_basic_pokemon, is_pokemon_card, is_supporter_card, is_trainer_card,
 )
 from spirit.game.session.passives import Passive, carrier_pokemon
+from spirit.game.models.board import PokemonEntity
 # apply_protection / is_in_active_spot come from passives_common via star-import above
 
 
@@ -5775,26 +5776,16 @@ def dp5_omanyte_69_wash_over():
 
 
 def dp5_omastar_26_primal_swirl():
-    """On evolve: devolve opp Bench Evolved (highest Stage to hand)."""
+    """On evolve: devolve each opp Bench Evolved (highest Stage to hand)."""
     async def effect(ctx):
         for p in list(ctx.opponent_bench()):
-            # find highest evolution card in stack
             stage = p.get_attribute(AttrID.STAGE)
-            if stage in (PokemonStage.BASIC, None, PokemonStage.LEVELUP):
-                # LEVELUP still evolved; treat non-BASIC as evolved
-                if stage == PokemonStage.BASIC or stage is None:
-                    continue
-            # Pull top evolution card(s) to hand — soft: put top card to hand
-            children = [c for c in list(p.children)
-                        if is_pokemon_card(c) or getattr(c, "archetype_id", None)]
-            # The pokemon entity itself is the top; devolve by moving top to hand
-            # Engine helper if present
-            if hasattr(ctx, "devolve"):
-                await ctx.devolve(p, to_hand=True)
-            else:
-                # Approximate: put the Active evolution card (self) to hand if Stage1/2
-                if stage in (PokemonStage.STAGE1, PokemonStage.STAGE2):
-                    await ctx.put_in_hand([p])
+            # Evolved = Stage 1 / Stage 2 (LV.X on Bench is also evolved; printed
+            # says "Evolved Pokémon" which includes LV.X stacks)
+            if stage in (PokemonStage.BASIC, None):
+                continue
+            # Highest Stage Evolution card → hand (one step of devolution)
+            await ctx.devolve_pokemon(p, steps=1, destination="hand")
     return effect
 
 
@@ -6086,36 +6077,67 @@ def dp5_unownp_33_hidden_power():
     return effect
 
 
+def unown_q_tool_passive() -> Passive:
+    """While Unown Q is attached as a Tool: holder pays Colorless less to retreat."""
+    class _Q(Passive):
+        stacking_key = "unown_q_tool"
+        def modify_retreat_cost(self, cost, pokemon, carrier, board):
+            holder = carrier_pokemon(carrier)
+            # Only when Unown Q rides as an attachment (holder != carrier)
+            if holder is None or holder is carrier:
+                return cost
+            if pokemon is holder:
+                return max(0, int(cost or 0) - 1)
+            return cost
+    return _Q()
+
+
 def dp5_unownq_49_quick():
-    """Discard attached; attach Unown Q as Tool; -1 retreat Colorless."""
+    """Discard attached; attach Unown Q as a Pokémon Tool; -1 Colorless retreat."""
+    from spirit.game.attributes import TrainerType, CardType
+    from spirit.game.session.passives import tool_slots_free
+
     async def effect(ctx):
         src = ctx.source
         if src is None:
             return
-        attached = [c for c in list(src.children) if c is not src]
+        # Discard everything attached to Unown Q (Energy/Tools), not tucked evo
+        attached = [
+            c for c in list(src.children)
+            if not isinstance(c, PokemonEntity)
+        ]
         if attached:
             await ctx.discard_cards(attached)
-        targets = [p for p in ctx.my_pokemon_in_play() if p is not src]
+        targets = []
+        for p in ctx.my_pokemon_in_play():
+            if p is src:
+                continue
+            if tool_slots_free(ctx.board, p) <= 0:
+                continue
+            targets.append(p)
         if not targets:
-            await ctx.discard_cards([src])
             return
-        dest = await ctx.choose_pokemon(targets, "Attach Unown Q as a Tool to which Pokémon?")
+        dest = await ctx.choose_pokemon(
+            targets, "Attach Unown Q as a Pokémon Tool to which Pokémon?")
         if dest is None:
-            await ctx.discard_cards([src])
             return
-        # Soft: attach as tool if API exists; else mark passive on dest and discard Unown
-        if hasattr(ctx, "attach_as_tool"):
-            await ctx.attach_as_tool(src, dest)
-        else:
-            await ctx.discard_cards([src])
-            class _Q(Passive):
-                stacking_key = "unown_q_tool"
-                def modify_retreat_cost(self, cost, pokemon, carrier, board):
-                    if pokemon is carrier_pokemon(carrier) or pokemon is carrier:
-                        return max(0, (cost or 0) - 1)
-                    return cost
-            if hasattr(ctx, "add_passive"):
-                ctx.add_passive(dest, _Q())
+        # Mark as Tool so capacity / has_tool / tool passives treat it as one
+        src.set_attribute(AttrID.TRAINER_TYPE, TrainerType.POKEMON_TOOL.value)
+        src.set_attribute(AttrID.CARD_TYPE, CardType.TRAINER.value)
+        # Clear in-play ability panel; tool passive rides via card def.passive
+        src.set_attribute(AttrID.PIE_ABILITIES, [])
+        position = len(dest.children)
+        if not ctx.board.attach_card(src.entity_id, dest.entity_id):
+            return
+        # Choreography: move onto dest
+        if hasattr(ctx, "_queue_intro_and_move"):
+            ctx._queue_intro_and_move(src, dest.entity_id, position)
+        elif hasattr(ctx.session, "_entity_moved_msg"):
+            ctx._queue(
+                ctx.session._entity_moved_msg(src.entity_id, dest.entity_id, position)
+            )
+        if hasattr(ctx.session, "refresh_granted_abilities"):
+            await ctx.session.refresh_granted_abilities(dest)
     return effect
 
 
@@ -7489,36 +7511,36 @@ def dp6_yanmega_17_sonic_wave():
 
 
 def bubble_coat_passive() -> Passive:
-    """No Weakness; discard Bubble Coat end of turn after being damaged by opp attack."""
+    """No Weakness while attached (discard-on-damage is a granted BETWEEN_TURNS)."""
     class _P(Passive):
         stacking_key = "bubble_coat"
         def modify_weakness(self, calc, carrier):
             if carrier_pokemon(carrier) is calc.target:
                 calc.weakness_applies = False
-        async def end_of_turn(self, ctx, carrier):
-            holder = carrier_pokemon(carrier)
-            tool = carrier
-            if holder is None:
-                return
-            # Soft: discard tool if holder took attack damage this turn
-            damaged = False
-            if hasattr(ctx, "session") and hasattr(ctx.session, "turn_state"):
-                ts = ctx.session.turn_state
-                damaged = getattr(ts, "damaged_by_attack", set()) 
-                if holder.entity_id in (damaged or set()):
-                    await ctx.discard_cards([tool])
-                    return
-            # Fallback marker attribute
-            if holder.get_attribute(AttrID.HP, 0) is not None and hasattr(holder, "took_attack_damage"):
-                if holder.took_attack_damage:
-                    await ctx.discard_cards([tool])
     return _P()
 
 
+async def bubble_coat_discard_between_turns(ctx):
+    """At end of turn (BETWEEN_TURNS): if holder took attack damage this turn, discard tool."""
+    pokemon = ctx.source
+    if pokemon is None:
+        return
+    taken = ctx.session.turn_state.damage_taken.get(pokemon.entity_id, 0)
+    if taken <= 0:
+        return
+    tool = next(
+        (c for c in list(pokemon.children)
+         if "bubble coat" in _display(c).lower()),
+        None)
+    if tool is not None:
+        await ctx.discard_cards([tool])
+
+
 def bucks_training():
-    """Draw 2; while in play Active attacks do +10 to Active (soft via turn passive)."""
+    """Draw 2; while Buck's is next to Active (rest of this turn), Active +10 to Active."""
     async def effect(ctx):
         await ctx.draw_cards(2)
+        pid = ctx.player_id
         class _Boost(Passive):
             stacking_key = "bucks_training"
             def modify_damage_dealt(self, calc, carrier):
@@ -7526,43 +7548,32 @@ def bucks_training():
                     return
                 if calc.attacker is None:
                     return
-                if calc.attacker.owning_player_id != ctx.player_id:
+                if calc.attacker.owning_player_id != pid:
                     return
                 if not is_in_active_spot(calc.attacker):
                     return
                 calc.amount += 10
-        # Attach boost to player via source if possible
-        if ctx.source is not None and hasattr(ctx, "add_passive"):
-            ctx.add_passive(ctx.source, _Boost())
-        elif ctx.attacker is not None and hasattr(ctx, "add_passive_through_opponents_turn"):
-            pass
-        # Prefer: mark on active for rest of turn via session
-        if hasattr(ctx, "add_passive") and ctx.source is not None:
-            pass
+        # Ride the Active until end of this turn (supporter discarded at EOT)
+        active = ctx.my_active()
+        if active is not None:
+            ctx.add_temporary_passive(
+                active, _Boost(),
+                expires_after_turn=ctx.session.turn_state.turn_number)
     return effect
 
 
 def cynthias_feelings():
-    """Shuffle hand into deck; draw 4; +4 more if KO'd last opp turn."""
+    """Shuffle hand into deck; draw 4; +4 more if any of yours were KO'd last opp turn."""
     async def effect(ctx):
         hand = list(ctx.hand() or [])
         if hand:
-            await ctx.shuffle_into_deck(hand) if hasattr(ctx, "shuffle_into_deck") else await ctx.put_on_bottom_of_deck(hand) if hasattr(ctx, "put_on_bottom_of_deck") else None
-            if not hasattr(ctx, "shuffle_into_deck") and not hasattr(ctx, "put_on_bottom_of_deck"):
-                # put cards into deck then shuffle
-                if hasattr(ctx, "put_in_deck"):
-                    await ctx.put_in_deck(hand)
-                await ctx.shuffle_deck()
+            if hasattr(ctx, "shuffle_into_deck"):
+                await ctx.shuffle_into_deck(hand)
             else:
+                for c in hand:
+                    await ctx.put_on_top_of_deck(c)
                 await ctx.shuffle_deck()
-        extra = 0
-        if hasattr(ctx, "session") and hasattr(ctx.session, "turn_state"):
-            kos = getattr(ctx.session.turn_state, "knocked_out_last_turn", None)
-            # common pattern: prizes_taken_last_opp_turn
-            if getattr(ctx.session.turn_state, "opponent_knocked_out_your_pokemon_last_turn", False):
-                extra = 4
-            elif hasattr(ctx, "knocked_out_last_opponent_turn") and ctx.knocked_out_last_opponent_turn():
-                extra = 4
+        extra = 4 if ctx.kos_suffered_last_turn(ctx.player_id) > 0 else 0
         await ctx.draw_cards(4 + extra)
     return effect
 
@@ -7586,32 +7597,23 @@ def energy_pickup():
 
 
 def poke_radar():
-    """Look at top 5; take any Pokémon to hand; rest on top; shuffle."""
+    """Look at top 5; take any Pokémon to hand (reveal); rest on top; shuffle."""
     async def effect(ctx):
-        top = []
-        if hasattr(ctx, "look_at_deck"):
-            top = await ctx.look_at_deck(5)
-        elif hasattr(ctx, "peek_deck"):
-            top = await ctx.peek_deck(5)
-        else:
-            # soft: search deck for pokemon up to 5 from "top" approximation via search
-            def is_poke(c):
-                return is_pokemon_card(c)
-            picks = await ctx.search_deck(is_poke, count=5, minimum=0, prompt="Pokémon from deck (Radar approx)")
-            if picks:
-                await ctx.put_in_hand(picks, reveal=True)
-            await ctx.shuffle_deck()
+        top = list(ctx.deck_top(5))
+        if not top:
             return
         pokes = [c for c in top if is_pokemon_card(c)]
-        rest = [c for c in top if c not in pokes]
+        taken = []
         if pokes:
-            take = await ctx.choose_cards(pokes, len(pokes), minimum=0, prompt="Take Pokémon into hand")
-            if take:
-                await ctx.put_in_hand(take, reveal=True)
-                rest = rest + [c for c in pokes if c not in take]
-        if rest and hasattr(ctx, "put_on_top_of_deck"):
-            for c in reversed(rest):
-                await ctx.put_on_top_of_deck(c)
+            taken = await ctx.choose_cards(
+                pokes, len(pokes), minimum=0,
+                prompt="Choose Pokémon to put into your hand") or []
+            if taken:
+                await ctx.put_in_hand(taken, reveal=True)
+        rest = [c for c in top if c not in taken]
+        # Put remaining back on top (order preserved relative to choice), then shuffle
+        for c in reversed(rest):
+            await ctx.put_on_top_of_deck(c)
         await ctx.shuffle_deck()
     return effect
 
@@ -7693,19 +7695,13 @@ def tm_ts2_devoluter():
             stage = p.get_attribute(AttrID.STAGE)
             if stage in (PokemonStage.STAGE1, PokemonStage.STAGE2):
                 targets.append(p)
-            elif stage == PokemonStage.LEVELUP:
-                continue
+            # excluding Pokémon LV.X
         if not targets:
             return
         tgt = await ctx.choose_pokemon(targets, "Devolve which Evolved Pokémon?")
         if tgt is None:
             return
-        if hasattr(ctx, "devolve_pokemon"):
-            await ctx.devolve_pokemon(tgt, steps=1, destination="hand")
-        elif hasattr(ctx, "devolve"):
-            await ctx.devolve(tgt, to_hand=True)
-        else:
-            await ctx.put_in_hand([tgt])
+        await ctx.devolve_pokemon(tgt, steps=1, destination="hand")
     return effect
 
 
@@ -7746,26 +7742,37 @@ def dp7_abomasnow_12_snow_play():
     return effect
 
 def dp7_abomasnow_12_snow_veil():
-    """Snow Veil: refine — printed text may need more mechanics.
-    TEXT: As long as Abomasnow is your Active Pokémon, any damage done to your Pokémon by an opponent's attack is reduced by 20 (after applying Weakness and Resistance).
-    """
-    async def effect(ctx):
-        pass
-    return effect
+    return dp7_abomasnow_12_snow_veil_passive()
 
 def dp7_abomasnow_12_snow_veil_passive() -> Passive:
-    """Snow Veil: continuous body — soft stub; see Known defects if incomplete."""
+    """While Active: your Pokémon take 20 less from opp attacks (after W/R)."""
     class _P(Passive):
-        stacking_key = 'dp7_abomasnow_12_snow_veil'
+        stacking_key = "snow_veil"
+        def modify_damage_taken(self, calc, carrier):
+            if not (calc.is_attack and calc.is_opposing):
+                return
+            holder = carrier_pokemon(carrier) or carrier
+            if not is_in_active_spot(holder):
+                return
+            if calc.target is None:
+                return
+            if calc.target.owning_player_id != holder.owning_player_id:
+                return
+            calc.amount = max(0, calc.amount - 20)
     return _P()
 
+def dp7_bibarel_32_unaware_passive() -> Passive:
+    """Prevent all effects of attacks, excluding damage, done to Bibarel."""
+    class _P(Passive):
+        stacking_key = "unaware"
+        def blocks_attack_effects(self, target, carrier):
+            holder = carrier_pokemon(carrier) or carrier
+            return target is holder
+    return _P()
+
+
 def dp7_bibarel_32_unaware():
-    """Unaware: refine — printed text may need more mechanics.
-    TEXT: Prevent all effects of attacks, excluding damage, done to Bibarel.
-    """
-    async def effect(ctx):
-        pass
-    return effect
+    return dp7_bibarel_32_unaware_passive()
 
 def dp7_bidoof_54_self_abandonment():
     """Self-Abandonment: flip heads 30 to defending; tails 10 to self."""
@@ -7846,13 +7853,26 @@ def dp7_budew_33_poison_enzyme():
         pass
     return effect
 
+def dp7_charizard_103_energy_burn_passive() -> Passive:
+    """All Energy attached to Charizard are Fire Energy instead."""
+    from spirit.game.data_utils import ABILITIES_BY_ID
+    class _P(Passive):
+        stacking_key = "energy_burn"
+        def modify_energy_provided(self, options, energy, holder, board):
+            if holder is None or energy is None:
+                return options
+            # Only rewrite when THIS Body rides on `holder`
+            for entry in holder.get_attribute(AttrID.PIE_ABILITIES) or []:
+                if not isinstance(entry, dict):
+                    continue
+                ab = ABILITIES_BY_ID.get(entry.get("abilityID"))
+                if ab is not None and ab.passive is self:
+                    return [[PokemonTypes.FIRE.value]]
+            return options
+    return _P()
+
 def dp7_charizard_103_energy_burn():
-    """Energy Burn: refine — printed text may need more mechanics.
-    TEXT: All Energy attached to Charizard are Fire Energy instead of their usual type.
-    """
-    async def effect(ctx):
-        pass
-    return effect
+    return dp7_charizard_103_energy_burn_passive()
 
 def dp7_charizard_103_fire_spin():
     """Fire Spin: 100; discard 2 Energy from self."""
@@ -7870,13 +7890,28 @@ def dp7_charizard_103_fire_spin():
             await ctx.discard_cards(picks)
     return effect
 
+def dp7_cherrim_14_sunny_day_passive() -> Passive:
+    """Your Grass/Fire attacks do +10 to Defending (before W/R)."""
+    class _P(Passive):
+        stacking_key = "sunny_day"
+        def modify_damage_dealt(self, calc, carrier):
+            if not (calc.is_attack and calc.is_opposing and calc.to_active):
+                return
+            if calc.attacker is None:
+                return
+            holder = carrier_pokemon(carrier) or carrier
+            # Body must be in play (Cherrim somewhere on our side)
+            if calc.attacker.owning_player_id != holder.owning_player_id:
+                return
+            types = calc.attacker.get_attribute(AttrID.POKEMON_TYPES) or []
+            wanted = {PokemonTypes.GRASS.value, PokemonTypes.FIRE.value}
+            if any(t in wanted for t in types):
+                calc.amount += 10
+    return _P()
+
+
 def dp7_cherrim_14_sunny_day():
-    """Sunny Day: refine — printed text may need more mechanics.
-    TEXT: Each of your Grass Pokémon's and Fire Pokémon's attacks does 10 more damage to the Defending Pokémon (before applying Weakness and Resistance).
-    """
-    async def effect(ctx):
-        pass
-    return effect
+    return dp7_cherrim_14_sunny_day_passive()
 
 def dp7_cherubi_56_nap():
     async def effect(ctx):
@@ -8079,24 +8114,27 @@ def dp7_duskull_sh2_night_bind():
     return effect
 
 def dp7_electrode_36_low_current():
-    """Low Current: 30; if damaged last turn, Paralyzed."""
+    """30; if damaged by attack during opponent's last turn → Paralyzed."""
     async def effect(ctx):
         await ctx.deal_damage(30)
         me = ctx.my_active()
-        damaged = False
-        if me is not None and hasattr(ctx, "damaged_last_turn"):
-            damaged = ctx.damaged_last_turn(me)
-        if damaged:
+        if me is None:
+            return
+        if ctx.damage_taken_last_turn(me) > 0:
             await ctx.apply_special_condition(ctx.defender, SpecialConditions.PARALYZED)
     return effect
 
+async def dp7_electrode_36_radiance_on_damaged(ctx):
+    """If Active and damaged by opp attack: 1 counter on each opp Pokémon."""
+    pokemon = ctx.source
+    if pokemon is None or not is_in_active_spot(pokemon):
+        return
+    for p in ctx.opponent_pokemon_in_play():
+        await ctx.deal_damage(10, target=p, apply_modifiers=False, as_counters=True)
+
+
 def dp7_electrode_36_radiance():
-    """Radiance: refine — printed text may need more mechanics.
-    TEXT: If Electrode is your Active Pokémon and is damaged by an opponent's attack (even if Electrode is Knocked Out), put 1 damage counter on each of your opponent's Pokémon.
-    """
-    async def effect(ctx):
-        pass
-    return effect
+    return dp7_electrode_36_radiance_on_damaged
 
 def dp7_electrode_37_electro_diffusion():
     async def effect(ctx):
@@ -8108,11 +8146,21 @@ def dp7_electrode_37_electro_diffusion():
     return effect
 
 def dp7_empoleon_2_emperor_aura():
-    """Emperor Aura: refine — printed text may need more mechanics.
-    TEXT: Once during your turn (before your attack), when you play Empoleon from your hand to evolve 1 of your Active Pokémon, you may use this power. Your opponent can't attach any Energy 
-    """
+    """On evolve Active: opp can't attach Energy from hand during their next turn."""
     async def effect(ctx):
-        pass
+        class _Lock(Passive):
+            stacking_key = "emperor_aura"
+            def blocks_energy_attach(self, attaching_player_id, energy, target, carrier):
+                # Block opponent's hand attaches during their turn
+                return attaching_player_id == ctx.opponent_id
+        # Ride opponent's Active so the passive stays collected during their turn
+        opp = ctx.opponent_active() if hasattr(ctx, "opponent_active") else None
+        if opp is None:
+            # fallback: any opp pokemon
+            pool = ctx.opponent_pokemon_in_play()
+            opp = pool[0] if pool else None
+        if opp is not None:
+            ctx.add_passive_through_opponents_turn(opp, _Lock())
     return effect
 
 def dp7_farfetchd_38_go_and_collect():
@@ -8248,14 +8296,22 @@ def dp7_infernape_3_blaze_dance():
     return effect
 
 def dp7_infernape_3_close_combat():
-    """Close Combat: 60; next turn take +30 damage (soft via takes_less inverse if available)."""
+    """60; during opp next turn, attacks do +30 to Infernape (after W/R)."""
     async def effect(ctx):
         await ctx.deal_damage(60)
-        # Soft: mark increased incoming damage next turn when API exists
-        if hasattr(ctx, "takes_more_next_turn"):
-            await ctx.takes_more_next_turn(30)
+        me = ctx.attacker
+        if me is None:
+            return
+        class _More(Passive):
+            stacking_key = "close_combat_vuln"
+            def modify_damage_taken(self, calc, carrier):
+                if not calc.is_attack:
+                    return
+                holder = carrier_pokemon(carrier) or carrier
+                if calc.target is holder:
+                    calc.amount += 30
+        ctx.add_passive_through_opponents_turn(me, _More())
     return effect
-
 
 def dp7_infernape_3_spreading_fire():
     async def effect(ctx):
@@ -8265,11 +8321,35 @@ def dp7_infernape_3_spreading_fire():
     return effect
 
 def dp7_lumineon_4_fin_luster():
-    """Fin Luster: refine — printed text may need more mechanics.
-    TEXT: Once during your turn (before your attack), if Lumineon is your Active Pokémon, you may look at your opponent's hand. If your opponent's Bench isn't full, choose 1 Basic Pokémon fr
-    """
+    """Look at opp hand; if Bench not full, put Basic from hand onto Bench and switch."""
+    from spirit.game.session.constants import BENCH_CAPACITY
     async def effect(ctx):
-        pass
+        src = ctx.source
+        if src is None or not is_in_active_spot(src):
+            return
+        await ctx.reveal_hand(of_player=ctx.opponent_id)
+        if len(ctx.opponent_bench()) >= BENCH_CAPACITY:
+            return
+        hand = list(ctx.hand(ctx.opponent_id))
+        basics = [c for c in hand if is_basic_pokemon(c)]
+        if not basics:
+            return
+        picks = await ctx.choose_cards(
+            basics, 1, minimum=0,
+            prompt="Choose a Basic Pokémon to put onto the Bench")
+        if not picks:
+            return
+        card = picks[0]
+        bench = ctx.board.find_player_area(ctx.opponent_id, "bench")
+        if bench is None:
+            return
+        if not ctx.board.move_card(card.entity_id, bench.entity_id):
+            return
+        # Card on bench may still be a non-PokemonEntity CardEntity until session
+        # promotes it — switch_active needs a PokemonEntity. Prefer refresh.
+        benched = ctx.board.get_entity(card.entity_id)
+        if benched is not None:
+            await ctx.switch_active(ctx.opponent_id, benched)
     return effect
 
 def dp7_machamp_20_rage():
@@ -8957,11 +9037,21 @@ def dp7_vespiquen_31_green_dignity_passive() -> Passive:
     return _P()
 
 def dp7_voltorb_80_screech():
-    """Screech: mark Defending takes +20 from attacks until end of your next turn."""
+    """Defending takes +20 from attacks until end of your next turn."""
     async def effect(ctx):
-        # soft continuous mark
-        if hasattr(ctx, "mark_takes_more"):
-            await ctx.mark_takes_more(ctx.defender, 20, until="end_of_your_next_turn")
+        d = ctx.defender
+        if d is None:
+            return
+        class _Mark(Passive):
+            stacking_key = "screech"
+            def modify_damage_taken(self, calc, carrier):
+                if not calc.is_attack:
+                    return
+                holder = carrier_pokemon(carrier) or carrier
+                if calc.target is holder:
+                    calc.amount += 20
+        # Through own next turn (= turn_number + 2)
+        ctx.add_passive_through_own_next_turn(d, _Mark())
     return effect
 
 def dp7_voltorb_81_bouncing_ball():
@@ -9014,57 +9104,34 @@ def conductive_quarry_ability():
 def energy_link_move_ability():
     """Move an Energy from this Pokémon to another of yours that also has Energy Link."""
     async def effect(ctx):
-        holder = ctx.source_pokemon if hasattr(ctx, "source_pokemon") else None
+        # Granted ability: ctx.source is the holder Pokemon
+        holder = ctx.source
         if holder is None:
-            # ability granted on the tool's host
-            holder = ctx.attacker if hasattr(ctx, "attacker") else None
-        # Find host via carrier if available
-        mine = ctx.my_pokemon_in_play()
-        # Prefer the pokemon that has this ability's carrier as child
-        hosts_with_link = []
-        for p in mine:
-            for c in list(getattr(p, "children", []) or []):
-                if "energy link" in _display(c).lower():
-                    hosts_with_link.append(p)
-                    break
-        if len(hosts_with_link) < 2:
             return
-        # Energies on hosts
-        movers = []
-        for p in hosts_with_link:
-            for c in list(p.children):
-                if is_energy_card(c):
-                    movers.append(c)
+        hosts_with_link = []
+        for p in ctx.my_pokemon_in_play():
+            if any("energy link" in _display(c).lower() for c in list(p.children)):
+                hosts_with_link.append(p)
+        if holder not in hosts_with_link or len(hosts_with_link) < 2:
+            return
+        movers = [c for c in list(holder.children) if is_energy_card(c)]
         if not movers:
             return
-        picks = await ctx.choose_cards(movers, 1, minimum=0, prompt="Choose Energy to move via Energy Link")
+        picks = await ctx.choose_cards(
+            movers, 1, minimum=0,
+            prompt="Choose an Energy to move via Energy Link")
         if not picks:
             return
-        energy = picks[0]
-        # destination: other host with Energy Link
-        src_host = None
-        for p in hosts_with_link:
-            if energy in list(p.children):
-                src_host = p
-                break
-        dests = [p for p in hosts_with_link if p is not src_host]
-        if not dests:
-            return
-        dest = await ctx.choose_pokemon(dests, "Move Energy to which Energy Link Pokémon?")
+        dests = [p for p in hosts_with_link if p is not holder]
+        dest = await ctx.choose_pokemon(
+            dests, "Move Energy to which Energy Link Pokémon?")
         if dest:
-            await ctx.move_energy(energy, dest)
+            await ctx.move_energy(picks[0], dest)
     return effect
 
 
 def luxury_ball():
     """Search deck for a Pokémon (not LV.X) into hand. Can't play if Luxury Ball in discard."""
-    def condition(board, player_id):
-        pile = board.discard_pile(player_id) if hasattr(board, "discard_pile") else []
-        for c in pile:
-            if "luxury ball" in _display(c).lower():
-                return False
-        return True
-
     async def effect(ctx):
         def pred(c):
             if not is_pokemon_card(c):
@@ -9074,12 +9141,12 @@ def luxury_ball():
         if picks:
             await ctx.put_in_hand(picks, reveal=True)
         await ctx.shuffle_deck()
-    effect.condition = condition
     return effect
 
 
 def luxury_ball_condition(board, player_id):
-    pile = board.discard_pile(player_id) if hasattr(board, "discard_pile") else []
+    area = board.find_player_area(player_id, "discard")
+    pile = list(area.children) if area else []
     for c in pile:
         if "luxury ball" in _display(c).lower():
             return False
@@ -9095,14 +9162,18 @@ def marleys_request():
             return False
         d = def_for(getattr(c, "archetype_id", None) or "")
         tt = getattr(d, "trainer_type", None) if d is not None else None
-        # Item/Supporter/Stadium all under TRAINER; exclude Pokémon Tools? Printed says Trainer, Supporter, or Stadium
-        # In DP, "Trainer" often means Item. Include ITEM, SUPPORTER, STADIUM.
-        if tt in (TrainerType.ITEM, TrainerType.SUPPORTER, TrainerType.STADIUM):
+        # Printed: Trainer (=Item), Supporter, or Stadium — not Pokémon Tools / TMs
+        if tt in (TrainerType.ITEM, TrainerType.SUPPORTER, TrainerType.STADIUM,
+                  TrainerType.TRAINER):
             return True
-        # Fallback: any trainer that isn't a Tool
-        if tt == TrainerType.TOOL:
+        if tt in (TrainerType.POKEMON_TOOL, TrainerType.POKEMON_TOOL_F,
+                  TrainerType.TECHNICAL_MACHINE):
             return False
-        return is_trainer_card(c)
+        # Fallback by subtypes
+        subs = [str(s).lower() for s in (getattr(d, "subtypes", None) or [])]
+        if any("tool" in s or "technical" in s for s in subs):
+            return False
+        return True
 
     async def effect(ctx):
         pool = [c for c in ctx.discard_pile() if is_tss(c)]
@@ -9264,3 +9335,426 @@ def dp7_tangela_78_ingrain():
                 await eff(ctx)
     return effect
 
+# === DPP DP Black Star Promos helpers ===
+def dpp_arceus_dp50_judgment():
+    """Discard all Energy from Arceus; 80 + 10 to each Bench (no W/R)."""
+    async def effect(ctx):
+        await ctx.deal_damage(80)
+        a = ctx.attacker
+        if a is not None:
+            energies = [c for c in list(a.children) if is_energy_card(c)]
+            if energies:
+                await ctx.discard_cards(energies)
+        for p in ctx.opponent_bench():
+            await ctx.deal_damage(10, target=p, apply_modifiers=False)
+    return effect
+
+def arceus_multitype_passive() -> Passive:
+    """Arceus LV.X's type is the same type as its previous Level (tucked under)."""
+    class _P(Passive):
+        stacking_key = "arceus_multitype"
+        def modify_pokemon_types(self, types, pokemon, carrier):
+            holder = carrier_pokemon(carrier) or carrier
+            if pokemon is not holder:
+                return types
+            for child in list(getattr(holder, "children", []) or []):
+                if isinstance(child, PokemonEntity):
+                    prev = list(child.get_attribute(AttrID.POKEMON_TYPES) or [])
+                    if prev:
+                        return prev
+                    break
+            return types
+    return _P()
+
+
+def arceus_omniscient_passive() -> Passive:
+    """Grant attacks of every other Arceus you have in play."""
+    class _P(Passive):
+        stacking_key = "arceus_omniscient"
+        def granted_attacks(self, board, pokemon, carrier):
+            holder = carrier_pokemon(carrier) or carrier
+            if pokemon is not holder:
+                return []
+            out = []
+            seen = set()
+            for p in board.pokemon_in_play(holder.owning_player_id):
+                if p is holder:
+                    continue
+                if "arceus" not in _display(p).lower():
+                    continue
+                d = def_for(p.archetype_id)
+                for a in (getattr(d, "abilities", None) or []):
+                    # Attack objects live in abilities list
+                    from spirit.game.data_utils import Attack
+                    if not isinstance(a, Attack):
+                        continue
+                    key = (a.title, a.game_text, tuple(sorted((a.cost or {}).items())), a.damage)
+                    if key in seen:
+                        continue
+                    seen.add(key)
+                    out.append(a)
+            return out
+    return _P()
+
+
+def dpp_arceuslvx_dp53_multitype():
+    """Legacy name — Multitype is a continuous Body (use arceus_multitype_passive)."""
+    return arceus_multitype_passive()
+
+
+def dpp_arceuslvx_dp53_omniscient():
+    """Legacy name — Omniscient is a continuous Body (use arceus_omniscient_passive)."""
+    return arceus_omniscient_passive()
+
+
+def dpp_arceuslvx_dp56_meteor_blast():
+    """Flip: tails → 50 base instead of 100."""
+    async def effect(ctx):
+        results = await ctx.flip_coins(1, "Meteor Blast")
+        amount = 100 if (results and results[0]) else 50
+        await ctx.deal_damage(amount)
+    return effect
+
+
+def dpp_arceuslvx_dp56_multitype():
+    return arceus_multitype_passive()
+
+def dpp_carnivineg_dp42_grass_knot():
+    """Grass Knot: refine — printed text may need more mechanics.
+    TEXT: Does 20 damage plus 10 more damage for each Colorless Energy in the Defending Pokémon's Retreat Cost (after applying effects to the Retreat Cost).
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(20)
+    return effect
+
+def dpp_charizardglvx_dp45_call_for_power():
+    """Move an Energy from any of yours onto Charizard G (unlimited)."""
+    async def effect(ctx):
+        me = ctx.source
+        if me is None:
+            return
+        movers = []
+        for p in ctx.my_pokemon_in_play():
+            if p is me:
+                continue
+            for c in list(p.children):
+                if is_energy_card(c):
+                    movers.append(c)
+        if not movers:
+            return
+        picks = await ctx.choose_cards(
+            movers, 1, minimum=0, prompt="Move which Energy to Charizard G?")
+        if picks:
+            await ctx.move_energy(picks[0], me)
+    return effect
+
+def dpp_charizardglvx_dp45_malevolent_fire():
+    """Malevolent Fire: refine — printed text may need more mechanics.
+    TEXT: Flip a coin. If tails, discard all Energy attached to Charizard G.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(150)
+    return effect
+
+def dpp_cresselia_dp51_lunar_aura():
+    """Lunar Aura: refine — printed text may need more mechanics.
+    TEXT: If you have Darkrai in play, remove 1 damage counter from Cresselia between turns.
+    """
+    async def effect(ctx):
+        pass
+    return effect
+
+def dpp_cresselia_dp51_lunar_flight():
+    """Lunar Flight: refine — printed text may need more mechanics.
+    TEXT: Does 80 damage minus 10 damage for each damage counter on Cresselia.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(80)
+    return effect
+
+def dpp_darkrai_dp24_roar_of_time():
+    """Roar of Time: refine — printed text may need more mechanics.
+    TEXT: Search your discard pile for 3 Pokémon, show them to your opponent, and put them on top of your deck. Shuffle your deck afterward. (If you don't have 3 Pokémon in your discard pile
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(80)
+        await ctx.shuffle_deck()
+    return effect
+
+def dpp_darkrai_dp52_darkness_aura():
+    """Darkness Aura: refine — printed text may need more mechanics.
+    TEXT: If you have Cresselia in play, each of Darkrai's attack does 20 more damage to the Defending Pokémon (before applying Weakness and Resistance).
+    """
+    async def effect(ctx):
+        pass
+    return effect
+
+def dpp_dialga_dp49_time_wager():
+    """Time Wager: refine — printed text may need more mechanics.
+    TEXT: Flip 2 coins. If either of them is tails, this attack's base damage is 50 instead of 100.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(100)
+    return effect
+
+def dpp_dusknoir_dp33_dark_hide():
+    """Dark Hide: refine — printed text may need more mechanics.
+    TEXT: Once during your turn (before your attack), you may flip a coin. If heads, look at your opponent's hand, choose a Pokémon you find there, and put it on the bottom of his or her dec
+    """
+    async def effect(ctx):
+        pass
+    return effect
+
+def dpp_dusknoir_dp33_reaper_pulse():
+    """Reaper Pulse: refine — printed text may need more mechanics.
+    TEXT: Move up to 2 damage counters from Dusknoir to 1 of your opponent's Benched Pokémon.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(70)
+    return effect
+
+def dpp_garchompclvx_dp46_healing_breath():
+    """Healing Breath: refine — printed text may need more mechanics.
+    TEXT: Once during your turn (before your attack), when you put Garchomp C LV.X from your hand onto your Active Garchomp C, you may remove all damage counters from each of your Pokémon SP
+    """
+    async def effect(ctx):
+        pass
+    return effect
+
+def dpp_giratinalvx_dp38_darkness_lost():
+    """Darkness Lost: refine — printed text may need more mechanics.
+    TEXT: This attack does 30 damage to each of your opponent's Pokémon. (Don't apply Weakness and Resistance for Benched Pokémon.) If any of your opponent's Pokémon would be Knocked Out by 
+    """
+    async def effect(ctx):
+        await ctx.deal_damage()
+    return effect
+
+def dpp_giratinalvx_dp38_invisible_tentacles():
+    """Invisible Tentacles: refine — printed text may need more mechanics.
+    TEXT: Whenever your opponent's Pokémon tries to attack, your opponent discards 1 card from his or her hand. (If your opponent can't discard 1 card, your opponent's Pokémon can't attack.)
+    """
+    async def effect(ctx):
+        pass
+    return effect
+
+def dpp_giratinalvx_dp38_invisible_tentacles_passive() -> Passive:
+    """Invisible Tentacles: continuous body — soft stub; see Known defects if incomplete."""
+    class _P(Passive):
+        stacking_key = 'dpp_giratinalvx_dp38_invisible_tentacles'
+    return _P()
+
+def dpp_gliscor_dp36_bind_eye():
+    """Bind Eye: refine — printed text may need more mechanics.
+    TEXT: As long as Gliscor is your Active Pokémon, your opponent can't remove any Special Conditions by evolving or devolving his or her Pokémon. (This also includes putting a Pokémon Leve
+    """
+    async def effect(ctx):
+        pass
+    return effect
+
+def dpp_gliscor_dp36_bind_eye_passive() -> Passive:
+    """Bind Eye: continuous body — soft stub; see Known defects if incomplete."""
+    class _P(Passive):
+        stacking_key = 'dpp_gliscor_dp36_bind_eye'
+    return _P()
+
+def dpp_gliscor_dp36_cutting_turn():
+    """Cutting Turn: refine — printed text may need more mechanics.
+    TEXT: Flip a coin. If heads, put damage counters on the Defending Pokémon until it is 10HP away from being Knocked Out. If you do, shuffle Gliscor and all cards attached to it back into 
+    """
+    async def effect(ctx):
+        results = await ctx.flip_coins(1, 'Cutting Turn')
+        if not results or not results[0]:
+            return
+        await ctx.deal_damage()
+    return effect
+
+def dpp_magnezone_dp44_charge_beam():
+    """Charge Beam: refine — printed text may need more mechanics.
+    TEXT: Search your discard pile for an Energy card and attach it to Magnezone.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(30)
+    return effect
+
+def dpp_magnezone_dp44_metallic_bolt():
+    """Metallic Bolt: refine — printed text may need more mechanics.
+    TEXT: You may discard a Lightning Energy and a Metal Energy attached to Magnezone. If you do, this attack's base damage is 120 instead of 60.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(60)
+    return effect
+
+def dpp_porygonz_dp35_install():
+    """Install: refine — printed text may need more mechanics.
+    TEXT: As often as you like during your turn (before your attack), move a Technical Machine card attached to 1 of your Pokémon to another of your Pokémon. This power can't be used if Pory
+    """
+    async def effect(ctx):
+        pass
+    return effect
+
+def dpp_porygonz_dp35_learning():
+    """Learning: refine — printed text may need more mechanics.
+    TEXT: Search your deck for a Pokémon LV.X that levels up from 1 of your Pokémon, and put it onto that Pokémon. (This counts as leveling up that Pokémon.) Shuffle your deck afterward.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage()
+        await ctx.shuffle_deck()
+    return effect
+
+def dpp_porygonz_dp35_overload():
+    """Overload: refine — printed text may need more mechanics.
+    TEXT: Does 40 damage plus 20 more damage for each Technical Machine card attached to Porygon-Z.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(40)
+    return effect
+
+def dpp_probopassg_dp43_loud_snort():
+    """Loud Snort: refine — printed text may need more mechanics.
+    TEXT: Probopass G's Retreat Cost is 0 until the end of your next turn.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(70)
+    return effect
+
+def dpp_probopassg_dp43_nose_unit():
+    """Nose Unit: refine — printed text may need more mechanics.
+    TEXT: This attack does 20 damage to each of your opponent's Pokémon that has any Poké-Bodies. (Don't apply Weakness and Resistance for Benched Pokémon.)
+    """
+    async def effect(ctx):
+        await ctx.deal_damage()
+    return effect
+
+async def dpp_rayquazaclvx_dp47_dragon_spirit_on_damaged(ctx):
+    """If Active and damaged but not KO'd: may attach Energy from discard."""
+    pokemon = ctx.source
+    if pokemon is None or not is_in_active_spot(pokemon):
+        return
+    if pokemon.get_attribute(AttrID.HP, 0) <= 0:
+        return
+    pool = [c for c in ctx.discard_pile() if is_energy_card(c)]
+    if not pool:
+        return
+    if not await ctx.ask_yes_no("Dragon Spirit: attach an Energy from discard?"):
+        return
+    picks = await ctx.choose_cards(pool, 1, minimum=1, prompt="Energy from discard")
+    if picks:
+        await ctx.attach_energy(picks[0], pokemon)
+
+
+def dpp_rayquazaclvx_dp47_dragon_spirit():
+    return dpp_rayquazaclvx_dp47_dragon_spirit_on_damaged
+
+def dpp_rayquazaclvx_dp47_final_blowup():
+    """200; discard all Energy unless hand is empty."""
+    async def effect(ctx):
+        await ctx.deal_damage(200)
+        if len(ctx.hand()) == 0:
+            return
+        me = ctx.attacker
+        if me is None:
+            return
+        energies = [c for c in list(me.children) if is_energy_card(c)]
+        if energies:
+            await ctx.discard_cards(energies)
+    return effect
+
+def dpp_regigigas_dp40_drag_off():
+    """Drag Off: refine — printed text may need more mechanics.
+    TEXT: Before doing damage, you may choose 1 of your opponent's Benched Pokémon and switch it with the Defending Pokémon.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(30)
+    return effect
+
+def dpp_shayminlvx_dp39_energy_flare():
+    """Energy Flare: refine — printed text may need more mechanics.
+    TEXT: You may move any number of Energy cards attached to your Pokémon to your other Pokémon in any way you like.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(50)
+    return effect
+
+def dpp_shayminlvx_dp39_revenge_seed_passive() -> Passive:
+    """If a Grass of yours was KO'd by attack last opp turn: +60 to Active."""
+    class _P(Passive):
+        stacking_key = "revenge_seed"
+        def modify_damage_dealt(self, calc, carrier):
+            if not (calc.is_attack and calc.is_opposing and calc.to_active):
+                return
+            holder = carrier_pokemon(carrier) or carrier
+            if calc.attacker is not holder:
+                return
+            ts = getattr(calc.board, "turn_state", None)
+            if ts is None:
+                return
+            kos = list((getattr(ts, "kos_by_attack_last_turn", {}) or {}).get(
+                holder.owning_player_id, []) or [])
+            for entry in kos:
+                if not isinstance(entry, dict):
+                    continue
+                types = entry.get("types") or entry.get("pokemon_types") or []
+                arch = entry.get("archetype_id") or entry.get("archetype")
+                if PokemonTypes.GRASS.value in types or PokemonTypes.GRASS in types:
+                    calc.amount += 60
+                    return
+                if arch:
+                    d = def_for(arch)
+                    elems = list(getattr(d, "elements", None) or []) if d else []
+                    if any(getattr(t, "value", t) == PokemonTypes.GRASS.value
+                           or t == PokemonTypes.GRASS for t in elems):
+                        calc.amount += 60
+                        return
+    return _P()
+
+def dpp_shayminlvx_dp39_revenge_seed():
+    return dpp_shayminlvx_dp39_revenge_seed_passive()
+
+def dpp_toxicroakg_dp41_leap_away():
+    """Leap Away: refine — printed text may need more mechanics.
+    TEXT: Once during your turn (before your attack), if Toxicroak G is your Active Pokémon, you may flip a coin. If heads, return Toxicroak G and all cards attached to it to your hand. This
+    """
+    async def effect(ctx):
+        pass
+    return effect
+
+def dpp_toxicroakg_dp41_poison_revenge():
+    """Poison Revenge: refine — printed text may need more mechanics.
+    TEXT: If any of your Pokémon were Knocked Out by damage from an opponent's attack during his or her last turn, this attack does 20 damage plus 40 more damage and the Defending Pokémon is
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(20)
+    return effect
+
+
+# === DPP Black Star Promo trainer helpers ===
+
+def beginning_door():
+    """Search deck for Arceus into hand."""
+    async def effect(ctx):
+        def pred(c):
+            return is_pokemon_card(c) and "arceus" in _display(c).lower()
+        picks = await ctx.search_deck(pred, count=1, minimum=0, prompt="Arceus")
+        if picks:
+            await ctx.put_in_hand(picks, reveal=True)
+        await ctx.shuffle_deck()
+    return effect
+
+
+def ultimate_zone_ability():
+    """Move an Energy from Bench to Active Arceus (unlimited)."""
+    async def effect(ctx):
+        active = ctx.my_active()
+        if active is None or "arceus" not in _display(active).lower():
+            return
+        movers = []
+        for p in ctx.my_bench():
+            for c in list(p.children):
+                if is_energy_card(c):
+                    movers.append(c)
+        if not movers:
+            return
+        picks = await ctx.choose_cards(movers, 1, minimum=0, prompt="Move Energy to Active Arceus")
+        if picks:
+            await ctx.move_energy(picks[0], active)
+    return effect
