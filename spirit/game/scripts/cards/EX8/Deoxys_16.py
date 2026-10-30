@@ -28,6 +28,7 @@ card = PokemonCardDef(
             title="Form Change",
             game_text="Once during your turn (before your attack), you may search your deck for another Deoxys and switch it with Deoxys. (Any cards attached to Deoxys, damage counters, Special Conditions, and effects on it are now on the new Pok\u00e9mon.) If you do, put Deoxys on top of your deck. Shuffle your deck afterward. You can't use more than 1 Form Change Pok\u00e9-Power each turn.",
             ability_type=AbilityTypes.POKE_POWER,
+            shared_once_per_turn="Form Change",
             # STUB: ability effect not implemented
             effect=form_change_deoxys(),
         ),
