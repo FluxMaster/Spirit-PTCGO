@@ -4,6 +4,8 @@ Honchkrow (DP2 #10): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import shuffle_random_from_opponent_hand
+
 
 card = PokemonCardDef(
     guid="88144272-b9a3-5341-861b-80aae1f558c0",
@@ -38,7 +40,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.DARKNESS: 2, PokemonTypes.COLORLESS: 1},
             damage=50,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=shuffle_random_from_opponent_hand(),
         ),
     ],
 )

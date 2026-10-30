@@ -4,6 +4,8 @@ Feraligatr (DP2 #8): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import knock_off_random_hand
+
 
 card = PokemonCardDef(
     guid="3ad57890-7f01-5ff9-b47f-be5a19d5b72a",
@@ -38,7 +40,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 2},
             damage=60,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=knock_off_random_hand(),
         ),
     ],
 )

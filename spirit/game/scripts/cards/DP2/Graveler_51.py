@@ -4,6 +4,8 @@ Graveler (DP2 #51): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import spiral_rush
+
 
 card = PokemonCardDef(
     guid="0cf55a42-2fbb-56b1-b04f-7785bb414152",
@@ -32,7 +34,7 @@ card = PokemonCardDef(
             damage=30,
             damage_operator="x",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=spiral_rush(),
         ),
         Attack(
             title="Rock Slide",

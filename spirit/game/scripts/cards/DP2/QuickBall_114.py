@@ -1,11 +1,5 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Quick Ball (DP2 #114): trainer effect stubbed.
-
-Card text:
-  - Reveal cards from your deck until you reveal a Pokémon. Show that Pokémon to your opponent and put it into your hand. Shuffle the other revealed cards back into your deck. (If you don't reveal a Pokémon, shuffle all the revealed cards back into your deck.)
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.card_effects.trainers import hand_size_at_least, quick_ball
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
 
 card = ItemCardDef(
@@ -18,6 +12,6 @@ card = ItemCardDef(
     collector_number=114,
     set_code="DP2",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=quick_ball,
+    condition=hand_size_at_least(2)
 )

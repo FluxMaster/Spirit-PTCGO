@@ -4,6 +4,8 @@ Magikarp (DP2 #89): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_or_nothing
+
 
 card = PokemonCardDef(
     guid="15e6a0ea-f1bb-5ee2-bba5-79af6daac06e",
@@ -37,7 +39,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 2},
             damage=60,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_or_nothing(coins=2),
         ),
     ],
 )
