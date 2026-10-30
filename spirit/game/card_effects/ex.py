@@ -20504,3 +20504,49 @@ def synchro_punch(base: int = 10, bonus: int = 30):
                     break
         await ctx.deal_damage(base + extra)
     return effect
+
+
+def magical_leaf_flip(bonus: int = 20, heal_counters: int = 3):
+    """Flip: heads deal printed+bonus and remove heal_counters damage counters
+    from this Pokémon (Magical Leaf)."""
+    async def effect(ctx):
+        results = await ctx.flip_coins(
+            1, ctx.ability.title if ctx.ability else "")
+        printed = getattr(ctx.ability, "damage", 0) or 0
+        if results and results[0]:
+            await ctx.deal_damage(printed + bonus)
+            if ctx.attacker is not None:
+                await ctx.heal(heal_counters * 10, ctx.attacker)
+        else:
+            if printed > 0:
+                await ctx.deal_damage(printed)
+    return effect
+
+
+def wring_out_paralyze_discard():
+    """Flip: heads Paralyzed + discard 1 Energy from Defending (Wring Out)."""
+    async def effect(ctx):
+        await ctx.deal_damage()
+        results = await ctx.flip_coins(
+            1, ctx.ability.title if ctx.ability else "")
+        if not (results and results[0]) or ctx.defender is None:
+            return
+        if not ctx.effects_blocked(ctx.defender):
+            await ctx.apply_special_condition(
+                ctx.defender, SpecialConditions.PARALYZED)
+            await ctx.discard_energy_from(
+                ctx.defender, 1,
+                prompt="Choose an Energy to discard from the Defending Pokémon")
+    return effect
+
+
+def flip_lock_supporters():
+    """Printed damage; flip: heads opponent can't play Supporters next turn
+    (Ghastly Sound / Limitation)."""
+    async def effect(ctx):
+        await ctx.deal_damage()
+        results = await ctx.flip_coins(
+            1, ctx.ability.title if ctx.ability else "")
+        if results and results[0]:
+            ctx.lock_plays(ctx.opponent_id, is_supporter_card)
+    return effect
