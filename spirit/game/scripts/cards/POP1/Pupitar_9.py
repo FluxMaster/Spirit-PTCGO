@@ -4,6 +4,8 @@ Pupitar (POP1 #9): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_bonus
+
 
 card = PokemonCardDef(
     guid="c2deaf9f-acfa-56b5-9c1d-c79af823f26e",
@@ -30,7 +32,7 @@ card = PokemonCardDef(
             damage=20,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_bonus(10),
         ),
     ],
 )

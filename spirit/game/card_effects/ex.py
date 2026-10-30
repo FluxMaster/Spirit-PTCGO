@@ -19802,3 +19802,33 @@ def anorith_fury_cutter(base: int = 10):
         bonus = {0: 0, 1: 10, 2: 30, 3: 50}.get(heads, 0)
         await ctx.deal_damage(base + bonus)
     return effect
+
+
+def critical_crush_discard_basic(count: int = 2):
+    """Discard `count` Basic Energy attached or this attack does nothing."""
+    async def effect(ctx):
+        discarded = await ctx.discard_energy_from(
+            ctx.attacker, count,
+            predicate=is_basic_energy_card,
+            prompt=f"Discard {count} Basic Energy or this attack does nothing",
+        )
+        if not discarded or len(discarded) < count:
+            return
+        await ctx.deal_damage()
+    return effect
+
+
+def mud_splash_bench_flip(amount: int = 20):
+    """Deal printed damage; may snipe a Bench Pokémon for `amount` on heads."""
+    async def effect(ctx):
+        await ctx.deal_damage()
+        bench = ctx.opponent_bench()
+        if not bench:
+            return
+        t = await ctx.choose_pokemon(bench, "Mud Splash")
+        if t is None:
+            return
+        flips = await ctx.flip_coins(1, "Mud Splash")
+        if flips and flips[0]:
+            await ctx.deal_damage(amount, target=t, apply_modifiers=False)
+    return effect

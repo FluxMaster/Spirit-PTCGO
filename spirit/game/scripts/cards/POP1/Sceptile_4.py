@@ -4,6 +4,8 @@ Sceptile (POP1 #4): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import cling_heal, sharp_leaf
+
 
 card = PokemonCardDef(
     guid="ebf3a63d-43b4-5749-91a5-67220f382070",
@@ -30,7 +32,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=cling_heal(),
         ),
         Attack(
             title="Leaf Blade",
@@ -39,7 +41,7 @@ card = PokemonCardDef(
             damage=40,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=sharp_leaf(40, 30),
         ),
     ],
 )

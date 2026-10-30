@@ -4,6 +4,9 @@ Armaldo ex (POP1 #16): one or more attacks/abilities use effect=unimplemented un
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import double_wing_attack
+from spirit.game.card_effects.attacks_common import ignore_resistance_attack
+
 
 card = PokemonCardDef(
     guid="65ce4f3b-c94e-5846-805f-cdc91de7afc3",
@@ -28,7 +31,7 @@ card = PokemonCardDef(
             game_text="Does 30 damage to each Defending Pok\u00e9mon.",
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=double_wing_attack(),
         ),
         Attack(
             title="Supersonic Claws",
@@ -36,7 +39,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 2, PokemonTypes.COLORLESS: 3},
             damage=80,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=ignore_resistance_attack(),
         ),
     ],
 )

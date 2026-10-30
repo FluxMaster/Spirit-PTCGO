@@ -4,6 +4,8 @@ Swellow (POP1 #15): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import agility_flip_protect, focus_energy_boost_named
+
 
 card = PokemonCardDef(
     guid="a6596264-d3fb-517f-97c4-edd73d67b8f0",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             game_text="During your next turn, base damage of Swellow's Agility is 70 instead of 30.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=focus_energy_boost_named("Agility", 70),
         ),
         Attack(
             title="Agility",
@@ -37,7 +39,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=agility_flip_protect(),
         ),
     ],
 )

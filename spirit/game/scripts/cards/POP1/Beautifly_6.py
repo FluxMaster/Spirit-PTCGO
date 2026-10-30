@@ -3,7 +3,10 @@ Beautifly (POP1 #6): one or more attacks/abilities use effect=unimplemented unti
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.card_effects.ex import blot_heal
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import gust_attack
+
 
 card = PokemonCardDef(
     guid="3e0f10c3-bea4-5202-8493-800dd0a747dc",
@@ -29,7 +32,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=blot_heal(1),
         ),
         Attack(
             title="Whirlwind",
@@ -37,7 +40,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=40,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=gust_attack(opponent_chooses=True),
         ),
     ],
 )

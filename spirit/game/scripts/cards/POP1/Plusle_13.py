@@ -3,7 +3,10 @@ Plusle (POP1 #13): one or more attacks/abilities use effect=unimplemented until 
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.card_effects.ex import agility_flip_protect
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_bonus
+
 
 card = PokemonCardDef(
     guid="0ccb8321-bfdd-5dce-8807-3d88756752c2",
@@ -30,7 +33,7 @@ card = PokemonCardDef(
             damage=10,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_bonus(10),
         ),
         Attack(
             title="Agility",
@@ -38,7 +41,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=agility_flip_protect(),
         ),
     ],
 )

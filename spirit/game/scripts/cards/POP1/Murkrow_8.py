@@ -4,6 +4,8 @@ Murkrow (POP1 #8): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import feint_attack, insomnia_passive
+
 
 card = PokemonCardDef(
     guid="7f13afd1-9dd0-578b-bf7b-250559f0912e",
@@ -28,14 +30,14 @@ card = PokemonCardDef(
             game_text="Murkrow can't be Asleep.",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=insomnia_passive(),
         ),
         Attack(
             title="Feint Attack",
             game_text="Choose 1 of your opponent's Pok\u00e9mon. This attack does 20 damage to that Pok\u00e9mon. This attack's damage isn't affected by Weakness, Resistance, Pok\u00e9-Powers, Pok\u00e9-Bodies, or any other effects on that Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 2},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=feint_attack(20),
         ),
     ],
 )

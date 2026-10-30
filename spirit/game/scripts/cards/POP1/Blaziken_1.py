@@ -4,6 +4,8 @@ Blaziken (POP1 #1): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_damage
+
 
 card = PokemonCardDef(
     guid="53369b79-8b27-58ab-b75b-4809129b6afe",
@@ -35,7 +37,7 @@ card = PokemonCardDef(
             damage=50,
             damage_operator="x",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(coins=2, per_heads=50),
         ),
     ],
 )

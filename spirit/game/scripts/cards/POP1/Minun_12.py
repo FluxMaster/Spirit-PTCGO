@@ -4,6 +4,10 @@ Minun (POP1 #12): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.attributes import SpecialConditions
+from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ex import thunderspark
+
 
 card = PokemonCardDef(
     guid="e5122e89-bbc7-5329-8f0b-c37badd5f621",
@@ -29,7 +33,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 1},
             damage=10,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(SpecialConditions.PARALYZED, flip=True),
         ),
         Attack(
             title="Spark",
@@ -37,7 +41,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=10,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=thunderspark(10),
         ),
     ],
 )
