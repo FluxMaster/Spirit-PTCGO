@@ -18291,42 +18291,108 @@ def energy_recycle_to_deck(n: int = 3):
 # EX15 Dragon Frontiers helpers
 # ---------------------------------------------------------------------------
 
+def _holon_veil_owners(board) -> set:
+    """Player IDs that currently have Holon Veil in play."""
+    if board is None:
+        return set()
+    from spirit.game.session.passives import active_passives as _ap
+    owners = set()
+    for passive, carrier in _ap(board):
+        if getattr(passive, "stacking_key", None) != "holon_veil":
+            continue
+        holder = carrier_pokemon(carrier) or carrier
+        if holder is not None and holder.owning_player_id:
+            owners.add(holder.owning_player_id)
+    return owners
+
+
+_HOLON_VEIL_ZONES = frozenset({
+    "deck", "hand", "discard", "activePokemonArea", "bench",
+})
+
+
+def _is_basic_or_evolution_card(card) -> bool:
+    """Printed Holon Veil: Basic Pokémon and Evolution cards only."""
+    from spirit.game.session.effects import is_pokemon_card, is_basic_pokemon, is_evolution_pokemon
+    if not is_pokemon_card(card):
+        # Loose fallback via def stage when attributes not stamped (deck search)
+        d = def_for(getattr(card, "archetype_id", None) or "")
+        if d is None:
+            return False
+        stage = getattr(d, "stage", None)
+        if stage is None:
+            return False
+        return stage in (
+            PokemonStage.BASIC, PokemonStage.STAGE1, PokemonStage.STAGE2,
+            getattr(PokemonStage.BASIC, "value", None),
+            getattr(PokemonStage.STAGE1, "value", None),
+            getattr(PokemonStage.STAGE2, "value", None),
+        )
+    return is_basic_pokemon(card) or is_evolution_pokemon(card)
+
+
+def _card_in_holon_veil_zone(card) -> bool:
+    """True if card sits in deck/hand/discard/in-play (printed Holon Veil zones)."""
+    area_fn = getattr(card, "_containing_area_name", None)
+    if not callable(area_fn):
+        return True  # mid-effect / unbound — allow when owner has veil
+    area = area_fn()
+    if area is None:
+        return True
+    return area in _HOLON_VEIL_ZONES
+
+
 def holon_veil_treat_as_delta_passive() -> Passive:
-    """Your Basic/Evolution cards are treated as having δ (in play / for δ checks)."""
+    """Treat each of your Basic/Evolution cards in deck, hand, discard, and
+    in play as a Pokémon that has δ on its card (Ampharos δ Holon Veil)."""
     class _P(Passive):
         stacking_key = "holon_veil"
 
-        def treats_as_delta(self, pokemon, carrier, board=None) -> bool:
+        def treats_as_delta(self, card, carrier, board=None) -> bool:
             holder = carrier_pokemon(carrier) or carrier
-            if pokemon is None or holder is None:
+            if card is None or holder is None:
                 return False
-            return pokemon.owning_player_id == holder.owning_player_id
+            if getattr(card, "owning_player_id", None) != holder.owning_player_id:
+                return False
+            if not _is_basic_or_evolution_card(card):
+                return False
+            if not _card_in_holon_veil_zone(card):
+                return False
+            return True
     return _P()
 
 
-# Patch _has_delta to honor Holon Veil if not already
+# Patch _has_delta (and is_delta_pokemon) to honor Holon Veil across zones.
 _orig_has_delta = _has_delta
 
-def _has_delta(card_or_pokemon) -> bool:  # noqa: F811
+
+def _has_delta(card_or_pokemon, board=None) -> bool:  # noqa: F811
+    """Printed δ, or Holon Veil zone tagging for the owner's Basic/Evolutions."""
     if _orig_has_delta(card_or_pokemon):
         return True
-    # Holon Veil: any in-play Passive/Evolution under veil owner counts as δ
-    get_attr = getattr(card_or_pokemon, "get_attribute", None)
-    if get_attr is None:
-        return False
-    # Walk active passives via board if stamped
-    board = getattr(card_or_pokemon, "board", None)
+    if board is None:
+        try:
+            from spirit.game.session.effects import current_board
+            board = current_board()
+        except Exception:
+            board = None
+    if board is None:
+        board = getattr(card_or_pokemon, "board", None)
     if board is None:
         return False
-    try:
-        from spirit.game.session.passives import active_passives as _ap
-        for passive, carrier in _ap(board):
-            fn = getattr(passive, "treats_as_delta", None)
-            if fn and fn(card_or_pokemon, carrier, board):
-                return True
-    except Exception:
+    owner = getattr(card_or_pokemon, "owning_player_id", None)
+    if owner is None or owner not in _holon_veil_owners(board):
         return False
-    return False
+    if not _is_basic_or_evolution_card(card_or_pokemon):
+        return False
+    if not _card_in_holon_veil_zone(card_or_pokemon):
+        return False
+    return True
+
+
+def is_delta_pokemon(card, board=None) -> bool:  # noqa: F811
+    """δ on the card, or treated as δ via Holon Veil."""
+    return _has_delta(card, board=board)
 
 
 def battle_aura_delta_boost(amount: int = 10) -> Passive:
