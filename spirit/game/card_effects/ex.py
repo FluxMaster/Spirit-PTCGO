@@ -20107,3 +20107,109 @@ def extra_draw_attach_if_ex(count: int = 2):
             await ctx.attach_energy(card, src)
         await ctx.shuffle_deck()
     return effect
+
+
+# --- POP6 helpers -----------------------------------------------------------
+
+def anger_revenge_snipe(bench_dmg: int = 40):
+    """Printed Active damage; if damaged last turn, also 40 to 1 opp Bench (no W/R)."""
+    async def effect(ctx):
+        await ctx.deal_damage()
+        a = ctx.attacker
+        if a is None or ctx.damage_taken_last_turn(a) <= 0:
+            return
+        bench = ctx.opponent_bench()
+        if not bench:
+            return
+        t = await ctx.choose_pokemon(
+            bench, "Deal damage to which Benched Pokémon?")
+        if t is not None:
+            await ctx.deal_damage(bench_dmg, target=t, apply_modifiers=False)
+    return effect
+
+
+def assurance_if_hp_or_less(base: int = 30, boosted: int = 60, threshold: int = 60):
+    """Base damage; boosted while Defending remaining HP <= threshold."""
+    async def effect(ctx):
+        d = ctx.defender
+        if d is None:
+            await ctx.deal_damage(base)
+            return
+        hp = int(d.get_attribute(AttrID.HP, 0) or 0)
+        await ctx.deal_damage(boosted if hp <= threshold else base)
+    return effect
+
+
+def hasty_headbutt_swift(damage: int = 100, self_dmg: int = 20):
+    """Swift damage (ignore W/R/effects); then self damage."""
+    async def effect(ctx):
+        await ctx.deal_damage(
+            damage, apply_modifiers=False, ignore_target_effects=True)
+        if ctx.attacker is not None and self_dmg:
+            await ctx.deal_damage(
+                self_dmg, target=ctx.attacker, apply_modifiers=False)
+    return effect
+
+
+def blowing_wind_shuffle_bench():
+    """Flip: heads put 1 of your Benched Pokémon (full stack) on top, then shuffle."""
+    async def effect(ctx):
+        results = await ctx.flip_coins(1, "Blowing Wind")
+        if not (results and results[0]):
+            return
+        bench = ctx.my_bench()
+        if not bench:
+            return
+        target = await ctx.choose_pokemon(
+            bench, "Put which Benched Pokémon on top of your deck?")
+        if target is None:
+            return
+        await ctx.shuffle_into_deck(full_stack(target), ctx.player_id)
+    return effect
+
+
+def ominous_wind_confuse_lock(damage: int = 10):
+    """Printed damage; flip: heads Confused + can't retreat next turn."""
+    async def effect(ctx):
+        await ctx.deal_damage(damage)
+        results = await ctx.flip_coins(1, "Ominous Wind")
+        d = ctx.defender
+        if not (results and results[0]) or d is None or ctx.effects_blocked(d):
+            return
+        await ctx.apply_special_condition(d, SpecialConditions.CONFUSED)
+        ctx.lock_retreat(d)
+    return effect
+
+
+def ember_flip_heads_discard_fire():
+    """Printed damage; flip: heads discard a Fire Energy from self."""
+    async def effect(ctx):
+        await ctx.deal_damage()
+        results = await ctx.flip_coins(1, "Ember")
+        if not (results and results[0]) or ctx.attacker is None:
+            return
+        await ctx.discard_energy_from(
+            ctx.attacker, 1,
+            predicate=lambda c: energy_provides_type(c, PokemonTypes.FIRE.value),
+            prompt="Discard a Fire Energy",
+        )
+    return effect
+
+
+def leech_seed_heal_one_counter(damage: int = 20):
+    """Deal damage; if any damage done after W/R, remove 1 damage counter from self."""
+    async def effect(ctx):
+        dealt = await ctx.deal_damage(damage)
+        if dealt and dealt > 0 and ctx.attacker is not None:
+            await ctx.heal(10, target=ctx.attacker)
+    return effect
+
+
+def scavenge_trainer():
+    """Search discard for a Trainer into hand (reveal)."""
+    from spirit.game.session.effects import is_trainer_card
+    from spirit.game.card_effects.support_common import recover_from_discard
+    return recover_from_discard(
+        predicate=is_trainer_card, count=1, minimum=1, reveal=True,
+        prompt="Choose a Trainer card from your discard pile",
+    )
