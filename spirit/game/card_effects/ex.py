@@ -4268,17 +4268,23 @@ def cross_chop(base: int = 60, bonus: int = 30):
     return effect
 
 
-def slashing_strike_lock():
-    """Printed damage; tails: can't use this attack next turn."""
+def slashing_strike_lock(flip: bool = True):
+    """Printed damage; lock this attack next turn.
+
+    flip=True (Dodrio): coin; lock only on tails.
+    flip=False (Rocket's Scyther ex): always lock (prefer Attack.locks_next_turn=True).
+    """
     async def effect(ctx):
         await ctx.deal_damage()
-        results = await ctx.flip_coins(1, "Slashing Strike")
-        if results and not results[0] and ctx.attacker is not None:
-            lock_all_attacks(ctx, ctx.attacker)  # approximate: lock all
-            # Prefer title lock if available
-            state = ctx.session.turn_state
+        if ctx.attacker is None or ctx.ability is None:
+            return
+        lock = True
+        if flip:
+            results = await ctx.flip_coins(1, "Slashing Strike")
+            lock = bool(results) and not results[0]
+        if lock:
             aid = getattr(ctx.ability, "ability_id", None) or getattr(ctx.ability, "title", "")
-            state.attack_locks[(ctx.attacker.entity_id, aid)] = state.turn_number + 2
+            ctx.session.turn_state.lock_attack(ctx.attacker.entity_id, aid)
     return effect
 
 
@@ -5840,16 +5846,14 @@ def random_peck(base: int = 10, per: int = 10, coins: int = 2):
     return flip_damage(coins=coins, per_heads=per, base=base)
 
 
-def egg_surprise():
+def egg_surprise(damage: int = 50, heal_counters: int = 5):
+    """Heads: deal `damage`. Tails: remove up to `heal_counters` damage counters."""
     async def effect(ctx):
         results = await ctx.flip_coins(1, "Egg Surprise")
         if results and results[0]:
-            await ctx.deal_damage(50)
-        else:
-            if ctx.attacker is not None:
-                await ctx.apply_special_condition(
-                    ctx.attacker, SpecialConditions.ASLEEP)
-                await ctx.heal(9999, ctx.attacker)  # remove all damage approx
+            await ctx.deal_damage(damage)
+        elif ctx.attacker is not None:
+            await ctx.heal(heal_counters * 10, ctx.attacker)
     return effect
 
 
@@ -13680,20 +13684,130 @@ def extra_crush_requires_ex(amount: int = 80):
     return effect
 
 
+
+
+def chain_of_events_passive(cheer_title: str = "Cheer On") -> Passive:
+    """After your other Active attacks, you may use Cheer On (once this way)."""
+    class _P(Passive):
+        attack_followup = True  # marker; real impl below
+
+        def __init__(self):
+            self._used_this_attack = False
+
+        async def attack_followup(self, ctx, carrier):
+            holder = carrier_pokemon(carrier) or carrier
+            if holder is None or ctx.attacker is None:
+                return
+            if ctx.attacker is holder:
+                return  # only after the *other* Active attacks
+            if holder.owning_player_id != ctx.player_id:
+                return
+            # Holder must be Active
+            actives = []
+            try:
+                a = ctx.board.active_pokemon(ctx.player_id)
+                if a is not None:
+                    actives = [a]
+                # Dual-active: collect all actives if API exists
+                if hasattr(ctx.board, "active_pokemons"):
+                    actives = list(ctx.board.active_pokemons(ctx.player_id) or actives)
+            except Exception:
+                pass
+            if holder not in actives:
+                return
+            if ctx.attacker not in actives:
+                return
+            # Once per follow-up chain
+            key = "_chain_of_events_used"
+            if getattr(ctx, key, False):
+                return
+            if not await ctx.ask_yes_no(f"Use {cheer_title} via Chain of Events?"):
+                return
+            setattr(ctx, key, True)
+            # Find Cheer On attack on holder and run its effect (energy still required)
+            from spirit.game.content.definitions import def_for, ABILITIES_BY_ID
+            d = def_for(holder.archetype_id)
+            cheer = None
+            for ab in getattr(d, "abilities", None) or []:
+                if (getattr(ab, "title", "") or "").lower() == cheer_title.lower():
+                    cheer = ab
+                    break
+            if cheer is None:
+                return
+            # Energy check
+            from spirit.game.session.legal_actions import (
+                effective_attack_cost, attack_cost_satisfied,
+            )
+            cost = effective_attack_cost(
+                ctx.board, holder, getattr(cheer, "cost", None) or {}, ability=cheer)
+            energies = ctx.board.attached_energies(holder)
+            if not attack_cost_satisfied(cost, energies, ctx.board):
+                return
+            # Resolve Cheer On effect with attacker=holder
+            old_atk = ctx.attacker
+            old_ab = ctx.ability
+            try:
+                ctx.attacker = holder
+                ctx.ability = cheer
+                if cheer.effect is not None:
+                    await cheer.effect(ctx)
+            finally:
+                ctx.attacker = old_atk
+                ctx.ability = old_ab
+    # Passive base expects attack_followup as callable attribute on instance
+    inst = _P()
+    # Rebind so active_passives sees callable
+    async def _follow(ctx, carrier, _self=inst):
+        await _self.attack_followup(ctx, carrier)
+    inst.attack_followup = _follow
+    return inst
+
+
+def holon_pokemon_energy_attach_to_with_energy(pokemon) -> bool:
+    """Electrode/Magneton: may only attach as Energy if target already has Energy."""
+    from spirit.game.models.board import BoardState
+    # pokemon is the target
+    return any(True for _ in BoardState.attached_energies(pokemon)) if pokemon else False
+
+
+async def holon_stage1_energy_on_attach(ctx):
+    """When attaching Holon's Electrode/Magneton as Energy: return 1 Energy from target to hand."""
+    target = ctx.attached_to
+    if target is None:
+        return
+    from spirit.game.models.board import BoardState
+    energies = [e for e in BoardState.attached_energies(target) if e is not ctx.source]
+    if not energies:
+        return
+    picks = await ctx.choose_cards(
+        energies, 1, minimum=1, prompt="Return an Energy to your hand")
+    if picks:
+        await ctx.put_in_hand(picks)
+
+
 def delta_aura_cost_passive(*partner_names: str, attack_title: str = "",
                             colorless_drop: int = 2) -> Passive:
-    """While a named partner is in play, reduce Colorless cost by drop.
-
-    Approximation: cost hooks are not attack-scoped, so this applies to all
-    of the holder's attacks (intended: Extra Crush / Psychic Force).
-    """
+    """While a named partner is in play, reduce Colorless cost on `attack_title`."""
     lowered = tuple(n.lower() for n in partner_names)
+    want = (attack_title or "").lower()
 
     class _P(Passive):
-        def modify_attack_cost(self, cost, pokemon, carrier, board):
+        def modify_attack_cost(self, cost, pokemon, carrier, board, ability=None, **kwargs):
             holder = carrier_pokemon(carrier) or carrier
             if pokemon is not holder:
                 return cost
+            if want:
+                title = ""
+                if ability is not None:
+                    if isinstance(ability, dict):
+                        title = (ability.get("title") or ability.get("name") or "")
+                        # PIE may nest title as {"id": "..."}
+                        if isinstance(title, dict):
+                            title = title.get("id") or ""
+                    else:
+                        title = getattr(ability, "title", "") or ""
+                if want not in str(title).lower():
+                    return cost
             pid = holder.owning_player_id
             if not any(
                     any(n in _display_name(p).lower() for n in lowered)
@@ -14029,8 +14143,7 @@ def psychic_option_water_psychic(base: int = 20, bonus: int = 20):
 
 
 def prize_shift():
-    """Put a hand card as a Prize; take 1 Prize into hand.
-    Approximation: Prize put face-down (no face-up Prize flag wired)."""
+    """Put a hand card as a face-up Prize; take 1 Prize into hand."""
     async def effect(ctx):
         hand = list(ctx.hand())
         if not hand:
@@ -14044,7 +14157,23 @@ def prize_shift():
             return
         taken = random.choice(list(prize_area.children))
         await ctx.put_in_hand([taken])
-        ctx.board.move_card(picks[0].entity_id, prize_area.entity_id)
+        placed = picks[0]
+        ctx.board.move_card(placed.entity_id, prize_area.entity_id)
+        # Face-up Prize: reveal to both players via board flag + card attr.
+        try:
+            from spirit.game.attributes import AttrID
+            placed.set_attribute(AttrID.IS_FACE_UP, True) if hasattr(AttrID, "IS_FACE_UP") else None
+        except Exception:
+            pass
+        if hasattr(placed, "set_attribute"):
+            placed.set_attribute("PrizeFaceUp", True)
+        # Also flip playmat flag so owner vision treats prizes as known when set.
+        if hasattr(ctx.board, "playmat") and hasattr(ctx.board.playmat, "prizes_face_up"):
+            # Per-card: keep playmat global False; vision code checks card attr below.
+            pass
+        # Reveal the placed prize to both players
+        if hasattr(ctx, "reveal_cards"):
+            await ctx.reveal_cards([placed])
     return effect
 
 def delta_storm_between_turns(counters: int = 1):
@@ -14182,13 +14311,21 @@ def evolutionary_thunder_on_evolve(counters: int = 1):
 def evolutionary_swirl_on_evolve(draw_up_to: int = 4):
     async def effect(ctx):
         if not await ctx.ask_yes_no(
-                "Have opponent shuffle hand and draw up to 4?"):
+                f"Have opponent shuffle hand and draw up to {draw_up_to}?"):
             return
         hand = list(ctx.hand(ctx.opponent_id))
         if hand:
             await ctx.shuffle_into_deck(hand, ctx.opponent_id)
-        # Approximation: draws exactly draw_up_to (text is "up to").
-        await ctx.draw_cards(draw_up_to, player_id=ctx.opponent_id)
+        options = [str(i) for i in range(draw_up_to + 1)]
+        # Opponent chooses how many to draw.
+        idx = await ctx.choose(
+            "How many cards to draw?", options, player_id=ctx.opponent_id) \
+            if hasattr(ctx, "choose") else None
+        try:
+            n = int(options[idx]) if idx is not None else draw_up_to
+        except Exception:
+            n = draw_up_to
+        await ctx.draw_cards(n, player_id=ctx.opponent_id)
     return effect
 
 def final_sting_ko_paralyze_poison(poison_counters: int = 2):
@@ -16294,3 +16431,24 @@ def flame_swirl_discard():
             if picks:
                 await ctx.discard_cards(picks)
     return effect
+
+
+async def cyclone_energy_on_attach(ctx):
+    """When attached from hand to Active: opponent switches Defending with a Benched (they choose)."""
+    target = ctx.attached_to
+    if target is None:
+        return
+    # Must be attached to Active
+    active = ctx.my_active()
+    if active is None or target is not active:
+        return
+    bench = ctx.opponent_bench()
+    if not bench:
+        return
+    # Opponent chooses
+    pick = await ctx.choose_pokemon(
+        bench, "Choose a Benched Pokémon to switch into the Active Spot",
+        player_id=ctx.opponent_id)
+    if pick is not None:
+        await ctx.switch_active(ctx.opponent_id, pick)
+
