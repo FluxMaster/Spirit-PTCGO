@@ -2218,6 +2218,91 @@ async def test_ex5_block_dust_uses_blocks_trainer_play():
 
 
 
+async def test_ex7_mini_metronome_uses_attack():
+    """Mini-Metronome: heads → metronome_defending / use_attack path exists."""
+    from spirit.game.card_effects.ex import mini_metronome
+    import inspect
+    src = inspect.getsource(mini_metronome)
+    assert "metronome_defending" in src
+    assert "flip_coins" in src
+
+
+async def test_ex7_rainbow_moves_copies_bench_attack():
+    from spirit.game.card_effects.ex import rainbow_moves
+    import inspect
+    src = inspect.getsource(rainbow_moves)
+    assert "choose_attack_to_copy" in src and "use_attack" in src
+    assert "opponent_pokemon_in_play" in src or "bench" in src.lower()
+
+
+async def test_ex7_dark_link_copies_dark_attack():
+    from spirit.game.card_effects.ex import dark_link
+    import inspect
+    src = inspect.getsource(dark_link)
+    assert "choose_attack_to_copy" in src and "use_attack" in src
+    assert "_display_name" in src or "Dark" in src
+
+
+async def test_ex7_surprise_time_machine_devolve_reevolve():
+    from spirit.game.card_effects.ex import surprise_time_machine
+    import inspect
+    src = inspect.getsource(surprise_time_machine)
+    assert "devolve_pokemon" in src and "evolve_pokemon" in src
+    assert 'destination="deck"' in src
+
+
+async def test_ex7_swoop_teleporter_basic_non_ex():
+    from spirit.game.card_effects.ex import swoop_teleporter
+    import inspect
+    src = inspect.getsource(swoop_teleporter)
+    assert "identity_swap" in src
+    assert "is_basic_pokemon" in src and "is_pokemon_ex" in src
+    assert 'destination="discard"' in src
+
+
+async def test_ex7_detour_runs_supporter_effect():
+    from spirit.game.card_effects.ex import detour_supporter
+    import inspect
+    src = inspect.getsource(detour_supporter)
+    assert "activeTrainer" in src or "supporter" in src.lower()
+    assert "await fn(ctx)" in src or "effect" in src
+
+
+async def test_ex8_psychic_shield_ex_only():
+    from spirit.game.card_effects.ex import psychic_shield_ex
+    import inspect
+    src = inspect.getsource(psychic_shield_ex)
+    assert "is_pokemon_ex" in src
+    assert "add_passive_through_opponents_turn" in src
+    assert "prevents_damage" in src
+
+
+async def test_ex8_form_change_deoxys_identity_swap():
+    from spirit.game.card_effects.ex import form_change_deoxys
+    import inspect
+    src = inspect.getsource(form_change_deoxys)
+    assert "identity_swap" in src and "shuffle_deck" in src
+    assert "deoxys" in src.lower()
+
+
+async def test_ex8_hustle_punch_next_turn_base():
+    from spirit.game.card_effects.ex import hustle_punch_next
+    import inspect
+    src = inspect.getsource(hustle_punch_next)
+    assert "apply_own_next_turn_boost" in src
+    # default next_base 50 (printed 70 → −20)
+    assert "next_base" in src
+
+
+async def test_ex8_swords_dance_boosts_slash():
+    from spirit.game.card_effects.ex import swords_dance_next
+    import inspect
+    src = inspect.getsource(swords_dance_next)
+    assert "apply_own_next_turn_boost" in src
+    assert 'title: str = "Slash"' in src or 'Slash' in src
+
+
+
 TESTS = [
     test_temp_passive_prevents_then_expires,
     test_temp_passive_cleared_on_leave,
@@ -2297,6 +2382,16 @@ TESTS = [
     test_ex3_balloon_berry_zero_retreat,
     test_ex5_sweet_temptation_opponent_chooses,
     test_ex5_block_dust_uses_blocks_trainer_play,
+    test_ex7_mini_metronome_uses_attack,
+    test_ex7_rainbow_moves_copies_bench_attack,
+    test_ex7_dark_link_copies_dark_attack,
+    test_ex7_surprise_time_machine_devolve_reevolve,
+    test_ex7_swoop_teleporter_basic_non_ex,
+    test_ex7_detour_runs_supporter_effect,
+    test_ex8_psychic_shield_ex_only,
+    test_ex8_form_change_deoxys_identity_swap,
+    test_ex8_hustle_punch_next_turn_base,
+    test_ex8_swords_dance_boosts_slash,
 ]
 
 

@@ -10884,3 +10884,68 @@ def link_needle(base: int = 50, per: int = 30, name: str = "Beedrill"):
             and name.lower() in _display_name(p).lower())
         await ctx.deal_damage(base + per * n)
     return effect
+
+
+
+def dark_link():
+    """Flip; heads: copy an attack from another in-play Dark-named Pokémon."""
+    from spirit.game.data_utils import Attack as _Attack
+
+    async def effect(ctx):
+        results = await ctx.flip_coins(1, "Dark Link")
+        if not (results and results[0]):
+            return
+        candidates = []
+        seen = set()
+        for pokemon in ctx.my_pokemon_in_play():
+            if pokemon is ctx.attacker:
+                continue
+            if "Dark" not in _display_name(pokemon):
+                continue
+            definition = def_for(pokemon.archetype_id)
+            for ability in getattr(definition, "abilities", None) or []:
+                if not isinstance(ability, _Attack):
+                    continue
+                key = (pokemon.entity_id, ability.title, ability.game_text)
+                if key in seen:
+                    continue
+                seen.add(key)
+                candidates.append((pokemon, ability))
+        if not candidates:
+            return
+        picked = await ctx.choose_attack_to_copy(
+            candidates, "Choose a Dark Pokémon's attack to copy")
+        if picked is None:
+            return
+        _, chosen = picked
+        await ctx.use_attack(chosen)
+    return effect
+
+
+def form_change_deoxys(ex: bool = False):
+    """Search deck for another Deoxys (/ex); identity-swap onto board;
+    old card goes to deck then shuffle (top-then-shuffle ≡ shuffle)."""
+    async def effect(ctx):
+        src = ctx.source
+        if src is None:
+            return
+        needle = "deoxys"
+
+        def match(card):
+            d = def_for(card.archetype_id)
+            if d is None:
+                return False
+            dn = (getattr(d, "display_name", None) or "").lower()
+            if needle not in dn:
+                return False
+            card_is_ex = is_pokemon_ex(card)
+            return card_is_ex if ex else (not card_is_ex)
+
+        picks = await ctx.search_deck(
+            match, count=1, minimum=0,
+            prompt="Choose another Deoxys to switch with")
+        if picks:
+            await ctx.identity_swap(
+                src, picks[0], destination="deck", transfer=True)
+        await ctx.shuffle_deck()
+    return effect
