@@ -1,9 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Luxio (POP8 #8): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
+"""Luxio (POP8 #8)."""
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.attributes import SpecialConditions
+from spirit.game.card_effects.attacks_common import condition_attack, flip_bonus
+
 
 card = PokemonCardDef(
     guid="9963b083-c57c-5c34-82c1-d46483291ba9",
@@ -31,16 +32,14 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_bonus(30),
         ),
         Attack(
             title="Thunder Fang",
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon is now Paralyzed.",
             cost={PokemonTypes.LIGHTNING: 2},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(SpecialConditions.PARALYZED, flip=True),
         ),
     ],
 )

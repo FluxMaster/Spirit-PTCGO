@@ -1,9 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Luxray (POP8 #3): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
+"""Luxray (POP8 #3)."""
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import flip_damage
+from spirit.game.card_effects.ex import team_takes_less_before_wr
+
 
 card = PokemonCardDef(
     guid="5a98bf51-849e-542f-87df-56d323b0f638",
@@ -29,16 +30,14 @@ card = PokemonCardDef(
             title="Intimidating Fang",
             game_text="As long as Luxray is your Active Pok\u00e9mon, any damage done by an opponent's attack is reduced by 10 (before applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=team_takes_less_before_wr(10),
         ),
         Attack(
             title="Thunder",
             game_text="Flip a coin. If tails, Luxray does 40 damage to itself.",
             cost={PokemonTypes.LIGHTNING: 3, PokemonTypes.COLORLESS: 1},
             damage=120,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(tails_self_damage=40),
         ),
     ],
 )

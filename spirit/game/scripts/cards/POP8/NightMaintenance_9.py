@@ -1,12 +1,15 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Night Maintenance (POP8 #9): trainer effect stubbed.
+"""Night Maintenance (POP8 #9)."""
 
-Card text:
-  - Search your discard pile for up to 3 in any combination of Pokémon and basic Energy cards. Show them to your opponent and shuffle them into your deck.
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.support_common import recover_from_discard
+from spirit.game.card_effects.trainers import is_basic_energy_card
+from spirit.game.session.effects import is_pokemon_card
+
+
+def _pokemon_or_basic_energy(card):
+    return is_pokemon_card(card) or is_basic_energy_card(card)
+
 
 card = ItemCardDef(
     guid="374c81d2-1510-53cc-9a38-c8e79ccb3896",
@@ -18,6 +21,9 @@ card = ItemCardDef(
     collector_number=9,
     set_code="POP8",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=recover_from_discard(
+        _pokemon_or_basic_energy, count=3, minimum=0, reveal=True,
+        to="deck_shuffle",
+        prompt="Choose up to 3 Pokémon and/or basic Energy cards",
+    ),
 )

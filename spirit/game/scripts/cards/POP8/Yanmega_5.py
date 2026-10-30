@@ -1,9 +1,11 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Yanmega (POP8 #5): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
+"""Yanmega (POP8 #5)."""
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.attributes import SpecialConditions
+from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ex import flip_tails_discard_energy
+
 
 card = PokemonCardDef(
     guid="9f2c431d-885d-52b3-b497-172a97c38899",
@@ -29,16 +31,14 @@ card = PokemonCardDef(
             title="Supersonic",
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon is now Confused.",
             cost={PokemonTypes.GRASS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(SpecialConditions.CONFUSED, flip=True),
         ),
         Attack(
             title="Air Slash",
             game_text="Flip a coin. If tails, discard an Energy attached to Yanmega.",
             cost={PokemonTypes.COLORLESS: 4},
             damage=70,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_tails_discard_energy(),
         ),
     ],
 )

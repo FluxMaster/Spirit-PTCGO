@@ -1,9 +1,12 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Riolu (POP8 #16): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
+"""Riolu (POP8 #16)."""
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
+from spirit.game.attributes import (
+    PokemonTypes, PokemonStage, Rarities, AbilityTypes, SpecialConditions,
+)
+from spirit.game.card_effects.attacks_common import flip_bonus
+from spirit.game.card_effects.passives_common import condition_immunity_passive
+
 
 card = PokemonCardDef(
     guid="eb0e29dd-1bf8-5560-9624-9f399ca2d58e",
@@ -26,8 +29,7 @@ card = PokemonCardDef(
             title="Inner Focus",
             game_text="Riolu can't be Paralyzed.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=condition_immunity_passive(SpecialConditions.PARALYZED),
         ),
         Attack(
             title="Quick Attack",
@@ -35,8 +37,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_bonus(10),
         ),
     ],
 )

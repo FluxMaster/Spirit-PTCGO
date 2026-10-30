@@ -1,9 +1,11 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Happiny (POP8 #14): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
+"""Happiny (POP8 #14)."""
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import (
+    sweet_scent_heal, baby_evolution, baby_evolution_condition,
+)
+
 
 card = PokemonCardDef(
     guid="929cd881-27a3-5acf-aa25-8766655fc9f0",
@@ -26,15 +28,15 @@ card = PokemonCardDef(
             title="Baby Evolution",
             game_text="Once during your turn (before your attack), you may put Chansey from your hand onto Happiny (this counts as evolving Happiny) and remove all damage counters from Happiny.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=baby_evolution_condition("Chansey"),
+            effect=baby_evolution("Chansey"),
         ),
         Attack(
             title="Lively",
             game_text="Remove 2 damage counters from 1 of your Pok\u00e9mon.",
             cost={},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=sweet_scent_heal(2),
         ),
     ],
 )

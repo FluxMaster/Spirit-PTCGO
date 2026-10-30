@@ -1,9 +1,11 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Croagunk (POP8 #13): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
+"""Croagunk (POP8 #13)."""
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.attributes import SpecialConditions
+from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ex import flip_lock_supporters
+
 
 card = PokemonCardDef(
     guid="9ed937af-1dba-5771-8fc6-d1f811bab7a3",
@@ -26,16 +28,14 @@ card = PokemonCardDef(
             title="Ghastly Sound",
             game_text="Flip a coin. If heads, your opponent can't play any Supporter cards from his or her hand during his or her next turn.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_lock_supporters(),
         ),
         Attack(
             title="Finger Poke",
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon is now Poisoned.",
             cost={PokemonTypes.PSYCHIC: 2},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(SpecialConditions.POISONED, flip=True),
         ),
     ],
 )

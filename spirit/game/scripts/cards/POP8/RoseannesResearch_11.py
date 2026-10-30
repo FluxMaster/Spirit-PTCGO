@@ -1,13 +1,15 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Roseanne's Research (POP8 #11): trainer effect stubbed.
+"""Roseanne's Research (POP8 #11)."""
 
-Card text:
-  - You can play only one Supporter card each turn. When you play this card, put it next to your Active Pokémon. When your turn ends, discard this card.
-  - Search your deck for up to 2 in any combination of Basic Pokémon and basic Energy cards, show them to your opponent, and put them into your hand. Shuffle your deck afterward.
-"""
-
-from spirit.game.data_utils import SupporterCardDef, unimplemented
+from spirit.game.data_utils import SupporterCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.support_common import search_to_hand
+from spirit.game.card_effects.trainers import is_basic_energy_card
+from spirit.game.session.effects import is_basic_pokemon
+
+
+def _basic_pokemon_or_basic_energy(card):
+    return is_basic_pokemon(card) or is_basic_energy_card(card)
+
 
 card = SupporterCardDef(
     guid="9c0d1a53-c416-502a-bec0-382d1b0e89a8",
@@ -19,6 +21,8 @@ card = SupporterCardDef(
     collector_number=11,
     set_code="POP8",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=search_to_hand(
+        _basic_pokemon_or_basic_energy, count=2, minimum=0, reveal=True,
+        prompt="Choose up to 2 Basic Pokémon and/or basic Energy cards",
+    ),
 )
