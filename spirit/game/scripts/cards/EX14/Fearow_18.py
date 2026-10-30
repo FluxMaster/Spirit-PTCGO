@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Fearow δ (EX14 #18): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import delta_draw_up_to
 
 card = PokemonCardDef(
     guid="767fa96a-78de-5cca-9068-4501eb49270b",
@@ -28,8 +25,8 @@ card = PokemonCardDef(
             title="Delta Sign",
             game_text="Once during your turn (before your attack), you may search your deck for a Pok\u00e9mon that has \u03b4 on its card, show it to your opponent, and put it into your hand. Shuffle your deck afterward. You can't use more than 1 Delta Sign Pok\u00e9-Power each turn. This power can't be used if Fearow is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+                        effect=delta_draw_up_to(),
         ),
         Attack(
             title="Pierce",

@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Blastoise (EX14 #14): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import hydro_pump_unused_water, water_pressure_passive
 
 card = PokemonCardDef(
     guid="83798ac8-e492-5360-a0a4-0c6b3ccf3fda",
@@ -27,8 +24,8 @@ card = PokemonCardDef(
             title="Water Pressure",
             game_text="As long as Blastoise's remaining HP is 40 or less, Blastoise does 40 more damage to the Defending Pok\u00e9mon (before applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=water_pressure_passive(),
+            effect=None,
         ),
         Attack(
             title="Hydro Pump",
@@ -36,8 +33,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 2},
             damage=50,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+                        effect=hydro_pump_unused_water(50, 20),
         ),
     ],
 )

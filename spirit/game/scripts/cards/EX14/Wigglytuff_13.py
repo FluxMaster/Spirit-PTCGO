@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Wigglytuff (EX14 #13): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import fluffy_fur_asleep_on_damage, pester_sc_bonus
 from spirit.game.card_effects.support_common import draw_attack
 
 
@@ -29,14 +26,13 @@ card = PokemonCardDef(
             title="Fluffy Fur",
             game_text="If Wigglytuff is your Active Pok\u00e9mon and is damaged by an opponent's attack (even if Wigglytuff is Knocked Out), the Attacking Pok\u00e9mon is now Asleep.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=fluffy_fur_asleep_on_damage(),
+            effect=None,
         ),
         Attack(
             title="Collect",
             game_text="Draw 3 cards.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=draw_attack(3),
         ),
         Attack(
@@ -45,8 +41,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+                        effect=pester_sc_bonus(30, 30),
         ),
     ],
 )

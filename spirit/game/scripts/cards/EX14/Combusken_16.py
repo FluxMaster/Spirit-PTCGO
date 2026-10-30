@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Combusken (EX14 #16): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import focus_energy_boost_named
 
 card = PokemonCardDef(
     guid="82987380-184e-5ea2-b34c-d6c3180ff317",
@@ -27,8 +24,7 @@ card = PokemonCardDef(
             title="Focus Energy",
             game_text="During your next turn, Combusken's High Jump Kick attack's base damage is 70.",
             cost={PokemonTypes.FIGHTING: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+                        effect=focus_energy_boost_named(),
         ),
         Attack(
             title="High Jump Kick",

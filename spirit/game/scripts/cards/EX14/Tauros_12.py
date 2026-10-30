@@ -1,10 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Tauros (EX14 #12): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
-from spirit.game.card_effects.ex import call_for_family_basic_n
+from spirit.game.card_effects.ex import call_for_family_basic_n, crush_chance_on_play
 
 
 card = PokemonCardDef(
@@ -28,14 +24,12 @@ card = PokemonCardDef(
             title="Crush Chance",
             game_text="Once during your turn, when you put Tauros from your hand onto your Bench, you may discard a Stadium card in play.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+                        effect=crush_chance_on_play(),
         ),
         Attack(
             title="Call for Family",
             game_text="Search your deck for up to 2 Basic Pok\u00e9mon and put them onto your Bench. Shuffle your deck afterward.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=call_for_family_basic_n(2),
         ),
         Attack(

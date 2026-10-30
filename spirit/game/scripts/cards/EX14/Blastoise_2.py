@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Blastoise δ (EX14 #2): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import enraged_linear_attack, shield_veil_active_no_weakness
 
 card = PokemonCardDef(
     guid="d83aa82d-57b6-53b8-a646-fbdb04feab30",
@@ -27,15 +24,14 @@ card = PokemonCardDef(
             title="Shield Veil",
             game_text="Each of your Active Pok\u00e9mon has no Weakness.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=shield_veil_active_no_weakness(),
+            effect=None,
         ),
         Attack(
             title="Enraged Linear Attack",
             game_text="Choose 1 of your opponent's Pok\u00e9mon. This attack does 10 damage for each damage counter on Blastoise to that Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+                        effect=enraged_linear_attack(10),
         ),
         Attack(
             title="Skull Bash",

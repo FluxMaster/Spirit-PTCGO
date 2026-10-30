@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Mudkip (EX14 #57): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import submerge_all_attacks_passive
 
 card = PokemonCardDef(
     guid="f2836d70-ce95-5ba8-ac4e-271735008c06",
@@ -26,8 +23,8 @@ card = PokemonCardDef(
             title="Submerge",
             game_text="As long as Mudkip is on your Bench, prevent all damage done to Mudkip by attacks (both yours and your opponent's).",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=submerge_all_attacks_passive(),
+            effect=None,
         ),
         Attack(
             title="Mud Slap",

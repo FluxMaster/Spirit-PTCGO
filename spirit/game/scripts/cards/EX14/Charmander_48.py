@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Charmander (EX14 #48): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import retaliate_damage
 
 card = PokemonCardDef(
     guid="1a2c852c-5b49-5f4a-b764-317f6ec51488",
@@ -28,8 +25,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+                        effect=retaliate_damage(10),
         ),
         Attack(
             title="Flame Tail",

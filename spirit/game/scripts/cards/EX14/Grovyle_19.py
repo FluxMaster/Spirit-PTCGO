@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Grovyle δ (EX14 #19): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import agility_flip_protect
 
 card = PokemonCardDef(
     guid="9f124227-c794-5db2-a0f8-8597ae9bd176",
@@ -34,8 +31,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, prevent all effects of an attack, including damage, done to Grovyle during your opponent's next turn.",
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 2},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+                        effect=agility_flip_protect(),
         ),
     ],
 )

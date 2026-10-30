@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Pelipper δ (EX14 #26): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import delta_transport_switch
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
 
@@ -31,15 +28,14 @@ card = PokemonCardDef(
             title="Delta Transport",
             game_text="Once during your turn (before your attack), if Pelipper is on your Bench, you may switch 1 of your Active Pok\u00e9mon that has \u03b4 on its card with 1 of your Benched Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+                        effect=delta_transport_switch(),
         ),
         Attack(
             title="Supersonic",
             game_text="The Defending Pok\u00e9mon is now Confused.",
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.CONFUSED),
         ),
         Attack(

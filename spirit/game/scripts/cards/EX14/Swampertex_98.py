@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Swampert ex (EX14 #98): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import energy_recycle_to_deck, ultra_pump
 
 card = PokemonCardDef(
     guid="16713b9f-f1ef-528b-9a86-e15b5c7733e0",
@@ -27,8 +24,8 @@ card = PokemonCardDef(
             title="Energy Recycle",
             game_text="Once during your turn (before your attack), you may search your discard pile for 3 Energy cards and attach them to your Pok\u00e9mon in any way you like. If you do, your turn ends. This power can't be used if Swampert ex is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+                        effect=energy_recycle_to_deck(3),
         ),
         Attack(
             title="Ultra Pump",
@@ -36,8 +33,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 2},
             damage=60,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+                        effect=ultra_pump(60, 20, 2),
         ),
     ],
 )

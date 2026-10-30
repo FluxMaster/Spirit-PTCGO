@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dusclops (EX14 #17): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import psychic_shield_ex, cursed_glare_passive, safeguard_vs_ex_passive
 
 card = PokemonCardDef(
     guid="ee7d4238-df65-59ef-aee7-305d4d98010e",
@@ -28,8 +25,8 @@ card = PokemonCardDef(
             title="Cursed Glare",
             game_text="As long as Dusclops is your Active Pok\u00e9mon, your opponent can't attach any Special Energy cards (except for Darkness and Metal Energy cards) from his or her hand to his or her Active Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=cursed_glare_passive(),
+            effect=None,
         ),
         Attack(
             title="Will-o'-the-wisp",
@@ -41,8 +38,7 @@ card = PokemonCardDef(
             game_text="Prevent all effects of attacks, including damage, done to Dusclops by your opponent's Pok\u00e9mon-ex during your opponent's next turn.",
             cost={PokemonTypes.PSYCHIC: 2, PokemonTypes.COLORLESS: 1},
             damage=50,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=psychic_shield_ex(),
         ),
     ],
 )

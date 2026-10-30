@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Alakazam ★ (EX14 #99): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import skill_copy_from_hand
 from spirit.game.card_effects.support_common import recover_from_discard
 
 
@@ -28,15 +25,13 @@ card = PokemonCardDef(
             title="Psychic Select",
             game_text="Put any 1 card from your discard pile into your hand.",
             cost={PokemonTypes.PSYCHIC: 1},
-            # STUB: attack effect not implemented
             effect=recover_from_discard(count=1, minimum=1, reveal=False, to='hand', prompt='Choose a card from your discard pile.'),
         ),
         Attack(
             title="Skill Copy",
             game_text="Discard a Basic Pok\u00e9mon or Evolution card from your hand. Choose 1 of that card's attacks. Skill Copy copies this attack. This attack does nothing if Alakazam Star doesn't have the Energy necessary to use that attack. (You must still do anything else required for that attack.) Alakazam Star performs that attack.",
             cost={PokemonTypes.COLORLESS: 3},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+                        effect=skill_copy_from_hand(),
         ),
     ],
 )

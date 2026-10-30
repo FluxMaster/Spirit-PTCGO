@@ -1,10 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Cacturne δ (EX14 #15): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
-from spirit.game.card_effects.ex import triple_breach
+from spirit.game.card_effects.ex import spike_storm_counters, triple_breach
 
 
 card = PokemonCardDef(
@@ -29,14 +25,13 @@ card = PokemonCardDef(
             title="Spike Storm",
             game_text="Once during your turn (before your attack), if Cacturne is your Active Pok\u00e9mon, you may put 1 damage counter on 1 of your opponent's Pok\u00e9mon that already has any damage counters on it. This power can't be used if Cacturne is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+                        effect=spike_storm_counters(1),
         ),
         Attack(
             title="Triple Needle",
             game_text="Choose 3 of your opponent's Pok\u00e9mon. This attack does 10 damage to each of those Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.FIGHTING: 1},
-            # STUB: attack effect not implemented
             effect=triple_breach(),
         ),
         Attack(

@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Aggron ex (EX14 #89): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import intimidating_armor_basic_lock, mega_burn_self_lock, split_bomb_snipe
 
 card = PokemonCardDef(
     guid="b285e3be-c871-59b6-951a-95fa48c9de93",
@@ -28,23 +25,22 @@ card = PokemonCardDef(
             title="Intimidating Armor",
             game_text="As long as Aggron ex is your Active Pok\u00e9mon, your opponent's Basic Pok\u00e9mon can't attack or use any Pok\u00e9-Powers or Pok\u00e9-Bodies.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=intimidating_armor_basic_lock(),
+            effect=None,
         ),
         Attack(
             title="Split Bomb",
             game_text="Choose 2 of your opponent's Pok\u00e9mon. This attack doe 30 damage to each of them. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.COLORLESS: 3},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+                        effect=split_bomb_snipe(30, 2),
         ),
         Attack(
             title="Mega Burn",
+            locks_next_turn=True,
             game_text="During your next turn, Aggron ex can't use Mega Burn.",
             cost={PokemonTypes.METAL: 2, PokemonTypes.COLORLESS: 2},
             damage=100,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+                        effect=mega_burn_self_lock(),
         ),
     ],
 )

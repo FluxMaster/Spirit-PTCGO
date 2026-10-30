@@ -30,7 +30,6 @@ card = PokemonCardDef(
             game_text="Before doing damage, discard all Trainer cards attached to the Defending Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 2},
             damage=20,
-            # STUB: attack effect not implemented
             effect=night_song_gust_asleep(),
         ),
         Attack(

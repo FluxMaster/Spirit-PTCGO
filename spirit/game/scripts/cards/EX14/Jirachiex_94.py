@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Jirachi ex (EX14 #94): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import shield_beam_block_powers_next, star_light_retreat_zero
 
 card = PokemonCardDef(
     guid="d8b0ecbb-1f2d-536e-8f5b-9f889c4adfc0",
@@ -25,16 +22,15 @@ card = PokemonCardDef(
             title="Star Light",
             game_text="As long as your opponent has any Pok\u00e9mon-ex or Stage 2 Evolved Pok\u00e9mon in play, Jirachi ex pays Colorless less Energy to use Shield Beam or Super Psy Bolt.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=star_light_retreat_zero(),
+            effect=None,
         ),
         Attack(
             title="Shield Beam",
             game_text="During your opponent's next turn, your opponent can't use any Pok\u00e9-Powers on his or her Pok\u00e9mon.",
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+                        effect=shield_beam_block_powers_next(),
         ),
         Attack(
             title="Super Psy Bolt",

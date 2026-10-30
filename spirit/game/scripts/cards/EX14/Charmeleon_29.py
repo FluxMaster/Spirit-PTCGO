@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Charmeleon (EX14 #29): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import flamethrower_discard_fire, rage_damage
 
 card = PokemonCardDef(
     guid="d8aaf881-7817-5c10-bdc3-87536d54246b",
@@ -29,16 +26,14 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+                        effect=rage_damage(10, 10),
         ),
         Attack(
             title="Flamethrower",
             game_text="Discard a Fire Energy attached to Charmeleon.",
             cost={PokemonTypes.FIRE: 2, PokemonTypes.COLORLESS: 1},
             damage=60,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+                        effect=flamethrower_discard_fire(),
         ),
     ],
 )

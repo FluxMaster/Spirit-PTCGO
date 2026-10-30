@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Kyogre ex (EX14 #95): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import flotation_low_energy_retreat, hydro_shot_discard_snipe
 
 card = PokemonCardDef(
     guid="13be8569-a8d7-5ed7-825a-273e4222b02c",
@@ -26,15 +23,14 @@ card = PokemonCardDef(
             title="Flotation",
             game_text="As long as Kyogre ex has 1 Energy or less attached to it, the Retreat Cost for each of your Kyogre ex is 0.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=flotation_low_energy_retreat(),
+            effect=None,
         ),
         Attack(
             title="Hydro Shot",
             game_text="Discard 2 Energy attached to Kyogre ex. Choose 1 of your opponent's Pok\u00e9mon. This attack does 70 damage to that Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.WATER: 2, PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+                        effect=hydro_shot_discard_snipe(70, 2),
         ),
     ],
 )

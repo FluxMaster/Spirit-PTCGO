@@ -1,10 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dugtrio (EX14 #5): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
-from spirit.game.card_effects.ex import telekinesis_snipe
+from spirit.game.card_effects.ex import double_edge_recoil, sand_veil_bench_protect, telekinesis_snipe
 
 
 card = PokemonCardDef(
@@ -29,14 +25,13 @@ card = PokemonCardDef(
             title="Sand Veil",
             game_text="Prevent all damage done to your Benched Pok\u00e9mon by your opponent's attacks.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=sand_veil_bench_protect(),
+            effect=None,
         ),
         Attack(
             title="Dig Under",
             game_text="Choose 1 of your opponent's Pok\u00e9mon. This attack does 30 damage to that Pok\u00e9mon. This attack's damage isn't affected by Weakness or Resistance.",
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=telekinesis_snipe(30),
         ),
         Attack(
@@ -44,8 +39,7 @@ card = PokemonCardDef(
             game_text="Dugtrio does 10 damage to itself.",
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 2},
             damage=60,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+                        effect=double_edge_recoil(10),
         ),
     ],
 )

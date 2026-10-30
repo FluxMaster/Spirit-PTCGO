@@ -31,14 +31,12 @@ card = PokemonCardDef(
             game_text="Choose 1 card from your opponent's hand without looking. Look at the card you chose, then have your opponent shuffle that card into his or her deck.",
             cost={PokemonTypes.COLORLESS: 2},
             damage=20,
-            # STUB: attack effect not implemented
             effect=shuffle_random_from_opponent_hand(),
         ),
         Attack(
             title="Bass Control",
             game_text="Choose 1 of your opponent's Pok\u00e9mon. This attack does 40 damage to that Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.COLORLESS: 3},
-            # STUB: attack effect not implemented
             effect=snipe_attack(40, pool='any'),
         ),
     ],

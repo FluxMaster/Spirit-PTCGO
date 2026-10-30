@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Camerupt (EX14 #3): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import delta_protection_vs_delta
 from spirit.game.card_effects.attacks_common import snipe_attack
 
 
@@ -29,14 +26,13 @@ card = PokemonCardDef(
             title="Delta Protection",
             game_text="Any damage done to Camerupt by attacks from your opponent's Pok\u00e9mon that has \u03b4 on its card is reduced by 40 (after applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=delta_protection_vs_delta(),
+            effect=None,
         ),
         Attack(
             title="Linear Attack",
             game_text="Choose 1 of your opponent's Pok\u00e9mon. This attack does 30 damage to that Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.FIRE: 1, PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=snipe_attack(30, pool='any'),
         ),
         Attack(

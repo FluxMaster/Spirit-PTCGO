@@ -33,7 +33,6 @@ card = PokemonCardDef(
             title="Pure Power",
             game_text="Put 2 damage counters on your opponent's Pok\u00e9mon in any way you like.",
             cost={PokemonTypes.COLORLESS: 2},
-            # STUB: attack effect not implemented
             effect=place_counters(2, 'choose_any_opponent'),
         ),
     ],

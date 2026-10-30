@@ -1,10 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Manectric (EX14 #8): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-from spirit.game.card_effects.ex import force_opponent_switch
+from spirit.game.card_effects.ex import force_opponent_switch, strong_current_tool_bench
 
 
 card = PokemonCardDef(
@@ -31,7 +27,6 @@ card = PokemonCardDef(
             game_text="Your opponent switches the Defending Pok\u00e9mon with 1 of his or her Benched Pok\u00e9mon, if any.",
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
-            # STUB: attack effect not implemented
             effect=force_opponent_switch(),
         ),
         Attack(
@@ -39,8 +34,7 @@ card = PokemonCardDef(
             game_text="If Manectric has a Pok\u00e9mon Tool card attached to it, this attack does 20 damage to each of your opponent's Benched Pok\u00e9mon-ex. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.LIGHTNING: 2, PokemonTypes.COLORLESS: 1},
             damage=50,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+                        effect=strong_current_tool_bench(20),
         ),
     ],
 )

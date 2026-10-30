@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Sceptile ex δ (EX14 #96): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import extra_liquid_ex_passive, power_revenge_prizes_taken
 
 card = PokemonCardDef(
     guid="9059ec8b-4b07-5d0e-918b-63c10291efa9",
@@ -28,8 +25,8 @@ card = PokemonCardDef(
             title="Extra Liquid",
             game_text="Each player's Pok\u00e9mon-ex can't use any Pok\u00e9-Powers and pays Colorless more Energy to use its attacks. Each Pok\u00e9mon can't be affected by more than 1 Extra Liquid Pok\u00e9-Body.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=extra_liquid_ex_passive(),
+            effect=None,
         ),
         Attack(
             title="Power Revenge",
@@ -37,8 +34,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 1},
             damage=60,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+                        effect=power_revenge_prizes_taken(60, 10),
         ),
     ],
 )

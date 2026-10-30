@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Charizard δ (EX14 #4): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import metal_burn_discard_all_metal, peal_of_thunder_on_evolve
 
 card = PokemonCardDef(
     guid="79bc3105-ecf7-5ec3-a49b-75e03b0ce7b1",
@@ -27,16 +24,15 @@ card = PokemonCardDef(
             title="Peal of Thunder",
             game_text="Once during your turn, when you play Charizard from your hand to evolve 1 of your Pok\u00e9mon, you may look at the top 5 cards of your deck, choose as many Energy cards as you like, and attach them to 1 of your Pok\u00e9mon. Discard the other cards.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+                        effect=peal_of_thunder_on_evolve(30),
         ),
         Attack(
             title="Metal Burn",
             game_text="Discard all Metal Energy attached to Charizard.",
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.METAL: 2, PokemonTypes.COLORLESS: 1},
             damage=120,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+                        effect=metal_burn_discard_all_metal(),
         ),
     ],
 )

@@ -29,7 +29,6 @@ card = PokemonCardDef(
             title="Spearhead",
             game_text="Draw a card.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=draw_attack(1),
         ),
     ],

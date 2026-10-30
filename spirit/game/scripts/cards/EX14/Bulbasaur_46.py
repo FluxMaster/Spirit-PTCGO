@@ -28,7 +28,6 @@ card = PokemonCardDef(
             title="Growth",
             game_text="Attach a Grass Energy card from your hand to Bulbasaur.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=growth_attach(PokemonTypes.GRASS),
         ),
         Attack(

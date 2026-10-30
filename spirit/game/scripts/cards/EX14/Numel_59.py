@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Numel (EX14 #59): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import take_down_recoil
 
 card = PokemonCardDef(
     guid="3d91cf58-726f-5f2f-a9c3-0fbbbe0818b0",
@@ -27,8 +24,7 @@ card = PokemonCardDef(
             game_text="Numel does 10 damage to itself.",
             cost={PokemonTypes.COLORLESS: 2},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+                        effect=take_down_recoil(10),
         ),
     ],
 )

@@ -28,7 +28,6 @@ card = PokemonCardDef(
             title="Amnesia",
             game_text="Choose 1 of the Defending Pok\u00e9mon's attacks. That Pok\u00e9mon can't use that attack during your opponent's next turn.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=amnesia,
         ),
         Attack(

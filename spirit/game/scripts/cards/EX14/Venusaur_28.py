@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Venusaur (EX14 #28): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import chlorophyll_colorless_as_grass, toxic_sleep_poison2
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
 
@@ -30,8 +27,8 @@ card = PokemonCardDef(
             title="Chlorophyll",
             game_text="All Energy cards that provide only Colorless Energy attached to your Grass Pok\u00e9mon provide Grass Energy instead.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=chlorophyll_colorless_as_grass(),
+            effect=None,
         ),
         Attack(
             title="Green Blast",
@@ -39,15 +36,13 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=20,
             damage_operator="+",
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.CONFUSED),
         ),
         Attack(
             title="Toxic Sleep",
             game_text="The Defending Pok\u00e9mon is now Asleep and Poisoned. Put 2 damage counters instead of 1 on the Defending Pok\u00e9mon between turns.",
             cost={PokemonTypes.GRASS: 2, PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+                        effect=toxic_sleep_poison2(),
         ),
     ],
 )

@@ -30,7 +30,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 1},
             damage=10,
             damage_operator="x",
-            # STUB: attack effect not implemented
             effect=damage_per(count_energy('defender'), per=10),
         ),
         Attack(

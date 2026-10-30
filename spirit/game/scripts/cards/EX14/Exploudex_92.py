@@ -1,10 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Exploud ex (EX14 #92): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
-from spirit.game.card_effects.ex import discard_special_energy_from_defender
+from spirit.game.card_effects.ex import discard_special_energy_from_defender, extra_noise_bench_counters, hyper_tail
 
 
 card = PokemonCardDef(
@@ -29,15 +25,14 @@ card = PokemonCardDef(
             title="Extra Noise",
             game_text="As long as Exploud ex is your Active Pok\u00e9mon, put 1 damage counter on each of your opponent's Pok\u00e9mon-ex between turns.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=extra_noise_bench_counters(1),
+            effect=None,
         ),
         Attack(
             title="Derail",
             game_text="Discard a Special Energy card, if any, attached to the Defending Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 2},
             damage=40,
-            # STUB: attack effect not implemented
             effect=discard_special_energy_from_defender(),
         ),
         Attack(
@@ -46,8 +41,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=60,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+                        effect=hyper_tail(60, 20),
         ),
     ],
 )

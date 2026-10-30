@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Nuzleaf (EX14 #39): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import self_charge_darkness_from_hand
 
 card = PokemonCardDef(
     guid="e5fd2238-a581-576a-8528-47922f88db7a",
@@ -28,8 +25,7 @@ card = PokemonCardDef(
             title="Self Charge",
             game_text="Attach a Darkness Energy card from your hand to Nuzleaf.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+                        effect=self_charge_darkness_from_hand(),
         ),
         Attack(
             title="Corkscrew Punch",

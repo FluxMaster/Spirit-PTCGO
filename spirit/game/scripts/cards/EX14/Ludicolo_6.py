@@ -1,10 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Ludicolo δ (EX14 #6): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
-from spirit.game.card_effects.ex import knock_off_random_hand
+from spirit.game.card_effects.ex import knock_off_random_hand, overzealous_passive
 
 
 card = PokemonCardDef(
@@ -29,15 +25,14 @@ card = PokemonCardDef(
             title="Overzealous",
             game_text="If your opponent has any Pok\u00e9mon-ex in play, each of Ludicolo's attacks does 30 more damage to the Defending Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=overzealous_passive(30),
+            effect=None,
         ),
         Attack(
             title="Knock Off",
             game_text="Choose 1 card from your opponent's hand without looking and discard it.",
             cost={PokemonTypes.FIRE: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
-            # STUB: attack effect not implemented
             effect=knock_off_random_hand(),
         ),
         Attack(

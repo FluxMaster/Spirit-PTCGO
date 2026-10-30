@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Celebi ★ (EX14 #100): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import leaf_shade_energy_counters, time_travel_survive_flip
 
 card = PokemonCardDef(
     guid="b5c35ce7-822a-5685-808b-472d9b8cd585",
@@ -26,15 +23,14 @@ card = PokemonCardDef(
             title="Time Travel",
             game_text="If Celebi Star would be Knocked Out by damage from an opponent's attack, you may flip a coin. If heads, Celebi Star is not Knocked Out, discard all cards attached to Celebi Star, and put Celebi Star on the bottom of your deck.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=time_travel_survive_flip(),
+            effect=None,
         ),
         Attack(
             title="Leaf Shade",
             game_text="Count the amount of Energy attached to Celebi Star. Put that many damage counters on 1 of your opponent's Pok\u00e9mon.",
             cost={PokemonTypes.GRASS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+                        effect=leaf_shade_energy_counters(),
         ),
     ],
 )

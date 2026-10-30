@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Shuppet (EX14 #40): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import ascension
 
 card = PokemonCardDef(
     guid="ecc034d0-3d04-5689-94c1-0102597e0170",
@@ -27,8 +24,7 @@ card = PokemonCardDef(
             title="Ascension",
             game_text="Search your deck for a card that evolves from Shuppet and put it onto Shuppet. (This counts as evolving Shuppet.) Shuffle your deck afterward.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+                        effect=ascension(),
         ),
         Attack(
             title="Tackle",

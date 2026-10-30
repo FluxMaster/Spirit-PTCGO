@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Aron (EX14 #44): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import flail_per_counter
 
 card = PokemonCardDef(
     guid="b025d090-32a3-5a00-9ded-0c81dc472e6c",
@@ -29,8 +26,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+                        effect=flail_per_counter(10),
         ),
     ],
 )
