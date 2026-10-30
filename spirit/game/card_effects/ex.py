@@ -14475,7 +14475,11 @@ def beacon_protection_passive(partner: str = "Volbeat") -> Passive:
             if target is not holder:
                 return False
             board = getattr(carrier, "board", None) or getattr(holder, "board", None)
-            # Simplified: check partner via holder board lookup if available
+            if board is None:
+                return False
+            if not any(partner.lower() in _display_name(p).lower()
+                       for p in board.pokemon_in_play(holder.owning_player_id)):
+                return False
             return "dark" in _display_name(attacker).lower()
     return _P()
 
