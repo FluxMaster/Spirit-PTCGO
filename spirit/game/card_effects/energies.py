@@ -221,3 +221,119 @@ def attach_to_team_name(*teams: str):
         dn = (getattr(d, "display_name", None) or "").lower()
         return any(t in dn for t in lowered)
     return check
+
+# --- EX-era Darkness / Metal / Holon Energies --------------------------------
+
+
+class DarknessEnergyPassive(Passive):
+    """+10 damage to Active if holder is Darkness or has Dark in its name."""
+
+    def modify_damage_dealt(self, calc, carrier):
+        if not (calc.is_attack and calc.is_opposing and calc.to_active):
+            return
+        pokemon = carrier_pokemon(carrier)
+        if pokemon is not calc.attacker:
+            return
+        if _pokemon_has_type(pokemon, PokemonTypes.DARKNESS):
+            calc.amount += 10
+            return
+        from spirit.game.data_utils import def_for
+        d = def_for(pokemon.archetype_id)
+        dn = (getattr(d, "display_name", None) or "").lower()
+        if "dark" in dn:
+            calc.amount += 10
+
+
+class MetalEnergyPassive(Passive):
+    """Holder takes 10 less if it is Metal."""
+
+    def modify_damage_taken(self, calc, carrier):
+        if not (calc.is_attack and calc.is_opposing):
+            return
+        pokemon = carrier_pokemon(carrier)
+        if pokemon is not calc.target:
+            return
+        if _pokemon_has_type(pokemon, PokemonTypes.METAL):
+            calc.amount = max(0, calc.amount - 10)
+
+
+def _holder_is_ex(pokemon) -> bool:
+    from spirit.game.data_utils import subtypes_for
+    return "ex" in subtypes_for(getattr(pokemon, "archetype_id", None) or "")
+
+
+def _has_basic_energy_of_type(pokemon, ptype: PokemonTypes) -> bool:
+    from spirit.game.card_effects.trainers import is_basic_energy_card
+    from spirit.game.card_effects.pokemon import energy_provides_type
+    for c in pokemon.children:
+        if is_basic_energy_card(c) and energy_provides_type(c, ptype.value):
+            return True
+    return False
+
+
+class HolonEnergyFFPassive(Passive):
+    """With basic Fire: no Weakness. With basic Fighting: ignore Resistance.
+    Ignored on Pokémon-ex."""
+
+    def modify_weakness(self, calc, carrier):
+        pokemon = carrier_pokemon(carrier)
+        if pokemon is None or pokemon is not calc.target:
+            return
+        if _holder_is_ex(pokemon):
+            return
+        if _has_basic_energy_of_type(pokemon, PokemonTypes.FIRE):
+            calc.weakness_applies = False
+
+    def modify_resistance(self, calc, carrier):
+        # "damage done by that Pokémon's attack isn't affected by Resistance"
+        pokemon = carrier_pokemon(carrier)
+        if pokemon is None or pokemon is not calc.attacker:
+            return
+        if _holder_is_ex(pokemon):
+            return
+        if _has_basic_energy_of_type(pokemon, PokemonTypes.FIGHTING):
+            calc.resistance_applies = False
+
+
+class HolonEnergyGLPassive(Passive):
+    """With basic Grass: immune to Special Conditions.
+    With basic Lightning: -10 from opposing Pokémon-ex.
+    Ignored on Pokémon-ex."""
+
+    def blocks_special_conditions(self, pokemon, carrier):
+        holder = carrier_pokemon(carrier)
+        if holder is not pokemon or _holder_is_ex(pokemon):
+            return False
+        return _has_basic_energy_of_type(pokemon, PokemonTypes.GRASS)
+
+    def modify_damage_taken(self, calc, carrier):
+        if not (calc.is_attack and calc.is_opposing):
+            return
+        pokemon = carrier_pokemon(carrier)
+        if pokemon is not calc.target or _holder_is_ex(pokemon):
+            return
+        if not _has_basic_energy_of_type(pokemon, PokemonTypes.LIGHTNING):
+            return
+        from spirit.game.data_utils import subtypes_for
+        if calc.attacker is not None and "ex" in subtypes_for(
+                calc.attacker.archetype_id or ""):
+            calc.amount = max(0, calc.amount - 10)
+
+
+class HolonEnergyWPPassive(Passive):
+    """With basic Water: prevent attack effects (not damage).
+    With basic Psychic: retreat cost 0. Ignored on Pokémon-ex."""
+
+    def blocks_attack_effects(self, target, carrier) -> bool:
+        holder = carrier_pokemon(carrier)
+        if holder is not target or _holder_is_ex(target):
+            return False
+        return _has_basic_energy_of_type(target, PokemonTypes.WATER)
+
+    def modify_retreat_cost(self, cost, pokemon, carrier, board):
+        holder = carrier_pokemon(carrier)
+        if holder is not pokemon or _holder_is_ex(pokemon):
+            return cost
+        if _has_basic_energy_of_type(pokemon, PokemonTypes.PSYCHIC):
+            return 0
+        return cost

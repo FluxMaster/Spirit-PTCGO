@@ -476,7 +476,13 @@ class PokemonCardDef(CardDefinition):
         passive: Optional[Any] = None,
         unplayable_from_hand: bool = False,
         setup_as_active: bool = False,
-        foil: Optional[Foil] = None
+        foil: Optional[Foil] = None,
+        # Holon's Pokémon dual-mode: may also be attached from hand as Energy.
+        attachable_as_energy: bool = False,
+        energy_provides: Optional[List[List[PokemonTypes]]] = None,
+        energy_attach_to: Optional[Callable] = None,
+        energy_attach_cost: Optional[Any] = None,
+        energy_on_attach: Optional[Any] = None,
     ):
         if stage == PokemonStage.LEGEND and not self.runtime_only:
             raise ValueError("Use LegendHalfCardDef for physical halves and LegendPokemonDef for the combined Pokemon")
@@ -491,6 +497,11 @@ class PokemonCardDef(CardDefinition):
         # Luxray CZ's Explosiveness: may be placed as the opening Active
         # despite its stage (setup only; bench plays stay Basics-only).
         self.setup_as_active = setup_as_active
+        self.attachable_as_energy = attachable_as_energy
+        self.energy_provides = energy_provides
+        self.energy_attach_to = energy_attach_to
+        self.energy_attach_cost = energy_attach_cost
+        self.energy_on_attach = energy_on_attach
 
         # Add Pokemon-specific defaults to extra_attributes
         self.extra_attributes.update({
@@ -552,6 +563,19 @@ class PokemonCardDef(CardDefinition):
         else:
             self.extra_attributes[str(AttrID.PIE_ABILITIES.value)] = {
                 "type": "json", "value": "[]"
+            }
+
+        if attachable_as_energy:
+            # Keep CARD_TYPE=Pokemon so the card can still be played as a Pokémon;
+            # ENERGY_INFO + IS_SPECIAL_ENERGY let it attach and pay costs.
+            opts = energy_provides or [[PokemonTypes.COLORLESS]]
+            options = [[t.value for t in option] for option in opts]
+            self.extra_attributes[str(AttrID.ENERGY_INFO.value)] = {
+                "type": "json",
+                "value": json.dumps({"options": options}),
+            }
+            self.extra_attributes[str(AttrID.IS_SPECIAL_ENERGY.value)] = {
+                "type": "bool", "value": True,
             }
 
 class TrainerCardDef(CardDefinition):

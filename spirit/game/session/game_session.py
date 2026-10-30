@@ -4110,8 +4110,11 @@ class GameSession:
         if target is None:
             return
         definition = def_for(card.archetype_id)
-        if definition is not None and getattr(definition, "attach_to", None) \
-                and not definition.attach_to(target):
+        _attach_to = None
+        if definition is not None:
+            _attach_to = getattr(definition, "energy_attach_to", None) \
+                or getattr(definition, "attach_to", None)
+        if _attach_to is not None and not _attach_to(target):
             logging.warning(
                 f"[Session {self.game_id}] Energy {card.entity_id} may not "
                 f"attach to {target_id}; re-offering."
