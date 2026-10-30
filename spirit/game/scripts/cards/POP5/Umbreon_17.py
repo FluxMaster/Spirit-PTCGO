@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Umbreon ★ (POP5 #17): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import dark_ray_discard_hand, feint_attack
+
 
 card = PokemonCardDef(
     guid="f171ab04-7f1c-57c3-81bc-da3508d0e0fa",
@@ -27,15 +25,14 @@ card = PokemonCardDef(
             title="Dark Ray",
             game_text="Once during your turn, when you put Umbreon Star from your hand onto your Bench, you may choose 1 card from your opponent's hand without looking and discard it.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=dark_ray_discard_hand(),
+            trigger=Triggers.ON_PLAY,
         ),
         Attack(
             title="Feint Attack",
-            game_text="Choose 1 of your opponent's Pok\u00e9mon. This attack does 30 damage to that Pok\u00e9mon. This attack's damage isn't affected by Weakness, Resistance, Pok\u00e9-Powers, Pok\u00e9-Bodies, or any other effects on that Pok\u00e9mon.",
+            game_text="Choose 1 of your opponent's Pokémon. This attack does 30 damage to that Pokémon. This attack's damage isn't affected by Weakness, Resistance, Poké-Powers, Poké-Bodies, or any other effects on that Pokémon.",
             cost={PokemonTypes.DARKNESS: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=feint_attack(30),
         ),
     ],
 )

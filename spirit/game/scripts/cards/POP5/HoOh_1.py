@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Ho-Oh (POP5 #1): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import fire_blast_discard
+
 
 card = PokemonCardDef(
     guid="ab3b94f0-e89c-5123-a71d-03639fcf44f4",
@@ -32,8 +30,7 @@ card = PokemonCardDef(
             game_text="Discard a Fire Energy attached to Ho-Oh.",
             cost={PokemonTypes.FIRE: 3, PokemonTypes.COLORLESS: 1},
             damage=60,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=fire_blast_discard(),
         ),
     ],
 )

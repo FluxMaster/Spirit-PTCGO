@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Charmeleon δ (POP5 #5): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import thunder_jolt_self
 
 card = PokemonCardDef(
     guid="bff7a879-b5c5-50c0-aa35-42058450c445",
@@ -21,7 +18,7 @@ card = PokemonCardDef(
     retreat_cost=1,
     weakness_type=PokemonTypes.WATER,
     evolves_from="com.direwolfdigital.cake.data.archetypes.pokemon.Charmander.Name",
-    family_id=5,
+    family_id=4,
     abilities=[
         Attack(
             title="Slash",
@@ -33,8 +30,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If tails, Charmeleon does 10 damage to itself.",
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 2},
             damage=50,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+                        effect=thunder_jolt_self(10),
         ),
     ],
 )

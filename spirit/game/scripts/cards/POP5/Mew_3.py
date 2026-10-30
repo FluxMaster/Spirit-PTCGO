@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Mew δ (POP5 #3): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import copy_defending_attack, extra_draw_attach_if_ex
+
 
 card = PokemonCardDef(
     guid="be3e8e6c-449a-52b6-a42b-d93ceb684037",
@@ -24,17 +22,15 @@ card = PokemonCardDef(
     abilities=[
         Attack(
             title="Copy",
-            game_text="Choose 1 of the Defending Pok\u00e9mon's attacks. Copy copies that attack. This attack does nothing if Mew doesn't have the Energy necessary to use that attack. (You must still do anything else required for that attack.) Mew performs that attack.",
+            game_text="Choose 1 of the Defending Pokémon's attacks. Copy copies that attack. This attack does nothing if Mew doesn't have the Energy necessary to use that attack. (You must still do anything else required for that attack.) Mew performs that attack.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=copy_defending_attack(),
         ),
         Attack(
             title="Extra Draw",
-            game_text="If your opponent has any Pok\u00e9mon-ex in play, search your deck for up to 2 basic Energy cards and attach them to Mew. Shuffle your deck afterward.",
+            game_text="If your opponent has any Pokémon-ex in play, search your deck for up to 2 basic Energy cards and attach them to Mew. Shuffle your deck afterward.",
             cost={PokemonTypes.FIRE: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=extra_draw_attach_if_ex(2),
         ),
     ],
 )

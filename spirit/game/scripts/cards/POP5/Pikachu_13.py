@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Pikachu δ (POP5 #13): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import heavy_metal_flip
+
 
 card = PokemonCardDef(
     guid="62107479-5597-5302-a813-0443326c2b60",
@@ -33,8 +31,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=heavy_metal_flip(10, 20),
         ),
     ],
 )

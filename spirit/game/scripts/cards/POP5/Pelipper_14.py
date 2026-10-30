@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Pelipper δ (POP5 #14): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import mist_vs_stage2_passive, snipe_own_bench
+
 
 card = PokemonCardDef(
     guid="348421e9-a8dc-53c3-be55-caf30537714b",
@@ -26,18 +24,17 @@ card = PokemonCardDef(
     abilities=[
         Ability(
             title="Mist",
-            game_text="Any damage done to Pelipper by attacks from Stage 2 Evolved Pok\u00e9mon (both yours and your opponent's) is reduced by 30 (after applying Weakness and Resistance).",
+            game_text="Any damage done to Pelipper by attacks from Stage 2 Evolved Pokémon (both yours and your opponent's) is reduced by 30 (after applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=mist_vs_stage2_passive(30),
+            effect=None,
         ),
         Attack(
             title="Lightning Wing",
-            game_text="Does 10 damage to 1 of your Benched Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
+            game_text="Does 10 damage to 1 of your Benched Pokémon. (Don't apply Weakness and Resistance for Benched Pokémon.)",
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 2},
             damage=50,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=snipe_own_bench(10),
         ),
     ],
 )
