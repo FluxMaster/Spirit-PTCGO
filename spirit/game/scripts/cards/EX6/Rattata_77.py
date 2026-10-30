@@ -4,6 +4,8 @@ Rattata (EX6 #77): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import draw_attack
+
 
 card = PokemonCardDef(
     guid="131cd99b-6b13-5065-a2a1-be04cfba4587",
@@ -27,7 +29,7 @@ card = PokemonCardDef(
             game_text="Draw a card.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=draw_attack(1),
         ),
         Attack(
             title="Scratch",

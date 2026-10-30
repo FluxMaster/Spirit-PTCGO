@@ -4,6 +4,13 @@ Dugtrio (EX6 #22): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import condition_attack
+
+
+async def sonic_boom(ctx):
+    """40. This attack's damage isn't affected by Weakness or Resistance."""
+    await ctx.deal_damage(apply_modifiers=False)
+
 
 card = PokemonCardDef(
     guid="a9d849d2-bd04-5ecc-84b3-c32d4b3976c6",
@@ -29,7 +36,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=sonic_boom,
         ),
         Attack(
             title="Rumble",
@@ -37,7 +44,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 2},
             damage=50,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(no_retreat=True),
         ),
     ],
 )

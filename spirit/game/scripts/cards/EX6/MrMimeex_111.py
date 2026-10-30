@@ -4,6 +4,8 @@ Mr. Mime ex (EX6 #111): one or more attacks/abilities use effect=unimplemented u
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import count_hand, place_counters
+
 
 card = PokemonCardDef(
     guid="21270245-4c40-5358-a24e-35f580a0624a",
@@ -33,7 +35,7 @@ card = PokemonCardDef(
             game_text="Count the number of cards in your opponent's hand. Put that many damage counters on the Defending Pok\u00e9mon.",
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=place_counters(count_hand('opponent')),
         ),
     ],
 )

@@ -4,6 +4,8 @@ Tauros (EX6 #16): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import may_discard_stadium_then_damage
+
 
 card = PokemonCardDef(
     guid="03143e2d-0da8-5bf7-84d6-2256a8e76114",
@@ -28,7 +30,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=may_discard_stadium_then_damage(),
         ),
         Attack(
             title="Rampage",

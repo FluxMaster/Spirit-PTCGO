@@ -4,6 +4,8 @@ Charmeleon (EX6 #31): one or more attacks/abilities use effect=unimplemented unt
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import bonus_if_damaged
+
 
 card = PokemonCardDef(
     guid="70eb2ca3-81e3-56f9-b50d-a8bfb6b932ba",
@@ -35,7 +37,7 @@ card = PokemonCardDef(
             damage=40,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bonus_if_damaged(20),
         ),
     ],
 )
