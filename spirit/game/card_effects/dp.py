@@ -7720,3 +7720,1256 @@ def tm_grants_attack_passive(attack_factory):
             return [atk] if atk is not None else []
     return _P()
 
+# === DP7 Stormfront helpers ===
+def dp7_abomasnow_12_below_zero():
+    """Below Zero: refine — printed text may need more mechanics.
+    TEXT: If Abomasnow evolved from Snover during this turn, the Defending Pokémon is now Paralyzed.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(60)
+    return effect
+
+def dp7_abomasnow_12_snow_play():
+    async def effect(ctx):
+        await ctx.deal_damage(20)
+        for p in ctx.opponent_bench():
+            await ctx.deal_damage(20, target=p, apply_modifiers=False)
+    return effect
+
+def dp7_abomasnow_12_snow_veil():
+    """Snow Veil: refine — printed text may need more mechanics.
+    TEXT: As long as Abomasnow is your Active Pokémon, any damage done to your Pokémon by an opponent's attack is reduced by 20 (after applying Weakness and Resistance).
+    """
+    async def effect(ctx):
+        pass
+    return effect
+
+def dp7_abomasnow_12_snow_veil_passive() -> Passive:
+    """Snow Veil: continuous body — soft stub; see Known defects if incomplete."""
+    class _P(Passive):
+        stacking_key = 'dp7_abomasnow_12_snow_veil'
+    return _P()
+
+def dp7_bibarel_32_unaware():
+    """Unaware: refine — printed text may need more mechanics.
+    TEXT: Prevent all effects of attacks, excluding damage, done to Bibarel.
+    """
+    async def effect(ctx):
+        pass
+    return effect
+
+def dp7_bidoof_54_self_abandonment():
+    """Self-abandonment: refine — printed text may need more mechanics.
+    TEXT: Flip a coin. If heads, this attack does 30 damage to the Defending Pokémon. If tails, Bidoof does 10 damage to itself.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage()
+    return effect
+
+def dp7_bronzong_13_cycler():
+    """Cycler: refine — printed text may need more mechanics.
+    TEXT: Once during your turn (before your attack), you may choose a card from your hand and put it on top of your deck. Then, search your deck for up to 2 basic Energy cards, show them to
+    """
+    async def effect(ctx):
+        await ctx.shuffle_deck()
+    return effect
+
+def dp7_bronzong_13_heavy_potential():
+    """Heavy Potential: refine — printed text may need more mechanics.
+    TEXT: Put a number of damage counters on each of your opponent's Pokémon equal to the number of Colorless Energy in that Pokémon's Retreat Cost (after applying effects to the Retreat Cos
+    """
+    async def effect(ctx):
+        await ctx.deal_damage()
+    return effect
+
+def dp7_bronzong_13_strange_spin():
+    """Strange Spin: refine — printed text may need more mechanics.
+    TEXT: If you have the same number of cards in your hand as your opponent, this attack does 20 damage plus 40 more damage and the Defending Pokémon is now Confused.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(20)
+    return effect
+
+def dp7_bronzor_55_gyro_swap():
+    """Gyro Swap: refine — printed text may need more mechanics.
+    TEXT: Put a number of damage counters on the Defending Pokémon equal to the number of Colorless Energy in Bronzor's Retreat Cost (after applying effects to the Retreat Cost).
+    """
+    async def effect(ctx):
+        await ctx.deal_damage()
+    return effect
+
+def dp7_budew_33_buddy_buddy():
+    """Buddy-buddy: refine — printed text may need more mechanics.
+    TEXT: Search your deck for a Pokémon, show it to your opponent, and put it into your hand. Shuffle your deck afterward.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage()
+        await ctx.shuffle_deck()
+    return effect
+
+def dp7_budew_33_poison_enzyme():
+    """Poison Enzyme: refine — printed text may need more mechanics.
+    TEXT: Prevent all effects of attacks, including damage, done to Budew by your opponent's Poisoned Pokémon.
+    """
+    async def effect(ctx):
+        pass
+    return effect
+
+def dp7_charizard_103_energy_burn():
+    """Energy Burn: refine — printed text may need more mechanics.
+    TEXT: All Energy attached to Charizard are Fire Energy instead of their usual type.
+    """
+    async def effect(ctx):
+        pass
+    return effect
+
+def dp7_charizard_103_fire_spin():
+    """Fire Spin: refine — printed text may need more mechanics.
+    TEXT: Discard 2 Energy attached to Charizard.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(100)
+    return effect
+
+def dp7_cherrim_14_sunny_day():
+    """Sunny Day: refine — printed text may need more mechanics.
+    TEXT: Each of your Grass Pokémon's and Fire Pokémon's attacks does 10 more damage to the Defending Pokémon (before applying Weakness and Resistance).
+    """
+    async def effect(ctx):
+        pass
+    return effect
+
+def dp7_cherubi_56_nap():
+    async def effect(ctx):
+        pass
+        if ctx.attacker is not None:
+            await ctx.heal(20, ctx.attacker)
+    return effect
+
+def dp7_combee_57_alert():
+    """Alert: refine — printed text may need more mechanics.
+    TEXT: Draw a card. Then, you may switch Combee with 1 of your Benched Pokémon.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage()
+    return effect
+
+def dp7_drapion_15_derail():
+    """Derail: refine — printed text may need more mechanics.
+    TEXT: Discard all Special Energy cards attached to the Defending Pokémon.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(60)
+    return effect
+
+def dp7_drapion_15_scorpion_grapple():
+    """Scorpion Grapple: refine — printed text may need more mechanics.
+    TEXT: Flip a coin. If heads, the Defending Pokémon is now Paralyzed. If tails, the Defending Pokémon can't retreat during your opponent's next turn.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(10)
+    return effect
+
+def dp7_drifblim_16_lifting():
+    """Lifting: refine — printed text may need more mechanics.
+    TEXT: Search your deck for up to 2 Basic Pokémon and put them onto your Bench. For each Basic Pokémon you put onto your Bench, you may search your deck for a basic Energy card and attach
+    """
+    async def effect(ctx):
+        await ctx.deal_damage()
+        await ctx.shuffle_deck()
+    return effect
+
+def dp7_drifloon_sh1_big_explosion():
+    """Big Explosion: refine — printed text may need more mechanics.
+    TEXT: Drifloon does 50 damage to itself.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(50)
+    return effect
+
+def dp7_drifloon_sh1_unburden():
+    """Unburden: refine — printed text may need more mechanics.
+    TEXT: If Drifloon has a Pokémon Tool card attached to it, Drifloon's Retreat Cost is ColorlessColorless more.
+    """
+    async def effect(ctx):
+        pass
+    return effect
+
+def dp7_dusclops_34_dark_one_eye():
+    """Dark One-eye: refine — printed text may need more mechanics.
+    TEXT: You may discard a card from your hand. If you do, your opponent discards a card from his or her hand.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(20)
+    return effect
+
+def dp7_dusclops_35_trick_room():
+    """Trick Room: refine — printed text may need more mechanics.
+    TEXT: If you have a Stadium card in play, this attack does 40 damage plus 20 more damage. If your opponent has a Stadium card in play, remove 2 damage counters from Dusclops.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(40)
+    return effect
+
+def dp7_dusknoir_17_darkness_mist():
+    """Darkness Mist: refine — printed text may need more mechanics.
+    TEXT: If the Defending Pokémon already has 2 or more damage counters on it, this attack does 60 damage plus 20 more damage.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(60)
+    return effect
+
+def dp7_dusknoir_17_spirit_pulse():
+    """Spirit Pulse: refine — printed text may need more mechanics.
+    TEXT: As long as Dusknoir is your Active Pokémon, put 1 damage counter on each of your opponent's Pokémon that has any Energy attached to it between turns.
+    """
+    async def effect(ctx):
+        pass
+    return effect
+
+def dp7_dusknoir_17_spirit_pulse_passive() -> Passive:
+    """Spirit Pulse: continuous body — soft stub; see Known defects if incomplete."""
+    class _P(Passive):
+        stacking_key = 'dp7_dusknoir_17_spirit_pulse'
+    return _P()
+
+def dp7_dusknoir_1_damage_even():
+    """Damage Even: refine — printed text may need more mechanics.
+    TEXT: Count the number of damage counters on Dusknoir. Put that many damage counters on 1 of your opponent's Pokémon.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage()
+    return effect
+
+def dp7_dusknoir_1_night_spin():
+    """Night Spin: refine — printed text may need more mechanics.
+    TEXT: Prevent all effects of an attack, including damage, done to Dusknoir by your opponent's Pokémon that has 2 or less Energy attached to it during your opponent's next turn.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(50)
+    return effect
+
+def dp7_dusknoir_1_shadow_command():
+    """Shadow Command: refine — printed text may need more mechanics.
+    TEXT: Once during your turn (before your attack), you may draw 2 cards. If you have 7 or more cards in your hand, discard a number of cards until you have 6 cards in your hand. Then, put
+    """
+    async def effect(ctx):
+        pass
+    return effect
+
+def dp7_dusknoirlvx_96_ectoplasm():
+    """Ectoplasm: refine — printed text may need more mechanics.
+    TEXT: If Dusknoir is your Active Pokémon and would be Knocked Out by damage from your opponent's attack, you may discard all cards attached to Dusknoir LV.X and put Dusknoir LV.X as a St
+    """
+    async def effect(ctx):
+        pass
+    return effect
+
+def dp7_duskull_59_silhouette():
+    """Silhouette: refine — printed text may need more mechanics.
+    TEXT: Put 1 damage counter on the Defending Pokémon. If the Defending Pokémon already has any damage counters on it, put 2 damage counters on that Pokémon instead.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage()
+    return effect
+
+def dp7_duskull_sh2_counting_song():
+    """Counting Song: refine — printed text may need more mechanics.
+    TEXT: Put up to 3 damage counters on Duskull. Then, put that many damage counters on the Defending Pokémon.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage()
+    return effect
+
+def dp7_duskull_sh2_night_bind():
+    """Night Bind: refine — printed text may need more mechanics.
+    TEXT: Flip a coin. If heads, your opponent can't attach any Energy cards from his or her hand to the Active Pokémon during his or her next turn.
+    """
+    async def effect(ctx):
+        results = await ctx.flip_coins(1, 'Night Bind')
+        if not results or not results[0]:
+            return
+        await ctx.deal_damage(20)
+    return effect
+
+def dp7_electrode_36_low_current():
+    """Low Current: refine — printed text may need more mechanics.
+    TEXT: If Electrode was damaged by an attack during your opponent's last turn, the Defending Pokémon is now Paralyzed.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(30)
+    return effect
+
+def dp7_electrode_36_radiance():
+    """Radiance: refine — printed text may need more mechanics.
+    TEXT: If Electrode is your Active Pokémon and is damaged by an opponent's attack (even if Electrode is Knocked Out), put 1 damage counter on each of your opponent's Pokémon.
+    """
+    async def effect(ctx):
+        pass
+    return effect
+
+def dp7_electrode_37_electro_diffusion():
+    async def effect(ctx):
+        n = 0
+        if ctx.attacker is not None:
+            n = sum(1 for c in list(ctx.attacker.children)
+                    if is_energy_card(c) and energy_provides_type(c, PokemonTypes.LIGHTNING.value))
+        await ctx.deal_damage(40 + 10 * n)
+    return effect
+
+def dp7_empoleon_2_emperor_aura():
+    """Emperor Aura: refine — printed text may need more mechanics.
+    TEXT: Once during your turn (before your attack), when you play Empoleon from your hand to evolve 1 of your Active Pokémon, you may use this power. Your opponent can't attach any Energy 
+    """
+    async def effect(ctx):
+        pass
+    return effect
+
+def dp7_farfetchd_38_go_and_collect():
+    """Go and Collect: refine — printed text may need more mechanics.
+    TEXT: Search your deck for a Trainer, Supporter, or Stadium card, show it to your opponent, and put it into your hand. Shuffle your deck afterward.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage()
+        await ctx.shuffle_deck()
+    return effect
+
+def dp7_gastly_62_pitch_dark():
+    """Pitch-Dark: refine — printed text may need more mechanics.
+    TEXT: You opponent can't play any Trainer cards from his or her hand during your opponent's next turn.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage()
+    return effect
+
+def dp7_gengar_18_fainting_spell():
+    """Fainting Spell: refine — printed text may need more mechanics.
+    TEXT: Once during your opponent's turn, if Gengar would be Knocked Out by damage from an attack, you may flip a coin. If heads, the Defending Pokémon is Knocked Out.
+    """
+    async def effect(ctx):
+        pass
+    return effect
+
+def dp7_gengar_18_poltergeist():
+    """Poltergeist: refine — printed text may need more mechanics.
+    TEXT: Look at your opponent's hand. This attack does 30 damage times the number of Trainer, Supporter, and Stadium cards in your opponent's hand.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(30)
+    return effect
+
+def dp7_gengar_18_shadow_room():
+    """Shadow Room: refine — printed text may need more mechanics.
+    TEXT: Put 3 damage counters on 1 of your opponent's Pokémon. If that Pokémon has any Poké-Powers, put 6 damage counters on that Pokémon instead.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage()
+    return effect
+
+def dp7_gyarados_19_dragon_beat():
+    """Dragon Beat: refine — printed text may need more mechanics.
+    TEXT: Flip a coin. If heads, discard an Energy card from each of your opponent's Pokémon.
+    """
+    async def effect(ctx):
+        results = await ctx.flip_coins(1, 'Dragon Beat')
+        if not results or not results[0]:
+            return
+        await ctx.deal_damage(100)
+    return effect
+
+def dp7_gyarados_19_tail_revenge():
+    """Tail Revenge: refine — printed text may need more mechanics.
+    TEXT: Does 30 damage times the number of Magikarp in your discard pile.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(30)
+    return effect
+
+def dp7_gyarados_19_wreak_havoc():
+    """Wreak Havoc: refine — printed text may need more mechanics.
+    TEXT: Flip a coin until you get tails. For each heads, discard the top card from your opponent's deck.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(40)
+    return effect
+
+def dp7_haunter_40_hoodwink():
+    """Hoodwink: refine — printed text may need more mechanics.
+    TEXT: You may search your opponent's discard pile for up to 3 in any combination of Trainer, Supporter, or Stadium cards and put them into your opponent's hand.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(30)
+    return effect
+
+def dp7_heatranlvx_97_heat_metal():
+    """Heat Metal: refine — printed text may need more mechanics.
+    TEXT: Your opponent can't remove the Special Condition Burned by evolving or devolving his or her Burned Pokémon. (This also includes putting a Pokémon Level-Up card onto the Burned Poké
+    """
+    async def effect(ctx):
+        pass
+    return effect
+
+def dp7_heatranlvx_97_heat_wave():
+    """Heat Wave: refine — printed text may need more mechanics.
+    TEXT: Once at the end of your turn, if Heatran is on your Bench, you may use this power. If you discarded basic Energy cards attached to your Fire or Metal Active Pokémon by using that P
+    """
+    async def effect(ctx):
+        pass
+    return effect
+
+def dp7_infernape_3_blaze_dance():
+    """Blaze Dance: refine — printed text may need more mechanics.
+    TEXT: Once during your turn (before your attack), when you play Infernape from your hand to evolve 1 of your Pokémon, you may flip a coin. If heads, search your deck for up to 4 Fire Ene
+    """
+    async def effect(ctx):
+        await ctx.shuffle_deck()
+    return effect
+
+def dp7_infernape_3_close_combat():
+    """Close Combat: refine — printed text may need more mechanics.
+    TEXT: During your opponent's next turn, any damage done to Infernape by attacks is increased by 30 (after applying Weakness and Resistance).
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(60)
+    return effect
+
+def dp7_infernape_3_spreading_fire():
+    async def effect(ctx):
+        await ctx.deal_damage(80)
+        for p in ctx.opponent_bench():
+            await ctx.deal_damage(20, target=p, apply_modifiers=False)
+    return effect
+
+def dp7_lumineon_4_fin_luster():
+    """Fin Luster: refine — printed text may need more mechanics.
+    TEXT: Once during your turn (before your attack), if Lumineon is your Active Pokémon, you may look at your opponent's hand. If your opponent's Bench isn't full, choose 1 Basic Pokémon fr
+    """
+    async def effect(ctx):
+        pass
+    return effect
+
+def dp7_machamp_20_rage():
+    """Rage: refine — printed text may need more mechanics.
+    TEXT: Does 60 damage plus 10 more damage for each damage counter on Machamp.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(60)
+    return effect
+
+def dp7_machamp_20_take_out():
+    """Take Out: refine — printed text may need more mechanics.
+    TEXT: If the Defending Pokémon isn't an Evolved Pokémon, that Pokémon is Knocked Out instead of damaged by this attack.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(40)
+    return effect
+
+def dp7_machamplvx_98_no_guard():
+    """No Guard: refine — printed text may need more mechanics.
+    TEXT: As long as Machamp is your Active Pokémon, each of Machamp's attacks does 60 more damage to the Active Pokémon (before applying Weakness and Resistance) and any damage done to Mach
+    """
+    async def effect(ctx):
+        pass
+    return effect
+
+def dp7_machamplvx_98_no_guard_passive() -> Passive:
+    """No Guard: continuous body — soft stub; see Known defects if incomplete."""
+    class _P(Passive):
+        stacking_key = 'dp7_machamplvx_98_no_guard'
+    return _P()
+
+def dp7_machamplvx_98_strong_willed():
+    """Strong-Willed: refine — printed text may need more mechanics.
+    TEXT: During your opponent's next turn, if Machamp would be Knocked Out by damage from an attack, flip a coin. If heads, Machamp is not Knocked Out and its remaining HP becomes 10 instea
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(20)
+    return effect
+
+def dp7_magikarp_65_sea_spray():
+    """Sea Spray: refine — printed text may need more mechanics.
+    TEXT: Flip a coin until you get tails. For each heads, draw a card.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage()
+    return effect
+
+def dp7_magnemite_66_magnetic_bomb():
+    async def effect(ctx):
+        results = await ctx.flip_coins(1, 'Magnetic Bomb')
+        if results and results[0]:
+            await ctx.deal_damage(30 + 10)
+        else:
+            await ctx.deal_damage(30)
+            if ctx.attacker is not None:
+                await ctx.deal_damage(10, target=ctx.attacker, apply_modifiers=False)
+    return effect
+
+def dp7_magneton_42_magnetic_resonance():
+    """Magnetic Resonance: refine — printed text may need more mechanics.
+    TEXT: If you have a Stadium card in play, this attack does 20 damage to 2 of your opponent's Benched Pokémon. (Don't apply Weakness and Resistance for Benched Pokémon.)
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(20)
+    return effect
+
+def dp7_magnezone_5_magnetic_search():
+    """Magnetic Search: refine — printed text may need more mechanics.
+    TEXT: Once during your turn (before your attack), you may search your deck for a Lightning or Metal Pokémon, show it to your opponent, and put it into your hand. Shuffle your deck afterw
+    """
+    async def effect(ctx):
+        await ctx.shuffle_deck()
+    return effect
+
+def dp7_magnezone_6_gyro_ball():
+    """Gyro Ball: refine — printed text may need more mechanics.
+    TEXT: You may switch Magnezone with 1 of your Benched Pokémon. If you do, your opponent switches the Defending Pokémon with 1 of his or her Benched Pokémon.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(60)
+    return effect
+
+def dp7_magnezone_6_super_connectivity():
+    """Super Connectivity: refine — printed text may need more mechanics.
+    TEXT: Once during your turn (before your attack), you may search your discard pile for a Lightning or Metal Energy card and attach it to your Active Pokémon. Then, put 1 damage counter o
+    """
+    async def effect(ctx):
+        pass
+    return effect
+
+def dp7_mamoswine_21_parade():
+    """Parade: refine — printed text may need more mechanics.
+    TEXT: Does 60 damage plus 10 more damage for each Swinub on your Bench, plus 20 more damage for each Piloswine on your Bench, and 40 more damage for each Mamoswine on your Bench.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(60)
+    return effect
+
+def dp7_mamoswine_21_ramming_strike():
+    """Ramming Strike: refine — printed text may need more mechanics.
+    TEXT: Flip a coin until you get tails. This attack does 30 damage times the number of heads or you may start again. Each time you start again, put 2 damage counters on Mamoswine. (If Mam
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(30)
+    return effect
+
+def dp7_miltank_44_energy_milk():
+    """Energy Milk: refine — printed text may need more mechanics.
+    TEXT: Flip a coin until you get tails. For each heads, remove 2 damage counters from 1 of your Pokémon.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage()
+    return effect
+
+def dp7_misdreavus_68_nightmare_feast():
+    """Nightmare Feast: refine — printed text may need more mechanics.
+    TEXT: If the Defending Pokémon is Asleep, this attack does 50 damage and remove 5 damage counters from Misdreavus. If the Defending Pokémon is not Asleep, this attack does nothing.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage()
+    return effect
+
+def dp7_mismagius_7_crash_chant():
+    """Crash Chant: refine — printed text may need more mechanics.
+    TEXT: Choose up to 4 in any combination of Pokémon Tool cards and Technical Machine cards in play (both yours and your opponent's) and discard them. This attack does 20 damage times the 
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(20)
+    return effect
+
+def dp7_mismagius_7_horror_chant():
+    """Horror Chant: refine — printed text may need more mechanics.
+    TEXT: If your opponent has 4 or more Benched Pokémon, choose 1 of them and return that Pokémon and all cards attached to it to your opponent's hand.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(40)
+    return effect
+
+def dp7_onix_69_harden():
+    """Harden: refine — printed text may need more mechanics.
+    TEXT: During your opponent's next turn, if Onix would be damaged by an attack, prevent that attack's damage done to Onix if that damage is 40 or less.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage()
+    return effect
+
+def dp7_pichu_45_electric_circuit():
+    """Electric Circuit: refine — printed text may need more mechanics.
+    TEXT: Search your discard pile for up to 4 Lightning Energy cards, show them to your opponent, and put them into your hand.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage()
+    return effect
+
+def dp7_pikachu_70_speed_bolt():
+    """Speed Bolt: refine — printed text may need more mechanics.
+    TEXT: If Pikachu evolved from Pichu during this turn, prevent all effects of an attack, including damage, done to Pikachu during your opponent's next turn.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(40)
+    return effect
+
+def dp7_piloswine_46_rouse():
+    """Rouse: refine — printed text may need more mechanics.
+    TEXT: Does 20 damage plus 10 more damage for each damage counter on Piloswine. Then, remove 4 damage counters from Piloswine.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(20)
+    return effect
+
+def dp7_pupitar_47_energy_protection():
+    """Energy Protection: refine — printed text may need more mechanics.
+    TEXT: Any damage done to Pupitar by attacks is reduced by 10 for each Energy attached to Pupitar (after applying Weakness and Resistance). You can't reduce more than 30 damage in this wa
+    """
+    async def effect(ctx):
+        pass
+    return effect
+
+def dp7_raichu_8_burst_ball():
+    """Burst Ball: refine — printed text may need more mechanics.
+    TEXT: Discard 3 Energy attached to any of your Pokémon in any way you like.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(100)
+    return effect
+
+def dp7_raichu_8_split_ball():
+    """Split Ball: refine — printed text may need more mechanics.
+    TEXT: Move an Energy card attached to Raichu to 1 of your Benched Pokémon.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(50)
+    return effect
+
+def dp7_raichulvx_99_link_lightning():
+    """Link Lightning: refine — printed text may need more mechanics.
+    TEXT: Once during your turn, when you put Raichu LV.X onto Raichu and use Voltage Shoot, you may use another attack of Raichu afterward. This power can't be used if Raichu is affected by
+    """
+    async def effect(ctx):
+        pass
+    return effect
+
+def dp7_raichulvx_99_voltage_shoot():
+    """Voltage Shoot: refine — printed text may need more mechanics.
+    TEXT: Discard 2 Lightning Energy cards from your hand and choose 1 of your opponent's Pokémon. This attack does 80 to that Pokémon. (Don't apply Weakness and Resistance for Benched Pokém
+    """
+    async def effect(ctx):
+        await ctx.deal_damage()
+    return effect
+
+def dp7_rapidash_22_burning_mane():
+    """Burning Mane: refine — printed text may need more mechanics.
+    TEXT: If Rapidash is your Active Pokémon and is damaged by an opponent's attack (even if Rapidash is Knocked Out), the Attacking Pokémon is now Burned.
+    """
+    async def effect(ctx):
+        pass
+    return effect
+
+def dp7_rapidash_22_shooting_fire():
+    """Shooting Fire: refine — printed text may need more mechanics.
+    TEXT: Discard 2 Fire Energy attached to Rapidash and choose 1 of your opponent's Pokémon. This attack does 60 damage to that Pokémon. (Don't apply Weakness and Resistance for Benched Pok
+    """
+    async def effect(ctx):
+        await ctx.deal_damage()
+    return effect
+
+def dp7_regigigas_9_giga_power():
+    """Giga Power: refine — printed text may need more mechanics.
+    TEXT: You may do 60 damage plus 40 more damage. If you do, Regigigas does 40 damage to itself.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(60)
+    return effect
+
+def dp7_regigigas_9_regi_form():
+    """Regi Form: refine — printed text may need more mechanics.
+    TEXT: If you have Regirock, Regice, and Registeel in play, the attack cost of Regigigas's attacks is Colorless less.
+    """
+    async def effect(ctx):
+        pass
+    return effect
+
+def dp7_regigigaslvx_100_sacrifice():
+    """Sacrifice: refine — printed text may need more mechanics.
+    TEXT: Once during your turn (before your attack), you may choose 1 of your Pokémon in play and that Pokémon is Knocked Out. Then, search your discard pile for up to 2 basic Energy cards,
+    """
+    async def effect(ctx):
+        pass
+    return effect
+
+def dp7_roselia_72_petal_spikes():
+    """Petal Spikes: refine — printed text may need more mechanics.
+    TEXT: Flip a coin. If heads, the Defending Pokémon is now Asleep and Poisoned. If Budew is anywhere under Roselia, the Defending Pokémon is now Asleep and Poisoned.
+    """
+    async def effect(ctx):
+        results = await ctx.flip_coins(1, 'Petal Spikes')
+        if not results or not results[0]:
+            return
+        await ctx.deal_damage(20)
+    return effect
+
+def dp7_roserade_23_deep_poison():
+    """Deep Poison: refine — printed text may need more mechanics.
+    TEXT: If the Defending Pokémon is Poisoned, this attack does 50 damage plus 30 more damage.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(50)
+    return effect
+
+def dp7_roserade_23_hidden_poison():
+    """Hidden Poison: refine — printed text may need more mechanics.
+    TEXT: If Roserade is your Active Pokémon and is damaged by an opponent's attack (even if Roserade is Knocked Out), the Defending Pokémon is now Poisoned.
+    """
+    async def effect(ctx):
+        pass
+    return effect
+
+def dp7_sableye_48_impersonate():
+    """Impersonate: refine — printed text may need more mechanics.
+    TEXT: Search your deck for a Supporter card and discard it. Shuffle your deck afterward. Then, use the effect of that card as the effect of this attack.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage()
+        await ctx.shuffle_deck()
+    return effect
+
+def dp7_sableye_48_overconfident():
+    """Overconfident: refine — printed text may need more mechanics.
+    TEXT: If the Defending Pokémon has fewer remaining HP than Sableye, this attack's base damage is 40.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(10)
+    return effect
+
+def dp7_sableye_48_overeager():
+    """Overeager: refine — printed text may need more mechanics.
+    TEXT: If Sableye is your Active Pokémon at the beginning of the game, you go first. (If each player's Active Pokémon has the Overeager Poké-Body, this power does nothing.)
+    """
+    async def effect(ctx):
+        pass
+    return effect
+
+def dp7_sableye_48_overeager_passive() -> Passive:
+    """Overeager: continuous body — soft stub; see Known defects if incomplete."""
+    class _P(Passive):
+        stacking_key = 'dp7_sableye_48_overeager'
+    return _P()
+
+def dp7_salamence_24_battle_rush():
+    """Battle Rush: refine — printed text may need more mechanics.
+    TEXT: If your opponent has any Pokémon in play that has maximum HP of 120 or more, ignore all Colorless Energy necessary to use Salamence's attacks.
+    """
+    async def effect(ctx):
+        pass
+    return effect
+
+def dp7_salamence_24_steam_twister():
+    """Steam Twister: refine — printed text may need more mechanics.
+    TEXT: Discard a Fire Energy and a Water Energy attached to Salamence.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(120)
+    return effect
+
+def dp7_sceptile_10_energy_trans():
+    """Energy Trans: refine — printed text may need more mechanics.
+    TEXT: As often as you like during your turn (before your attack), move a Grass Energy card attached to 1 of your Pokémon to another of your Pokémon. This power can't be used if Sceptile 
+    """
+    async def effect(ctx):
+        pass
+    return effect
+
+def dp7_sceptile_10_slice_drain():
+    async def effect(ctx):
+        await ctx.deal_damage(60)
+        if ctx.attacker is not None:
+            await ctx.heal(20, ctx.attacker)
+    return effect
+
+def dp7_scizor_25_accelerate():
+    """Accelerate: refine — printed text may need more mechanics.
+    TEXT: If the Defending Pokémon is Knocked Out by this attack, prevent all effects of an attack, including damage, done to Scizor during your opponent's next turn.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(30)
+    return effect
+
+def dp7_scizor_25_honeycomb_defender():
+    """Honeycomb Defender: refine — printed text may need more mechanics.
+    TEXT: If Scizor has 6 or more damage counters on it, any damage done to Scizor by attacks is reduced by 40 (after applying Weakness and Resistance).
+    """
+    async def effect(ctx):
+        pass
+    return effect
+
+def dp7_scizor_25_pound_down():
+    """Pound Down: refine — printed text may need more mechanics.
+    TEXT: If you don't have any Pokémon with any Poké-Powers in play, this attack does 40 damage plus 30 more damage.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(40)
+    return effect
+
+def dp7_scyther_49_slashing_strike():
+    """Slashing Strike: refine — printed text may need more mechanics.
+    TEXT: During your next turn, Scyther can't use Slashing Strike.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(30)
+    return effect
+
+def dp7_scyther_49_swords_dance():
+    """Swords Dance: refine — printed text may need more mechanics.
+    TEXT: During your next turn, Scyther's Slashing Strike attack's base damage is 60.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage()
+    return effect
+
+def dp7_skarmory_51_mach_blade():
+    """Mach Blade: refine — printed text may need more mechanics.
+    TEXT: Flip a coin. If heads, this attack does 50 damage to 1 of your opponent's Pokémon. (Don't apply Weakness and Resistance for Benched Pokémon.)
+    """
+    async def effect(ctx):
+        results = await ctx.flip_coins(1, 'Mach Blade')
+        if not results or not results[0]:
+            return
+        await ctx.deal_damage()
+    return effect
+
+def dp7_skuntank_26_evolutionary_gas():
+    """Evolutionary Gas: refine — printed text may need more mechanics.
+    TEXT: Once during your turn (before your attack), when you play Skuntank from your hand to evolve 1 of your Active Pokémon, you may choose 1 of the Defending Pokémon. If that Pokémon tri
+    """
+    async def effect(ctx):
+        pass
+    return effect
+
+def dp7_skuntank_26_plunder():
+    """Plunder: refine — printed text may need more mechanics.
+    TEXT: Before doing damage, discard all Trainer cards attached to the Defending Pokémon.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(60)
+    return effect
+
+def dp7_staraptor_27_protect_wing():
+    """Protect Wing: refine — printed text may need more mechanics.
+    TEXT: As long as Staraptor is your Active Pokémon, any damage done by attacks from your opponent's Stage 2 Evolved Pokémon is reduced by 20 (after applying Weakness and Resistance).
+    """
+    async def effect(ctx):
+        pass
+    return effect
+
+def dp7_staraptor_27_protect_wing_passive() -> Passive:
+    """Protect Wing: continuous body — soft stub; see Known defects if incomplete."""
+    class _P(Passive):
+        stacking_key = 'dp7_staraptor_27_protect_wing'
+    return _P()
+
+def dp7_staraptor_27_strong_breeze():
+    """Strong Breeze: refine — printed text may need more mechanics.
+    TEXT: Flip a coin. If heads, put 1 of your opponent's Benched Pokémon and all cards attached to it on top of your opponent's deck. Your opponent shuffles his or her deck afterward.
+    """
+    async def effect(ctx):
+        results = await ctx.flip_coins(1, 'Strong Breeze')
+        if not results or not results[0]:
+            return
+        await ctx.deal_damage()
+    return effect
+
+def dp7_steelix_28_iron_tail():
+    """Iron Tail: refine — printed text may need more mechanics.
+    TEXT: Flip a coin until you get tails. This attack does 100 damage times the number of heads.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(100)
+    return effect
+
+def dp7_steelix_28_outbreak_power():
+    """Outbreak Power: refine — printed text may need more mechanics.
+    TEXT: Choose a number of your opponent's Pokémon up to the amount of Energy attached to Steelix. This attack does 20 damage to each of them. (Don't apply Weakness and Resistance for Benc
+    """
+    async def effect(ctx):
+        await ctx.deal_damage()
+    return effect
+
+def dp7_swinub_77_take_down():
+    """Take Down: refine — printed text may need more mechanics.
+    TEXT: Flip a coin. If tails, Swinub does 10 damage to itself.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(20)
+    return effect
+
+def dp7_tangrowth_29_green_acid():
+    """Green Acid: refine — printed text may need more mechanics.
+    TEXT: Flip 2 coins. If the first coin is heads, the Defending Pokémon is now Confused. If the second coin is heads, the Defending Pokémon is now Poisoned.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(20)
+    return effect
+
+def dp7_tangrowth_29_green_renewal():
+    async def effect(ctx):
+        pass
+        if ctx.attacker is not None:
+            await ctx.heal(10, ctx.attacker)
+    return effect
+
+def dp7_torterra_11_crash_impact():
+    """Crash Impact: refine — printed text may need more mechanics.
+    TEXT: Torterra does 20 damage to itself. Your opponent switches the Defending Pokémon with 1 of his or her Benched Pokémon, if any.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(60)
+    return effect
+
+def dp7_torterra_11_land_shake():
+    """Land Shake: refine — printed text may need more mechanics.
+    TEXT: During your opponent's next turn, when your opponent puts a Basic Pokémon from his or her hand onto his or her Bench, put 2 damage counters on that Pokémon.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(80)
+    return effect
+
+def dp7_torterra_11_sunshine_song():
+    """Sunshine Song: refine — printed text may need more mechanics.
+    TEXT: Once during your turn (before your attack), when you play Torterra from your hand to evolve 1 of your Pokémon, you may choose as many of your Grass Pokémon in play as you like. For
+    """
+    async def effect(ctx):
+        await ctx.shuffle_deck()
+    return effect
+
+def dp7_treecko_79_call_for_friends():
+    """Call for Friends: refine — printed text may need more mechanics.
+    TEXT: Search your deck for a Basic Pokémon, show it to your opponent, and put it into your hand. Shuffle your deck afterward.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage()
+        await ctx.shuffle_deck()
+    return effect
+
+def dp7_tyranitar_30_darkness_drive():
+    """Darkness Drive: refine — printed text may need more mechanics.
+    TEXT: After your opponent's Pokémon uses a Poké-Power, you may search your discard pile for a basic Darkness Energy card and attach it to Tyranitar.
+    """
+    async def effect(ctx):
+        pass
+    return effect
+
+def dp7_tyranitar_30_grind():
+    """Grind: refine — printed text may need more mechanics.
+    TEXT: Does 20 damage times the amount of Energy attached to Tyranitar.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(20)
+    return effect
+
+def dp7_vespiquen_31_bee_drain():
+    """Bee Drain: refine — printed text may need more mechanics.
+    TEXT: After your attack, remove from Vespiquen the number of damage counters equal to the damage you did to the Defending Pokémon.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(20)
+    return effect
+
+def dp7_vespiquen_31_bee_powder():
+    """Bee Powder: refine — printed text may need more mechanics.
+    TEXT: Flip 2 coins. If both are heads, the Defending Pokémon is now Burned, Paralyzed, and Poisoned.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(50)
+    return effect
+
+def dp7_vespiquen_31_green_dignity():
+    """Green Dignity: refine — printed text may need more mechanics.
+    TEXT: As long as you have more Prize cards left than your opponent, Vespiquen's attacks do 10 more damage for each Grass Pokémon on your Bench to the Active Pokémon (before applying Weak
+    """
+    async def effect(ctx):
+        pass
+    return effect
+
+def dp7_vespiquen_31_green_dignity_passive() -> Passive:
+    """Green Dignity: continuous body — soft stub; see Known defects if incomplete."""
+    class _P(Passive):
+        stacking_key = 'dp7_vespiquen_31_green_dignity'
+    return _P()
+
+def dp7_voltorb_80_screech():
+    """Screech: refine — printed text may need more mechanics.
+    TEXT: If an attack does damage to the Defending Pokémon (after applying Weakness and Resistance), that attack does 20 more damage to that Pokémon until the end of your next turn.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage()
+    return effect
+
+def dp7_voltorb_81_bouncing_ball():
+    """Bouncing Ball: refine — printed text may need more mechanics.
+    TEXT: Flip a coin. If tails, Voltorb does 10 damage to itself.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(20)
+    return effect
+
+def dp7_voltorb_sh3_charge_beam():
+    """Charge Beam: refine — printed text may need more mechanics.
+    TEXT: Search your discard pile for a Lightning Energy card and attach it to Voltorb.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(10)
+    return effect
+
+
+# === DP7 Stormfront trainer helpers ===
+
+def conductive_quarry_ability():
+    """Once/turn each player: flip; heads -> Lightning or Metal Energy from discard to hand."""
+    async def effect(ctx):
+        results = await ctx.flip_coins(1, "Conductive Quarry")
+        if not results or not results[0]:
+            return
+        def pred(c):
+            if not is_energy_card(c):
+                return False
+            return (energy_provides_type(c, PokemonTypes.LIGHTNING.value)
+                    or energy_provides_type(c, PokemonTypes.METAL.value))
+        pool = [c for c in ctx.discard_pile() if pred(c)]
+        if not pool:
+            return
+        picks = await ctx.choose_cards(pool, 1, minimum=0, prompt="Lightning or Metal Energy from discard")
+        if picks:
+            await ctx.put_in_hand(picks, reveal=True)
+    return effect
+
+
+def energy_link_move_ability():
+    """Move an Energy from this Pokémon to another of yours that also has Energy Link."""
+    async def effect(ctx):
+        holder = ctx.source_pokemon if hasattr(ctx, "source_pokemon") else None
+        if holder is None:
+            # ability granted on the tool's host
+            holder = ctx.attacker if hasattr(ctx, "attacker") else None
+        # Find host via carrier if available
+        mine = ctx.my_pokemon_in_play()
+        # Prefer the pokemon that has this ability's carrier as child
+        hosts_with_link = []
+        for p in mine:
+            for c in list(getattr(p, "children", []) or []):
+                if "energy link" in _display(c).lower():
+                    hosts_with_link.append(p)
+                    break
+        if len(hosts_with_link) < 2:
+            return
+        # Energies on hosts
+        movers = []
+        for p in hosts_with_link:
+            for c in list(p.children):
+                if is_energy_card(c):
+                    movers.append(c)
+        if not movers:
+            return
+        picks = await ctx.choose_cards(movers, 1, minimum=0, prompt="Choose Energy to move via Energy Link")
+        if not picks:
+            return
+        energy = picks[0]
+        # destination: other host with Energy Link
+        src_host = None
+        for p in hosts_with_link:
+            if energy in list(p.children):
+                src_host = p
+                break
+        dests = [p for p in hosts_with_link if p is not src_host]
+        if not dests:
+            return
+        dest = await ctx.choose_pokemon(dests, "Move Energy to which Energy Link Pokémon?")
+        if dest:
+            await ctx.move_energy(energy, dest)
+    return effect
+
+
+def luxury_ball():
+    """Search deck for a Pokémon (not LV.X) into hand. Can't play if Luxury Ball in discard."""
+    def condition(board, player_id):
+        pile = board.discard_pile(player_id) if hasattr(board, "discard_pile") else []
+        for c in pile:
+            if "luxury ball" in _display(c).lower():
+                return False
+        return True
+
+    async def effect(ctx):
+        def pred(c):
+            if not is_pokemon_card(c):
+                return False
+            return not _is_lvx(c)
+        picks = await ctx.search_deck(pred, count=1, minimum=0, prompt="Pokémon (excluding LV.X)")
+        if picks:
+            await ctx.put_in_hand(picks, reveal=True)
+        await ctx.shuffle_deck()
+    effect.condition = condition
+    return effect
+
+
+def luxury_ball_condition(board, player_id):
+    pile = board.discard_pile(player_id) if hasattr(board, "discard_pile") else []
+    for c in pile:
+        if "luxury ball" in _display(c).lower():
+            return False
+    return True
+
+
+def marleys_request():
+    """Discard: pick 2 different Trainer/Supporter/Stadium; opponent chooses 1 for your hand."""
+    from spirit.game.attributes import TrainerType
+
+    def is_tss(c):
+        if not is_trainer_card(c):
+            return False
+        d = def_for(getattr(c, "archetype_id", None) or "")
+        tt = getattr(d, "trainer_type", None) if d is not None else None
+        # Item/Supporter/Stadium all under TRAINER; exclude Pokémon Tools? Printed says Trainer, Supporter, or Stadium
+        # In DP, "Trainer" often means Item. Include ITEM, SUPPORTER, STADIUM.
+        if tt in (TrainerType.ITEM, TrainerType.SUPPORTER, TrainerType.STADIUM):
+            return True
+        # Fallback: any trainer that isn't a Tool
+        if tt == TrainerType.TOOL:
+            return False
+        return is_trainer_card(c)
+
+    async def effect(ctx):
+        pool = [c for c in ctx.discard_pile() if is_tss(c)]
+        if not pool:
+            return
+        # Group by name
+        by_name = {}
+        for c in pool:
+            by_name.setdefault(_display(c).lower(), []).append(c)
+        distinct = list(by_name.keys())
+        if len(distinct) == 1:
+            # All same name: take 1
+            picks = await ctx.choose_cards(by_name[distinct[0]], 1, minimum=1, prompt="Choose a card from discard")
+            if picks:
+                await ctx.put_in_hand(picks, reveal=True)
+            return
+        # Choose up to 2 with different names
+        first = await ctx.choose_cards(pool, 1, minimum=1, prompt="Choose first Trainer/Supporter/Stadium")
+        if not first:
+            return
+        name1 = _display(first[0]).lower()
+        rest = [c for c in pool if _display(c).lower() != name1]
+        if not rest:
+            await ctx.put_in_hand(first, reveal=True)
+            return
+        second = await ctx.choose_cards(rest, 1, minimum=1, prompt="Choose a different-named card")
+        if not second:
+            await ctx.put_in_hand(first, reveal=True)
+            return
+        pair = first + second
+        # Opponent chooses which one you get
+        chosen = await ctx.choose_cards(
+            pair, 1, minimum=1, player_id=ctx.opponent_id,
+            prompt="Choose which card Marley's Request returns to hand")
+        if not chosen:
+            chosen = [pair[0]]
+        await ctx.put_in_hand(chosen, reveal=True)
+        other = [c for c in pair if c not in chosen]
+        # other stays in discard (already there)
+    return effect
+
+
+def _discard_extra_named_from_hand(ctx, name_substr: str):
+    """If another copy is in hand, optionally discard it (play 2). Returns True if 2 played."""
+    async def _do():
+        hand = list(ctx.hand())
+        extras = [c for c in hand if name_substr in _display(c).lower()]
+        # The played card is already leaving hand; remaining copies are extras
+        if not extras:
+            return False
+        if not await ctx.ask_yes_no(f"Play 2 {name_substr.title()} at the same time? (discard the other)"):
+            return False
+        await ctx.discard_cards(extras[:1])
+        return True
+    return _do
+
+
+def poke_blower_plus():
+    """1: flip heads put 1 damage counter on 1 opp Pokémon. 2: gust opp bench."""
+    async def effect(ctx):
+        play_two = False
+        hand = list(ctx.hand())
+        extras = [c for c in hand if "poké blower" in _display(c).lower() or "poke blower" in _display(c).lower()]
+        if extras and await ctx.ask_yes_no("Play 2 Poké Blower + at the same time?"):
+            await ctx.discard_cards(extras[:1])
+            play_two = True
+        if play_two:
+            bench = ctx.opponent_bench()
+            if not bench:
+                return
+            pick = await ctx.choose_pokemon(bench, "Switch which Benched Pokémon with Active?")
+            if pick:
+                await ctx.switch_active(ctx.opponent_id, pick)
+            return
+        results = await ctx.flip_coins(1, "Poké Blower +")
+        if results and results[0]:
+            pool = ctx.opponent_pokemon_in_play()
+            if not pool:
+                return
+            tgt = await ctx.choose_pokemon(pool, "Put 1 damage counter on which Pokémon?")
+            if tgt:
+                await ctx.deal_damage(10, target=tgt, apply_modifiers=False, as_counters=True)
+    return effect
+
+
+def poke_drawer_plus():
+    """1: draw 1. 2: search deck for up to 2 cards into hand."""
+    async def effect(ctx):
+        hand = list(ctx.hand())
+        extras = [c for c in hand if "poké drawer" in _display(c).lower() or "poke drawer" in _display(c).lower()]
+        play_two = False
+        if extras and await ctx.ask_yes_no("Play 2 Poké Drawer + at the same time?"):
+            await ctx.discard_cards(extras[:1])
+            play_two = True
+        if play_two:
+            picks = await ctx.search_deck(lambda c: True, count=2, minimum=0, prompt="Up to 2 cards")
+            if picks:
+                await ctx.put_in_hand(picks)
+            await ctx.shuffle_deck()
+            return
+        await ctx.draw_cards(1)
+    return effect
+
+
+def poke_healer_plus():
+    """1: remove 1 damage counter + a Special Condition from Active.
+    2: remove 8 damage counters + all Special Conditions from Active."""
+    async def effect(ctx):
+        hand = list(ctx.hand())
+        extras = [c for c in hand if "poké healer" in _display(c).lower() or "poke healer" in _display(c).lower()]
+        play_two = False
+        if extras and await ctx.ask_yes_no("Play 2 Poké Healer + at the same time?"):
+            await ctx.discard_cards(extras[:1])
+            play_two = True
+        active = ctx.my_active()
+        if active is None:
+            return
+        if play_two:
+            await ctx.heal(80, active)
+            if hasattr(ctx, "cure_all_conditions"):
+                await ctx.cure_all_conditions(active)
+            return
+        await ctx.heal(10, active)
+        # remove a Special Condition (one) — cure all is stronger; prefer cure_one if available
+        if hasattr(ctx, "cure_condition"):
+            # try common conditions
+            for sc in (SpecialConditions.POISONED, SpecialConditions.BURNED,
+                       SpecialConditions.PARALYZED, SpecialConditions.ASLEEP,
+                       SpecialConditions.CONFUSED):
+                if hasattr(ctx, "has_condition") and ctx.has_condition(active, sc):
+                    await ctx.cure_condition(active, sc)
+                    break
+            else:
+                if hasattr(ctx, "cure_all_conditions"):
+                    await ctx.cure_all_conditions(active)
+        elif hasattr(ctx, "cure_all_conditions"):
+            await ctx.cure_all_conditions(active)
+    return effect
