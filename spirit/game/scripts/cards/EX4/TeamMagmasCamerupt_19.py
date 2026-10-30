@@ -2,8 +2,8 @@
 Team Magma's Camerupt (EX4 #19): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability
-from spirit.game.attributes import Activations, PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.data_utils import Ability, Activations, Attack, PokemonCardDef
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.ex import flame_ball
 from spirit.game.card_effects.ex import overheat_attach, poke_power_condition
 
