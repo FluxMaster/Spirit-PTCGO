@@ -20036,3 +20036,16 @@ def bustle_flip_confuse(coins: int = 2, per_heads: int = 20):
         else:
             await ctx.deal_damage(0)
     return effect
+
+
+def reactive_barrier_passive() -> Passive:
+    """While any React Energy attached: prevent attack effects (not damage)."""
+    class _P(Passive):
+        def blocks_attack_effects_from(self, attacker, target, carrier) -> bool:
+            holder = carrier_pokemon(carrier) or carrier
+            if target is not holder:
+                return False
+            if count_react_energy(holder) <= 0:
+                return False
+            return True
+    return _P()
