@@ -1,8 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Minun (TK2B #6): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
+"""Minun (TK2B #6)."""
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.ex import drawup_power_energy
 from spirit.game.card_effects.attacks_common import snipe_attack
@@ -30,7 +28,6 @@ card = PokemonCardDef(
             title="Drawup Power",
             game_text="Search your deck for an Energy card, show it to your opponent, and put it into your hand. Shuffle your deck afterward.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=drawup_power_energy(),
         ),
         Attack(
@@ -38,7 +35,6 @@ card = PokemonCardDef(
             game_text="Does 10 damage to 1 of your opponent's Benched Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
             effect=snipe_attack(10, also_base=True),
         ),
     ],
