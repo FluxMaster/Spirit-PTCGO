@@ -1,9 +1,13 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Gardevoir (EX16 #9): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import count_energy, damage_per
+from spirit.game.card_effects.ex import (
+    has_deck,
+    poke_power_condition,
+    search_attach_then_counters,
+)
+from spirit.game.card_effects.trainers import is_psychic_energy_card
+
 
 card = PokemonCardDef(
     guid="72e1da19-30d9-5654-9bb1-a446e704d2d0",
@@ -27,8 +31,12 @@ card = PokemonCardDef(
             title="Psy Shadow",
             game_text="Once during your turn (before your attack), you may search your deck for a Psychic Energy card and attach it to 1 of your Pok\u00e9mon. Put 2 damage counters on that Pok\u00e9mon. Shuffle your deck afterward. This power can't be used if Gardevoir is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=poke_power_condition(has_deck),
+            effect=search_attach_then_counters(
+                is_psychic_energy_card, counters=2,
+                prompt="Choose a Psychic Energy card to attach.",
+            ),
         ),
         Attack(
             title="Energy Burst",
@@ -36,8 +44,10 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 1},
             damage=10,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_per(
+                lambda ctx: count_energy("self")(ctx) + count_energy("defender")(ctx),
+                10,
+            ),
         ),
     ],
 )

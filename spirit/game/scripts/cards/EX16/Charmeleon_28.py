@@ -4,6 +4,8 @@ Charmeleon (EX16 #28): one or more attacks/abilities use effect=unimplemented un
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import scary_face_lock
+
 
 card = PokemonCardDef(
     guid="d9036f20-0c29-5ebf-9e80-2b1da71f3425",
@@ -28,7 +30,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon can't attack or retreat during your opponent's next turn.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=scary_face_lock(),
         ),
         Attack(
             title="Flame Tail",

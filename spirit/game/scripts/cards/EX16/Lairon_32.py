@@ -4,6 +4,8 @@ Lairon (EX16 #32): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import one_two_punch
+
 
 card = PokemonCardDef(
     guid="cefd7886-ae87-5281-b393-6a427c2aa681",
@@ -39,7 +41,7 @@ card = PokemonCardDef(
             damage=30,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=one_two_punch(30, 20),
         ),
     ],
 )

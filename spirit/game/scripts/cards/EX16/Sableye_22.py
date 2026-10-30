@@ -4,6 +4,8 @@ Sableye (EX16 #22): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import down_draw, feint_attack
+
 
 card = PokemonCardDef(
     guid="cb1da73a-a9c1-5515-8718-44ba66e854fb",
@@ -34,14 +36,14 @@ card = PokemonCardDef(
             game_text="Draw 2 cards from the bottom of your deck.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=down_draw(2),
         ),
         Attack(
             title="Feint Attack",
             game_text="Choose 1 of your opponent's Pok\u00e9mon. This attack does 20 damage to that Pok\u00e9mon. This attack's damage isn't affected by Weakness, Resistance, Pok\u00e9-Powers, Pok\u00e9-Bodies, or any other effects on that Pok\u00e9mon.",
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=feint_attack(20),
         ),
     ],
 )

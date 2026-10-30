@@ -4,6 +4,9 @@ Carvanha (EX16 #47): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.data_utils import Triggers
+from spirit.game.card_effects.ex import rough_skin
+
 
 card = PokemonCardDef(
     guid="5bacd979-df1c-5f31-bad6-3b39d1af1fea",
@@ -28,7 +31,8 @@ card = PokemonCardDef(
             game_text="If Carvanha is your Active Pok\u00e9mon and is damaged by an opponent's attack (even if Carvanha is Knocked Out), put 1 damage counter on the Attacking Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=Triggers.ON_DAMAGED_BY_ATTACK,
+            effect=rough_skin(1),
         ),
         Attack(
             title="Gnaw",

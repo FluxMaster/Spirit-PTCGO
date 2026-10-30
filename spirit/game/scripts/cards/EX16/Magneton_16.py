@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Magneton (EX16 #16): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import damage_per, count_energy
+from spirit.game.card_effects.ex import magnetic_field, poke_power_condition
 
 card = PokemonCardDef(
     guid="225d8efe-c895-5547-8115-1e91c0fa96c2",
@@ -28,8 +26,10 @@ card = PokemonCardDef(
             title="Magnetic Field",
             game_text="Once during your turn (before your attack), if you have basic Energy cards in your discard pile, you may discard any 1 card from your hand. Then search for up to 2 basic Energy cards from your discard pile, show them to your opponent, and put them into your hand. You can't return the card you first discarded to your hand in this way. This power can't be used if Magneton is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
+            activation=Activations.ONCE_PER_TURN,
+            condition=poke_power_condition(),
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=magnetic_field(),
         ),
         Attack(
             title="Magnetic Force",
@@ -38,7 +38,7 @@ card = PokemonCardDef(
             damage=10,
             damage_operator="x",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_per(count_energy("mine"), 10),
         ),
     ],
 )

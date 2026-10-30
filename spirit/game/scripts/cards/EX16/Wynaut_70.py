@@ -4,6 +4,8 @@ Wynaut (EX16 #70): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import baby_evolution_ex7
+
 
 card = PokemonCardDef(
     guid="cb6f2e76-5015-561f-a54b-3a8eb764b5b2",
@@ -27,7 +29,7 @@ card = PokemonCardDef(
             game_text="Once during your turn (before your attack), you may put Wobbuffet from your hand onto Wynaut (this counts as evolving Wynaut) and remove all damage counters from Wynaut.",
             ability_type=AbilityTypes.POKE_POWER,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=baby_evolution_ex7('Wobbuffet'),
         ),
         Attack(
             title="Flail",

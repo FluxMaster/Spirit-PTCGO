@@ -4,6 +4,8 @@ Aggron (EX16 #1): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import mill_opponent_top
+
 
 card = PokemonCardDef(
     guid="09adcbe2-1041-56b1-84fa-8ca3e920e647",
@@ -42,7 +44,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.METAL: 2, PokemonTypes.COLORLESS: 2},
             damage=70,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=mill_opponent_top(1),
         ),
     ],
 )

@@ -1,9 +1,13 @@
 """STUB: effect not implemented — do not guess mechanics.
-Ninetales (EX16 #19): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
+Ninetales (EX5 #22): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import Ability, Attack, PokemonCardDef
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import flip_bonus
+
+
+from spirit.game.card_effects.ex import safeguard_ex_passive
 
 card = PokemonCardDef(
     guid="13609f7b-b4ac-55bd-98f6-a0c2ce543a02",
@@ -27,8 +31,7 @@ card = PokemonCardDef(
             title="Safeguard",
             game_text="Prevent all effects of attacks, including damage, done to Ninetales by your opponent's Pok\u00e9mon-ex.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=safeguard_ex_passive(),
         ),
         Attack(
             title="Quick Attack",
@@ -37,7 +40,7 @@ card = PokemonCardDef(
             damage=20,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_bonus(20),
         ),
         Attack(
             title="Will-o'-the-wisp",

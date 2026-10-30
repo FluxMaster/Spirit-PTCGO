@@ -4,6 +4,8 @@ Machamp (EX16 #11): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import brick_smash, cross_chop
+
 
 card = PokemonCardDef(
     guid="01a46527-a206-56c8-97c3-c1ea895c9b08",
@@ -36,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 1},
             damage=40,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=brick_smash(),
         ),
         Attack(
             title="Cross Chop",
@@ -45,7 +47,7 @@ card = PokemonCardDef(
             damage=60,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=cross_chop(60, 30),
         ),
     ],
 )

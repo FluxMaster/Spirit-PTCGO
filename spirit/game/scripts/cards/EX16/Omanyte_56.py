@@ -4,6 +4,8 @@ Omanyte (EX16 #56): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import search_to_bench_named
+
 
 card = PokemonCardDef(
     guid="b55206a7-2858-522c-bde1-f2d78ea33589",
@@ -28,7 +30,7 @@ card = PokemonCardDef(
             game_text="Search your deck for Omanyte, Kabuto, Aerodactyl, Lileep, or Anorith and put up to 2 of them onto your Bench. Shuffle your deck afterward. Treat the new Benched Pok\u00e9mon as Basic Pok\u00e9mon.",
             cost={PokemonTypes.WATER: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=search_to_bench_named('Omanyte', 'Kabuto', 'Aerodactyl', 'Lileep', 'Anorith', count=2, prompt='Choose up to 2 of Omanyte, Kabuto, Aerodactyl, Lileep, or Anorith to put onto your Bench.'),
         ),
         Attack(
             title="Mud Shot",

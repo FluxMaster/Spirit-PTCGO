@@ -4,6 +4,8 @@ Absol ex (EX16 #92): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import clay_pulse
+
 
 card = PokemonCardDef(
     guid="3fb22146-df1f-5afe-88ae-5b52135bd57c",
@@ -36,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.DARKNESS: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=clay_pulse(),
         ),
     ],
 )

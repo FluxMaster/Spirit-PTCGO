@@ -4,6 +4,8 @@ Cradily (EX16 #7): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import poison_ring
+
 
 card = PokemonCardDef(
     guid="c90c2f2f-0f48-5359-a36c-5234c9ebd202",
@@ -36,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 2, PokemonTypes.COLORLESS: 1},
             damage=50,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=poison_ring(),
         ),
     ],
 )

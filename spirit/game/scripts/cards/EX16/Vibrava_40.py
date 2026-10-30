@@ -4,6 +4,8 @@ Vibrava (EX16 #40): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import dragonbreath_paralyze
+
 
 card = PokemonCardDef(
     guid="51cf99c3-c192-510f-8f1b-084eefa9ed7c",
@@ -35,7 +37,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1, PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 1},
             damage=60,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=dragonbreath_paralyze(),
         ),
     ],
 )

@@ -1,12 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Master Ball (EX16 #78): trainer effect stubbed.
-
-Card text:
-  - Look at the top 7 cards from your deck. Choose a Basic Pokémon or Evolution card from those cards, show it to your opponent, and put it into your hand. Put the other 6 cards back on top of your deck. Shuffle your deck afterward.
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ex import master_ball_ex8
+from spirit.game.card_effects.trainers import deck_nonempty
 
 card = ItemCardDef(
     guid="8e415aef-79fb-516d-870c-5bc63747c59a",
@@ -18,6 +13,6 @@ card = ItemCardDef(
     collector_number=78,
     set_code="EX16",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=master_ball_ex8,
+    condition=deck_nonempty,
 )

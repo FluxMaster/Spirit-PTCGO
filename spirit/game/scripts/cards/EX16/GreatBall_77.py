@@ -1,12 +1,22 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Great Ball (EX16 #77): trainer effect stubbed.
-
-Card text:
-  - Search your deck for a Basic Pokémon (excluding Pokémon-ex) and put it onto your Bench. Shuffle your deck afterward.
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.session.effects import is_pokemon_card
+
+
+async def great_ball(ctx):
+    """Look at the top 7 cards of your deck. You may reveal a Pokemon you
+    find there and put it into your hand. Shuffle the other cards back."""
+    top = ctx.deck_top(7)
+    candidates = [c for c in top if is_pokemon_card(c)]
+    # No matches still shows the looked-at cards (nothing selectable).
+    picks = await ctx.choose_cards(
+        candidates, 1, minimum=0,
+        prompt="You may put a Pokémon into your hand.",
+        display_cards=top,
+    )
+    await ctx.put_in_hand(picks, reveal=True)
+    await ctx.shuffle_deck()
+
 
 card = ItemCardDef(
     guid="8b2832ec-7b90-5805-b0e7-a7b18a031f72",
@@ -18,6 +28,5 @@ card = ItemCardDef(
     collector_number=77,
     set_code="EX16",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=great_ball
 )

@@ -4,6 +4,9 @@ Kabutops (EX16 #10): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.attributes import SpecialConditions
+from spirit.game.card_effects.ex import luring_antenna
+
 
 card = PokemonCardDef(
     guid="ea4becb3-1517-5f11-85bc-316da56fc2ef",
@@ -36,7 +39,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=luring_antenna(SpecialConditions.CONFUSED),
         ),
         Attack(
             title="Blinding Scythe",

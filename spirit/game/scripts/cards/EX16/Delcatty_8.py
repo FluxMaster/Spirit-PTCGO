@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Delcatty (EX16 #8): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import damage_per, count_energy
+from spirit.game.card_effects.ex import energy_draw, energy_draw_condition
+
 
 card = PokemonCardDef(
     guid="15795c62-7fcd-54b4-b234-168ee699ed25",
@@ -27,8 +26,9 @@ card = PokemonCardDef(
             title="Energy Draw",
             game_text="Once during your turn (before your attack), you may discard 1 Energy card from your hand. Then draw up to 3 cards from your deck. This power can't be used if Delcatty is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=energy_draw_condition,
+            effect=energy_draw(),
         ),
         Attack(
             title="Max Energy Source",
@@ -36,8 +36,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_per(count_energy("my_active"), 10),
         ),
     ],
 )
