@@ -1,6 +1,6 @@
-from spirit.game.data_utils import EnergyCardDef
-from spirit.game.attributes import PokemonTypes, Rarities
-from spirit.game.card_effects.energies import ALL_TYPES_ONE_AT_A_TIME
+from spirit.game.data_utils import Ability, EnergyCardDef, Triggers
+from spirit.game.attributes import AbilityTypes, PokemonTypes, Rarities
+from spirit.game.card_effects.energies import discard_energy_if_not_evolved
 from spirit.game.card_effects.ex import scramble_energy_attach_to, scramble_energy_passive
 
 card = EnergyCardDef(
@@ -15,8 +15,17 @@ card = EnergyCardDef(
     rarity=Rarities.Uncommon,
     energy_type=PokemonTypes.COLORLESS,
     is_special=True,
-    # LIGHT: always multi-type 1-at-a-time (real: only when prize lead, max 3)
-    provides=ALL_TYPES_ONE_AT_A_TIME,
+    provides=[[PokemonTypes.COLORLESS]],
     attach_to=scramble_energy_attach_to,
     passive=scramble_energy_passive(),
+    granted_abilities=[
+        Ability(
+            title="Scramble Energy",
+            game_text="If the Pokémon Scramble Energy is attached to isn't an Evolved Pokémon (or evolves into Pokémon-ex), discard Scramble Energy.",
+            ability_type=AbilityTypes.POKE_BODY,
+            trigger=Triggers.BETWEEN_TURNS,
+            effect=discard_energy_if_not_evolved(
+                "5fba8084-7296-5ddc-b42b-c24c7454d384"),
+        ),
+    ],
 )

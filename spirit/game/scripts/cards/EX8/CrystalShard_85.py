@@ -1,6 +1,9 @@
-from spirit.game.data_utils import PokemonToolCardDef
-from spirit.game.attributes import Rarities
-from spirit.game.card_effects.ex import crystal_shard_colorless
+from spirit.game.data_utils import Ability, PokemonToolCardDef, Triggers
+from spirit.game.attributes import AbilityTypes, Rarities
+from spirit.game.card_effects.ex import (
+    crystal_shard_colorless,
+    crystal_shard_discard_if_attacked,
+)
 
 card = PokemonToolCardDef(
     guid="5410f903-d3c0-5055-8284-ad3a5dcfddde",
@@ -13,4 +16,14 @@ card = PokemonToolCardDef(
     set_code="EX8",
     rarity=Rarities.Uncommon,
     passive=crystal_shard_colorless(),
+    granted_abilities=[
+        Ability(
+            title="Crystal Shard",
+            game_text="If that Pokémon attacks, discard this card at the end of the turn.",
+            ability_type=AbilityTypes.POKE_BODY,
+            trigger=Triggers.END_OF_TURN,
+            effect=crystal_shard_discard_if_attacked(
+                "5410f903-d3c0-5055-8284-ad3a5dcfddde"),
+        ),
+    ],
 )
