@@ -3,6 +3,7 @@ Armaldo (EX16 #3): one or more attacks/abilities use effect=unimplemented until 
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.card_effects.ex import rock_blast_discard_fighting
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 
 
@@ -34,7 +35,7 @@ card = PokemonCardDef(
             game_text="Discard up to 5 Fighting Energy cards attached to Armaldo. For each Energy card you discarded, choose an opponent's Pok\u00e9mon in play and this attack does 20 damage to those Pok\u00e9mon. (You may choose the same Pok\u00e9mon more than once.) This attack's damage isn't affected by Weakness or Resistance.",
             cost={PokemonTypes.FIGHTING: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=rock_blast_discard_fighting(5, 20),
         ),
         Attack(
             title="Mach Claw",

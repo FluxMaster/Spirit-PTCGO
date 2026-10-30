@@ -3,6 +3,7 @@ Medicham (EX16 #34): one or more attacks/abilities use effect=unimplemented unti
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.card_effects.ex import vigorous_aura_boost
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
@@ -31,7 +32,7 @@ card = PokemonCardDef(
             game_text="As long as Medicham is your Active Pok\u00e9mon, attacks by each player's Active Pok\u00e9mon do 10 more damage to any Active Pok\u00e9mon (before applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=vigorous_aura_boost(10),
         ),
         Attack(
             title="Punch",

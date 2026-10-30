@@ -3,6 +3,7 @@ Claydol ex (EX16 #93): one or more attacks/abilities use effect=unimplemented un
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.card_effects.ex import shadow_crush, type_shift_to_fire
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import damage_per, count_energy
 
@@ -30,7 +31,7 @@ card = PokemonCardDef(
             game_text="Once during your turn (before your attack), you may use this power. Claydol ex's type is Fighting until the end of your turn.",
             ability_type=AbilityTypes.POKE_POWER,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=type_shift_to_fire(),
         ),
         Attack(
             title="Psychic Boom",
@@ -47,7 +48,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 2, PokemonTypes.COLORLESS: 1},
             damage=60,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=shadow_crush(),
         ),
     ],
 )

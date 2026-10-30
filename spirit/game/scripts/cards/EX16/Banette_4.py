@@ -3,6 +3,7 @@ Banette (EX16 #4): one or more attacks/abilities use effect=unimplemented until 
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.card_effects.ex import bench_manipulation, grudge_damage
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 
 card = PokemonCardDef(
@@ -31,7 +32,7 @@ card = PokemonCardDef(
             damage=20,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=grudge_damage(20, 10),
         ),
         Attack(
             title="Bench Manipulation",
@@ -40,7 +41,7 @@ card = PokemonCardDef(
             damage=40,
             damage_operator="x",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bench_manipulation(),
         ),
     ],
 )

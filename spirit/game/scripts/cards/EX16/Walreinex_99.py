@@ -2,7 +2,8 @@
 Walrein ex (EX16 #99): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers, unimplemented
+from spirit.game.card_effects.ex import chilling_breath_asleep_all_opp, wreck_stadium
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 
 card = PokemonCardDef(
@@ -28,7 +29,8 @@ card = PokemonCardDef(
             game_text="Once during your turn, when you play Walrein ex from your hand to evolve 1 of your Pok\u00e9mon, you may use this power. Your opponent can't play any Trainer cards from his or her hand during your opponent's next turn.",
             ability_type=AbilityTypes.POKE_POWER,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=chilling_breath_asleep_all_opp(),
+            trigger=Triggers.ON_EVOLVE,
         ),
         Attack(
             title="Wreck",
@@ -37,7 +39,7 @@ card = PokemonCardDef(
             damage=70,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=wreck_stadium(70, 20),
         ),
     ],
 )

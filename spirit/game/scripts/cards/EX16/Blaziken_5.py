@@ -5,7 +5,7 @@ Blaziken (EX16 #5): one or more attacks/abilities use effect=unimplemented until
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.data_utils import Activations
-from spirit.game.card_effects.ex import poke_power_condition
+from spirit.game.card_effects.ex import fire_stream_discard_spread, poke_power_condition
 from spirit.game.card_effects.passives_common import is_in_active_spot
 from spirit.game.card_effects.pokemon import energy_provides_type
 from spirit.game.card_effects.support_common import attach_from_discard, requires_discard
@@ -55,7 +55,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 1, PokemonTypes.COLORLESS: 2},
             damage=50,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=fire_stream_discard_spread(10),
         ),
     ],
 )

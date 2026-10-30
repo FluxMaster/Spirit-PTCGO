@@ -3,6 +3,7 @@ Spheal (EX16 #65): one or more attacks/abilities use effect=unimplemented until 
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.card_effects.ex import defense_curl_flip_protect
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 
 card = PokemonCardDef(
@@ -27,7 +28,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, prevent all damage done to Spheal during your opponent's next turn.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=defense_curl_flip_protect(),
         ),
         Attack(
             title="Aurora Beam",

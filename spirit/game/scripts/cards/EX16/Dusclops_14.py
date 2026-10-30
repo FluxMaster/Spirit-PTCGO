@@ -3,6 +3,7 @@ Dusclops (EX16 #14): one or more attacks/abilities use effect=unimplemented unti
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.card_effects.ex import dusclops_mysterious_light
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import snipe_attack
 
@@ -40,7 +41,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 2},
             damage=50,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=dusclops_mysterious_light(),
         ),
     ],
 )

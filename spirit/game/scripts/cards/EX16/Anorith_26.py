@@ -3,6 +3,7 @@ Anorith (EX16 #26): one or more attacks/abilities use effect=unimplemented until
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.card_effects.ex import anorith_fury_cutter, solid_shell_reduce_self
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 
 card = PokemonCardDef(
@@ -28,7 +29,7 @@ card = PokemonCardDef(
             game_text="Any damage done to Anorith by attacks is reduced by 10 (after applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=solid_shell_reduce_self(10),
         ),
         Attack(
             title="Fury Cutter",
@@ -37,7 +38,7 @@ card = PokemonCardDef(
             damage=10,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=anorith_fury_cutter(10),
         ),
     ],
 )

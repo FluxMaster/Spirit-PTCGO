@@ -3,6 +3,7 @@ Vigoroth (EX16 #41): one or more attacks/abilities use effect=unimplemented unti
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.card_effects.ex import strikes_back_passive
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import flip_bonus
 
@@ -30,7 +31,7 @@ card = PokemonCardDef(
             game_text="If Vigoroth is your Active Pok\u00e9mon and is damaged by an opponent's attack (even if Vigoroth is Knocked Out), put 1 damage counter on the Attacking Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=strikes_back_passive(1),
         ),
         Attack(
             title="Ambush",

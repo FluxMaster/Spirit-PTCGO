@@ -3,6 +3,7 @@ Cacturne (EX16 #27): one or more attacks/abilities use effect=unimplemented unti
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.card_effects.ex import pin_missile, poison_structure_sidney
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 
 card = PokemonCardDef(
@@ -29,7 +30,7 @@ card = PokemonCardDef(
             game_text="Once during your turn (before your attack), if Sidney's Stadium is in play, you may choose 1 of the Defending Pok\u00e9mon. That Pok\u00e9mon is now Poisoned. This power can't be used if Cacturne is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=poison_structure_sidney(),
         ),
         Attack(
             title="Pin Missile",
@@ -38,7 +39,7 @@ card = PokemonCardDef(
             damage=20,
             damage_operator="x",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=pin_missile(4, 20),
         ),
     ],
 )

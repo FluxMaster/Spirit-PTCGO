@@ -5,7 +5,7 @@ Kabutops (EX16 #10): one or more attacks/abilities use effect=unimplemented unti
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.attributes import SpecialConditions
-from spirit.game.card_effects.ex import luring_antenna
+from spirit.game.card_effects.ex import luring_antenna, primal_stare_block_basics
 
 
 card = PokemonCardDef(
@@ -31,7 +31,7 @@ card = PokemonCardDef(
             game_text="As long as Kabutops is your Active Pok\u00e9mon, your opponent can't play any Basic Pok\u00e9mon or Evolution cards from his or her hand to evolve his or her Active Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=primal_stare_block_basics(),
         ),
         Attack(
             title="Luring Antenna",

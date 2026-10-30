@@ -4,7 +4,7 @@ Aggron (EX16 #1): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
-from spirit.game.card_effects.ex import mill_opponent_top
+from spirit.game.card_effects.ex import mill_opponent_top, terraforming_look5
 
 
 card = PokemonCardDef(
@@ -31,7 +31,7 @@ card = PokemonCardDef(
             game_text="Once during your turn (before your attack), you may look at the top 5 cards from your deck and put them back on top of your deck in any order. This power can't be used if Aggron is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=terraforming_look5(),
         ),
         Attack(
             title="Metal Claw",

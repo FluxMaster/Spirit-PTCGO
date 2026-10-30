@@ -1,12 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Cyclone Energy (EX16 #90): special energy provides/passive/attach rules stubbed until matched to a known energy pattern.
-
-Card text:
-  - Cyclone Energy provides Colorless Energy. When you attach this card from your hand to your Active Pokémon, switch 1 of the Defending Pokémon with 1 of your opponent's Benched Pokémon. Your opponent chooses the Benched Pokémon to switch.
+"""EX10 Unseen Forces — Cyclone Energy.
 """
-
 from spirit.game.data_utils import EnergyCardDef
 from spirit.game.attributes import PokemonTypes, Rarities
+from spirit.game.card_effects.ex import cyclone_energy_on_attach
 
 card = EnergyCardDef(
     guid="243cf2a0-6b66-5548-b9d3-65ae824a1452",
@@ -20,5 +16,6 @@ card = EnergyCardDef(
     rarity=Rarities.Uncommon,
     energy_type=PokemonTypes.COLORLESS,
     is_special=True,
-    # STUB: special energy mechanics not implemented
+    provides=[[PokemonTypes.COLORLESS]],
+    on_attach=cyclone_energy_on_attach,
 )

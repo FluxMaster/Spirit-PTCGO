@@ -2,7 +2,8 @@
 Vaporeon ★ (EX16 #102): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers, unimplemented
+from spirit.game.card_effects.ex import blue_ray_on_bench
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import discard_opponent_energy_attack
 
@@ -29,7 +30,8 @@ card = PokemonCardDef(
             game_text="Once during your turn, when you put Vaporeon Star from your hand onto your Bench, you may remove all Special Conditions and 3 damage counters from each Active Pok\u00e9mon (both yours and your opponent's).",
             ability_type=AbilityTypes.POKE_POWER,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=blue_ray_on_bench(),
+            trigger=Triggers.ON_PLAY,
         ),
         Attack(
             title="Whirlpool",

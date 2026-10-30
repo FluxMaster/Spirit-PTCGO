@@ -4,7 +4,7 @@ Zangoose (EX16 #25): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
-from spirit.game.card_effects.ex import call_for_family_basic_n
+from spirit.game.card_effects.ex import call_for_family_basic_n, thick_skin_passive
 from spirit.game.card_effects.attacks_common import flip_bonus
 
 
@@ -30,7 +30,7 @@ card = PokemonCardDef(
             game_text="Zangoose can't be affected by any Special Conditions.",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=thick_skin_passive(),
         ),
         Attack(
             title="Call for Family",

@@ -3,6 +3,7 @@ Metang (EX16 #35): one or more attacks/abilities use effect=unimplemented until 
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.card_effects.ex import clear_body_passive
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
@@ -32,7 +33,7 @@ card = PokemonCardDef(
             game_text="Metang can't be affected by any Special Conditions.",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=clear_body_passive(),
         ),
         Attack(
             title="Extra Comet Punch",

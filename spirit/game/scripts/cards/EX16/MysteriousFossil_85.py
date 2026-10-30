@@ -1,14 +1,12 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Mysterious Fossil (EX16 #85): trainer effect stubbed.
-
-Card text:
-  - Play Mysterious Fossil as if it were a Basic Pokémon. While in play, Mysterious Fossil counts as a Colorless Pokémon (as well as a Trainer card). Mysterious Fossil has no attacks of its own, can't retreat, and can't be affected by any Special Conditions. If Mysterious Fossil is Knocked Out, it doesn't count as a Knocked Out Pokémon. (Discard it anyway.) At any time during your turn before your attack, you may discard Mysterious Fossil from play.
+"""EX13 Holon Phantoms — Mysterious Fossil.
 """
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import FossilItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ex import ExFossilPassive
+from spirit.game.card_effects.trainers import fossil_discard_ability
 
-card = ItemCardDef(
+
+card = FossilItemCardDef(
     guid="099c29e6-93bb-5b05-b70d-e54ba6f5edfb",
     key="EX16",
     name="com.direwolfdigital.cake.data.archetypes.trainer.MysteriousFossil.Name",
@@ -18,6 +16,7 @@ card = ItemCardDef(
     collector_number=85,
     set_code="EX16",
     rarity=Rarities.Common,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    hp=40,
+    passive=ExFossilPassive(),
+    abilities=[fossil_discard_ability()],
 )

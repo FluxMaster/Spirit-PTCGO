@@ -4,7 +4,7 @@ Wynaut (EX16 #70): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
-from spirit.game.card_effects.ex import baby_evolution_ex7
+from spirit.game.card_effects.ex import baby_evolution_ex7, flail_damage
 
 
 card = PokemonCardDef(
@@ -38,7 +38,7 @@ card = PokemonCardDef(
             damage=10,
             damage_operator="x",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flail_damage(10),
         ),
     ],
 )

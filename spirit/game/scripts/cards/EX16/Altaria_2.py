@@ -4,7 +4,7 @@ Altaria (EX16 #2): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
-from spirit.game.card_effects.ex import shuffle_random_from_opponent_hand
+from spirit.game.card_effects.ex import altaria_synergy_heal_between_turns, shuffle_random_from_opponent_hand
 
 
 card = PokemonCardDef(
@@ -31,7 +31,7 @@ card = PokemonCardDef(
             game_text="If Drake's Stadium is in play, remove 1 damage counter from Altaria between turns.",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=altaria_synergy_heal_between_turns(),
         ),
         Attack(
             title="Surprise",

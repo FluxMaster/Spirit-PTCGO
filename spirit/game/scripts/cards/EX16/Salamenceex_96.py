@@ -3,6 +3,7 @@ Salamence ex (EX16 #96): one or more attacks/abilities use effect=unimplemented 
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.card_effects.ex import hydro_wave_discard_water_spread, volcanic_flame_mill5
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 
 card = PokemonCardDef(
@@ -30,14 +31,14 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 2, PokemonTypes.COLORLESS: 2},
             damage=150,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=volcanic_flame_mill5(),
         ),
         Attack(
             title="Hydro Wave",
             game_text="Discard all Water Energy attached to Salamence ex. This attack does 30 damage to each of your opponent's Benched Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.WATER: 2, PokemonTypes.COLORLESS: 2},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=hydro_wave_discard_water_spread(30),
         ),
     ],
 )

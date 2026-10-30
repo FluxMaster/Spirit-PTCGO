@@ -3,6 +3,7 @@ Skarmory ex (EX16 #98): one or more attacks/abilities use effect=unimplemented u
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.card_effects.ex import metal_gravity_passive
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.support_common import gust_attack
 
@@ -30,7 +31,7 @@ card = PokemonCardDef(
             game_text="If your opponent's Active Pok\u00e9mon retreats and has 40 or more remaining HP, put 3 damage counters on that Pok\u00e9mon. You can't use more than 1 Metal Gravity Pok\u00e9-Body each turn.",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=metal_gravity_passive(),
         ),
         Attack(
             title="Whirlwind",

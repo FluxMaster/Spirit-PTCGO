@@ -3,6 +3,7 @@ Raichu (EX16 #12): one or more attacks/abilities use effect=unimplemented until 
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.card_effects.ex import plasma_attach_lightning, thunderbolt_discard_all
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 
 card = PokemonCardDef(
@@ -29,7 +30,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=plasma_attach_lightning(),
         ),
         Attack(
             title="Thunderbolt",
@@ -37,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 2, PokemonTypes.COLORLESS: 1},
             damage=100,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=thunderbolt_discard_all(),
         ),
     ],
 )

@@ -4,7 +4,7 @@ Sableye (EX16 #22): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
-from spirit.game.card_effects.ex import down_draw, feint_attack
+from spirit.game.card_effects.ex import down_draw, feint_attack, sableye_synergy_prevent
 
 
 card = PokemonCardDef(
@@ -29,7 +29,7 @@ card = PokemonCardDef(
             game_text="If Phoebe's Stadium is in play, prevent all damage done to Sableye by attacks from your opponent's Pok\u00e9mon-ex.",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=sableye_synergy_prevent(),
         ),
         Attack(
             title="Down Draw",

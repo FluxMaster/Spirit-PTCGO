@@ -3,9 +3,10 @@ Glalie (EX16 #30): one or more attacks/abilities use effect=unimplemented until 
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.card_effects.ex import glalie_synergy_reduce
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.attributes import SpecialConditions
-from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.attacks_common import condition_attack, recoil_attack
 
 
 card = PokemonCardDef(
@@ -31,7 +32,7 @@ card = PokemonCardDef(
             game_text="If Glacia's Stadium is in play, any damage done to Glalie by attacks from your opponent's Pok\u00e9mon is reduced by 30 (after applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=glalie_synergy_reduce(30),
         ),
         Attack(
             title="Powder Snow",
@@ -47,7 +48,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 2},
             damage=60,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=recoil_attack(10),
         ),
     ],
 )

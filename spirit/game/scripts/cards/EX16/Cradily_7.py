@@ -4,7 +4,7 @@ Cradily (EX16 #7): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
-from spirit.game.card_effects.ex import poison_ring
+from spirit.game.card_effects.ex import evolutionary_call_search, poison_ring
 
 
 card = PokemonCardDef(
@@ -30,7 +30,7 @@ card = PokemonCardDef(
             game_text="Once during your turn, when you play Cradily from your hand to evolve 1 of your Pok\u00e9mon, you may search your deck for up to 3 in any combination of Basic Pok\u00e9mon or Evolution cards. Show them to your opponent and put them into your hand. Shuffle your deck afterward.",
             ability_type=AbilityTypes.POKE_POWER,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=evolutionary_call_search(3),
         ),
         Attack(
             title="Poison Ring",

@@ -3,6 +3,7 @@ Beldum (EX16 #45): one or more attacks/abilities use effect=unimplemented until 
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.card_effects.ex import magnetic_lines_move_basic
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 
 card = PokemonCardDef(
@@ -29,7 +30,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.METAL: 1},
             damage=10,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=magnetic_lines_move_basic(),
         ),
     ],
 )

@@ -2,7 +2,8 @@
 Flareon ★ (EX16 #100): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers, unimplemented
+from spirit.game.card_effects.ex import crimson_ray_on_bench, flamethrower_discard_fire
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 
 card = PokemonCardDef(
@@ -27,7 +28,8 @@ card = PokemonCardDef(
             game_text="Once during your turn, when you put Flareon Star from your hand onto your Bench, you may use this power. Each Active Pok\u00e9mon (both yours and your opponent's) is now Burned.",
             ability_type=AbilityTypes.POKE_POWER,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=crimson_ray_on_bench(),
+            trigger=Triggers.ON_PLAY,
         ),
         Attack(
             title="Flamethrower",
@@ -35,7 +37,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 2, PokemonTypes.COLORLESS: 1},
             damage=50,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flamethrower_discard_fire(),
         ),
     ],
 )

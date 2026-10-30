@@ -4,7 +4,7 @@ Lairon (EX16 #32): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-from spirit.game.card_effects.ex import one_two_punch
+from spirit.game.card_effects.ex import granite_head, one_two_punch
 
 
 card = PokemonCardDef(
@@ -32,7 +32,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.METAL: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=granite_head(),
         ),
         Attack(
             title="Stomp",

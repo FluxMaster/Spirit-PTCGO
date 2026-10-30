@@ -3,6 +3,7 @@ Seedot (EX16 #60): one or more attacks/abilities use effect=unimplemented until 
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.card_effects.ex import double_spin_flip, nap_heal
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 
 card = PokemonCardDef(
@@ -27,7 +28,7 @@ card = PokemonCardDef(
             game_text="Remove 2 damage counters from Seedot.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=nap_heal(2),
         ),
         Attack(
             title="Double Spin",
@@ -36,7 +37,7 @@ card = PokemonCardDef(
             damage=20,
             damage_operator="x",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=double_spin_flip(20, 2),
         ),
     ],
 )

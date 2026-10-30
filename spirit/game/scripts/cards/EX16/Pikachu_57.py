@@ -3,6 +3,7 @@ Pikachu (EX16 #57): one or more attacks/abilities use effect=unimplemented until
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.card_effects.ex import plasma_attach_lightning
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_damage
 
@@ -29,7 +30,7 @@ card = PokemonCardDef(
             game_text="Search your discard pile for a Lightning Energy card and attach it to Pikachu.",
             cost={PokemonTypes.LIGHTNING: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=plasma_attach_lightning(),
         ),
         Attack(
             title="Slam",

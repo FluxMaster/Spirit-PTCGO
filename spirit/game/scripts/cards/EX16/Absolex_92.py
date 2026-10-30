@@ -2,9 +2,9 @@
 Absol ex (EX16 #92): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
-from spirit.game.card_effects.ex import clay_pulse
+from spirit.game.card_effects.ex import clay_pulse, cursed_eyes_move_counters
 
 
 card = PokemonCardDef(
@@ -30,7 +30,8 @@ card = PokemonCardDef(
             game_text="Once during your turn, when you put Absol ex from your hand onto your Bench, you may move 3 damage counters from 1 of your opponent's Pok\u00e9mon to another of his or her Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_POWER,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=cursed_eyes_move_counters(),
+            trigger=Triggers.ON_PLAY,
         ),
         Attack(
             title="Psychic Pulse",

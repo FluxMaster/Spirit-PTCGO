@@ -3,6 +3,7 @@ Metagross ex (EX16 #95): one or more attacks/abilities use effect=unimplemented 
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.card_effects.ex import magnetic_redraw, scanblast_same_name
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 
 card = PokemonCardDef(
@@ -29,7 +30,7 @@ card = PokemonCardDef(
             game_text="Once during your turn (before your attack), if Metagross ex is your Active Pok\u00e9mon, you may use this power. Each player shuffles his or her hand into his or her deck. Then, each player draws 4 cards. This power can't be used if Metagross ex is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=magnetic_redraw(),
         ),
         Attack(
             title="Scanblast",
@@ -37,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.METAL: 2, PokemonTypes.COLORLESS: 1},
             damage=70,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=scanblast_same_name(70),
         ),
     ],
 )

@@ -3,6 +3,7 @@ Chinchou (EX16 #49): one or more attacks/abilities use effect=unimplemented unti
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.card_effects.ex import negative_ion_reduce
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_bonus
 
@@ -39,7 +40,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=10,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=negative_ion_reduce(10),
         ),
     ],
 )

@@ -4,7 +4,7 @@ Mightyena (EX16 #18): one or more attacks/abilities use effect=unimplemented unt
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-from spirit.game.card_effects.ex import night_song_gust_asleep
+from spirit.game.card_effects.ex import dark_burst_sidney, night_song_gust_asleep
 
 
 card = PokemonCardDef(
@@ -41,7 +41,7 @@ card = PokemonCardDef(
             damage=50,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=dark_burst_sidney(50, 20),
         ),
     ],
 )

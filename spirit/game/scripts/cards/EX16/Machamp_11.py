@@ -4,7 +4,7 @@ Machamp (EX16 #11): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
-from spirit.game.card_effects.ex import brick_smash, cross_chop
+from spirit.game.card_effects.ex import brick_smash, cross_chop, overzealous_passive
 
 
 card = PokemonCardDef(
@@ -30,7 +30,7 @@ card = PokemonCardDef(
             game_text="If your opponent has any Pok\u00e9mon-ex in play, each of Machamp's attacks does 30 more damage to the Defending Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=overzealous_passive(30),
         ),
         Attack(
             title="Brick Smash",

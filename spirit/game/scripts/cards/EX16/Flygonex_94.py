@@ -3,6 +3,7 @@ Flygon ex (EX16 #94): one or more attacks/abilities use effect=unimplemented unt
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.card_effects.ex import psychic_protector_discard_reduce, slashing_strike_lock
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 
 card = PokemonCardDef(
@@ -29,7 +30,7 @@ card = PokemonCardDef(
             game_text="If Flygon ex is damaged by an opponent's attack, you may discard up to 4 cards from your hand. If you do, any damage done to Flygon ex is reduced by 10 for each card you discarded.",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=psychic_protector_discard_reduce(),
         ),
         Attack(
             title="Slashing Strike",
@@ -37,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=70,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=slashing_strike_lock(flip=True),
         ),
     ],
 )

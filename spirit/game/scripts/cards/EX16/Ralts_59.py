@@ -3,6 +3,7 @@ Ralts (EX16 #59): one or more attacks/abilities use effect=unimplemented until a
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.card_effects.ex import teleportation_burst_switch
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 
 card = PokemonCardDef(
@@ -33,7 +34,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=teleportation_burst_switch(),
         ),
     ],
 )

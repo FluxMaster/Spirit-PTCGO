@@ -5,7 +5,7 @@ Pichu (EX16 #21): one or more attacks/abilities use effect=unimplemented until a
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.data_utils import Activations
-from spirit.game.card_effects.ex import baby_evolution, baby_evolution_condition
+from spirit.game.card_effects.ex import baby_evolution, baby_evolution_condition, cry_for_help
 
 
 card = PokemonCardDef(
@@ -39,7 +39,7 @@ card = PokemonCardDef(
             game_text="Search your deck for a Lightning Pok\u00e9mon (excluding Pok\u00e9mon-ex), show it to your opponent, and put it into your hand. Shuffle your deck afterward.",
             cost={PokemonTypes.LIGHTNING: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=cry_for_help(PokemonTypes.LIGHTNING),
         ),
     ],
 )
