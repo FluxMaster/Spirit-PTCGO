@@ -1,4 +1,4 @@
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.ex import call_for_family_basic_n, crush_chance_on_play
 
@@ -25,6 +25,7 @@ card = PokemonCardDef(
             game_text="Once during your turn, when you put Tauros from your hand onto your Bench, you may discard a Stadium card in play.",
             ability_type=AbilityTypes.POKE_POWER,
                         effect=crush_chance_on_play(),
+            trigger=Triggers.ON_PLAY,
         ),
         Attack(
             title="Call for Family",

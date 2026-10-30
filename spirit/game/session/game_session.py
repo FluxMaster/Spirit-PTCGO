@@ -120,7 +120,7 @@ from .effects import (
 )
 from .passives import (
     ability_locked, active_passives, active_to_bench_counters,
-    burn_recovery_blocked, effective_bench_capacity, effective_max_hp,
+    burn_recovery_blocked, condition_removal_blocked, effective_bench_capacity, effective_max_hp,
     effective_retreat_cost, energy_attach_taxer, evolve_heal_amount,
     granted_extra_attacks, retreat_energy_destination, tool_slots_free,
     tool_suppressed,
@@ -4689,12 +4689,26 @@ class GameSession:
             f"evolved {target.entity_id} into {card.entity_id}."
         )
 
-        # needs live client verification: condition marker clears on evolve
+        # Condition markers clear on evolve, except Full Flame-style keeps
+        # (Burned can't be cured by evolving — move kept conditions onto the
+        # evolution card).
+        kept = []
+        for cond in list(target.get_attribute(AttrID.SPECIAL_CONDITIONS) or []):
+            if condition_removal_blocked(
+                    self.board_state, target, cond, "evolve"):
+                kept.append(cond)
         if self.clear_pokemon_effects(target):
             await self.send_game_sequence(
                 list(self.players.values()), GameSequence.REMOVE_SPECIAL_CONDITION,
                 [self._entity_id_data_effect_msg("Target", target.entity_id),
                  self._condition_attr_msg(target)],
+            )
+        if kept:
+            card.set_attribute(AttrID.SPECIAL_CONDITIONS, list(kept))
+            await self.send_game_sequence(
+                list(self.players.values()), GameSequence.ADD_SPECIAL_CONDITION,
+                [self._entity_id_data_effect_msg("Target", card.entity_id),
+                 self._condition_attr_msg(card)],
             )
 
         # Wyndon Stadium: heal a Pokemon just evolved from hand (deck-sourced
@@ -4761,9 +4775,16 @@ class GameSession:
         self.board_state.move_card(pokemon.entity_id, dest.entity_id)
         moves.append(self._entity_moved_msg(pokemon.entity_id, dest.entity_id, position))
 
-        # Devolving removes Special Conditions (not damage); the removed card
-        # leaves play as a fresh card.
+        # Devolving removes Special Conditions (not damage), except Full Flame
+        # keeps Burned. The removed card leaves play as a fresh card.
+        kept = []
+        for cond in list(pokemon.get_attribute(AttrID.SPECIAL_CONDITIONS) or []):
+            if condition_removal_blocked(
+                    self.board_state, pokemon, cond, "devolve"):
+                kept.append(cond)
         self.clear_pokemon_effects(pokemon)
+        if kept:
+            prev.set_attribute(AttrID.SPECIAL_CONDITIONS, list(kept))
         self.reset_pokemon_damage(pokemon)
         self.reset_ability_usage(pokemon)
         prev_max = effective_max_hp(self.board_state, prev)
@@ -5209,6 +5230,18 @@ class GameSession:
         # Smokescreen-family check, also before any bookkeeping: a cancelled
         # attack never happened for VSTAR usage or attack locks either.
         flip_title = self.turn_state.attack_flip_check(card.entity_id)
+        if flip_title is None:
+            # Pattern Distraction-style: a single opposing Active Poké-Body may
+            # force a flip (at most one such flip per turn).
+            used_key = "pattern_distraction_flip"
+            if used_key not in self.turn_state.used_named_abilities:
+                for passive, carrier in active_passives(self.board_state):
+                    title = passive.requires_attack_attempt_flip(
+                        card, carrier, self.board_state)
+                    if title:
+                        flip_title = title
+                        self.turn_state.used_named_abilities.add(used_key)
+                        break
         if flip_title is not None:
             if not await self._resolve_attack_attempt_flip(player_id, card, flip_title):
                 return True  # tails: the attack does not happen; the turn ends

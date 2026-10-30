@@ -151,6 +151,20 @@ class Passive:
         """True to prevent the hit entirely (calc.amount becomes 0)."""
         return False
 
+    def requires_attack_attempt_flip(
+        self, attacker: BoardEntity, carrier: BoardEntity, board: BoardState
+    ):
+        """Optional smokescreen-style title: when non-None, the attacker must
+        flip before the attack resolves (Pattern Distraction). None = no flip."""
+        return None
+
+    def after_poke_power(
+        self, board: BoardState, power_user: BoardEntity, carrier: BoardEntity
+    ) -> int:
+        """Damage counters to put on `power_user` after it uses a Poké-Power
+        (Dark Eyes). 0 = no effect."""
+        return 0
+
     def modify_attack_cost(
         self,
         cost: Dict[str, int],
@@ -195,12 +209,15 @@ class Passive:
         return False
 
     def blocks_ability(
-        self, pokemon: PokemonEntity, ability: Any, carrier: BoardEntity
+        self, pokemon: PokemonEntity, ability: Any, carrier: BoardEntity,
+        board: BoardState = None,
     ) -> bool:
         """True to disable this specific ability (Lazy: opponent Poké-Powers).
 
         Checked in addition to `blocks_abilities`; passives and other ability
         types stay on unless that whole-Pokemon hook also returns True.
+        Optional `board` lets partner-in-play gates (Dual Aura, Sol/Luna Shade)
+        resolve correctly.
         """
         return False
 
@@ -282,7 +299,8 @@ class Passive:
         return []
 
     def blocks_trainer_play(
-        self, card: BoardEntity, player_id: str, carrier: BoardEntity
+        self, card: BoardEntity, player_id: str, carrier: BoardEntity,
+        board: BoardState = None,
     ) -> bool:
         """True to forbid `player_id` playing `card` from hand (Vileplume)."""
         return False
@@ -303,6 +321,15 @@ class Passive:
     ) -> int:
         """Damage counters the Burn checkup tick places (default 2)."""
         return counters
+
+    def prevents_condition_removal(
+        self, pokemon: PokemonEntity, condition: Any, reason: str,
+        carrier: BoardEntity,
+    ) -> bool:
+        """True to keep `condition` on `pokemon` through evolve/devolve
+        (Full Flame: Burned can't be cured by evolving or devolving)."""
+        return False
+
 
     def blocks_burn_recovery(self, pokemon: PokemonEntity, carrier: BoardEntity) -> bool:
         """True to skip the Burn recovery flip entirely (stays Burned)."""
@@ -459,6 +486,16 @@ def _carrier_in_play(entity: BoardEntity) -> bool:
         and parent.get_attribute(AttrID.NAME) in _IN_PLAY_AREAS
 
 
+def condition_removal_blocked(
+    board: BoardState, pokemon: PokemonEntity, condition: Any, reason: str
+) -> bool:
+    """Whether a passive keeps `condition` through evolve/devolve."""
+    return any(
+        p.prevents_condition_removal(pokemon, condition, reason, c)
+        for p, c in active_passives(board)
+    )
+
+
 def ability_locked(
     board: BoardState, pokemon: PokemonEntity, ability: Any = None
 ) -> bool:
@@ -474,8 +511,13 @@ def ability_locked(
     for p, c, _ in _collect_passives(board):
         if p.blocks_abilities(pokemon, c):
             return True
-        if ability is not None and p.blocks_ability(pokemon, ability, c):
-            return True
+        if ability is not None:
+            try:
+                blocked = p.blocks_ability(pokemon, ability, c, board)
+            except TypeError:
+                blocked = p.blocks_ability(pokemon, ability, c)
+            if blocked:
+                return True
     return False
 
 
@@ -725,10 +767,17 @@ def ability_effects_blocked(board: BoardState, target: PokemonEntity) -> bool:
     )
 
 
+def _blocks_trainer_play(passive, card, player_id, carrier, board) -> bool:
+    try:
+        return bool(passive.blocks_trainer_play(card, player_id, carrier, board))
+    except TypeError:
+        return bool(passive.blocks_trainer_play(card, player_id, carrier))
+
+
 def trainer_play_blocked(board: BoardState, player_id: str, card: BoardEntity) -> bool:
     """Whether a continuous passive forbids playing `card` from hand."""
     return any(
-        passive.blocks_trainer_play(card, player_id, carrier)
+        _blocks_trainer_play(passive, card, player_id, carrier, board)
         for passive, carrier in active_passives(board)
     )
 

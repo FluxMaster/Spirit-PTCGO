@@ -1,4 +1,4 @@
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.ex import discard_special_energy_from_defender, extra_noise_bench_counters, hyper_tail
 
@@ -25,8 +25,8 @@ card = PokemonCardDef(
             title="Extra Noise",
             game_text="As long as Exploud ex is your Active Pok\u00e9mon, put 1 damage counter on each of your opponent's Pok\u00e9mon-ex between turns.",
             ability_type=AbilityTypes.POKE_BODY,
-            passive=extra_noise_bench_counters(1),
-            effect=None,
+            effect=extra_noise_bench_counters(1),
+            trigger=Triggers.BETWEEN_TURNS,
         ),
         Attack(
             title="Derail",
@@ -41,7 +41,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=60,
             damage_operator="+",
-                        effect=hyper_tail(60, 20),
+            effect=hyper_tail(60, 20),
         ),
     ],
 )

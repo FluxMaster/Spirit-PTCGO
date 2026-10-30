@@ -22,7 +22,7 @@ card = PokemonCardDef(
         Ability(
             title="Time Travel",
             game_text="If Celebi Star would be Knocked Out by damage from an opponent's attack, you may flip a coin. If heads, Celebi Star is not Knocked Out, discard all cards attached to Celebi Star, and put Celebi Star on the bottom of your deck.",
-            ability_type=AbilityTypes.POKE_POWER,
+            ability_type=AbilityTypes.POKE_BODY,
             passive=time_travel_survive_flip(),
             effect=None,
         ),
