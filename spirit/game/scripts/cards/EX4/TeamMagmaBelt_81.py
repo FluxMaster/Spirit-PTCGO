@@ -5,7 +5,7 @@ from spirit.game.card_effects.ex import attach_to_team, team_belt_between_turns
 _GUID = "d7e857d0-9148-532f-8e60-72576f99906e"
 
 card = PokemonToolCardDef(
-    guid=_GUID,
+    guid="d7e857d0-9148-532f-8e60-72576f99906e",
     key="EX4",
     name="com.direwolfdigital.cake.data.archetypes.trainer.TeamMagmaBelt.Name",
     display_name="Team Magma Belt",

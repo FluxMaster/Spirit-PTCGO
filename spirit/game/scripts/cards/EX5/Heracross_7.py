@@ -29,10 +29,9 @@ card = PokemonCardDef(
     weakness_type=PokemonTypes.FIRE,
     family_id=214,
     abilities=[
-        Attack(
+        Ability(
             title="Extra Draw",
             game_text="If your opponent has any Pok\u00e9mon-ex in play, search your deck for up to 2 Grass Energy cards and attach them to Heracross. Shuffle your deck afterward.",
-            cost={PokemonTypes.COLORLESS: 1},
             ability_type=AbilityTypes.POKE_POWER,
             activation=Activations.ONCE_PER_TURN,
             condition=poke_power_condition(),
