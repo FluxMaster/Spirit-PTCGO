@@ -4,6 +4,8 @@ Prinplup (DP1 #58): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import breaking_sound
+
 
 card = PokemonCardDef(
     guid="08be9ef2-88c1-5474-9916-b083b5d06720",
@@ -28,7 +30,7 @@ card = PokemonCardDef(
             game_text="Does 10 damage to each of your opponent's Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.WATER: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=breaking_sound(10),
         ),
         Attack(
             title="Brine",

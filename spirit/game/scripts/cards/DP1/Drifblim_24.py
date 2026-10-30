@@ -4,6 +4,8 @@ Drifblim (DP1 #24): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import spread_damage
+
 
 card = PokemonCardDef(
     guid="7b9c3b95-a33f-5d5a-ac3f-abd839dfd34f",
@@ -38,7 +40,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 3},
             damage=60,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=spread_damage(10, side='both', also_base=True),
         ),
     ],
 )

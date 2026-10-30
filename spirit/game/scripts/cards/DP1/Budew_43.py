@@ -4,6 +4,9 @@ Budew (DP1 #43): one or more attacks/abilities use effect=unimplemented until a 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.support_common import search_to_hand
+from spirit.game.session.effects import is_trainer_card
+
 
 card = PokemonCardDef(
     guid="ca33f874-78ac-5b02-a603-30e4c933b783",
@@ -34,7 +37,7 @@ card = PokemonCardDef(
             game_text="Search your deck for a Trainer card, show it to your opponent, and put it into your hand. Shuffle your deck afterward.",
             cost={},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=search_to_hand(is_trainer_card, count=1, reveal=True, prompt='Choose a Trainer card.'),
         ),
     ],
 )

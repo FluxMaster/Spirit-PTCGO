@@ -4,6 +4,8 @@ Gengar (DP1 #27): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import life_drain
+
 
 card = PokemonCardDef(
     guid="9c542e80-a3f3-5f80-9b0a-ff9c0e121523",
@@ -30,7 +32,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, put damage counters on the Defending Pok\u00e9mon until it is 10 HP away from being Knocked Out.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=life_drain(),
         ),
         Attack(
             title="Shadow Dance",

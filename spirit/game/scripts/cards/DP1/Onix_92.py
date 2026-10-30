@@ -4,6 +4,8 @@ Onix (DP1 #92): one or more attacks/abilities use effect=unimplemented until a m
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import tunneling
+
 
 card = PokemonCardDef(
     guid="cf643baa-5981-5b3d-a2b8-54acc3fc19fe",
@@ -27,7 +29,7 @@ card = PokemonCardDef(
             game_text="Choose up to 2 of your opponent's Benched Pok\u00e9mon. This attack does 10 damage to each of them. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.) Onix can't attack during your next turn.",
             cost={PokemonTypes.FIGHTING: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=tunneling(),
         ),
         Attack(
             title="Headbutt",

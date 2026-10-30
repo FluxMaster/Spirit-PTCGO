@@ -4,6 +4,8 @@ Silcoon (DP1 #63): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import tail_whip_lock_attack
+
 
 card = PokemonCardDef(
     guid="c4a8c289-0bac-530c-a98f-0932e249dad8",
@@ -36,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=tail_whip_lock_attack(),
         ),
     ],
 )

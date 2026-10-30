@@ -4,6 +4,8 @@ Azurill (DP1 #69): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.support_common import recover_from_discard
+
 
 card = PokemonCardDef(
     guid="c479e7dd-8b80-5e69-ad9b-06bc5a213aef",
@@ -34,7 +36,7 @@ card = PokemonCardDef(
             game_text="Put any 1 card from your discard pile into your hand.",
             cost={},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=recover_from_discard(count=1, minimum=1, reveal=False, to='hand', prompt='Choose a card from your discard pile.'),
         ),
     ],
 )

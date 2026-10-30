@@ -4,6 +4,8 @@ Drifloon (DP1 #46): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import ominous_wind_confuse_lock
+
 
 card = PokemonCardDef(
     guid="2e50270c-aff6-5ec2-b8f6-a3b5a2af515b",
@@ -37,7 +39,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 1},
             damage=10,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=ominous_wind_confuse_lock(10),
         ),
     ],
 )

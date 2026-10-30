@@ -4,6 +4,10 @@ Purugly (DP1 #36): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import knock_off_random_hand
+from spirit.game.attributes import SpecialConditions
+from spirit.game.card_effects.attacks_common import condition_attack
+
 
 card = PokemonCardDef(
     guid="0aa7fc1c-9b9f-5d99-8ad8-ddd54c0baf8c",
@@ -28,7 +32,7 @@ card = PokemonCardDef(
             game_text="Choose 1 card from your opponent's hand without looking and discard it.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=knock_off_random_hand(),
         ),
         Attack(
             title="Body Slam",
@@ -36,7 +40,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 4},
             damage=50,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(SpecialConditions.PARALYZED, flip=True),
         ),
     ],
 )

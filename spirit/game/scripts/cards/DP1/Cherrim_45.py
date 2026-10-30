@@ -1,9 +1,11 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Cherrim (DP1 #45): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
+"""Cherrim (POP8 #6)."""
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.attributes import SpecialConditions
+from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ex import magical_leaf_flip
+
 
 card = PokemonCardDef(
     guid="70366874-5ab4-51cf-9ca5-5b7fd820bc18",
@@ -23,15 +25,14 @@ card = PokemonCardDef(
     resistance_type=PokemonTypes.WATER,
     resistance_amount=20,
     evolves_from="com.direwolfdigital.cake.data.archetypes.pokemon.Cherubi.Name",
-    family_id=420,
+    family_id=421,
     abilities=[
         Attack(
             title="Worry Seed",
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon is now Confused.",
             cost={PokemonTypes.GRASS: 1},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(SpecialConditions.CONFUSED, flip=True),
         ),
         Attack(
             title="Magical Leaf",
@@ -39,8 +40,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 2},
             damage=20,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=magical_leaf_flip(20, 3),
         ),
     ],
 )

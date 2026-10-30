@@ -4,6 +4,8 @@ Mismagius (DP1 #10): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import damage_per_damaged_own
+
 
 card = PokemonCardDef(
     guid="c9df0b30-f375-54a2-a2dd-9b38ca11b036",
@@ -30,7 +32,7 @@ card = PokemonCardDef(
             game_text="Count the number of your Pok\u00e9mon that have any damage counters on them. Put that many damage counters on the Defending Pok\u00e9mon.",
             cost={PokemonTypes.PSYCHIC: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_per_damaged_own(10),
         ),
         Attack(
             title="Psywave",

@@ -4,6 +4,8 @@ Floatzel (DP1 #26): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import may_discard_defender_energy_on_heads
+
 
 card = PokemonCardDef(
     guid="766b793a-7804-5519-ba2a-f38b621c24e7",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=may_discard_defender_energy_on_heads(),
         ),
         Attack(
             title="Water Gun",

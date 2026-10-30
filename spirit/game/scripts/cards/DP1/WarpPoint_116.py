@@ -1,12 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Warp Point (DP1 #116): trainer effect stubbed.
-
-Card text:
-  - Your opponent switches 1 of his or her Defending Pokémon with 1 of his or her Benched Pokémon, if any. You switch 1 of your Active Pokémon with 1 of your Benched Pokémon, if any.
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ex import warp_point
 
 card = ItemCardDef(
     guid="64e7e879-e03d-5f40-9186-42ca8a258e6a",
@@ -18,6 +12,5 @@ card = ItemCardDef(
     collector_number=116,
     set_code="DP1",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=warp_point,
 )
