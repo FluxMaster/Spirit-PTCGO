@@ -1,13 +1,10 @@
-from spirit.game.card_effects.ex import bounce_switch, slashing_strike_lock, dual_armor_passive
-"""STUB: effect not implemented — do not guess mechanics.
-Rocket's Scyther ex (EX7 #102): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
+"""EX7 Team Rocket Returns — Rocket's Scyther ex.
 """
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import bounce_switch, slashing_strike_lock, dual_armor_passive
 
 card = PokemonCardDef(
-    passive=dual_armor_passive(PokemonTypes.GRASS),
     guid="ee3550f6-631f-5a79-ae48-ef507030d188",
     key="EX7",
     name="com.direwolfdigital.cake.data.archetypes.pokemon.RocketsScytherex.Name",
@@ -29,14 +26,14 @@ card = PokemonCardDef(
             title="Dual Armor",
             game_text="As long as Rocket's Scyther ex has any Grass Energy attached to it, Rocket's Scyther ex is both Grass and Darkness type.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented,
+            passive=dual_armor_passive(PokemonTypes.GRASS),
+            effect=None,
         ),
         Attack(
             title="Bounce",
-            game_text="After your attack, you may switch Rocket's Scyther ex with 1 of your Benched Pok\u00e9mon.",
+            game_text="After your attack, you may switch Rocket's Scyther ex with 1 of your Benched Pokémon.",
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
-            # STUB: attack effect not implemented
             effect=bounce_switch(),
         ),
         Attack(
@@ -44,8 +41,8 @@ card = PokemonCardDef(
             game_text="Rocket's Scyther ex can't use Slashing Strike during your next turn.",
             cost={PokemonTypes.COLORLESS: 3},
             damage=40,
-            # STUB: attack effect not implemented
-            effect=slashing_strike_lock(),
+            effect=slashing_strike_lock(flip=False),
+            locks_next_turn=True,
         ),
     ],
 )
