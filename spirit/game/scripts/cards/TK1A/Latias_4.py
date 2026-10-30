@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Latias (TK1A #4): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
+"""Latias (TK1A #4)."""
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import heal_targets
+
 
 card = PokemonCardDef(
     guid="c85acc91-87ce-5be1-88c1-f800bd82fccb",
@@ -27,8 +27,7 @@ card = PokemonCardDef(
             game_text="Remove 1 damage counter from 1 of your Pok\u00e9mon",
             cost={PokemonTypes.FIRE: 1},
             damage=10,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=heal_targets(10, scope="choice"),
         ),
         Attack(
             title="Heat Blast",
