@@ -2312,8 +2312,20 @@ class GameSession:
             trailing = []
             if isinstance(pokemon, CompositePokemonEntity):
                 moves, trailing, _ = vunion.depart_composite(self, pokemon, dest_area, knockout=True)
+            hand = self.board_state.find_player_area(owner_id, "hand")
             for entity in ([] if isinstance(pokemon, CompositePokemonEntity) else stack):
-                area = dest_area if isinstance(entity, PokemonEntity) else discard
+                recycle = (
+                    not isinstance(entity, PokemonEntity)
+                    and hand is not None
+                    and getattr(def_for(entity.archetype_id),
+                                "return_to_hand_when_discarded_from_play", False)
+                )
+                if isinstance(entity, PokemonEntity):
+                    area = dest_area
+                elif recycle:
+                    area = hand
+                else:
+                    area = discard
                 position = len(area.children)
                 if self.board_state.move_card(entity.entity_id, area.entity_id):
                     moves.append(self._entity_moved_msg(
