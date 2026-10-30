@@ -4,6 +4,8 @@ Nincada (EX8 #67): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import dig_under
+
 
 card = PokemonCardDef(
     guid="db49bf6e-f648-5b41-a0ce-a08568de291c",
@@ -27,7 +29,7 @@ card = PokemonCardDef(
             game_text="Choose 1 of your opponent's Pok\u00e9mon. This attack does 10 damage to that Pok\u00e9mon. This attack's damage isn't affected by Weakness or Resistance.",
             cost={PokemonTypes.GRASS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=dig_under(),
         ),
         Attack(
             title="Scratch",

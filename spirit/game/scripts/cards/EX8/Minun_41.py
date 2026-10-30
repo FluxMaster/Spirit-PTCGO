@@ -4,6 +4,8 @@ Minun (EX8 #41): one or more attacks/abilities use effect=unimplemented until a 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import recover_from_discard
+
 
 card = PokemonCardDef(
     guid="d616de21-6170-50d5-8159-bffbaab4da0c",
@@ -27,7 +29,7 @@ card = PokemonCardDef(
             game_text="Put any 1 card from your discard pile into your hand.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=recover_from_discard(count=1, minimum=1, reveal=False, to='hand', prompt='Choose a card from your discard pile.'),
         ),
         Attack(
             title="Negative Spark",

@@ -4,6 +4,8 @@ Poochyena (EX8 #70): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import shuffle_random_from_opponent_hand
+
 
 card = PokemonCardDef(
     guid="517a1e89-870f-572f-8926-d5d6b0270549",
@@ -28,7 +30,7 @@ card = PokemonCardDef(
             game_text="Choose 1 card from your opponent's hand without looking. Look at the card you chose, then have your opponent shuffle that card into his or her deck.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=shuffle_random_from_opponent_hand(),
         ),
         Attack(
             title="Sharp Fang",

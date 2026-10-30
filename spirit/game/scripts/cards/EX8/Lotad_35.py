@@ -4,6 +4,8 @@ Lotad (EX8 #35): one or more attacks/abilities use effect=unimplemented until a 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import shuffle_random_from_opponent_hand
+
 
 card = PokemonCardDef(
     guid="b4029da4-fb9d-57e0-9789-0be680dbcafe",
@@ -28,7 +30,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1},
             damage=10,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=shuffle_random_from_opponent_hand(),
         ),
     ],
 )

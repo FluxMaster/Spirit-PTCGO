@@ -4,6 +4,9 @@ Donphan (EX8 #30): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import breaking_sound
+from spirit.game.card_effects.attacks_common import ignore_resistance_attack
+
 
 card = PokemonCardDef(
     guid="406955d2-fbd3-5247-9bbe-1fee4189ed48",
@@ -28,7 +31,7 @@ card = PokemonCardDef(
             game_text="Does 10 damage to each of your opponent's Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.FIGHTING: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=breaking_sound(10),
         ),
         Attack(
             title="Rock Hurl",
@@ -36,7 +39,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 2},
             damage=50,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=ignore_resistance_attack(),
         ),
     ],
 )

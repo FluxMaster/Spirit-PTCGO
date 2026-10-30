@@ -4,6 +4,8 @@ Gyarados (EX8 #8): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import damage_all_opponents
+
 
 card = PokemonCardDef(
     guid="c41dcff2-60a6-5e27-b768-c709bef767e0",
@@ -28,7 +30,7 @@ card = PokemonCardDef(
             game_text="This attack does 10 damage to each of your opponent's Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.WATER: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_all_opponents(10),
         ),
         Attack(
             title="Full Retaliation",

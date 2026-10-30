@@ -5,6 +5,12 @@ Altaria (EX8 #1): one or more attacks/abilities use effect=unimplemented until a
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 
+
+async def double_wing_attack(ctx):
+    """Does 20 damage to each Defending Pokémon (no printed damage)."""
+    await ctx.deal_damage(20)
+
+
 card = PokemonCardDef(
     guid="79dcf993-5186-5988-ac9c-b7496a57aee7",
     key="EX8",
@@ -36,7 +42,7 @@ card = PokemonCardDef(
             game_text="Does 20 Damage to each Defending Pok\u00e9mon.",
             cost={PokemonTypes.LIGHTNING: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=double_wing_attack,
         ),
         Attack(
             title="Dive",

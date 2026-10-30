@@ -4,6 +4,8 @@ Deoxys (EX8 #17): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import energy_crush_opp
+
 
 card = PokemonCardDef(
     guid="4a008dfa-84d4-5924-a621-7f45225fa16d",
@@ -36,7 +38,7 @@ card = PokemonCardDef(
             damage=10,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=energy_crush_opp(),
         ),
     ],
 )

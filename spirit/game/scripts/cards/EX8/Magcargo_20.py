@@ -4,6 +4,8 @@ Magcargo (EX8 #20): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import may_discard_stadium_then_damage
+
 
 card = PokemonCardDef(
     guid="b9b6da80-826e-58d5-b8bb-080294359681",
@@ -36,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=may_discard_stadium_then_damage(),
         ),
         Attack(
             title="Combustion",
