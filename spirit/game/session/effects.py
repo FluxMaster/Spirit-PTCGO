@@ -2598,7 +2598,7 @@ async def resolve_energy_attach_cost(session, player_id: str, energy: EnergyEnti
     attach entirely.
     """
     definition = def_for(energy.archetype_id)
-    cost = getattr(definition, "attach_cost", None)
+    cost = getattr(definition, "energy_attach_cost", None) or getattr(definition, "attach_cost", None)
     if cost is None:
         return EffectContext(session, player_id, energy, None, attached_to=target)
     ctx = EffectContext(session, player_id, energy, None, attached_to=target)
@@ -2610,7 +2610,7 @@ async def resolve_energy_on_attach(session, player_id: str, energy: EnergyEntity
                                    target: PokemonEntity) -> Optional[EffectContext]:
     """Runs an energy's on_attach hook after it attached from hand."""
     definition = def_for(energy.archetype_id)
-    hook = getattr(definition, "on_attach", None)
+    hook = getattr(definition, "energy_on_attach", None) or getattr(definition, "on_attach", None)
     if hook is None or hook is unimplemented:
         return None
     ctx = EffectContext(session, player_id, energy, None, attached_to=target)
