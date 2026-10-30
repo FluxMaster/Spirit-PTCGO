@@ -8,6 +8,7 @@ inline before any choreography is flushed.
 """
 
 import logging
+import contextvars
 import random
 from typing import Any, Callable, Dict, List, Optional, Sequence, Tuple, cast
 from .legal_actions import energy_provided_count
@@ -70,6 +71,16 @@ CLIENT_TYPE_NAMES = {t.value: name for t, name in CLIENT_POKEMON_TYPE_NAMES.item
 VISUAL_DAMAGING = 0
 VISUAL_NON_DAMAGING = 1
 
+# Current board for zone-aware card queries (Holon Veil δ treatment in
+# deck/hand/discard). Set while an EffectContext is live.
+_BOARD_CTX: contextvars.ContextVar = contextvars.ContextVar("spirit_board", default=None)
+
+
+def current_board():
+    """BoardState for the active EffectContext, or None outside effects."""
+    return _BOARD_CTX.get()
+
+
 # Asleep/Confused/Paralyzed replace each other; Poisoned/Burned stack with everything.
 _MUTUALLY_EXCLUSIVE = {
     SpecialConditions.ASLEEP, SpecialConditions.CONFUSED, SpecialConditions.PARALYZED,
@@ -95,6 +106,7 @@ class EffectContext:
                  play_target: Optional[BoardEntity] = None):
         self.session = session
         self.board = session.board_state
+        _BOARD_CTX.set(self.board)
         self.game_id = session.game_id
         self.player_id = player_id
         self.opponent_id = session._opponent_id(player_id)

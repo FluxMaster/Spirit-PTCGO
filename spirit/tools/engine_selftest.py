@@ -2582,6 +2582,55 @@ async def test_anorith_fury_cutter_scale():
 
 
 
+
+
+async def test_holon_veil_zone_tagging():
+    """Holon Veil treats owner Basic/Evolution in hand/deck/discard/in-play as δ."""
+    from spirit.game.card_effects.ex import (
+        holon_veil_treat_as_delta_passive, _has_delta, _orig_has_delta,
+    )
+    from spirit.game.session.effects import _BOARD_CTX
+    import spirit.game.session.passives as passives_mod
+    rig, e = new_rig()
+    veil = holon_veil_treat_as_delta_passive()
+    assert veil.stacking_key == "holon_veil"
+    # Carrier: p1 active Ampharos-like
+    carrier = e["p1_active"]
+    token = _BOARD_CTX.set(rig.board)
+    orig = passives_mod.active_passives
+    try:
+        passives_mod.active_passives = lambda board: [(veil, carrier)]
+        # Hand card owned by p1
+        hand = rig.board.find_player_area(P1, "hand")
+        assert hand and hand.children, "need hand fodder"
+        card = hand.children[0]
+        # Stamp as Pokemon Basic if filler is pokemon
+        if isinstance(card, PokemonEntity):
+            assert _has_delta(card, board=rig.board) is True
+            # Opponent card must not count
+            hand2 = rig.board.find_player_area(P2, "hand")
+            if hand2 and hand2.children and isinstance(hand2.children[0], PokemonEntity):
+                assert _has_delta(hand2.children[0], board=rig.board) is False
+            # Energy/Trainer not Basic/Evolution — skip if hand is all pokemon
+            # Deck zone
+            deck = rig.board.find_player_area(P1, "deck")
+            poke = next((c for c in deck.children if isinstance(c, PokemonEntity)), None)
+            if poke is not None:
+                assert _has_delta(poke, board=rig.board) is True
+            # Prize pile is NOT a Holon Veil zone
+            prizes = rig.board.find_player_area(P1, "prizePile")
+            if prizes and prizes.children:
+                prize = next((c for c in prizes.children if isinstance(c, PokemonEntity)), None)
+                if prize is not None and not _orig_has_delta(prize):
+                    assert _has_delta(prize, board=rig.board) is False
+        # Passive treats_as_delta gates owner
+        assert veil.treats_as_delta(carrier, carrier, rig.board) is True
+    finally:
+        passives_mod.active_passives = orig
+        _BOARD_CTX.reset(token)
+
+
+
 TESTS = [
     test_temp_passive_prevents_then_expires,
     test_temp_passive_cleared_on_leave,
@@ -2692,6 +2741,7 @@ TESTS = [
     test_psychic_protector_reduces_by_ten,
     test_bench_manipulation_tails_times_40,
     test_anorith_fury_cutter_scale,
+    test_holon_veil_zone_tagging,
 ]
 
 
