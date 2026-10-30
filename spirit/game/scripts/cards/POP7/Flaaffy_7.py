@@ -1,16 +1,15 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Flaaffy (POP7 #7): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import electromagnetic_kick
+from spirit.game.card_effects.pokemon import is_lightning_energy
+from spirit.game.card_effects.support_common import search_attach_energy
 
 card = PokemonCardDef(
     guid="6b01bbc4-912e-5cee-ad02-69df3059966c",
     key="POP7",
     name="com.direwolfdigital.cake.data.archetypes.pokemon.Flaaffy.Name",
     display_name="Flaaffy",
-    searchable_by=["Flaaffy", "Stage 1", "Flaaffy"],
+    searchable_by=['Flaaffy', 'Stage 1', 'Flaaffy'],
     subtypes=["Stage 1"],
     collector_number=7,
     set_code="POP7",
@@ -27,19 +26,17 @@ card = PokemonCardDef(
     abilities=[
         Attack(
             title="Attract Current",
-            game_text="Search your deck for a Lightning Energy card and attach it to 1 of your Pok\u00e9mon. Shuffle your deck afterward.",
+            game_text="Search your deck for a Lightning Energy card and attach it to 1 of your Pokémon. Shuffle your deck afterward.",
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=search_attach_energy(predicate=is_lightning_energy, count=1, distribute=False),
         ),
         Attack(
             title="Electromagnetic Kick",
             game_text="Flip a coin. If tails, Flaaffy does 10 damage to itself.",
             cost={PokemonTypes.LIGHTNING: 2, PokemonTypes.COLORLESS: 1},
             damage=60,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=electromagnetic_kick(60, 10),
         ),
     ],
 )

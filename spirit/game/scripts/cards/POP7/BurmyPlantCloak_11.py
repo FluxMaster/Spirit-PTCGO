@@ -1,16 +1,14 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Burmy Plant Cloak (POP7 #11): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.data_utils import Activations
+from spirit.game.card_effects.ex import wear_cloak_attach, wear_cloak_condition, cloak_tackle_bonus
 
 card = PokemonCardDef(
     guid="c34ebe46-8fce-5567-8fdc-dcf9928a2d08",
     key="POP7",
     name="com.direwolfdigital.cake.data.archetypes.pokemon.BurmyPlantCloak.Name",
     display_name="Burmy Plant Cloak",
-    searchable_by=["Burmy Plant Cloak", "Basic", "BurmyPlantCloak"],
+    searchable_by=['Burmy Plant Cloak', 'Basic', 'Burmy'],
     subtypes=["Basic"],
     collector_number=11,
     set_code="POP7",
@@ -24,10 +22,11 @@ card = PokemonCardDef(
     abilities=[
         Ability(
             title="Wear Cloak",
-            game_text="Once during your turn (before your attack), if Burmy Plant Cloak is your Active Pok\u00e9mon, you may search your discard pile for a basic Grass Energy card and attach it to Burmy Plant Cloak.",
+            game_text="Once during your turn (before your attack), if Burmy Plant Cloak is your Active Pokémon, you may search your discard pile for a basic Grass Energy card and attach it to Burmy Plant Cloak.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=wear_cloak_condition(),
+            effect=wear_cloak_attach(PokemonTypes.GRASS),
         ),
         Attack(
             title="Plant Cloak Tackle",
@@ -35,8 +34,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=cloak_tackle_bonus(PokemonTypes.GRASS, 10, 10),
         ),
     ],
 )

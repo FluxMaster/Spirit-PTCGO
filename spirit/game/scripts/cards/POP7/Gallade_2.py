@@ -1,16 +1,13 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Gallade (POP7 #2): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import sonic_blade_leave_hp, psychic_cut_prizes
 
 card = PokemonCardDef(
     guid="e38d3357-62d4-5056-a00e-f3048d9ab02d",
     key="POP7",
     name="com.direwolfdigital.cake.data.archetypes.pokemon.Gallade.Name",
     display_name="Gallade",
-    searchable_by=["Gallade", "Stage 2", "Gallade"],
+    searchable_by=['Gallade', 'Stage 2', 'Gallade'],
     subtypes=["Stage 2"],
     collector_number=2,
     set_code="POP7",
@@ -25,10 +22,9 @@ card = PokemonCardDef(
     abilities=[
         Attack(
             title="Sonic Blade",
-            game_text="Put damage counters on the Defending Pok\u00e9mon until it is 50 HP away from being Knocked Out. If you do, your opponent switches the Defending Pok\u00e9mon with 1 of his or her Benched Pok\u00e9mon.",
+            game_text="Put damage counters on the Defending Pokémon until it is 50 HP away from being Knocked Out. If you do, your opponent switches the Defending Pokémon with 1 of his or her Benched Pokémon.",
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=sonic_blade_leave_hp(50),
         ),
         Attack(
             title="Psychic Cut",
@@ -36,8 +32,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 2},
             damage=60,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=psychic_cut_prizes(60, 20),
         ),
     ],
 )

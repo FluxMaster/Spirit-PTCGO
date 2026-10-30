@@ -1,16 +1,13 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Mareep (POP7 #14): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.data_utils import PokemonCardDef, Attack
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, SpecialConditions
+from spirit.game.card_effects.attacks_common import condition_attack
 
 card = PokemonCardDef(
     guid="a32f3174-ce52-5448-9ae6-ccb65820404e",
     key="POP7",
     name="com.direwolfdigital.cake.data.archetypes.pokemon.Mareep.Name",
     display_name="Mareep",
-    searchable_by=["Mareep", "Basic", "Mareep"],
+    searchable_by=['Mareep', 'Basic', 'Mareep'],
     subtypes=["Basic"],
     collector_number=14,
     set_code="POP7",
@@ -26,11 +23,10 @@ card = PokemonCardDef(
     abilities=[
         Attack(
             title="Thundershock",
-            game_text="Flip a coin. If heads, the Defending Pok\u00e9mon is now Paralyzed.",
+            game_text="Flip a coin. If heads, the Defending Pokémon is now Paralyzed.",
             cost={PokemonTypes.LIGHTNING: 1},
             damage=10,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(SpecialConditions.PARALYZED, flip=True),
         ),
         Attack(
             title="Static Shock",

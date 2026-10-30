@@ -1,16 +1,13 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Wormadam Sandy Cloak (POP7 #10): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import sandy_cloak_effect_shield, push_over_fighting
 
 card = PokemonCardDef(
     guid="81aea46e-35a3-5632-9eb8-5b0d715f72aa",
     key="POP7",
     name="com.direwolfdigital.cake.data.archetypes.pokemon.WormadamSandyCloak.Name",
     display_name="Wormadam Sandy Cloak",
-    searchable_by=["Wormadam Sandy Cloak", "Stage 1", "WormadamSandyCloak"],
+    searchable_by=['Wormadam Sandy Cloak', 'Stage 1', 'Wormadam'],
     subtypes=["Stage 1"],
     collector_number=10,
     set_code="POP7",
@@ -29,8 +26,8 @@ card = PokemonCardDef(
             title="Sandy Cloak",
             game_text="Prevent all effects, excluding damage, done to Wormadam Sandy Cloak.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=sandy_cloak_effect_shield(),
+            effect=None,
         ),
         Attack(
             title="Push Over",
@@ -38,8 +35,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 2},
             damage=40,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=push_over_fighting(40, 10),
         ),
     ],
 )
