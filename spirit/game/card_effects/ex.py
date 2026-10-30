@@ -10623,3 +10623,264 @@ def freeze_lock():
         if results and results[0]:
             ctx.lock_plays(ctx.opponent_id, is_energy_card)
     return effect
+
+
+
+async def island_cave_on_energy_attached(ctx):
+    """Whenever any player attaches Energy from hand to W/F/M, clear SCs."""
+    receiver = getattr(ctx, "energy_receiver", None)
+    if receiver is None:
+        return
+    types = receiver.get_attribute(AttrID.POKEMON_TYPES) or []
+    wanted = {
+        PokemonTypes.WATER.value,
+        PokemonTypes.FIGHTING.value,
+        PokemonTypes.METAL.value,
+    }
+    if not any(t in wanted for t in types):
+        return
+    await ctx.cure_all_conditions(receiver)
+
+
+def island_cave_passive() -> Passive:
+    """Stadium continuous marker; cure is via ON_ENERGY_ATTACHED ability."""
+    class _P(Passive):
+        stacking_key = "island_cave"
+    return _P()
+
+
+def buffer_piece_discard_end_opponent_turn(tool_guid: str):
+    """END_OF_TURN: discard Buffer Piece at end of the opponent's turn."""
+    async def effect(ctx):
+        pokemon = ctx.source
+        if pokemon is None:
+            return
+        # END_OF_TURN fires for the turn player; discard when that player is
+        # the opponent of the tool's owner.
+        tool = next(
+            (c for c in pokemon.children
+             if (c.archetype_id or "").lower() == tool_guid.lower()),
+            None)
+        if tool is None:
+            return
+        owner = tool.owning_player_id or pokemon.owning_player_id
+        if ctx.player_id == owner:
+            return  # end of your turn — wait for opponent's
+        await ctx.discard_cards([tool])
+    return effect
+
+
+class BalloonBerryPassive(Passive):
+    """Retreat cost 0; discard Balloon Berry when the holder retreats."""
+
+    def modify_retreat_cost(self, cost, pokemon, carrier, board):
+        holder = carrier_pokemon(carrier) or carrier
+        if holder is pokemon:
+            return 0
+        return cost
+
+    async def on_retreated(self, ctx, pokemon, carrier):
+        holder = carrier_pokemon(carrier) or carrier
+        if pokemon is holder and carrier is not None:
+            await ctx.discard_cards([carrier])
+
+
+class BufferPiecePassive(Passive):
+    """Takes 20 less after W/R; discard at end of opponent's turn (via grant)."""
+
+    def modify_damage_taken(self, calc, carrier):
+        holder = carrier_pokemon(carrier) or carrier
+        if calc.is_attack and calc.is_opposing and calc.target is holder:
+            calc.amount = max(0, calc.amount - 20)
+
+
+
+# === EX1–EX6 soft-gap quality fixes (last-def wins) ===
+
+def mass_destruction():
+    """Both Electrode and Defending are KO'd. If Electrode has any Special
+    Energy attached, this attack does nothing."""
+    from spirit.game.session.effects import is_special_energy
+
+    async def effect(ctx):
+        a = ctx.attacker
+        if a is not None and any(is_special_energy(c) for c in a.children):
+            return
+        d = ctx.defender
+        if d is not None:
+            await ctx.knock_out(d)
+        if a is not None:
+            await ctx.knock_out(a)
+    return effect
+
+
+def sweet_temptation():
+    """Opponent chooses a Benched Pokémon to become Active; then 10 damage
+    to the new Defending Pokémon."""
+    async def effect(ctx):
+        bench = ctx.opponent_bench()
+        if bench:
+            target = await ctx.choose_pokemon(
+                bench,
+                "Choose your new Active Pokémon",
+                player_id=ctx.opponent_id,
+            ) or bench[0]
+            await ctx.switch_active(ctx.opponent_id, target)
+        await ctx.deal_damage(10)
+    return effect
+
+
+def intense_glare():
+    """Same shape as Sweet Temptation when used as gust-then-damage."""
+    return sweet_temptation()
+
+
+def block_dust_passive() -> Passive:
+    """While Active: opponent can't play Trainer cards."""
+    class _P(Passive):
+        def blocks_trainer_play(self, card, player_id, carrier):
+            if not is_in_active_spot(carrier):
+                return False
+            return player_id != carrier.owning_player_id
+    return _P()
+
+
+def deep_sleep_passive() -> Passive:
+    """While Active: players flip 2 coins for Asleep (both must be heads)."""
+    class _P(Passive):
+        def asleep_coins_required(self, pokemon, carrier):
+            if is_in_active_spot(carrier):
+                return 2
+            return None
+    return _P()
+
+
+def buffer_piece_discard_end_opponent_turn(tool_guid: str):
+    """BETWEEN_TURNS: discard at the checkup ending the opponent's turn."""
+    async def effect(ctx):
+        pokemon = ctx.source
+        if pokemon is None:
+            return
+        tool = next(
+            (c for c in pokemon.children
+             if (c.archetype_id or "").lower() == tool_guid.lower()),
+            None)
+        if tool is None:
+            return
+        owner = tool.owning_player_id or pokemon.owning_player_id
+        # Checkup runs for the player whose turn just ended.
+        ending = ctx.session.turn_state.active_player_id
+        if ending == owner:
+            return
+        await ctx.discard_cards([tool])
+    return effect
+
+
+def high_voltage_lock_trainers():
+    async def effect(ctx):
+        await ctx.deal_damage()
+        results = await ctx.flip_coins(1, "High Voltage")
+        if results and results[0]:
+            from spirit.game.session.effects import is_trainer_card
+            ctx.lock_plays(ctx.opponent_id, is_trainer_card)
+    return effect
+
+
+
+def minus_energy():
+    """Flip: heads choose 1 Energy on Defending; opponent returns it to hand."""
+    async def effect(ctx):
+        printed = getattr(ctx.ability, "damage", 0) or 0
+        if printed > 0:
+            await ctx.deal_damage()
+        results = await ctx.flip_coins(1, "Minus Energy")
+        if not (results and results[0]) or ctx.defender is None:
+            return
+        energies = [c for c in ctx.defender.children if is_energy_card(c)]
+        if not energies:
+            return
+        picks = await ctx.choose_cards(
+            energies, 1, minimum=1, prompt="Choose an Energy to return")
+        if picks:
+            await ctx.put_in_hand(picks)
+    return effect
+
+
+def silver_wind(bonus: int = 30):
+    """Printed damage; during your next turn, attacks do +bonus to that Pokémon."""
+    async def effect(ctx):
+        await ctx.deal_damage()
+        d = ctx.defender
+        if d is None:
+            return
+
+        class _Mark(Passive):
+            def modify_damage_taken(self, calc, carrier):
+                holder = carrier_pokemon(carrier) or carrier
+                if not (calc.is_attack and calc.target is holder):
+                    return
+                # Only when the Silver Wind user side is attacking
+                if calc.attacker is None:
+                    return
+                if calc.attacker.owning_player_id == holder.owning_player_id:
+                    return
+                calc.amount = calc.amount + bonus
+
+        ctx.add_passive_through_own_next_turn(d, _Mark())
+    return effect
+
+
+def call_for_family_grass_one():
+    """Search 1 Grass Basic onto Bench."""
+    return call_for_family_grass(1)
+
+
+def pivot_throw_takes_more(amount: int = 10):
+    """Damage; during opponent's next turn, this Pokémon takes amount more."""
+    async def effect(ctx):
+        await ctx.deal_damage()
+        if ctx.attacker is None:
+            return
+
+        class TakesMore(Passive):
+            def modify_damage_taken(self, calc, carrier):
+                holder = carrier_pokemon(carrier) or carrier
+                if calc.is_attack and calc.target is holder and calc.is_opposing:
+                    calc.amount = calc.amount + amount
+
+        ctx.add_passive_through_opponents_turn(ctx.attacker, TakesMore())
+    return effect
+
+
+
+async def super_scoop_up(ctx):
+    """Flip: heads return 1 of your Pokémon and all cards attached to hand."""
+    results = await ctx.flip_coins(1, "Super Scoop Up")
+    if not (results and results[0]):
+        return
+    cands = list(ctx.my_pokemon_in_play())
+    if not cands:
+        return
+    target = await ctx.choose_pokemon(cands, "Choose a Pokémon to return to your hand")
+    if target is None:
+        return
+    was_active = target is ctx.my_active()
+    await ctx.put_in_hand(full_stack(target), reveal=False)
+    if was_active:
+        async def _promote():
+            if not await ctx.session._promote_new_active(ctx.player_id):
+                screen_name = ctx.session.players[ctx.player_id].screen_name
+                await ctx.session.end_game(
+                    ctx.opponent_id, f"{screen_name} has no Pokémon left")
+        ctx.deferred_actions.append(_promote)
+
+
+def link_needle(base: int = 50, per: int = 30, name: str = "Beedrill"):
+    """base + per for each other named Pokémon in play."""
+    async def effect(ctx):
+        n = sum(
+            1 for p in ctx.my_pokemon_in_play()
+            if p is not ctx.attacker
+            and name.lower() in _display_name(p).lower())
+        await ctx.deal_damage(base + per * n)
+    return effect

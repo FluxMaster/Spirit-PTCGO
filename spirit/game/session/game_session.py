@@ -3305,6 +3305,17 @@ class GameSession:
     async def _checkup_sleep(self, player_id: str, active):
         """Sleep flip: all heads wakes (Thumping Snore's rider flips 2 coins)."""
         coins = self.sleep_checkup_coins.get(active.entity_id, 1)
+        # Deep Sleep / similar: passives may require extra coins while Active.
+        for passive, carrier in active_passives(self.board_state):
+            override = getattr(passive, "asleep_coins_required", None)
+            if not callable(override):
+                continue
+            try:
+                v = override(active, carrier)
+            except TypeError:
+                v = override(self, active, carrier)
+            if v is not None:
+                coins = max(coins, int(v))
         flips = [random.choice([0, 1]) for _ in range(coins)]
         woke = all(f == 0 for f in flips)
         self.stat_add(player_id, "headsflipped", flips.count(0))
@@ -5148,6 +5159,14 @@ class GameSession:
         self.turn_state.became_active_turn[new_active.entity_id] = \
             self.turn_state.turn_number
         await self._apply_active_to_bench_counters(player_id, card)
+        # Tool passives may discard themselves on retreat (Balloon Berry).
+        from spirit.game.session.effects import EffectContext
+        ctx = EffectContext(self, player_id, card, None)
+        for child in list(card.children):
+            child_def = def_for(child.archetype_id)
+            passive = getattr(child_def, "passive", None) if child_def else None
+            if passive is not None and callable(getattr(passive, "on_retreated", None)):
+                await passive.on_retreated(ctx, card, child)
         await self.fire_move_to_active_triggers(new_active)
         # An Active-spot change can flip suppression passives (Tool Jammer).
         await self.resync_effective_max_hp()

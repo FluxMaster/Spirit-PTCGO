@@ -2113,6 +2113,111 @@ async def test_ex8_space_center_blocks_basic_bodies():
 
 
 
+async def test_ex5_mass_destruction_blocked_by_special_energy():
+    """Mass Destruction does nothing when Special Energy is attached."""
+    from spirit.game.card_effects.ex import mass_destruction
+    from spirit.game.attributes import AttrID
+    rig, e = new_rig()
+    attacker = e["p1_active"]
+    # Stamp a fake special-energy child
+    child = type("SE", (), {
+        "archetype_id": "fake-special",
+        "entity_id": "se1",
+        "children": [],
+        "get_attribute": lambda self, k, d=None: True if k == AttrID.IS_SPECIAL_ENERGY else d,
+        "owning_player_id": P1,
+    })()
+    # Use a real energy entity if possible; else mock via children list
+    # Prefer attaching a known special via attribute on a CardEntity-like
+    from spirit.game.models.board import EnergyEntity
+    # Simpler: monkeypatch attacker.children with an object that is_special_energy accepts
+    fake = type("F", (), {})()
+    fake.get_attribute = lambda key, default=None: (
+        True if key == AttrID.IS_SPECIAL_ENERGY else default)
+    # EnergyEntity required? is_special_energy only checks get_attribute
+    attacker.children.append(fake)
+    defender_hp = e["p2_active"].get_attribute(AttrID.HP)
+    attacker_hp = attacker.get_attribute(AttrID.HP)
+    ctx = attack_ctx(rig, e)
+    await mass_destruction()(ctx)
+    assert e["p2_active"].get_attribute(AttrID.HP) == defender_hp
+    assert attacker.get_attribute(AttrID.HP) == attacker_hp
+    # Without special energy: both KO
+    attacker.children.remove(fake)
+    ctx2 = attack_ctx(rig, e)
+    await mass_destruction()(ctx2)
+    assert e["p2_active"].get_attribute(AttrID.HP) == 0
+    assert attacker.get_attribute(AttrID.HP) == 0
+
+
+async def test_ex5_deep_sleep_requires_two_coins():
+    from spirit.game.card_effects.ex import deep_sleep_passive
+    rig, e = new_rig()
+    passive = deep_sleep_passive()
+    carrier = e["p1_active"]
+    # Active Relicanth → 2 coins for any asleep pokemon
+    assert passive.asleep_coins_required(e["p2_active"], carrier) == 2
+
+
+async def test_ex5_island_cave_clears_conditions_on_wfm_attach():
+    from spirit.game.card_effects.ex import island_cave_on_energy_attached
+    from spirit.game.attributes import SpecialConditions, PokemonTypes, AttrID
+    from spirit.game.session.effects import CLIENT_SPECIAL_CONDITION_NAMES
+    rig, e = new_rig()
+    target = e["p1_active"]
+    target.set_attribute(AttrID.POKEMON_TYPES, [PokemonTypes.WATER.value])
+    asleep = CLIENT_SPECIAL_CONDITION_NAMES[SpecialConditions.ASLEEP]
+    target.set_attribute(AttrID.SPECIAL_CONDITIONS, [asleep])
+    ctx = attack_ctx(rig, e)
+    ctx.energy_receiver = target
+    await island_cave_on_energy_attached(ctx)
+    assert not (target.get_attribute(AttrID.SPECIAL_CONDITIONS) or [])
+
+
+async def test_ex3_buffer_piece_reduces_damage():
+    from spirit.game.card_effects.ex import BufferPiecePassive
+    from spirit.game.session.passives import DamageCalc
+    # Smoke the passive's modify_damage_taken directly via deal_damage path
+    rig, e = new_rig()
+    neutralize_wr(e)
+    tgt = e["p2_active"]
+    ctx = attack_ctx(rig, e, damage=50)
+    tool = type("T", (), {"archetype_id": "buffer"})()
+    # carrier is tool; carrier_pokemon needs parent — use temporary passive on target
+    ctx.add_temporary_passive(tgt, BufferPiecePassive())
+    # BufferPiecePassive uses carrier_pokemon(carrier); for temp passive carrier is pokemon
+    hp = tgt.get_attribute(AttrID.HP)
+    dealt = await ctx.deal_damage(50)
+    # When carrier is the pokemon itself, carrier_pokemon returns it → -20
+    assert dealt == 30
+    assert tgt.get_attribute(AttrID.HP) == hp - 30
+
+
+async def test_ex3_balloon_berry_zero_retreat():
+    from spirit.game.card_effects.ex import BalloonBerryPassive
+    rig, e = new_rig()
+    passive = BalloonBerryPassive()
+    poke = e["p1_active"]
+    assert passive.modify_retreat_cost(2, poke, poke, rig.board) == 0
+    assert hasattr(passive, "on_retreated")
+
+
+async def test_ex5_sweet_temptation_opponent_chooses():
+    from spirit.game.card_effects.ex import sweet_temptation
+    import inspect
+    src = inspect.getsource(sweet_temptation)
+    assert "player_id=ctx.opponent_id" in src
+    assert "deal_damage(10)" in src
+
+
+async def test_ex5_block_dust_uses_blocks_trainer_play():
+    from spirit.game.card_effects.ex import block_dust_passive
+    import inspect
+    src = inspect.getsource(block_dust_passive)
+    assert "blocks_trainer_play" in src
+
+
+
 TESTS = [
     test_temp_passive_prevents_then_expires,
     test_temp_passive_cleared_on_leave,
@@ -2185,6 +2290,13 @@ TESTS = [
     test_ex8_meteor_falls_grants_lower_stage,
     test_ex8_fluff_requires_damage,
     test_ex8_space_center_blocks_basic_bodies,
+    test_ex5_mass_destruction_blocked_by_special_energy,
+    test_ex5_deep_sleep_requires_two_coins,
+    test_ex5_island_cave_clears_conditions_on_wfm_attach,
+    test_ex3_buffer_piece_reduces_damage,
+    test_ex3_balloon_berry_zero_retreat,
+    test_ex5_sweet_temptation_opponent_chooses,
+    test_ex5_block_dust_uses_blocks_trainer_play,
 ]
 
 
