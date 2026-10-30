@@ -157,8 +157,13 @@ class Passive:
         pokemon: PokemonEntity,
         carrier: BoardEntity,
         board: BoardState,
+        ability=None,
+        **kwargs,
     ) -> Dict[str, int]:
-        """Returns the (possibly reduced) cost dict, client-name keyed."""
+        """Returns the (possibly reduced) cost dict, client-name keyed.
+
+        Optional `ability` is the Attack being costed (def or PIE dict).
+        """
         return cost
 
     def max_hp_bonus(self, pokemon: PokemonEntity, carrier: BoardEntity) -> int:
@@ -352,6 +357,14 @@ class Passive:
     ) -> bool:
         """True to coin-flip `attaching_player_id`'s manual energy attach
         (Slimy Room): tails discards the energy instead of attaching."""
+        return False
+
+    def blocks_energy_attach(
+        self, attaching_player_id: str, energy: BoardEntity,
+        target: PokemonEntity, carrier: BoardEntity,
+    ) -> bool:
+        """True to forbid attaching `energy` from hand to `target`
+        (Cursed Glare)."""
         return False
 
     def retreat_cost_destination(
@@ -614,11 +627,20 @@ def compute_damage(
 
 
 def effective_attack_cost(
-    board: BoardState, pokemon: PokemonEntity, cost: Dict[str, int]
+    board: BoardState, pokemon: PokemonEntity, cost: Dict[str, int],
+    ability=None,
 ) -> Dict[str, int]:
-    """An attack's cost after cost-modifying passives (e.g. Excited Heart)."""
+    """An attack's cost after cost-modifying passives (e.g. Excited Heart).
+
+    `ability` is the Attack/Ability def or PIE dict being costed so passives
+    can scope reductions to a named attack (Delta Aura).
+    """
     for passive, carrier in active_passives(board):
-        cost = passive.modify_attack_cost(dict(cost), pokemon, carrier, board)
+        try:
+            cost = passive.modify_attack_cost(
+                dict(cost), pokemon, carrier, board, ability=ability)
+        except TypeError:
+            cost = passive.modify_attack_cost(dict(cost), pokemon, carrier, board)
     return cost
 
 
@@ -777,6 +799,15 @@ def energy_attach_taxer(board: BoardState, attaching_player_id: str,
         if passive.taxes_energy_attach(attaching_player_id, energy, target, carrier):
             return carrier
     return None
+
+
+def energy_attach_blocked(board: BoardState, attaching_player_id: str,
+                          energy: BoardEntity, target: PokemonEntity) -> bool:
+    """Whether a passive forbids attaching `energy` from hand to `target`."""
+    return any(
+        passive.blocks_energy_attach(attaching_player_id, energy, target, carrier)
+        for passive, carrier in active_passives(board)
+    )
 
 
 def retreat_energy_destination(board: BoardState, pokemon: PokemonEntity,
