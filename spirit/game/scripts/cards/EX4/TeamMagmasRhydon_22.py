@@ -4,6 +4,7 @@ Team Magma's Rhydon (EX4 #22): one or more attacks/abilities use effect=unimplem
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import second_strike, flip_tails_discard_energy
 
 card = PokemonCardDef(
     guid="f957662a-df33-5210-aedb-3f954ee45b1d",
@@ -30,7 +31,7 @@ card = PokemonCardDef(
             damage=20,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=second_strike(20, 20, 2),
         ),
         Attack(
             title="Land Crush",
@@ -38,7 +39,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 2, PokemonTypes.COLORLESS: 1},
             damage=60,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_tails_discard_energy(),
         ),
     ],
 )

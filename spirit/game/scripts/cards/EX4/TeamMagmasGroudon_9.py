@@ -5,6 +5,7 @@ Team Magma's Groudon (EX4 #9): one or more attacks/abilities use effect=unimplem
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import snipe_attack
+from spirit.game.card_effects.ex import second_strike
 
 
 card = PokemonCardDef(
@@ -45,7 +46,7 @@ card = PokemonCardDef(
             damage=50,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=second_strike(50, 20, 2),
         ),
     ],
 )

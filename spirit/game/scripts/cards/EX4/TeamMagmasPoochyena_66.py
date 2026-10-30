@@ -4,6 +4,7 @@ Team Magma's Poochyena (EX4 #66): one or more attacks/abilities use effect=unimp
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import force_opponent_switch
 
 card = PokemonCardDef(
     guid="7ed4bf00-732f-5571-b23e-56527b6675fc",
@@ -28,7 +29,7 @@ card = PokemonCardDef(
             game_text="Your opponent switches the Defending Pok\u00e9mon with 1 of his or her Benched Pok\u00e9mon, if any.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=force_opponent_switch(),
         ),
         Attack(
             title="Sharp Fang",

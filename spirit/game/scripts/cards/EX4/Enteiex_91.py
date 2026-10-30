@@ -6,6 +6,7 @@ from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemente
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ex import discard_n_energy_then_damage
 
 
 card = PokemonCardDef(
@@ -39,7 +40,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 2, PokemonTypes.COLORLESS: 1},
             damage=90,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=discard_n_energy_then_damage(2),
         ),
     ],
 )

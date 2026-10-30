@@ -6,6 +6,7 @@ from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemente
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ex import pin_missile
 
 
 card = PokemonCardDef(
@@ -39,7 +40,7 @@ card = PokemonCardDef(
             damage=10,
             damage_operator="x",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=pin_missile(4, 10),
         ),
     ],
 )

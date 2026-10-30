@@ -5,6 +5,7 @@ Team Magma's Rhyhorn (EX4 #67): one or more attacks/abilities use effect=unimple
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_damage
+from spirit.game.card_effects.ex import second_strike
 
 
 card = PokemonCardDef(
@@ -40,7 +41,7 @@ card = PokemonCardDef(
             damage=10,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=second_strike(10, 20, 2),
         ),
     ],
 )

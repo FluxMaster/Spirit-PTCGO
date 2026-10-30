@@ -3,7 +3,9 @@ Team Aqua's Mightyena (EX4 #15): one or more attacks/abilities use effect=unimpl
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, SpecialConditions
+from spirit.game.card_effects.attacks_common import conditions_if
+from spirit.game.card_effects.ex import defender_is_ex
 
 card = PokemonCardDef(
     guid="a52b86b1-8654-5a1f-aa5f-65623b356218",
@@ -35,7 +37,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 2},
             damage=50,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=conditions_if(defender_is_ex, SpecialConditions.CONFUSED),
         ),
     ],
 )

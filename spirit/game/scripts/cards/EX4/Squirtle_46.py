@@ -4,6 +4,7 @@ Squirtle (EX4 #46): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import energy_guard_passive
 
 card = PokemonCardDef(
     guid="0b00b401-0109-5c60-a2bc-9b5935dd66ff",
@@ -27,7 +28,7 @@ card = PokemonCardDef(
             game_text="As long as Squirtle has any Energy cards attached to it, damage done to Squirtle by an opponent's attack is reduced by 10 (after applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=energy_guard_passive(10),
         ),
         Attack(
             title="Tackle",

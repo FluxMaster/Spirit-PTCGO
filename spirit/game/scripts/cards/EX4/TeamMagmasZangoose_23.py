@@ -4,6 +4,7 @@ Team Magma's Zangoose (EX4 #23): one or more attacks/abilities use effect=unimpl
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import team_play_damage
 
 card = PokemonCardDef(
     guid="2680f85b-01db-5074-acca-164640d7bee2",
@@ -36,7 +37,7 @@ card = PokemonCardDef(
             damage=10,
             damage_operator="x",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=team_play_damage("Team Magma", 10),
         ),
     ],
 )

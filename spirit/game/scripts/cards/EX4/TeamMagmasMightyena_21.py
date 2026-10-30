@@ -5,6 +5,7 @@ Team Magma's Mightyena (EX4 #21): one or more attacks/abilities use effect=unimp
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import snipe_attack
+from spirit.game.card_effects.ex import bonus_if_ex
 
 
 card = PokemonCardDef(
@@ -41,7 +42,7 @@ card = PokemonCardDef(
             damage=40,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bonus_if_ex(40),
         ),
     ],
 )

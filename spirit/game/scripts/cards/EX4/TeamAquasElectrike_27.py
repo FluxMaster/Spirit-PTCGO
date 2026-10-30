@@ -5,6 +5,9 @@ Team Aqua's Electrike (EX4 #27): one or more attacks/abilities use effect=unimpl
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import snipe_attack
+from spirit.game.card_effects.ex import flip_attach_from_discard
+from spirit.game.card_effects.trainers import is_basic_energy_card
+from spirit.game.card_effects.pokemon import energy_provides_type
 
 
 card = PokemonCardDef(
@@ -38,7 +41,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=10,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_attach_from_discard(predicate=lambda c: is_basic_energy_card(c) and energy_provides_type(c, PokemonTypes.LIGHTNING.value)),
         ),
     ],
 )

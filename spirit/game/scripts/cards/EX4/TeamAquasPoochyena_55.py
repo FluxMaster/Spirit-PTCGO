@@ -5,6 +5,7 @@ Team Aqua's Poochyena (EX4 #55): one or more attacks/abilities use effect=unimpl
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import discard_opponent_energy_attack
+from spirit.game.card_effects.ex import force_opponent_switch
 
 
 card = PokemonCardDef(
@@ -30,7 +31,7 @@ card = PokemonCardDef(
             game_text="Your opponent switches the Defending Pok\u00e9mon with 1 of his or her Benched Pok\u00e9mon, if any.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=force_opponent_switch(),
         ),
         Attack(
             title="Aqua Crush",

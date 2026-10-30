@@ -5,6 +5,7 @@ Team Magma's Rhyhorn (EX4 #38): one or more attacks/abilities use effect=unimple
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_or_nothing
+from spirit.game.card_effects.ex import damage_each_active
 
 
 card = PokemonCardDef(
@@ -29,7 +30,7 @@ card = PokemonCardDef(
             game_text="Does 10 damage to each Defending Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_each_active(10),
         ),
         Attack(
             title="Horn Rush",

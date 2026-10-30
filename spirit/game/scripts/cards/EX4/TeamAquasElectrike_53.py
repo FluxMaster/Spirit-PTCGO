@@ -4,6 +4,8 @@ Team Aqua's Electrike (EX4 #53): one or more attacks/abilities use effect=unimpl
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import attach_from_hand
+from spirit.game.card_effects.pokemon import is_energy_card
 
 card = PokemonCardDef(
     guid="2c666c4c-ddab-5270-8b6b-a25fa3a0df06",
@@ -28,7 +30,7 @@ card = PokemonCardDef(
             game_text="Attach an Energy card from your hand to Team Aqua's Electrike.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=attach_from_hand(is_energy_card, target="active"),
         ),
         Attack(
             title="Tackle",

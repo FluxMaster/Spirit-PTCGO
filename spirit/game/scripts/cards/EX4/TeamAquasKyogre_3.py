@@ -6,6 +6,7 @@ from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemente
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ex import bonus_if_special_condition
 
 
 card = PokemonCardDef(
@@ -47,7 +48,7 @@ card = PokemonCardDef(
             damage=50,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bonus_if_special_condition(20),
         ),
     ],
 )

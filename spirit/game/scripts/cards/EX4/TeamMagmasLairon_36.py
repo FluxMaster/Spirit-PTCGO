@@ -3,7 +3,8 @@ Team Magma's Lairon (EX4 #36): one or more attacks/abilities use effect=unimplem
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, SpecialConditions, AttrID
+from spirit.game.card_effects.attacks_common import conditions_if
 
 card = PokemonCardDef(
     guid="c35bab88-5ffb-5924-8e81-135a5ce3688a",
@@ -34,7 +35,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 2, PokemonTypes.COLORLESS: 1},
             damage=40,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=conditions_if(lambda ctx: ctx.defender is not None and (ctx.max_hp(ctx.defender)-ctx.defender.get_attribute(AttrID.HP,0))//10>0, SpecialConditions.CONFUSED),
         ),
     ],
 )

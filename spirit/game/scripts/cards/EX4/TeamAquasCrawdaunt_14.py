@@ -3,8 +3,8 @@ Team Aqua's Crawdaunt (EX4 #14): one or more attacks/abilities use effect=unimpl
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-from spirit.game.card_effects.attacks_common import flip_damage
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, SpecialConditions
+from spirit.game.card_effects.attacks_common import flip_damage, bonus_if, defender_has_condition
 
 
 card = PokemonCardDef(
@@ -32,7 +32,7 @@ card = PokemonCardDef(
             damage=20,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bonus_if(defender_has_condition(SpecialConditions.POISONED), 20),
         ),
         Attack(
             title="Double Claw",

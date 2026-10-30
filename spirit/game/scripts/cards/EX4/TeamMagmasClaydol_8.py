@@ -4,6 +4,7 @@ Team Magma's Claydol (EX4 #8): one or more attacks/abilities use effect=unimplem
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import bonus_if
 
 card = PokemonCardDef(
     guid="2227965d-f845-5ff4-af4b-1284ebe843fd",
@@ -37,7 +38,7 @@ card = PokemonCardDef(
             damage=40,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bonus_if(lambda ctx: ctx.hand_size(ctx.player_id) > ctx.hand_size(ctx.opponent_id), 20),
         ),
     ],
 )

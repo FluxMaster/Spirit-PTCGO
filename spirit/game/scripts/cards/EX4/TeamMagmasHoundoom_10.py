@@ -3,7 +3,8 @@ Team Magma's Houndoom (EX4 #10): one or more attacks/abilities use effect=unimpl
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, SpecialConditions
+from spirit.game.card_effects.attacks_common import bonus_if, defender_has_condition
 
 card = PokemonCardDef(
     guid="34e6f5e2-679b-5143-9d81-3bcf8aec7f07",
@@ -30,7 +31,7 @@ card = PokemonCardDef(
             damage=30,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bonus_if(defender_has_condition(SpecialConditions.BURNED), 20),
         ),
         Attack(
             title="Magma Spurt",

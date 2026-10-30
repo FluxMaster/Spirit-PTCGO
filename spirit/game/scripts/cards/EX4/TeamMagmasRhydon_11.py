@@ -3,8 +3,9 @@ Team Magma's Rhydon (EX4 #11): one or more attacks/abilities use effect=unimplem
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-from spirit.game.card_effects.attacks_common import ignore_resistance_attack
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, SpecialConditions
+from spirit.game.card_effects.attacks_common import ignore_resistance_attack, conditions_if
+from spirit.game.card_effects.ex import defender_has_team
 
 
 card = PokemonCardDef(
@@ -39,7 +40,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 2, PokemonTypes.COLORLESS: 1},
             damage=50,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=conditions_if(defender_has_team("Team Aqua"), SpecialConditions.CONFUSED),
         ),
     ],
 )

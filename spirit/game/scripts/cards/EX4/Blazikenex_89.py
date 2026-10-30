@@ -3,7 +3,8 @@ Blaziken ex (EX4 #89): one or more attacks/abilities use effect=unimplemented un
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, SpecialConditions
+from spirit.game.card_effects.ex import hypno_wave
 
 card = PokemonCardDef(
     guid="4cd5e3be-d712-5687-b53f-9d3447f39951",
@@ -30,7 +31,7 @@ card = PokemonCardDef(
             damage=30,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=hypno_wave(20, SpecialConditions.BURNED),
         ),
         Attack(
             title="Volcanic Ash",

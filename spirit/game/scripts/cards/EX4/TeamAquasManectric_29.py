@@ -3,7 +3,9 @@ Team Aqua's Manectric (EX4 #29): one or more attacks/abilities use effect=unimpl
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, SpecialConditions
+from spirit.game.card_effects.attacks_common import conditions_if
+from spirit.game.card_effects.ex import defender_has_team
 
 card = PokemonCardDef(
     guid="4ad12660-3e7c-5b4f-b782-63a259c56b11",
@@ -30,7 +32,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=conditions_if(defender_has_team("Team Magma"), SpecialConditions.CONFUSED),
         ),
         Attack(
             title="Chaos Crush",

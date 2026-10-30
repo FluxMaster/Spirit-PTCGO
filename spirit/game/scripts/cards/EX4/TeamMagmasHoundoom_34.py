@@ -3,7 +3,9 @@ Team Magma's Houndoom (EX4 #34): one or more attacks/abilities use effect=unimpl
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, SpecialConditions
+from spirit.game.card_effects.ex import bonus_if_damaged, defender_has_team
+from spirit.game.card_effects.attacks_common import conditions_if
 
 card = PokemonCardDef(
     guid="e9d8749c-2629-51bf-9eda-08a4bf2b6a5a",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=conditions_if(defender_has_team("Team Aqua"), SpecialConditions.BURNED),
         ),
         Attack(
             title="Damage Burn",
@@ -38,7 +40,7 @@ card = PokemonCardDef(
             damage=40,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bonus_if_damaged(20),
         ),
     ],
 )

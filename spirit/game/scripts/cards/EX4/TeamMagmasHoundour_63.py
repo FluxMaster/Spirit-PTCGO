@@ -4,6 +4,7 @@ Team Magma's Houndour (EX4 #63): one or more attacks/abilities use effect=unimpl
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import force_opponent_switch
 
 card = PokemonCardDef(
     guid="7dd6eadc-9738-529c-b7d5-0cecd35cd7b8",
@@ -28,7 +29,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=force_opponent_switch(),
         ),
         Attack(
             title="Steady Firebreathing",

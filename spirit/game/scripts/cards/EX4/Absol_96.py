@@ -5,6 +5,7 @@ Absol (EX4 #96): one or more attacks/abilities use effect=unimplemented until a 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_bonus
+from spirit.game.card_effects.ex import feint_attack
 
 
 card = PokemonCardDef(
@@ -38,7 +39,7 @@ card = PokemonCardDef(
             game_text="Choose 1 of your opponent's Pok\u00e9mon. This attack does 30 damage to that Pok\u00e9mon. This attack's damage isn't affected by Weakness, Resistance, Pok\u00e9-Powers, Pok\u00e9-Bodies or any other effects on that Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.DARKNESS: 2, PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=feint_attack(30),
         ),
     ],
 )

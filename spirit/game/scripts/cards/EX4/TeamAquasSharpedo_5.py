@@ -4,6 +4,7 @@ Team Aqua's Sharpedo (EX4 #5): one or more attacks/abilities use effect=unimplem
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import damage_per, damage_counters_on, cant_attack_next_turn
 
 card = PokemonCardDef(
     guid="f5b6b1c4-57f7-55c4-b68b-f4cfa4178cad",
@@ -30,7 +31,7 @@ card = PokemonCardDef(
             damage=10,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_per(damage_counters_on("self"), 10, base=10),
         ),
         Attack(
             title="Aqua Slash",
@@ -38,7 +39,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 2, PokemonTypes.COLORLESS: 1},
             damage=60,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=cant_attack_next_turn(),
         ),
     ],
 )

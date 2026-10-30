@@ -4,6 +4,7 @@ Bulbasaur (EX4 #39): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import growth_attach
 
 card = PokemonCardDef(
     guid="f2d491bc-e3e3-53f7-a53f-9898c442418e",
@@ -27,7 +28,7 @@ card = PokemonCardDef(
             game_text="Attach a Grass Energy card from your hand to Bulbasaur.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=growth_attach(PokemonTypes.GRASS),
         ),
         Attack(
             title="Razor Leaf",

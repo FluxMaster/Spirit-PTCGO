@@ -4,6 +4,7 @@ Team Aqua's Walrein (EX4 #6): one or more attacks/abilities use effect=unimpleme
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import power_blow
 
 card = PokemonCardDef(
     guid="936a9e19-c951-57fa-a9e5-81c389c2f498",
@@ -30,7 +31,7 @@ card = PokemonCardDef(
             damage=10,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=power_blow(),
         ),
         Attack(
             title="Hydro Reverse",
