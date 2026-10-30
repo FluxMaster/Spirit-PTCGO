@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Tangela (EX6 #30): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import vine_tease, wiggle
 
 card = PokemonCardDef(
     guid="1ca08030-0c8e-505d-9e92-6bfbbc7a1cb1",
@@ -27,15 +24,13 @@ card = PokemonCardDef(
             title="Vine Tease",
             game_text="Look at your Prize cards without showing your opponent. Choose 1 of the Prize cards and switch it with the top card of your deck without looking at the top card of your deck. If you have no cards in your deck, this attack does nothing.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=vine_tease(),
         ),
         Attack(
             title="Wiggle",
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon is now Confused. If tails, the Defending Pok\u00e9mon is now Poisoned.",
             cost={PokemonTypes.GRASS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=wiggle(),
         ),
     ],
 )

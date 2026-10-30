@@ -1,10 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Cloyster (EX6 #20): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
-from spirit.game.card_effects.ex import flip_damage_paralyze_on_heads
+from spirit.game.attributes import AbilityTypes, PokemonStage, PokemonTypes, Rarities
+from spirit.game.card_effects.ex import exoskeleton_20_passive, flip_damage_paralyze_on_heads
 
 
 card = PokemonCardDef(
@@ -29,8 +25,7 @@ card = PokemonCardDef(
             title="Exoskeleton",
             game_text="Any damage done to Cloyster by attacks is reduced by 20 (after applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=exoskeleton_20_passive(),
         ),
         Attack(
             title="Double Bubble",
@@ -38,7 +33,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=10,
             damage_operator="x",
-            # STUB: attack effect not implemented
             effect=flip_damage_paralyze_on_heads(coins=2, per_heads=10),
         ),
         Attack(

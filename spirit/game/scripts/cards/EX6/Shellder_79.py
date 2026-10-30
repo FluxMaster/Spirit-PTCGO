@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Shellder (EX6 #79): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import minimize_protect
 
 card = PokemonCardDef(
     guid="db614b20-2aa8-5eed-9fd7-7e9d64cf66bb",
@@ -26,8 +23,7 @@ card = PokemonCardDef(
             title="Minimize",
             game_text="During your opponent's next turn, any damage done to Shellder by attacks is reduced by 20 (after applying Weakness and Resistance).",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=minimize_protect(20),
         ),
         Attack(
             title="Wave Splash",

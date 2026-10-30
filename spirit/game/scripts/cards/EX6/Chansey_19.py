@@ -1,11 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Chansey (EX6 #19): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ex import egg_surprise
 
 
 card = PokemonCardDef(
@@ -29,15 +26,13 @@ card = PokemonCardDef(
             title="Sing",
             game_text="The Defending Pok\u00e9mon is now Asleep.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.ASLEEP),
         ),
         Attack(
             title="Egg Surprise",
             game_text="Flip a coin. If heads, Chansey does 50 damage to the Defending Pok\u00e9mon. If tails, remove 5 damage counters from Chansey. (All if there are less than 5.)",
             cost={PokemonTypes.COLORLESS: 3},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=egg_surprise(),
         ),
     ],
 )

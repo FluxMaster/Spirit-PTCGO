@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Weedle (EX6 #86): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.attributes import PokemonStage, PokemonTypes, Rarities, SpecialConditions
+from spirit.game.card_effects.ex import call_for_family_grass, discard_energy_then_condition
 
 card = PokemonCardDef(
     guid="c1531843-ef1c-57b2-8b37-bac2bda87986",
@@ -26,15 +23,13 @@ card = PokemonCardDef(
             title="Call for Family",
             game_text="Search your deck for up to 2 Grass Basic Pok\u00e9mon and put them onto your Bench. Shuffle your deck afterward.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=call_for_family_grass(2),
         ),
         Attack(
             title="Poison Spurt",
             game_text="Discard a Grass Energy card attached to Weedle. The Defending Pok\u00e9mon is now Poisoned.",
             cost={PokemonTypes.GRASS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=discard_energy_then_condition(PokemonTypes.GRASS, SpecialConditions.POISONED),
         ),
     ],
 )

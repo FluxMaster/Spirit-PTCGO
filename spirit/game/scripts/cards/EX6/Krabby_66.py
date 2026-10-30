@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Krabby (EX6 #66): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import nap_heal
 
 card = PokemonCardDef(
     guid="031819e4-08ce-5bf5-95e8-0db8fbef64ed",
@@ -31,8 +28,7 @@ card = PokemonCardDef(
             title="Nap",
             game_text="Remove 2 damage counters from Krabby (remove 1 if there is only 1).",
             cost={PokemonTypes.WATER: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=nap_heal(2),
         ),
     ],
 )

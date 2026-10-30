@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Zapdos ex (EX6 #116): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.data_utils import Ability, Attack, PokemonCardDef, Triggers, unimplemented
+from spirit.game.attributes import AbilityTypes, PokemonStage, PokemonTypes, Rarities
+from spirit.game.card_effects.ex import electron_crush, legendary_ascent
 
 card = PokemonCardDef(
     guid="ad8f7b26-2086-5793-bb26-d14187bb58ce",
@@ -26,8 +23,8 @@ card = PokemonCardDef(
             title="Legendary Ascent",
             game_text="Once during your turn, when you put Zapdos ex from your hand onto your Bench, you may switch 1 of your Active Pok\u00e9mon with Zapdos ex. If you do, you may also move any number of basic Lightning Energy cards attached to your Pok\u00e9mon to Zapdos ex.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=Triggers.ON_PLAY,
+            effect=legendary_ascent(),
         ),
         Attack(
             title="Electron Crush",
@@ -35,8 +32,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 2, PokemonTypes.COLORLESS: 1},
             damage=50,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=electron_crush(50, 30),
         ),
     ],
 )

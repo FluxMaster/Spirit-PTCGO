@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Clefable ex (EX6 #106): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import metronome_defending
 
 card = PokemonCardDef(
     guid="5ccd36a0-b56a-5a95-99cf-951855f228ac",
@@ -27,8 +24,7 @@ card = PokemonCardDef(
             title="Metronome",
             game_text="Choose 1 of the Defending Pok\u00e9mon's attacks. Metronome copies that attack except for its Energy cost. (You must still do anything else in order to use that attack.) (No matter what type that Pok\u00e9mon is, Clefable ex's type is still Colorless.) Clefable ex performs that attack.",
             cost={PokemonTypes.COLORLESS: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=metronome_defending,
         ),
         Attack(
             title="Moon Impact",

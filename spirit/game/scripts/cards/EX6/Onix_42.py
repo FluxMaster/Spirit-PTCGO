@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Onix (EX6 #42): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import tunneling
 
 card = PokemonCardDef(
     guid="34cae059-9907-5bf3-8f20-05b04811804a",
@@ -31,8 +28,7 @@ card = PokemonCardDef(
             title="Tunneling",
             game_text="Choose up to 2 of your opponent's Benched Pok\u00e9mon. This attack does 10 damage to each of them. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.) Onix can't attack during your next turn.",
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=tunneling(),
         ),
     ],
 )

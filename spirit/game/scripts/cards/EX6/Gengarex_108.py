@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Gengar ex (EX6 #108): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import poltergeist, prize_count
 
 card = PokemonCardDef(
     guid="0e291b32-ea17-5662-9a1a-52daca8faf04",
@@ -30,8 +27,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 1},
             damage=40,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=poltergeist(40, 10),
         ),
         Attack(
             title="Prize Count",
@@ -39,8 +35,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 2, PokemonTypes.COLORLESS: 1},
             damage=60,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=prize_count(60, 60),
         ),
     ],
 )

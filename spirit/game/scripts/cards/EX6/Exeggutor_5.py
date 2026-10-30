@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Exeggutor (EX6 #5): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import big_eggsplosion, psychic_exchange
 
 card = PokemonCardDef(
     guid="7119b7a7-9378-59ef-9088-4aebc37724a1",
@@ -27,8 +24,7 @@ card = PokemonCardDef(
             title="Psychic Exchange",
             game_text="Shuffle your hand into your deck. Draw up to 8 cards.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=psychic_exchange(8),
         ),
         Attack(
             title="Big Eggsplosion",
@@ -36,8 +32,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 1},
             damage=40,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=big_eggsplosion(40),
         ),
     ],
 )

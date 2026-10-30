@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Venomoth (EX6 #49): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.attributes import AbilityTypes, PokemonStage, PokemonTypes, Rarities
 from spirit.game.card_effects.attacks_common import flip_or_nothing
+from spirit.game.card_effects.ex import protective_dust_passive, sleep_poison_sure
 
 
 card = PokemonCardDef(
@@ -29,22 +26,19 @@ card = PokemonCardDef(
             title="Protective Dust",
             game_text="Prevent all effects of attacks, except damage, done to Venomoth by the Attacking Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=protective_dust_passive(),
         ),
         Attack(
             title="Sleep Poison",
             game_text="The Defending Pok\u00e9mon is now Asleep and Poisoned.",
             cost={PokemonTypes.GRASS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=sleep_poison_sure(),
         ),
         Attack(
             title="Razor Wind",
             game_text="Flip a coin. If tails, this attack does nothing.",
             cost={PokemonTypes.COLORLESS: 2},
             damage=60,
-            # STUB: attack effect not implemented
             effect=flip_or_nothing(),
         ),
     ],

@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Gastly (EX6 #63): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.attributes import PokemonStage, PokemonTypes, Rarities, SpecialConditions
+from spirit.game.card_effects.ex import delayed_condition
 
 card = PokemonCardDef(
     guid="b1546668-af51-578d-b78b-c1a92196970b",
@@ -27,8 +24,7 @@ card = PokemonCardDef(
             title="Slow Trip Gas",
             game_text="At the end of your opponent's next turn, the Defending Pok\u00e9mon is now Confused.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=delayed_condition(SpecialConditions.CONFUSED),
         ),
     ],
 )

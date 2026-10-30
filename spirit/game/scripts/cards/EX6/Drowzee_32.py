@@ -1,7 +1,3 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Drowzee (EX6 #32): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
@@ -29,7 +25,6 @@ card = PokemonCardDef(
             title="Hypnosis",
             game_text="The Defending Pok\u00e9mon is now Asleep.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.ASLEEP),
         ),
         Attack(
@@ -38,7 +33,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 1},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
             effect=flip_bonus(10),
         ),
     ],

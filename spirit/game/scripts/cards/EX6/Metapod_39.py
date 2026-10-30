@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Metapod (EX6 #39): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.attributes import AbilityTypes, PokemonStage, PokemonTypes, Rarities
+from spirit.game.card_effects.ex import energy_protection_passive
 
 card = PokemonCardDef(
     guid="bede803c-3b26-5eac-a27a-043b92a00c09",
@@ -27,8 +24,7 @@ card = PokemonCardDef(
             title="Energy Protection",
             game_text="Any damage done to Metapod by attacks is reduced by 10 for each Energy attached to Metapod. You can't reduce more than 30 damage in this way.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=energy_protection_passive(10),
         ),
         Attack(
             title="Sharpen",

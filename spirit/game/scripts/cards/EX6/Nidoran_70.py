@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Nidoran ♀ (EX6 #70): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import look_for_friends
 
 card = PokemonCardDef(
     guid="e6cd41fc-0ddb-58b7-8ef4-a1b0a2fd6c8e",
@@ -26,8 +23,7 @@ card = PokemonCardDef(
             title="Look for Friends",
             game_text="Reveal cards from your deck until you reveal a Basic Pok\u00e9mon. Show that card to your opponent and put it into your hand. Shuffle the other revealed cards into your deck. (If you don't reveal a Basic Pok\u00e9mon, shuffle all the revealed cards back into your deck.)",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=look_for_friends(),
         ),
         Attack(
             title="Bite",

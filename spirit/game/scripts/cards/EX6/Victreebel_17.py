@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Victreebel (EX6 #17): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.data_utils import Ability, Attack, PokemonCardDef, Triggers, unimplemented
+from spirit.game.attributes import AbilityTypes, PokemonStage, PokemonTypes, Rarities
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ex import acid_sampler_between_turns
 
 
 card = PokemonCardDef(
@@ -29,15 +26,14 @@ card = PokemonCardDef(
             title="Acid Sampler",
             game_text="As long as Victreebel is your Active Pok\u00e9mon, put 1 damage counter on each Defending Pok\u00e9mon between turns. Acid Sampler stops working if your other Active Pok\u00e9mon is not a Victreebel.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=Triggers.BETWEEN_TURNS,
+            effect=acid_sampler_between_turns(),
         ),
         Attack(
             title="Acid",
             game_text="The Defending Pok\u00e9mon can't retreat until the end of your opponent's next turn.",
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 2},
             damage=50,
-            # STUB: attack effect not implemented
             effect=condition_attack(no_retreat=True),
         ),
     ],

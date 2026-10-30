@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Pikachu (EX6 #74): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import plasma_attach
 
 card = PokemonCardDef(
     guid="5a04d25d-81d9-5972-ae0c-f59495bab2ff",
@@ -27,8 +24,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, search your discard pile for a Lightning Energy card and attach it to Pikachu.",
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=plasma_attach(),
         ),
     ],
 )

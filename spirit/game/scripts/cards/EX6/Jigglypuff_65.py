@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Jigglypuff (EX6 #65): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_bonus
+from spirit.game.card_effects.ex import sleep_inducer
 
 
 card = PokemonCardDef(
@@ -28,8 +25,7 @@ card = PokemonCardDef(
             title="Sleep Inducer",
             game_text="Switch 1 of your opponent's Benched Pok\u00e9mon with 1 of the Defending Pok\u00e9mon. Your opponent chooses the Defending Pok\u00e9mon to switch. The new Defending Pok\u00e9mon is now Asleep.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=sleep_inducer(),
         ),
         Attack(
             title="Quick Blow",
@@ -37,7 +33,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
             effect=flip_bonus(20),
         ),
     ],

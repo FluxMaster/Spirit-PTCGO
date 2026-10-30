@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Mr. Mime ex (EX6 #111): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.attributes import AbilityTypes, PokemonStage, PokemonTypes, Rarities
 from spirit.game.card_effects.attacks_common import count_hand, place_counters
+from spirit.game.card_effects.ex import magic_evens_passive
 
 
 card = PokemonCardDef(
@@ -27,14 +24,12 @@ card = PokemonCardDef(
             title="Magic Evens",
             game_text="If Mr. Mime ex would be damaged by an attack, prevent that attack's damage done to Mr. Mime ex if that damage is 20, 40, 60, 80, 100, 120, 140, 160, or 180.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=magic_evens_passive(),
         ),
         Attack(
             title="Breakdown",
             game_text="Count the number of cards in your opponent's hand. Put that many damage counters on the Defending Pok\u00e9mon.",
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=place_counters(count_hand('opponent')),
         ),
     ],

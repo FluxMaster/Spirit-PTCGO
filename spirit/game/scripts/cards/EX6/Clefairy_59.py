@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Clefairy (EX6 #59): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import gesture_gust
 
 card = PokemonCardDef(
     guid="acc3ff04-0a75-5487-8669-fee9e10202d9",
@@ -26,8 +23,7 @@ card = PokemonCardDef(
             title="Gesture",
             game_text="Choose 1 of your opponent's Benched Pok\u00e9mon and switch it with the Defending Pok\u00e9mon. Your opponent chooses the Defending Pok\u00e9mon to switch.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=gesture_gust(),
         ),
         Attack(
             title="Moon Kick",

@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Kingler (EX6 #26): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import hyper_pump, salt_water
 
 card = PokemonCardDef(
     guid="c86b12f6-a91d-52f0-8f73-37b4f95bec54",
@@ -27,8 +24,7 @@ card = PokemonCardDef(
             title="Salt Water",
             game_text="Search your deck for up to 2 Water Energy cards and attach them to Kingler. Shuffle your deck afterward.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=salt_water(),
         ),
         Attack(
             title="Hyper Pump",
@@ -36,8 +32,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=hyper_pump(30, 20),
         ),
     ],
 )

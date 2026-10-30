@@ -1,11 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Haunter (EX6 #34): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.data_utils import Ability, Activations, Attack, PokemonCardDef, unimplemented
+from spirit.game.attributes import AbilityTypes, PokemonStage, PokemonTypes, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ex import head_trip_confuse_active, poke_power_condition
 
 
 card = PokemonCardDef(
@@ -31,15 +28,15 @@ card = PokemonCardDef(
             title="Head Trip",
             game_text="Once during your turn (before your attack), if Haunter is on your Bench, you may use this power. One of your Active Pok\u00e9mon is now Confused.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=poke_power_condition(),
+            effect=head_trip_confuse_active(),
         ),
         Attack(
             title="Confuse Ray",
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon is now Confused.",
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.CONFUSED, flip=True),
         ),
     ],

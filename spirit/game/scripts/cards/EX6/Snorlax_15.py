@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Snorlax (EX6 #15): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.data_utils import Ability, Attack, PokemonCardDef, Triggers, unimplemented
+from spirit.game.attributes import AbilityTypes, PokemonStage, PokemonTypes, Rarities
+from spirit.game.card_effects.ex import collapse_asleep, rest_up_between_turns, toss_and_turn
 
 card = PokemonCardDef(
     guid="e92c6410-ba3c-589c-a3cc-095a379a5ab8",
@@ -26,16 +23,15 @@ card = PokemonCardDef(
             title="Rest Up",
             game_text="If Snorlax remains Asleep between turns, remove 2 damage counters from Snorlax (remove 1 if there is only 1).",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=Triggers.BETWEEN_TURNS,
+            effect=rest_up_between_turns(),
         ),
         Attack(
             title="Collapse",
             game_text="Snorlax is now Asleep.",
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=collapse_asleep(),
         ),
         Attack(
             title="Toss and Turn",
@@ -43,8 +39,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=toss_and_turn(30, 30),
         ),
     ],
 )

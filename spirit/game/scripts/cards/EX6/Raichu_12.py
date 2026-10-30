@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Raichu (EX6 #12): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import recharge_typed, thunder_reflection
 
 card = PokemonCardDef(
     guid="d90454d0-a514-5775-9c07-d183b929817d",
@@ -27,16 +24,14 @@ card = PokemonCardDef(
             title="Recharge",
             game_text="Search your deck for up to 2 Lightning Energy cards and attach them to Raichu. Shuffle your deck afterward.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=recharge_typed(),
         ),
         Attack(
             title="Thunder Reflection",
             game_text="You may move any number of Lightning Energy cards attached to Raichu to another of your Pok\u00e9mon.",
             cost={PokemonTypes.LIGHTNING: 2, PokemonTypes.COLORLESS: 1},
             damage=50,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=thunder_reflection(),
         ),
     ],
 )

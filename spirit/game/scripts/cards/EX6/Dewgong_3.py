@@ -1,11 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dewgong (EX6 #3): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.attributes import AbilityTypes, PokemonStage, PokemonTypes, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ex import safeguard_ex_passive
 
 
 card = PokemonCardDef(
@@ -30,15 +27,13 @@ card = PokemonCardDef(
             title="Safeguard",
             game_text="Prevent all effects of attacks, including damage, done to Dewgong by your opponent's Pok\u00e9mon-ex.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=safeguard_ex_passive(),
         ),
         Attack(
             title="Cold Breath",
             game_text="The Defending Pok\u00e9mon is now Asleep.",
             cost={PokemonTypes.WATER: 1},
             damage=10,
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.ASLEEP),
         ),
         Attack(

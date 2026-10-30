@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Wigglytuff (EX6 #52): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.data_utils import Ability, Activations, Attack, PokemonCardDef, unimplemented
+from spirit.game.attributes import AbilityTypes, PokemonStage, PokemonTypes, Rarities
+from spirit.game.card_effects.ex import assistance_cure, expand_protect, poke_power_condition
 
 card = PokemonCardDef(
     guid="2cf9eda7-7502-5393-9fe4-e9dbad979e52",
@@ -27,16 +24,16 @@ card = PokemonCardDef(
             title="Assistance",
             game_text="Once during your turn (before your attack), if Wigglytuff is on your Bench, you may choose 1 of your Active Pok\u00e9mon and remove 1 Special Condition from it.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=poke_power_condition(),
+            effect=assistance_cure(),
         ),
         Attack(
             title="Expand",
             game_text="During your opponent's next turn, any damage done to Wigglytuff by attacks is reduced by 10 (after applying Weakness and Resistance).",
             cost={PokemonTypes.COLORLESS: 2},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=expand_protect(10),
         ),
     ],
 )

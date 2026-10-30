@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Charizard ex (EX6 #105): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.attributes import AbilityTypes, PokemonStage, PokemonTypes, Rarities
+from spirit.game.card_effects.ex import burn_down, energy_flame_passive
 
 card = PokemonCardDef(
     guid="62fcedd8-2c82-53a6-9344-9e20797b291f",
@@ -27,8 +24,7 @@ card = PokemonCardDef(
             title="Energy Flame",
             game_text="All Energy attached to Charizard ex are Fire Energy instead of its usual type.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=energy_flame_passive(),
         ),
         Attack(
             title="Slash",
@@ -40,8 +36,7 @@ card = PokemonCardDef(
             game_text="Discard 5 Fire Energy attached to Charizard ex. This attack's damage isn't affected by Weakness, Resistance, Pok\u00e9-Powers, Pok\u00e9-Bodies, and any other effects on the Defending Pok\u00e9mon.",
             cost={PokemonTypes.FIRE: 5},
             damage=200,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=burn_down(),
         ),
     ],
 )

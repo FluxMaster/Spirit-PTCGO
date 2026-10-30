@@ -1,10 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dodrio (EX6 #21): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.attributes import AbilityTypes, PokemonStage, PokemonTypes, Rarities
 from spirit.game.card_effects.attacks_common import flip_damage
+from spirit.game.card_effects.ex import retreat_aid_passive
 
 
 card = PokemonCardDef(
@@ -30,8 +27,7 @@ card = PokemonCardDef(
             title="Retreat Aid",
             game_text="As long as Dodrio is on your Bench, you pay ColorlessColorless less to retreat your Active Pok\u00e9mon (excluding Pok\u00e9mon-ex and Baby Pok\u00e9mon.)",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=retreat_aid_passive(),
         ),
         Attack(
             title="Tri Attack",
@@ -39,7 +35,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=20,
             damage_operator="x",
-            # STUB: attack effect not implemented
             effect=flip_damage(coins=3, per_heads=20),
         ),
     ],

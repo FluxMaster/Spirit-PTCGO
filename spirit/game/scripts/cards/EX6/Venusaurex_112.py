@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Venusaur ex (EX6 #112): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.data_utils import Ability, Activations, Attack, PokemonCardDef, unimplemented
+from spirit.game.attributes import AbilityTypes, PokemonStage, PokemonTypes, Rarities
+from spirit.game.card_effects.ex import energy_trans, poke_power_condition, pollen_hazard
 
 card = PokemonCardDef(
     guid="ebcc0e10-9835-515c-8bb4-1e97c9b3e98e",
@@ -27,16 +24,14 @@ card = PokemonCardDef(
             title="Energy Trans",
             game_text="As often as you like during your turn (before your attack), move a Grass Energy card attached to 1 of your Pok\u00e9mon to another of your Pok\u00e9mon. This power can't be used if Venusaur ex is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=energy_trans(),
         ),
         Attack(
             title="Pollen Hazard",
             game_text="The Defending Pok\u00e9mon is now Poisoned, Burned, and Confused.",
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 2},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=pollen_hazard(),
         ),
         Attack(
             title="Solarbeam",

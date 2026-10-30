@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Wartortle (EX6 #50): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import smash_turn, water_gun_extra
 
 card = PokemonCardDef(
     guid="65c2a661-5bef-5d5c-b3ea-600187f35ba6",
@@ -29,16 +26,14 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1},
             damage=20,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=water_gun_extra(20, 10),
         ),
         Attack(
             title="Smash Turn",
             game_text="After your attack, you may switch Wartortle with 1 of your Benched Pok\u00e9mon.",
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 2},
             damage=40,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=smash_turn(),
         ),
     ],
 )

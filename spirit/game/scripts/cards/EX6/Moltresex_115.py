@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Moltres ex (EX6 #115): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.data_utils import Ability, Attack, PokemonCardDef, Triggers, unimplemented
+from spirit.game.attributes import AbilityTypes, PokemonStage, PokemonTypes, Rarities
+from spirit.game.card_effects.ex import crushing_flames, legendary_ascent
 
 card = PokemonCardDef(
     guid="c289dc5d-7613-55ee-a991-04e9e8fea644",
@@ -26,16 +23,15 @@ card = PokemonCardDef(
             title="Legendary Ascent",
             game_text="Once during your turn, when you put Moltres ex from your hand onto your Bench, you may switch 1 of your Active Pok\u00e9mon with Moltres ex. If you do, you may also move any number of basic Fire Energy cards attached to your Pok\u00e9mon to Moltres ex.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=Triggers.ON_PLAY,
+            effect=legendary_ascent(),
         ),
         Attack(
             title="Crushing Flames",
             game_text="You may discard an Energy card attached to Moltres ex. If you do, the Defending Pok\u00e9mon is now Confused.",
             cost={PokemonTypes.FIRE: 2, PokemonTypes.COLORLESS: 1},
             damage=60,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=crushing_flames(),
         ),
     ],
 )

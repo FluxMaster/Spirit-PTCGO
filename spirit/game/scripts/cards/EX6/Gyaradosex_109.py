@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Gyarados ex (EX6 #109): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import twister_attack
 
 card = PokemonCardDef(
     guid="d7a72bd4-dcd7-5192-8a0a-fa35ad7ac32a",
@@ -28,8 +25,7 @@ card = PokemonCardDef(
             game_text="Flip 2 coins. For each heads, choose 1 Energy attached to the Defending Pok\u00e9mon, if any, and discard it. If both are tails, this attack does nothing.",
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 1},
             damage=40,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=twister_attack(40),
         ),
         Attack(
             title="Dragon Rage",

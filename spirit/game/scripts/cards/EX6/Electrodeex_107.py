@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Electrode ex (EX6 #107): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.data_utils import Ability, Activations, Attack, PokemonCardDef, unimplemented
+from spirit.game.attributes import AbilityTypes, PokemonStage, PokemonTypes, Rarities
+from spirit.game.card_effects.ex import crush_and_burn, extra_energy_bomb, poke_power_condition
 
 card = PokemonCardDef(
     guid="606e6205-9bb1-5875-92d3-2b83e7837d44",
@@ -27,8 +24,9 @@ card = PokemonCardDef(
             title="Extra Energy Bomb",
             game_text="Once during your turn (before your attack), you may discard Electrode ex and all the cards attached to it (this counts as Knocking Out Electrode ex). If you do, search your discard pile for 5 Energy cards and attach them to any of your Pok\u00e9mon (excluding Pok\u00e9mon-ex) in any way you like. This power can't be used if Electrode ex is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=poke_power_condition(),
+            effect=extra_energy_bomb(),
         ),
         Attack(
             title="Crush and Burn",
@@ -36,8 +34,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=crush_and_burn(30, 20),
         ),
     ],
 )

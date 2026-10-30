@@ -1,12 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-VS Seeker (EX6 #100): trainer effect stubbed.
-
-Card text:
-  - Search your discard pile for a Supporter card, show it to your opponent, and put it into your hand.
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ex import vs_seeker
 
 card = ItemCardDef(
     guid="0daf3ae6-be85-5a7e-9d62-44327f84e1ed",
@@ -18,6 +12,5 @@ card = ItemCardDef(
     collector_number=100,
     set_code="EX6",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=vs_seeker,
 )

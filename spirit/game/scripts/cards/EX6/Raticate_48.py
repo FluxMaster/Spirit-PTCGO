@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Raticate (EX6 #48): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.attributes import AbilityTypes, PokemonStage, PokemonTypes, Rarities
+from spirit.game.card_effects.ex import pickup_three, quick_attack_bonus, thick_skin_passive
 
 card = PokemonCardDef(
     guid="61cd2c79-b036-53c7-8851-8d9351b7f73f",
@@ -27,15 +24,13 @@ card = PokemonCardDef(
             title="Thick Skin",
             game_text="Raticate can't be affected by any Special Conditions.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=thick_skin_passive(),
         ),
         Attack(
             title="Pickup",
             game_text="Search your discard pile for a Basic Pok\u00e9mon (or Evolution card), a Trainer card, and an Energy card. Show them to your opponent and put them into your hand.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=pickup_three(),
         ),
         Attack(
             title="Quick Attack",
@@ -43,8 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=quick_attack_bonus(10, 40),
         ),
     ],
 )

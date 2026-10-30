@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Ditto (EX6 #4): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.data_utils import Ability, Activations, Attack, PokemonCardDef, unimplemented
+from spirit.game.attributes import AbilityTypes, PokemonStage, PokemonTypes, Rarities
+from spirit.game.card_effects.ex import extra_energy_damage, form_variation, poke_power_condition
 
 card = PokemonCardDef(
     guid="c7d72122-7644-5628-828f-8d16f6977c20",
@@ -26,8 +23,9 @@ card = PokemonCardDef(
             title="Form Variation",
             game_text="Once during your turn (before your attack), you may search your discard pile for a Basic Pok\u00e9mon (excluding Pok\u00e9mon-ex and Ditto) and switch it with Ditto. (Any cards attached to Ditto, damage counters, Special Conditions, and effects on it are now on the new Pok\u00e9mon.) Place Ditto in the discard pile.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=poke_power_condition(),
+            effect=form_variation(),
         ),
         Attack(
             title="Energy Ball",
@@ -35,8 +33,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=extra_energy_damage(10, base=10),
         ),
     ],
 )

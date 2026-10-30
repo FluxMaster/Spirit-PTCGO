@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Venonat (EX6 #84): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.attributes import PokemonStage, PokemonTypes, Rarities, SpecialConditions
+from spirit.game.card_effects.ex import discard_energy_then_condition
 
 card = PokemonCardDef(
     guid="13d4b986-3bbc-514d-a079-39e0c504ae0e",
@@ -26,8 +23,7 @@ card = PokemonCardDef(
             title="Psycho Waves",
             game_text="Discard an Energy card attached to Venonat. The Defending Pok\u00e9mon is now Confused.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=discard_energy_then_condition(None, SpecialConditions.CONFUSED),
         ),
         Attack(
             title="Bite",
