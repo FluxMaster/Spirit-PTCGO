@@ -4,6 +4,8 @@ Mawile (EX14 #9): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import bonus_if_ex
+
 
 card = PokemonCardDef(
     guid="88c90d2c-f691-5fe5-ac71-31f2352d2492",
@@ -37,7 +39,7 @@ card = PokemonCardDef(
             damage=20,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bonus_if_ex(30),
         ),
     ],
 )

@@ -4,6 +4,8 @@ Blaziken ex (EX14 #90): one or more attacks/abilities use effect=unimplemented u
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import drag_off_optional
+
 
 card = PokemonCardDef(
     guid="684e3479-13ad-516b-8000-d33c341955fa",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=drag_off_optional(),
         ),
         Attack(
             title="Burn Away",

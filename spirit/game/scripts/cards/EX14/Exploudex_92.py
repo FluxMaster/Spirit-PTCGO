@@ -4,6 +4,8 @@ Exploud ex (EX14 #92): one or more attacks/abilities use effect=unimplemented un
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import discard_special_energy_from_defender
+
 
 card = PokemonCardDef(
     guid="3ab0b239-8dd7-55fb-9fb5-8da8fced4906",
@@ -36,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=40,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=discard_special_energy_from_defender(),
         ),
         Attack(
             title="Hyper Tail",

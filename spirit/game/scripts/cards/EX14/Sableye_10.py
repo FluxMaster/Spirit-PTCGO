@@ -4,6 +4,8 @@ Sableye (EX14 #10): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import amnesia
+
 
 card = PokemonCardDef(
     guid="82f34cb5-f0d0-53ba-94e2-a0cfef6a511d",
@@ -35,7 +37,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=amnesia,
         ),
     ],
 )

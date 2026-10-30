@@ -4,6 +4,8 @@ Lairon (EX14 #36): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import force_opponent_switch
+
 
 card = PokemonCardDef(
     guid="abc01c10-8b2d-5e7e-93a2-7c84633eb778",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             game_text="Your opponent switches the Defending Pok\u00e9mon with 1 of his or her Benched Pok\u00e9mon, if any.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=force_opponent_switch(),
         ),
         Attack(
             title="Metal Charge",

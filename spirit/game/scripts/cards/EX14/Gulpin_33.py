@@ -4,6 +4,8 @@ Gulpin (EX14 #33): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import amnesia
+
 
 card = PokemonCardDef(
     guid="88777cd4-461b-5170-b0f9-f6f14509f103",
@@ -27,7 +29,7 @@ card = PokemonCardDef(
             game_text="Choose 1 of the Defending Pok\u00e9mon's attacks. That Pok\u00e9mon can't use that attack during your opponent's next turn.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=amnesia,
         ),
         Attack(
             title="Sludge Toss",

@@ -4,6 +4,8 @@ Alakazam ★ (EX14 #99): one or more attacks/abilities use effect=unimplemented 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import recover_from_discard
+
 
 card = PokemonCardDef(
     guid="f8f70d4f-dbaa-5776-8ddf-9780fc27ffb4",
@@ -27,7 +29,7 @@ card = PokemonCardDef(
             game_text="Put any 1 card from your discard pile into your hand.",
             cost={PokemonTypes.PSYCHIC: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=recover_from_discard(count=1, minimum=1, reveal=False, to='hand', prompt='Choose a card from your discard pile.'),
         ),
         Attack(
             title="Skill Copy",

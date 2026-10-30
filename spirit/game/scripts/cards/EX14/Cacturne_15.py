@@ -4,6 +4,8 @@ Cacturne δ (EX14 #15): one or more attacks/abilities use effect=unimplemented u
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import triple_breach
+
 
 card = PokemonCardDef(
     guid="07ac6e60-459f-58dc-b96a-b2336963f0ac",
@@ -35,7 +37,7 @@ card = PokemonCardDef(
             game_text="Choose 3 of your opponent's Pok\u00e9mon. This attack does 10 damage to each of those Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.FIGHTING: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=triple_breach(),
         ),
         Attack(
             title="Light Punch",

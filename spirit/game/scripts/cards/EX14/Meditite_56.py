@@ -4,6 +4,8 @@ Meditite (EX14 #56): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import place_counters
+
 
 card = PokemonCardDef(
     guid="9b5c275b-9ac6-5f4e-8b42-e761c73d0331",
@@ -32,7 +34,7 @@ card = PokemonCardDef(
             game_text="Put 2 damage counters on your opponent's Pok\u00e9mon in any way you like.",
             cost={PokemonTypes.COLORLESS: 2},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=place_counters(2, 'choose_any_opponent'),
         ),
     ],
 )

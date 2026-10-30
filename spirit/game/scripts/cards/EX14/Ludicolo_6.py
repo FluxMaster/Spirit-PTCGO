@@ -4,6 +4,8 @@ Ludicolo δ (EX14 #6): one or more attacks/abilities use effect=unimplemented un
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import knock_off_random_hand
+
 
 card = PokemonCardDef(
     guid="3b97a404-b171-58a4-b5be-b93f296e94c4",
@@ -36,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=knock_off_random_hand(),
         ),
         Attack(
             title="Fire Punch",

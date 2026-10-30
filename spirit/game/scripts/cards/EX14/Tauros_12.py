@@ -4,6 +4,8 @@ Tauros (EX14 #12): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import call_for_family_basic_n
+
 
 card = PokemonCardDef(
     guid="5b5494ef-3ca4-53a0-a479-765193e1e595",
@@ -34,7 +36,7 @@ card = PokemonCardDef(
             game_text="Search your deck for up to 2 Basic Pok\u00e9mon and put them onto your Bench. Shuffle your deck afterward.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=call_for_family_basic_n(2),
         ),
         Attack(
             title="Horn Attack",

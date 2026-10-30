@@ -4,6 +4,8 @@ Lombre (EX14 #37): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import night_song_gust_asleep
+
 
 card = PokemonCardDef(
     guid="2c93dd65-0fce-52f1-9f6c-a101b6c0070c",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=night_song_gust_asleep(),
         ),
         Attack(
             title="Wave Splash",
