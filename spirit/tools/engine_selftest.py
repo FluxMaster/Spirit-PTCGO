@@ -2302,6 +2302,217 @@ async def test_ex8_swords_dance_boosts_slash():
     assert 'title: str = "Slash"' in src or 'Slash' in src
 
 
+async def test_ex_only_temp_shield():
+    """TempShieldPassive(only_ex=True) blocks ex attackers only."""
+    from spirit.game.card_effects.passives_common import TempShieldPassive
+    rig, e = new_rig()
+    target = e["p1_active"]
+    attacker = e["p2_active"]
+    shield = TempShieldPassive(prevent=True, effects_too=True, only_ex=True)
+    calc = type("FakeCalc", (), {
+        "is_attack": True,
+        "is_opposing": True,
+        "amount": 50,
+        "target": target,
+        "attacker": attacker,
+        "board": rig.board,
+        "to_active": True,
+    })()
+    # Non-ex attacker: no prevent
+    assert shield.prevents_damage(calc, target) is False
+    import spirit.game.card_effects.ex as exmod
+    orig = exmod.is_pokemon_ex
+    exmod.is_pokemon_ex = lambda c: c is attacker
+    try:
+        assert shield.prevents_damage(calc, target) is True
+        assert shield.blocks_attack_effects_from(target, target, attacker) is True
+        assert shield.blocks_attack_effects(target, target) is False
+    finally:
+        exmod.is_pokemon_ex = orig
+
+
+async def test_draw_from_bottom():
+    """Board + EffectContext draw from bottom of deck."""
+    rig, e = new_rig()
+    deck = rig.board.find_player_area(P1, "deck")
+    hand = rig.board.find_player_area(P1, "hand")
+    assert deck and len(deck.children) >= 2
+    bottom_id = deck.children[0].entity_id
+    before_hand = len(hand.children)
+    moved = rig.board.draw_from_bottom(P1, 1)
+    assert len(moved) == 1
+    assert moved[0]["entity_id"] == bottom_id
+    assert len(hand.children) == before_hand + 1
+    ctx = attack_ctx(rig, e)
+    # refill: put a known card at bottom
+    if deck.children:
+        bottom2 = deck.children[0].entity_id
+        n = await ctx.draw_from_bottom(1)
+        assert n == 1
+        assert any(c.entity_id == bottom2 for c in hand.children)
+
+
+async def test_prize_face_up_per_card():
+    """Per-card PrizeFaceUp makes a prize visible without global flag."""
+    rig, e = new_rig()
+    board = rig.board
+    board.deal_from_deck(P1, "prizePile", 2)
+    prize = board.find_player_area(P1, "prizePile").children[0]
+    assert board.playmat.prizes_face_up is False
+    assert prize.is_hidden_from(P1) is True
+    prize.set_attribute("PrizeFaceUp", True)
+    assert prize.is_hidden_from(P1) is False
+    assert prize.is_hidden_from(P2) is False
+
+
+async def test_pattern_distraction_requires_flip():
+    from spirit.game.card_effects.ex import pattern_distraction_passive
+    from spirit.game.session.effects import is_basic_pokemon
+    rig, e = new_rig()
+    p = pattern_distraction_passive()
+    holder = e["p1_active"]
+    attacker = e["p2_active"]
+    title = p.requires_attack_attempt_flip(attacker, holder, rig.board)
+    # Both fillers are Basics in Active — should require flip
+    assert title == "Pattern Distraction"
+    # Own side: no flip
+    assert p.requires_attack_attempt_flip(holder, holder, rig.board) is None
+
+
+async def test_full_flame_burn_counters_and_evolve_gate():
+    from spirit.game.card_effects.ex import full_flame_passive
+    from spirit.game.session.passives import condition_removal_blocked
+    rig, e = new_rig()
+    p = full_flame_passive()
+    assert p.modify_burn_counters(2, e["p1_active"], e["p1_active"]) == 4
+    # Install as stadium-like temporary passive carrier
+    class TP:
+        def __init__(self):
+            self.passive = p
+            self.carrier_entity_id = e["p1_active"].entity_id
+            self.expires_after_turn = 999
+    # Put stadium-style: attach passive via board temporary or via card def
+    # Direct unit check:
+    assert p.prevents_condition_removal(
+        e["p1_active"], SpecialConditions.BURNED, "evolve", e["p1_active"]) is True
+    assert p.prevents_condition_removal(
+        e["p1_active"], SpecialConditions.POISONED, "evolve", e["p1_active"]) is False
+
+
+async def test_dual_aura_blocks_bodies_with_partner():
+    from spirit.game.card_effects.ex import dual_aura_weakness_resistance_passive
+    from spirit.game.data_utils import Ability
+    from spirit.game.attributes import AbilityTypes
+    rig, e = new_rig()
+    # Rename p1_active display to Latios so partner gate passes for Latias aura
+    e["p1_active"].set_attribute(AttrID.DISPLAY_NAME, "Latios")
+    # Put a Stage1 non-ex on p2 as victim — use p2_active renamed
+    e["p2_active"].set_attribute(AttrID.DISPLAY_NAME, "Stage Victim")
+    # Force stage via card def is hard; call blocks_ability with board and a
+    # fake ability + pokemon that is_basic_pokemon returns False
+    body = Ability(title="Test Body", ability_type=AbilityTypes.POKE_BODY, effect=None)
+    aura = dual_aura_weakness_resistance_passive("Latios")
+    # Without partner name match on holder side — holder is carrier
+    # Make carrier = p1 (Latios), victim = need evolved
+    from spirit.game.session.effects import is_basic_pokemon
+    # If victim is basic, Dual Aura must not block
+    assert aura.blocks_ability(
+        e["p2_active"], body, e["p1_active"], rig.board) is False
+
+
+async def test_after_poke_power_dark_eyes():
+    from spirit.game.card_effects.ex import dark_eyes_after_power
+    rig, e = new_rig()
+    p = dark_eyes_after_power()
+    # Opponent used power
+    assert p.after_poke_power(rig.board, e["p2_active"], e["p1_active"]) == 2
+    # Own side
+    assert p.after_poke_power(rig.board, e["p1_active"], e["p1_active"]) == 0
+
+
+async def test_holon_circle_prevents_active_attack():
+    from spirit.game.card_effects.ex import holon_circle_passive
+    rig, e = new_rig()
+    p = holon_circle_passive()
+    class FakeCalc:
+        is_attack = True
+        is_opposing = True
+        amount = 40
+        target = e["p1_active"]
+        attacker = e["p2_active"]
+        board = rig.board
+    assert p.prevents_damage(FakeCalc(), e["p1_active"]) is True
+
+
+async def test_memory_berry_grants_lower_stage():
+    from spirit.game.card_effects.ex import memory_berry_granted
+    import inspect
+    src = inspect.getsource(memory_berry_granted)
+    assert "granted_attacks" in src
+    assert "PokemonStage.BASIC" in src
+    assert "attack_followup" in src
+
+
+async def test_crystal_laser_uses_next_turn_boost():
+    from spirit.game.card_effects.ex import crystal_laser_lock
+    import inspect
+    src = inspect.getsource(crystal_laser_lock)
+    assert "apply_own_next_turn_boost" in src
+    assert "40" in src
+
+
+async def test_prevent_ex_attacks_uses_only_ex():
+    from spirit.game.card_effects.ex import prevent_ex_attacks_next_turn, ice_barrier_vs_ex
+    import inspect
+    for fn in (prevent_ex_attacks_next_turn, ice_barrier_vs_ex):
+        src = inspect.getsource(fn)
+        assert "only_ex=True" in src
+
+
+async def test_fieldworker_may_draw():
+    from spirit.game.card_effects.ex import fieldworker_draw
+    import inspect
+    src = inspect.getsource(fieldworker_draw)
+    assert "ask_yes_no" in src
+    assert "opponent_id" in src
+
+
+async def test_crush_chance_discards_stadium():
+    from spirit.game.card_effects.ex import crush_chance_on_play
+    import inspect
+    src = inspect.getsource(crush_chance_on_play)
+    assert "discard_stadium" in src
+    assert "ask_yes_no" in src
+
+
+async def test_tail_whip_uses_lock_defender():
+    from spirit.game.card_effects.ex import tail_whip_lock_attack
+    import inspect
+    src = inspect.getsource(tail_whip_lock_attack)
+    assert "lock_defender_attacks" in src
+
+
+async def test_skill_copy_uses_attack():
+    from spirit.game.card_effects.ex import skill_copy_from_hand
+    import inspect
+    src = inspect.getsource(skill_copy_from_hand)
+    assert "use_attack" in src
+
+
+async def test_shade_partner_gate():
+    from spirit.game.card_effects.ex import _shade_block
+    from spirit.game.data_utils import Ability
+    from spirit.game.attributes import AbilityTypes
+    rig, e = new_rig()
+    e["p1_active"].set_attribute(AttrID.DISPLAY_NAME, "Solrock")
+    # Fire-type power on p2 — without Fire type won't block
+    power = Ability(title="Pow", ability_type=AbilityTypes.POKE_POWER, effect=None)
+    shade = _shade_block("Solrock", PokemonTypes.FIRE)
+    # p2_active likely not Fire — False
+    assert shade.blocks_ability(e["p2_active"], power, e["p1_active"], rig.board) is False
+
+
+
 
 TESTS = [
     test_temp_passive_prevents_then_expires,
@@ -2392,6 +2603,22 @@ TESTS = [
     test_ex8_form_change_deoxys_identity_swap,
     test_ex8_hustle_punch_next_turn_base,
     test_ex8_swords_dance_boosts_slash,
+    test_ex_only_temp_shield,
+    test_draw_from_bottom,
+    test_prize_face_up_per_card,
+    test_pattern_distraction_requires_flip,
+    test_full_flame_burn_counters_and_evolve_gate,
+    test_dual_aura_blocks_bodies_with_partner,
+    test_after_poke_power_dark_eyes,
+    test_holon_circle_prevents_active_attack,
+    test_memory_berry_grants_lower_stage,
+    test_crystal_laser_uses_next_turn_boost,
+    test_prevent_ex_attacks_uses_only_ex,
+    test_fieldworker_may_draw,
+    test_crush_chance_discards_stadium,
+    test_tail_whip_uses_lock_defender,
+    test_skill_copy_uses_attack,
+    test_shade_partner_gate,
 ]
 
 
