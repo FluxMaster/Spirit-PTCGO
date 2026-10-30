@@ -5,6 +5,12 @@ Machoke (EX12 #39): one or more attacks/abilities use effect=unimplemented until
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 
+
+async def double_wing_attack(ctx):
+    """Does 20 damage to each Defending Pokémon (no printed damage)."""
+    await ctx.deal_damage(20)
+
+
 card = PokemonCardDef(
     guid="76ef0b3e-4f37-5397-b9f0-c43f6a1423c3",
     key="EX12",
@@ -35,7 +41,7 @@ card = PokemonCardDef(
             game_text="Does 20 damage to each Defending Pok\u00e9mon.",
             cost={PokemonTypes.FIGHTING: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=double_wing_attack,
         ),
         Attack(
             title="Magnum Punch",

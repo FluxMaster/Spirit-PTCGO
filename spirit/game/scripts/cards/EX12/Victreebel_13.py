@@ -4,6 +4,8 @@ Victreebel (EX12 #13): one or more attacks/abilities use effect=unimplemented un
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import sleep_poison_sure
+
 
 card = PokemonCardDef(
     guid="9108fb3f-c0f0-5ecb-837e-a240e256feda",
@@ -36,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 1},
             damage=10,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=sleep_poison_sure(),
         ),
         Attack(
             title="Sharp Leaf",

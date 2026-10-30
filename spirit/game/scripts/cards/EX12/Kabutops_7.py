@@ -4,6 +4,8 @@ Kabutops (EX12 #7): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import mega_throw
+
 
 card = PokemonCardDef(
     guid="e6843db7-c90d-5a2b-af77-7209d7392e99",
@@ -45,7 +47,7 @@ card = PokemonCardDef(
             damage=50,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=mega_throw(50, 30),
         ),
     ],
 )

@@ -4,6 +4,8 @@ Huntail (EX12 #18): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import extra_vs_ex
+
 
 card = PokemonCardDef(
     guid="3ef268be-f2ae-5d0d-a1a2-95776d616c52",
@@ -37,7 +39,7 @@ card = PokemonCardDef(
             damage=40,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=extra_vs_ex(40, 30),
         ),
     ],
 )

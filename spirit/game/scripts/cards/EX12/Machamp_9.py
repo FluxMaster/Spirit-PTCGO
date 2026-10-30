@@ -4,6 +4,8 @@ Machamp (EX12 #9): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import discard_special_energy_from_defender
+
 
 card = PokemonCardDef(
     guid="a375226b-8674-5647-ba6a-2a3438682498",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 1},
             damage=40,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=discard_special_energy_from_defender(),
         ),
         Attack(
             title="Swift Blow",

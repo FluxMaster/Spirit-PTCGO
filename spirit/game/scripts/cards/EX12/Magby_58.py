@@ -4,6 +4,8 @@ Magby (EX12 #58): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import baby_evolution_ex7
+
 
 card = PokemonCardDef(
     guid="ab4f4e06-0fe1-57e9-984b-6d721be19614",
@@ -27,7 +29,7 @@ card = PokemonCardDef(
             game_text="Once during your turn (before your attack), you may put Magmar from your hand onto Magby (this counts as evolving Magby) and remove all damage counters from Magby.",
             ability_type=AbilityTypes.POKE_POWER,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=baby_evolution_ex7('Magmar'),
         ),
         Attack(
             title="Ignite",

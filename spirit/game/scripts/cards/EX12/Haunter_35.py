@@ -4,6 +4,8 @@ Haunter (EX12 #35): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import time_spiral
+
 
 card = PokemonCardDef(
     guid="498fb4e8-1fa2-5e60-a009-8e4a5eebdda2",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             game_text="If your opponent has any Evolved Pok\u00e9mon in play, choose 1 of them and flip a coin. If heads, remove the highest Stage Evolution card on that Pok\u00e9mon and have your opponent shuffle it into his or her deck.",
             cost={PokemonTypes.COLORLESS: 2},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=time_spiral,
         ),
         Attack(
             title="Haunt",

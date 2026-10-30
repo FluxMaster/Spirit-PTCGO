@@ -4,6 +4,8 @@ Dustox ex (EX12 #86): one or more attacks/abilities use effect=unimplemented unt
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import silver_wind
+
 
 card = PokemonCardDef(
     guid="1e4df7db-e0cb-5d1a-958b-7027ab443162",
@@ -36,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 1},
             damage=40,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=silver_wind(),
         ),
         Attack(
             title="Cutting Wind",

@@ -4,6 +4,13 @@ Wailmer (EX12 #69): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import discard_opponent_energy_attack
+
+
+async def double_wing_attack(ctx):
+    """Does 20 damage to each Defending Pokémon (no printed damage)."""
+    await ctx.deal_damage(20)
+
 
 card = PokemonCardDef(
     guid="30f52cbb-c8b2-5fde-9087-165bf7c78792",
@@ -27,7 +34,7 @@ card = PokemonCardDef(
             game_text="Does 20 damage to each Defending Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 2},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=double_wing_attack,
         ),
         Attack(
             title="Whirlpool",
@@ -35,7 +42,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 2, PokemonTypes.COLORLESS: 1},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=discard_opponent_energy_attack(1, flip=True),
         ),
     ],
 )

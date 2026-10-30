@@ -4,6 +4,8 @@ Solrock (EX12 #25): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import discard_opponent_energy_attack
+
 
 card = PokemonCardDef(
     guid="9cef0127-3a66-5c89-bb04-3bb73065658b",
@@ -41,7 +43,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, discard an Energy card attached to the Defending Pok\u00e9mon.",
             cost={PokemonTypes.FIGHTING: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=discard_opponent_energy_attack(1, flip=True),
         ),
     ],
 )

@@ -4,6 +4,8 @@ Tentacruel (EX12 #45): one or more attacks/abilities use effect=unimplemented un
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import snipe_attack, flip_damage
+
 
 card = PokemonCardDef(
     guid="846c8961-dc63-52e6-80b9-aae91e6ac4d2",
@@ -35,7 +37,7 @@ card = PokemonCardDef(
             game_text="Choose 1 of your opponent's Pok\u00e9mon. This attack does 20 damage to that Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.WATER: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=snipe_attack(20, pool='any', count=1),
         ),
         Attack(
             title="Fury Strikes",
@@ -44,7 +46,7 @@ card = PokemonCardDef(
             damage=20,
             damage_operator="x",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(coins=3, per_heads=20),
         ),
     ],
 )
