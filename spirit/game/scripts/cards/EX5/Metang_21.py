@@ -1,9 +1,12 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Metang (EX5 #21): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import attach_from_discard
+from spirit.game.card_effects.pokemon import energy_provides_type
+
+
+def _metal_energy(card):
+    return energy_provides_type(card, PokemonTypes.METAL.value)
+
 
 card = PokemonCardDef(
     guid="2729f87f-2ac4-51d5-b7cf-345d2c75a808",
@@ -28,8 +31,9 @@ card = PokemonCardDef(
             title="Metal Load",
             game_text="Search your discard pile for a Metal Energy card and attach it to Metang.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=attach_from_discard(
+                predicate=_metal_energy, count=1, target="self", minimum=0,
+                prompt="Choose a Metal Energy card to attach."),
         ),
         Attack(
             title="Metal Claw",

@@ -4,6 +4,8 @@ Swalot (EX5 #50): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import amnesia
+
 
 card = PokemonCardDef(
     guid="72bf90d4-b257-52b0-99fd-bd8653d264cc",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=amnesia,
         ),
         Attack(
             title="Swallow Up",

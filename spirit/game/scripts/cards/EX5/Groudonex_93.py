@@ -4,6 +4,8 @@ Groudon ex (EX5 #93): one or more attacks/abilities use effect=unimplemented unt
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import ignore_resistance_attack
+
 
 card = PokemonCardDef(
     guid="2171418c-71c8-51f7-87cb-1f09a3fcd9f0",
@@ -35,7 +37,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=ignore_resistance_attack(),
         ),
         Attack(
             title="Crushing Mantle",

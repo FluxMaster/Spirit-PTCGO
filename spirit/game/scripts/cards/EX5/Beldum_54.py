@@ -4,6 +4,8 @@ Beldum (EX5 #54): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import place_counters
+
 
 card = PokemonCardDef(
     guid="e742575c-2bcc-54ca-8789-734186771e7a",
@@ -34,7 +36,7 @@ card = PokemonCardDef(
             game_text="Put 1 damage counter on the Defending Pok\u00e9mon.",
             cost={PokemonTypes.PSYCHIC: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=place_counters(1),
         ),
     ],
 )
