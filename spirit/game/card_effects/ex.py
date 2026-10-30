@@ -2932,6 +2932,37 @@ class StrengthCharmPassive(Passive):
             calc.amount += 10
 
 
+
+
+def team_belt_between_turns(belt_guid: str):
+    """BETWEEN_TURNS: if holder is Active, search deck for a card that evolves
+    from it, evolve, shuffle, then discard this Belt."""
+    async def effect(ctx):
+        pokemon = ctx.source
+        if pokemon is None or not is_in_active_spot(pokemon):
+            return
+        name = pokemon.get_attribute(AttrID.NAME) or ""
+        belt = next(
+            (c for c in pokemon.children
+             if (c.archetype_id or "").lower() == belt_guid.lower()),
+            None)
+
+        def match(c):
+            d = def_for(c.archetype_id)
+            return bool(d and getattr(d, "evolves_from", None) == name)
+
+        picks = await ctx.search_deck(
+            match, count=1, minimum=0,
+            prompt="Choose a card that evolves from the Active Pokémon")
+        if not picks:
+            await ctx.shuffle_deck()
+            return
+        await ctx.evolve_pokemon(pokemon, picks[0])
+        await ctx.shuffle_deck()
+        if belt is not None:
+            await ctx.discard_cards([belt])
+    return effect
+
 def attach_to_team(*teams: str):
     pred = has_team_in_name(*teams)
     def check(pokemon) -> bool:
@@ -4800,7 +4831,9 @@ def scattered_shower(draw: int = 5):
 
 
 def temperamental_weather(*names: str):
-    """Search deck for a Castform form by display name substring and switch."""
+    """Search deck for a Castform form; identity-swap in place (attachments,
+    damage, Special Conditions, and effects move to the new Pokémon); shuffle
+    the old form into the deck."""
     async def effect(ctx):
         src = ctx.source
         if src is None:
@@ -4816,8 +4849,7 @@ def temperamental_weather(*names: str):
         if not picks:
             await ctx.shuffle_deck()
             return
-        # Soft: put chosen form into hand (full form-switch needs engine support)
-        await ctx.put_in_hand(picks, reveal=True)
+        await ctx.identity_swap(src, picks[0], destination="deck", transfer=True)
         await ctx.shuffle_deck()
     return effect
 
@@ -5959,9 +5991,12 @@ async def metronome_defending(ctx):
 
 
 def form_variation():
-    """Soft Form Variation: Basic (non-ex, non-Ditto) from discard → hand.
-    Full in-place switch needs engine support (same gap as Castform)."""
+    """Form Variation: identity-swap Ditto with a Basic (non-ex, non-Ditto)
+    from discard; attachments/damage/SCs/effects move; Ditto is discarded."""
     async def effect(ctx):
+        src = ctx.source
+        if src is None:
+            return
         pool = []
         for c in ctx.discard_pile():
             if not is_basic_pokemon(c) or is_pokemon_ex(c):
@@ -5975,9 +6010,10 @@ def form_variation():
             return
         picks = await ctx.choose_cards(
             pool, 1, minimum=0,
-            prompt="Choose a Basic Pokémon (Form Variation)")
+            prompt="Choose a Basic Pokémon to switch with Ditto")
         if picks:
-            await ctx.put_in_hand(picks, reveal=True)
+            await ctx.identity_swap(
+                src, picks[0], destination="discard", transfer=True)
     return effect
 
 
@@ -6493,7 +6529,7 @@ def rest_up_between_turns(counters: int = 2):
 
 
 def vine_tease():
-    """Soft: look at Prizes (Vine Tease prize↔deck-top swap is engine-light)."""
+    """Look at Prizes (owner only); swap one with the top card of the deck."""
     async def effect(ctx):
         prize_area = ctx.board.find_player_area(ctx.player_id, "prizePile")
         deck_area = ctx.board.find_player_area(ctx.player_id, "deck")
@@ -6501,7 +6537,6 @@ def vine_tease():
                 or not deck_area.children:
             return
         prizes = list(prize_area.children)
-        # Reveal prizes to owner only via choose (optional swap with top)
         top = deck_area.children[0]
         picks = await ctx.choose_cards(
             prizes, 1, minimum=0,
@@ -6509,12 +6544,10 @@ def vine_tease():
         if not picks:
             return
         prize = picks[0]
-        # Swap positions via board attach/move
+        slot = prizes.index(prize)
+        # Prize → deck top (without looking at former top); former top → prize slot
         ctx.board.move_card(prize.entity_id, deck_area.entity_id, position=0)
-        # Put former top into the prize slot the chosen card left
-        slot = next((i for i,c in enumerate(prize_area.children) if c is prize), None)
-        # prize already moved; append into prize pile
-        ctx.board.move_card(top.entity_id, prize_area.entity_id)
+        ctx.board.move_card(top.entity_id, prize_area.entity_id, position=slot)
     return effect
 
 
