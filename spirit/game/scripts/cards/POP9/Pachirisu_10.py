@@ -39,7 +39,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
             damage_operator="+",
-effect=partner_bonus_condition('Croagunk', 20, SpecialConditions.POISONED)
+            effect=partner_bonus_condition('Croagunk', 20, SpecialConditions.POISONED)
         ),
     ]
 )

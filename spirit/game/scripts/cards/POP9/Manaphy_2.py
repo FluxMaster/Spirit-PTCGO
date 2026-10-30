@@ -27,13 +27,13 @@ card = PokemonCardDef(
             title="Dive",
             game_text="Look at the top 7 cards of your deck, choose 1 of them, and put it into your hand. Put the other cards back on top of your deck. Shuffle your deck afterward.",
             cost={PokemonTypes.WATER: 1},
-effect=look_at_top(7, take=1, rest='shuffle')
+            effect=look_at_top(7, take=1, rest='shuffle')
         ),
         Attack(
             title="Water Glow",
             game_text="Choose 1 of your opponent's Pok\u00e9mon. This attack does 20 damage to that Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.) Remove from Manaphy the number of damage counters equal to the damage you did to that Pok\u00e9mon.",
             cost={PokemonTypes.WATER: 1},
-effect=water_glow_snipe_drain(20)
+            effect=water_glow_snipe_drain(20)
         ),
     ]
 )

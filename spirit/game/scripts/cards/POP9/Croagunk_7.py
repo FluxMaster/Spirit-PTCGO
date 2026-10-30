@@ -34,7 +34,7 @@ card = PokemonCardDef(
             game_text="If you have Turtwig in play, remove from Croagunk the number of damage counters equal to the damage you did to the Defending Pok\u00e9mon.",
             cost={PokemonTypes.PSYCHIC: 2},
             damage=30,
-effect=partner_drain_heal('Turtwig')
+            effect=partner_drain_heal('Turtwig')
         ),
     ]
 )

@@ -34,7 +34,7 @@ card = PokemonCardDef(
             game_text="If you have Pachirisu in play, flip a coin. If heads, prevent all effects of an attack, including damage, done to Buizel during your opponent's next turn.",
             cost={PokemonTypes.WATER: 2},
             damage=30,
-effect=partner_flip_full_protect('Pachirisu')
+            effect=partner_flip_full_protect('Pachirisu')
         ),
     ]
 )

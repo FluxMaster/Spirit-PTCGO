@@ -29,7 +29,7 @@ card = PokemonCardDef(
             game_text="Remove 1 damage counter from Turtwig.",
             cost={PokemonTypes.GRASS: 1},
             damage=10,
-effect=heal_self_after_damage(1)
+            effect=heal_self_after_damage(1)
         ),
         Attack(
             title="Parboil",
@@ -37,7 +37,7 @@ effect=heal_self_after_damage(1)
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 2},
             damage=40,
             damage_operator="+",
-effect=partner_bonus_condition('Chimchar', 20, SpecialConditions.BURNED)
+            effect=partner_bonus_condition('Chimchar', 20, SpecialConditions.BURNED)
         ),
     ]
 )

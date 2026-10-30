@@ -37,7 +37,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 1, PokemonTypes.COLORLESS: 2},
             damage=40,
             damage_operator="+",
-effect=partner_bonus_condition('Piplup', 20, SpecialConditions.ASLEEP)
+            effect=partner_bonus_condition('Piplup', 20, SpecialConditions.ASLEEP)
         ),
     ]
 )

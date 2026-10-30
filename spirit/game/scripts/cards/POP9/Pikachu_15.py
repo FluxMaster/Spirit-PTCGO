@@ -36,7 +36,7 @@ card = PokemonCardDef(
             game_text="If Pikachu evolved from Pichu during this turn, the Defending Pok\u00e9mon is now Paralyzed.",
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 2},
             damage=30,
-effect=numb_if_evolved(SpecialConditions.PARALYZED)
+            effect=numb_if_evolved(SpecialConditions.PARALYZED)
         ),
     ]
 )
