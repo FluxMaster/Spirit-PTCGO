@@ -516,15 +516,18 @@ card = EnergyCardDef(
 
     return content or None
 
-def process_card(card: Dict[str, Any]):
+def process_card(card: Dict[str, Any], skip_existing: bool = False):
     filename = f"{clean_name(card.get('name', 'Unknown'))}_{card.get('number', '0')}"
     script_path = os.path.join(SCRIPT_OUTPUT_DIR, f"{filename}.py")
     asset_path = os.path.join(ASSET_OUTPUT_DIR, f"{filename}.png")
 
     content = render_script(card)
     if content:
-        with open(script_path, "w", encoding="utf-8") as f:
-            f.write(content)
+        if skip_existing and os.path.exists(script_path):
+            print(f"Skipping existing script: {script_path}")
+        else:
+            with open(script_path, "w", encoding="utf-8") as f:
+                f.write(content)
 
     image_url = card.get("images", {}).get("large")
     if image_url:
@@ -590,6 +593,9 @@ def main():
         
     with open(JSON_PATH, "r") as f:
         cards = json.load(f)
+    for extra in args.also:
+        with open(extra, "r") as f:
+            cards.extend(json.load(f))
     
     set_numbering(cards)
     numbers = [collector_number_int(c.get("number", "0")) for c in cards]
@@ -605,7 +611,7 @@ def main():
     print(f"Processing {len(cards)} cards...")
     download_tasks = []
     for card in cards:
-        task = process_card(card)
+        task = process_card(card, skip_existing=args.skip_existing)
         if task:
             download_tasks.append(task)
             
