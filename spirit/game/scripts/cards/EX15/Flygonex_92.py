@@ -4,7 +4,7 @@ Flygon ex δ (EX15 #92): one or more attacks/abilities use effect=unimplemented 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
-from spirit.game.card_effects.ex import clay_pulse
+from spirit.game.card_effects.ex import clay_pulse, sand_damage_between_turns
 
 
 card = PokemonCardDef(
@@ -29,7 +29,7 @@ card = PokemonCardDef(
             game_text="As long as Flygon ex is your Active Pok\u00e9mon, put 1 damage counter on each of your opponent's Benched Basic Pok\u00e9mon between turns. You can't use more than 1 Sand Damage Pok\u00e9-Body between turns.",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=sand_damage_between_turns(1),
         ),
         Attack(
             title="Psychic Pulse",

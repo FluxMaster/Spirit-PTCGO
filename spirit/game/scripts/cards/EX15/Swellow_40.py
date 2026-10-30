@@ -3,6 +3,7 @@ Swellow δ (EX15 #40): one or more attacks/abilities use effect=unimplemented un
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.card_effects.ex import agility_flip_protect, extra_wing_stage2_ex_retreat0
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 
 card = PokemonCardDef(
@@ -29,7 +30,7 @@ card = PokemonCardDef(
             game_text="The Retreat Cost for each of your Stage 2 Pok\u00e9mon-ex is 0.",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=extra_wing_stage2_ex_retreat0(),
         ),
         Attack(
             title="Agility",
@@ -37,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=agility_flip_protect(),
         ),
     ],
 )

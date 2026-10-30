@@ -3,6 +3,7 @@ Altaria ex δ (EX15 #90): one or more attacks/abilities use effect=unimplemented
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.card_effects.ex import extra_boost_attach_to_stage2, healing_light_all
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 
 card = PokemonCardDef(
@@ -29,7 +30,7 @@ card = PokemonCardDef(
             game_text="Once during your turn (before your attack), you may attach a basic Energy card from your hand to 1 of your Stage 2 Pok\u00e9mon-ex. This power can't be used if Altaria ex is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=extra_boost_attach_to_stage2(),
         ),
         Attack(
             title="Healing Light",
@@ -37,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 2},
             damage=60,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=healing_light_all(1),
         ),
     ],
 )

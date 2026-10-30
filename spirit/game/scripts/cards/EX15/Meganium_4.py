@@ -3,6 +3,7 @@ Meganium δ (EX15 #4): one or more attacks/abilities use effect=unimplemented un
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.card_effects.ex import delta_reduction_next, evolutionary_call_search
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 
 card = PokemonCardDef(
@@ -29,7 +30,7 @@ card = PokemonCardDef(
             game_text="Once during your turn, when you play Meganium from your hand to evolve 1 of your Pok\u00e9mon, you may search your deck for up to 3 in any combination of Basic Pok\u00e9mon or Evolution cards. Show them to your opponent and put them into your hand. Shuffle your deck afterward.",
             ability_type=AbilityTypes.POKE_POWER,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=evolutionary_call_search(3),
         ),
         Attack(
             title="Delta Reduction",
@@ -37,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 1},
             damage=40,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=delta_reduction_next(30),
         ),
         Attack(
             title="Mega Impact",

@@ -3,6 +3,7 @@ Ampharos δ (EX15 #1): one or more attacks/abilities use effect=unimplemented un
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.card_effects.ex import delta_circle, holon_veil_treat_as_delta_passive
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 
 card = PokemonCardDef(
@@ -28,7 +29,7 @@ card = PokemonCardDef(
             game_text="Treat each Basic Pok\u00e9mon and Evolution card in your deck, in your discard pile, in your hand, and in play as a Pok\u00e9mon that has \u03b4 on its card.",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=holon_veil_treat_as_delta_passive(),
         ),
         Attack(
             title="Delta Circle",
@@ -37,7 +38,7 @@ card = PokemonCardDef(
             damage=20,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=delta_circle(20, 10),
         ),
     ],
 )

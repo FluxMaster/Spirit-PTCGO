@@ -3,6 +3,7 @@ Totodile δ (EX15 #67): one or more attacks/abilities use effect=unimplemented u
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.card_effects.ex import rage_damage
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 
 card = PokemonCardDef(
@@ -34,7 +35,7 @@ card = PokemonCardDef(
             damage=10,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=rage_damage(10, 10),
         ),
     ],
 )

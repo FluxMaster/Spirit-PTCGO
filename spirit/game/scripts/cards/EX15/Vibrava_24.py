@@ -3,6 +3,7 @@ Vibrava δ (EX15 #24): one or more attacks/abilities use effect=unimplemented un
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.card_effects.ex import psychic_wing_retreat0_if_psychic
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import flip_bonus
 
@@ -31,7 +32,7 @@ card = PokemonCardDef(
             game_text="If Vibrava has any Psychic Energy attached to it, the Retreat Cost for Vibrava is 0.",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=psychic_wing_retreat0_if_psychic(),
         ),
         Attack(
             title="Quick Blow",

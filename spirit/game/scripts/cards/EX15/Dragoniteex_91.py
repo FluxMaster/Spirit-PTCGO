@@ -4,7 +4,7 @@ Dragonite ex δ (EX15 #91): one or more attacks/abilities use effect=unimplement
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-from spirit.game.card_effects.ex import disconnect_lock_items
+from spirit.game.card_effects.ex import disconnect_lock_items, dragon_roar_8_counters_overflow
 
 
 card = PokemonCardDef(
@@ -37,7 +37,7 @@ card = PokemonCardDef(
             game_text="Put 8 damage counters on the Defending Pok\u00e9mon. If that Pok\u00e9mon would be Knocked Out by this attack, put any damage counters not necessary to Knock Out the Defending Pok\u00e9mon on your opponent's Benched Pok\u00e9mon in any way you like.",
             cost={PokemonTypes.GRASS: 2, PokemonTypes.COLORLESS: 2},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=dragon_roar_8_counters_overflow(),
         ),
     ],
 )

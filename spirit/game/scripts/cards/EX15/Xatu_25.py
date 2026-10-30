@@ -3,6 +3,7 @@ Xatu δ (EX15 #25): one or more attacks/abilities use effect=unimplemented until
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.card_effects.ex import extra_feather_stage2_ex_boost
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
@@ -31,7 +32,7 @@ card = PokemonCardDef(
             game_text="Each of your Stage 2 Pok\u00e9mon-ex does 10 more damage to the Defending Pok\u00e9mon (before applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=extra_feather_stage2_ex_boost(10),
         ),
         Attack(
             title="Confuse Ray",

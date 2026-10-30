@@ -1,12 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Scramble Energy (EX15 #89): special energy provides/passive/attach rules stubbed until matched to a known energy pattern.
-
-Card text:
-  - Scramble Energy can be attached only to an Evolved Pokémon (excluding Pokémon-ex). Scramble Energy provides Colorless Energy. While in play, if you have more Prize cards left than your opponent, Scramble Energy provides every type of Energy but provides only 3 in any combination at a time. If the Pokémon Scramble Energy is attached to isn't an Evolved Pokémon (or evolves into Pokémon-ex), discard Scramble Energy.
-"""
-
-from spirit.game.data_utils import EnergyCardDef
-from spirit.game.attributes import PokemonTypes, Rarities
+from spirit.game.data_utils import Ability, EnergyCardDef, Triggers
+from spirit.game.attributes import AbilityTypes, PokemonTypes, Rarities
+from spirit.game.card_effects.energies import discard_energy_if_not_evolved
+from spirit.game.card_effects.ex import scramble_energy_attach_to, scramble_energy_passive
 
 card = EnergyCardDef(
     guid="4efc5f1e-deba-5ca4-90d2-87e9f17147b6",
@@ -20,5 +15,17 @@ card = EnergyCardDef(
     rarity=Rarities.Uncommon,
     energy_type=PokemonTypes.COLORLESS,
     is_special=True,
-    # STUB: special energy mechanics not implemented
+    provides=[[PokemonTypes.COLORLESS]],
+    attach_to=scramble_energy_attach_to,
+    passive=scramble_energy_passive(),
+    granted_abilities=[
+        Ability(
+            title="Scramble Energy",
+            game_text="If the Pokémon Scramble Energy is attached to isn't an Evolved Pokémon (or evolves into Pokémon-ex), discard Scramble Energy.",
+            ability_type=AbilityTypes.POKE_BODY,
+            trigger=Triggers.BETWEEN_TURNS,
+            effect=discard_energy_if_not_evolved(
+                "5fba8084-7296-5ddc-b42b-c24c7454d384"),
+        ),
+    ],
 )

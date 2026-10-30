@@ -1,13 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Island Hermit (EX15 #76): trainer effect stubbed.
-
-Card text:
-  - You can play only one Supporter card each turn. When you play this card, put it next to your Active Pokémon. When your turn ends, discard this card.
-  - Choose up to 2 of your Prize cards and put them face up. (These cards remain face up for the rest of the game.) Draw 2 cards.
-"""
-
-from spirit.game.data_utils import SupporterCardDef, unimplemented
+"""EX15 Dragon Frontiers — Island Hermit."""
+from spirit.game.data_utils import SupporterCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ex import island_hermit_prizes_face_up
 
 card = SupporterCardDef(
     guid="2e00cf9d-cae1-542c-9f08-2b45cd8ea345",
@@ -19,6 +13,5 @@ card = SupporterCardDef(
     collector_number=76,
     set_code="EX15",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=island_hermit_prizes_face_up(2, 2),
 )

@@ -3,6 +3,7 @@ Quagsire δ (EX15 #21): one or more attacks/abilities use effect=unimplemented u
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.card_effects.ex import dig_up_on_evolve_energy, pump_out_if_tool
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 
 card = PokemonCardDef(
@@ -28,7 +29,7 @@ card = PokemonCardDef(
             game_text="Once during your turn, when you play Quagsire from your hand to evolve 1 of your Pok\u00e9mon, you may search your discard pile for up to 2 Pok\u00e9mon Tool cards, show them to your opponent, and put them into your hand.",
             ability_type=AbilityTypes.POKE_POWER,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=dig_up_on_evolve_energy(2),
         ),
         Attack(
             title="Pump Out",
@@ -37,7 +38,7 @@ card = PokemonCardDef(
             damage=50,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=pump_out_if_tool(50, 20),
         ),
     ],
 )

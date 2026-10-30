@@ -3,6 +3,7 @@ Cloyster δ (EX15 #14): one or more attacks/abilities use effect=unimplemented u
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.card_effects.ex import grind_per_energy, solid_shell_bench_delta_protect
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 
 card = PokemonCardDef(
@@ -28,7 +29,7 @@ card = PokemonCardDef(
             game_text="Prevent all effects of attacks, including damage, done by your opponent's Pok\u00e9mon to each of your Benched Pok\u00e9mon that has \u03b4 on its card.",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=solid_shell_bench_delta_protect(),
         ),
         Attack(
             title="Grind",
@@ -37,7 +38,7 @@ card = PokemonCardDef(
             damage=10,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=grind_per_energy(10, 10),
         ),
     ],
 )

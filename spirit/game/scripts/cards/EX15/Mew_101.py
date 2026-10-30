@@ -3,6 +3,7 @@ Mew ★ δ (EX15 #101): one or more attacks/abilities use effect=unimplemented u
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.card_effects.ex import mimicry_copy_any_opp_attack, rainbow_wave_per_type
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 
 card = PokemonCardDef(
@@ -27,14 +28,14 @@ card = PokemonCardDef(
             game_text="Choose an attack on 1 of your opponent's Pok\u00e9mon in play. Mimicry copies that attack. This attack does nothing if Mew Star doesn't have the Energy necessary to use that attack. (You must still do anything else required for that attack.) Mew Star performs that attack.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=mimicry_copy_any_opp_attack(),
         ),
         Attack(
             title="Rainbow Wave",
             game_text="Choose 1 basic Energy card attached to Mew Star. This attack does 20 damage to each of your opponent's Pok\u00e9mon that is the same type as the basic Energy card that you chose. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.WATER: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=rainbow_wave_per_type(20),
         ),
     ],
 )

@@ -3,6 +3,7 @@ Dewgong δ (EX15 #15): one or more attacks/abilities use effect=unimplemented un
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.card_effects.ex import delta_protection_vs_delta, surge_if_water2
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
@@ -31,7 +32,7 @@ card = PokemonCardDef(
             game_text="Any damage done to Dewgong by attacks from your opponent's Pok\u00e9mon that has \u03b4 on its card is reduced by 40 (after applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=delta_protection_vs_delta(),
         ),
         Attack(
             title="Ice Beam",
@@ -48,7 +49,7 @@ card = PokemonCardDef(
             damage=40,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=surge_if_water2(40, 20),
         ),
     ],
 )

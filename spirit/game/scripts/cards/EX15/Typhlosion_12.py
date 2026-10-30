@@ -3,6 +3,7 @@ Typhlosion δ (EX15 #12): one or more attacks/abilities use effect=unimplemented
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.card_effects.ex import burning_ball_if_fire2, shady_move_counter
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 
 card = PokemonCardDef(
@@ -28,7 +29,7 @@ card = PokemonCardDef(
             game_text="Once during your turn (before your attack), if Typhlosion is your Active Pok\u00e9mon, you may move 1 damage counter from either player's Pok\u00e9mon to another Pok\u00e9mon (yours or your opponent's). This power can't be used if Typhlosion is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=shady_move_counter(),
         ),
         Attack(
             title="Burning Ball",
@@ -36,7 +37,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 2},
             damage=60,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=burning_ball_if_fire2(),
         ),
     ],
 )

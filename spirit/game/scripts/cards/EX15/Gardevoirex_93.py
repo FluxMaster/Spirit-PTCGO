@@ -3,6 +3,7 @@ Gardevoir ex δ (EX15 #93): one or more attacks/abilities use effect=unimplement
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.card_effects.ex import flame_ball, imprison_marker
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 
 card = PokemonCardDef(
@@ -28,7 +29,7 @@ card = PokemonCardDef(
             game_text="Once during your turn (before your attack), if Gardevoir ex is your Active Pok\u00e9mon, you may put an Imprison marker on 1 of your opponent's Pok\u00e9mon. Any Pok\u00e9mon that has any Imprison markers on it can't use any Pok\u00e9-Powers or Pok\u00e9-Bodies. This power can't be used if Gardevoir ex is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=imprison_marker(),
         ),
         Attack(
             title="Flame Ball",
@@ -36,7 +37,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 1, PokemonTypes.COLORLESS: 2},
             damage=80,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flame_ball(),
         ),
     ],
 )

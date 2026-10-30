@@ -3,6 +3,7 @@ Pinsir δ (EX15 #9): one or more attacks/abilities use effect=unimplemented unti
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.card_effects.ex import delta_call_search, pinsir_armor_vs_hand5
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 
 card = PokemonCardDef(
@@ -27,14 +28,14 @@ card = PokemonCardDef(
             game_text="If your opponent has 5 of more cards in his or her hand, any damage done to Pinsir by attacks is reduced by 30 (after applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=pinsir_armor_vs_hand5(30),
         ),
         Attack(
             title="Delta Call",
             game_text="Search your deck for a Pok\u00e9mon that has \u03b4 on its card, show it to your opponent, and put it into your hand. Shuffle your deck afterward.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=delta_call_search(),
         ),
         Attack(
             title="Guillotine",

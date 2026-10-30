@@ -3,6 +3,7 @@ Lickitung δ (EX15 #19): one or more attacks/abilities use effect=unimplemented 
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.card_effects.ex import delta_mind_counters
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.support_common import draw_attack
 
@@ -36,7 +37,7 @@ card = PokemonCardDef(
             game_text="Put 1 damage counter on 1 of your opponent's Pok\u00e9mon. If that Pok\u00e9mon has \u03b4 on its card, put 3 damage counters instead.",
             cost={PokemonTypes.PSYCHIC: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=delta_mind_counters(1, 3),
         ),
     ],
 )

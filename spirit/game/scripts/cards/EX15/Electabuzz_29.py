@@ -3,6 +3,7 @@ Electabuzz δ (EX15 #29): one or more attacks/abilities use effect=unimplemented
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.card_effects.ex import power_of_evolution_draw_bottom
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import swift_attack
 
@@ -29,7 +30,7 @@ card = PokemonCardDef(
             game_text="Once during your turn (before your attack), if Electabuzz is an Evolved Pok\u00e9mon, you may draw a card from the bottom of your deck. This power can't be used if Electabuzz is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=power_of_evolution_draw_bottom(),
         ),
         Attack(
             title="Swift",

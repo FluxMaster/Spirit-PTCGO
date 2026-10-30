@@ -3,6 +3,7 @@ Snorlax δ (EX15 #10): one or more attacks/abilities use effect=unimplemented un
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.card_effects.ex import bedhead_asleep_between_turns, dozing_heal_and_asleep
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 
 card = PokemonCardDef(
@@ -27,14 +28,14 @@ card = PokemonCardDef(
             game_text="As long as Snorlax remains Asleep between turns, put 2 damage counters on 1 of the Defending Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=bedhead_asleep_between_turns(2),
         ),
         Ability(
             title="Dozing",
             game_text="Once during your turn (before your attack), if Snorlax is your Active Pok\u00e9mon, you may remove 2 damage counters from Snorlax and Snorlax is now Asleep. This power can't be used if Snorlax is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=dozing_heal_and_asleep(2),
         ),
     ],
 )

@@ -3,6 +3,7 @@ Ledian δ (EX15 #18): one or more attacks/abilities use effect=unimplemented unt
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.card_effects.ex import metal_star_draw_if_tool, prowl_on_evolve_any_card
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 
 card = PokemonCardDef(
@@ -28,7 +29,7 @@ card = PokemonCardDef(
             game_text="Once during your turn, when you play Ledian from your hand to evolve 1 of your Pok\u00e9mon, you may search your deck for any 1 card and put it into your hand. Shuffle your deck afterward.",
             ability_type=AbilityTypes.POKE_POWER,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=prowl_on_evolve_any_card(),
         ),
         Attack(
             title="Metal Star",
@@ -36,7 +37,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.METAL: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=metal_star_draw_if_tool(3),
         ),
     ],
 )

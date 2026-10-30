@@ -5,7 +5,7 @@ Smoochum δ (EX15 #64): one or more attacks/abilities use effect=unimplemented u
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.data_utils import Activations
-from spirit.game.card_effects.ex import baby_evolution, baby_evolution_condition
+from spirit.game.card_effects.ex import alluring_kiss_search, baby_evolution, baby_evolution_condition
 
 
 card = PokemonCardDef(
@@ -39,7 +39,7 @@ card = PokemonCardDef(
             game_text="Search your deck for a Basic Pok\u00e9mon and basic Energy card, show them to your opponent, and put them into your hand. Shuffle your deck afterward.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=alluring_kiss_search(),
         ),
     ],
 )

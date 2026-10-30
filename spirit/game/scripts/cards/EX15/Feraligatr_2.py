@@ -4,7 +4,7 @@ Feraligatr δ (EX15 #2): one or more attacks/abilities use effect=unimplemented 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
-from spirit.game.card_effects.ex import drag_off_optional
+from spirit.game.card_effects.ex import battle_aura_delta_boost, drag_off_optional
 
 
 card = PokemonCardDef(
@@ -30,7 +30,7 @@ card = PokemonCardDef(
             game_text="Each of your Pok\u00e9mon that has \u03b4 on its card does 10 more damage to the Defending Pok\u00e9mon (before applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=battle_aura_delta_boost(10),
         ),
         Attack(
             title="Drag Off",

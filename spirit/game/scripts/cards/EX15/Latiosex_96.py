@@ -3,6 +3,7 @@ Latios ex δ (EX15 #96): one or more attacks/abilities use effect=unimplemented 
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.card_effects.ex import ice_barrier_then_damage, link_wing_named_retreat0
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 
 card = PokemonCardDef(
@@ -27,7 +28,7 @@ card = PokemonCardDef(
             game_text="The Retreat Cost for each of your Latias, Latias ex, Latios, and Latios ex is 0.",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=link_wing_named_retreat0("latias", "latios"),
         ),
         Attack(
             title="Ice Barrier",
@@ -35,7 +36,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=ice_barrier_then_damage(),
         ),
         Attack(
             title="Hydro Splash",

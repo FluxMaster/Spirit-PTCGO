@@ -3,6 +3,7 @@ Jynx δ (EX15 #17): one or more attacks/abilities use effect=unimplemented until
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.card_effects.ex import stages_of_evolution_retreat_discount
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 
 card = PokemonCardDef(
@@ -27,7 +28,7 @@ card = PokemonCardDef(
             game_text="As long as Jynx is an Evolved Pok\u00e9mon, you pay Colorless less to retreat your Fire and Psychic Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=stages_of_evolution_retreat_discount(PokemonTypes.FIRE, PokemonTypes.PSYCHIC),
         ),
         Attack(
             title="Fire Punch",

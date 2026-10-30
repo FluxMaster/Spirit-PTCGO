@@ -3,6 +3,7 @@ Kingdra ex δ (EX15 #94): one or more attacks/abilities use effect=unimplemented
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.card_effects.ex import energy_link_attach_from_discard_to_self, extra_smoke_stage2_ex_reduce, protective_swirl_no_weakness_next
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 
 card = PokemonCardDef(
@@ -28,7 +29,7 @@ card = PokemonCardDef(
             game_text="Any damage done to your Stage 2 Pok\u00e9mon-ex by your opponent's attacks is reduced by 10 (before applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=extra_smoke_stage2_ex_reduce(10),
         ),
         Attack(
             title="Energy Link",
@@ -36,7 +37,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 1},
             damage=40,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=energy_link_attach_from_discard_to_self(),
         ),
         Attack(
             title="Protective Swirl",
@@ -44,7 +45,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 2},
             damage=80,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=protective_swirl_no_weakness_next(),
         ),
     ],
 )

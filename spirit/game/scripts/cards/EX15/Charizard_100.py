@@ -3,6 +3,7 @@ Charizard ★ δ (EX15 #100): one or more attacks/abilities use effect=unimpleme
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.card_effects.ex import dark_swirl_discard_all_mill3, rotating_claws
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 
 card = PokemonCardDef(
@@ -28,7 +29,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.DARKNESS: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=rotating_claws(),
         ),
         Attack(
             title="Dark Swirl",
@@ -36,7 +37,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.DARKNESS: 4, PokemonTypes.COLORLESS: 1},
             damage=150,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=dark_swirl_discard_all_mill3(150),
         ),
     ],
 )

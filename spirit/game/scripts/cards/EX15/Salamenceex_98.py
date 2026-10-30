@@ -3,6 +3,7 @@ Salamence ex δ (EX15 #98): one or more attacks/abilities use effect=unimplement
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.card_effects.ex import dual_stream_optional_split, type_shift_to_fire
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 
 card = PokemonCardDef(
@@ -29,7 +30,7 @@ card = PokemonCardDef(
             game_text="Once during your turn (before your attack), you may use this power. Salamence ex's type is Fire until the end of your turn.",
             ability_type=AbilityTypes.POKE_POWER,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=type_shift_to_fire(),
         ),
         Attack(
             title="Claw Swipe",
@@ -42,7 +43,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 2, PokemonTypes.COLORLESS: 2},
             damage=80,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=dual_stream_optional_split(80, 40),
         ),
     ],
 )

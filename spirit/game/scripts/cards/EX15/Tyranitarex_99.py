@@ -3,6 +3,7 @@ Tyranitar ex δ (EX15 #99): one or more attacks/abilities use effect=unimplement
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.card_effects.ex import electromark, hyper_claws_vs_stage2, shock_wave_ko_marked
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 
 card = PokemonCardDef(
@@ -28,7 +29,7 @@ card = PokemonCardDef(
             game_text="Put a Shock-wave marker on 1 of your opponent's Pok\u00e9mon.",
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=electromark(),
         ),
         Attack(
             title="Hyper Claws",
@@ -37,14 +38,14 @@ card = PokemonCardDef(
             damage=70,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=hyper_claws_vs_stage2(70, 20),
         ),
         Attack(
             title="Shock-wave",
             game_text="Choose 1 of your opponent's Pok\u00e9mon that has any Shock-wave markers on it. That Pok\u00e9mon is Knocked Out.",
             cost={PokemonTypes.LIGHTNING: 2, PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=shock_wave_ko_marked(),
         ),
     ],
 )

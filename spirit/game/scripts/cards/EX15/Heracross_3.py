@@ -4,7 +4,7 @@ Heracross δ (EX15 #3): one or more attacks/abilities use effect=unimplemented u
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
-from spirit.game.card_effects.ex import dig_deep_energy_to_hand, extra_ball_vs_ex
+from spirit.game.card_effects.ex import dig_deep_energy_to_hand, extra_ball_vs_ex, shining_horn_solo_passive
 
 
 card = PokemonCardDef(
@@ -29,7 +29,7 @@ card = PokemonCardDef(
             game_text="As long as Heracross is the only Pok\u00e9mon you have in play, your opponent's Basic Pok\u00e9mon can't attack.",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=shining_horn_solo_passive(),
         ),
         Attack(
             title="Dig Deep",

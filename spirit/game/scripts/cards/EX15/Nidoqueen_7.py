@@ -4,7 +4,7 @@ Nidoqueen δ (EX15 #7): one or more attacks/abilities use effect=unimplemented u
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
-from spirit.game.card_effects.ex import vengeance
+from spirit.game.card_effects.ex import invitation_search_pokemon, vengeance
 
 
 card = PokemonCardDef(
@@ -30,7 +30,7 @@ card = PokemonCardDef(
             game_text="Once during your turn (before your attack), you may search your deck for a Basic Pok\u00e9mon or Evolution card, show it to your opponent, and put it into your hand. Shuffle your deck afterward. This power can't be used if Nidoqueen is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=invitation_search_pokemon(),
         ),
         Attack(
             title="Vengeance",
