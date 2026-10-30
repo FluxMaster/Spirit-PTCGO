@@ -1265,6 +1265,28 @@ class EffectContext:
         ]), bracket=GameSequence.DRAW.value)
         return len(moved)
 
+    async def draw_from_bottom(self, count: int, player_id: Optional[str] = None) -> int:
+        """Draws from the bottom of the deck (Dunsparce Down Draw); returns how many."""
+        pid = player_id or self.player_id
+        if self._trainer_blocked(pid):
+            return 0
+        moved = self.board.draw_from_bottom(pid, count)
+        if moved:
+            self.session.stat_add(pid, "cardsdrawn", len(moved))
+        deck = self.board.find_player_area(pid, "deck")
+        if moved and deck and deck.entity_id not in self._visual_sources:
+            self._visual_sources.append(deck.entity_id)
+        for move in moved:
+            self._queue(self.session._entity_introduced_msg(move["card"]),
+                        viewer_id=pid, bracket=GameSequence.DRAW.value)
+        if moved:
+            self._queue(NestedSequence(GameSequence.GROUPED_MOVE, [
+                self.session._entity_moved_msg(
+                    move["entity_id"], move["destination_id"], move["position"]
+                ) for move in moved
+            ]), bracket=GameSequence.DRAW.value)
+        return len(moved)
+
     async def draw_until(self, hand_size: int, player_id: Optional[str] = None) -> int:
         """Draws until a player's hand holds `hand_size` cards; returns how many."""
         missing = hand_size - self.hand_size(player_id)
@@ -2451,6 +2473,16 @@ async def resolve_activated_ability(session, player_id: str, pokemon: PokemonEnt
         )
     elif ability.effect is not None:
         await ability.effect(ctx)
+    # Dark Eyes-style: after a Poké-Power resolves, opposing passives may
+    # put damage counters on the Pokémon that used the Power.
+    from spirit.game.attributes import AbilityTypes as _AT
+    if getattr(ability, "ability_type", None) == _AT.POKE_POWER:
+        from spirit.game.session.passives import active_passives
+        for passive, carrier in active_passives(session.board_state):
+            n = passive.after_poke_power(session.board_state, pokemon, carrier)
+            if n and n > 0:
+                await ctx.deal_damage(
+                    n * 10, target=pokemon, apply_modifiers=False, as_counters=True)
     # Ability(ends_turn=True) only bites when the effect actually did
     # something (a declined "you may" queues no messages).
     if getattr(ability, "ends_turn", False) and ctx._messages:
