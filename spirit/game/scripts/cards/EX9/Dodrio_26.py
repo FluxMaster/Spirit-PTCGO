@@ -2,6 +2,7 @@
 Dodrio (EX9 #26): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
+from spirit.game.card_effects.support_common import switch_self_attack
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 
@@ -35,7 +36,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=40,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=switch_self_attack(optional=True),
         ),
     ],
 )

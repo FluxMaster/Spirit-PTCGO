@@ -2,6 +2,7 @@
 Camerupt (EX9 #23): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
+from spirit.game.card_effects.ex import bonus_if_ex
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
@@ -33,7 +34,7 @@ card = PokemonCardDef(
             damage=20,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bonus_if_ex(30),
         ),
         Attack(
             title="Super Singe",

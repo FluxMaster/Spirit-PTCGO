@@ -2,6 +2,7 @@
 Breloom (EX9 #22): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
+from spirit.game.card_effects.ex import extra_energy_damage
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
@@ -33,7 +34,7 @@ card = PokemonCardDef(
             damage=10,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=extra_energy_damage(10, base=10),
         ),
         Attack(
             title="Body Slam",
