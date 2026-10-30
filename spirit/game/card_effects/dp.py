@@ -9264,3 +9264,324 @@ def dp7_tangela_78_ingrain():
                 await eff(ctx)
     return effect
 
+# === DPP DP Black Star Promos helpers ===
+def dpp_arceus_dp50_judgment():
+    async def effect(ctx):
+        await ctx.deal_damage(80)
+        for p in ctx.opponent_bench():
+            await ctx.deal_damage(10, target=p, apply_modifiers=False)
+    return effect
+
+def dpp_arceuslvx_dp53_multitype():
+    """Multitype: refine — printed text may need more mechanics.
+    TEXT: Arceus LV. X's type is the same type as its previous Level.
+    """
+    async def effect(ctx):
+        pass
+    return effect
+
+def dpp_arceuslvx_dp53_omniscient():
+    """Omniscient: refine — printed text may need more mechanics.
+    TEXT: Arceus can use the attacks of all Arceus you have in play as its own. (You still need the necessary Energy to use each attack.)
+    """
+    async def effect(ctx):
+        pass
+    return effect
+
+def dpp_arceuslvx_dp56_meteor_blast():
+    """Meteor Blast: refine — printed text may need more mechanics.
+    TEXT: Flip a coin. If tails, this attack's base damage is 50 instead of 100.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(100)
+    return effect
+
+def dpp_arceuslvx_dp56_multitype():
+    """Multitype: refine — printed text may need more mechanics.
+    TEXT: Arceus LV.X's type is the same as its previous Level.
+    """
+    async def effect(ctx):
+        pass
+    return effect
+
+def dpp_carnivineg_dp42_grass_knot():
+    """Grass Knot: refine — printed text may need more mechanics.
+    TEXT: Does 20 damage plus 10 more damage for each Colorless Energy in the Defending Pokémon's Retreat Cost (after applying effects to the Retreat Cost).
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(20)
+    return effect
+
+def dpp_charizardglvx_dp45_call_for_power():
+    """Call for Power: refine — printed text may need more mechanics.
+    TEXT: As often as you like during your turn (before your attack), you may move an Energy attached to 1 of your Pokémon to Charizard G. This power can't be used if Charizard G is affected
+    """
+    async def effect(ctx):
+        pass
+    return effect
+
+def dpp_charizardglvx_dp45_malevolent_fire():
+    """Malevolent Fire: refine — printed text may need more mechanics.
+    TEXT: Flip a coin. If tails, discard all Energy attached to Charizard G.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(150)
+    return effect
+
+def dpp_cresselia_dp51_lunar_aura():
+    """Lunar Aura: refine — printed text may need more mechanics.
+    TEXT: If you have Darkrai in play, remove 1 damage counter from Cresselia between turns.
+    """
+    async def effect(ctx):
+        pass
+    return effect
+
+def dpp_cresselia_dp51_lunar_flight():
+    """Lunar Flight: refine — printed text may need more mechanics.
+    TEXT: Does 80 damage minus 10 damage for each damage counter on Cresselia.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(80)
+    return effect
+
+def dpp_darkrai_dp24_roar_of_time():
+    """Roar of Time: refine — printed text may need more mechanics.
+    TEXT: Search your discard pile for 3 Pokémon, show them to your opponent, and put them on top of your deck. Shuffle your deck afterward. (If you don't have 3 Pokémon in your discard pile
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(80)
+        await ctx.shuffle_deck()
+    return effect
+
+def dpp_darkrai_dp52_darkness_aura():
+    """Darkness Aura: refine — printed text may need more mechanics.
+    TEXT: If you have Cresselia in play, each of Darkrai's attack does 20 more damage to the Defending Pokémon (before applying Weakness and Resistance).
+    """
+    async def effect(ctx):
+        pass
+    return effect
+
+def dpp_dialga_dp49_time_wager():
+    """Time Wager: refine — printed text may need more mechanics.
+    TEXT: Flip 2 coins. If either of them is tails, this attack's base damage is 50 instead of 100.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(100)
+    return effect
+
+def dpp_dusknoir_dp33_dark_hide():
+    """Dark Hide: refine — printed text may need more mechanics.
+    TEXT: Once during your turn (before your attack), you may flip a coin. If heads, look at your opponent's hand, choose a Pokémon you find there, and put it on the bottom of his or her dec
+    """
+    async def effect(ctx):
+        pass
+    return effect
+
+def dpp_dusknoir_dp33_reaper_pulse():
+    """Reaper Pulse: refine — printed text may need more mechanics.
+    TEXT: Move up to 2 damage counters from Dusknoir to 1 of your opponent's Benched Pokémon.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(70)
+    return effect
+
+def dpp_garchompclvx_dp46_healing_breath():
+    """Healing Breath: refine — printed text may need more mechanics.
+    TEXT: Once during your turn (before your attack), when you put Garchomp C LV.X from your hand onto your Active Garchomp C, you may remove all damage counters from each of your Pokémon SP
+    """
+    async def effect(ctx):
+        pass
+    return effect
+
+def dpp_giratinalvx_dp38_darkness_lost():
+    """Darkness Lost: refine — printed text may need more mechanics.
+    TEXT: This attack does 30 damage to each of your opponent's Pokémon. (Don't apply Weakness and Resistance for Benched Pokémon.) If any of your opponent's Pokémon would be Knocked Out by 
+    """
+    async def effect(ctx):
+        await ctx.deal_damage()
+    return effect
+
+def dpp_giratinalvx_dp38_invisible_tentacles():
+    """Invisible Tentacles: refine — printed text may need more mechanics.
+    TEXT: Whenever your opponent's Pokémon tries to attack, your opponent discards 1 card from his or her hand. (If your opponent can't discard 1 card, your opponent's Pokémon can't attack.)
+    """
+    async def effect(ctx):
+        pass
+    return effect
+
+def dpp_giratinalvx_dp38_invisible_tentacles_passive() -> Passive:
+    """Invisible Tentacles: continuous body — soft stub; see Known defects if incomplete."""
+    class _P(Passive):
+        stacking_key = 'dpp_giratinalvx_dp38_invisible_tentacles'
+    return _P()
+
+def dpp_gliscor_dp36_bind_eye():
+    """Bind Eye: refine — printed text may need more mechanics.
+    TEXT: As long as Gliscor is your Active Pokémon, your opponent can't remove any Special Conditions by evolving or devolving his or her Pokémon. (This also includes putting a Pokémon Leve
+    """
+    async def effect(ctx):
+        pass
+    return effect
+
+def dpp_gliscor_dp36_bind_eye_passive() -> Passive:
+    """Bind Eye: continuous body — soft stub; see Known defects if incomplete."""
+    class _P(Passive):
+        stacking_key = 'dpp_gliscor_dp36_bind_eye'
+    return _P()
+
+def dpp_gliscor_dp36_cutting_turn():
+    """Cutting Turn: refine — printed text may need more mechanics.
+    TEXT: Flip a coin. If heads, put damage counters on the Defending Pokémon until it is 10HP away from being Knocked Out. If you do, shuffle Gliscor and all cards attached to it back into 
+    """
+    async def effect(ctx):
+        results = await ctx.flip_coins(1, 'Cutting Turn')
+        if not results or not results[0]:
+            return
+        await ctx.deal_damage()
+    return effect
+
+def dpp_magnezone_dp44_charge_beam():
+    """Charge Beam: refine — printed text may need more mechanics.
+    TEXT: Search your discard pile for an Energy card and attach it to Magnezone.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(30)
+    return effect
+
+def dpp_magnezone_dp44_metallic_bolt():
+    """Metallic Bolt: refine — printed text may need more mechanics.
+    TEXT: You may discard a Lightning Energy and a Metal Energy attached to Magnezone. If you do, this attack's base damage is 120 instead of 60.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(60)
+    return effect
+
+def dpp_porygonz_dp35_install():
+    """Install: refine — printed text may need more mechanics.
+    TEXT: As often as you like during your turn (before your attack), move a Technical Machine card attached to 1 of your Pokémon to another of your Pokémon. This power can't be used if Pory
+    """
+    async def effect(ctx):
+        pass
+    return effect
+
+def dpp_porygonz_dp35_learning():
+    """Learning: refine — printed text may need more mechanics.
+    TEXT: Search your deck for a Pokémon LV.X that levels up from 1 of your Pokémon, and put it onto that Pokémon. (This counts as leveling up that Pokémon.) Shuffle your deck afterward.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage()
+        await ctx.shuffle_deck()
+    return effect
+
+def dpp_porygonz_dp35_overload():
+    """Overload: refine — printed text may need more mechanics.
+    TEXT: Does 40 damage plus 20 more damage for each Technical Machine card attached to Porygon-Z.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(40)
+    return effect
+
+def dpp_probopassg_dp43_loud_snort():
+    """Loud Snort: refine — printed text may need more mechanics.
+    TEXT: Probopass G's Retreat Cost is 0 until the end of your next turn.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(70)
+    return effect
+
+def dpp_probopassg_dp43_nose_unit():
+    """Nose Unit: refine — printed text may need more mechanics.
+    TEXT: This attack does 20 damage to each of your opponent's Pokémon that has any Poké-Bodies. (Don't apply Weakness and Resistance for Benched Pokémon.)
+    """
+    async def effect(ctx):
+        await ctx.deal_damage()
+    return effect
+
+def dpp_rayquazaclvx_dp47_dragon_spirit():
+    """Dragon Spirit: refine — printed text may need more mechanics.
+    TEXT: If Rayquaza C is your Active Pokémon and is damaged but not Knocked Out by an opponent's attack, you may search your discard pile for an Energy card and attach it to Rayquaza C.
+    """
+    async def effect(ctx):
+        pass
+    return effect
+
+def dpp_rayquazaclvx_dp47_final_blowup():
+    """Final Blowup: refine — printed text may need more mechanics.
+    TEXT: Discard all Energy attached to Rayquaza C. Ignore this effect if you have no cards in your hand.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(200)
+    return effect
+
+def dpp_regigigas_dp40_drag_off():
+    """Drag Off: refine — printed text may need more mechanics.
+    TEXT: Before doing damage, you may choose 1 of your opponent's Benched Pokémon and switch it with the Defending Pokémon.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(30)
+    return effect
+
+def dpp_shayminlvx_dp39_energy_flare():
+    """Energy Flare: refine — printed text may need more mechanics.
+    TEXT: You may move any number of Energy cards attached to your Pokémon to your other Pokémon in any way you like.
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(50)
+    return effect
+
+def dpp_shayminlvx_dp39_revenge_seed():
+    """Revenge Seed: refine — printed text may need more mechanics.
+    TEXT: If any of your Grass Pokémon were Knocked Out by damage from an opponent's attack during his or her last turn, each of Shaymin's attacks does 60 more damage to the Active Pokémon (
+    """
+    async def effect(ctx):
+        pass
+    return effect
+
+def dpp_toxicroakg_dp41_leap_away():
+    """Leap Away: refine — printed text may need more mechanics.
+    TEXT: Once during your turn (before your attack), if Toxicroak G is your Active Pokémon, you may flip a coin. If heads, return Toxicroak G and all cards attached to it to your hand. This
+    """
+    async def effect(ctx):
+        pass
+    return effect
+
+def dpp_toxicroakg_dp41_poison_revenge():
+    """Poison Revenge: refine — printed text may need more mechanics.
+    TEXT: If any of your Pokémon were Knocked Out by damage from an opponent's attack during his or her last turn, this attack does 20 damage plus 40 more damage and the Defending Pokémon is
+    """
+    async def effect(ctx):
+        await ctx.deal_damage(20)
+    return effect
+
+
+# === DPP Black Star Promo trainer helpers ===
+
+def beginning_door():
+    """Search deck for Arceus into hand."""
+    async def effect(ctx):
+        def pred(c):
+            return is_pokemon_card(c) and "arceus" in _display(c).lower()
+        picks = await ctx.search_deck(pred, count=1, minimum=0, prompt="Arceus")
+        if picks:
+            await ctx.put_in_hand(picks, reveal=True)
+        await ctx.shuffle_deck()
+    return effect
+
+
+def ultimate_zone_ability():
+    """Move an Energy from Bench to Active Arceus (unlimited)."""
+    async def effect(ctx):
+        active = ctx.my_active()
+        if active is None or "arceus" not in _display(active).lower():
+            return
+        movers = []
+        for p in ctx.my_bench():
+            for c in list(p.children):
+                if is_energy_card(c):
+                    movers.append(c)
+        if not movers:
+            return
+        picks = await ctx.choose_cards(movers, 1, minimum=0, prompt="Move Energy to Active Arceus")
+        if picks:
+            await ctx.move_energy(picks[0], active)
+    return effect
