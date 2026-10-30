@@ -1,8 +1,7 @@
-"""DP2 Mysterious Treasures — wired.
-"""
-
+"""Metal Energy (DP2 #120) — Special."""
 from spirit.game.data_utils import EnergyCardDef
 from spirit.game.attributes import PokemonTypes, Rarities
+from spirit.game.card_effects.energies import SpecialMetalEnergyPassive
 
 card = EnergyCardDef(
     guid="31217450-77ec-5f70-b830-c3afb136f5cc",
@@ -14,7 +13,7 @@ card = EnergyCardDef(
     collector_number=120,
     set_code="DP2",
     rarity=Rarities.Uncommon,
-    energy_type=PokemonTypes.COLORLESS,
+    energy_type=PokemonTypes.METAL,
     is_special=True,
-    # STUB: special energy mechanics not implemented
+    passive=SpecialMetalEnergyPassive(),
 )
