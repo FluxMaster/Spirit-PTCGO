@@ -13504,3 +13504,1261 @@ def mudslide_snipe(amount: int = 100, energy_type=PokemonTypes.FIGHTING, discard
             return
         await ctx.deal_damage(amount, target=t, apply_modifiers=is_in_active_spot(t))
     return effect
+
+# --- EX11 Delta Species / Holon / Ditto / Stars ---
+
+
+
+def is_delta_pokemon(card) -> bool:
+    dn = _display_name(card)
+    return "\u03b4" in dn or "δ" in dn
+
+
+def _is_holon_energy(card) -> bool:
+    d = def_for(card.archetype_id)
+    dn = (getattr(d, "display_name", None) or "").lower()
+    return "holon energy" in dn
+
+
+def _name_matches(card, *names: str) -> bool:
+    dn = _display_name(card).lower()
+    return any(n.lower() in dn for n in names)
+
+
+def ditto_duplicate():
+    """Search deck for another Ditto; identity-swap; old to top then shuffle.
+    Pair with shared_once_per_turn='Duplicate'."""
+    async def effect(ctx):
+        src = ctx.source
+        if src is None:
+            return
+
+        def match(card):
+            d = def_for(card.archetype_id)
+            if d is None:
+                return False
+            dn = (getattr(d, "display_name", None) or "").lower()
+            return dn == "ditto"
+
+        picks = await ctx.search_deck(
+            match, count=1, minimum=0,
+            prompt="Choose another Ditto to switch with")
+        if picks:
+            await ctx.identity_swap(
+                src, picks[0], destination="deck", transfer=True)
+        await ctx.shuffle_deck()
+    return effect
+
+
+def ditto_duplicate_condition():
+    return poke_power_condition(has_deck)
+
+
+def delta_heal():
+    """Remove 1 damage counter from each of your δ Pokémon.
+    Pair with shared_once_per_turn='Delta Heal'."""
+    async def effect(ctx):
+        for p in ctx.my_pokemon_in_play():
+            if not is_delta_pokemon(p):
+                continue
+            missing = effective_max_hp(ctx.board, p) - p.get_attribute(AttrID.HP, 0)
+            if missing > 0:
+                await ctx.heal(10, p)
+    return effect
+
+
+def delta_search_holon_attach_self():
+    """Deal printed damage; search Holon Energy and attach to self."""
+    async def effect(ctx):
+        await ctx.deal_damage()
+        picks = await ctx.search_deck(
+            _is_holon_energy, count=1, minimum=0,
+            prompt="Choose a Holon Energy card")
+        if picks and ctx.attacker is not None:
+            await ctx.attach_energy(picks[0], ctx.attacker)
+        await ctx.shuffle_deck()
+    return effect
+
+
+def return_energy_then(then_fn):
+    """Optional: return an Energy from self to hand; if you do, run then_fn(ctx)."""
+    async def effect(ctx):
+        await ctx.deal_damage()
+        a = ctx.attacker
+        if a is None:
+            return
+        pool = [c for c in a.children if is_energy_card(c)]
+        if not pool:
+            return
+        if not await ctx.ask_yes_no("Return an Energy to your hand?"):
+            return
+        picks = await ctx.choose_cards(pool, 1, minimum=1, prompt="Return which Energy?")
+        if not picks:
+            return
+        await ctx.put_in_hand(picks)
+        await then_fn(ctx)
+    return effect
+
+
+def return_burn():
+    async def _then(ctx):
+        if ctx.defender is not None:
+            await ctx.apply_special_condition(ctx.defender, SpecialConditions.BURNED)
+    return return_energy_then(_then)
+
+
+def return_spark(bench_dmg: int = 20):
+    async def _then(ctx):
+        bench = ctx.opponent_bench()
+        if not bench:
+            return
+        t = await ctx.choose_pokemon(bench, "Deal damage to which Benched Pokémon?")
+        if t is not None:
+            await ctx.deal_damage(bench_dmg, target=t, apply_modifiers=False)
+    return return_energy_then(_then)
+
+
+def return_wave():
+    async def _then(ctx):
+        d = ctx.defender
+        if d is None:
+            return
+        pool = [c for c in d.children if is_energy_card(c)]
+        if not pool:
+            return
+        picks = await ctx.choose_cards(pool, 1, minimum=1, prompt="Return opponent Energy")
+        if picks:
+            await ctx.put_in_hand(picks)
+    return return_energy_then(_then)
+
+
+def energy_jump_move_any():
+    """Move an Energy from one of your Pokémon to another."""
+    async def effect(ctx):
+        donors = [
+            p for p in ctx.my_pokemon_in_play()
+            if any(is_energy_card(c) for c in p.children)
+        ]
+        if not donors:
+            return
+        src = await ctx.choose_pokemon(donors, "Move Energy from?")
+        if src is None:
+            return
+        pool = [c for c in src.children if is_energy_card(c)]
+        picks = await ctx.choose_cards(pool, 1, minimum=1, prompt="Choose Energy")
+        if not picks:
+            return
+        dests = [p for p in ctx.my_pokemon_in_play() if p is not src]
+        if not dests:
+            return
+        dest = await ctx.choose_pokemon(dests, "Move Energy to?")
+        if dest is not None:
+            await ctx.move_energy(picks[0], dest)
+    return effect
+
+
+def psychic_rage_snipe(per: int = 10):
+    """Snipe 10 per damage counter on self to any opp Pokémon."""
+    async def effect(ctx):
+        a = ctx.attacker
+        if a is None:
+            return
+        n = max(0, effective_max_hp(ctx.board, a) - a.get_attribute(AttrID.HP, 0)) // 10
+        if n <= 0:
+            return
+        pool = list(ctx.opponent_pokemon_in_play())
+        if not pool:
+            return
+        t = await ctx.choose_pokemon(pool, "Choose a Pokémon")
+        if t is not None:
+            await ctx.deal_damage(
+                n * per, target=t, apply_modifiers=is_in_active_spot(t))
+    return effect
+
+
+def black_magic_base_plus_bench(base: int = 10, per: int = 20):
+    async def effect(ctx):
+        n = len(ctx.opponent_bench())
+        await ctx.deal_damage(base + per * n)
+    return effect
+
+
+def extra_crush_requires_ex(amount: int = 80):
+    async def effect(ctx):
+        if not any(is_pokemon_ex(p) for p in ctx.opponent_pokemon_in_play()):
+            return
+        await ctx.deal_damage(amount)
+    return effect
+
+
+def delta_aura_cost_passive(*partner_names: str, attack_title: str = "",
+                            colorless_drop: int = 2) -> Passive:
+    """While a named partner is in play, reduce Colorless cost by drop.
+
+    Approximation: cost hooks are not attack-scoped, so this applies to all
+    of the holder's attacks (intended: Extra Crush / Psychic Force).
+    """
+    lowered = tuple(n.lower() for n in partner_names)
+
+    class _P(Passive):
+        def modify_attack_cost(self, cost, pokemon, carrier, board):
+            holder = carrier_pokemon(carrier) or carrier
+            if pokemon is not holder:
+                return cost
+            pid = holder.owning_player_id
+            if not any(
+                    any(n in _display_name(p).lower() for n in lowered)
+                    for p in board.pokemon_in_play(pid)):
+                return cost
+            cost = dict(cost)
+            for key in ("Colorless", PokemonTypes.COLORLESS.value):
+                if key in cost and cost[key]:
+                    cost[key] = max(0, cost[key] - colorless_drop)
+                    break
+            return cost
+    return _P()
+
+def energy_bone_snipe(per: int = 20):
+    """Choose up to Energy-count opp Pokémon; 20 each."""
+    async def effect(ctx):
+        a = ctx.attacker
+        if a is None:
+            return
+        n = sum(1 for c in a.children if is_energy_card(c))
+        if n <= 0:
+            return
+        remaining = list(ctx.opponent_pokemon_in_play())
+        picks = []
+        for i in range(min(n, len(list(ctx.opponent_pokemon_in_play())))):
+            if not remaining:
+                break
+            t = await ctx.choose_pokemon(
+                remaining, f"Choose Pokémon ({i+1}/{n})", optional=True)
+            if t is None:
+                break
+            picks.append(t)
+            remaining = [p for p in remaining if p is not t]
+        for t in picks:
+            await ctx.deal_damage(
+                per, target=t, apply_modifiers=is_in_active_spot(t))
+    return effect
+
+def metal_crusher(base: int = 50, metal_base: int = 90):
+    async def effect(ctx):
+        d = ctx.defender
+        amount = base
+        if d is not None:
+            types = d.get_attribute(AttrID.POKEMON_TYPES) or []
+            if PokemonTypes.METAL.value in types:
+                amount = metal_base
+        await ctx.deal_damage(amount)
+    return effect
+
+
+def crush_and_burn_discard_any(base: int = 30, per: int = 20):
+    """May discard any number of Energy from your Pokémon; +per each."""
+    async def effect(ctx):
+        pool = []
+        for p in ctx.my_pokemon_in_play():
+            for c in p.children:
+                if is_energy_card(c):
+                    pool.append(c)
+        extra = 0
+        if pool and await ctx.ask_yes_no("Discard Energy cards for more damage?"):
+            picks = await ctx.choose_cards(
+                pool, len(pool), minimum=0, prompt="Discard Energy cards")
+            if picks:
+                await ctx.discard_cards(picks)
+                extra = len(picks) * per
+        await ctx.deal_damage(base + extra)
+    return effect
+
+
+def delta_control_top4():
+    """Look at top 4; put 1 in hand; rest stay on top in any order."""
+    async def effect(ctx):
+        top = ctx.deck_top(4)
+        if not top:
+            return
+        picks = await ctx.choose_cards(
+            list(top), 1, minimum=0,
+            prompt="Put which card into your hand?",
+            display_cards=top,
+        )
+        if picks:
+            await ctx.put_in_hand(picks)
+        remaining = len(top) - len(picks or [])
+        if remaining > 1:
+            await ctx.reorder_deck_top(remaining)
+    return effect
+
+def delta_switch_on_play():
+    """ON_PLAY (bench): move any number of basic Energy among your Pokémon
+    excluding this Mewtwo."""
+    async def effect(ctx):
+        src = ctx.source
+        if src is None:
+            return
+        if not await ctx.ask_yes_no("Move basic Energy cards around?"):
+            return
+        # Repeatedly move until player stops
+        while True:
+            donors = [
+                p for p in ctx.my_pokemon_in_play()
+                if p is not src and any(is_basic_energy_card(c) for c in p.children)
+            ]
+            if not donors:
+                return
+            if not await ctx.ask_yes_no("Move another basic Energy?"):
+                return
+            donor = await ctx.choose_pokemon(donors, "Move basic Energy from?")
+            if donor is None:
+                return
+            pool = [c for c in donor.children if is_basic_energy_card(c)]
+            picks = await ctx.choose_cards(pool, 1, minimum=1, prompt="Choose Energy")
+            if not picks:
+                return
+            dests = [p for p in ctx.my_pokemon_in_play() if p is not src and p is not donor]
+            # Can also move onto other Pokémon excluding Mewtwo; allow donor excluded
+            if not dests:
+                return
+            dest = await ctx.choose_pokemon(dests, "Move Energy to?")
+            if dest is None:
+                return
+            await ctx.move_energy(picks[0], dest)
+    return effect
+
+
+def energy_burst_both_sides(per: int = 10):
+    async def effect(ctx):
+        n = 0
+        if ctx.attacker is not None:
+            n += sum(1 for c in ctx.attacker.children if is_energy_card(c))
+        if ctx.defender is not None:
+            n += sum(1 for c in ctx.defender.children if is_energy_card(c))
+        await ctx.deal_damage(per * n)
+    return effect
+
+
+def lightning_storm_self(dmg: int = 70, self_counters: int = 7):
+    """Deal dmg; put self_counters on self unless Holon Energy attached
+    (Delta Guard)."""
+    async def effect(ctx):
+        await ctx.deal_damage(dmg)
+        a = ctx.attacker
+        if a is None:
+            return
+        if any(_is_holon_energy(c) for c in a.children):
+            return
+        await ctx.deal_damage(
+            self_counters * 10, target=a, apply_modifiers=False, as_counters=True)
+    return effect
+
+
+def delta_guard_noop_passive() -> Passive:
+    """Marker body; Lightning Storm itself checks Holon Energy."""
+    return Passive()
+
+
+def fire_dance_attach(energy_type=PokemonTypes.FIRE):
+    async def effect(ctx):
+        await ctx.deal_damage()
+        tv = getattr(energy_type, "value", energy_type)
+        pool = [
+            c for c in ctx.discard_pile()
+            if is_energy_card(c) and energy_provides_type(c, tv)
+        ]
+        if not pool:
+            return
+        picks = await ctx.choose_cards(pool, 1, minimum=0, prompt="Attach Fire Energy")
+        if not picks:
+            return
+        dests = list(ctx.my_pokemon_in_play())
+        dest = await ctx.choose_pokemon(dests, "Attach to which Pokémon?")
+        if dest is not None:
+            await ctx.attach_energy(picks[0], dest)
+    return effect
+
+
+def metal_navigation_attach():
+    async def effect(ctx):
+        def match(c):
+            d = def_for(c.archetype_id)
+            dn = (getattr(d, "display_name", None) or "").lower()
+            return "metal energy" in dn or energy_provides_type(
+                c, PokemonTypes.METAL.value)
+        picks = await ctx.search_deck(
+            match, count=1, minimum=0, prompt="Metal Energy")
+        if picks and ctx.source is not None:
+            await ctx.attach_energy(picks[0], ctx.source)
+        await ctx.shuffle_deck()
+    return effect
+
+
+def draw_cards_n(n: int = 3):
+    async def effect(ctx):
+        await ctx.draw_cards(n)
+    return effect
+
+
+def delta_crush_optional(base: int = 50, bonus: int = 20):
+    async def effect(ctx):
+        extra = 0
+        a = ctx.attacker
+        if a is not None:
+            pool = [c for c in a.children if is_energy_card(c)]
+            if pool and await ctx.ask_yes_no("Discard an Energy for more damage?"):
+                picks = await ctx.choose_cards(pool, 1, minimum=1, prompt="Discard Energy")
+                if picks:
+                    await ctx.discard_cards(picks)
+                    extra = bonus
+        await ctx.deal_damage(base + extra)
+    return effect
+
+
+def crush_draw_any():
+    """Reveal top; if basic Energy, attach to 1 of your Pokémon."""
+    async def effect(ctx):
+        top = ctx.deck_top(1)
+        if not top:
+            return
+        card = top[0]
+        await ctx.reveal_cards([card])
+        if not is_basic_energy_card(card):
+            return
+        dests = list(ctx.my_pokemon_in_play())
+        if not dests:
+            return
+        dest = await ctx.choose_pokemon(dests, "Attach Energy to?")
+        if dest is not None:
+            await ctx.attach_energy(card, dest)
+    return effect
+
+
+def delta_moon_on_special_attach():
+    """When opponent attaches Special Energy from hand, put 1 counter on that Pokémon.
+    Pair with shared_once_per_turn / used_abilities for once per turn."""
+    async def effect(ctx):
+        if ctx.attaching_player_id == ctx.player_id:
+            return
+        energy = ctx.attached_energy
+        receiver = ctx.energy_receiver
+        if energy is None or receiver is None:
+            return
+        if not energy.get_attribute(AttrID.IS_SPECIAL_ENERGY):
+            d = def_for(energy.archetype_id)
+            if not getattr(d, "is_special", False):
+                return
+        used_key = ("Delta Moon", ctx.player_id)
+        if used_key in ctx.session.turn_state.used_abilities:
+            return
+        ctx.session.turn_state.used_abilities.add(used_key)
+        await ctx.deal_damage(
+            10, target=receiver, apply_modifiers=False, as_counters=True)
+    return effect
+
+
+def gang_up_dark_metal(per: int = 10):
+    async def effect(ctx):
+        n = 0
+        for p in ctx.my_pokemon_in_play():
+            types = p.get_attribute(AttrID.POKEMON_TYPES) or []
+            if (PokemonTypes.DARKNESS.value in types
+                    or PokemonTypes.METAL.value in types):
+                n += 1
+        await ctx.deal_damage(per * n)
+    return effect
+
+
+def delta_fang_lock_ex():
+    async def effect(ctx):
+        await ctx.deal_damage()
+        d = ctx.defender
+        if d is not None and is_pokemon_ex(d):
+            lock_all_attacks(ctx, d)
+    return effect
+
+
+def machine_burst_if_tm(asleep_burned: bool = True):
+    async def effect(ctx):
+        await ctx.deal_damage()
+        a = ctx.attacker
+        if a is None or ctx.defender is None:
+            return
+        has_tm = False
+        for c in a.children:
+            subs = subtypes_for(c.archetype_id) or []
+            if any(s in ("Technical Machine", "TM", "Pokemon Tool", "Pokémon Tool")
+                   for s in subs):
+                has_tm = True
+                break
+        if has_tm:
+            await ctx.apply_special_condition(ctx.defender, SpecialConditions.ASLEEP)
+            await ctx.apply_special_condition(ctx.defender, SpecialConditions.BURNED)
+    return effect
+
+
+def backup_draw_to(n: int = 6):
+    async def effect(ctx):
+        hand = ctx.hand()
+        need = n - len(hand)
+        if need > 0:
+            await ctx.draw_cards(need)
+    return effect
+
+
+def backup_draw_to_condition(n: int = 6):
+    def cond(board, player_id, pokemon=None):
+        hand = board.find_player_area(player_id, "hand")
+        return hand is not None and len(hand.children) < n
+    return poke_power_condition(cond)
+
+
+def psychic_option_water_psychic(base: int = 20, bonus: int = 20):
+    async def effect(ctx):
+        a = ctx.attacker
+        extra = 0
+        if a is not None and any(
+                energy_provides_type(c, PokemonTypes.WATER.value)
+                for c in a.children):
+            extra = bonus
+        await ctx.deal_damage(base + extra)
+        if a is not None and ctx.defender is not None and any(
+                energy_provides_type(c, PokemonTypes.PSYCHIC.value)
+                for c in a.children):
+            pool = [
+                c for c in ctx.defender.children
+                if c.get_attribute(AttrID.IS_SPECIAL_ENERGY)
+                or getattr(def_for(c.archetype_id), "is_special", False)
+            ]
+            if pool:
+                picks = await ctx.choose_cards(
+                    pool, 1, minimum=0, prompt="Discard Special Energy")
+                if picks:
+                    await ctx.discard_cards(picks)
+    return effect
+
+
+def prize_shift():
+    """Put a hand card as a Prize; take 1 Prize into hand.
+    Approximation: Prize put face-down (no face-up Prize flag wired)."""
+    async def effect(ctx):
+        hand = list(ctx.hand())
+        if not hand:
+            return
+        picks = await ctx.choose_cards(
+            hand, 1, minimum=0, prompt="Choose a card to put as a Prize")
+        if not picks:
+            return
+        prize_area = ctx.board.find_player_area(ctx.player_id, "prizePile")
+        if prize_area is None or not prize_area.children:
+            return
+        taken = random.choice(list(prize_area.children))
+        await ctx.put_in_hand([taken])
+        ctx.board.move_card(picks[0].entity_id, prize_area.entity_id)
+    return effect
+
+def delta_storm_between_turns(counters: int = 1):
+    async def effect(ctx):
+        src = ctx.source
+        if src is None or not is_in_active_spot(src):
+            return
+        for p in ctx.opponent_pokemon_in_play():
+            if is_pokemon_ex(p):
+                await ctx.deal_damage(
+                    counters * 10, target=p,
+                    apply_modifiers=False, as_counters=True)
+    return effect
+
+
+def steep_dive(glide_title: str = "Glide", glide_next: int = 100):
+    async def effect(ctx):
+        results = await ctx.flip_coins(1, "Steep Dive")
+        if results and results[0]:
+            await apply_protection(ctx, prevent=True, effects_too=True)
+        else:
+            await apply_own_next_turn_boost(
+                ctx, glide_next, attack_title=glide_title, replace=True)
+    return effect
+
+
+def body_odor_between_turns(counters: int = 1):
+    async def effect(ctx):
+        src = ctx.source
+        if src is None or not is_in_active_spot(src):
+            return
+        for p in ctx.opponent_pokemon_in_play():
+            d = def_for(p.archetype_id)
+            has_body = False
+            for ab in getattr(d, "abilities", None) or []:
+                if getattr(ab, "ability_type", None) == AbilityTypes.POKE_BODY:
+                    has_body = True
+                    break
+            if has_body:
+                await ctx.deal_damage(
+                    counters * 10, target=p,
+                    apply_modifiers=False, as_counters=True)
+    return effect
+
+
+def holon_splash(base: int = 30, per: int = 10):
+    async def effect(ctx):
+        n = 0
+        if ctx.attacker is not None:
+            n = sum(1 for c in ctx.attacker.children if _is_holon_energy(c))
+        await ctx.deal_damage(base + per * n)
+    return effect
+
+
+def holon_blizzard(base: int = 20, bench: int = 10):
+    async def effect(ctx):
+        await ctx.deal_damage(base)
+        a = ctx.attacker
+        if a is None or not any(_is_holon_energy(c) for c in a.children):
+            return
+        for p in ctx.opponent_bench():
+            await ctx.deal_damage(bench, target=p, apply_modifiers=False)
+    return effect
+
+
+def holon_search_attach_any():
+    async def effect(ctx):
+        picks = await ctx.search_deck(
+            _is_holon_energy, count=1, minimum=0,
+            prompt="Choose a Holon Energy card")
+        if picks:
+            dests = list(ctx.my_pokemon_in_play())
+            dest = await ctx.choose_pokemon(dests, "Attach Holon Energy to?")
+            if dest is not None:
+                await ctx.attach_energy(picks[0], dest)
+        await ctx.shuffle_deck()
+    return effect
+
+
+def holon_draw(extra_if_holon: int = 2):
+    async def effect(ctx):
+        await ctx.draw_cards(1)
+        a = ctx.attacker
+        if a is not None and any(_is_holon_energy(c) for c in a.children):
+            await ctx.draw_cards(extra_if_holon)
+    return effect
+
+
+def critical_collection(energy_type, base_dmg: int = 10):
+    """Deal base; attach up to (opp prizes taken) typed Energy from discard."""
+    tv = getattr(energy_type, "value", energy_type)
+
+    async def effect(ctx):
+        await ctx.deal_damage(base_dmg)
+        n = ctx.prizes_taken(ctx.opponent_id)
+        if n <= 0 or ctx.attacker is None:
+            return
+        pool = [
+            c for c in ctx.discard_pile()
+            if is_energy_card(c) and energy_provides_type(c, tv)
+        ]
+        if not pool:
+            return
+        picks = await ctx.choose_cards(
+            pool, min(n, len(pool)), minimum=0,
+            prompt=f"Attach up to {n} Energy from discard")
+        for e in picks or []:
+            await ctx.attach_energy(e, ctx.attacker)
+    return effect
+
+
+def evolutionary_flame_on_evolve():
+    async def effect(ctx):
+        d = ctx.opponent_active()
+        if d is None:
+            return
+        if not await ctx.ask_yes_no("Burn and Confuse the Defending Pokémon?"):
+            return
+        await ctx.apply_special_condition(d, SpecialConditions.BURNED)
+        await ctx.apply_special_condition(d, SpecialConditions.CONFUSED)
+    return effect
+
+
+def evolutionary_thunder_on_evolve(counters: int = 1):
+    async def effect(ctx):
+        if not await ctx.ask_yes_no(
+                "Put 1 damage counter on each of your opponent's Pokémon?"):
+            return
+        for p in ctx.opponent_pokemon_in_play():
+            await ctx.deal_damage(
+                counters * 10, target=p, apply_modifiers=False, as_counters=True)
+    return effect
+
+
+def evolutionary_swirl_on_evolve(draw_up_to: int = 4):
+    async def effect(ctx):
+        if not await ctx.ask_yes_no(
+                "Have opponent shuffle hand and draw up to 4?"):
+            return
+        hand = list(ctx.hand(ctx.opponent_id))
+        if hand:
+            await ctx.shuffle_into_deck(hand, ctx.opponent_id)
+        # Approximation: draws exactly draw_up_to (text is "up to").
+        await ctx.draw_cards(draw_up_to, player_id=ctx.opponent_id)
+    return effect
+
+def final_sting_ko_paralyze_poison(poison_counters: int = 2):
+    async def effect(ctx):
+        src = ctx.source
+        if src is None:
+            return
+        if not await ctx.ask_yes_no("Knock Out Beedrill to Paralyze and Poison?"):
+            return
+        await ctx.knock_out(src)
+        d = ctx.opponent_active()
+        if d is None:
+            return
+        await ctx.apply_special_condition(d, SpecialConditions.PARALYZED)
+        await ctx.apply_special_condition(d, SpecialConditions.POISONED)
+        if hasattr(ctx, "set_poison_counters"):
+            await ctx.set_poison_counters(d, poison_counters)
+        else:
+            # Extra counter beyond the default 1 between turns → put one now
+            # so between turns with standard poison ≈ 2 total if engine adds 1;
+            # prefer dealing an immediate extra counter marker via attribute.
+            d.set_attribute("PoisonDamage", poison_counters * 10)
+    return effect
+
+
+def radar_jam_lock_items():
+    """Opponent can't play Trainer cards except Supporters next turn."""
+    async def effect(ctx):
+        await ctx.deal_damage()
+
+        def pred(card):
+            if is_supporter_card(card):
+                return False
+            d = def_for(card.archetype_id)
+            # Lock non-supporter trainers (Item/Stadium/Tool/TM)
+            from spirit.game.session.effects import is_trainer_card
+            return is_trainer_card(card)
+        if hasattr(ctx, "lock_plays"):
+            ctx.lock_plays(ctx.opponent_id, pred)
+    return effect
+
+
+def agility_flip_protect():
+    async def effect(ctx):
+        await ctx.deal_damage()
+        results = await ctx.flip_coins(1, "Agility")
+        if results and results[0]:
+            await apply_protection(ctx, prevent=True, effects_too=True)
+    return effect
+
+
+def delta_charge_lightning_bench():
+    async def effect(ctx):
+        pool = [
+            c for c in ctx.discard_pile()
+            if is_energy_card(c)
+            and energy_provides_type(c, PokemonTypes.LIGHTNING.value)
+        ]
+        if not pool:
+            return
+        bench = ctx.my_bench()
+        if not bench:
+            return
+        picks = await ctx.choose_cards(pool, 1, minimum=0, prompt="Lightning Energy")
+        if not picks:
+            return
+        dest = await ctx.choose_pokemon(bench, "Attach to Bench?")
+        if dest is not None:
+            await ctx.attach_energy(picks[0], dest)
+    return effect
+
+
+def reversal_aura_passive(bonus: int = 20, reduce: int = 20) -> Passive:
+    class _P(Passive):
+        def modify_damage_dealt(self, calc, carrier):
+            holder = carrier_pokemon(carrier) or carrier
+            if calc.attacker is not holder:
+                return
+            if not calc.is_attack or not calc.is_opposing or not calc.to_active:
+                return
+            board = calc.board if hasattr(calc, "board") else None
+            # Prefer session prizes via calc context — fall back using board
+            try:
+                mine = board.prizes_taken  # not usable directly
+            except Exception:
+                pass
+            # Use prize pile lengths from calc if available
+            pid = holder.owning_player_id
+            opp = None
+            if board is not None:
+                for p in board.player_ids:
+                    if p != pid:
+                        opp = p
+                        break
+                if opp is None:
+                    return
+                my_left = len(board.find_player_area(pid, "prizePile").children)
+                opp_left = len(board.find_player_area(opp, "prizePile").children)
+                if my_left > opp_left:
+                    calc.amount += bonus
+
+        def modify_damage_taken(self, calc, carrier):
+            holder = carrier_pokemon(carrier) or carrier
+            if calc.target is not holder:
+                return
+            if not calc.is_attack or not calc.is_opposing:
+                return
+            board = getattr(calc, "board", None)
+            if board is None:
+                return
+            pid = holder.owning_player_id
+            opp = next((p for p in board.player_ids if p != pid), None)
+            if opp is None:
+                return
+            my_area = board.find_player_area(pid, "prizePile")
+            opp_area = board.find_player_area(opp, "prizePile")
+            if my_area is None or opp_area is None:
+                return
+            if len(my_area.children) > len(opp_area.children):
+                calc.amount = max(0, calc.amount - reduce)
+    return _P()
+
+
+def beacon_protection_passive(partner: str = "Volbeat") -> Passive:
+    class _P(Passive):
+        def prevents_damage(self, calc, carrier) -> bool:
+            holder = carrier_pokemon(carrier) or carrier
+            if calc.target is not holder or not calc.is_attack or not calc.is_opposing:
+                return False
+            board = getattr(calc, "board", None)
+            if board is None:
+                return False
+            if not any(partner.lower() in _display_name(p).lower()
+                       for p in board.pokemon_in_play(holder.owning_player_id)):
+                return False
+            atk = calc.attacker
+            if atk is None:
+                return False
+            return "dark" in _display_name(atk).lower()
+
+        def blocks_attack_effects(self, target, carrier) -> bool:
+            # Mirror prevent for effects when Dark-named
+            return False  # damage path handles; effects via blocks_attack_effects_from
+
+        def blocks_attack_effects_from(self, attacker, target, carrier) -> bool:
+            holder = carrier_pokemon(carrier) or carrier
+            if target is not holder:
+                return False
+            board = getattr(carrier, "board", None) or getattr(holder, "board", None)
+            # Simplified: check partner via holder board lookup if available
+            return "dark" in _display_name(attacker).lower()
+    return _P()
+
+
+def extra_protection_ex_passive(partner: str = "Illumise") -> Passive:
+    class _P(Passive):
+        def prevents_damage(self, calc, carrier) -> bool:
+            holder = carrier_pokemon(carrier) or carrier
+            if calc.target is not holder or not calc.is_attack or not calc.is_opposing:
+                return False
+            if calc.attacker is None or not is_pokemon_ex(calc.attacker):
+                return False
+            board = getattr(calc, "board", None)
+            if board is None:
+                return False
+            return any(partner.lower() in _display_name(p).lower()
+                       for p in board.pokemon_in_play(holder.owning_player_id))
+
+        def blocks_attack_effects_from(self, attacker, target, carrier) -> bool:
+            holder = carrier_pokemon(carrier) or carrier
+            if target is not holder or not is_pokemon_ex(attacker):
+                return False
+            return True
+    return _P()
+
+
+def prowl_on_evolve_any_card():
+    async def effect(ctx):
+        if not await ctx.ask_yes_no("Search your deck for any 1 card?"):
+            return
+        picks = await ctx.search_deck(
+            lambda c: True, count=1, minimum=0, prompt="Choose any card")
+        if picks:
+            await ctx.put_in_hand(picks)
+        await ctx.shuffle_deck()
+    return effect
+
+
+def conductive_body_beldum_passive(name: str = "Beldum") -> Passive:
+    class _P(Passive):
+        def modify_retreat_cost(self, cost, pokemon, carrier, board):
+            holder = carrier_pokemon(carrier) or carrier
+            if pokemon is not holder or not is_in_active_spot(holder):
+                return cost
+            n = sum(
+                1 for p in board.pokemon_in_play(holder.owning_player_id)
+                if p is not holder and name.lower() in _display_name(p).lower()
+            )
+            return max(0, cost - n)
+    return _P()
+
+
+def shining_horn_solo_passive() -> Passive:
+    class _P(Passive):
+        def prevents_attack(self, attacker, carrier, board):
+            holder = carrier_pokemon(carrier) or carrier
+            mine = list(board.pokemon_in_play(holder.owning_player_id))
+            if len(mine) != 1 or mine[0] is not holder:
+                return False
+            if attacker.owning_player_id == holder.owning_player_id:
+                return False
+            return is_basic_pokemon(attacker)
+    return _P()
+
+
+def binding_aura_passive() -> Passive:
+    """Can't evolve Active from hand; can't attach Energy to Asleep Pokémon."""
+    class _P(Passive):
+        def blocks_evolution(self, player_id, target, carrier):
+            if player_id == carrier.owning_player_id:
+                return False
+            return is_in_active_spot(target)
+
+        def blocks_energy_attach(self, player_id, pokemon, energy, carrier):
+            if player_id == carrier.owning_player_id:
+                return False
+            conds = pokemon.get_attribute(AttrID.SPECIAL_CONDITIONS) or []
+            return SpecialConditions.ASLEEP.value in conds or "Asleep" in conds
+    return _P()
+
+
+def extra_ball_vs_ex(base: int = 30, bonus: int = 20):
+    async def effect(ctx):
+        extra = bonus if ctx.defender is not None and is_pokemon_ex(ctx.defender) else 0
+        await ctx.deal_damage(base + extra)
+    return effect
+
+
+def metal_scoop_attach(dmg: int = 10):
+    async def effect(ctx):
+        await ctx.deal_damage(dmg)
+        pool = [
+            c for c in ctx.discard_pile()
+            if is_energy_card(c)
+            and (energy_provides_type(c, PokemonTypes.METAL.value)
+                 or "metal energy" in (
+                     getattr(def_for(c.archetype_id), "display_name", "") or "").lower())
+        ]
+        if pool and ctx.attacker is not None:
+            picks = await ctx.choose_cards(pool, 1, minimum=0, prompt="Metal Energy")
+            if picks:
+                await ctx.attach_energy(picks[0], ctx.attacker)
+    return effect
+
+
+def second_bite(base: int = 20, per: int = 10):
+    async def effect(ctx):
+        n = 0
+        d = ctx.defender
+        if d is not None:
+            n = max(0, effective_max_hp(ctx.board, d) - d.get_attribute(AttrID.HP, 0)) // 10
+        await ctx.deal_damage(base + per * n)
+    return effect
+
+
+def discard_typed_energy_after(energy_type, amount: int = None):
+    tv = getattr(energy_type, "value", energy_type)
+
+    async def effect(ctx):
+        if amount is not None:
+            await ctx.deal_damage(amount)
+        else:
+            await ctx.deal_damage()
+        a = ctx.attacker
+        if a is None:
+            return
+        pool = [c for c in a.children if energy_provides_type(c, tv)]
+        if pool:
+            picks = await ctx.choose_cards(pool, 1, minimum=1, prompt="Discard Energy")
+            if picks:
+                await ctx.discard_cards(picks)
+    return effect
+
+
+def flame_screen_reduce(amount: int = 20):
+    async def effect(ctx):
+        await ctx.deal_damage()
+        await apply_protection(ctx, prevent=False, reduce=amount)
+    return effect
+
+
+def rage_self_counters(base: int = 10, per: int = 10):
+    async def effect(ctx):
+        n = 0
+        a = ctx.attacker
+        if a is not None:
+            n = max(0, effective_max_hp(ctx.board, a) - a.get_attribute(AttrID.HP, 0)) // 10
+        await ctx.deal_damage(base + per * n)
+    return effect
+
+
+def thunderbolt_discard_all(dmg: int = 40):
+    async def effect(ctx):
+        await ctx.deal_damage(dmg)
+        a = ctx.attacker
+        if a is not None:
+            pool = [c for c in list(a.children) if is_energy_card(c)]
+            if pool:
+                await ctx.discard_cards(pool)
+    return effect
+
+
+def discard_energy_typed(energy_type):
+    tv = getattr(energy_type, "value", energy_type)
+
+    async def effect(ctx):
+        await ctx.deal_damage()
+        a = ctx.attacker
+        if a is None:
+            return
+        pool = [c for c in a.children if energy_provides_type(c, tv)]
+        if pool:
+            picks = await ctx.choose_cards(pool, 1, minimum=1, prompt="Discard Energy")
+            if picks:
+                await ctx.discard_cards(picks)
+    return effect
+
+
+def recoil_self(amount: int = 10):
+    from spirit.game.card_effects.attacks_common import recoil_attack
+    return recoil_attack(amount)
+
+
+def flip_heads_paralyze(dmg: int = 0):
+    async def effect(ctx):
+        if dmg:
+            await ctx.deal_damage(dmg)
+        else:
+            await ctx.deal_damage()
+        results = await ctx.flip_coins(1, "Paralyze")
+        if results and results[0] and ctx.defender is not None:
+            await ctx.apply_special_condition(
+                ctx.defender, SpecialConditions.PARALYZED)
+    return effect
+
+
+def surprise_attack_flip(dmg: int = 20):
+    async def effect(ctx):
+        results = await ctx.flip_coins(1, "Surprise Attack")
+        if results and results[0]:
+            await ctx.deal_damage(dmg)
+    return effect
+
+
+def slam_flip(per: int = 20, coins: int = 2):
+    async def effect(ctx):
+        results = await ctx.flip_coins(coins, "Slam")
+        heads = sum(1 for r in (results or []) if r)
+        if heads:
+            await ctx.deal_damage(per * heads)
+    return effect
+
+
+def mist_attack_all(amount: int = 10):
+    async def effect(ctx):
+        for p in ctx.opponent_pokemon_in_play():
+            await ctx.deal_damage(
+                amount, target=p, apply_modifiers=is_in_active_spot(p))
+    return effect
+
+
+# --- Holon trainers / stadiums ---
+
+
+async def _holon_discard_cost(ctx) -> bool:
+    hand = [c for c in ctx.hand() if c is not ctx.source]
+    if not hand:
+        return False
+    picks = await ctx.choose_cards(
+        hand, 1, minimum=1, prompt="Discard a card from your hand")
+    if not picks:
+        return False
+    await ctx.discard_cards(picks)
+    return True
+
+
+def holon_mentor():
+    async def effect(ctx):
+        if not await _holon_discard_cost(ctx):
+            return
+
+        def match(c):
+            d = def_for(c.archetype_id)
+            if d is None or getattr(d, "stage", None) != PokemonStage.BASIC:
+                return False
+            return getattr(d, "hp", 999) <= 100
+
+        picks = await ctx.search_deck(
+            match, count=3, minimum=0,
+            prompt="Up to 3 Basic Pokémon with 100 HP or less")
+        if picks:
+            await ctx.put_in_hand(picks, reveal=True)
+        await ctx.shuffle_deck()
+    return effect
+
+
+def holon_mentor_condition():
+    def cond(board, player_id):
+        hand = board.find_player_area(player_id, "hand")
+        return hand is not None and len(hand.children) >= 2  # self + 1
+    return cond
+
+
+def holon_farmer():
+    async def effect(ctx):
+        if not await _holon_discard_cost(ctx):
+            return
+        disc = list(ctx.discard_pile())
+        basics_e = [c for c in disc if is_basic_energy_card(c)]
+        pokes = [c for c in disc if is_pokemon_card(c)]
+        e_picks = []
+        if basics_e:
+            e_picks = await ctx.choose_cards(
+                basics_e, min(3, len(basics_e)), minimum=0,
+                prompt="Up to 3 basic Energy") or []
+        p_picks = []
+        if pokes:
+            p_picks = await ctx.choose_cards(
+                [c for c in pokes if c not in e_picks],
+                min(3, len(pokes)), minimum=0,
+                prompt="Up to 3 Pokémon") or []
+        chosen = list(e_picks) + list(p_picks)
+        if chosen:
+            await ctx.reveal_cards(chosen)
+            for c in chosen:
+                await ctx.put_on_top_of_deck(c)
+        await ctx.shuffle_deck()
+    return effect
+
+def holon_lass():
+    async def effect(ctx):
+        if not await _holon_discard_cost(ctx):
+            return
+        n = (count_prizes_remaining("mine")(ctx)
+             + count_prizes_remaining("opponent")(ctx))
+        if n <= 0:
+            return
+        top = ctx.deck_top(n)
+        if not top:
+            return
+        energies = [c for c in top if is_energy_card(c)]
+        taken = []
+        if energies:
+            picks = await ctx.choose_cards(
+                energies, len(energies), minimum=0,
+                prompt="Energy cards to put into your hand") or []
+            if picks:
+                await ctx.put_in_hand(picks, reveal=True)
+                taken = list(picks)
+        rest_count = len(top) - len(taken)
+        if rest_count > 1:
+            await ctx.reorder_deck_top(rest_count)
+        await ctx.shuffle_deck()
+    return effect
+
+def holon_researcher():
+    async def effect(ctx):
+        if not await _holon_discard_cost(ctx):
+            return
+
+        def match(c):
+            d = def_for(c.archetype_id)
+            dn = (getattr(d, "display_name", None) or "").lower()
+            if "metal energy" in dn:
+                return True
+            if is_pokemon_card(c) or getattr(d, "stage", None) is not None:
+                return "\u03b4" in (getattr(d, "display_name", None) or "") or "δ" in (
+                    getattr(d, "display_name", None) or "")
+            return False
+
+        picks = await ctx.search_deck(
+            match, count=1, minimum=0,
+            prompt="Metal Energy or δ Pokémon")
+        if picks:
+            await ctx.put_in_hand(picks, reveal=True)
+        await ctx.shuffle_deck()
+    return effect
+
+
+def holon_scientist():
+    async def effect(ctx):
+        if not await _holon_discard_cost(ctx):
+            return
+        mine = len(ctx.hand())
+        opp = len(ctx.hand(ctx.opponent_id))
+        if mine < opp:
+            await ctx.draw_cards(opp - mine)
+    return effect
+
+
+def holon_transceiver():
+    async def effect(ctx):
+        def match(c):
+            if not is_supporter_card(c):
+                return False
+            dn = (getattr(def_for(c.archetype_id), "display_name", None) or "")
+            return "Holon" in dn
+
+        # Deck or discard
+        if await ctx.ask_yes_no("Search deck for a Holon Supporter? (No = discard)"):
+            picks = await ctx.search_deck(
+                match, count=1, minimum=0, prompt="Holon Supporter")
+            if picks:
+                await ctx.put_in_hand(picks, reveal=True)
+            await ctx.shuffle_deck()
+        else:
+            pool = [c for c in ctx.discard_pile() if match(c)]
+            if pool:
+                picks = await ctx.choose_cards(
+                    pool, 1, minimum=0, prompt="Holon Supporter from discard")
+                if picks:
+                    await ctx.put_in_hand(picks, reveal=True)
+    return effect
+
+
+def holon_research_tower_passive() -> Passive:
+    """δ Pokémon: basic Energy also Metal but 1 at a time — approximate via
+    modify_energy_provided adding Metal alternative."""
+    class _P(Passive):
+        def modify_energy_provided(self, options, energy, holder, board):
+            if holder is None or not is_delta_pokemon(holder):
+                return options
+            if not is_basic_energy_card(energy):
+                return options
+            # Provide usual type AND Metal, one at a time
+            metal = [PokemonTypes.METAL.value]
+            out = list(options or [])
+            if metal not in out:
+                out.append(metal)
+            return out
+    return _P()
+
+
+def holon_ruins_draw():
+    """Once per turn: if you have a δ Pokémon, draw then discard."""
+    async def effect(ctx):
+        if not any(is_delta_pokemon(p) for p in ctx.my_pokemon_in_play()):
+            return
+        await ctx.draw_cards(1)
+        hand = list(ctx.hand())
+        if hand:
+            picks = await ctx.choose_cards(
+                hand, 1, minimum=1, prompt="Discard a card")
+            if picks:
+                await ctx.discard_cards(picks)
+    return effect
+
+
+def holon_ruins_condition():
+    def cond(board, player_id, pokemon=None):
+        return any(is_delta_pokemon(p) for p in board.pokemon_in_play(player_id))
+    return cond
