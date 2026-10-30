@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Recycle Energy (NEO1 #105): special energy provides/passive/attach rules stubbed until matched to a known energy pattern.
+"""Recycle Energy (NEO1 #105).
 
 Card text:
-  - Recycle Energy provides Colorless Energy. (Doesn't count as a basic Energy card.)
-  - If this card is put into your discard pile from play, return it to your hand.
+  Recycle Energy provides Colorless Energy. (Doesn't count as a basic Energy card.)
+  If this card is put into your discard pile from play, return it to your hand.
 """
 
 from spirit.game.data_utils import EnergyCardDef
@@ -21,5 +20,5 @@ card = EnergyCardDef(
     rarity=Rarities.Rare,
     energy_type=PokemonTypes.COLORLESS,
     is_special=True,
-    # STUB: special energy mechanics not implemented
+    return_to_hand_when_discarded_from_play=True,
 )
