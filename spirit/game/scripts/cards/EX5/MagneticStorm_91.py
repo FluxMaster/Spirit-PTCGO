@@ -1,13 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Magnetic Storm (EX5 #91): trainer effect stubbed.
-
-Card text:
-  - This card stays in play when you play it. Discard this card if another Stadium card comes into play.
-  - Any damage done by attacks from Psychic Pokémon and Fighting Pokémon (both yours and your opponent's) is not affected by Resistance.
-"""
-
-from spirit.game.data_utils import StadiumCardDef, unimplemented
+from spirit.game.data_utils import StadiumCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ex import magnetic_storm_passive
 
 card = StadiumCardDef(
     guid="559444fd-2fd8-5ce1-ad6a-0c3eaeb7cb01",
@@ -19,6 +12,5 @@ card = StadiumCardDef(
     collector_number=91,
     set_code="EX5",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    passive=magnetic_storm_passive(),
 )

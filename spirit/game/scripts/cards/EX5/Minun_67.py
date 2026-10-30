@@ -2,11 +2,13 @@
 Minun (EX5 #67): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import Attack, PokemonCardDef
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
 
+
+from spirit.game.card_effects.ex import minus_energy
 
 card = PokemonCardDef(
     guid="a25b7ab3-0c2f-517a-afe1-560dfff354ae",
@@ -31,8 +33,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, choose 1 Energy attached to the Defending Pok\u00e9mon. Your opponent returns that card to his or her hand.",
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=minus_energy(),
         ),
         Attack(
             title="Thundershock",

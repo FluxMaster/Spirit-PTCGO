@@ -2,10 +2,12 @@
 Kyogre ex (EX5 #94): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import Ability, Attack, PokemonCardDef, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import snipe_attack
 
+
+from spirit.game.card_effects.ex import mark_of_antiquity_passive, super_tidal_wave
 
 card = PokemonCardDef(
     guid="b03f6be4-16c2-5fdc-b646-7de0d7e46c0e",
@@ -28,8 +30,7 @@ card = PokemonCardDef(
             title="Mark of Antiquity",
             game_text="As long as Kyogre ex is your Active Pok\u00e9mon, each player's Groudon ex and Rayquaza ex can't attack.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=mark_of_antiquity_passive("Groudon ex", "Rayquaza ex"),
         ),
         Attack(
             title="Water Arrow",
@@ -44,8 +45,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 2, PokemonTypes.COLORLESS: 1},
             damage=50,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=super_tidal_wave(),
         ),
     ],
 )

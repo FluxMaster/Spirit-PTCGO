@@ -2,8 +2,10 @@
 Regice ex (EX5 #97): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import Ability, Attack, PokemonCardDef
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.ex import crystal_body_passive, freeze_lock
 
 card = PokemonCardDef(
     guid="36974ebc-b7ba-5c7c-9a0f-e65bcfe5f78d",
@@ -26,16 +28,14 @@ card = PokemonCardDef(
             title="Crystal Body",
             game_text="Prevent all effects of attacks, except damage, done to Regice ex by the Attacking Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=crystal_body_passive(),
         ),
         Attack(
             title="Freeze Lock",
             game_text="Flip a coin. If heads, your opponent can't attach Energy cards from his or her hand to the Defending Pok\u00e9mon during his or her next turn.",
             cost={PokemonTypes.WATER: 2, PokemonTypes.COLORLESS: 1},
             damage=60,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=freeze_lock(),
         ),
     ],
 )

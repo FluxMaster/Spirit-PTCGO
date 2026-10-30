@@ -2,7 +2,7 @@
 Pinsir (EX5 #13): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import Ability, Attack, PokemonCardDef
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 
 
@@ -10,6 +10,8 @@ async def sonic_boom(ctx):
     """40. This attack's damage isn't affected by Weakness or Resistance."""
     await ctx.deal_damage(apply_modifiers=False)
 
+
+from spirit.game.card_effects.ex import crust_passive
 
 card = PokemonCardDef(
     guid="ac214669-1c58-5690-bb5f-095a94a541a1",
@@ -32,8 +34,7 @@ card = PokemonCardDef(
             title="Crust",
             game_text="Any damage done to Pinsir by attacks from your opponent's Basic Pok\u00e9mon is reduced by 30 (after applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=crust_passive(30),
         ),
         Attack(
             title="Sonicboom",

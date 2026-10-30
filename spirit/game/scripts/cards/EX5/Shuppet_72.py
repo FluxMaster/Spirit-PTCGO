@@ -2,8 +2,10 @@
 Shuppet (EX5 #72): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import Attack, PokemonCardDef
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.ex import shadow_crush
 
 card = PokemonCardDef(
     guid="29960fbf-adb6-52a4-b3b4-d444d80ca12c",
@@ -28,8 +30,7 @@ card = PokemonCardDef(
             game_text="You may discard 1 Psychic Energy card attached to Shuppet. If you do, your opponent discards 1 Energy card attached to the Defending Pok\u00e9mon.",
             cost={PokemonTypes.PSYCHIC: 1},
             damage=10,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=shadow_crush(),
         ),
     ],
 )

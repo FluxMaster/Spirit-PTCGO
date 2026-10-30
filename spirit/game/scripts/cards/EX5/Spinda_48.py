@@ -2,8 +2,10 @@
 Spinda (EX5 #48): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import Attack, PokemonCardDef
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.ex import flail_damage, hula_la
 
 card = PokemonCardDef(
     guid="c4c7518f-55f2-52a6-ae4b-a784afab4bd0",
@@ -26,8 +28,7 @@ card = PokemonCardDef(
             title="The Hula-la",
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon is now Confused. If tails, both the Defending Pok\u00e9mon and Spinda are now Confused.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=hula_la(),
         ),
         Attack(
             title="Flail",
@@ -35,8 +36,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flail_damage(10),
         ),
     ],
 )

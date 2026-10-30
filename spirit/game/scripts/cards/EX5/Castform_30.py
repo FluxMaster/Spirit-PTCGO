@@ -2,8 +2,10 @@
 Castform (EX5 #30): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import Ability, Activations, Attack, PokemonCardDef
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.ex import bonus_if_ex, forecast_stadium, poke_power_condition, temperamental_weather
 
 card = PokemonCardDef(
     guid="c5a478da-beba-5778-9b72-63657e64c89f",
@@ -26,15 +28,15 @@ card = PokemonCardDef(
             title="Temperamental Weather",
             game_text="Once during your turn (before your attack), you may search your deck for Sunny Castform, Rain Castform, or Snow-cloud Castform and switch it with Castform. (Any cards attached to Castform, damage counters, Special Conditions, and effects on it are now on the new Pok\u00e9mon.) Shuffle Castform back into your deck. You can't use more than 1 Temperamental Weather Pok\u00e9-Power each turn.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=poke_power_condition(),
+            effect=temperamental_weather("Sunny Castform", "Rain Castform", "Snow-cloud Castform"),
         ),
         Attack(
             title="Forecast",
             game_text="Search your deck for a Stadium card and play it. Shuffle your deck afterward.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=forecast_stadium(),
         ),
         Attack(
             title="Extra Ball",
@@ -42,8 +44,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=20,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bonus_if_ex(20, base=20),
         ),
     ],
 )

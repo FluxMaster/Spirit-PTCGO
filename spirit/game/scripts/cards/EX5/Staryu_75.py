@@ -2,8 +2,10 @@
 Staryu (EX5 #75): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import Ability, Attack, PokemonCardDef
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.ex import core_guard_passive
 
 card = PokemonCardDef(
     guid="7b2612fe-f55b-5803-9f5a-cc137d956528",
@@ -26,8 +28,7 @@ card = PokemonCardDef(
             title="Core Guard",
             game_text="If Staryu has any Psychic Energy attached to it, damage done to Staryu by any attack is reduced by 10 (after applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=core_guard_passive(10),
         ),
         Attack(
             title="Pound",

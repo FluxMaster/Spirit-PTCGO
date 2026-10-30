@@ -2,10 +2,12 @@
 Gloom (EX5 #35): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import Attack, PokemonCardDef
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_damage
 
+
+from spirit.game.card_effects.ex import cling_heal
 
 card = PokemonCardDef(
     guid="a1b7c982-e2e8-5b70-9530-2f7a573fd444",
@@ -30,8 +32,7 @@ card = PokemonCardDef(
             game_text="After your attack, remove from Gloom the number of damage counters equal to the damage you did to the Defending Pok\u00e9mon. If Gloom has fewer damage counters than that, remove all of them.",
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=cling_heal(),
         ),
         Attack(
             title="Double Razor Leaf",

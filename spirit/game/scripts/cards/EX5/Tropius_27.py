@@ -2,8 +2,10 @@
 Tropius (EX5 #27): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import Attack, PokemonCardDef
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.ex import fruition
 
 card = PokemonCardDef(
     guid="cd40e3ac-a259-5bc3-b1fd-7c8b3610329b",
@@ -26,8 +28,7 @@ card = PokemonCardDef(
             title="Fruition",
             game_text="Move 1 Energy card attached to Tropius to another of your Pok\u00e9mon and remove 4 damage counters from that Pok\u00e9mon (all if there are less than 4).",
             cost={PokemonTypes.GRASS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=fruition(40),
         ),
         Attack(
             title="Gust",

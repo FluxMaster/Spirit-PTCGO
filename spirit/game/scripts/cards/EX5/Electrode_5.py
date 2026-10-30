@@ -5,6 +5,7 @@ Electrode (EX5 #5): one or more attacks/abilities use effect=unimplemented until
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import swift_attack
+from spirit.game.card_effects.ex import mass_destruction
 
 
 card = PokemonCardDef(
@@ -37,8 +38,7 @@ card = PokemonCardDef(
             title="Mass Destruction",
             game_text="Both Electrode and the Defending Pok\u00e9mon are now Knocked Out. If Electrode has any Special Energy cards attached to it, this attack does nothing.",
             cost={PokemonTypes.COLORLESS: 3},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=mass_destruction(),
         ),
     ],
 )

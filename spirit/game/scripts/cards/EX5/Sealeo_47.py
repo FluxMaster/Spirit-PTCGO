@@ -2,8 +2,10 @@
 Sealeo (EX5 #47): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import Attack, PokemonCardDef
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.ex import super_icy_wind
 
 card = PokemonCardDef(
     guid="cbcd1fe2-5706-53db-ad44-0dd44a56c5cb",
@@ -27,8 +29,7 @@ card = PokemonCardDef(
             title="Super Icy Wind",
             game_text="Does 10 damage to each of your opponent's Pok\u00e9mon. This attack's damage isn't affected by Weakness or Resistance.",
             cost={PokemonTypes.WATER: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=super_icy_wind(10),
         ),
         Attack(
             title="Skull Bash",

@@ -2,8 +2,10 @@
 Metagross ex (EX5 #95): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import Attack, PokemonCardDef
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.ex import extra_comet_punch, metal_reversal
 
 card = PokemonCardDef(
     guid="59935443-9c92-5791-8440-dd57b77ff414",
@@ -29,8 +31,7 @@ card = PokemonCardDef(
             game_text="Before doing damage, you may choose 1 of your opponent's Benched Pok\u00e9mon and switch it with 1 of the Defending Pok\u00e9mon. Your opponent chooses the Defending Pok\u00e9mon to switch. If you do, this attack does 40 damage to the new Defending Pok\u00e9mon.",
             cost={PokemonTypes.METAL: 1, PokemonTypes.COLORLESS: 1},
             damage=40,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=metal_reversal(),
         ),
         Attack(
             title="Extra Comet Punch",
@@ -38,8 +39,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.METAL: 2, PokemonTypes.COLORLESS: 2},
             damage=50,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=extra_comet_punch(50),
         ),
     ],
 )

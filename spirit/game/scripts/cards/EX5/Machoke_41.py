@@ -2,8 +2,10 @@
 Machoke (EX5 #41): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import Ability, Attack, PokemonCardDef, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.ex import strikes_back_on_damaged
 
 card = PokemonCardDef(
     guid="abf756bf-c5d8-59c8-8747-158fea20cabd",
@@ -27,8 +29,8 @@ card = PokemonCardDef(
             title="Strikes Back",
             game_text="If Machoke is your Active Pok\u00e9mon and is damaged by an opponent's attack (even if Machoke is Knocked Out), put 1 damage counter on the Attacking Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=Triggers.ON_DAMAGED_BY_ATTACK,
+            effect=strikes_back_on_damaged,
         ),
         Attack(
             title="Low Kick",

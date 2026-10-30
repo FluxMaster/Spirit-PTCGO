@@ -2,8 +2,10 @@
 Regirock ex (EX5 #98): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import Ability, Attack, PokemonCardDef, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.ex import healing_stone_between_turns, tonnage
 
 card = PokemonCardDef(
     guid="e6ce22fa-c51b-5e0c-8829-229080dc0e84",
@@ -26,8 +28,8 @@ card = PokemonCardDef(
             title="Healing Stone",
             game_text="At any time between turns, remove 1 damage counter from Regirock ex.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=Triggers.BETWEEN_TURNS,
+            effect=healing_stone_between_turns(10),
         ),
         Attack(
             title="Tonnage",
@@ -35,8 +37,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 2, PokemonTypes.COLORLESS: 1},
             damage=60,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=tonnage(60, 20, 30),
         ),
     ],
 )

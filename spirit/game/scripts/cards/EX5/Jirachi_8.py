@@ -2,10 +2,11 @@
 Jirachi (EX5 #8): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.data_utils import Ability, Activations, Attack, PokemonCardDef, unimplemented
+from spirit.game.attributes import AbilityTypes, PokemonStage, PokemonTypes, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ex import make_a_wish, poke_power_condition
 
 
 card = PokemonCardDef(
@@ -29,8 +30,10 @@ card = PokemonCardDef(
             title="Make a Wish",
             game_text="Search your deck for a card that evolves from 1 of your Pok\u00e9mon and put it on that Pok\u00e9mon. (This counts as evolving that Pok\u00e9mon.) If you do, put 1 damage counter on Jirachi. Shuffle your deck afterward.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            activation=Activations.ONCE_PER_TURN,
+            condition=poke_power_condition(),
+            effect=make_a_wish(),
         ),
         Attack(
             title="Mind Bend",

@@ -2,8 +2,10 @@
 Corsola (EX5 #32): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import Attack, PokemonCardDef
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.ex import coral_glow
 
 card = PokemonCardDef(
     guid="1a20ab39-996d-5deb-ba58-a705ddbb187f",
@@ -26,8 +28,7 @@ card = PokemonCardDef(
             title="Coral Glow",
             game_text="Draw a number of cards up to the number of your opponent's Basic Pok\u00e9mon in play. (You can't have more than 10 cards in your hand in this way.)",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=coral_glow(),
         ),
         Attack(
             title="Surf",

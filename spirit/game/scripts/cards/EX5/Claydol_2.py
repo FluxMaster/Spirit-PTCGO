@@ -2,8 +2,10 @@
 Claydol (EX5 #2): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import Ability, Attack, PokemonCardDef
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.ex import muddy_eye, primal_pull_passive
 
 card = PokemonCardDef(
     guid="5d176eba-f967-576c-9ab3-11c95959991f",
@@ -27,8 +29,7 @@ card = PokemonCardDef(
             title="Primal Pull",
             game_text="As long as Claydol is your Active Pok\u00e9mon, each player's Evolved Pok\u00e9mon pays Colorless more Energy to use its attacks.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=primal_pull_passive(),
         ),
         Attack(
             title="Muddy Eye",
@@ -36,8 +37,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 1},
             damage=10,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=muddy_eye(),
         ),
     ],
 )

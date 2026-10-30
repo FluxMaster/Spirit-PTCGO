@@ -2,8 +2,10 @@
 Crobat (EX5 #3): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import Attack, PokemonCardDef
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.ex import flutter_trick, triple_poison
 
 card = PokemonCardDef(
     guid="cd385bbe-6c44-52bd-907b-a034ec3a3435",
@@ -28,16 +30,14 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, look at your opponent's hand and choose 1 card. Your opponent discards the card you chose.",
             cost={PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flutter_trick(),
         ),
         Attack(
             title="Triple Poison",
             game_text="The Defending Pok\u00e9mon is now Poisoned. Put 3 damage counters instead of 1 on the Defending Pok\u00e9mon between turns.",
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 1},
             damage=10,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=triple_poison(),
         ),
     ],
 )

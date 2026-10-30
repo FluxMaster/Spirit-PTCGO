@@ -2,8 +2,10 @@
 Medicham (EX5 #10): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import Attack, PokemonCardDef
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.ex import chakra_points, meditate_damage
 
 card = PokemonCardDef(
     guid="3815d22c-05e6-543d-9806-a6a2f4360953",
@@ -29,8 +31,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=meditate_damage(20, 10),
         ),
         Attack(
             title="Chakra Points",
@@ -38,8 +39,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 2},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=chakra_points(10, 10),
         ),
     ],
 )

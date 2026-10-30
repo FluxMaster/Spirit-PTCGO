@@ -2,8 +2,10 @@
 Voltorb (EX5 #80): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import Attack, PokemonCardDef
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.ex import recharge_lightning
 
 card = PokemonCardDef(
     guid="53469647-a492-58c9-a38b-5462566ba494",
@@ -26,8 +28,7 @@ card = PokemonCardDef(
             title="Recharge",
             game_text="Search your deck for a Lightning Energy card and attach it to Voltorb. Shuffle your deck afterward.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=recharge_lightning(),
         ),
         Attack(
             title="Rolling Attack",

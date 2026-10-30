@@ -2,8 +2,10 @@
 Spheal (EX5 #74): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import Attack, PokemonCardDef
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.ex import freezing_breath
 
 card = PokemonCardDef(
     guid="15033e28-94c6-5c5f-8487-2e65a1f27a89",
@@ -26,8 +28,7 @@ card = PokemonCardDef(
             title="Freezing Breath",
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon is now Paralyzed. If tails, the Defending Pok\u00e9mon is now Asleep.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=freezing_breath(),
         ),
     ],
 )

@@ -2,11 +2,13 @@
 Exploud (EX5 #6): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import Attack, PokemonCardDef
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
 
+
+from spirit.game.card_effects.ex import bass_control, breaking_sound
 
 card = PokemonCardDef(
     guid="27e04e9c-ed88-5b6c-9bde-55f5e1395b0f",
@@ -30,15 +32,13 @@ card = PokemonCardDef(
             title="Breaking Sound",
             game_text="Does 10 damage to each of your opponent's Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=breaking_sound(10),
         ),
         Attack(
             title="Bass Control",
             game_text="Does 30 damage to 1 of your opponent's Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.COLORLESS: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bass_control(30),
         ),
         Attack(
             title="Thunderous Roar",

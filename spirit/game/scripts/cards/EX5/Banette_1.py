@@ -2,8 +2,10 @@
 Banette (EX5 #1): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import Attack, PokemonCardDef
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.ex import darkness_chant, shadow_steal
 
 card = PokemonCardDef(
     guid="53da8a7f-aca5-5a40-b20d-acfcc1a0e851",
@@ -30,15 +32,13 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 1},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=shadow_steal(),
         ),
         Attack(
             title="Darkness Chant",
             game_text="Count the number of Basic Pok\u00e9mon or Evolution cards in your discard pile. Put that many damage counters on the Defending Pok\u00e9mon. You can't put more than 6 damage counters on the Defending Pok\u00e9mon in this way.",
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=darkness_chant(),
         ),
     ],
 )

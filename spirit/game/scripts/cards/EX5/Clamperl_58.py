@@ -2,11 +2,13 @@
 Clamperl (EX5 #58): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import Ability, Attack, PokemonCardDef
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
 
+
+from spirit.game.card_effects.ex import exoskeleton_passive
 
 card = PokemonCardDef(
     guid="e17f412d-1111-5708-873d-3de2ccb7da17",
@@ -29,8 +31,7 @@ card = PokemonCardDef(
             title="Exoskeleton",
             game_text="Any damage done to Clamperl by attacks is reduced by 10 (after applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=exoskeleton_passive(10),
         ),
         Attack(
             title="Bubble",
