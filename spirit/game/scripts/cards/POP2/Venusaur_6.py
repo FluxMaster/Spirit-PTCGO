@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Venusaur (POP2 #6): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import snipe_attack
+
 
 card = PokemonCardDef(
     guid="649ae218-c066-5d48-9f46-6c0834410ff0",
@@ -25,19 +23,17 @@ card = PokemonCardDef(
     abilities=[
         Attack(
             title="Wide Solarbeam",
-            game_text="Does 20 damage to 2 of your opponent's Benched Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
+            game_text="Does 20 damage to 2 of your opponent's Benched Pokémon. (Don't apply Weakness and Resistance for Benched Pokémon.)",
             cost={PokemonTypes.GRASS: 2, PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=snipe_attack(20, count=2, also_base=True),
         ),
         Attack(
             title="Hard Plant",
             game_text="Venusaur can't use Hard Plant during your next turn.",
             cost={PokemonTypes.GRASS: 3, PokemonTypes.COLORLESS: 1},
             damage=80,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            locks_next_turn=True,
         ),
     ],
 )

@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Luvdisc (POP2 #14): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import (
+    paralyzing_kiss_dual, fast_stream_move_energy_dual,
+)
+
 
 card = PokemonCardDef(
     guid="097a8656-d562-5182-9983-2bd38f4bd8f5",
@@ -24,18 +24,16 @@ card = PokemonCardDef(
     abilities=[
         Attack(
             title="Paralyzing Kiss",
-            game_text="If there are 2 Defending Pok\u00e9mon in play, choose 1 of the Defending Pok\u00e9mon. That Pok\u00e9mon is now Paralyzed. (If there is only 1 Defending Pok\u00e9mon, this attack does nothing.)",
+            game_text="If there are 2 Defending Pokémon in play, choose 1 of the Defending Pokémon. That Pokémon is now Paralyzed. (If there is only 1 Defending Pokémon, this attack does nothing.)",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=paralyzing_kiss_dual(),
         ),
         Attack(
             title="Fast Stream",
-            game_text="Move 1 Energy card attached to the Defending Pok\u00e9mon to the other Defending Pok\u00e9mon. (Ignore this effect if your opponent has only 1 Defending Pok\u00e9mon.)",
+            game_text="Move 1 Energy card attached to the Defending Pokémon to the other Defending Pokémon. (Ignore this effect if your opponent has only 1 Defending Pokémon.)",
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=fast_stream_move_energy_dual(),
         ),
     ],
 )

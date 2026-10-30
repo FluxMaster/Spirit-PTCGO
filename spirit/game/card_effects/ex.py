@@ -19832,3 +19832,118 @@ def mud_splash_bench_flip(amount: int = 20):
         if flips and flips[0]:
             await ctx.deal_damage(amount, target=t, apply_modifiers=False)
     return effect
+
+
+# --- POP2 helpers -----------------------------------------------------------
+
+def _opponent_actives(ctx):
+    area = ctx.board.find_player_area(ctx.opponent_id, "activePokemonArea")
+    return list(area.children) if area else []
+
+
+def time_reversal_on_play():
+    """ON_PLAY: may search discard for a card, show it, put on top of deck."""
+    async def effect(ctx):
+        pool = list(ctx.discard_pile())
+        if not pool:
+            return
+        if not await ctx.ask_yes_no(
+                "Search discard for a card to put on top of your deck?"):
+            return
+        picks = await ctx.choose_cards(
+            pool, 1, minimum=1, prompt="Choose a card from discard")
+        if picks:
+            await ctx.put_in_hand(picks, reveal=True)
+            await ctx.put_on_top_of_deck(picks[0])
+    return effect
+
+
+def beating_wings_condition():
+    """Active + no Special Condition + has a Bench."""
+    def extra(board, player_id, pokemon=None):
+        if pokemon is None or not is_in_active_spot(pokemon):
+            return False
+        bench = board.find_player_area(player_id, "benchPokemonArea")
+        return bool(bench and bench.children)
+    return poke_power_condition(extra)
+
+
+def beating_wings_shuffle_bench():
+    """Shuffle 1 Benched Pokémon and all attached cards into your deck."""
+    async def effect(ctx):
+        src = ctx.source
+        if src is None or not is_in_active_spot(src):
+            return
+        bench = ctx.my_bench()
+        if not bench:
+            return
+        target = await ctx.choose_pokemon(
+            bench, "Shuffle which Benched Pokémon into your deck?")
+        if target is None:
+            return
+        await ctx.shuffle_into_deck(full_stack(target), ctx.player_id)
+    return effect
+
+
+def paralyzing_kiss_dual():
+    """If 2 Defending Pokémon in play, choose 1; it is Paralyzed. Else nothing."""
+    async def effect(ctx):
+        actives = _opponent_actives(ctx)
+        if len(actives) < 2:
+            return
+        t = await ctx.choose_pokemon(actives, "Paralyze which Defending Pokémon?")
+        if t is not None:
+            await ctx.apply_special_condition(t, SpecialConditions.PARALYZED)
+    return effect
+
+
+def fast_stream_move_energy_dual():
+    """Move 1 Energy from one Defending Pokémon to the other (ignore if only 1)."""
+    async def effect(ctx):
+        await ctx.deal_damage()
+        actives = _opponent_actives(ctx)
+        if len(actives) < 2:
+            return
+        donors = [p for p in actives if any(is_energy_card(c) for c in p.children)]
+        if not donors:
+            return
+        src = await ctx.choose_pokemon(donors, "Move Energy from which Defending?")
+        if src is None:
+            return
+        pool = [c for c in src.children if is_energy_card(c)]
+        if not pool:
+            return
+        picks = await ctx.choose_cards(pool, 1, minimum=1, prompt="Choose an Energy")
+        if not picks:
+            return
+        dest = next((p for p in actives if p is not src), None)
+        if dest is not None:
+            await ctx.move_energy(picks[0], dest)
+    return effect
+
+
+async def pokemon_park_on_energy_attached(ctx):
+    """When a player attaches Energy from hand to a Benched Pokémon, heal 10."""
+    receiver = getattr(ctx, "energy_receiver", None)
+    if receiver is None:
+        return
+    if is_in_active_spot(receiver):
+        return
+    # from_hand: Island Cave pattern uses energy_receiver; soft-check attribute
+    from_hand = getattr(ctx, "from_hand", True)
+    if not from_hand:
+        return
+    await ctx.heal(10, receiver)
+
+
+def pokemon_park_passive() -> Passive:
+    class _P(Passive):
+        stacking_key = "pokemon_park"
+    return _P()
+
+
+def multi_tm_attach_any():
+    """Multi Technical Machine 01: attach to any of your Pokémon."""
+    def check(pokemon) -> bool:
+        return True
+    return check

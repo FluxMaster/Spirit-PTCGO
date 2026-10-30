@@ -4,6 +4,9 @@ Phanpy (POP2 #15): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_damage, condition_attack
+from spirit.game.attributes import SpecialConditions
+
 
 card = PokemonCardDef(
     guid="b69cb2b5-d87b-5e61-8915-369464cceefe",
@@ -29,7 +32,7 @@ card = PokemonCardDef(
             damage=10,
             damage_operator="x",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(coins=2, per_heads=10),
         ),
         Attack(
             title="Body Slam",
@@ -37,7 +40,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=10,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(SpecialConditions.PARALYZED, flip=True),
         ),
     ],
 )

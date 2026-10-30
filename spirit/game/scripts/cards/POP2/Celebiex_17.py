@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Celebi ex (POP2 #17): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import psychic_shield_ex, time_reversal_on_play
+
 
 card = PokemonCardDef(
     guid="34cef53e-9c45-578c-9730-3f7febe366f5",
@@ -26,16 +24,15 @@ card = PokemonCardDef(
             title="Time Reversal",
             game_text="Once during your turn, when you put Celebi ex from your hand onto your Bench, you may search your discard pile for a card, show it to your opponent, and put it on top of your deck.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=time_reversal_on_play(),
+            trigger=Triggers.ON_PLAY,
         ),
         Attack(
             title="Psychic Shield",
-            game_text="Prevent all effects of attacks, including damage, done to Celebi ex by your opponent's Pok\u00e9mon-ex during your opponent's next turn.",
+            game_text="Prevent all effects of attacks, including damage, done to Celebi ex by your opponent's Pokémon-ex during your opponent's next turn.",
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=psychic_shield_ex(),
         ),
     ],
 )
