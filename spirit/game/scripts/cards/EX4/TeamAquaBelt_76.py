@@ -5,7 +5,7 @@ from spirit.game.card_effects.ex import attach_to_team, team_belt_between_turns
 _GUID = "cd2fc041-274c-5f40-bbbb-df945207e758"
 
 card = PokemonToolCardDef(
-    guid=_GUID,
+    guid="cd2fc041-274c-5f40-bbbb-df945207e758",
     key="EX4",
     name="com.direwolfdigital.cake.data.archetypes.trainer.TeamAquaBelt.Name",
     display_name="Team Aqua Belt",
