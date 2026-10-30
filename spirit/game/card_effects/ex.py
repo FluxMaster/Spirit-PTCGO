@@ -2932,6 +2932,37 @@ class StrengthCharmPassive(Passive):
             calc.amount += 10
 
 
+
+
+def team_belt_between_turns(belt_guid: str):
+    """BETWEEN_TURNS: if holder is Active, search deck for a card that evolves
+    from it, evolve, shuffle, then discard this Belt."""
+    async def effect(ctx):
+        pokemon = ctx.source
+        if pokemon is None or not is_in_active_spot(pokemon):
+            return
+        name = pokemon.get_attribute(AttrID.NAME) or ""
+        belt = next(
+            (c for c in pokemon.children
+             if (c.archetype_id or "").lower() == belt_guid.lower()),
+            None)
+
+        def match(c):
+            d = def_for(c.archetype_id)
+            return bool(d and getattr(d, "evolves_from", None) == name)
+
+        picks = await ctx.search_deck(
+            match, count=1, minimum=0,
+            prompt="Choose a card that evolves from the Active Pokémon")
+        if not picks:
+            await ctx.shuffle_deck()
+            return
+        await ctx.evolve_pokemon(pokemon, picks[0])
+        await ctx.shuffle_deck()
+        if belt is not None:
+            await ctx.discard_cards([belt])
+    return effect
+
 def attach_to_team(*teams: str):
     pred = has_team_in_name(*teams)
     def check(pokemon) -> bool:
