@@ -2,10 +2,12 @@
 Chimecho (EX5 #17): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import Attack, PokemonCardDef
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import count_energy, damage_per
 
+
+from spirit.game.card_effects.ex import chime_copy_supporter
 
 card = PokemonCardDef(
     guid="ec322c07-06f9-5133-80ee-9017c098f672",
@@ -28,8 +30,7 @@ card = PokemonCardDef(
             title="Chime",
             game_text="Search your opponent's discard pile for a Supporter card and use the effect of that card as the effect of this attack. (The Supporter card remains in your opponent's discard pile.)",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=chime_copy_supporter(),
         ),
         Attack(
             title="Psychic Boom",

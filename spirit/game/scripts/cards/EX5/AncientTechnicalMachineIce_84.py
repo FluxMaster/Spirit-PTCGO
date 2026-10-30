@@ -1,24 +1,37 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Ancient Technical Machine [Ice] (EX5 #84): trainer effect stubbed.
+"""Ancient Technical Machine [Ice]: attach to Evolved non-ex non-owner; grants Ice Generator; discard end of turn."""
+from spirit.game.data_utils import PokemonToolCardDef, Attack, Ability, Triggers
+from spirit.game.attributes import Rarities, PokemonTypes
+from spirit.game.card_effects.ex import (
+    attach_to_evolved_non_ex_non_owner,
+    ice_generator,
+    ancient_tm_discard_end_turn,
+)
 
-Card text:
-  - Attach this card to 1 of your Evolved Pokémon (excluding Pokémon-ex and Pokémon that has an owner in its name) in play. That Pokémon may use this card's attack instead of its own. At the end of your turn, discard Ancient Technical Machine [Ice].
-"""
+_GUID = "c13abb70-a9c8-5f6f-a79d-f6d4538ee2dd"
 
-from spirit.game.data_utils import TrainerCardDef, unimplemented
-from spirit.game.attributes import Rarities, TrainerType
-
-card = TrainerCardDef(
-    guid="c13abb70-a9c8-5f6f-a79d-f6d4538ee2dd",
+card = PokemonToolCardDef(
+    guid=_GUID,
     key="EX5",
     name="com.direwolfdigital.cake.data.archetypes.trainer.AncientTechnicalMachineIce.Name",
     display_name="Ancient Technical Machine [Ice]",
     searchable_by=["Ancient Technical Machine [Ice]", "Technical Machine"],
-    subtypes=["Technical Machine"],
+    subtypes=["Technical Machine", "Pokémon Tool"],
     collector_number=84,
     set_code="EX5",
     rarity=Rarities.Uncommon,
-    trainer_type=TrainerType.TECHNICAL_MACHINE,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    attach_to=attach_to_evolved_non_ex_non_owner(),
+    granted_abilities=[
+        Attack(
+            title="Ice Generator",
+            game_text="Discard all of your opponent's Trainer cards in play. If you do, prevent all effects, including damage, done to the Pokémon using this attack during your opponent's next turn.",
+            cost={PokemonTypes.COLORLESS: 1},
+            effect=ice_generator(_GUID),
+        ),
+        Ability(
+            title="Ancient Technical Machine [Ice]",
+            game_text="At the end of your turn, discard Ancient Technical Machine [Ice].",
+            trigger=Triggers.END_OF_TURN,
+            effect=ancient_tm_discard_end_turn(_GUID),
+        ),
+    ],
 )

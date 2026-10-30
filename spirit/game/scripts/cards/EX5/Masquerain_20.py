@@ -5,6 +5,7 @@ Masquerain (EX5 #20): one or more attacks/abilities use effect=unimplemented unt
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.support_common import gust_attack
+from spirit.game.card_effects.ex import silver_wind
 
 
 card = PokemonCardDef(
@@ -39,8 +40,7 @@ card = PokemonCardDef(
             game_text="During your next turn, if an attack does damage to the Defending Pok\u00e9mon (after applying Weakness and Resistance), that attack does 30 more damage.",
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=silver_wind(),
         ),
     ],
 )

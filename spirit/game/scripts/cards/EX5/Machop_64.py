@@ -4,6 +4,7 @@ Machop (EX5 #64): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import karate_chop
 
 card = PokemonCardDef(
     guid="fcc95beb-f866-51f8-95e0-00204f7af036",
@@ -33,8 +34,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
             damage_operator="-",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=karate_chop(30, 10),
         ),
     ],
 )

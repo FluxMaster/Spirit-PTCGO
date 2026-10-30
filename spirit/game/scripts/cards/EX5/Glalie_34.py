@@ -2,8 +2,10 @@
 Glalie (EX5 #34): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import Ability, Attack, PokemonCardDef
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.ex import heavy_blizzard, ice_wall_passive
 
 card = PokemonCardDef(
     guid="32221087-39e5-5e0a-a1a9-0d1972f953a0",
@@ -27,16 +29,14 @@ card = PokemonCardDef(
             title="Ice Wall",
             game_text="Any damage done to Glalie by attacks from your opponent's Pok\u00e9mon with any Special Energy cards attached to it is reduced by 40 (after applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=ice_wall_passive(),
         ),
         Attack(
             title="Heavy Blizzard",
             game_text="Flip a coin. If heads, put 1 damage counter on each of your opponent's Benched Pok\u00e9mon.",
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 2},
             damage=50,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=heavy_blizzard(),
         ),
     ],
 )

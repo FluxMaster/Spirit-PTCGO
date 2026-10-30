@@ -2,11 +2,13 @@
 Plusle (EX5 #69): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import Attack, PokemonCardDef
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
 
+
+from spirit.game.card_effects.ex import plus_energy
 
 card = PokemonCardDef(
     guid="98ec601e-2de0-5f78-b86e-8c2ec734bdf8",
@@ -30,8 +32,7 @@ card = PokemonCardDef(
             title="Plus Energy",
             game_text="Flip a coin. If heads, attach a Lightning Energy card from your hand to any of your Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=plus_energy(),
         ),
         Attack(
             title="Dazzle Blast",

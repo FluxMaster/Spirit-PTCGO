@@ -2,8 +2,10 @@
 Beldum (EX5 #28): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import Ability, Attack, PokemonCardDef
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.ex import levitate_any_energy_passive
 
 card = PokemonCardDef(
     guid="ce19fe74-0520-54b6-8414-1df7e5c3232b",
@@ -27,8 +29,7 @@ card = PokemonCardDef(
             title="Levitate",
             game_text="If Beldum has any Energy attached to it, Beldum's Retreat Cost is 0.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=levitate_any_energy_passive(),
         ),
         Attack(
             title="Tackle",

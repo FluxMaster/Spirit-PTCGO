@@ -2,10 +2,12 @@
 Seedot (EX5 #71): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import Attack, PokemonCardDef
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_bonus
 
+
+from spirit.game.card_effects.ex import seedot_growth
 
 card = PokemonCardDef(
     guid="339b3846-adc2-5d39-adbe-b01cab0cd334",
@@ -28,8 +30,7 @@ card = PokemonCardDef(
             title="Growth Spurt",
             game_text="Attach a Grass Energy card from your hand to Seedot.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=seedot_growth(),
         ),
         Attack(
             title="Trip Over",

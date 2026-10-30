@@ -2,8 +2,10 @@
 Shiftry (EX5 #14): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import Attack, PokemonCardDef
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.ex import push_aside, supernatural_power
 
 card = PokemonCardDef(
     guid="a801094b-d180-5eb5-a04d-d1a0019dae19",
@@ -29,8 +31,7 @@ card = PokemonCardDef(
             game_text="Look at your opponent's hand and choose 1 Basic Pok\u00e9mon or Evolution card you find there. Your opponent puts it at the bottom of his or her deck.",
             cost={PokemonTypes.DARKNESS: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=push_aside(),
         ),
         Attack(
             title="Supernatural Power",
@@ -38,8 +39,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=40,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=supernatural_power(40, 40),
         ),
     ],
 )

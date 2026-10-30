@@ -2,10 +2,12 @@
 Beldum (EX5 #54): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import Attack, PokemonCardDef
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import place_counters
 
+
+from spirit.game.card_effects.ex import call_for_family_basic
 
 card = PokemonCardDef(
     guid="e742575c-2bcc-54ca-8789-734186771e7a",
@@ -28,8 +30,7 @@ card = PokemonCardDef(
             title="Call for Family",
             game_text="Search your deck for a Basic Pok\u00e9mon and put it onto your Bench. Shuffle your deck afterward.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=call_for_family_basic(),
         ),
         Attack(
             title="Metal Ball",

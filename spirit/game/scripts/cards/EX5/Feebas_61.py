@@ -4,6 +4,7 @@ Feebas (EX5 #61): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import ascension
 
 card = PokemonCardDef(
     guid="78720aa9-b14b-5e94-b366-e21b8a41c514",
@@ -31,8 +32,7 @@ card = PokemonCardDef(
             title="Ascension",
             game_text="Search your deck for a card that evolves from Feebas and put it on Feebas. (This counts as evolving Feebas.) Shuffle your deck afterward.",
             cost={PokemonTypes.WATER: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=ascension(),
         ),
     ],
 )

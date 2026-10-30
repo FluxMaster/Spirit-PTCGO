@@ -2,8 +2,10 @@
 Vileplume ex (EX5 #100): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import Ability, Attack, PokemonCardDef
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.ex import block_dust_passive, special_formula
 
 card = PokemonCardDef(
     guid="5323c457-31cb-55d4-aad6-c24a4b528ff3",
@@ -27,16 +29,14 @@ card = PokemonCardDef(
             title="Block Dust",
             game_text="As long as Vileplume ex is your Active Pok\u00e9mon, your opponent can't play any Trainer cards (except for Supporter cards) from his or her hand.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=block_dust_passive(),
         ),
         Attack(
             title="Special Formula",
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon is now Asleep and Poisoned. If tails, the Defending Pok\u00e9mon is now Confused.",
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 2},
             damage=50,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=special_formula(),
         ),
     ],
 )

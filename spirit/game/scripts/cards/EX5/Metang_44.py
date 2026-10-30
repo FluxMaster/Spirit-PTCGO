@@ -2,8 +2,10 @@
 Metang (EX5 #44): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import Ability, Attack, PokemonCardDef
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.ex import levitate_any_energy_passive
 
 card = PokemonCardDef(
     guid="7f8d32fc-efeb-54fe-b5e5-dfd14b0a204f",
@@ -28,8 +30,7 @@ card = PokemonCardDef(
             title="Levitate",
             game_text="If Metang has any Energy attached to it, Metang's Retreat Cost is 0.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=levitate_any_energy_passive(),
         ),
         Attack(
             title="Tackle",

@@ -2,8 +2,10 @@
 Rhydon (EX5 #46): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import Ability, Attack, PokemonCardDef, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.ex import hyper_tail, power_diffusion_passive
 
 card = PokemonCardDef(
     guid="7cc0ac6f-203c-50f9-9ce3-de81a1fa4958",
@@ -27,8 +29,7 @@ card = PokemonCardDef(
             title="Power Diffusion",
             game_text="As long as Rhydon is your Active Pok\u00e9mon, prevent all damage done by attacks to all of your Benched Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=power_diffusion_passive(),
         ),
         Attack(
             title="Horn Drill",
@@ -41,8 +42,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 2},
             damage=50,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=hyper_tail(50, 20),
         ),
     ],
 )

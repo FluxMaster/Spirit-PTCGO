@@ -2,8 +2,10 @@
 Registeel ex (EX5 #99): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import Ability, Attack, PokemonCardDef
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.ex import exoskeleton_passive, steel_wave
 
 card = PokemonCardDef(
     guid="6cd617c6-bcc1-5725-96ac-39ac51d3c3f0",
@@ -27,16 +29,14 @@ card = PokemonCardDef(
             title="Exoskeleton",
             game_text="Any damage done to Registeel ex by attacks is reduced by 10 (after applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=exoskeleton_passive(10),
         ),
         Attack(
             title="Steel Wave",
             game_text="Does 20 damage to each of your opponent's Benched Pok\u00e9mon of the same type as the Defending Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.METAL: 2, PokemonTypes.COLORLESS: 1},
             damage=50,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=steel_wave(20),
         ),
     ],
 )

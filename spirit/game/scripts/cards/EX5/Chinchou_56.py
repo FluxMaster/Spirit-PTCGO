@@ -4,6 +4,7 @@ Chinchou (EX5 #56): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import thunderspark
 
 card = PokemonCardDef(
     guid="01bc9355-6766-55bc-b627-067b97472ed6",
@@ -32,8 +33,7 @@ card = PokemonCardDef(
             game_text="Choose 2 of your opponent's Benched Pok\u00e9mon. This attack does 10 damage to each of those Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 1},
             damage=10,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=thunderspark(10),
         ),
     ],
 )

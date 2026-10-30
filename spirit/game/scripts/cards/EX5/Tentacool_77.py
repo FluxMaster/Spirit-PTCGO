@@ -2,11 +2,13 @@
 Tentacool (EX5 #77): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import Ability, Attack, PokemonCardDef
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
 
+
+from spirit.game.card_effects.ex import levitate_any_energy_passive
 
 card = PokemonCardDef(
     guid="de5e96c0-bcaa-581e-b421-7b62732dbc7b",
@@ -29,8 +31,7 @@ card = PokemonCardDef(
             title="Freefloating",
             game_text="If Tentacool has no Energy attached to it, Tentacool's Retreat Cost is 0.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=levitate_any_energy_passive(),
         ),
         Attack(
             title="Wrap",

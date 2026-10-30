@@ -2,8 +2,10 @@
 Igglybuff (EX5 #37): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import Ability, Activations, Attack, PokemonCardDef
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.ex import baby_evolution, baby_evolution_condition, set_song
 
 card = PokemonCardDef(
     guid="c1509a87-c406-570d-b498-254355ab009a",
@@ -26,15 +28,15 @@ card = PokemonCardDef(
             title="Baby Evolution",
             game_text="Once during your turn (before your attack), you may put Jigglypuff from your hand onto Igglybuff (this counts as evolving Igglybuff), and remove all damage counters from Igglybuff.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=baby_evolution_condition("Jigglypuff"),
+            effect=baby_evolution("Jigglypuff"),
         ),
         Attack(
             title="Set Song",
             game_text="Search your deck for a Basic Pok\u00e9mon and a basic Energy card, show them to your opponent, and put them into your hand. Shuffle your deck afterward.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=set_song(),
         ),
     ],
 )

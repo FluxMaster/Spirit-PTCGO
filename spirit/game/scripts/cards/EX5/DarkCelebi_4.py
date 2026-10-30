@@ -2,10 +2,11 @@
 Dark Celebi (EX5 #4): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.data_utils import Ability, Activations, Attack, PokemonCardDef, unimplemented
+from spirit.game.attributes import AbilityTypes, PokemonStage, PokemonTypes, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ex import dark_provide, poke_power_condition
 
 
 card = PokemonCardDef(
@@ -29,8 +30,10 @@ card = PokemonCardDef(
             title="Dark Provide",
             game_text="Attach up to 1 Grass or Darkness Energy card from your hand to your Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            activation=Activations.ONCE_PER_TURN,
+            condition=poke_power_condition(),
+            effect=dark_provide(),
         ),
         Attack(
             title="Leaf Poison",

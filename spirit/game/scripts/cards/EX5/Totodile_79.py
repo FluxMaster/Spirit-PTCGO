@@ -2,8 +2,10 @@
 Totodile (EX5 #79): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import Attack, PokemonCardDef
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+from spirit.game.card_effects.ex import flail_damage
 
 card = PokemonCardDef(
     guid="6be6b4db-cc46-5c19-a156-52d0aab7c5c3",
@@ -28,8 +30,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flail_damage(10),
         ),
         Attack(
             title="Bite",

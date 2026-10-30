@@ -2,8 +2,10 @@
 Metagross (EX5 #11): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import Ability, Activations, Attack, PokemonCardDef
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.ex import metal_juncture, poke_power_condition, squared_attack
 
 card = PokemonCardDef(
     guid="1bfec7e5-bff8-5c91-af13-9e5ae5e1563a",
@@ -28,8 +30,9 @@ card = PokemonCardDef(
             title="Metal Juncture",
             game_text="As often as you like during your turn (before your attack), you may move a Metal Energy card attached to 1 of your Benched Pok\u00e9mon to your Active Pok\u00e9mon. This power can't be used if Metagross is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=poke_power_condition(),
+            effect=metal_juncture(),
         ),
         Attack(
             title="Squared Attack",
@@ -37,8 +40,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.METAL: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=squared_attack(4, 30),
         ),
     ],
 )

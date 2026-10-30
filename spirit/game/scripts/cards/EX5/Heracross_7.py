@@ -2,8 +2,9 @@
 Heracross (EX5 #7): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.data_utils import Ability, Activations, Attack, PokemonCardDef, unimplemented
+from spirit.game.attributes import AbilityTypes, PokemonStage, PokemonTypes, Rarities
+from spirit.game.card_effects.ex import extra_draw_if_ex, poke_power_condition
 
 
 async def sonic_boom(ctx):
@@ -32,8 +33,10 @@ card = PokemonCardDef(
             title="Extra Draw",
             game_text="If your opponent has any Pok\u00e9mon-ex in play, search your deck for up to 2 Grass Energy cards and attach them to Heracross. Shuffle your deck afterward.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            ability_type=AbilityTypes.POKE_POWER,
+            activation=Activations.ONCE_PER_TURN,
+            condition=poke_power_condition(),
+            effect=extra_draw_if_ex(2),
         ),
         Attack(
             title="Sonicboom",

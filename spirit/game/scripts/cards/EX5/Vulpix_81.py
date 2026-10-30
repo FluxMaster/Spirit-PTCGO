@@ -4,6 +4,7 @@ Vulpix (EX5 #81): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import ascension
 
 card = PokemonCardDef(
     guid="442803cb-136a-5923-9658-3d25a57f1400",
@@ -31,8 +32,7 @@ card = PokemonCardDef(
             title="Ascension",
             game_text="Search your deck for a card that evolves from Vulpix and put it on Vulpix. (This counts as evolving Vulpix.) Shuffle your deck afterward.",
             cost={PokemonTypes.FIRE: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=ascension(),
         ),
     ],
 )

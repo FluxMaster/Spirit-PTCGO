@@ -2,10 +2,12 @@
 Ninetales (EX5 #22): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import Ability, Attack, PokemonCardDef
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import flip_bonus
 
+
+from spirit.game.card_effects.ex import safeguard_ex_passive
 
 card = PokemonCardDef(
     guid="ead2d030-5f5b-5f65-afdd-f4cdd4a37c96",
@@ -29,8 +31,7 @@ card = PokemonCardDef(
             title="Safeguard",
             game_text="Prevent all effects of attacks, including damage, done to Ninetales by your opponent's Pok\u00e9mon-ex.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=safeguard_ex_passive(),
         ),
         Attack(
             title="Quick Attack",

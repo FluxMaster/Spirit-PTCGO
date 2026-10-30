@@ -2,8 +2,10 @@
 Dodrio (EX5 #33): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import Ability, Attack, PokemonCardDef
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+from spirit.game.card_effects.ex import fast_feet_passive, retaliate_damage, slashing_strike_lock
 
 card = PokemonCardDef(
     guid="c5f09740-2edb-551e-a5e7-4afeb49cf3d6",
@@ -28,8 +30,7 @@ card = PokemonCardDef(
             title="Fast Feet",
             game_text="Dodrio can retreat even when it is Asleep or Paralyzed.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=fast_feet_passive(),
         ),
         Attack(
             title="Retaliate",
@@ -37,16 +38,14 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=10,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=retaliate_damage(),
         ),
         Attack(
             title="Slashing Strike",
             game_text="Flip a coin. If tails, Dodrio can't use Slashing Strike during your next turn.",
             cost={PokemonTypes.COLORLESS: 2},
             damage=40,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=slashing_strike_lock(),
         ),
     ],
 )

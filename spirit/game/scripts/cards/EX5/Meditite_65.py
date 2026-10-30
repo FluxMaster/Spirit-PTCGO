@@ -5,6 +5,7 @@ Meditite (EX5 #65): one or more attacks/abilities use effect=unimplemented until
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_damage
+from spirit.game.card_effects.ex import calm_mind
 
 
 card = PokemonCardDef(
@@ -37,8 +38,7 @@ card = PokemonCardDef(
             title="Calm Mind",
             game_text="Remove 2 damage counters from Meditite (remove 1 if there is only 1).",
             cost={PokemonTypes.PSYCHIC: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=calm_mind(2),
         ),
     ],
 )
