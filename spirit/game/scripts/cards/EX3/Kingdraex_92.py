@@ -1,6 +1,6 @@
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-from spirit.game.card_effects.ex import extra_energy_damage
+from spirit.game.card_effects.ex import extra_energy_damage, genetic_memory
 
 card = PokemonCardDef(
     guid="21ae8767-3507-5605-9048-29effbbc110b",
@@ -24,8 +24,7 @@ card = PokemonCardDef(
             title="Genetic Memory",
             game_text="Use any attack from Kingdra ex's Basic Pok\u00e9mon card or Stage 1 Evolution card. (Kingdra ex doesn't have to pay for that attack's Energy cost.)",
             cost={PokemonTypes.WATER: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=genetic_memory,
         ),
         Attack(
             title="Hydrocannon",
@@ -33,7 +32,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=50,
             damage_operator="+",
-            # STUB: attack effect not implemented
             effect=extra_energy_damage(20, base=50, energy_type=PokemonTypes.WATER),
         ),
     ],

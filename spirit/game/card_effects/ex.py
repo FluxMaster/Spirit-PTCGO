@@ -14,7 +14,7 @@ import random
 from typing import Any, Callable, Optional
 
 from spirit.game.attributes import (
-    AbilityTypes, AttrID, PokemonTypes, SpecialConditions, TrainerType,
+    AbilityTypes, AttrID, PokemonStage, PokemonTypes, SpecialConditions, TrainerType,
 )
 from spirit.game.card_effects.attacks_common import (
     count_energy, count_prizes_remaining, damage_per, discard_random_from_hand,
@@ -2861,3 +2861,41 @@ def team_play_damage(team: str = "Team Magma", per: int = 10):
 def power_blow():
     """10 + 10 per Energy attached to self."""
     return damage_per(count_energy("self"), 10, base=10)
+
+async def genetic_memory(ctx):
+    """Use any attack from this Pokémon's tucked Basic or Stage 1 Evolution
+    card (Genetic Memory). Energy for the copied attack is not re-paid —
+    Genetic Memory's own cost already covers the declaration."""
+    from spirit.game.data_utils import Attack
+    from spirit.game.models.board import PokemonEntity
+    attacker = ctx.attacker
+    if attacker is None:
+        return
+    candidates = []
+    seen = set()
+    for child in attacker.children:
+        if not isinstance(child, PokemonEntity):
+            continue
+        stage = child.get_attribute(AttrID.STAGE)
+        if stage not in (PokemonStage.BASIC.value, PokemonStage.STAGE1.value):
+            continue
+        definition = def_for(child.archetype_id)
+        for ability in getattr(definition, "abilities", None) or []:
+            if not isinstance(ability, Attack):
+                continue
+            key = (ability.title, ability.game_text)
+            if key in seen:
+                continue
+            seen.add(key)
+            candidates.append((child, ability))
+    if not candidates:
+        return
+    picked = await ctx.choose_attack_to_copy(
+        candidates,
+        "Choose an attack from a Basic or Stage 1 Evolution card",
+    )
+    if picked is None:
+        return
+    _, chosen = picked
+    await ctx.use_attack(chosen)
+
