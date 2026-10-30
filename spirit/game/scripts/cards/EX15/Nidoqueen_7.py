@@ -4,6 +4,8 @@ Nidoqueen δ (EX15 #7): one or more attacks/abilities use effect=unimplemented u
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import vengeance
+
 
 card = PokemonCardDef(
     guid="a8c65854-b5e8-599e-a04b-0f67f288ae19",
@@ -37,7 +39,7 @@ card = PokemonCardDef(
             damage=30,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=vengeance(30, 10),
         ),
     ],
 )

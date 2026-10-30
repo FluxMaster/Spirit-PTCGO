@@ -4,6 +4,8 @@ Flygon ex δ (EX15 #92): one or more attacks/abilities use effect=unimplemented 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import clay_pulse
+
 
 card = PokemonCardDef(
     guid="6b5dba0b-2c1d-5781-bf75-f37a0c448a5e",
@@ -35,7 +37,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 2, PokemonTypes.COLORLESS: 1},
             damage=80,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=clay_pulse(),
         ),
     ],
 )

@@ -4,6 +4,8 @@ Heracross δ (EX15 #3): one or more attacks/abilities use effect=unimplemented u
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import dig_deep_energy_to_hand, extra_ball_vs_ex
+
 
 card = PokemonCardDef(
     guid="c12a22c6-da4c-5f2a-8e2e-761b0dbc1ef0",
@@ -34,7 +36,7 @@ card = PokemonCardDef(
             game_text="Search your discard pile for an Energy card, show it to your opponent, and put it into your hand.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=dig_deep_energy_to_hand(),
         ),
         Attack(
             title="Extra Claws",
@@ -43,7 +45,7 @@ card = PokemonCardDef(
             damage=30,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=extra_ball_vs_ex(30, 20),
         ),
     ],
 )

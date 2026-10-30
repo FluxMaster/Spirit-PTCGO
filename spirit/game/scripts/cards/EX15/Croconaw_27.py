@@ -4,6 +4,8 @@ Croconaw δ (EX15 #27): one or more attacks/abilities use effect=unimplemented u
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import scary_face_lock
+
 
 card = PokemonCardDef(
     guid="52d03d8b-75ff-5cfc-b419-248108402972",
@@ -28,7 +30,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon can't attack or retreat during your opponent's next turn.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=scary_face_lock(),
         ),
         Attack(
             title="Slash",

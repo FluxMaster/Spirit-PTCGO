@@ -1,13 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Professor Elm's Training Method (EX15 #79): trainer effect stubbed.
-
-Card text:
-  - You can play only one Supporter card each turn. When you play this card, put it next to your Active Pokémon. When your turn ends, discard this card.
-  - Search your deck for an Evolution card, show it to your opponent, and put it into your hand. Shuffle your deck afterward.
-"""
-
-from spirit.game.data_utils import SupporterCardDef, unimplemented
+from spirit.game.data_utils import SupporterCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ex import professor_elms_training_method
 
 card = SupporterCardDef(
     guid="66aafb48-0f1b-5a93-94ed-dabde6734c7c",
@@ -19,6 +12,5 @@ card = SupporterCardDef(
     collector_number=79,
     set_code="EX15",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=professor_elms_training_method,
 )

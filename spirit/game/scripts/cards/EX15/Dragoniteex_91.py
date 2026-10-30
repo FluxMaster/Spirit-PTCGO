@@ -4,6 +4,8 @@ Dragonite ex δ (EX15 #91): one or more attacks/abilities use effect=unimplement
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import disconnect_lock_items
+
 
 card = PokemonCardDef(
     guid="cf4be401-a979-5e72-8ad6-87afdb1b740d",
@@ -28,7 +30,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=40,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=disconnect_lock_items(),
         ),
         Attack(
             title="Dragon Roar",

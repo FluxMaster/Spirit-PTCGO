@@ -4,6 +4,10 @@ Vibrava δ (EX15 #42): one or more attacks/abilities use effect=unimplemented un
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.attributes import SpecialConditions
+from spirit.game.card_effects.attacks_common import conditions_if
+from spirit.game.card_effects.ex import defender_is_ex
+
 
 card = PokemonCardDef(
     guid="b751068b-3c34-5d09-8f9d-549f1a4c6db0",
@@ -33,7 +37,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=conditions_if(defender_is_ex, SpecialConditions.CONFUSED),
         ),
     ],
 )

@@ -4,6 +4,8 @@ Feraligatr δ (EX15 #2): one or more attacks/abilities use effect=unimplemented 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import drag_off_optional
+
 
 card = PokemonCardDef(
     guid="ff38b741-441d-56b9-99ee-5c56b449c09d",
@@ -36,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=drag_off_optional(),
         ),
         Attack(
             title="Sharp Fang",

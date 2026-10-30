@@ -4,6 +4,8 @@ Quilava δ (EX15 #36): one or more attacks/abilities use effect=unimplemented un
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import one_two_punch
+
 
 card = PokemonCardDef(
     guid="a168bc8c-4b75-5a77-b377-f4e5d6033fe0",
@@ -35,7 +37,7 @@ card = PokemonCardDef(
             damage=30,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=one_two_punch(30, 20),
         ),
     ],
 )

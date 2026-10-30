@@ -4,6 +4,8 @@ Nidoran ♀ δ (EX15 #56): one or more attacks/abilities use effect=unimplemente
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import tail_whip_lock_attack
+
 
 card = PokemonCardDef(
     guid="06d36dd1-b18b-59ef-9997-5899158d7c75",
@@ -27,7 +29,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon can't attack during your opponent's next turn.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=tail_whip_lock_attack(),
         ),
         Attack(
             title="Scratch",

@@ -4,6 +4,8 @@ Cyndaquil δ (EX15 #45): one or more attacks/abilities use effect=unimplemented 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import swift_attack
+
 
 card = PokemonCardDef(
     guid="ff0bbd25-00cf-5cd8-acd3-68f3987b83f8",
@@ -28,7 +30,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=swift_attack(),
         ),
     ],
 )
