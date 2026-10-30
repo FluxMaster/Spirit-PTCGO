@@ -5,6 +5,7 @@ Farfetch'd (EX9 #107): one or more attacks/abilities use effect=unimplemented un
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.support_common import draw_attack
+from spirit.game.card_effects.ex import farfetchd_nosedive
 
 
 card = PokemonCardDef(
@@ -37,8 +38,7 @@ card = PokemonCardDef(
             game_text="Farfetch'd does 10 damage to itself.",
             cost={PokemonTypes.COLORLESS: 2},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+                        effect=farfetchd_nosedive(10),
         ),
     ],
 )

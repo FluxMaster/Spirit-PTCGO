@@ -5,6 +5,7 @@ Swablu (EX9 #67): one or more attacks/abilities use effect=unimplemented until a
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import flip_or_nothing
+from spirit.game.card_effects.ex import feathery_passive
 
 
 card = PokemonCardDef(
@@ -29,8 +30,7 @@ card = PokemonCardDef(
             title="Feathery",
             game_text="As long as Swablu is on your Bench, prevent all damage done to Swablu by opponent's attacks.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=feathery_passive(),
         ),
         Attack(
             title="Razor Wind",

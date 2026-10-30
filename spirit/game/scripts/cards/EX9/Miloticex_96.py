@@ -2,9 +2,9 @@
 Milotic ex (EX9 #96): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Triggers, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
-from spirit.game.card_effects.ex import magma_ring_no_retreat
+from spirit.game.card_effects.ex import magma_ring_no_retreat, mystic_scale_discard_tms, mystic_scale_passive, reflect_energy_basic
 
 
 card = PokemonCardDef(
@@ -29,8 +29,21 @@ card = PokemonCardDef(
             title="Mystic Scale",
             game_text="As long as Milotic ex is in play, each player can't play any Technical Machine cards from his or her hand. Discard all Technical Machine cards in play (both yours and your opponent's).",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=mystic_scale_passive(),
+        ),
+        Ability(
+            title="Mystic Scale",
+            game_text="Discard all Technical Machine cards in play (both yours and your opponent's).",
+            ability_type=AbilityTypes.POKE_BODY,
+            trigger=Triggers.ON_EVOLVE,
+            effect=mystic_scale_discard_tms,
+        ),
+        Ability(
+            title="Mystic Scale",
+            game_text="Discard all Technical Machine cards in play (both yours and your opponent's).",
+            ability_type=AbilityTypes.POKE_BODY,
+            trigger=Triggers.BETWEEN_TURNS,
+            effect=mystic_scale_discard_tms,
         ),
         Attack(
             title="Gentle Wrap",
@@ -45,8 +58,7 @@ card = PokemonCardDef(
             game_text="Move 1 basic Energy card attached to Milotic ex to 1 of your Benched Pok\u00e9mon.",
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 2},
             damage=70,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+                        effect=reflect_energy_basic(),
         ),
     ],
 )

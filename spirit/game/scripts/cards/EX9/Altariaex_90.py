@@ -4,7 +4,7 @@ Altaria ex (EX9 #90): one or more attacks/abilities use effect=unimplemented unt
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
-from spirit.game.card_effects.ex import brick_smash
+from spirit.game.card_effects.ex import brick_smash, mist_vs_stage2_passive
 
 
 card = PokemonCardDef(
@@ -28,8 +28,7 @@ card = PokemonCardDef(
             title="Mist",
             game_text="Any damage done to Altaria ex by attacks from Stage 2 Evolved Pok\u00e9mon (both yours and your opponent's) is reduced by 30 (after applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=mist_vs_stage2_passive(),
         ),
         Attack(
             title="Dive",

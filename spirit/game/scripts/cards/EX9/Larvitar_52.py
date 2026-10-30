@@ -4,6 +4,7 @@ Larvitar (EX9 #52): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import dig_under
 
 card = PokemonCardDef(
     guid="d28cfbed-3dfc-517b-81e3-549caf75d520",
@@ -26,8 +27,7 @@ card = PokemonCardDef(
             title="Dig Under",
             game_text="Choose 1 of your opponent's Pok\u00e9mon. This attack does 20 damage to that Pok\u00e9mon. This attack's damage isn't affected by Weakness or Resistance.",
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+                        effect=dig_under(20),
         ),
     ],
 )

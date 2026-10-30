@@ -4,6 +4,7 @@ Dusclops ex (EX9 #94): one or more attacks/abilities use effect=unimplemented un
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import dark_hole_passive, shadow_beam_counters
 
 card = PokemonCardDef(
     guid="2d372e66-30eb-5d1f-b074-99f84d2733eb",
@@ -28,15 +29,13 @@ card = PokemonCardDef(
             title="Dark Hole",
             game_text="As long as Dusclops ex is on your Bench, don't apply Darkness Weakness for all of your Pok\u00e9mon is play.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=dark_hole_passive(),
         ),
         Attack(
             title="Shadow Beam",
             game_text="Put 2 damage counters on the Defending Pok\u00e9mon for each Energy attached to Dusclops ex.",
             cost={PokemonTypes.PSYCHIC: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+                        effect=shadow_beam_counters(2),
         ),
     ],
 )

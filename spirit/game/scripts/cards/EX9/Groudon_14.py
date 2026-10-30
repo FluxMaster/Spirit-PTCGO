@@ -4,6 +4,7 @@ Groudon (EX9 #14): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import eruption_damage
 
 card = PokemonCardDef(
     guid="8248a2de-6179-589f-abd3-9e7b8191922e",
@@ -33,8 +34,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 3},
             damage=40,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+                        effect=eruption_damage(40, 10),
         ),
     ],
 )

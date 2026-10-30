@@ -5,6 +5,7 @@ Minun (EX9 #37): one or more attacks/abilities use effect=unimplemented until a 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import flip_bonus
+from spirit.game.card_effects.ex import electro_guard_passive
 
 
 card = PokemonCardDef(
@@ -29,8 +30,7 @@ card = PokemonCardDef(
             title="Electro-guard",
             game_text="As long Minun has any Lightning Energy attached to it, Minun has no Weakness.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=electro_guard_passive(),
         ),
         Attack(
             title="Quick Attack",

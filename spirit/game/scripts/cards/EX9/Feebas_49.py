@@ -5,6 +5,7 @@ Feebas (EX9 #49): one or more attacks/abilities use effect=unimplemented until a
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import flip_or_nothing
+from spirit.game.card_effects.ex import submerge_all_attacks_passive
 
 
 card = PokemonCardDef(
@@ -28,8 +29,7 @@ card = PokemonCardDef(
             title="Submerge",
             game_text="As long as Feebas is on your Bench, prevent all damage done to Feebas by attacks (both yours and your opponent's).",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=submerge_all_attacks_passive(),
         ),
         Attack(
             title="Lunge",

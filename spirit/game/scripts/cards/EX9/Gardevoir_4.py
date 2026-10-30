@@ -2,8 +2,9 @@
 Gardevoir (EX9 #4): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import Ability, Activations, Attack, PokemonCardDef, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import heal_dance, poke_power_condition
 
 
 async def sonic_boom(ctx):
@@ -31,10 +32,12 @@ card = PokemonCardDef(
     abilities=[
         Ability(
             title="Heal Dance",
+            activation=Activations.ONCE_PER_TURN,
+            shared_once_per_turn="Heal Dance",
+            condition=poke_power_condition(),
             game_text="Once during your turn (before your attack), you may remove 2 damage counters from 1 of your Pok\u00e9mon. You can't use more than 1 Heal Dance Pok\u00e9-Power each turn. This power can't be used if Gardevoir is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+                        effect=heal_dance(2),
         ),
         Attack(
             title="Psypunch",

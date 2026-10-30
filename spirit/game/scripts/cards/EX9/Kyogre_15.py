@@ -4,6 +4,7 @@ Kyogre (EX9 #15): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import hydro_pump_capped_attack, scary_face_lock
 
 card = PokemonCardDef(
     guid="c1b9b4d7-69c2-55f6-831e-27d3af543765",
@@ -26,8 +27,7 @@ card = PokemonCardDef(
             title="Scary Face",
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon can't attack or retreat during your opponent's next turn.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+                        effect=scary_face_lock(),
         ),
         Attack(
             title="Hydro Pump",
@@ -35,8 +35,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 2, PokemonTypes.COLORLESS: 1},
             damage=40,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+                        effect=hydro_pump_capped_attack(40, 10, 20),
         ),
     ],
 )

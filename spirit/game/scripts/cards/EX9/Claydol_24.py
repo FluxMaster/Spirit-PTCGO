@@ -5,6 +5,7 @@ Claydol (EX9 #24): one or more attacks/abilities use effect=unimplemented until 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import flip_bonus
+from spirit.game.card_effects.ex import levitate_any_energy_passive
 
 
 card = PokemonCardDef(
@@ -29,8 +30,7 @@ card = PokemonCardDef(
             title="Levitate",
             game_text="As long as Claydol has any Energy attached to it, the Retreat Cost for Claydol is 0.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=levitate_any_energy_passive(),
         ),
         Attack(
             title="Rock Smash",
