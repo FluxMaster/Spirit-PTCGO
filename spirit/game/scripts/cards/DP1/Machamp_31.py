@@ -4,6 +4,8 @@ Machamp (DP1 #31): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.dp import revenge_bonus
+from spirit.game.card_effects.dp import dynamic_punch
 
 card = PokemonCardDef(
     guid="f5b3a384-060e-5546-8fc4-92ccefa9c789",
@@ -29,8 +31,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1},
             damage=20,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=revenge_bonus(20, 50),
         ),
         Attack(
             title="Dynamic Punch",
@@ -38,8 +39,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 3},
             damage=60,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=dynamic_punch(),
         ),
     ],
 )

@@ -4,6 +4,8 @@ Roselia (DP1 #96): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.dp import toxic_spikes_budew
+from spirit.game.card_effects.dp import sweet_spike
 
 card = PokemonCardDef(
     guid="a00c203e-f358-5457-beed-438ae508e8cd",
@@ -26,16 +28,14 @@ card = PokemonCardDef(
             title="Toxic Spikes",
             game_text="The Defending Pok\u00e9mon is now Poisoned. If Roselia is evolved from Budew, this attack does 10 damage to the Defending Pok\u00e9mon.",
             cost={PokemonTypes.GRASS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=toxic_spikes_budew(),
         ),
         Attack(
             title="Sweet Spike",
             game_text="The Defending Pok\u00e9mon is now Asleep. Remove 2 damage counters from 1 of your Pok\u00e9mon.",
             cost={PokemonTypes.GRASS: 2},
             damage=10,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=sweet_spike(),
         ),
     ],
 )

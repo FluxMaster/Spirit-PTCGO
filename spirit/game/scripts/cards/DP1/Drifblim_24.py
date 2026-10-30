@@ -5,6 +5,7 @@ Drifblim (DP1 #24): one or more attacks/abilities use effect=unimplemented until
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import spread_damage
+from spirit.game.card_effects.dp import wind_wave_recover
 
 
 card = PokemonCardDef(
@@ -31,15 +32,13 @@ card = PokemonCardDef(
             title="Wind Wave",
             game_text="Search your discard pile for up to 5 in any combination of Pok\u00e9mon and Supporter cards. Show them to your opponent and shuffle them into your deck.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=wind_wave_recover(5),
         ),
         Attack(
             title="Explosive Smoke",
             game_text="Does 10 damage to each Benched Pok\u00e9mon (both yours and your opponent's). (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.PSYCHIC: 3},
             damage=60,
-            # STUB: attack effect not implemented
             effect=spread_damage(10, side='both', also_base=True),
         ),
     ],

@@ -4,6 +4,7 @@ Wobbuffet (DP1 #41): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.dp import countercharge
 
 card = PokemonCardDef(
     guid="a56b98cc-5336-544b-826c-edf8ea4c4cda",
@@ -26,8 +27,7 @@ card = PokemonCardDef(
             title="Countercharge",
             game_text="Flip a coin. If heads, move all damage counters from Wobbuffet to the Defending Pok\u00e9mon.",
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=countercharge(),
         ),
     ],
 )

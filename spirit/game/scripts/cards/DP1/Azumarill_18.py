@@ -4,6 +4,8 @@ Azumarill (DP1 #18): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.dp import defense_curl_flip_protect
+from spirit.game.card_effects.dp import bubble_pump
 
 card = PokemonCardDef(
     guid="b42a5ec6-9182-5bfc-b8a4-4eac9f6e0637",
@@ -27,8 +29,7 @@ card = PokemonCardDef(
             title="Defense Curl",
             game_text="Flip a coin. If heads, prevent all damage done to Azumarill during your opponent's next turn.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=defense_curl_flip_protect(),
         ),
         Attack(
             title="Bubble Pump",
@@ -36,8 +37,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 2},
             damage=40,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bubble_pump(),
         ),
     ],
 )

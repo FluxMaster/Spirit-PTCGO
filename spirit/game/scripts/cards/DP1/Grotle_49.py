@@ -4,6 +4,7 @@ Grotle (DP1 #49): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.dp import synthesis_attach
 
 card = PokemonCardDef(
     guid="b7cbd44f-383b-57e3-99b6-273ed31900e5",
@@ -29,8 +30,7 @@ card = PokemonCardDef(
             title="Synthesis",
             game_text="Search your deck for a Grass Energy card and attach it to 1 of your Pok\u00e9mon. Shuffle your deck afterward.",
             cost={PokemonTypes.GRASS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=synthesis_attach(),
         ),
         Attack(
             title="Cut",

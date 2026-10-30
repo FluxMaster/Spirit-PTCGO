@@ -4,6 +4,8 @@ Vespiquen (DP1 #39): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.dp import leaf_honey
+from spirit.game.card_effects.dp import attack_order
 
 card = PokemonCardDef(
     guid="7bda3eb5-f731-5b51-9f31-ba94ed507694",
@@ -29,8 +31,7 @@ card = PokemonCardDef(
             title="Leaf Honey",
             game_text="Discard a Grass Energy attached to Vespiquen and remove all damage counters from 1 of your Benched Grass Pok\u00e9mon.",
             cost={PokemonTypes.GRASS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=leaf_honey(),
         ),
         Attack(
             title="Attack Order",
@@ -38,8 +39,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 2},
             damage=10,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=attack_order(),
         ),
     ],
 )

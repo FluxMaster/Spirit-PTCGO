@@ -5,6 +5,7 @@ Dialga (DP1 #1): one or more attacks/abilities use effect=unimplemented until a 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.support_common import draw_attack
+from spirit.game.card_effects.dp import flash_cannon_devolve
 
 
 card = PokemonCardDef(
@@ -31,7 +32,6 @@ card = PokemonCardDef(
             game_text="Draw a card.",
             cost={PokemonTypes.METAL: 1},
             damage=10,
-            # STUB: attack effect not implemented
             effect=draw_attack(1),
         ),
         Attack(
@@ -39,8 +39,7 @@ card = PokemonCardDef(
             game_text="You may return all Energy cards attached to Dialga to your hand. If you do, remove the highest Stage Evolution card from the Defending Pok\u00e9mon and shuffle that card into your opponent's deck.",
             cost={PokemonTypes.METAL: 2, PokemonTypes.COLORLESS: 1},
             damage=40,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flash_cannon_devolve(),
         ),
     ],
 )

@@ -6,6 +6,7 @@ from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemente
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.dp import resonance_confused
 
 
 card = PokemonCardDef(
@@ -31,7 +32,6 @@ card = PokemonCardDef(
             title="Metal Sound",
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon is now Confused.",
             cost={PokemonTypes.METAL: 1},
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.CONFUSED, flip=True),
         ),
         Attack(
@@ -40,8 +40,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.METAL: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=resonance_confused(),
         ),
     ],
 )

@@ -4,6 +4,9 @@ Rhyperior (DP1 #12): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.dp import rock_wrecker
+from spirit.game.card_effects.dp import earth_fissure_on_evolve
+from spirit.game.data_utils import Triggers
 
 card = PokemonCardDef(
     guid="369f20bd-c165-5612-b3ce-d1e361b7d809",
@@ -29,16 +32,15 @@ card = PokemonCardDef(
             title="Earth Fissure",
             game_text="Once during your turn, when you play Rhyperior from your hand to evolve 1 of your Pok\u00e9mon, you may discard the top 3 cards from your opponent's deck.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=Triggers.ON_EVOLVE,
+            effect=earth_fissure_on_evolve(),
         ),
         Attack(
             title="Rock Wrecker",
             game_text="This attack's damage isn't affected by Weakness or Resistance. Rhyperior can't attack during your next turn.",
             cost={PokemonTypes.FIGHTING: 2, PokemonTypes.COLORLESS: 1},
             damage=80,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=rock_wrecker(),
         ),
     ],
 )

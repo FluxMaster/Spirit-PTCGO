@@ -5,6 +5,7 @@ Empoleon (DP1 #4): one or more attacks/abilities use effect=unimplemented until 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import snipe_attack
+from spirit.game.card_effects.dp import aqua_jet_flip_snipe
 
 
 card = PokemonCardDef(
@@ -29,7 +30,6 @@ card = PokemonCardDef(
             title="Ice Blade",
             game_text="Choose 1 of your opponent's Pok\u00e9mon. This attack does 40 damage to that Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=snipe_attack(40, pool='any'),
         ),
         Attack(
@@ -37,8 +37,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, this attack does 20 damage to 1 of your opponent's Benched Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.WATER: 2, PokemonTypes.COLORLESS: 1},
             damage=70,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=aqua_jet_flip_snipe(20),
         ),
     ],
 )

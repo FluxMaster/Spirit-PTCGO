@@ -5,6 +5,7 @@ Snorlax (DP1 #37): one or more attacks/abilities use effect=unimplemented until 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.ex import magma_ring_no_retreat
+from spirit.game.card_effects.dp import ease_up_munchlax
 
 
 card = PokemonCardDef(
@@ -28,7 +29,6 @@ card = PokemonCardDef(
             title="Block",
             game_text="The Defending Pok\u00e9mon can't retreat during your opponent's next turn.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=magma_ring_no_retreat(),
         ),
         Attack(
@@ -37,8 +37,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 4},
             damage=40,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=ease_up_munchlax(),
         ),
     ],
 )

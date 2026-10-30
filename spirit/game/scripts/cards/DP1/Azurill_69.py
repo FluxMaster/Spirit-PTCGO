@@ -5,6 +5,7 @@ Azurill (DP1 #69): one or more attacks/abilities use effect=unimplemented until 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.support_common import recover_from_discard
+from spirit.game.card_effects.dp import baby_evolution, baby_evolution_condition
 
 
 card = PokemonCardDef(
@@ -28,14 +29,13 @@ card = PokemonCardDef(
             title="Baby Evolution",
             game_text="Once during your turn (before your attack), you may put Marill from your hand onto Azurill (this counts a evolving Azurill) and remove all damage counters from Azurill.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            condition=baby_evolution_condition('Marill'),
+            effect=baby_evolution('Marill'),
         ),
         Attack(
             title="Delivery",
             game_text="Put any 1 card from your discard pile into your hand.",
             cost={},
-            # STUB: attack effect not implemented
             effect=recover_from_discard(count=1, minimum=1, reveal=False, to='hand', prompt='Choose a card from your discard pile.'),
         ),
     ],

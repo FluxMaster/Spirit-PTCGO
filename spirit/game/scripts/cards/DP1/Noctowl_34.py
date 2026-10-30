@@ -4,6 +4,8 @@ Noctowl (DP1 #34): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.dp import extrasensory_same_hand
+from spirit.game.card_effects.dp import see_beyond
 
 card = PokemonCardDef(
     guid="2dfba96b-b667-5392-876a-a21e5a176e9f",
@@ -29,8 +31,7 @@ card = PokemonCardDef(
             title="See Beyond",
             game_text="Choose a card from your hand and put it as a Prize card face up. Then, choose 1 of your face-down Prize cards without looking and put it into your hand. This attack does nothing if all of your Prize cards are face up.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=see_beyond(),
         ),
         Attack(
             title="Extrasensory",
@@ -38,8 +39,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=extrasensory_same_hand(),
         ),
     ],
 )

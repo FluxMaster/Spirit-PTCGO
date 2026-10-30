@@ -1,12 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Night Pokémon Center (DP1 #108): trainer effect stubbed.
-
-Card text:
-  - Choose 1 of your Pokémon. Flip 2 coins. If both are heads, remove all damage counters from that Pokémon. If both are tails, discard all Energy cards attached to that Pokémon.
-"""
+"""Wired DP1 trainer."""
 
 from spirit.game.data_utils import ItemCardDef, unimplemented
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.dp import night_pokemon_center
 
 card = ItemCardDef(
     guid="5b868f01-dfbf-55da-91d7-65bbc3face46",
@@ -19,5 +15,5 @@ card = ItemCardDef(
     set_code="DP1",
     rarity=Rarities.Uncommon,
     # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=night_pokemon_center()
 )

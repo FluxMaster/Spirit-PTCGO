@@ -4,6 +4,8 @@ Dusclops (DP1 #47): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.dp import roam_counters
+from spirit.game.card_effects.dp import gravity_wave
 
 card = PokemonCardDef(
     guid="e021dfa4-6073-5219-91ff-30572e769714",
@@ -29,16 +31,14 @@ card = PokemonCardDef(
             title="Roam",
             game_text="Flip a coin. If heads, put 2 damage counters on each of your opponent's Pok\u00e9mon. If tails, put 2 damage counters on 1 of your Pok\u00e9mon.",
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=roam_counters(2),
         ),
         Attack(
             title="Gravity Wave",
             game_text="Does 10 damage to each of your opponent's Benched Pok\u00e9mon that doesn't have a Retreat Cost. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.PSYCHIC: 2},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=gravity_wave(10),
         ),
     ],
 )

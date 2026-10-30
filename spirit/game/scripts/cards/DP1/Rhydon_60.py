@@ -4,6 +4,7 @@ Rhydon (DP1 #60): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.dp import storm_up, crash_impact
 
 card = PokemonCardDef(
     guid="f1464dd1-96ce-5eb8-b9bf-ce3e9d9fa176",
@@ -31,16 +32,14 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=storm_up(),
         ),
         Attack(
             title="Crash Impact",
             game_text="Rhydon does 10 damage to itself. Your opponent switches the Defending Pok\u00e9mon with 1 of his or her Benched Pok\u00e9mon, if any.",
             cost={PokemonTypes.FIGHTING: 2, PokemonTypes.COLORLESS: 1},
             damage=60,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=crash_impact(),
         ),
     ],
 )

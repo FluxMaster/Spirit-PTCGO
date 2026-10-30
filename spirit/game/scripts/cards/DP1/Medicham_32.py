@@ -4,6 +4,8 @@ Medicham (DP1 #32): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.dp import force_palm
+from spirit.game.card_effects.dp import recoil_attack
 
 card = PokemonCardDef(
     guid="acde35fa-74fb-5657-bd8d-ea7226687cdb",
@@ -27,16 +29,14 @@ card = PokemonCardDef(
             title="Force Palm",
             game_text="Count the number of damage counters on Medicham. Put that many damage counters on 1 of your opponent's Pok\u00e9mon.",
             cost={PokemonTypes.FIGHTING: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=force_palm(),
         ),
         Attack(
             title="Spinning Kick",
             game_text="Medicham does 20 damage to itself.",
             cost={PokemonTypes.FIGHTING: 2, PokemonTypes.COLORLESS: 1},
             damage=80,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=recoil_attack(20),
         ),
     ],
 )

@@ -4,6 +4,8 @@ Marill (DP1 #88): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.dp import bonus_if_evolved_from
+from spirit.game.card_effects.dp import splashing_turn
 
 card = PokemonCardDef(
     guid="e26cd732-c383-5e29-8cdf-b476117a89e3",
@@ -28,16 +30,14 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bonus_if_evolved_from('Azurill', bonus=20, base=10),
         ),
         Attack(
             title="Splashing Turn",
             game_text="Switch Marill with 1 of your Benched Pok\u00e9mon.",
             cost={PokemonTypes.WATER: 2},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=splashing_turn(),
         ),
     ],
 )

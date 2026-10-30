@@ -5,6 +5,7 @@ Infernape (DP1 #5): one or more attacks/abilities use effect=unimplemented until
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.ex import spiral_rush
+from spirit.game.card_effects.dp import flare_blitz_all_fire
 
 
 card = PokemonCardDef(
@@ -31,7 +32,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=30,
             damage_operator="x",
-            # STUB: attack effect not implemented
             effect=spiral_rush(),
         ),
         Attack(
@@ -39,8 +39,7 @@ card = PokemonCardDef(
             game_text="Discard all Fire Energy attached to Infernape.",
             cost={PokemonTypes.FIRE: 2},
             damage=90,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flare_blitz_all_fire(),
         ),
     ],
 )

@@ -4,6 +4,8 @@ Bibarel (DP1 #20): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.dp import rest_attack
+from spirit.game.card_effects.dp import recoil_attack
 
 card = PokemonCardDef(
     guid="f3aa4727-3a39-5e65-ae26-e3d7b64fb232",
@@ -27,16 +29,14 @@ card = PokemonCardDef(
             title="Rest",
             game_text="Remove all Special Conditions and 4 damage counters from Bibarel. Bibarel is now Asleep.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=rest_attack(4),
         ),
         Attack(
             title="Take Down",
             game_text="Bibarel does 10 damage to itself.",
             cost={PokemonTypes.COLORLESS: 3},
             damage=60,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=recoil_attack(10),
         ),
     ],
 )

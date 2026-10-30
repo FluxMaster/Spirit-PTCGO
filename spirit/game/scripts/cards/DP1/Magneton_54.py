@@ -5,6 +5,7 @@ Magneton (DP1 #54): one or more attacks/abilities use effect=unimplemented until
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_damage
+from spirit.game.card_effects.dp import magnetic_ray
 
 
 card = PokemonCardDef(
@@ -33,7 +34,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=20,
             damage_operator="x",
-            # STUB: attack effect not implemented
             effect=flip_damage(coins=3, per_heads=20),
         ),
         Attack(
@@ -41,8 +41,7 @@ card = PokemonCardDef(
             game_text="Before doing damage, you may choose 1 of your opponent's Benched Pok\u00e9mon that has any Energy attached to it and switch that Pok\u00e9mon with 1 of the Defending Pok\u00e9mon.",
             cost={PokemonTypes.METAL: 1, PokemonTypes.COLORLESS: 2},
             damage=40,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=magnetic_ray(),
         ),
     ],
 )

@@ -4,6 +4,7 @@ Machoke (DP1 #53): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.dp import karate_chop
 
 card = PokemonCardDef(
     guid="d4f9739d-f36a-5e4f-a37c-5b90e0ddda8e",
@@ -29,8 +30,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 1},
             damage=40,
             damage_operator="-",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=karate_chop(40, 10),
         ),
         Attack(
             title="Seismic Toss",

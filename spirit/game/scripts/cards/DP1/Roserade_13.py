@@ -6,6 +6,7 @@ from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemente
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.dp import spike_whip_budew
 
 
 card = PokemonCardDef(
@@ -31,7 +32,6 @@ card = PokemonCardDef(
             game_text="The Defending Pok\u00e9mon is now Poisoned.",
             cost={PokemonTypes.GRASS: 2},
             damage=30,
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.POISONED),
         ),
         Attack(
@@ -39,8 +39,7 @@ card = PokemonCardDef(
             game_text="If Budew is anywhere under Roserade, choose 1 of your opponent's Benched Pok\u00e9mon. This attack does 30 damage to that Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.GRASS: 2, PokemonTypes.COLORLESS: 1},
             damage=50,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=spike_whip_budew(30),
         ),
     ],
 )

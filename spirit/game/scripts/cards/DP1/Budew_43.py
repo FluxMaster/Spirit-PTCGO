@@ -6,6 +6,7 @@ from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemente
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.support_common import search_to_hand
 from spirit.game.session.effects import is_trainer_card
+from spirit.game.card_effects.dp import baby_evolution, baby_evolution_condition
 
 
 card = PokemonCardDef(
@@ -29,14 +30,13 @@ card = PokemonCardDef(
             title="Baby Evolution",
             game_text="Once during your turn (before your attack), you may put Roselia from your hand onto Budew (this counts as evolving Budew) and remove all damage counters from Budew.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            condition=baby_evolution_condition('Roselia'),
+            effect=baby_evolution('Roselia'),
         ),
         Attack(
             title="Errand-Running",
             game_text="Search your deck for a Trainer card, show it to your opponent, and put it into your hand. Shuffle your deck afterward.",
             cost={},
-            # STUB: attack effect not implemented
             effect=search_to_hand(is_trainer_card, count=1, reveal=True, prompt='Choose a Trainer card.'),
         ),
     ],

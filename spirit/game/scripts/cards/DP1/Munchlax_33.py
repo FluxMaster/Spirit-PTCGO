@@ -4,6 +4,8 @@ Munchlax (DP1 #33): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.dp import baby_evolution, baby_evolution_condition
+from spirit.game.card_effects.dp import heave
 
 card = PokemonCardDef(
     guid="c64a11c1-e9e9-5dd0-b6b5-f5b75f9f70fb",
@@ -26,8 +28,8 @@ card = PokemonCardDef(
             title="Baby Evolution",
             game_text="Once during your turn (before your attack), you may put Snorlax from your hand onto Munchlax (this counts as evolving Munchlax) and remove all damage counters from Munchlax.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            condition=baby_evolution_condition('Snorlax'),
+            effect=baby_evolution('Snorlax'),
         ),
         Attack(
             title="Heave",
@@ -35,8 +37,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=30,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=heave(),
         ),
     ],
 )

@@ -4,6 +4,8 @@ Magnezone (DP1 #8): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.dp import metal_blast
+from spirit.game.card_effects.dp import magnetize_passive, metal_blast
 
 card = PokemonCardDef(
     guid="eee01583-530d-5049-a7ea-7247aa0c7d84",
@@ -29,8 +31,7 @@ card = PokemonCardDef(
             title="Magnetize",
             game_text="If you have any Metal Energy attached to your Active Pok\u00e9mon, the Retreat Cost for that Pok\u00e9mon is 0.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=magnetize_passive(),
         ),
         Attack(
             title="Metal Blast",
@@ -38,8 +39,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.METAL: 1, PokemonTypes.COLORLESS: 2},
             damage=50,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=metal_blast(),
         ),
     ],
 )

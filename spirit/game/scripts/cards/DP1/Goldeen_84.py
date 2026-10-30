@@ -4,6 +4,7 @@ Goldeen (DP1 #84): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.dp import recoil_attack
 
 card = PokemonCardDef(
     guid="d51446b9-24ca-5a87-b3a1-f920cb55386f",
@@ -32,8 +33,7 @@ card = PokemonCardDef(
             game_text="Goldeen does 10 damage to itself.",
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=recoil_attack(10),
         ),
     ],
 )

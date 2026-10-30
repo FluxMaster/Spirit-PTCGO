@@ -4,6 +4,8 @@ Electabuzz (DP1 #81): one or more attacks/abilities use effect=unimplemented unt
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.dp import thunderpunch_recoil
+from spirit.game.card_effects.dp import shock_wave_elekid
 
 card = PokemonCardDef(
     guid="cba298aa-cd38-5a74-b3f1-0d65bf837fa9",
@@ -30,16 +32,14 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=thunderpunch_recoil(),
         ),
         Attack(
             title="Shock Wave",
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon is now Paralyzed. If Electabuzz is evolved from Elekid, this attack does 20 damage to 1 of your opponent's Benched Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.LIGHTNING: 2},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=shock_wave_elekid(),
         ),
     ],
 )

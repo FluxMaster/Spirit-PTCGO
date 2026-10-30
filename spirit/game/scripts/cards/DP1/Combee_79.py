@@ -4,6 +4,7 @@ Combee (DP1 #79): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.dp import soliciting_nectar
 
 card = PokemonCardDef(
     guid="402e8313-b9e3-55d7-8464-1a1a0acc253e",
@@ -28,8 +29,7 @@ card = PokemonCardDef(
             title="Soliciting Nectar",
             game_text="Switch 1 of your opponent's Benched Pok\u00e9mon with 1 of the Defending Pok\u00e9mon. The new Defending Pok\u00e9mon is now Asleep.",
             cost={PokemonTypes.GRASS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=soliciting_nectar(),
         ),
         Attack(
             title="Gust",

@@ -2,7 +2,7 @@
 Cleffa (DP1 #78): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.data_utils import Activations
 from spirit.game.card_effects.ex import baby_evolution, baby_evolution_condition

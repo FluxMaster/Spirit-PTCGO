@@ -5,6 +5,7 @@ Nuzleaf (DP1 #57): one or more attacks/abilities use effect=unimplemented until 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_or_nothing
+from spirit.game.card_effects.dp import dirty_trick
 
 
 card = PokemonCardDef(
@@ -31,15 +32,13 @@ card = PokemonCardDef(
             title="Dirty Trick",
             game_text="Flip a coin. If heads, discard an Energy card attached to 1 of your opponent's Pok\u00e9mon.",
             cost={PokemonTypes.DARKNESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=dirty_trick(),
         ),
         Attack(
             title="Razor Wind",
             game_text="Flip a coin. If tails, this attack does nothing.",
             cost={PokemonTypes.DARKNESS: 2},
             damage=40,
-            # STUB: attack effect not implemented
             effect=flip_or_nothing(),
         ),
     ],

@@ -5,6 +5,7 @@ Clefable (DP1 #22): one or more attacks/abilities use effect=unimplemented until
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_damage
+from spirit.game.card_effects.dp import metronome_defending
 
 
 card = PokemonCardDef(
@@ -31,15 +32,13 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=30,
             damage_operator="x",
-            # STUB: attack effect not implemented
             effect=flip_damage(coins=2, per_heads=30),
         ),
         Attack(
             title="Metronome",
             game_text="Choose 1 of the Defending Pok\u00e9mon's attacks. Metronome copies that attack except for its Energy cost. (You must still do anything else in order to use that attack.) Clefable performs that attack.",
             cost={PokemonTypes.COLORLESS: 3},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=metronome_defending,
         ),
     ],
 )

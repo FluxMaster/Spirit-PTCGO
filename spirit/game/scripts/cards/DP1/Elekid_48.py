@@ -2,10 +2,11 @@
 Elekid (DP1 #48): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.data_utils import Activations
 from spirit.game.card_effects.ex import baby_evolution, baby_evolution_condition
+from spirit.game.card_effects.dp import outlet_search
 
 
 card = PokemonCardDef(
@@ -31,7 +32,6 @@ card = PokemonCardDef(
             title="Baby Evolution",
             game_text="Once during your turn (before your attack), you may put Electabuzz from your hand onto Elekid (this counts as evolving Elekid) and remove all damage counters from Elekid.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
             activation=Activations.ONCE_PER_TURN,
             condition=baby_evolution_condition('Electabuzz'),
             effect=baby_evolution('Electabuzz'),
@@ -40,8 +40,7 @@ card = PokemonCardDef(
             title="Outlet",
             game_text="Search your deck for a Lightning Energy card, show it to your opponent, and put it into your hand. Shuffle your deck afterward.",
             cost={},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=outlet_search(),
         ),
     ],
 )

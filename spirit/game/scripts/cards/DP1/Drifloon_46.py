@@ -5,6 +5,7 @@ Drifloon (DP1 #46): one or more attacks/abilities use effect=unimplemented until
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.ex import ominous_wind_confuse_lock
+from spirit.game.card_effects.dp import blowing_wind_bench_to_deck
 
 
 card = PokemonCardDef(
@@ -30,15 +31,13 @@ card = PokemonCardDef(
             title="Blowing Wind",
             game_text="Flip a coin. If heads, put 1 of your Benched Pok\u00e9mon and all cards attached to on top of your deck. Shuffle your deck afterward.",
             cost={PokemonTypes.PSYCHIC: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=blowing_wind_bench_to_deck(),
         ),
         Attack(
             title="Ominous Wind",
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon is now Confused and can't retreat during your opponent's next turn.",
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 1},
             damage=10,
-            # STUB: attack effect not implemented
             effect=ominous_wind_confuse_lock(10),
         ),
     ],

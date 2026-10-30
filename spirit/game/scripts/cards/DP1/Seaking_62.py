@@ -4,6 +4,7 @@ Seaking (DP1 #62): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.dp import flail_self
 
 card = PokemonCardDef(
     guid="532b00e4-ee28-5abc-8733-085ffe1546b0",
@@ -29,8 +30,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=10,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flail_self(10),
         ),
         Attack(
             title="Horn Drill",

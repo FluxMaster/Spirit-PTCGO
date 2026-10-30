@@ -2,8 +2,11 @@
 Torterra LV.X (DP1 #122): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.dp import vigorous_dash
+from spirit.game.card_effects.dp import forest_murmurs, poke_power_condition
+from spirit.game.data_utils import Activations
 
 card = PokemonCardDef(
     guid="919a79a8-5f64-5bee-8bb4-a5cb89d68199",
@@ -27,16 +30,16 @@ card = PokemonCardDef(
             title="Forest Murmurs",
             game_text="Once during your turn (before your attack), if you have more Prize cards left than your opponent, you may choose 1 of your opponent's Benched Pok\u00e9mon and switch it with 1 of the Defending Pok\u00e9mon. This power can't be used if Torterra is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            condition=poke_power_condition(),
+            activation=Activations.ONCE_PER_TURN,
+            effect=forest_murmurs(),
         ),
         Attack(
             title="Vigorous Dash",
             game_text="Does 30 damage to 1 of your opponent's Benched Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.) Torterra does 30 damage to itself.",
             cost={PokemonTypes.GRASS: 3, PokemonTypes.COLORLESS: 1},
             damage=100,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=vigorous_dash(),
         ),
     ],
 )

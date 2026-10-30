@@ -2,8 +2,10 @@
 Unown [B] (DP1 #66): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.dp import unown_bounce, unown_bench_condition, poke_power_condition
+from spirit.game.data_utils import Activations
 
 card = PokemonCardDef(
     guid="0137eec0-9774-5387-bb35-07daf5a4f35f",
@@ -26,8 +28,9 @@ card = PokemonCardDef(
             title="BOUNCE",
             game_text="Once during your turn (before your attack), if Unown B is on your Bench, you may flip a coin. If heads, discard all cards attached to any 1 of your Unown and shuffle that Pok\u00e9mon back into your deck.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            condition=poke_power_condition(unown_bench_condition),
+            activation=Activations.ONCE_PER_TURN,
+            effect=unown_bounce(),
         ),
         Attack(
             title="Hidden Power",

@@ -4,6 +4,8 @@ Weavile (DP1 #40): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.dp import nasty_plot
+from spirit.game.card_effects.dp import dark_pulse
 
 card = PokemonCardDef(
     guid="d1bf6e84-60ee-527e-b27e-e9263d2e2e01",
@@ -29,8 +31,7 @@ card = PokemonCardDef(
             title="Nasty Plot",
             game_text="Search your deck for any 1 card and put it into your hand. Shuffle your deck afterward.",
             cost={PokemonTypes.DARKNESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=nasty_plot(),
         ),
         Attack(
             title="Dark Pulse",
@@ -38,8 +39,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.DARKNESS: 3},
             damage=10,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=dark_pulse(),
         ),
     ],
 )

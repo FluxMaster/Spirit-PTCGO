@@ -5,6 +5,7 @@ Cascoon (DP1 #44): one or more attacks/abilities use effect=unimplemented until 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.ex import magma_ring_no_retreat
+from spirit.game.card_effects.dp import harden_prevent_at_most
 
 
 card = PokemonCardDef(
@@ -29,15 +30,13 @@ card = PokemonCardDef(
             title="Harden",
             game_text="During your opponent's next turn, if Cascoon would be damaged by an attack, prevent that attack's damage done to Cascoon if that damage is 30 or less.",
             cost={PokemonTypes.GRASS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=harden_prevent_at_most(30),
         ),
         Attack(
             title="Gooey Thread",
             game_text="The Defending Pok\u00e9mon can't retreat during your opponent's next turn.",
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
             effect=magma_ring_no_retreat(),
         ),
     ],

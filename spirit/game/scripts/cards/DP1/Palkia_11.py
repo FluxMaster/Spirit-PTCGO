@@ -4,6 +4,9 @@ Palkia (DP1 #11): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.dp import search_to_hand
+from spirit.game.card_effects.dp import spacial_rend
+from spirit.game.card_effects.dp import transback
 
 card = PokemonCardDef(
     guid="46784452-ded5-5e74-860b-41bc1a312bc2",
@@ -27,16 +30,14 @@ card = PokemonCardDef(
             game_text="Search your deck for a Stadium card, show it to your opponent, and put it into your hand. Shuffle your deck afterward. If there is any Stadium card in play, discard it.",
             cost={PokemonTypes.WATER: 1},
             damage=10,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=spacial_rend(),
         ),
         Attack(
             title="Transback",
             game_text="You may flip a coin. If heads, discard all Energy attached to Palkia and put the Defending Pok\u00e9mon and all cards attached to it on top of your opponent's deck. Your opponent shuffles his or her deck afterward.",
             cost={PokemonTypes.WATER: 2, PokemonTypes.COLORLESS: 1},
             damage=40,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=transback(),
         ),
     ],
 )

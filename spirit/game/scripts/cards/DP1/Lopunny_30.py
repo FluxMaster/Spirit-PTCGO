@@ -4,6 +4,8 @@ Lopunny (DP1 #30): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.dp import healing_wish
+from spirit.game.card_effects.dp import flop_snipe_switch
 
 card = PokemonCardDef(
     guid="35513487-ed0b-5257-b4a2-5b0ec097bcd6",
@@ -27,16 +29,14 @@ card = PokemonCardDef(
             title="Healing Wish",
             game_text="Flip a coin until you get tails. Remove a number of damage counters equal to the number of heads from 1 of your Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=healing_wish(),
         ),
         Attack(
             title="Flop",
             game_text="Does 20 damage to 1 of your opponent's Benched Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.) You may switch Lopunny with 1 of your Benched Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 3},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flop_snipe_switch(20),
         ),
     ],
 )

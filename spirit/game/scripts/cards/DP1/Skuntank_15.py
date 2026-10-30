@@ -4,6 +4,8 @@ Skuntank (DP1 #15): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.dp import frustration
+from spirit.game.card_effects.dp import toxic_cloud
 
 card = PokemonCardDef(
     guid="626d929f-0401-5eb6-8f83-2cba91b09b85",
@@ -29,16 +31,14 @@ card = PokemonCardDef(
             title="Frustration",
             game_text="Choose 1 of your opponent's Pok\u00e9mon that doesn't have any damage counters on it. This attack does 30 damage to that Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.DARKNESS: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=frustration(30),
         ),
         Attack(
             title="Toxic Cloud",
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon is now Poisoned. Put 2 damage counters instead of 1 on the Defending Pok\u00e9mon between turns.",
             cost={PokemonTypes.DARKNESS: 2, PokemonTypes.COLORLESS: 1},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=toxic_cloud(),
         ),
     ],
 )

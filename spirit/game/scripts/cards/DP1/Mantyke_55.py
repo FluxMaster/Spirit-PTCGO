@@ -4,6 +4,7 @@ Mantyke (DP1 #55): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.dp import baby_evolution, baby_evolution_condition, call_for_friends_basic
 
 card = PokemonCardDef(
     guid="7f20dfdc-a87e-524c-a9c5-21cc03d3524c",
@@ -28,15 +29,14 @@ card = PokemonCardDef(
             title="Baby Evolution",
             game_text="Once during your turn (before your attack), you may put Mantine from your hand onto Mantyke (this counts as evolving Mantyke) and remove all damage counters from Mantyke.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            condition=baby_evolution_condition('Mantine'),
+            effect=baby_evolution('Mantine'),
         ),
         Attack(
             title="Call for Friends",
             game_text="Search your deck for a Water Basic Pok\u00e9mon, show it to your opponent, and put it into your hand. Shuffle your deck afterward.",
             cost={},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=call_for_friends_basic(),
         ),
     ],
 )

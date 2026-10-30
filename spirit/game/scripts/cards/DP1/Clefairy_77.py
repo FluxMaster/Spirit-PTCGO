@@ -6,6 +6,7 @@ from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemente
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.dp import bonus_if_evolved_from
 
 
 card = PokemonCardDef(
@@ -29,7 +30,6 @@ card = PokemonCardDef(
             title="Sing",
             game_text="The Defending Pok\u00e9mon is now Asleep.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.ASLEEP),
         ),
         Attack(
@@ -38,8 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=20,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bonus_if_evolved_from('Cleffa', bonus=20, base=20),
         ),
     ],
 )

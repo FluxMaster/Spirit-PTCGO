@@ -4,6 +4,7 @@ Gastly (DP1 #82): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.dp import pain_payback
 
 card = PokemonCardDef(
     guid="aa5ae699-329b-57e6-932d-8fc9e4ca5db6",
@@ -28,8 +29,7 @@ card = PokemonCardDef(
             title="Pain Payback",
             game_text="Move 1 damage counter from Gastly to 1 of your opponent's Pok\u00e9mon.",
             cost={PokemonTypes.PSYCHIC: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=pain_payback(),
         ),
     ],
 )

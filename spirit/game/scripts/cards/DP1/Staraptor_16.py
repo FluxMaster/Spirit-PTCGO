@@ -4,6 +4,8 @@ Staraptor (DP1 #16): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.dp import accelerative_dive
+from spirit.game.card_effects.dp import brave_heart
 
 card = PokemonCardDef(
     guid="80d7c6ea-d810-549a-98cc-ec6d7a5e5672",
@@ -30,16 +32,14 @@ card = PokemonCardDef(
             game_text="Flip a coin. If tails, this attack does nothing. If heads, prevent all damage done to Staraptor by attacks (both yours and your opponent's) until the end of your next turn.",
             cost={PokemonTypes.COLORLESS: 1},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=accelerative_dive(),
         ),
         Attack(
             title="Brave Heart",
             game_text="Flip a coin. If tails, Staraptor does 100 damage to itself.",
             cost={PokemonTypes.COLORLESS: 4},
             damage=100,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=brave_heart(100),
         ),
     ],
 )

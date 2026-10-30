@@ -4,6 +4,7 @@ Buizel (DP1 #72): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.dp import splash_about
 
 card = PokemonCardDef(
     guid="412175fb-f270-5d30-b0b8-8b07b75af19b",
@@ -28,8 +29,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=splash_about(10, 10),
         ),
     ],
 )

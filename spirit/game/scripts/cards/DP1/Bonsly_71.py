@@ -4,6 +4,7 @@ Bonsly (DP1 #71): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.dp import baby_evolution, baby_evolution_condition, fake_tears
 
 card = PokemonCardDef(
     guid="5d04b7ae-2585-5a9e-a050-078122ae9c0f",
@@ -26,15 +27,14 @@ card = PokemonCardDef(
             title="Baby Evolution",
             game_text="Once during your turn (before your attack), you may put Sudowoodo from your hand onto Bonsly (this counts as evolving Bonsly) and remove all damage counters from Bonsly.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            condition=baby_evolution_condition('Sudowoodo'),
+            effect=baby_evolution('Sudowoodo'),
         ),
         Attack(
             title="Fake Tears",
             game_text="Flip a coin. If heads, your opponent can't play any Trainer cards from his or her hand during your opponent's next turn, and any damage done to Bonsly by attacks is reduced by 30 (after applying Weakness and Resistance).",
             cost={},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=fake_tears(30),
         ),
     ],
 )

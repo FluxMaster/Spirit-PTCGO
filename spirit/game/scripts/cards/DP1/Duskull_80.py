@@ -5,6 +5,7 @@ Duskull (DP1 #80): one or more attacks/abilities use effect=unimplemented until 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import snipe_attack
+from spirit.game.card_effects.dp import disable_attack_flip
 
 
 card = PokemonCardDef(
@@ -30,15 +31,13 @@ card = PokemonCardDef(
             title="Disable",
             game_text="Flip a coin. If heads, choose 1 of the Defending Pok\u00e9mon's attacks. That Pok\u00e9mon can't use that attack during your opponent's next turn.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=disable_attack_flip(),
         ),
         Attack(
             title="Night Shade",
             game_text="Does 10 damage to 1 of your opponent's Benched Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
             effect=snipe_attack(10, also_base=True),
         ),
     ],

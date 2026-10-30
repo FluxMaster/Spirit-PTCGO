@@ -4,6 +4,7 @@ Seedot (DP1 #97): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.dp import bide_survive
 
 card = PokemonCardDef(
     guid="e75189e9-131c-5873-827f-b4fa6d3091c8",
@@ -28,8 +29,7 @@ card = PokemonCardDef(
             title="Bide",
             game_text="Flip a coin. If heads, during your opponent's next turn, if Seedot would be Knocked Out by damage from an attack, Seedot is not Knocked Out and its remaining HP becomes 10 instead.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bide_survive(),
         ),
         Attack(
             title="Rollout",

@@ -5,6 +5,7 @@ Monferno (DP1 #56): one or more attacks/abilities use effect=unimplemented until
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_damage
+from spirit.game.card_effects.dp import flame_dance_attach
 
 
 card = PokemonCardDef(
@@ -30,8 +31,7 @@ card = PokemonCardDef(
             game_text="Search your discard pile for a Fire Energy card and attach it to Monferno.",
             cost={PokemonTypes.FIRE: 1},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flame_dance_attach(),
         ),
         Attack(
             title="Fury Swipes",
@@ -39,7 +39,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=20,
             damage_operator="x",
-            # STUB: attack effect not implemented
             effect=flip_damage(coins=3, per_heads=20),
         ),
     ],

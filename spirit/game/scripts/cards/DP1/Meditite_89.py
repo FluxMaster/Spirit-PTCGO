@@ -5,6 +5,7 @@ Meditite (DP1 #89): one or more attacks/abilities use effect=unimplemented until
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import damage_per, damage_counters_on
+from spirit.game.card_effects.dp import detect_flip
 
 
 card = PokemonCardDef(
@@ -28,8 +29,7 @@ card = PokemonCardDef(
             title="Detect",
             game_text="Flip a coin. If heads, prevent all effects of an attack, including damage, done to Meditite during your opponent's next turn.",
             cost={PokemonTypes.FIGHTING: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=detect_flip(),
         ),
         Attack(
             title="Meditate",
@@ -37,7 +37,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 1},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
             effect=damage_per(damage_counters_on('defender'), 10, base=10),
         ),
     ],

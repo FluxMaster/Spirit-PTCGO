@@ -6,6 +6,7 @@ from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemente
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.dp import leaf_storm
 
 
 card = PokemonCardDef(
@@ -31,7 +32,6 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon is now Paralyzed.",
             cost={PokemonTypes.COLORLESS: 3},
             damage=30,
-            # STUB: attack effect not implemented
             effect=condition_attack(SpecialConditions.PARALYZED, flip=True),
         ),
         Attack(
@@ -39,8 +39,7 @@ card = PokemonCardDef(
             game_text="Remove 2 damage counters from each of your Grass Pok\u00e9mon.",
             cost={PokemonTypes.GRASS: 2, PokemonTypes.COLORLESS: 2},
             damage=60,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=leaf_storm(2),
         ),
     ],
 )
