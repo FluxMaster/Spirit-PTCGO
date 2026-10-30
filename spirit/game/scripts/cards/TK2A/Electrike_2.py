@@ -1,9 +1,13 @@
 """STUB: effect not implemented — do not guess mechanics.
-Electrike (TK2A #2): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
+Electrike (EX8 #60): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_bonus
+from spirit.game.card_effects.ex import recharge_attach_lightning
+
+
 
 card = PokemonCardDef(
     guid="da7497d5-1f93-5602-a8e7-c8678fd7e250",
@@ -27,7 +31,7 @@ card = PokemonCardDef(
             game_text="Search your deck for a Lightning Energy card and attach it to Electrike. Shuffle your deck afterward.",
             cost={PokemonTypes.LIGHTNING: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=recharge_attach_lightning(),
         ),
         Attack(
             title="Quick Attack",
@@ -36,7 +40,7 @@ card = PokemonCardDef(
             damage=10,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_bonus(20),
         ),
     ],
 )

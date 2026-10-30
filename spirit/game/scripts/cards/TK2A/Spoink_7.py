@@ -1,9 +1,11 @@
 """STUB: effect not implemented — do not guess mechanics.
-Spoink (TK2A #7): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
+Spoink (EX9 #65): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_bonus
+
 
 card = PokemonCardDef(
     guid="3ae0245d-481f-5891-9041-647d85de5154",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             damage=10,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_bonus(10),
         ),
     ],
 )

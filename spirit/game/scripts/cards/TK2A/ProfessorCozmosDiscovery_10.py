@@ -1,13 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Professor Cozmo's Discovery (TK2A #10): trainer effect stubbed.
-
-Card text:
-  - You can play only one Supporter card each turn. When you play this card, put it next to your Active Pokémon. When your turn ends, discard this card.
-  - Flip a coin. If heads, draw the bottom 3 cards of your deck. If tails, draw the top 2 cards of your deck.
-"""
-
-from spirit.game.data_utils import SupporterCardDef, unimplemented
+from spirit.game.data_utils import SupporterCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ex import professor_cozmos_discovery
 
 card = SupporterCardDef(
     guid="52a71ff9-ebde-56a4-ae5b-665536d8b0f3",
@@ -19,6 +12,5 @@ card = SupporterCardDef(
     collector_number=10,
     set_code="TK2A",
     rarity=Rarities.Common,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=professor_cozmos_discovery,
 )

@@ -1,9 +1,13 @@
 """STUB: effect not implemented — do not guess mechanics.
-Metang (TK2A #5): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
+Metang (EX8 #40): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_bonus
+from spirit.game.card_effects.ex import psychic_boom
+
+
 
 card = PokemonCardDef(
     guid="a6d0e0e6-5aec-5ad1-ba59-52748ceb5c8b",
@@ -30,7 +34,7 @@ card = PokemonCardDef(
             damage=10,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=psychic_boom(),
         ),
         Attack(
             title="Quick Blow",
@@ -39,7 +43,7 @@ card = PokemonCardDef(
             damage=40,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_bonus(20),
         ),
     ],
 )
