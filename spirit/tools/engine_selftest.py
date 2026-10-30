@@ -2645,6 +2645,122 @@ async def test_jamming_after_supporter():
 
 
 
+async def test_dp_special_darkness_energy_plus10():
+    """Special Darkness Energy: +10 to Active before W/R when holder is Darkness."""
+    from spirit.game.card_effects.energies import SpecialDarknessEnergyPassive
+    from spirit.game.session.passives import DamageCalc
+    rig, e = new_rig()
+    neutralize_wr(e)
+    attacker = e["p1_active"]
+    attacker.set_attribute(AttrID.POKEMON_TYPES, [PokemonTypes.DARKNESS.value])
+    calc = DamageCalc(rig.board, attacker, e["p2_active"], 50, is_attack=True)
+    # Carrier is the holder Pokemon (temp passive / energy ride both resolve via carrier_pokemon)
+    SpecialDarknessEnergyPassive().modify_damage_dealt(calc, attacker)
+    assert calc.amount == 60, calc.amount
+    # Non-Darkness holder: no boost
+    attacker.set_attribute(AttrID.POKEMON_TYPES, [PokemonTypes.FIRE.value])
+    calc2 = DamageCalc(rig.board, attacker, e["p2_active"], 50, is_attack=True)
+    SpecialDarknessEnergyPassive().modify_damage_dealt(calc2, attacker)
+    assert calc2.amount == 50, calc2.amount
+
+
+async def test_dp_special_metal_energy_minus10():
+    from spirit.game.card_effects.energies import SpecialMetalEnergyPassive
+    from spirit.game.session.passives import DamageCalc
+    rig, e = new_rig()
+    neutralize_wr(e)
+    target = e["p2_active"]
+    target.set_attribute(AttrID.POKEMON_TYPES, [PokemonTypes.METAL.value])
+    calc = DamageCalc(rig.board, e["p1_active"], target, 50, is_attack=True)
+    SpecialMetalEnergyPassive().modify_damage_taken(calc, target)
+    assert calc.amount == 40, calc.amount
+
+
+async def test_dp_multi_energy_colorless_when_other_special():
+    from spirit.game.card_effects.energies import MultiEnergyPassive, MULTI_ENERGY_PROVIDES
+    from spirit.game.attributes import PokemonTypes as PT
+    rig, e = new_rig()
+    holder = e["p1_active"]
+    multi = type("E", (), {})()
+    other = type("E2", (), {})()
+    # Fake IS_SPECIAL_ENERGY on other
+    other.get_attribute = lambda aid, default=None: True if aid == AttrID.IS_SPECIAL_ENERGY else default
+    multi_id = id(multi)
+    holder.children = [multi, other]
+    options = [[t[0].value] for t in MULTI_ENERGY_PROVIDES]
+    out = MultiEnergyPassive().modify_energy_provided(options, multi, holder, rig.board)
+    assert out == [[PT.COLORLESS.value]], out
+
+
+async def test_energy_card_def_granted_abilities():
+    """EnergyCardDef.granted_abilities register into ABILITIES_BY_ID like tools."""
+    from spirit.game.content.definitions import EnergyCardDef, Ability, Activations, AbilityTypes
+    from spirit.game.data_utils import ABILITIES_BY_ID
+    from spirit.game.attributes import PokemonTypes, Rarities
+    fired = []
+    async def _fx(ctx):
+        fired.append(1)
+    ab = Ability(
+        title="Test Call",
+        ability_type=AbilityTypes.POKE_POWER,
+        activation=Activations.ONCE_PER_TURN,
+        ends_turn=True,
+        effect=_fx,
+    )
+    edef = EnergyCardDef(
+        guid="00000000-0000-4000-8000-00000000c001",
+        key="TEST",
+        name="TestCallEnergy",
+        collector_number=1,
+        set_code="TEST",
+        rarity=Rarities.Common,
+        energy_type=PokemonTypes.COLORLESS,
+        is_special=True,
+        granted_abilities=[ab],
+    )
+    assert ab.ability_id
+    assert ab.is_granted is True
+    assert ABILITIES_BY_ID.get(ab.ability_id) is ab
+    assert edef.granted_abilities == [ab]
+
+
+async def test_arceus_multitype_copies_previous_level_types():
+    from spirit.game.card_effects.dp import arceus_multitype_passive
+    from spirit.game.models.board import PokemonEntity
+    rig, e = new_rig()
+    lvx = e["p1_active"]
+    lvx.set_attribute(AttrID.POKEMON_TYPES, [PokemonTypes.COLORLESS.value])
+    # Tuck a real previous-level Pokemon under with Fire type (clone board entity)
+    bench = next(c for c in rig.board.find_player_area(P1, "bench").children
+                 if isinstance(c, PokemonEntity))
+    # Detach bench pokemon and tuck under LV.X as previous level
+    bench.parent.children.remove(bench)
+    bench.set_attribute(AttrID.POKEMON_TYPES, [PokemonTypes.FIRE.value])
+    lvx.children.insert(0, bench)
+    bench.parent = lvx
+    types = arceus_multitype_passive().modify_pokemon_types(
+        [PokemonTypes.COLORLESS.value], lvx, lvx)
+    assert types == [PokemonTypes.FIRE.value], types
+
+
+async def test_bucks_training_boost_this_turn():
+    from spirit.game.card_effects.dp import bucks_training
+    from spirit.game.session.passives import DamageCalc, active_passives
+    rig, e = new_rig()
+    neutralize_wr(e)
+    ctx = attack_ctx(rig, e)
+    await bucks_training()(ctx)
+    # Temporary passive on Active
+    assert any(
+        getattr(p, "stacking_key", None) == "bucks_training"
+        for p, c in active_passives(rig.board)
+    )
+    calc = DamageCalc(rig.board, e["p1_active"], e["p2_active"], 40, is_attack=True)
+    for p, c in active_passives(rig.board):
+        p.modify_damage_dealt(calc, c)
+    assert calc.amount == 50, calc.amount
+
+
 TESTS = [
     test_temp_passive_prevents_then_expires,
     test_temp_passive_cleared_on_leave,
@@ -2757,6 +2873,13 @@ TESTS = [
     test_bench_manipulation_tails_times_40,
     test_anorith_fury_cutter_scale,
     test_holon_veil_zone_tagging,
+    test_dp_special_darkness_energy_plus10,
+    test_dp_special_metal_energy_minus10,
+    test_dp_multi_energy_colorless_when_other_special,
+    test_energy_card_def_granted_abilities,
+    test_arceus_multitype_copies_previous_level_types,
+    test_bucks_training_boost_this_turn,
+
 ]
 
 
