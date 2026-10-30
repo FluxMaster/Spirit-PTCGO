@@ -708,8 +708,24 @@ class EnergyCardDef(CardDefinition):
                         search, Speed Lightning's draw). ctx.source is the
                         energy, ctx.attached_to the Pokemon.
     passive          -- continuous effect while attached (a passives.Passive).
-    discard_end_of_attach_turn -- if True, discard at end of the turn it was
-                        attached (Boost Energy / Double Aqua Energy).
+    on_carrier_damaged_by_attack -- async (ctx) run when the carrier is damaged
+                        by an opponent's attack (even if Knocked Out); ctx.source
+                        is the energy, ctx.attached_to the carrier, ctx.damaged_by
+                        the attacker (Dangerous Energy).
+    discard_unless_attach_to -- type/name-locked energies: "(If this card is
+                        attached to anything other than ..., discard this card.)"
+                        -- checked before every action offer.
+    discard_end_of_attach_turn -- "Discard this card at the end of the turn you
+                        attached it" (Boost Energy / Double Aqua Energy).
+    reattach_after_own_attack -- "If this card is discarded by an attack of the
+                        Pokemon this card is attached to, attach this card from
+                        your discard pile to that Pokemon after attacking"
+                        (Burning Energy).
+    return_to_hand_when_discarded_from_play -- "If this card is discarded from
+                        play, put it into your hand instead of the discard pile"
+                        (Recycle Energy).
+    granted_abilities -- Abilities granted to the holder while attached
+                        (END_OF_TURN self-discard, BETWEEN_TURNS checks).
     """
     def __init__(
         self,
@@ -728,7 +744,12 @@ class EnergyCardDef(CardDefinition):
         on_attach: Optional[Any] = None,
         on_carrier_knocked_out: Optional[Any] = None,
         passive: Optional[Any] = None,
+        on_carrier_damaged_by_attack: Optional[Any] = None,
+        discard_unless_attach_to: bool = False,
         discard_end_of_attach_turn: bool = False,
+        reattach_after_own_attack: bool = False,
+        return_to_hand_when_discarded_from_play: bool = False,
+        granted_abilities: Optional[List["Ability"]] = None,
         display_name: Optional[str] = None,
         searchable_by: Optional[List[str]] = None,
         subtypes: Optional[List[str]] = None,
@@ -737,6 +758,7 @@ class EnergyCardDef(CardDefinition):
     ):
         super().__init__(guid, key, name, collector_number, set_code, rarity, display_name, searchable_by, subtypes, attributes, foil)
         self.energy_type = energy_type
+        self.provides = provides
         self.attach_to = attach_to
         self.attach_condition = attach_condition
         self.attach_cost = attach_cost
@@ -745,7 +767,23 @@ class EnergyCardDef(CardDefinition):
         # opponent's attack (Gift Energy's draw); ctx.source is the energy.
         self.on_carrier_knocked_out = on_carrier_knocked_out
         self.passive = passive
+        self.on_carrier_damaged_by_attack = on_carrier_damaged_by_attack
+        self.discard_unless_attach_to = discard_unless_attach_to
         self.discard_end_of_attach_turn = discard_end_of_attach_turn
+        self.reattach_after_own_attack = reattach_after_own_attack
+        self.return_to_hand_when_discarded_from_play = (
+            return_to_hand_when_discarded_from_play
+        )
+        # Optional Abilities granted to the holder while this Energy is
+        # attached (END_OF_TURN discard, BETWEEN_TURNS stage checks). Same
+        # wiring as PokemonToolCardDef — _pie_ability_entries already reads
+        # granted_abilities from every attached child.
+        self.granted_abilities: List[Ability] = granted_abilities or []
+        for idx, a in enumerate(self.granted_abilities):
+            if not a.ability_id:
+                a.ability_id = ability_id_for(guid, idx)
+            a.is_granted = True
+            ABILITIES_BY_ID[a.ability_id] = a
 
         options = [[t.value for t in option] for option in provides] \
             if provides else [[energy_type.value]]
@@ -763,6 +801,8 @@ class EnergyCardDef(CardDefinition):
             self.extra_attributes[str(AttrID.IS_SPECIAL_ENERGY.value)] = {
                 "type": "bool", "value": True
             }
+
+
 
 def default_pack_rarity_attribute() -> dict:
     """Attr 202250 (a.g[]): the guaranteed-rarity breakdown shown in the pack "i" info popup.

@@ -89,6 +89,25 @@ def _display_name(entity: BoardEntity) -> str:
     return name.get("id", "") if isinstance(name, dict) else (name or "")
 
 
+
+_PILE_ZONE_NAMES = {
+    "hand", "deck", "discard", "prizePile", "lostZone", "lost_zone",
+}
+
+
+def _returns_to_hand_from_play(card: CardEntity) -> bool:
+    """Recycle Energy / U-Turn Board: discarded from play -> owner's hand."""
+    definition = def_for(getattr(card, "archetype_id", None))
+    if not getattr(definition, "return_to_hand_when_discarded_from_play", False):
+        return False
+    parent = getattr(card, "parent", None)
+    if parent is None:
+        return False
+    if isinstance(parent, PokemonEntity):
+        return True
+    name = parent.get_attribute(AttrID.NAME) if hasattr(parent, "get_attribute") else None
+    return name not in _PILE_ZONE_NAMES and name is not None
+
 class EffectContext:
     """Everything a card script may see and do while its effect resolves.
 
@@ -1561,6 +1580,9 @@ class EffectContext:
             if card.entity_id in departed:
                 continue
             owner = card.owning_player_id or self.player_id
+            if area_name == "discard" and _returns_to_hand_from_play(card):
+                await self.put_in_hand([card], reveal=True)
+                continue
             pile = self.board.find_player_area(owner, area_name)
             if not pile:
                 continue

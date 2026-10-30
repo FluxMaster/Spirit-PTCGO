@@ -608,12 +608,17 @@ def _plan_tests(definition) -> List[Tuple[str, str, Any, bool]]:
                 plans.append(("trainer-trigger", ability.title, ability,
                               callable(ability.effect)))
     elif isinstance(definition, EnergyCardDef):
-        if callable(definition.attach_cost) or callable(definition.on_attach):
+        if (callable(definition.attach_cost) or callable(definition.on_attach)
+                or getattr(definition, "attach_to", None) is not None
+                or getattr(definition, "granted_abilities", None)):
             plans.append(("energy-attach", "(attach hooks)", "energy-attach", True))
         if callable(definition.on_carrier_knocked_out):
             plans.append(("energy-ko", "(carrier KO hook)", "energy-ko", True))
         if definition.passive is not None:
             plans.append(("passive", "(energy passive)", "energy-passive", True))
+        for ability in getattr(definition, "granted_abilities", None) or []:
+            plans.append(("tool-ability", ability.title, ability,
+                          callable(ability.effect)))
     return plans
 
 
