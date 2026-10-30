@@ -1,0 +1,44 @@
+"""STUB: effect not implemented — do not guess mechanics.
+Furret (EX12 #33): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
+"""
+
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+card = PokemonCardDef(
+    guid="6ab6e14d-86fe-5f1a-817f-99c8cc92eb2f",
+    key="EX12",
+    name="com.direwolfdigital.cake.data.archetypes.pokemon.Furret.Name",
+    display_name="Furret",
+    searchable_by=["Furret", "Stage 1", "Furret"],
+    subtypes=["Stage 1"],
+    collector_number=33,
+    set_code="EX12",
+    rarity=Rarities.Uncommon,
+    hp=80,
+    elements=[PokemonTypes.COLORLESS],
+    stage=PokemonStage.STAGE1,
+    retreat_cost=1,
+    weakness_type=PokemonTypes.FIGHTING,
+    evolves_from="com.direwolfdigital.cake.data.archetypes.pokemon.Sentret.Name",
+    family_id=161,
+    abilities=[
+        Attack(
+            title="Body Slam",
+            game_text="Flip a coin. If heads, the Defending Pok\u00e9mon is now Paralyzed.",
+            cost={PokemonTypes.COLORLESS: 2},
+            damage=20,
+            # STUB: attack effect not implemented
+            effect=unimplemented,
+        ),
+        Attack(
+            title="Do the Wave",
+            game_text="Does 10 damage plus 10 more for each of your Benched Pok\u00e9mon.",
+            cost={PokemonTypes.COLORLESS: 3},
+            damage=10,
+            damage_operator="+",
+            # STUB: attack effect not implemented
+            effect=unimplemented,
+        ),
+    ],
+)
