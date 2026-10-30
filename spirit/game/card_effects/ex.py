@@ -20740,3 +20740,27 @@ def heal_self_after_damage(counters: int = 1):
         if ctx.attacker is not None:
             await ctx.heal(counters * 10, ctx.attacker)
     return effect
+
+
+def gather_energy_flip():
+    """Printed damage; flip: heads search deck for a basic Energy and attach
+    to 1 of yours (Gather Energy)."""
+    async def effect(ctx):
+        await ctx.deal_damage()
+        results = await ctx.flip_coins(
+            1, ctx.ability.title if ctx.ability else "")
+        if not (results and results[0]):
+            return
+        picks = await ctx.search_deck(
+            is_basic_energy_card, count=1, minimum=0,
+            prompt="Choose a basic Energy card")
+        if picks:
+            candidates = list(ctx.my_pokemon_in_play())
+            if candidates:
+                target = await ctx.choose_pokemon(
+                    candidates, "Choose a Pokémon to attach the Energy to")
+                if target is not None:
+                    await ctx.attach_energy(picks[0], target)
+        await ctx.shuffle_deck()
+    return effect
+

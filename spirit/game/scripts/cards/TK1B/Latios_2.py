@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Latios (TK1B #2): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
+"""Latios (TK1B #2)."""
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import gather_energy_flip
+
 
 card = PokemonCardDef(
     guid="a056759f-348b-5ee7-b5ab-3fc73b20f249",
@@ -27,8 +27,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, search your deck for a basic Energy card and attach it to 1 of your Pok\u00e9mon. Shuffle your deck afterward.",
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=gather_energy_flip(),
         ),
         Attack(
             title="Dragon Claw",
