@@ -4,6 +4,8 @@ Team Magma's Rhydon (EX4 #11): one or more attacks/abilities use effect=unimplem
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import ignore_resistance_attack
+
 
 card = PokemonCardDef(
     guid="e1ca7414-6d71-5f4d-9413-a4935bf70fa6",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.DARKNESS: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=ignore_resistance_attack(),
         ),
         Attack(
             title="Shoot Down",

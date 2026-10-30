@@ -4,6 +4,8 @@ Team Magma's Claydol (EX4 #33): one or more attacks/abilities use effect=unimple
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import place_counters
+
 
 card = PokemonCardDef(
     guid="e3404047-1365-58be-8cf6-eb0d5a666dfb",
@@ -28,7 +30,7 @@ card = PokemonCardDef(
             game_text="Put 2 damage counters on your opponent's Pok\u00e9mon in any way you like.",
             cost={PokemonTypes.COLORLESS: 2},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=place_counters(2, 'choose_any_opponent'),
         ),
         Attack(
             title="Clay Pulse",
