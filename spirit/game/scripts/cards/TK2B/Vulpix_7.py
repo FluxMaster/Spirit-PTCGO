@@ -1,9 +1,11 @@
 """STUB: effect not implemented — do not guess mechanics.
-Vulpix (TK2B #7): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
+Vulpix (EX9 #72): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_bonus
+
 
 card = PokemonCardDef(
     guid="f4db9efb-ac0e-5e0d-8ca7-787eb3f389fe",
@@ -34,7 +36,7 @@ card = PokemonCardDef(
             damage=20,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_bonus(10),
         ),
     ],
 )

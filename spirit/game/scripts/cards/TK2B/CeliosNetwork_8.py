@@ -1,13 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Celio's Network (TK2B #8): trainer effect stubbed.
-
-Card text:
-  - You can play only one Supporter card each turn. When you play this card, put it next to your Active Pokémon. When your turn ends, discard this card.
-  - Search your deck for a Basic Pokémon or Evolution card (excluding Pokémon-ex), show it to your opponent, and put it into your hand. Shuffle your deck afterward.
-"""
-
-from spirit.game.data_utils import SupporterCardDef, unimplemented
+from spirit.game.data_utils import SupporterCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ex import celios_network
 
 card = SupporterCardDef(
     guid="87595c4e-2fd3-5b46-a9ea-9229a1829f23",
@@ -19,6 +12,5 @@ card = SupporterCardDef(
     collector_number=8,
     set_code="TK2B",
     rarity=Rarities.Common,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=celios_network,
 )

@@ -4,6 +4,9 @@ Minun (TK2B #6): one or more attacks/abilities use effect=unimplemented until a 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import drawup_power_energy
+from spirit.game.card_effects.attacks_common import snipe_attack
+
 
 card = PokemonCardDef(
     guid="603c9453-692e-5431-8d1b-33773898c8e1",
@@ -28,7 +31,7 @@ card = PokemonCardDef(
             game_text="Search your deck for an Energy card, show it to your opponent, and put it into your hand. Shuffle your deck afterward.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=drawup_power_energy(),
         ),
         Attack(
             title="Front Spark",
@@ -36,7 +39,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=snipe_attack(10, also_base=True),
         ),
     ],
 )

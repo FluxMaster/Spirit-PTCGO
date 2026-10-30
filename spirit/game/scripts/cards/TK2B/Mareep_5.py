@@ -1,9 +1,12 @@
+from spirit.game.card_effects.ex import minor_errand_running
 """STUB: effect not implemented — do not guess mechanics.
-Mareep (TK2B #5): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
+Mareep (EX7 #67): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_bonus
+
 
 card = PokemonCardDef(
     guid="be179e3b-05ad-5d4c-a4f2-09635c8d52bc",
@@ -27,7 +30,7 @@ card = PokemonCardDef(
             game_text="Search your deck for a basic Energy card, show it to your opponent, and put it into your hand. Shuffle your deck afterward.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=minor_errand_running(1),
         ),
         Attack(
             title="Quick Attack",
@@ -36,7 +39,7 @@ card = PokemonCardDef(
             damage=10,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_bonus(10),
         ),
     ],
 )

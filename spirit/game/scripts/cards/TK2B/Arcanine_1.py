@@ -1,9 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Arcanine (TK2B #1): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import heat_tackle
 
 card = PokemonCardDef(
     guid="97dd5a94-ce9a-56b2-a0f3-c4d937b936c5",
@@ -33,8 +30,7 @@ card = PokemonCardDef(
             game_text="Arcanine does 10 damage to itself.",
             cost={PokemonTypes.FIRE: 1, PokemonTypes.COLORLESS: 3},
             damage=70,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=heat_tackle(10),
         ),
     ],
 )
