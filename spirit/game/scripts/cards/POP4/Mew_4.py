@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Mew (POP4 #4): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.attributes import SpecialConditions
+from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ex import reactive_barrier_passive
+
 
 card = PokemonCardDef(
     guid="88ebcffa-dc4f-53fd-b9c2-4b30126e88b1",
@@ -24,18 +24,17 @@ card = PokemonCardDef(
     abilities=[
         Ability(
             title="Reactive Barrier",
-            game_text="As long as Mew has any React Energy cards attached to it, prevent all effects, excluding damage, done to Mew by attacks from your opponent's Pok\u00e9mon.",
+            game_text="As long as Mew has any React Energy cards attached to it, prevent all effects, excluding damage, done to Mew by attacks from your opponent's Pokémon.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=reactive_barrier_passive(),
+            effect=None,
         ),
         Attack(
             title="Psyshock",
-            game_text="Flip a coin. If heads, the Defending Pok\u00e9mon is now Paralyzed.",
+            game_text="Flip a coin. If heads, the Defending Pokémon is now Paralyzed.",
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(SpecialConditions.PARALYZED, flip=True),
         ),
     ],
 )

@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Grovyle (POP4 #7): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_bonus
+from spirit.game.card_effects.ex import blot_heal
+
 
 card = PokemonCardDef(
     guid="51ad8e8e-c313-5eb9-b38d-8c0f597cef7d",
@@ -30,16 +29,14 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_bonus(10),
         ),
         Attack(
             title="Blot",
             game_text="Remove 2 damage counters from Grovyle.",
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=blot_heal(2),
         ),
     ],
 )

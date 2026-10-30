@@ -1,9 +1,11 @@
 """STUB: effect not implemented — do not guess mechanics.
-Deoxys ex (POP4 #17): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
+Deoxys ex (EX9 #93): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import form_change_deoxys, brick_smash
+
 
 card = PokemonCardDef(
     guid="6206d2a1-dff5-57e6-abc9-24487f6ea918",
@@ -27,7 +29,8 @@ card = PokemonCardDef(
             game_text="Once during your turn (before your attack), you may search your deck for another Deoxys ex and switch it with Deoxys ex. (Any cards attached to Deoxys ex, damage counters, Special Conditions, and effects on it are now on the new Pok\u00e9mon.) If you do, put Deoxys ex on top of your deck. Shuffle your deck afterward. You can't use more than 1 Form Change Pok\u00e9-Power each turn.",
             ability_type=AbilityTypes.POKE_POWER,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            shared_once_per_turn='Form Change',
+            effect=form_change_deoxys(ex=True),
         ),
         Attack(
             title="Fastwave",
@@ -35,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=50,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=brick_smash(),
         ),
     ],
 )

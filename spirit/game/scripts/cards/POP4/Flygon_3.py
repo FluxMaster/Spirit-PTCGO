@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Flygon (POP4 #3): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import levitate_any_energy_passive, magma_ring_no_retreat
+
 
 card = PokemonCardDef(
     guid="cdf81a41-7dbd-520f-8e67-409f7e3c88d9",
@@ -27,8 +25,8 @@ card = PokemonCardDef(
             title="Levitate",
             game_text="As long as Flygon has any Energy attached to it, the Retreat Cost for Flygon is 0.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=levitate_any_energy_passive(),
+            effect=None,
         ),
         Attack(
             title="Bite",
@@ -37,11 +35,10 @@ card = PokemonCardDef(
         ),
         Attack(
             title="Sand Pit",
-            game_text="The Defending Pok\u00e9mon can't retreat during your opponent's next turn.",
+            game_text="The Defending Pokémon can't retreat during your opponent's next turn.",
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 3},
             damage=70,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=magma_ring_no_retreat(),
         ),
     ],
 )
