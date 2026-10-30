@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Minun (POP3 #4): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
+from spirit.game.data_utils import PokemonCardDef, Attack
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import (
+    cheer_up_draw, negative_ion_reduce, bolt_snipe_by_ability,
+)
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 
 card = PokemonCardDef(
     guid="27b95710-0fea-55e8-8969-8c938e47823d",
@@ -27,23 +27,20 @@ card = PokemonCardDef(
             title="Cheer Up",
             game_text="Draw a card. If you have Plusle in play, draw 2 cards instead.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=cheer_up_draw("Plusle"),
         ),
         Attack(
             title="Negative Ion",
-            game_text="During your opponent's next turn, any damage done by attacks from the Defending Pok\u00e9mon is reduced by 10 (before applying Weakness and Resistance).",
+            game_text="During your opponent's next turn, any damage done by attacks from the Defending Pokémon is reduced by 10 (before applying Weakness and Resistance).",
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=negative_ion_reduce(10),
         ),
         Attack(
             title="Power Bolt",
-            game_text="Choose 1 of your opponent's Pok\u00e9mon that has any Pok\u00e9-Powers. This attack does 30 damage to that Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
+            game_text="Choose 1 of your opponent's Pokémon that has any Poké-Powers. This attack does 30 damage to that Pokémon. (Don't apply Weakness and Resistance for Benched Pokémon.)",
             cost={PokemonTypes.LIGHTNING: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bolt_snipe_by_ability(30, AbilityTypes.POKE_POWER),
         ),
     ],
 )

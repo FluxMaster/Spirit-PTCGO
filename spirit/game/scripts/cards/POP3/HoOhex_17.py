@@ -1,9 +1,10 @@
 """STUB: effect not implemented — do not guess mechanics.
-Ho-Oh ex (POP3 #17): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
+Ho-Oh ex (EX10 #104): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import golden_wing_on_ko_passive, rainbow_burn
 
 card = PokemonCardDef(
     guid="859d24e5-fd07-5e1e-9e6b-5fff8463f0c7",
@@ -27,7 +28,7 @@ card = PokemonCardDef(
             game_text="If Ho-Oh ex would be Knocked Out by damage from an opponent's attack, you may move up to 2 Energy attached to Ho-Oh ex to your Pok\u00e9mon in any way you like.",
             ability_type=AbilityTypes.POKE_POWER,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=golden_wing_on_ko_passive(2),
         ),
         Attack(
             title="Rainbow Burn",
@@ -36,7 +37,7 @@ card = PokemonCardDef(
             damage=10,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=rainbow_burn(10, 20),
         ),
     ],
 )

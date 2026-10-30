@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Pichu Bros. (POP3 #16): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import bustle_flip_confuse
+
 
 card = PokemonCardDef(
     guid="fb642272-a358-586e-ad4e-5d05efe1f019",
@@ -24,12 +22,11 @@ card = PokemonCardDef(
     abilities=[
         Attack(
             title="Bustle",
-            game_text="Flip 2 coins. This attack does 20 damage times the number of heads. If either coin is heads, the Defending Pok\u00e9mon is now Confused.",
+            game_text="Flip 2 coins. This attack does 20 damage times the number of heads. If either coin is heads, the Defending Pokémon is now Confused.",
             cost={PokemonTypes.LIGHTNING: 2},
             damage=20,
-            damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            damage_operator="×",
+            effect=bustle_flip_confuse(2, 20),
         ),
     ],
 )

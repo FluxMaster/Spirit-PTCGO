@@ -1,9 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Vaporeon (POP3 #6): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import extra_energy_damage
+
 
 card = PokemonCardDef(
     guid="e3573962-821d-53a4-ab1d-bb1ca902a748",
@@ -34,8 +32,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=extra_energy_damage(20, base=30, extra_cap=2, energy_type=PokemonTypes.WATER),
         ),
     ],
 )
