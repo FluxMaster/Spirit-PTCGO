@@ -4,6 +4,8 @@ Yanma (EX7 #28): one or more attacks/abilities use effect=unimplemented until a 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import swift_attack
+
 
 card = PokemonCardDef(
     guid="f533498e-62e8-5a40-b14d-789418bdfc22",
@@ -36,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=swift_attack(),
         ),
     ],
 )

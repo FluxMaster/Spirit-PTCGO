@@ -4,6 +4,8 @@ Dark Tyranitar (EX7 #20): one or more attacks/abilities use effect=unimplemented
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import second_strike
+
 
 card = PokemonCardDef(
     guid="f262c760-9a51-5d41-88a6-cdad170307d7",
@@ -37,7 +39,7 @@ card = PokemonCardDef(
             damage=50,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=second_strike(50, 20, 2),
         ),
     ],
 )

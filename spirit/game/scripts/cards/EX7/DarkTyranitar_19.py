@@ -4,6 +4,8 @@ Dark Tyranitar (EX7 #19): one or more attacks/abilities use effect=unimplemented
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import damage_all_opponents
+
 
 card = PokemonCardDef(
     guid="fdfdd40a-1cb5-5ffa-bf78-a0a5303cc0cc",
@@ -38,7 +40,7 @@ card = PokemonCardDef(
             game_text="Does 20 damage to each of your opponent's Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.DARKNESS: 1, PokemonTypes.COLORLESS: 2},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_all_opponents(20),
         ),
         Attack(
             title="Bite Off",

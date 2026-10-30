@@ -4,6 +4,8 @@ Dark Sandslash (EX7 #18): one or more attacks/abilities use effect=unimplemented
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import swift_attack
+
 
 card = PokemonCardDef(
     guid="8f60c370-d607-59b4-bc2f-537fa3a7d36f",
@@ -36,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=50,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=swift_attack(),
         ),
     ],
 )

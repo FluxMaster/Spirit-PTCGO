@@ -5,6 +5,12 @@ Dark Pupitar (EX7 #40): one or more attacks/abilities use effect=unimplemented u
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 
+
+async def double_wing_attack(ctx):
+    """Does 20 damage to each Defending Pokémon (no printed damage)."""
+    await ctx.deal_damage(20)
+
+
 card = PokemonCardDef(
     guid="b8968894-ec26-5b89-8e31-f322b7351aae",
     key="EX7",
@@ -35,7 +41,7 @@ card = PokemonCardDef(
             game_text="Does 20 damage to each Defending Pok\u00e9mon.",
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=double_wing_attack,
         ),
     ],
 )

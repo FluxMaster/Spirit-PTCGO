@@ -4,6 +4,8 @@ Dark Crobat (EX7 #3): one or more attacks/abilities use effect=unimplemented unt
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import bass_control
+
 
 card = PokemonCardDef(
     guid="cdb480b2-5ac9-53be-8699-a91074a2a487",
@@ -43,7 +45,7 @@ card = PokemonCardDef(
             game_text="Does 30 damage to 1 of your opponent's Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bass_control(30),
         ),
     ],
 )

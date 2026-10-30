@@ -4,6 +4,8 @@ Skiploom (EX7 #49): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import miracle_powder
+
 
 card = PokemonCardDef(
     guid="7f0eaeb2-cd7d-51af-8c50-3358de50e3a1",
@@ -37,7 +39,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=miracle_powder(),
         ),
     ],
 )

@@ -4,6 +4,8 @@ Rocket's Wobbuffet (EX7 #47): one or more attacks/abilities use effect=unimpleme
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import amnesia
+
 
 card = PokemonCardDef(
     guid="2aa3a067-2984-56bf-b4df-62e66c630e92",
@@ -35,7 +37,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 1},
             damage=10,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=amnesia,
         ),
     ],
 )

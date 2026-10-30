@@ -4,6 +4,10 @@ Dark Arbok (EX7 #29): one or more attacks/abilities use effect=unimplemented unt
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.attributes import SpecialConditions
+from spirit.game.card_effects.attacks_common import conditions_if
+from spirit.game.card_effects.ex import defender_is_ex
+
 
 card = PokemonCardDef(
     guid="2000ec48-72bc-50f6-816d-0306fee089ee",
@@ -38,7 +42,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=conditions_if(defender_is_ex, SpecialConditions.ASLEEP, SpecialConditions.POISONED),
         ),
     ],
 )

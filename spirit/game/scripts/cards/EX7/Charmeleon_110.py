@@ -1,9 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Charmeleon (EX7 #110): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import smokescreen_attack
+from spirit.game.card_effects.ex import flip_tails_discard_energy
+
 
 card = PokemonCardDef(
     guid="fe1e8ceb-ce10-5858-ab52-8918a34d9274",
@@ -21,7 +20,7 @@ card = PokemonCardDef(
     retreat_cost=1,
     weakness_type=PokemonTypes.WATER,
     evolves_from="com.direwolfdigital.cake.data.archetypes.pokemon.Charmander.Name",
-    family_id=5,
+    family_id=4,
     abilities=[
         Attack(
             title="Smokescreen",
@@ -29,7 +28,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 1},
             damage=10,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=smokescreen_attack(),
         ),
         Attack(
             title="Fireworks",
@@ -37,7 +36,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 1, PokemonTypes.COLORLESS: 1},
             damage=40,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_tails_discard_energy(PokemonTypes.FIRE),
         ),
     ],
 )

@@ -4,6 +4,8 @@ Horsea (EX7 #58): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import swift_attack
+
 
 card = PokemonCardDef(
     guid="fe4b41c5-1ac3-571d-97ea-c9cbc1582e63",
@@ -35,7 +37,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 2},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=swift_attack(),
         ),
     ],
 )

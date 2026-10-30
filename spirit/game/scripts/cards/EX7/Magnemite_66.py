@@ -5,6 +5,12 @@ Magnemite (EX7 #66): one or more attacks/abilities use effect=unimplemented unti
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 
+
+async def sonic_boom(ctx):
+    """40. This attack's damage isn't affected by Weakness or Resistance."""
+    await ctx.deal_damage(apply_modifiers=False)
+
+
 card = PokemonCardDef(
     guid="16e3da26-bdd9-5193-943e-616e3871e0f9",
     key="EX7",
@@ -28,7 +34,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=sonic_boom,
         ),
     ],
 )

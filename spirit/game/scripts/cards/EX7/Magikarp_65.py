@@ -4,6 +4,8 @@ Magikarp (EX7 #65): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import call_for_family_basic_n
+
 
 card = PokemonCardDef(
     guid="00dbec01-de87-53b1-aaa9-262c0bb79ce8",
@@ -27,7 +29,7 @@ card = PokemonCardDef(
             game_text="Search your deck for up to 2 Basic Pok\u00e9mon and put them onto your Bench. Shuffle your deck afterward.",
             cost={PokemonTypes.WATER: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=call_for_family_basic_n(2),
         ),
     ],
 )

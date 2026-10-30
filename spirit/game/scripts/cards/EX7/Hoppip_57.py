@@ -4,6 +4,8 @@ Hoppip (EX7 #57): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import miracle_powder
+
 
 card = PokemonCardDef(
     guid="de5340e2-0cb6-5bae-b935-6582cc80cfcd",
@@ -35,7 +37,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, choose 1 Special Condition. The Defending Pok\u00e9mon is now affected by that Special Condition.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=miracle_powder(),
         ),
     ],
 )
