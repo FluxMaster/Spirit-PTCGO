@@ -6,7 +6,7 @@ from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemente
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import conditions_if
-from spirit.game.card_effects.ex import defender_is_ex
+from spirit.game.card_effects.ex import defender_is_ex, swallow_up_hp_compare
 
 
 card = PokemonCardDef(
@@ -34,7 +34,7 @@ card = PokemonCardDef(
             damage=10,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=swallow_up_hp_compare(),
         ),
         Attack(
             title="Extra Poison",

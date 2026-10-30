@@ -1,3 +1,4 @@
+from spirit.game.card_effects.ex import taunt_switch
 """STUB: effect not implemented — do not guess mechanics.
 Grimer (EX7 #56): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
@@ -30,7 +31,7 @@ card = PokemonCardDef(
             game_text="Choose 1 of your opponent's Benched Pok\u00e9mon and switch it with 1 of the Defending Pok\u00e9mon. Your opponent chooses the Defending Pok\u00e9mon to switch.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=taunt_switch(),
         ),
         Attack(
             title="Spit Poison",

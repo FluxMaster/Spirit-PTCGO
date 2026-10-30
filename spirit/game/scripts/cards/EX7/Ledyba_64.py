@@ -1,3 +1,4 @@
+from spirit.game.card_effects.ex import call_for_family_grass_one
 """STUB: effect not implemented — do not guess mechanics.
 Ledyba (EX7 #64): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
@@ -27,7 +28,7 @@ card = PokemonCardDef(
             game_text="Search your deck for a Grass Basic Pok\u00e9mon and put it onto your Bench. Shuffle your deck afterward.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=call_for_family_grass_one(),
         ),
         Attack(
             title="Beat",

@@ -1,3 +1,4 @@
+from spirit.game.card_effects.ex import energy_crush_opp, buffer_passive
 """STUB: effect not implemented — do not guess mechanics.
 Jumpluff (EX7 #11): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
@@ -6,6 +7,7 @@ from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemente
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 
 card = PokemonCardDef(
+    passive=buffer_passive(),
     guid="5b5a61f6-8646-5915-8061-d56d0338fd34",
     key="EX7",
     name="com.direwolfdigital.cake.data.archetypes.pokemon.Jumpluff.Name",
@@ -28,8 +30,7 @@ card = PokemonCardDef(
             title="Buffer",
             game_text="If Jumpluff would be Knocked Out by an opponent's attack, flip a coin. If heads, Jumpluff is not Knocked Out and its remaining HP becomes 10 instead.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            # STUB: ability effect not implemented,
         ),
         Attack(
             title="Energy Crush",
@@ -38,7 +39,7 @@ card = PokemonCardDef(
             damage=10,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=energy_crush_opp(),
         ),
     ],
 )

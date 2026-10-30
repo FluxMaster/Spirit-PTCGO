@@ -1,3 +1,4 @@
+from spirit.game.card_effects.ex import dump_and_draw
 """STUB: effect not implemented — do not guess mechanics.
 Magmar (EX7 #44): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
@@ -27,7 +28,7 @@ card = PokemonCardDef(
             game_text="Discard up to 2 Energy cards from your hand. Then, draw 2 cards for each Energy card you discarded.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=dump_and_draw(),
         ),
         Attack(
             title="Flame Tail",

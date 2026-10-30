@@ -1,3 +1,4 @@
+from spirit.game.card_effects.ex import poison_payback_ex7
 """STUB: effect not implemented — do not guess mechanics.
 Dark Sandslash (EX7 #18): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
@@ -30,7 +31,7 @@ card = PokemonCardDef(
             game_text="If Dark Sandslash is your Active Pok\u00e9mon and is damaged by an opponent's attack (even if Dark Sandslash is Knocked Out), the Attacking Pok\u00e9mon is now Poisoned.",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=poison_payback_ex7(),
         ),
         Attack(
             title="Swift",

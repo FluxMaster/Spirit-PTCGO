@@ -1,3 +1,4 @@
+from spirit.game.card_effects.ex import energy_draw_attach_basic
 """STUB: effect not implemented — do not guess mechanics.
 Remoraid (EX7 #73): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
@@ -27,7 +28,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, search your deck for a basic Energy card and attach it to Remoraid. Shuffle your deck afterward.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=energy_draw_attach_basic(),
         ),
         Attack(
             title="Razor Fin",

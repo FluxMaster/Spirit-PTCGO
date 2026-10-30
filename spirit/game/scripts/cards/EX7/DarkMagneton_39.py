@@ -1,3 +1,4 @@
+from spirit.game.card_effects.ex import magnetic_lines_move_basic
 """STUB: effect not implemented — do not guess mechanics.
 Dark Magneton (EX7 #39): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
@@ -32,7 +33,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=magnetic_lines_move_basic(),
         ),
         Attack(
             title="Poison Pulse",

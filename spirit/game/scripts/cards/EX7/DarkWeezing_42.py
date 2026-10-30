@@ -1,8 +1,9 @@
+from spirit.game.card_effects.ex import darkness_charge_self, methane_leak_between_turns
 """STUB: effect not implemented — do not guess mechanics.
 Dark Weezing (EX7 #42): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
@@ -28,10 +29,11 @@ card = PokemonCardDef(
     abilities=[
         Ability(
             title="Methane Leak",
+            trigger=Triggers.BETWEEN_TURNS,
             game_text="As long as Dark Weezing is your Active Pok\u00e9mon, put 1 damage counter on each Pok\u00e9mon that remains Poisoned between turns.",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=methane_leak_between_turns(),
         ),
         Attack(
             title="Smog",
@@ -46,7 +48,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 2},
             damage=50,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=darkness_charge_self(),
         ),
     ],
 )

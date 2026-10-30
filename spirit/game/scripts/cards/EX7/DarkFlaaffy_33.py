@@ -1,3 +1,4 @@
+from spirit.game.card_effects.ex import thunder_slash_basic_paralyze_lock
 """STUB: effect not implemented — do not guess mechanics.
 Dark Flaaffy (EX7 #33): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
@@ -29,7 +30,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=thunder_slash_basic_paralyze_lock(),
         ),
         Attack(
             title="Headbutt",

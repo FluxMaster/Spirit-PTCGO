@@ -1,3 +1,4 @@
+from spirit.game.card_effects.ex import shakedown_discard_hand, dark_fire
 """STUB: effect not implemented — do not guess mechanics.
 Dark Houndoom (EX7 #5): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
@@ -30,7 +31,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.DARKNESS: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=shakedown_discard_hand(),
         ),
         Attack(
             title="Dark Fire",
@@ -39,7 +40,7 @@ card = PokemonCardDef(
             damage=40,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=dark_fire(),
         ),
     ],
 )

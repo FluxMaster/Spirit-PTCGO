@@ -1,9 +1,10 @@
+from spirit.game.card_effects.ex import spring_back
 """STUB: effect not implemented — do not guess mechanics.
 Mudkip ★ (EX7 #107): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, SpecialConditions
 from spirit.game.card_effects.attacks_common import discard_opponent_energy_attack
 
 
@@ -38,7 +39,7 @@ card = PokemonCardDef(
             damage=20,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=spring_back(condition=SpecialConditions.ASLEEP),
         ),
     ],
 )

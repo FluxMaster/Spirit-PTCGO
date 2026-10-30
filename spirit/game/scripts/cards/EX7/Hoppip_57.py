@@ -4,10 +4,11 @@ Hoppip (EX7 #57): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
-from spirit.game.card_effects.ex import miracle_powder
+from spirit.game.card_effects.ex import miracle_powder, buffer_passive
 
 
 card = PokemonCardDef(
+    passive=buffer_passive(),
     guid="de5340e2-0cb6-5bae-b935-6582cc80cfcd",
     key="EX7",
     name="com.direwolfdigital.cake.data.archetypes.pokemon.Hoppip.Name",
@@ -29,8 +30,7 @@ card = PokemonCardDef(
             title="Buffer",
             game_text="If Hoppip would be Knocked Out by an opponent's attack, flip a coin. If heads, Hoppip is not Knocked Out and its remaining HP becomes 10 instead.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            # STUB: ability effect not implemented,
         ),
         Attack(
             title="Miracle Powder",

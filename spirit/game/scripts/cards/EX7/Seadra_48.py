@@ -1,3 +1,4 @@
+from spirit.game.card_effects.ex import aqua_trick
 """STUB: effect not implemented — do not guess mechanics.
 Seadra (EX7 #48): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
@@ -40,7 +41,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 2},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=aqua_trick(),
         ),
     ],
 )

@@ -1,3 +1,4 @@
+from spirit.game.card_effects.ex import psycho_waves
 """STUB: effect not implemented — do not guess mechanics.
 Voltorb (EX7 #80): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
@@ -30,7 +31,7 @@ card = PokemonCardDef(
             game_text="Discard an Energy card attached to Voltorb. The Defending Pok\u00e9mon is now Confused.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=psycho_waves(),
         ),
         Attack(
             title="Thunder Wave",

@@ -1,3 +1,4 @@
+from spirit.game.card_effects.ex import quick_charge_up_to
 """STUB: effect not implemented — do not guess mechanics.
 Yanma (EX7 #28): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
@@ -30,7 +31,7 @@ card = PokemonCardDef(
             game_text="Search your deck for up to 4 different types of basic Energy cards, show them to your opponent, and put them into your hand. Shuffle your deck afterward.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=quick_charge_up_to(),
         ),
         Attack(
             title="Swift",

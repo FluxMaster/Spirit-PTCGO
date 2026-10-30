@@ -2,9 +2,9 @@
 Dark Tyranitar (EX7 #20): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
-from spirit.game.card_effects.ex import second_strike
+from spirit.game.card_effects.ex import second_strike, sand_damage_between_turns
 
 
 card = PokemonCardDef(
@@ -27,10 +27,11 @@ card = PokemonCardDef(
     abilities=[
         Ability(
             title="Sand Damage",
+            trigger=Triggers.BETWEEN_TURNS,
             game_text="As long as Dark Tyranitar is your Active Pok\u00e9mon, put 1 damage counter on each of your opponent's Benched Basic Pok\u00e9mon between turns. You can't use more than 1 Sand Damage Pok\u00e9-Body between turns.",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=sand_damage_between_turns(),
         ),
         Attack(
             title="Second Strike",

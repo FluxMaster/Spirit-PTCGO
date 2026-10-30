@@ -1,3 +1,4 @@
+from spirit.game.card_effects.ex import powder_protection_passive
 """STUB: effect not implemented — do not guess mechanics.
 Ledian (EX7 #23): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
@@ -9,6 +10,7 @@ from spirit.game.card_effects.attacks_common import condition_attack
 
 
 card = PokemonCardDef(
+    passive=powder_protection_passive(),
     guid="532b93ca-32e8-5e19-ab12-3652a37f148f",
     key="EX7",
     name="com.direwolfdigital.cake.data.archetypes.pokemon.Ledian.Name",
@@ -30,8 +32,7 @@ card = PokemonCardDef(
             title="Powder Protection",
             game_text="Any damage done to Ledian by attacks from Pok\u00e9mon that has an owner in its name is reduced by 40.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            # STUB: ability effect not implemented,
         ),
         Attack(
             title="Split Spiral Punch",

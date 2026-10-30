@@ -1,3 +1,4 @@
+from spirit.game.card_effects.ex import darkness_shield_flip, cold_crush
 """STUB: effect not implemented — do not guess mechanics.
 Dark Golduck (EX7 #35): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
@@ -29,7 +30,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=darkness_shield_flip(),
         ),
         Attack(
             title="Cold Crush",
@@ -37,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 2},
             damage=40,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=cold_crush(),
         ),
     ],
 )

@@ -1,3 +1,4 @@
+from spirit.game.card_effects.ex import rotating_claws, dual_armor_passive
 """STUB: effect not implemented — do not guess mechanics.
 Rocket's Scizor ex (EX7 #101): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
@@ -6,6 +7,7 @@ from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemente
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 
 card = PokemonCardDef(
+    passive=dual_armor_passive(PokemonTypes.METAL),
     guid="a6b65185-aaa9-5ebe-9c9e-d400b93a89bd",
     key="EX7",
     name="com.direwolfdigital.cake.data.archetypes.pokemon.RocketsScizorex.Name",
@@ -28,8 +30,7 @@ card = PokemonCardDef(
             title="Dual Armor",
             game_text="As long as Rocket's Scizor ex has any Metal Energy attached to it, Rocket's Scizor ex is both Darkness and Metal type.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            # STUB: ability effect not implemented,
         ),
         Attack(
             title="Rotating Claws",
@@ -37,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=50,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=rotating_claws(),
         ),
     ],
 )

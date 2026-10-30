@@ -1,3 +1,4 @@
+from spirit.game.card_effects.ex import cunning_look_shuffle, litter_tools
 """STUB: effect not implemented — do not guess mechanics.
 Dark Slowking (EX7 #9): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
@@ -28,7 +29,7 @@ card = PokemonCardDef(
             game_text="Once during your turn (before your attack), you may look at the top card of your opponent's deck. Then, you may shuffle his or her deck. This power can't be used if Dark Slowking is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=cunning_look_shuffle(),
         ),
         Attack(
             title="Litter",
@@ -37,7 +38,7 @@ card = PokemonCardDef(
             damage=20,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=litter_tools(),
         ),
     ],
 )

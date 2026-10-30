@@ -1,3 +1,4 @@
+from spirit.game.card_effects.ex import drag_off_optional, dark_ring
 """STUB: effect not implemented — do not guess mechanics.
 Rocket's Sneasel ex (EX7 #103): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
@@ -29,7 +30,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.DARKNESS: 1},
             damage=10,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=drag_off_optional(),
         ),
         Attack(
             title="Dark Ring",
@@ -38,7 +39,7 @@ card = PokemonCardDef(
             damage=30,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=dark_ring(),
         ),
     ],
 )

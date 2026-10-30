@@ -1,8 +1,9 @@
+from spirit.game.card_effects.ex import collapse_asleep_ex7, dark_healer_between_turns
 """STUB: effect not implemented — do not guess mechanics.
 Rocket's Snorlax ex (EX7 #104): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
@@ -27,10 +28,11 @@ card = PokemonCardDef(
     abilities=[
         Ability(
             title="Dark Healer",
+            trigger=Triggers.BETWEEN_TURNS,
             game_text="As long as Rocket's Snorlax ex has any Darkness Energy attached to it, remove 1 damage counter from Rocket's Snorlax ex between turns.",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=dark_healer_between_turns(),
         ),
         Attack(
             title="Poison Claws",
@@ -46,7 +48,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 4},
             damage=60,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=collapse_asleep_ex7(),
         ),
     ],
 )

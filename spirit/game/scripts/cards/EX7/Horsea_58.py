@@ -1,3 +1,4 @@
+from spirit.game.card_effects.ex import water_plant
 """STUB: effect not implemented — do not guess mechanics.
 Horsea (EX7 #58): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
@@ -29,7 +30,7 @@ card = PokemonCardDef(
             game_text="Search your discard pile for up to 2 Water Energy cards, show them to your opponent, and put them into your hand.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=water_plant(),
         ),
         Attack(
             title="Swift",

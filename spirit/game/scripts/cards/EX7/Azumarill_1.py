@@ -1,8 +1,9 @@
+from spirit.game.card_effects.ex import froth_on_evolve, water_punch
 """STUB: effect not implemented — do not guess mechanics.
 Azumarill (EX7 #1): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented, Activations, Triggers
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 
 card = PokemonCardDef(
@@ -28,7 +29,7 @@ card = PokemonCardDef(
             game_text="Once during your turn, when you play Azumarill from your hand to evolve 1 of your Active Pok\u00e9mon, you may use this power. Each Defending Pok\u00e9mon is now Paralyzed.",
             ability_type=AbilityTypes.POKE_POWER,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=froth_on_evolve(),
         ),
         Attack(
             title="Water Punch",
@@ -37,7 +38,7 @@ card = PokemonCardDef(
             damage=20,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=water_punch(),
         ),
     ],
 )

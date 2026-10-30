@@ -1,12 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-R Energy (EX7 #95): special energy provides/passive/attach rules stubbed until matched to a known energy pattern.
+from spirit.game.card_effects.energies import discard_energy_end_of_turn
+from spirit.game.card_effects.ex import REnergyPassive, r_energy_attach_to
+from spirit.game.data_utils import Ability, EnergyCardDef, Triggers
+from spirit.game.attributes import AbilityTypes, PokemonTypes, Rarities
 
-Card text:
-  - R Energy can be attached only to a Pokémon that has Dark or Rocket's in its name. While in play, R Energy provides 2 Darkness Energy. (Doesn't count as a basic Energy card.) If the Pokémon R Energy is attached to attacks, the attack does 10 more damage to the Active Pokémon (before applying Weakness and Resistance). When your turn ends, discard R Energy.
-"""
-
-from spirit.game.data_utils import EnergyCardDef
-from spirit.game.attributes import PokemonTypes, Rarities
+_GUID = "118013fc-9de9-5215-bd40-6bfd7e48e008"
 
 card = EnergyCardDef(
     guid="118013fc-9de9-5215-bd40-6bfd7e48e008",
@@ -20,5 +17,16 @@ card = EnergyCardDef(
     rarity=Rarities.Uncommon,
     energy_type=PokemonTypes.COLORLESS,
     is_special=True,
-    # STUB: special energy mechanics not implemented
+    provides=[[PokemonTypes.DARKNESS, PokemonTypes.DARKNESS]],
+    attach_to=r_energy_attach_to,
+    passive=REnergyPassive(),
+    granted_abilities=[
+        Ability(
+            title="R Energy",
+            game_text="When your turn ends, discard R Energy.",
+            ability_type=AbilityTypes.POKE_BODY,
+            trigger=Triggers.END_OF_TURN,
+            effect=discard_energy_end_of_turn(_GUID),
+        ),
+    ],
 )

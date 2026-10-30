@@ -1,3 +1,4 @@
+from spirit.game.card_effects.ex import dark_spell_snipe, hide_in_shadows
 """STUB: effect not implemented — do not guess mechanics.
 Misdreavus (EX7 #25): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
@@ -28,7 +29,7 @@ card = PokemonCardDef(
             game_text="Once during your turn (before your attack), if Misdreavus is your Active Pok\u00e9mon, you may flip a coin. If heads, put 1 damage counter on 1 of your opponent's Pok\u00e9mon. This power can't be used if Misdreavus is affected by a Special Condition or if your other Active Pok\u00e9mon is not Misdreavus.",
             ability_type=AbilityTypes.POKE_POWER,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=dark_spell_snipe(),
         ),
         Attack(
             title="Hide in Shadows",
@@ -36,7 +37,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=hide_in_shadows(),
         ),
     ],
 )

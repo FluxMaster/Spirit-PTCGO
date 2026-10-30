@@ -4,7 +4,7 @@ Rocket's Wobbuffet (EX7 #47): one or more attacks/abilities use effect=unimpleme
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-from spirit.game.card_effects.ex import amnesia
+from spirit.game.card_effects.ex import amnesia, dark_aid
 
 
 card = PokemonCardDef(
@@ -29,7 +29,7 @@ card = PokemonCardDef(
             game_text="Search your discard pile for Pok\u00e9mon Tool cards and Rocket's Secret Machine cards. You may show either 1 Pok\u00e9mon Tool card or Rocket's Secret Machine card to your opponent and put it into your hand, or show a combination of 3 Pok\u00e9mon Tool cards or Rocket's Secret Machine cards to your opponent and shuffle them into your deck.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=dark_aid(),
         ),
         Attack(
             title="Amnesia",

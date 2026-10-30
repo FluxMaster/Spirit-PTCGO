@@ -1,3 +1,4 @@
+from spirit.game.card_effects.ex import energy_press_active
 """STUB: effect not implemented — do not guess mechanics.
 Dark Magcargo (EX7 #38): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
@@ -32,7 +33,7 @@ card = PokemonCardDef(
             damage=10,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=energy_press_active(),
         ),
         Attack(
             title="Linear Attack",

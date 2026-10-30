@@ -1,12 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Venture Bomb (EX7 #93): trainer effect stubbed.
-
-Card text:
-  - Flip a coin. If heads, put 1 damage counter on 1 of your opponent's Pokémon. If tails, put 1 damage counter on 1 of your Pokémon.
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ex import venture_bomb
 
 card = ItemCardDef(
     guid="fda50f24-bb24-5446-95a7-f8f29acd2ea4",
@@ -18,6 +12,5 @@ card = ItemCardDef(
     collector_number=93,
     set_code="EX7",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=venture_bomb,
 )

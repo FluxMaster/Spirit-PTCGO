@@ -1,3 +1,4 @@
+from spirit.game.card_effects.ex import minor_errand_running
 """STUB: effect not implemented — do not guess mechanics.
 Marill (EX7 #68): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
@@ -27,7 +28,7 @@ card = PokemonCardDef(
             game_text="Search your deck for up to 2 basic Energy cards, show them to your opponent, and put them into your hand. Shuffle your deck afterward.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=minor_errand_running(2),
         ),
     ],
 )

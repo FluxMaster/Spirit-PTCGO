@@ -1,3 +1,4 @@
+from spirit.game.card_effects.ex import heat_tackle_self
 """STUB: effect not implemented — do not guess mechanics.
 Slugma (EX7 #77): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
@@ -38,7 +39,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=heat_tackle_self(),
         ),
     ],
 )

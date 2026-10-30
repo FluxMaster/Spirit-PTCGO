@@ -1,3 +1,4 @@
+from spirit.game.card_effects.ex import get_even, crust_ex7
 """STUB: effect not implemented — do not guess mechanics.
 Heracross (EX7 #43): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
@@ -6,6 +7,7 @@ from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemente
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 
 card = PokemonCardDef(
+    passive=crust_ex7(20),
     guid="80c90c9f-2aaf-5946-86b4-54628fe18f21",
     key="EX7",
     name="com.direwolfdigital.cake.data.archetypes.pokemon.Heracross.Name",
@@ -26,8 +28,7 @@ card = PokemonCardDef(
             title="Crust",
             game_text="Any damage done to Heracross by attacks from your opponent's Basic Pok\u00e9mon is reduced by 20 (after applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            # STUB: ability effect not implemented,
         ),
         Attack(
             title="Get Even",
@@ -36,7 +37,7 @@ card = PokemonCardDef(
             damage=20,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=get_even(),
         ),
     ],
 )

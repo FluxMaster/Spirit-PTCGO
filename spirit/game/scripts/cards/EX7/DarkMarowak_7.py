@@ -1,3 +1,4 @@
+from spirit.game.card_effects.ex import brick_smash, hard_bone_discard_pokemon
 """STUB: effect not implemented — do not guess mechanics.
 Dark Marowak (EX7 #7): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
@@ -29,7 +30,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=brick_smash(),
         ),
         Attack(
             title="Hard Bone",
@@ -37,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 2, PokemonTypes.COLORLESS: 1},
             damage=70,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=hard_bone_discard_pokemon(),
         ),
     ],
 )

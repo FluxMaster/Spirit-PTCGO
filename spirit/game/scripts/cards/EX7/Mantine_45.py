@@ -1,3 +1,4 @@
+from spirit.game.card_effects.ex import ripples_heal_other, aqua_slash_lock
 """STUB: effect not implemented — do not guess mechanics.
 Mantine (EX7 #45): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
@@ -27,7 +28,7 @@ card = PokemonCardDef(
             game_text="Once during your turn (before your attack), you may remove 1 damage counter from 1 of your Pok\u00e9mon (excluding Mantine). This power can't be used if Mantine is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=ripples_heal_other(),
         ),
         Attack(
             title="Aqua Slash",
@@ -35,7 +36,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=aqua_slash_lock(),
         ),
     ],
 )

@@ -4,10 +4,11 @@ Skiploom (EX7 #49): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
-from spirit.game.card_effects.ex import miracle_powder
+from spirit.game.card_effects.ex import miracle_powder, buffer_passive
 
 
 card = PokemonCardDef(
+    passive=buffer_passive(),
     guid="7f0eaeb2-cd7d-51af-8c50-3358de50e3a1",
     key="EX7",
     name="com.direwolfdigital.cake.data.archetypes.pokemon.Skiploom.Name",
@@ -30,8 +31,7 @@ card = PokemonCardDef(
             title="Buffer",
             game_text="If Skiploom would be Knocked Out by an opponent's attack, flip a coin. If heads, Skiploom is not Knocked Out and its remaining HP becomes 10 instead.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            # STUB: ability effect not implemented,
         ),
         Attack(
             title="Miracle Powder",

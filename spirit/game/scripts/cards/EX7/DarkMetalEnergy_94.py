@@ -1,10 +1,4 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dark Metal Energy (EX7 #94): special energy provides/passive/attach rules stubbed until matched to a known energy pattern.
-
-Card text:
-  - Attach Dark Metal Energy to 1 of your Pokémon. While in play, Dark Metal Energy provides Darkness Energy and Metal Energy, but provides only 1 Energy at a time. (Doesn't count as a basic Energy card when not in play and has no effect other than providing Energy.)
-"""
-
+from spirit.game.card_effects.energies import ALL_TYPES_ONE_AT_A_TIME
 from spirit.game.data_utils import EnergyCardDef
 from spirit.game.attributes import PokemonTypes, Rarities
 
@@ -20,5 +14,8 @@ card = EnergyCardDef(
     rarity=Rarities.Uncommon,
     energy_type=PokemonTypes.COLORLESS,
     is_special=True,
-    # STUB: special energy mechanics not implemented
+    provides=[
+        [PokemonTypes.DARKNESS],
+        [PokemonTypes.METAL],
+    ],
 )

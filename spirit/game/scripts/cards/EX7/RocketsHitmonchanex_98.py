@@ -1,3 +1,4 @@
+from spirit.game.card_effects.ex import strikes_back_ex7
 """STUB: effect not implemented — do not guess mechanics.
 Rocket's Hitmonchan ex (EX7 #98): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
@@ -8,6 +9,7 @@ from spirit.game.card_effects.attacks_common import snipe_attack
 
 
 card = PokemonCardDef(
+    passive=strikes_back_ex7(2),
     guid="f1de93cd-9797-56cd-b7dc-b735de839287",
     key="EX7",
     name="com.direwolfdigital.cake.data.archetypes.pokemon.RocketsHitmonchanex.Name",
@@ -28,8 +30,7 @@ card = PokemonCardDef(
             title="Strikes Back",
             game_text="If Rocket's Hitmonchan ex is your Active Pok\u00e9mon and is damaged by an opponent's attack (even if Rocket's Hitmonchan ex is Knocked Out), put 2 damage counters on the Attacking Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            # STUB: ability effect not implemented,
         ),
         Attack(
             title="Mach Punch",

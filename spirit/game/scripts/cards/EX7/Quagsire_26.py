@@ -1,3 +1,4 @@
+from spirit.game.card_effects.ex import hyper_pump_capped, saturation_on_water_attach
 """STUB: effect not implemented — do not guess mechanics.
 Quagsire (EX7 #26): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
@@ -6,6 +7,7 @@ from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemente
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 
 card = PokemonCardDef(
+    passive=saturation_on_water_attach(2),
     guid="aeb65975-04f7-5fd0-8aad-c4fbb4e49f3a",
     key="EX7",
     name="com.direwolfdigital.cake.data.archetypes.pokemon.Quagsire.Name",
@@ -27,8 +29,7 @@ card = PokemonCardDef(
             title="Saturation",
             game_text="When you attach a Water Energy card from your hand to Quagsire, remove all Special Conditions and 2 damage counters from Quagsire.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            # STUB: ability effect not implemented,
         ),
         Attack(
             title="Hyper Pump",
@@ -37,7 +38,7 @@ card = PokemonCardDef(
             damage=20,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=hyper_pump_capped(),
         ),
     ],
 )

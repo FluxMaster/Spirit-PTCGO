@@ -1,3 +1,4 @@
+from spirit.game.card_effects.ex import bounce_switch, slashing_strike_lock, dual_armor_passive
 """STUB: effect not implemented — do not guess mechanics.
 Rocket's Scyther ex (EX7 #102): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
@@ -6,6 +7,7 @@ from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemente
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 
 card = PokemonCardDef(
+    passive=dual_armor_passive(PokemonTypes.GRASS),
     guid="ee3550f6-631f-5a79-ae48-ef507030d188",
     key="EX7",
     name="com.direwolfdigital.cake.data.archetypes.pokemon.RocketsScytherex.Name",
@@ -27,8 +29,7 @@ card = PokemonCardDef(
             title="Dual Armor",
             game_text="As long as Rocket's Scyther ex has any Grass Energy attached to it, Rocket's Scyther ex is both Grass and Darkness type.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            # STUB: ability effect not implemented,
         ),
         Attack(
             title="Bounce",
@@ -36,7 +37,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bounce_switch(),
         ),
         Attack(
             title="Slashing Strike",
@@ -44,7 +45,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=40,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=slashing_strike_lock(),
         ),
     ],
 )

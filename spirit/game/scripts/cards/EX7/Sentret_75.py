@@ -1,3 +1,4 @@
+from spirit.game.card_effects.ex import friend_search
 """STUB: effect not implemented — do not guess mechanics.
 Sentret (EX7 #75): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
@@ -29,7 +30,7 @@ card = PokemonCardDef(
             game_text="Look at the top 5 cards of your deck. Choose a Basic Pok\u00e9mon or Evolution card you find there, show it to your opponent, and put it into your hand. Put the other 4 cards back on top of your deck. Shuffle your deck afterward.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=friend_search(),
         ),
         Attack(
             title="Surprise Attack",

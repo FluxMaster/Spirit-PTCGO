@@ -1,3 +1,4 @@
+from spirit.game.card_effects.ex import energy_link_self
 """STUB: effect not implemented — do not guess mechanics.
 Dark Steelix (EX7 #10): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
@@ -30,7 +31,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=energy_link_self(),
         ),
         Attack(
             title="Heavy Impact",

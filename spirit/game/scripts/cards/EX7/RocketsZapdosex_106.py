@@ -1,3 +1,4 @@
+from spirit.game.card_effects.ex import plasma_attach_ex7, raging_thunder_self, darkness_guard_passive
 """STUB: effect not implemented — do not guess mechanics.
 Rocket's Zapdos ex (EX7 #106): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
@@ -6,6 +7,7 @@ from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemente
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 
 card = PokemonCardDef(
+    passive=darkness_guard_passive(),
     guid="e32b90b0-2121-5d6f-a047-1d4cec3f4dc1",
     key="EX7",
     name="com.direwolfdigital.cake.data.archetypes.pokemon.RocketsZapdosex.Name",
@@ -26,8 +28,7 @@ card = PokemonCardDef(
             title="Darkness Guard",
             game_text="As long as Rocket's Zapdos ex has any Darkness Energy attached to it, damage done to Rocket's Zapdos ex by an opponent's attack is reduced by 10 (after applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            # STUB: ability effect not implemented,
         ),
         Attack(
             title="Plasma",
@@ -35,7 +36,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=plasma_attach_ex7(),
         ),
         Attack(
             title="Raging Thunder",
@@ -43,7 +44,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 2, PokemonTypes.COLORLESS: 1},
             damage=60,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=raging_thunder_self(),
         ),
     ],
 )

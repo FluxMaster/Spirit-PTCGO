@@ -1,3 +1,4 @@
+from spirit.game.card_effects.ex import grind_per_energy, bite_off_ex
 """STUB: effect not implemented — do not guess mechanics.
 Dark Tyranitar (EX7 #19): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
@@ -33,7 +34,7 @@ card = PokemonCardDef(
             damage=10,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=grind_per_energy(),
         ),
         Attack(
             title="Spinning Tail",
@@ -49,7 +50,7 @@ card = PokemonCardDef(
             damage=70,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bite_off_ex(),
         ),
     ],
 )

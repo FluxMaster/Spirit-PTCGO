@@ -1,3 +1,4 @@
+from spirit.game.card_effects.ex import spiny_on_damaged
 """STUB: effect not implemented — do not guess mechanics.
 Qwilfish (EX7 #27): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
@@ -9,6 +10,7 @@ from spirit.game.card_effects.attacks_common import condition_attack
 
 
 card = PokemonCardDef(
+    passive=spiny_on_damaged(),
     guid="3d883092-dca7-5016-8707-36aa74afcd68",
     key="EX7",
     name="com.direwolfdigital.cake.data.archetypes.pokemon.Qwilfish.Name",
@@ -29,8 +31,7 @@ card = PokemonCardDef(
             title="Spiny",
             game_text="If Qwilfish is your Active Pok\u00e9mon and is damaged by an opponent's attack (even if Qwilfish is Knocked Out), flip a coin until you get tails. For each heads, put 1 damage counter on the Attacking Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            # STUB: ability effect not implemented,
         ),
         Attack(
             title="Stun Poison",

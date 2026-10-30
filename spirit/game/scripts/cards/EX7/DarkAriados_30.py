@@ -1,3 +1,4 @@
+from spirit.game.card_effects.ex import breaking_impact
 """STUB: effect not implemented — do not guess mechanics.
 Dark Ariados (EX7 #30): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
@@ -38,7 +39,7 @@ card = PokemonCardDef(
             game_text="Choose 1 of your opponent's Pok\u00e9mon. This attack does 20 damage for each Colorless Energy in that Pok\u00e9mon's Retreat Cost (after applying effects to the Retreat Cost). (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 2},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=breaking_impact(20),
         ),
     ],
 )

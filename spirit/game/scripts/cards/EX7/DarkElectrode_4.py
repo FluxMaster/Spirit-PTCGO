@@ -1,3 +1,4 @@
+from spirit.game.card_effects.ex import darkness_navigation, energy_bomb_redistribute
 """STUB: effect not implemented — do not guess mechanics.
 Dark Electrode (EX7 #4): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
@@ -28,7 +29,7 @@ card = PokemonCardDef(
             game_text="Once during your turn (before your attack), if Dark Electrode has no Energy attached to it, you may search your deck for a Darkness or Dark Metal Energy and attach it to Dark Electrode. Shuffle your deck afterward. This power can't be used if Dark Electrode is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=darkness_navigation(),
         ),
         Attack(
             title="Energy Bomb",
@@ -36,7 +37,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 1},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=energy_bomb_redistribute(),
         ),
     ],
 )

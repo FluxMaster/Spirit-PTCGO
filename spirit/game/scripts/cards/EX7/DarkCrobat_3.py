@@ -4,7 +4,7 @@ Dark Crobat (EX7 #3): one or more attacks/abilities use effect=unimplemented unt
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
-from spirit.game.card_effects.ex import bass_control
+from spirit.game.card_effects.ex import bass_control, black_beam_poison_active, dark_drain_spread_heal
 
 
 card = PokemonCardDef(
@@ -31,14 +31,14 @@ card = PokemonCardDef(
             game_text="Once during your turn (before your attack), if Dark Crobat is your Active Pok\u00e9mon, you may choose 1 of the Defending Pok\u00e9mon. That Pok\u00e9mon is now Poisoned. This power can't be used if Dark Crobat is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=black_beam_poison_active(),
         ),
         Attack(
             title="Dark Drain",
             game_text="Does 10 damage to each of your opponent's Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.) Remove from Dark Crobat a number of damage counters equal to the number of your opponent's Pok\u00e9mon in play.",
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=dark_drain_spread_heal(),
         ),
         Attack(
             title="Skill Dive",

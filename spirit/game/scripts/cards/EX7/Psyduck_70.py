@@ -1,3 +1,4 @@
+from spirit.game.card_effects.ex import headache_lock_trainers
 """STUB: effect not implemented — do not guess mechanics.
 Psyduck (EX7 #70): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
@@ -32,7 +33,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, your opponent can't play a Trainer card from his or her hand until the end of your opponent's next turn.",
             cost={PokemonTypes.WATER: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=headache_lock_trainers(),
         ),
     ],
 )

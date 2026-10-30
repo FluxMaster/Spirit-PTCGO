@@ -1,3 +1,4 @@
+from spirit.game.card_effects.ex import spread_poison, dark_seed
 """STUB: effect not implemented — do not guess mechanics.
 Dark Raticate (EX7 #17): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
@@ -28,7 +29,7 @@ card = PokemonCardDef(
             game_text="The Defending Pok\u00e9mon can't retreat during your opponent's next turn. Put 5 damage counters on the Defending Pok\u00e9mon at the end of your opponent's next turn.",
             cost={PokemonTypes.DARKNESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=dark_seed(),
         ),
         Attack(
             title="Spread Poison",
@@ -36,7 +37,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=10,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=spread_poison(),
         ),
     ],
 )

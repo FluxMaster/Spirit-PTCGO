@@ -1,3 +1,4 @@
+from spirit.game.card_effects.ex import hyper_whirlpool, dragon_veil_passive
 """STUB: effect not implemented — do not guess mechanics.
 Kingdra (EX7 #12): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
@@ -8,6 +9,7 @@ from spirit.game.card_effects.attacks_common import ignore_resistance_attack
 
 
 card = PokemonCardDef(
+    passive=dragon_veil_passive(),
     guid="c1d319c6-38bc-5968-94c6-9ac544fa651b",
     key="EX7",
     name="com.direwolfdigital.cake.data.archetypes.pokemon.Kingdra.Name",
@@ -29,8 +31,7 @@ card = PokemonCardDef(
             title="Dragon Veil",
             game_text="As long as Kingdra is in play, each of your Active Pok\u00e9mon has no Weakness.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            # STUB: ability effect not implemented,
         ),
         Attack(
             title="Hyper Whirlpool",
@@ -38,7 +39,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=hyper_whirlpool(),
         ),
         Attack(
             title="Aqua Sonic",

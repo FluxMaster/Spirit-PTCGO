@@ -1,3 +1,4 @@
+from spirit.game.card_effects.ex import rest_full_asleep
 """STUB: effect not implemented — do not guess mechanics.
 Swinub (EX7 #79): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
@@ -32,7 +33,7 @@ card = PokemonCardDef(
             game_text="Remove all Special Conditions and all damage counters from Swinub. Swinub is now Asleep.",
             cost={PokemonTypes.COLORLESS: 2},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=rest_full_asleep(),
         ),
     ],
 )

@@ -1,3 +1,4 @@
+from spirit.game.card_effects.ex import hyper_splash, dark_and_clear_passive
 """STUB: effect not implemented — do not guess mechanics.
 Rocket's Suicune ex (EX7 #105): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
@@ -9,6 +10,7 @@ from spirit.game.card_effects.attacks_common import condition_attack
 
 
 card = PokemonCardDef(
+    passive=dark_and_clear_passive(),
     guid="b495c916-a939-5958-99e0-25961e089470",
     key="EX7",
     name="com.direwolfdigital.cake.data.archetypes.pokemon.RocketsSuicuneex.Name",
@@ -29,8 +31,7 @@ card = PokemonCardDef(
             title="Dark and Clear",
             game_text="As long as Rocket's Suicune ex has any Darkness Energy attached to it, Rocket's Suicune ex can't be affected by any Special Conditions.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            # STUB: ability effect not implemented,
         ),
         Attack(
             title="Icy Wind",
@@ -47,7 +48,7 @@ card = PokemonCardDef(
             damage=50,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=hyper_splash(),
         ),
     ],
 )

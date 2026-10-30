@@ -1,3 +1,4 @@
+from spirit.game.card_effects.ex import fire_dance, dark_lift_passive_ex7
 """STUB: effect not implemented — do not guess mechanics.
 Rocket's Moltres ex (EX7 #100): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
@@ -6,6 +7,7 @@ from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemente
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 
 card = PokemonCardDef(
+    passive=dark_lift_passive_ex7(),
     guid="fdfc6f21-2dcf-5693-b30d-01f6823366d8",
     key="EX7",
     name="com.direwolfdigital.cake.data.archetypes.pokemon.RocketsMoltresex.Name",
@@ -26,8 +28,7 @@ card = PokemonCardDef(
             title="Dark Lift",
             game_text="If Rocket's Moltres ex has any Darkness Energy attached to it, the Retreat Cost for Rocket's Moltres ex is 0.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            # STUB: ability effect not implemented,
         ),
         Attack(
             title="Fire Dance",
@@ -35,7 +36,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=fire_dance(),
         ),
         Attack(
             title="Combustion",

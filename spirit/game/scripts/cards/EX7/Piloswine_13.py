@@ -4,7 +4,7 @@ Piloswine (EX7 #13): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-from spirit.game.card_effects.ex import sheer_cold
+from spirit.game.card_effects.ex import sheer_cold, tonnage_ex7
 
 
 card = PokemonCardDef(
@@ -40,7 +40,7 @@ card = PokemonCardDef(
             damage=60,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=tonnage_ex7(),
         ),
     ],
 )

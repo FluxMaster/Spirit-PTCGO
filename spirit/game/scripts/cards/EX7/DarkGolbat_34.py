@@ -1,3 +1,4 @@
+from spirit.game.card_effects.ex import night_ambush
 """STUB: effect not implemented — do not guess mechanics.
 Dark Golbat (EX7 #34): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
@@ -28,7 +29,7 @@ card = PokemonCardDef(
             game_text="Does 30 damage to 1 of your opponent's Pok\u00e9mon. Dark Golbat can't attack during your next turn. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.GRASS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=night_ambush(),
         ),
     ],
 )

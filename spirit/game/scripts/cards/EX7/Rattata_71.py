@@ -1,3 +1,4 @@
+from spirit.game.card_effects.ex import scramble_retreat_passive
 """STUB: effect not implemented — do not guess mechanics.
 Rattata (EX7 #71): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
@@ -8,6 +9,7 @@ from spirit.game.card_effects.attacks_common import flip_damage
 
 
 card = PokemonCardDef(
+    passive=scramble_retreat_passive(),
     guid="abfd0597-661c-598a-aba6-bfd4e7f3f114",
     key="EX7",
     name="com.direwolfdigital.cake.data.archetypes.pokemon.Rattata.Name",
@@ -28,8 +30,7 @@ card = PokemonCardDef(
             title="Scramble",
             game_text="As long as your opponent has any Pok\u00e9mon-ex as his or her Active Pok\u00e9mon, the Retreat Cost for Rattata is 0.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            # STUB: ability effect not implemented,
         ),
         Attack(
             title="Fury Swipes",

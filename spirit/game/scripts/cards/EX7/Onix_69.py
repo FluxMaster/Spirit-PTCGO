@@ -1,3 +1,4 @@
+from spirit.game.card_effects.ex import granite_head
 """STUB: effect not implemented — do not guess mechanics.
 Onix (EX7 #69): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
@@ -38,7 +39,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=granite_head(),
         ),
     ],
 )

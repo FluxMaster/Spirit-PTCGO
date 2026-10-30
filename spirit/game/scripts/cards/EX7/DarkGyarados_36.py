@@ -1,3 +1,4 @@
+from spirit.game.card_effects.ex import dark_scale_on_ko
 """STUB: effect not implemented — do not guess mechanics.
 Dark Gyarados (EX7 #36): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
@@ -9,6 +10,7 @@ from spirit.game.card_effects.attacks_common import condition_attack
 
 
 card = PokemonCardDef(
+    passive=dark_scale_on_ko(),
     guid="af8eef31-0842-50c5-a27e-bd64e9dd386b",
     key="EX7",
     name="com.direwolfdigital.cake.data.archetypes.pokemon.DarkGyarados.Name",
@@ -32,7 +34,6 @@ card = PokemonCardDef(
             game_text="If Dark Gyarados is your Active Pok\u00e9mon and is Knocked Out by an opponent's attack, put 3 damage counters on the Attacking Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
         ),
         Attack(
             title="Sharp Fang",

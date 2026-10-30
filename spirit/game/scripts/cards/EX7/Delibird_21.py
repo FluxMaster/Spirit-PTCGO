@@ -1,3 +1,4 @@
+from spirit.game.card_effects.ex import gift_exchange, souvenir_flip3
 """STUB: effect not implemented — do not guess mechanics.
 Delibird (EX7 #21): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
@@ -27,14 +28,14 @@ card = PokemonCardDef(
             game_text="Once during your turn (before your attack), if Delibird is your Active Pok\u00e9mon, you may shuffle 1 card from your hand into your deck. Then, draw a card. This power can't be used if Delibird is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=gift_exchange(),
         ),
         Attack(
             title="Souvenir",
             game_text="Flip 3 coins. If 1 of them is heads, put 4 damage counters on the Defending Pok\u00e9mon. If 2 of them are heads, remove 1 damage counter from the Defending Pok\u00e9mon. If all of them are heads, put 10 damage counters on the Defending Pok\u00e9mon. If all of them are tails, remove all damage counters from the Defending Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 2},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=souvenir_flip3(),
         ),
     ],
 )

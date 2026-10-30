@@ -1,3 +1,4 @@
+from spirit.game.card_effects.ex import baby_evolution_ex7, detour_supporter
 """STUB: effect not implemented — do not guess mechanics.
 Magby (EX7 #24): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
@@ -27,14 +28,14 @@ card = PokemonCardDef(
             game_text="Once during your turn (before your attack), you may put Magmar from your hand onto Magby (this counts as evolving Magby), and remove all damage counters from Magby.",
             ability_type=AbilityTypes.POKE_POWER,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=baby_evolution_ex7("Magmar"),
         ),
         Attack(
             title="Detour",
             game_text="If you have a Supporter card in play, use the effect on that card as the effect of this attack.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=detour_supporter(),
         ),
     ],
 )

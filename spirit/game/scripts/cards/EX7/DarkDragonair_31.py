@@ -1,3 +1,4 @@
+from spirit.game.card_effects.ex import evolutionary_light
 """STUB: effect not implemented — do not guess mechanics.
 Dark Dragonair (EX7 #31): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
@@ -29,7 +30,7 @@ card = PokemonCardDef(
             game_text="Once during your turn (before your attack), if Dark Dragonair is your Active Pok\u00e9mon, you may search your deck for an Evolution card. Show it to your opponent and put it into your hand. Shuffle your deck afterward. This power can't be used if Dark Dragonair is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=evolutionary_light(),
         ),
         Attack(
             title="Dragon Rage",

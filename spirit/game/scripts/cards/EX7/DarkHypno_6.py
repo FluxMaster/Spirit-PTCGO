@@ -1,3 +1,4 @@
+from spirit.game.card_effects.ex import black_magic_per_opp_bench, dark_link
 """STUB: effect not implemented — do not guess mechanics.
 Dark Hypno (EX7 #6): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
@@ -28,7 +29,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, choose an attack on 1 of your Pok\u00e9mon in play that has Dark in its name (excluding this one). Dark Link copies that attack except for its Energy cost. (You must still do anything else required for that attack.) (No matter what type that Pok\u00e9mon is, Dark Hypno's type is still Psychic Darkness.) Dark Hypno performs that attack.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=dark_link(),
         ),
         Attack(
             title="Black Magic",
@@ -37,7 +38,7 @@ card = PokemonCardDef(
             damage=20,
             damage_operator="x",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=black_magic_per_opp_bench(),
         ),
     ],
 )

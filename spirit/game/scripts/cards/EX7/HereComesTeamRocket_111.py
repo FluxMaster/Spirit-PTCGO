@@ -1,13 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Here Comes Team Rocket! (EX7 #111): trainer effect stubbed.
-
-Card text:
-  - You can play only one Supporter card each turn. When you play this card, put it next to your Active Pokémon. When your turn ends, discard this card.
-  - Each player plays with his or her Prize cards face up for the rest of the game.
-"""
-
-from spirit.game.data_utils import SupporterCardDef, unimplemented
+"""LIGHT: reveals Prize cards; persistent face-up for rest of game not fully tracked."""
+from spirit.game.data_utils import SupporterCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ex import here_comes_team_rocket
 
 card = SupporterCardDef(
     guid="d8b31bbe-ade3-5ff4-a0b2-7f556a108a34",
@@ -19,6 +13,5 @@ card = SupporterCardDef(
     collector_number=111,
     set_code="EX7",
     rarity=Rarities.RareSecret,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=here_comes_team_rocket,
 )

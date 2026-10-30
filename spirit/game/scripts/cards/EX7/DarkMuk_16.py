@@ -1,3 +1,4 @@
+from spirit.game.card_effects.ex import slimy_water_retreat, sticky_goo_retreat_passive
 """STUB: effect not implemented — do not guess mechanics.
 Dark Muk (EX7 #16): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
@@ -9,6 +10,7 @@ from spirit.game.card_effects.attacks_common import condition_attack
 
 
 card = PokemonCardDef(
+    passive=sticky_goo_retreat_passive(),
     guid="04be4fe2-3e14-5bf5-bc0d-20ae2780a7c0",
     key="EX7",
     name="com.direwolfdigital.cake.data.archetypes.pokemon.DarkMuk.Name",
@@ -30,8 +32,7 @@ card = PokemonCardDef(
             title="Sticky Goo",
             game_text="As long as Dark Muk is your Active Pok\u00e9mon, your opponent pays ColorlessColorless more to retreat his or her Active Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            # STUB: ability effect not implemented,
         ),
         Attack(
             title="Slimy Water",
@@ -40,7 +41,7 @@ card = PokemonCardDef(
             damage=10,
             damage_operator="x",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=slimy_water_retreat(),
         ),
         Attack(
             title="Acidic Poison",

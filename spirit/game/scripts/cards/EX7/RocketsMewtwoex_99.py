@@ -1,3 +1,4 @@
+from spirit.game.card_effects.ex import darkness_switch
 """STUB: effect not implemented — do not guess mechanics.
 Rocket's Mewtwo ex (EX7 #99): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
@@ -30,7 +31,7 @@ card = PokemonCardDef(
             game_text="Discard an Energy card attached to Rocket's Mewtwo ex, and then switch all damage counters on Rocket's Mewtwo ex with those on the Defending Pok\u00e9mon. (If an effect of this attack is prevented, this attack does nothing.)",
             cost={PokemonTypes.PSYCHIC: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=darkness_switch(),
         ),
         Attack(
             title="Hypnoblast",

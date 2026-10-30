@@ -1,3 +1,4 @@
+from spirit.game.card_effects.ex import snatch_and_run, miraculous_comeback
 """STUB: effect not implemented — do not guess mechanics.
 Rocket's Meowth (EX7 #46): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
@@ -27,7 +28,7 @@ card = PokemonCardDef(
             game_text="Search your deck for a Pok\u00e9mon Tool card or Rocket's Secret Machine card, show it to your opponent, and put it into your hand. If you do, you may switch Rocket's Meowth with 1 of your Benched Pok\u00e9mon. Shuffle your deck afterward.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=snatch_and_run(),
         ),
         Attack(
             title="Miraculous Comeback",
@@ -36,7 +37,7 @@ card = PokemonCardDef(
             damage=10,
             damage_operator="x",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=miraculous_comeback(),
         ),
     ],
 )

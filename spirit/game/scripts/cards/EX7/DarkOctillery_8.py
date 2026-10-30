@@ -1,3 +1,4 @@
+from spirit.game.card_effects.ex import black_suction_cups, ink_blast
 """STUB: effect not implemented — do not guess mechanics.
 Dark Octillery (EX7 #8): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
@@ -28,7 +29,7 @@ card = PokemonCardDef(
             game_text="Does 10 damage to each Defending Pok\u00e9mon. Flip a coin. If heads, each Defending Pok\u00e9mon is now Paralyzed.",
             cost={PokemonTypes.WATER: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=black_suction_cups(),
         ),
         Attack(
             title="Ink Blast",
@@ -37,7 +38,7 @@ card = PokemonCardDef(
             damage=30,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=ink_blast(),
         ),
     ],
 )

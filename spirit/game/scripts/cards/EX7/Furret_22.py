@@ -1,3 +1,4 @@
+from spirit.game.card_effects.ex import quick_change, quick_tail_smash
 """STUB: effect not implemented — do not guess mechanics.
 Furret (EX7 #22): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
@@ -28,7 +29,7 @@ card = PokemonCardDef(
             game_text="Choose up to 3 cards in your hand and put them on top of your deck. Then, search your deck for that many cards and put them into your hand. Shuffle your deck afterward.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=quick_change(),
         ),
         Attack(
             title="Quick Tail Smash",
@@ -36,7 +37,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=quick_tail_smash(),
         ),
     ],
 )
