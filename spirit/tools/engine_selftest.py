@@ -2053,6 +2053,30 @@ async def test_setup_as_active():
     assert board.player_has_any_basic(P1)
 
 
+
+async def test_rainbow_energy_on_attach_counters():
+    from spirit.game.card_effects.energies import rainbow_energy_on_attach
+    rig, entities = new_rig()
+    active = entities["p1_active"]
+    max_hp = passives.effective_max_hp(rig.board, active)
+    active.set_attribute(AttrID.HP, max_hp)
+    # source must be set so deal_damage can resolve ownership checks
+    ctx = EffectContext(rig.session, P1, active, None)
+    ctx.attached_to = active
+    await rainbow_energy_on_attach(ctx)
+    assert active.get_attribute(AttrID.HP) == max_hp - 10
+
+
+async def test_sm7_rainbow_energy_wired():
+    for stem in ("RainbowEnergy_151", "RainbowEnergy_183"):
+        if stem not in card_loader.cards_by_stem:
+            continue
+        d = CARD_DEFS_BY_GUID[card_loader.cards_by_stem[stem].lower()]
+        assert d.on_attach is not None
+        info = d.extra_attributes.get(str(AttrID.ENERGY_INFO.value), {})
+        val = info.get("value") if isinstance(info, dict) else None
+        assert val and "options" in (val if isinstance(val, dict) else __import__("json").loads(val))
+
 TESTS = [
     test_temp_passive_prevents_then_expires,
     test_temp_passive_cleared_on_leave,
@@ -2120,6 +2144,8 @@ TESTS = [
     test_setup_as_active,
     test_blocks_attacks,
     test_damage_counters_on_evolve,
+    test_rainbow_energy_on_attach_counters,
+    test_sm7_rainbow_energy_wired,
 ]
 
 
