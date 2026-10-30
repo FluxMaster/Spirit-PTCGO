@@ -1,7 +1,7 @@
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.support_common import heal_targets
-from spirit.game.card_effects.ex import special_circuit
+from spirit.game.card_effects.ex import chain_of_events_passive, special_circuit
 
 card = PokemonCardDef(
     guid="1a7fcd57-5438-5262-86d9-6dad01a1bfdc",
@@ -25,8 +25,8 @@ card = PokemonCardDef(
             title="Chain of Events",
             game_text="As long as Minun is your Active Pok\u00e9mon, whenever your other Active Pok\u00e9mon, if any, attacks, you may use Cheer On after the first attack (you still need the necessary Energy to use Cheer On). You can't use Cheer On more than once in this way even if your other Active Pok\u00e9mon has the Chain of Events Pok\u00e9-Body.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=None,
+            passive=chain_of_events_passive(),
         ),
         Attack(
             title="Cheer On",

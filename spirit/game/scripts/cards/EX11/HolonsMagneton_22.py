@@ -1,7 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Holon's Magneton (EX11 #22): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
+"""EX11 Delta Species — Holon dual-mode Energy attach.
 """
-
+from spirit.game.card_effects.ex import holon_stage1_energy_on_attach, holon_pokemon_energy_attach_to_with_energy
+from spirit.game.card_effects.energies import ALL_TYPES_TWO_AT_A_TIME
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.card_effects.ex import extra_ball_vs_ex
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
@@ -24,6 +24,10 @@ card = PokemonCardDef(
     resistance_type=PokemonTypes.GRASS,
     evolves_from="com.direwolfdigital.cake.data.archetypes.pokemon.HolonsMagnemite.Name",
     family_id=81,
+    attachable_as_energy=True,
+    energy_provides=ALL_TYPES_TWO_AT_A_TIME,
+    energy_attach_to=holon_pokemon_energy_attach_to_with_energy,
+    energy_on_attach=holon_stage1_energy_on_attach,
     abilities=[
         Attack(
             title="Extra Ball",

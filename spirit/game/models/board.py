@@ -657,13 +657,24 @@ class BoardState:
 
     @staticmethod
     def attached_energies(pokemon: 'PokemonEntity') -> List['EnergyEntity']:
-        """Every Energy card attached anywhere under a Pokemon's stack."""
+        """Every Energy card attached anywhere under a Pokemon's stack.
+
+        Includes Holon's Pokémon attached as Energy (PokemonEntity with
+        ENERGY_INFO / attachable_as_energy) so they pay attack costs.
+        """
+        from spirit.game.attributes import AttrID
+        from spirit.game.content.definitions import def_for
         energies: List[EnergyEntity] = []
         stack: List[BoardEntity] = list(pokemon.children)
         while stack:
             entity = stack.pop()
             if isinstance(entity, EnergyEntity):
                 energies.append(entity)
+            elif isinstance(entity, PokemonEntity):
+                d = def_for(getattr(entity, "archetype_id", None) or "")
+                if getattr(d, "attachable_as_energy", False) or entity.get_attribute(AttrID.ENERGY_INFO):
+                    # Treat as energy for cost accounting (duck-typed).
+                    energies.append(entity)  # type: ignore[arg-type]
             stack.extend(entity.children)
         return energies
 

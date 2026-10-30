@@ -1,15 +1,15 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Boost Energy (EX10 #98): special energy provides/passive/attach rules stubbed until matched to a known energy pattern.
-
-Card text:
-  - Boost Energy can be attached only to an Evolved Pokémon. Discard Boost Energy at the end of the turn it was attached. Boost Energy provides ColorlessColorlessColorless Energy. The Pokémon Boost Energy is attached to can't retreat. If the Pokémon Boost Energy is attached to isn't an Evolved Pokémon, discard Boost Energy.
+"""EX10 Unseen Forces — Boost Energy.
 """
+from spirit.game.data_utils import Ability, EnergyCardDef, Triggers
+from spirit.game.attributes import AbilityTypes, PokemonTypes, Rarities
+from spirit.game.card_effects.energies import discard_energy_end_of_turn
+from spirit.game.card_effects.ex import boost_energy_lock_retreat
+from spirit.game.session.effects import is_evolution_pokemon
 
-from spirit.game.data_utils import EnergyCardDef
-from spirit.game.attributes import PokemonTypes, Rarities
+_GUID = "a789f01f-a171-5d3e-a3c6-43a4649bdbb9"
 
 card = EnergyCardDef(
-    guid="a789f01f-a171-5d3e-a3c6-43a4649bdbb9",
+    guid=_GUID,
     key="EX10",
     name="Boost Energy",
     display_name="Boost Energy",
@@ -20,5 +20,16 @@ card = EnergyCardDef(
     rarity=Rarities.Uncommon,
     energy_type=PokemonTypes.COLORLESS,
     is_special=True,
-    # STUB: special energy mechanics not implemented
+    provides=[[PokemonTypes.COLORLESS, PokemonTypes.COLORLESS, PokemonTypes.COLORLESS]],
+    attach_to=is_evolution_pokemon,
+    passive=boost_energy_lock_retreat(),
+    granted_abilities=[
+        Ability(
+            title="Boost Energy",
+            game_text="Discard Boost Energy at the end of the turn it was attached.",
+            ability_type=AbilityTypes.POKE_BODY,
+            trigger=Triggers.END_OF_TURN,
+            effect=discard_energy_end_of_turn(_GUID),
+        ),
+    ],
 )

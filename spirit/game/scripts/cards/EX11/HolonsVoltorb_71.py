@@ -1,8 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Holon's Voltorb (EX11 #71): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
+"""EX11 Delta Species — Holon dual-mode Energy attach.
 """
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
@@ -24,6 +22,8 @@ card = PokemonCardDef(
     retreat_cost=1,
     weakness_type=PokemonTypes.FIGHTING,
     family_id=100,
+    attachable_as_energy=True,
+    energy_provides=[[PokemonTypes.COLORLESS]],
     abilities=[
         Attack(
             title="Thundershock",
