@@ -10,7 +10,7 @@ from spirit.game.attributes import AbilityTypes, PokemonTypes, Rarities
 _GUID = "41c0bd12-4011-5ef5-be17-30a60c4ba489"
 
 card = EnergyCardDef(
-    guid=_GUID,
+    guid="41c0bd12-4011-5ef5-be17-30a60c4ba489",
     key="EX4",
     name="Double Rainbow Energy",
     display_name="Double Rainbow Energy",

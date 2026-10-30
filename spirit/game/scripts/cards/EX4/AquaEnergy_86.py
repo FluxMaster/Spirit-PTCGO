@@ -8,7 +8,7 @@ from spirit.game.attributes import AbilityTypes, PokemonTypes, Rarities
 _GUID = "09dd569f-37fa-567a-8b4e-662d8927d9e9"
 
 card = EnergyCardDef(
-    guid=_GUID,
+    guid="09dd569f-37fa-567a-8b4e-662d8927d9e9",
     key="EX4",
     name="Aqua Energy",
     display_name="Aqua Energy",

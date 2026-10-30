@@ -26,10 +26,9 @@ card = PokemonCardDef(
     weakness_type=PokemonTypes.FIRE,
     family_id=385,
     abilities=[
-        Attack(
+        Ability(
             title="Make a Wish",
             game_text="Search your deck for a card that evolves from 1 of your Pok\u00e9mon and put it on that Pok\u00e9mon. (This counts as evolving that Pok\u00e9mon.) If you do, put 1 damage counter on Jirachi. Shuffle your deck afterward.",
-            cost={PokemonTypes.COLORLESS: 1},
             ability_type=AbilityTypes.POKE_POWER,
             activation=Activations.ONCE_PER_TURN,
             condition=poke_power_condition(),

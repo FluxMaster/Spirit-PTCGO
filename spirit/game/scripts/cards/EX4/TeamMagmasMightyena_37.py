@@ -2,8 +2,8 @@
 Team Magma's Mightyena (EX4 #37): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability
-from spirit.game.attributes import Activations, PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.data_utils import Ability, Activations, Attack, PokemonCardDef
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import flip_or_nothing
 from spirit.game.card_effects.ex import call_for_help, call_for_help_condition, poke_power_condition
 

@@ -5,8 +5,8 @@ Cradily ex (EX4 #90): one or more attacks/abilities use effect=unimplemented unt
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.attributes import SpecialConditions
+from spirit.game.card_effects.attacks_common import condition_attack
 from spirit.game.card_effects.ex import primal_vibes_passive
-from spirit.game.card_effects.attacks_common import condition_attack, primal_vibes_passive
 
 
 card = PokemonCardDef(

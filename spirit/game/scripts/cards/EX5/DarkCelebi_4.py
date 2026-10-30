@@ -26,10 +26,9 @@ card = PokemonCardDef(
     weakness_type=PokemonTypes.FIRE,
     family_id=251,
     abilities=[
-        Attack(
+        Ability(
             title="Dark Provide",
             game_text="Attach up to 1 Grass or Darkness Energy card from your hand to your Pok\u00e9mon.",
-            cost={PokemonTypes.COLORLESS: 1},
             ability_type=AbilityTypes.POKE_POWER,
             activation=Activations.ONCE_PER_TURN,
             condition=poke_power_condition(),

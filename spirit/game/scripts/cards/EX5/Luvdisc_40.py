@@ -2,7 +2,7 @@
 Luvdisc (EX5 #40): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import Activations, Attack, PokemonCardDef, unimplemented
+from spirit.game.data_utils import Ability, Activations, Attack, PokemonCardDef, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 
 from spirit.game.card_effects.ex import loving_draw, poke_power_condition, sweet_temptation
@@ -24,10 +24,9 @@ card = PokemonCardDef(
     weakness_type=PokemonTypes.LIGHTNING,
     family_id=370,
     abilities=[
-        Attack(
+        Ability(
             title="Loving Draw",
             game_text="Draw cards until you have the same number of cards in your hand as your opponent has in his or her hand.",
-            cost={PokemonTypes.COLORLESS: 1},
             ability_type=AbilityTypes.POKE_POWER,
             activation=Activations.ONCE_PER_TURN,
             condition=poke_power_condition(),
