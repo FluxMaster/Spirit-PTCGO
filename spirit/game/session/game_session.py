@@ -5032,6 +5032,27 @@ class GameSession:
             # untagged rides a plain GroupedMove.
             await self._flush_effect_runs(ctx)
 
+        # Jamming-style: after a Supporter resolves, opposing passives may put
+        # damage counters on each of the Supporter player's Pokémon (once/turn).
+        if (card.get_attribute(AttrID.TRAINER_TYPE) == TrainerType.SUPPORTER.value
+                and "jamming_supporter" not in self.turn_state.used_named_abilities):
+            jam_n = 0
+            for passive, carrier in active_passives(self.board_state):
+                n = passive.after_supporter_played(
+                    self.board_state, player_id, card, carrier)
+                if n and n > 0:
+                    jam_n = max(jam_n, int(n))
+            if jam_n > 0:
+                self.turn_state.used_named_abilities.add("jamming_supporter")
+                jam_ctx = ctx if ctx is not None else EffectContext(
+                    self, player_id, None, None)
+                for poke in list(self.board_state.pokemon_in_play(player_id)):
+                    await jam_ctx.deal_damage(
+                        jam_n * 10, target=poke,
+                        apply_modifiers=False, as_counters=True)
+                if ctx is None:
+                    await self._flush_effect_runs(jam_ctx)
+
         # Normally the trainer discards after resolving; skip when the effect
         # relocated it elsewhere (Hisuian Heavy Ball swaps itself into prizes).
         if card.parent is trainer_area:

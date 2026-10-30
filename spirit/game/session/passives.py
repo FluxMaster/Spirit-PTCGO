@@ -165,6 +165,15 @@ class Passive:
         (Dark Eyes). 0 = no effect."""
         return 0
 
+    def after_supporter_played(
+        self, board: BoardState, player_id: str, card: BoardEntity,
+        carrier: BoardEntity,
+    ) -> int:
+        """Damage counters to put on EACH of `player_id`'s Pokémon after that
+        player plays a Supporter (Jamming). 0 = no effect. Callers enforce
+        once-per-turn stacking across multiple Jamming Bodies."""
+        return 0
+
     def modify_attack_cost(
         self,
         cost: Dict[str, int],

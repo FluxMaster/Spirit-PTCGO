@@ -2631,6 +2631,20 @@ async def test_holon_veil_zone_tagging():
 
 
 
+async def test_jamming_after_supporter():
+    from spirit.game.card_effects.ex import jamming_after_supporter
+    rig, e = new_rig()
+    p = jamming_after_supporter()
+    # Opponent plays Supporter -> 1 counter each
+    assert p.after_supporter_played(rig.board, P2, e["p2_active"], e["p1_active"]) == 1
+    # Own side plays Supporter -> no trigger
+    assert p.after_supporter_played(rig.board, P1, e["p1_active"], e["p1_active"]) == 0
+    # Passive base returns 0
+    from spirit.game.session.passives import Passive
+    assert Passive().after_supporter_played(rig.board, P2, e["p2_active"], e["p1_active"]) == 0
+
+
+
 TESTS = [
     test_temp_passive_prevents_then_expires,
     test_temp_passive_cleared_on_leave,
@@ -2727,6 +2741,7 @@ TESTS = [
     test_full_flame_burn_counters_and_evolve_gate,
     test_dual_aura_blocks_bodies_with_partner,
     test_after_poke_power_dark_eyes,
+    test_jamming_after_supporter,
     test_holon_circle_prevents_active_attack,
     test_memory_berry_grants_lower_stage,
     test_crystal_laser_uses_next_turn_boost,
