@@ -4,7 +4,7 @@ Salamence δ (EX11 #14): one or more attacks/abilities use effect=unimplemented 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-from spirit.game.card_effects.ex import fire_dance
+from spirit.game.card_effects.ex import fire_dance, fire_dance_attach
 
 
 card = PokemonCardDef(
@@ -31,7 +31,6 @@ card = PokemonCardDef(
             game_text="Search your discard pile for a Fire Energy card and attach it to 1 of your Pok\u00e9mon.",
             cost={PokemonTypes.FIRE: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
-            # STUB: attack effect not implemented
             effect=fire_dance(),
         ),
         Attack(
@@ -39,8 +38,7 @@ card = PokemonCardDef(
             game_text="Discard a Metal Energy card attached to Salamence.",
             cost={PokemonTypes.FIRE: 1, PokemonTypes.METAL: 1, PokemonTypes.COLORLESS: 2},
             damage=100,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=fire_dance_attach(),
         ),
     ],
 )

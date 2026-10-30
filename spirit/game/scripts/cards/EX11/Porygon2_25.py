@@ -2,8 +2,9 @@
 Porygon2 (EX11 #25): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.data_utils import Ability, Activations, Attack, PokemonCardDef, unimplemented
+from spirit.game.card_effects.ex import backup_draw_to, backup_draw_to_condition, machine_burst_if_tm
+from spirit.game.attributes import AbilityTypes, PokemonStage, PokemonTypes, Rarities
 
 card = PokemonCardDef(
     guid="3e7e0e66-6784-587c-a322-e5fd88a6fdbc",
@@ -27,16 +28,16 @@ card = PokemonCardDef(
             title="Backup",
             game_text="Once during your turn (before your attack), if you have less than 6 cards in your hand, you may draw cards until you have 6 cards in your hand. This power can't be used if Porygon2 is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=backup_draw_to_condition(6),
+            effect=backup_draw_to(6),
         ),
         Attack(
             title="Machine Burst",
             game_text="If Porygon2 has a Technical Machine card attached to it, the Defending Pok\u00e9mon is now Asleep and Burned.",
             cost={PokemonTypes.COLORLESS: 2},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=machine_burst_if_tm(),
         ),
     ],
 )

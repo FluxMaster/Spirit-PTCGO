@@ -3,6 +3,7 @@ Eevee δ (EX11 #68): one or more attacks/abilities use effect=unimplemented unti
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.card_effects.ex import metal_scoop_attach
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 
 card = PokemonCardDef(
@@ -27,8 +28,7 @@ card = PokemonCardDef(
             game_text="Search your discard pile for a Metal Energy card and attach it to Eevee.",
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=metal_scoop_attach(10),
         ),
     ],
 )

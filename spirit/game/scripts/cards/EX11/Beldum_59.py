@@ -3,6 +3,7 @@ Beldum δ (EX11 #59): one or more attacks/abilities use effect=unimplemented unt
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.card_effects.ex import conductive_body_beldum_passive, recoil_self
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 
 card = PokemonCardDef(
@@ -27,16 +28,15 @@ card = PokemonCardDef(
             title="Conductive Body",
             game_text="As long as Beldum is your Active Pok\u00e9mon, you pay Colorless less to retreat Beldum for each Beldum on your Bench.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=conductive_body_beldum_passive('Beldum'),
+            effect=None,
         ),
         Attack(
             title="Take Down",
             game_text="Beldum does 10 damage to itself.",
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=recoil_self(10),
         ),
     ],
 )

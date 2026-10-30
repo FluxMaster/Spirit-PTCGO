@@ -3,6 +3,7 @@ Groudon ★ (EX11 #111): one or more attacks/abilities use effect=unimplemented 
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.card_effects.ex import critical_collection, discard_typed_energy_after
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 
 card = PokemonCardDef(
@@ -27,16 +28,14 @@ card = PokemonCardDef(
             game_text="Count the number of Prize cards your opponent has taken. Search your discard pile for up to that many Fighting Energy cards and attach them to Groudon Star.",
             cost={PokemonTypes.FIGHTING: 1},
             damage=10,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=critical_collection(PokemonTypes.FIGHTING),
         ),
         Attack(
             title="Ground Slash",
             game_text="Discard a Fighting Energy card attached to Groudon Star.",
             cost={PokemonTypes.FIGHTING: 3, PokemonTypes.COLORLESS: 2},
             damage=80,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=discard_typed_energy_after(PokemonTypes.FIGHTING, 80),
         ),
     ],
 )

@@ -2,7 +2,8 @@
 Sandslash δ (EX11 #27): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import Ability, Attack, PokemonCardDef, Triggers, unimplemented
+from spirit.game.card_effects.ex import delta_storm_between_turns, rend
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 
 card = PokemonCardDef(
@@ -27,8 +28,8 @@ card = PokemonCardDef(
             title="Delta Storm",
             game_text="As long as Sandslash is your Active Pok\u00e9mon, put 1 damage counter on each of your opponent's Pok\u00e9mon-ex between turns.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=Triggers.BETWEEN_TURNS,
+            effect=delta_storm_between_turns(1),
         ),
         Attack(
             title="Rend",
@@ -36,8 +37,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=rend(20, 20),
         ),
         Attack(
             title="Slash",

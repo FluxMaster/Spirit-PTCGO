@@ -3,6 +3,7 @@ Shelgon δ (EX11 #54): one or more attacks/abilities use effect=unimplemented un
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.card_effects.ex import exoskeleton_passive
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 
 card = PokemonCardDef(
@@ -28,8 +29,8 @@ card = PokemonCardDef(
             title="Exoskeleton",
             game_text="Any damage done to Shelgon by attacks is reduced by 10 (after applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=exoskeleton_passive(10),
+            effect=None,
         ),
         Attack(
             title="Heat Blast",

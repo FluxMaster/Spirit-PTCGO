@@ -3,6 +3,7 @@ Staryu (EX11 #85): one or more attacks/abilities use effect=unimplemented until 
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.card_effects.ex import surprise_attack_flip
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_or_nothing
 
@@ -29,15 +30,13 @@ card = PokemonCardDef(
             game_text="Flip a coin. If tails, this attack does nothing.",
             cost={PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
             effect=flip_or_nothing(),
         ),
         Attack(
             title="Recover",
             game_text="Discard a Water Energy card attached to Staryu and remove 4 damage counters from Staryu (all if there are less than 4).",
             cost={PokemonTypes.WATER: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=surprise_attack_flip(20),
         ),
     ],
 )

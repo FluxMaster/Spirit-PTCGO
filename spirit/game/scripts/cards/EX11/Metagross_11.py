@@ -2,8 +2,9 @@
 Metagross δ (EX11 #11): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.data_utils import Ability, Activations, Attack, PokemonCardDef, unimplemented
+from spirit.game.card_effects.ex import crush_and_burn_discard_any, delta_control_top4, poke_power_condition
+from spirit.game.attributes import AbilityTypes, PokemonStage, PokemonTypes, Rarities
 
 card = PokemonCardDef(
     guid="a9fd8783-6217-5a00-a61a-43e9891eb560",
@@ -28,8 +29,9 @@ card = PokemonCardDef(
             title="Delta Control",
             game_text="Once during your turn (before your attack), you may look at the top 4 cards of your deck, choose 1 of them, and put it into your hand. Put the 3 other cards on the bottom of your deck in any order. This power can't be used if Metagross is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=poke_power_condition(),
+            effect=delta_control_top4(),
         ),
         Attack(
             title="Crush and Burn",
@@ -37,8 +39,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.METAL: 1},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=crush_and_burn_discard_any(30, 20),
         ),
     ],
 )

@@ -4,7 +4,7 @@ Kyogre ★ (EX11 #112): one or more attacks/abilities use effect=unimplemented u
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-from spirit.game.card_effects.ex import sheer_cold
+from spirit.game.card_effects.ex import critical_collection, sheer_cold
 
 
 card = PokemonCardDef(
@@ -29,8 +29,7 @@ card = PokemonCardDef(
             game_text="Count the number of Prize cards your opponent has taken. Search your discard pile for up to that many Water Energy cards and attach them to Kyogre Star.",
             cost={PokemonTypes.WATER: 1},
             damage=10,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=critical_collection(PokemonTypes.WATER),
         ),
         Attack(
             title="Sheer Cold",

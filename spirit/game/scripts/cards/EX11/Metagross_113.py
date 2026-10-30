@@ -3,6 +3,7 @@ Metagross ★ (EX11 #113): one or more attacks/abilities use effect=unimplemente
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.card_effects.ex import critical_collection
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import discard_opponent_energy_attack
 
@@ -30,8 +31,7 @@ card = PokemonCardDef(
             game_text="Count the number of Prize cards your opponent has taken. Search your discard pile for up to that many Metal Energy cards and attach them to Metagross Star.",
             cost={PokemonTypes.METAL: 1},
             damage=10,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=critical_collection(PokemonTypes.METAL),
         ),
         Attack(
             title="Hyper Beam",

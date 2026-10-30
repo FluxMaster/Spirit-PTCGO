@@ -2,7 +2,8 @@
 Persian (EX11 #50): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import Ability, Attack, PokemonCardDef, Triggers, unimplemented
+from spirit.game.card_effects.ex import prowl_on_evolve_any_card
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import snipe_attack
 
@@ -29,8 +30,8 @@ card = PokemonCardDef(
             title="Prowl",
             game_text="Once during your turn, when you play Persian from your hand to evolve 1 of your Pok\u00e9mon, you may search your deck for any 1 card and put it into your hand. Shuffle your deck afterward.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=Triggers.ON_EVOLVE,
+            effect=prowl_on_evolve_any_card(),
         ),
         Attack(
             title="Snap Tail",

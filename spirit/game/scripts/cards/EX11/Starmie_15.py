@@ -2,8 +2,9 @@
 Starmie δ (EX11 #15): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.data_utils import Ability, Activations, Attack, PokemonCardDef, unimplemented
+from spirit.game.card_effects.ex import draw_cards_n, metal_navigation_attach, poke_power_condition
+from spirit.game.attributes import AbilityTypes, PokemonStage, PokemonTypes, Rarities
 from spirit.game.card_effects.support_common import draw_attack
 
 
@@ -29,14 +30,14 @@ card = PokemonCardDef(
             title="Metal Navigation",
             game_text="Once during your turn (before your attack), you may search your deck for a Metal Energy card and attach it to Starmie. Shuffle your deck afterward. This power can't be used if Starmie is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=poke_power_condition(),
+            effect=metal_navigation_attach(),
         ),
         Attack(
             title="Collect",
             game_text="Draw 3 cards.",
             cost={PokemonTypes.WATER: 1},
-            # STUB: attack effect not implemented
             effect=draw_attack(3),
         ),
         Attack(
@@ -44,8 +45,7 @@ card = PokemonCardDef(
             game_text="Return an Energy card attached to Starmie to your hand.",
             cost={PokemonTypes.METAL: 1},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=draw_cards_n(3),
         ),
     ],
 )

@@ -2,8 +2,9 @@
 Tyranitar δ (EX11 #16): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.data_utils import Ability, Activations, Attack, PokemonCardDef, unimplemented
+from spirit.game.card_effects.ex import crush_draw_any, delta_crush_optional, poke_power_condition
+from spirit.game.attributes import AbilityTypes, PokemonStage, PokemonTypes, Rarities
 
 card = PokemonCardDef(
     guid="a3e91ad8-e151-5235-8c74-ea10cdc5fa20",
@@ -27,8 +28,9 @@ card = PokemonCardDef(
             title="Crush Draw",
             game_text="Once during your turn (before your attack), you may reveal the top card of your deck. If that card is a basic Energy card, attach it to 1 of your Pok\u00e9mon. If not, put the card back on top of your deck. This power can't be used if Tyranitar is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=poke_power_condition(),
+            effect=crush_draw_any(),
         ),
         Attack(
             title="Delta Crush",
@@ -36,8 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 1, PokemonTypes.METAL: 1, PokemonTypes.COLORLESS: 1},
             damage=50,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=delta_crush_optional(50, 20),
         ),
     ],
 )

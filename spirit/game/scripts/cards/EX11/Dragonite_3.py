@@ -2,8 +2,9 @@
 Dragonite δ (EX11 #3): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.data_utils import Ability, Activations, Attack, PokemonCardDef, unimplemented
+from spirit.game.card_effects.ex import agility_flip_protect, delta_charge_lightning_bench, poke_power_condition
+from spirit.game.attributes import AbilityTypes, PokemonStage, PokemonTypes, Rarities
 
 card = PokemonCardDef(
     guid="84e43e6c-beaf-5e93-b0b9-dc311137e2d2",
@@ -28,16 +29,16 @@ card = PokemonCardDef(
             title="Delta Charge",
             game_text="Once during your turn (before your attack), you may attach a Lightning Energy card from your discard pile to 1 of your Benched Pok\u00e9mon. This power can't be used if Dragonite is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=poke_power_condition(),
+            effect=delta_charge_lightning_bench(),
         ),
         Attack(
             title="Agility",
             game_text="Flip a coin. If heads, prevent all effects of an attack, including damage, done to Dragonite during your opponent's next turn.",
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=agility_flip_protect(),
         ),
         Attack(
             title="Heavy Impact",

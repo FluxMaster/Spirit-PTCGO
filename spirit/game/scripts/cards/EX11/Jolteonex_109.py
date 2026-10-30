@@ -2,9 +2,9 @@
 Jolteon ex (EX11 #109): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import Ability, Attack, PokemonCardDef, Triggers, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
-from spirit.game.card_effects.ex import meditate_damage
+from spirit.game.card_effects.ex import evolutionary_thunder_on_evolve, meditate_damage, second_bite
 
 
 card = PokemonCardDef(
@@ -30,8 +30,8 @@ card = PokemonCardDef(
             title="Evolutionary Thunder",
             game_text="Once during your turn, when you play Jolteon ex from your hand to evolve 1 of your Pok\u00e9mon, you may put 1 damage counter on each of your opponent's Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=Triggers.ON_EVOLVE,
+            effect=evolutionary_thunder_on_evolve(1),
         ),
         Attack(
             title="Second Bite",
@@ -39,7 +39,6 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
             damage_operator="+",
-            # STUB: attack effect not implemented
             effect=meditate_damage(20, 10),
         ),
         Attack(
@@ -47,8 +46,7 @@ card = PokemonCardDef(
             game_text="Discard a Lightning Energy card attached to Jolteon ex.",
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 2},
             damage=70,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=second_bite(20, 10),
         ),
     ],
 )

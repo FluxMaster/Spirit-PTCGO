@@ -2,8 +2,9 @@
 Slowking (EX11 #28): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.data_utils import Ability, Activations, Attack, PokemonCardDef, unimplemented
+from spirit.game.card_effects.ex import poke_power_condition, prize_shift, psychic_option_water_psychic
+from spirit.game.attributes import AbilityTypes, PokemonStage, PokemonTypes, Rarities
 
 card = PokemonCardDef(
     guid="f342d939-91d1-514d-a6a5-f7b7117fe18a",
@@ -27,8 +28,9 @@ card = PokemonCardDef(
             title="Prize Shift",
             game_text="Once during your turn (before your attack), you may choose a card from your hand and put it as a Prize card face up. If you do, choose 1 of your face-down Prize cards without looking and put it into your hand. This power can't be used if Slowking is affected by a Special Condition or if all of your Prize cards are face up.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=poke_power_condition(),
+            effect=prize_shift(),
         ),
         Attack(
             title="Psychic Option",
@@ -36,8 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=20,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=psychic_option_water_psychic(20, 20),
         ),
     ],
 )

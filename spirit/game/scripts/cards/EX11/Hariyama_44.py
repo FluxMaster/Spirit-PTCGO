@@ -4,7 +4,7 @@ Hariyama (EX11 #44): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
-from spirit.game.card_effects.ex import brick_smash
+from spirit.game.card_effects.ex import brick_smash, reversal_aura_passive
 
 
 card = PokemonCardDef(
@@ -29,8 +29,8 @@ card = PokemonCardDef(
             title="Reversal Aura",
             game_text="As long as you have more Prize cards left than your opponent, each of Hariyama's attacks does 20 more damage to the Active Pok\u00e9mon (before applying Weakness and Resistance) and damage done by the Active Pok\u00e9mon to Hariyama is reduced by 20 (after applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=reversal_aura_passive(20, 20),
+            effect=None,
         ),
         Attack(
             title="Slap Push",

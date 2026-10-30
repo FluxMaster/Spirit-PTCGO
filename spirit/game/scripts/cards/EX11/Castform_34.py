@@ -1,12 +1,13 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Castform (EX11 #34): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
-from spirit.game.data_utils import Activations
-from spirit.game.card_effects.ex import poke_power_condition, temperamental_weather
-
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
+from spirit.game.attributes import AbilityTypes, PokemonStage, PokemonTypes, Rarities
+from spirit.game.card_effects.ex import (
+    holon_blizzard,
+    holon_draw,
+    holon_search_attach_any,
+    holon_splash,
+    poke_power_condition,
+    temperamental_weather,
+)
 
 card = PokemonCardDef(
     guid="a0b5de83-fb13-5903-9791-e51d838cc233",
@@ -29,8 +30,8 @@ card = PokemonCardDef(
             title="Temperamental Weather",
             game_text="Once during your turn (before your attack), you may search your deck for Sunny Castform, Rain Castform, or Snow-cloud Castform and switch it with Castform. (Any cards attached to Castform, damage counters, Special Conditions, and effects on it are now on the new Pok\u00e9mon.) Shuffle Castform back into your deck. You can't use more than 1 Temperamental Weather Pok\u00e9-Power each turn.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
             activation=Activations.ONCE_PER_TURN,
+            shared_once_per_turn="Temperamental Weather",
             condition=poke_power_condition(),
             effect=temperamental_weather('Sunny Castform', 'Rain Castform', 'Snow-cloud Castform'),
         ),
@@ -38,8 +39,7 @@ card = PokemonCardDef(
             title="Holon Draw",
             game_text="Draw a card. If Castform has any Holon Energy cards attached to it, draw 2 more cards.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=holon_draw(2),
         ),
     ],
 )

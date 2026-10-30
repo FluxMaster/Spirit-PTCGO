@@ -2,9 +2,9 @@
 Vaporeon ex (EX11 #110): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import Ability, Attack, PokemonCardDef, Triggers, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
-from spirit.game.card_effects.ex import brick_smash
+from spirit.game.card_effects.ex import brick_smash, evolutionary_swirl_on_evolve
 
 
 card = PokemonCardDef(
@@ -29,8 +29,8 @@ card = PokemonCardDef(
             title="Evolutionary Swirl",
             game_text="Once during your turn, when you play Vaporeon ex from your hand to evolve 1 of your Pok\u00e9mon, you may have your opponent shuffle his or her hand into his or her deck. Then, your opponent draws up to 4 cards.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=Triggers.ON_EVOLVE,
+            effect=evolutionary_swirl_on_evolve(4),
         ),
         Attack(
             title="Fastwave",

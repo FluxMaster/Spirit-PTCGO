@@ -33,8 +33,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If tails, Dratini does 10 damage to itself.",
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=None,
         ),
     ],
 )

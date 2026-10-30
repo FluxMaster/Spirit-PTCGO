@@ -2,7 +2,8 @@
 Flareon ex (EX11 #108): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import Ability, Attack, PokemonCardDef, Triggers, unimplemented
+from spirit.game.card_effects.ex import evolutionary_flame_on_evolve, flame_screen_reduce, heat_tackle
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 
 card = PokemonCardDef(
@@ -27,24 +28,22 @@ card = PokemonCardDef(
             title="Evolutionary Flame",
             game_text="Once during your turn, when you play Flareon ex from your hand to evolve 1 of your Pok\u00e9mon, you may choose 1 of the Defending Pok\u00e9mon. That Pok\u00e9mon is now Burned and Confused.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=Triggers.ON_EVOLVE,
+            effect=evolutionary_flame_on_evolve(),
         ),
         Attack(
             title="Flame Screen",
             game_text="During your opponent's next turn, any damage done to Flareon ex by attacks is reduced by 20 (after applying Weakness and Resistance).",
             cost={PokemonTypes.FIRE: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flame_screen_reduce(20),
         ),
         Attack(
             title="Heat Tackle",
             game_text="Flareon ex does 10 damage to itself.",
             cost={PokemonTypes.FIRE: 1, PokemonTypes.COLORLESS: 2},
             damage=70,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=heat_tackle(10),
         ),
     ],
 )

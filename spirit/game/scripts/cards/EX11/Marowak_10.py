@@ -3,6 +3,7 @@ Marowak δ (EX11 #10): one or more attacks/abilities use effect=unimplemented un
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.card_effects.ex import energy_bone_snipe, metal_crusher
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 
 card = PokemonCardDef(
@@ -27,16 +28,14 @@ card = PokemonCardDef(
             title="Energy Bone",
             game_text="Choose a number of your opponent's Pok\u00e9mon up to the amount of Energy attached to Marowak. This attack does 20 damage to each of them.",
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.METAL: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=energy_bone_snipe(20),
         ),
         Attack(
             title="Metal Crusher",
             game_text="If the Defending Pok\u00e9mon is Metal Pok\u00e9mon, this attack's base damage is 90.",
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 2},
             damage=50,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=metal_crusher(50, 90),
         ),
     ],
 )

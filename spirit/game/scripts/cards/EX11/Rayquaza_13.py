@@ -3,6 +3,7 @@ Rayquaza δ (EX11 #13): one or more attacks/abilities use effect=unimplemented u
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.card_effects.ex import delta_guard_noop_passive, lightning_storm_self, power_blow
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 
 card = PokemonCardDef(
@@ -27,8 +28,8 @@ card = PokemonCardDef(
             title="Delta Guard",
             game_text="As long as Rayquaza has any Holon Energy cards attached to it, ignore the effect of Rayquaza's Lightning Storm attack.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=delta_guard_noop_passive(),
+            effect=None,
         ),
         Attack(
             title="Power Blow",
@@ -36,16 +37,14 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 1},
             damage=10,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=power_blow(),
         ),
         Attack(
             title="Lightning Storm",
             game_text="Put 7 damage counters on Rayquaza.",
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.METAL: 1, PokemonTypes.COLORLESS: 2},
             damage=70,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=lightning_storm_self(70, 7),
         ),
     ],
 )

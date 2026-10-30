@@ -2,8 +2,9 @@
 Ditto (EX11 #61): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.data_utils import Ability, Activations, Attack, PokemonCardDef, unimplemented
+from spirit.game.card_effects.ex import ditto_duplicate, ditto_duplicate_condition, fireworks_discard_fire, poke_power_condition
+from spirit.game.attributes import AbilityTypes, PokemonStage, PokemonTypes, Rarities
 
 card = PokemonCardDef(
     guid="a09e3a7c-b658-5450-b92b-7bc51e0fe0c7",
@@ -26,16 +27,17 @@ card = PokemonCardDef(
             title="Duplicate",
             game_text="Once during your turn (before your attack), you may search your deck for another Ditto and switch it with Ditto. (Any cards attached to Ditto, damage counters, Special Conditions, and effects on it are now on the new Pok\u00e9mon.) If you do, put Ditto on top of your deck. Shuffle your deck afterward. You can't use more than 1 Duplicate Pok\u00e9-Power each turn.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            shared_once_per_turn="Duplicate",
+            condition=ditto_duplicate_condition(),
+            effect=ditto_duplicate(),
         ),
         Attack(
             title="Fireworks",
             game_text="Flip a coin. If tails, discard a Fire Energy card attached to Ditto.",
             cost={PokemonTypes.FIRE: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=fireworks_discard_fire(),
         ),
     ],
 )

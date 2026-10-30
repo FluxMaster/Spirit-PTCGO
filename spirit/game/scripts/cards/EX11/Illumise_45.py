@@ -4,7 +4,7 @@ Illumise (EX11 #45): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
-from spirit.game.card_effects.ex import call_for_family_basic, confuse_if_evolved
+from spirit.game.card_effects.ex import beacon_protection_passive, call_for_family_basic, confuse_if_evolved
 
 
 card = PokemonCardDef(
@@ -28,8 +28,8 @@ card = PokemonCardDef(
             title="Beacon Protection",
             game_text="As long as you have Volbeat in play, prevent all effects, including damage, done to Illumise by attacks from your opponent's Pok\u00e9mon that has Dark in its name.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=beacon_protection_passive('Volbeat'),
+            effect=None,
         ),
         Attack(
             title="Call for Family",

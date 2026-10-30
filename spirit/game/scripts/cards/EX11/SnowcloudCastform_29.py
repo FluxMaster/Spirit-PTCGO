@@ -1,12 +1,13 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Snow-cloud Castform (EX11 #29): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
-from spirit.game.data_utils import Activations
-from spirit.game.card_effects.ex import poke_power_condition, temperamental_weather
-
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
+from spirit.game.attributes import AbilityTypes, PokemonStage, PokemonTypes, Rarities
+from spirit.game.card_effects.ex import (
+    holon_blizzard,
+    holon_draw,
+    holon_search_attach_any,
+    holon_splash,
+    poke_power_condition,
+    temperamental_weather,
+)
 
 card = PokemonCardDef(
     guid="760df7a4-564b-5faf-84a0-79e1dbfc21b8",
@@ -29,18 +30,17 @@ card = PokemonCardDef(
             title="Temperamental Weather",
             game_text="Once during your turn (before your attack), you may search your deck for Castform, Rain Castform, or Sunny Castform and switch it with Snow-cloud Castform. (Any cards attached to Snow-cloud Castform, damage counters, Special Conditions, and effects on it are now on the new Pok\u00e9mon.) Shuffle Snow-cloud Castform back into your deck. You can't use more than 1 Temperamental Weather Pok\u00e9-Power each turn.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
             activation=Activations.ONCE_PER_TURN,
+            shared_once_per_turn="Temperamental Weather",
             condition=poke_power_condition(),
             effect=temperamental_weather('Castform', 'Sunny Castform', 'Rain Castform'),
         ),
         Attack(
             title="Holon Blizzard",
-            game_text="If Snow-cloud Castform has any Holon Energy cards attached to it, this attack does 10 damage to each of your opponent's Benched Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
+            game_text="If Snow-cloud Castform has any Holon Energy cards attached to it, this attack does 10 damage to each of your opponent's Benched Pokémon. (Don't apply Weakness and Resistance for Benched Pokémon.)",
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=holon_blizzard(20, 10),
         ),
     ],
 )

@@ -2,8 +2,9 @@
 Espeon δ (EX11 #4): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.data_utils import Ability, Activations, Attack, PokemonCardDef, unimplemented
+from spirit.game.card_effects.ex import delta_heal, poke_power_condition
+from spirit.game.attributes import AbilityTypes, PokemonStage, PokemonTypes, Rarities
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
 
@@ -30,8 +31,10 @@ card = PokemonCardDef(
             title="Delta Heal",
             game_text="Once during your turn (before your attack), you may remove 1 damage counter from each of your Pok\u00e9mon that has \u03b4 on its card. You can't use more than 1 Delta Heal Pok\u00e9-Power each turn. This power can't be used if Espeon is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            shared_once_per_turn="Delta Heal",
+            condition=poke_power_condition(),
+            effect=delta_heal(),
         ),
         Attack(
             title="Psyshock",

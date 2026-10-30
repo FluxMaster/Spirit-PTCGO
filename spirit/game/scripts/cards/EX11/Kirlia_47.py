@@ -3,6 +3,7 @@ Kirlia (EX11 #47): one or more attacks/abilities use effect=unimplemented until 
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.card_effects.ex import calm_mind
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import damage_per, count_energy
 
@@ -29,8 +30,7 @@ card = PokemonCardDef(
             title="Calm Mind",
             game_text="Remove 3 damage counters from Kirlia.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=calm_mind(3),
         ),
         Attack(
             title="Psychic Boom",

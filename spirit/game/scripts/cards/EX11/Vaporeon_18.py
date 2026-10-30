@@ -3,6 +3,7 @@ Vaporeon δ (EX11 #18): one or more attacks/abilities use effect=unimplemented u
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.card_effects.ex import delta_search_holon_attach_self, return_wave
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 
 card = PokemonCardDef(
@@ -28,16 +29,14 @@ card = PokemonCardDef(
             game_text="Search your deck for a Holon Energy card and attach it to Vaporeon. Shuffle your deck afterward.",
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=delta_search_holon_attach_self(),
         ),
         Attack(
             title="Return Wave",
             game_text="You may return an Energy card attached to Vaporeon to your hand. If you do, choose an Energy card attached to the Defending Pok\u00e9mon and return it to your opponent's hand.",
             cost={PokemonTypes.WATER: 1, PokemonTypes.METAL: 1, PokemonTypes.COLORLESS: 1},
             damage=50,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=return_wave(),
         ),
     ],
 )

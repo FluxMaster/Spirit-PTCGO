@@ -3,6 +3,7 @@ Volbeat (EX11 #56): one or more attacks/abilities use effect=unimplemented until
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.card_effects.ex import extra_protection_ex_passive
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import swift_attack
 
@@ -28,8 +29,8 @@ card = PokemonCardDef(
             title="Extra Protection",
             game_text="As long as you have Illumise in play, prevent all effects, including damage, done to Volbeat by attacks from your opponent's Pok\u00e9mon-ex.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=extra_protection_ex_passive('Illumise'),
+            effect=None,
         ),
         Attack(
             title="Swift",

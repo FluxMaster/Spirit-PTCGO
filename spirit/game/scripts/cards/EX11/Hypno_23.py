@@ -4,7 +4,7 @@ Hypno (EX11 #23): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
-from spirit.game.card_effects.ex import sleep_inducer
+from spirit.game.card_effects.ex import binding_aura_passive, sleep_inducer
 
 
 card = PokemonCardDef(
@@ -29,8 +29,8 @@ card = PokemonCardDef(
             title="Binding Aura",
             game_text="Your opponent can't play any Basic Pok\u00e9mon or Evolution cards from his or her hand to evolve an Active Pok\u00e9mon and can't attach any Energy cards from his or her hand to an Asleep Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=binding_aura_passive(),
+            effect=None,
         ),
         Attack(
             title="Sleep Inducer",

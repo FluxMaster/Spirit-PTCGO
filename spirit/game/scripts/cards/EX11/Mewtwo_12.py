@@ -2,7 +2,8 @@
 Mewtwo δ (EX11 #12): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import Ability, Attack, PokemonCardDef, Triggers, unimplemented
+from spirit.game.card_effects.ex import delta_switch_on_play, energy_burst_both_sides
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 
 card = PokemonCardDef(
@@ -26,8 +27,8 @@ card = PokemonCardDef(
             title="Delta Switch",
             game_text="Once during your turn, when you put Mewtwo from your hand onto your Bench, you may move any number of basic Energy cards attached to your Pok\u00e9mon to your other Pok\u00e9mon (excluding Mewtwo) in any way you like.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=Triggers.ON_PLAY,
+            effect=delta_switch_on_play(),
         ),
         Attack(
             title="Energy Burst",
@@ -35,8 +36,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 1, PokemonTypes.METAL: 1},
             damage=10,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=energy_burst_both_sides(10),
         ),
     ],
 )

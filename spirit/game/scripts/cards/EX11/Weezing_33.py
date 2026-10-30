@@ -2,9 +2,9 @@
 Weezing (EX11 #33): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import Ability, Attack, PokemonCardDef, Triggers, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
-from spirit.game.card_effects.ex import breaking_sound
+from spirit.game.card_effects.ex import body_odor_between_turns, breaking_sound
 
 
 card = PokemonCardDef(
@@ -29,8 +29,8 @@ card = PokemonCardDef(
             title="Body Odor",
             game_text="As long as Weezing is the Active Pok\u00e9mon, put 1 damage counter on each of your opponent's Pok\u00e9mon that has any Pok\u00e9-Bodies between turns.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            trigger=Triggers.BETWEEN_TURNS,
+            effect=body_odor_between_turns(1),
         ),
         Attack(
             title="Mist Attack",

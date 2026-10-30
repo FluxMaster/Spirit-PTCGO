@@ -3,6 +3,7 @@ Mightyena δ (EX11 #24): one or more attacks/abilities use effect=unimplemented 
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.card_effects.ex import delta_fang_lock_ex, gang_up_dark_metal
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 
 card = PokemonCardDef(
@@ -29,8 +30,7 @@ card = PokemonCardDef(
             game_text="If the Defending Pok\u00e9mon is Pok\u00e9mon-ex, that Pok\u00e9mon can't attack during your opponent's next turn.",
             cost={PokemonTypes.DARKNESS: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=delta_fang_lock_ex(),
         ),
         Attack(
             title="Gang Up",
@@ -38,8 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.METAL: 1, PokemonTypes.COLORLESS: 1},
             damage=10,
             damage_operator="x",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=gang_up_dark_metal(10),
         ),
     ],
 )

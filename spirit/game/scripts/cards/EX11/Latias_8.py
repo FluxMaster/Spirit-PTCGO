@@ -3,6 +3,7 @@ Latias δ (EX11 #8): one or more attacks/abilities use effect=unimplemented unti
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.card_effects.ex import delta_aura_cost_passive, extra_crush_requires_ex, spiral_drain_heal
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 
 card = PokemonCardDef(
@@ -27,24 +28,22 @@ card = PokemonCardDef(
             title="Delta Aura",
             game_text="If you have Latios or Latios ex in play, the attack cost of Latias's Extra Crush is now Lightning MetalColorless.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=delta_aura_cost_passive('Latios', attack_title='Extra Crush'),
+            effect=None,
         ),
         Attack(
             title="Spiral Drain",
             game_text="Remove 2 damage counters fro Latias.",
             cost={PokemonTypes.METAL: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=spiral_drain_heal(2),
         ),
         Attack(
             title="Extra Crush",
             game_text="If your opponent has no Pok\u00e9mon-ex in play, this attack does nothing.",
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.METAL: 1, PokemonTypes.COLORLESS: 3},
             damage=80,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=extra_crush_requires_ex(80),
         ),
     ],
 )
