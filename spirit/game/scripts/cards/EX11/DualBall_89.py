@@ -1,12 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Dual Ball (EX11 #89): trainer effect stubbed.
-
-Card text:
-  - Flip 2 coins. For each heads, search your deck for a Basic Pokémon card, show it to your opponent, and put it into your hand. Shuffle your deck afterward.
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+"""DualBall_72 wired."""
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ex import dual_ball
 
 card = ItemCardDef(
     guid="ad50f0d1-553e-5a3b-a9b5-b01d8759ac8f",
@@ -18,6 +13,5 @@ card = ItemCardDef(
     collector_number=89,
     set_code="EX11",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=dual_ball()
 )

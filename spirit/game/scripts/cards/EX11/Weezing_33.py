@@ -4,6 +4,8 @@ Weezing (EX11 #33): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import breaking_sound
+
 
 card = PokemonCardDef(
     guid="8921a105-e79d-5d45-b4e4-611d9bd9e1ee",
@@ -35,7 +37,7 @@ card = PokemonCardDef(
             game_text="Does 10 damage to each of your opponent's Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.GRASS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=breaking_sound(10),
         ),
         Attack(
             title="Sludge Whirlpool",

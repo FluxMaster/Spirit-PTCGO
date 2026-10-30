@@ -4,6 +4,8 @@ Salamence δ (EX11 #14): one or more attacks/abilities use effect=unimplemented 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import fire_dance
+
 
 card = PokemonCardDef(
     guid="42b3c11f-78c1-5c56-8ce6-5c9cc49c7787",
@@ -30,7 +32,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=fire_dance(),
         ),
         Attack(
             title="Delta Blast",

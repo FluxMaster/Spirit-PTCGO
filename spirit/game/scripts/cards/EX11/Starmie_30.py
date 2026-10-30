@@ -4,6 +4,8 @@ Starmie δ (EX11 #30): one or more attacks/abilities use effect=unimplemented un
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import swift_attack
+
 
 card = PokemonCardDef(
     guid="4398826e-6917-5dc9-8986-0736a3380ff3",
@@ -34,7 +36,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=50,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=swift_attack(),
         ),
     ],
 )

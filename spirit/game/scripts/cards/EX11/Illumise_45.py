@@ -4,6 +4,8 @@ Illumise (EX11 #45): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import call_for_family_basic, confuse_if_evolved
+
 
 card = PokemonCardDef(
     guid="a61c120c-8373-50b5-9691-7a8ad9a5fe48",
@@ -34,7 +36,7 @@ card = PokemonCardDef(
             game_text="Search your deck for a Basic Pok\u00e9mon and put it onto your Bench. Shuffle your deck afterward.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=call_for_family_basic(),
         ),
         Attack(
             title="Strange Rasping",
@@ -42,7 +44,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=confuse_if_evolved(),
         ),
     ],
 )

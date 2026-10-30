@@ -4,6 +4,8 @@ Hariyama (EX11 #44): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import brick_smash
+
 
 card = PokemonCardDef(
     guid="b36d6310-f054-5cd7-8b59-a43b43bf714c",
@@ -41,7 +43,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 2, PokemonTypes.COLORLESS: 1},
             damage=50,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=brick_smash(),
         ),
     ],
 )

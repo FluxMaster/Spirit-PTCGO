@@ -4,6 +4,8 @@ Meowth (EX11 #77): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import dig_deep_energy_to_hand
+
 
 card = PokemonCardDef(
     guid="2998fd63-5785-5527-9eb5-594f43a07520",
@@ -27,7 +29,7 @@ card = PokemonCardDef(
             game_text="Search your discard pile for an Energy card, show it to your opponent, and put it into your hand.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=dig_deep_energy_to_hand(),
         ),
         Attack(
             title="Bite",

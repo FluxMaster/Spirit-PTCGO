@@ -4,6 +4,8 @@ Magnemite (EX11 #74): one or more attacks/abilities use effect=unimplemented unt
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import draw_attack
+
 
 card = PokemonCardDef(
     guid="9132f774-ab6e-5a32-a6de-034ce760ebaa",
@@ -28,7 +30,7 @@ card = PokemonCardDef(
             game_text="Draw a card.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=draw_attack(1),
         ),
         Attack(
             title="Magnetic Blast",

@@ -4,6 +4,8 @@ Hypno (EX11 #23): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import sleep_inducer
+
 
 card = PokemonCardDef(
     guid="08af59cb-69f1-5e53-9ef5-754fb5240705",
@@ -35,7 +37,7 @@ card = PokemonCardDef(
             game_text="Switch 1 of your opponent's Benched Pok\u00e9mon with 1 of the Defending Pok\u00e9mon. Your opponent chooses the Defending Pok\u00e9mon to switch. The new Defending Pok\u00e9mon is now Asleep.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=sleep_inducer(),
         ),
         Attack(
             title="Psyshot",

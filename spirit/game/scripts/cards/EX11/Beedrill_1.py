@@ -4,6 +4,8 @@ Beedrill δ (EX11 #1): one or more attacks/abilities use effect=unimplemented un
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import cross_cut
+
 
 card = PokemonCardDef(
     guid="91628e74-d45c-5243-aec9-b6bfea8f114b",
@@ -37,7 +39,7 @@ card = PokemonCardDef(
             damage=50,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=cross_cut(50, 30),
         ),
     ],
 )

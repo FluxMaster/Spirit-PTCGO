@@ -4,6 +4,9 @@ Azurill (EX11 #20): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.data_utils import Activations
+from spirit.game.card_effects.ex import baby_evolution, baby_evolution_condition
+
 
 card = PokemonCardDef(
     guid="293ecac5-6ab1-5fe9-b515-10b7687cd38a",
@@ -27,7 +30,9 @@ card = PokemonCardDef(
             game_text="Once during your turn (before your attack), you may put Marill from your hand onto Azurill (this counts as evolving Azurill) and remove all damage counters from Azurill.",
             ability_type=AbilityTypes.POKE_POWER,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=baby_evolution_condition('Marill'),
+            effect=baby_evolution('Marill'),
         ),
         Attack(
             title="Type Match",

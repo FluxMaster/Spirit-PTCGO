@@ -4,6 +4,8 @@ Dragonair δ (EX11 #42): one or more attacks/abilities use effect=unimplemented 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import twister_attack
+
 
 card = PokemonCardDef(
     guid="0c2162af-6bf1-59f4-ab83-78a89bb63af8",
@@ -30,7 +32,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=twister_attack(),
         ),
     ],
 )

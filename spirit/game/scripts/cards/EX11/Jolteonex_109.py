@@ -4,6 +4,8 @@ Jolteon ex (EX11 #109): one or more attacks/abilities use effect=unimplemented u
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import meditate_damage
+
 
 card = PokemonCardDef(
     guid="406ae801-126e-55ba-bb77-9581d11b5e6a",
@@ -38,7 +40,7 @@ card = PokemonCardDef(
             damage=20,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=meditate_damage(20, 10),
         ),
         Attack(
             title="Thunder Blast",

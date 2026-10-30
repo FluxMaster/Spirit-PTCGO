@@ -4,6 +4,8 @@ Metagross ★ (EX11 #113): one or more attacks/abilities use effect=unimplemente
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import discard_opponent_energy_attack
+
 
 card = PokemonCardDef(
     guid="f5699a92-fe4d-54c9-a1d4-dd7cf8f7b3e6",
@@ -37,7 +39,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.METAL: 3, PokemonTypes.COLORLESS: 2},
             damage=50,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=discard_opponent_energy_attack(1, flip=True),
         ),
     ],
 )

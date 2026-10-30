@@ -4,6 +4,9 @@ Snow-cloud Castform (EX11 #29): one or more attacks/abilities use effect=unimple
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.data_utils import Activations
+from spirit.game.card_effects.ex import poke_power_condition, temperamental_weather
+
 
 card = PokemonCardDef(
     guid="760df7a4-564b-5faf-84a0-79e1dbfc21b8",
@@ -27,7 +30,9 @@ card = PokemonCardDef(
             game_text="Once during your turn (before your attack), you may search your deck for Castform, Rain Castform, or Sunny Castform and switch it with Snow-cloud Castform. (Any cards attached to Snow-cloud Castform, damage counters, Special Conditions, and effects on it are now on the new Pok\u00e9mon.) Shuffle Snow-cloud Castform back into your deck. You can't use more than 1 Temperamental Weather Pok\u00e9-Power each turn.",
             ability_type=AbilityTypes.POKE_POWER,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=poke_power_condition(),
+            effect=temperamental_weather('Castform', 'Sunny Castform', 'Rain Castform'),
         ),
         Attack(
             title="Holon Blizzard",

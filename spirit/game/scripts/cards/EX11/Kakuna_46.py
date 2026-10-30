@@ -4,6 +4,9 @@ Kakuna (EX11 #46): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import search_to_hand
+from spirit.game.session.effects import is_evolution_pokemon
+
 
 card = PokemonCardDef(
     guid="fd2bc85c-51f6-5dea-9edc-71384f4a1bd1",
@@ -28,7 +31,7 @@ card = PokemonCardDef(
             game_text="Search your deck for an Evolution card, show it to your opponent, and put it into your hand. Shuffle your deck afterward.",
             cost={PokemonTypes.GRASS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=search_to_hand(is_evolution_pokemon, prompt='Choose an Evolution card to put into your hand.'),
         ),
         Attack(
             title="Rollout",

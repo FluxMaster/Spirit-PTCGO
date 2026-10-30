@@ -4,6 +4,8 @@ Starmie δ (EX11 #15): one or more attacks/abilities use effect=unimplemented un
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.support_common import draw_attack
+
 
 card = PokemonCardDef(
     guid="d194dc83-9df0-526f-9dbd-1034ab8c2eb4",
@@ -35,7 +37,7 @@ card = PokemonCardDef(
             game_text="Draw 3 cards.",
             cost={PokemonTypes.WATER: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=draw_attack(3),
         ),
         Attack(
             title="Energy Loop",

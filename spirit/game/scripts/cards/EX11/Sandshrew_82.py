@@ -4,6 +4,8 @@ Sandshrew (EX11 #82): one or more attacks/abilities use effect=unimplemented unt
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import dig_under
+
 
 card = PokemonCardDef(
     guid="dc360bec-c84f-58bb-bfcd-414729f6292c",
@@ -27,7 +29,7 @@ card = PokemonCardDef(
             game_text="Choose 1 of your opponent's Pok\u00e9mon. This attack does 10 damage to that Pok\u00e9mon. This attack's damage isn't affected by Weakness or Resistance.",
             cost={PokemonTypes.FIGHTING: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=dig_under(),
         ),
         Attack(
             title="Scratch",

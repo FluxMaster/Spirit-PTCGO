@@ -4,6 +4,8 @@ Vaporeon ex (EX11 #110): one or more attacks/abilities use effect=unimplemented 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import brick_smash
+
 
 card = PokemonCardDef(
     guid="d535f55c-c9ed-5cd0-a0a2-6f1eaae4ed15",
@@ -36,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 1},
             damage=40,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=brick_smash(),
         ),
         Attack(
             title="Hydrosplash",
