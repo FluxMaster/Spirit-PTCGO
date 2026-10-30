@@ -4,6 +4,7 @@ Meganium (EX10 #9): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import healing_aroma_between_turns, bouncy_move
 
 card = PokemonCardDef(
     guid="d58f4338-0a5c-5384-9dda-40e08e1d8893",
@@ -29,7 +30,7 @@ card = PokemonCardDef(
             game_text="As long as Meganium is your Active Pok\u00e9mon, remove 1 damage counter from each Pok\u00e9mon (excluding Pok\u00e9mon-ex) (both yours and your opponent's) between turns.",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=healing_aroma_between_turns(1),
         ),
         Attack(
             title="Bouncy Move",
@@ -38,7 +39,7 @@ card = PokemonCardDef(
             damage=50,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bouncy_move(50, 10, 5),
         ),
     ],
 )

@@ -5,7 +5,7 @@ Steelix ex (EX10 #109): one or more attacks/abilities use effect=unimplemented u
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import AbilityTypes, PokemonStage, PokemonTypes, Rarities, SpecialConditions
 from spirit.game.card_effects.passives_common import condition_immunity_passive
-from spirit.game.card_effects.ex import metal_charge_self_counter
+from spirit.game.card_effects.ex import metal_charge_self_counter, poison_immunity_passive, mudslide_snipe
 
 card = PokemonCardDef(
     guid="f12505da-6a31-5d55-be47-3e16c810debc",
@@ -43,8 +43,7 @@ card = PokemonCardDef(
             title="Mudslide",
             game_text="Discard 2 Fighting Energy attached to Steelix ex and choose 1 of your opponent's Pok\u00e9mon. This attack does 100 damage to that Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.FIGHTING: 2, PokemonTypes.COLORLESS: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=mudslide_snipe(100, PokemonTypes.FIGHTING, 2),
         ),
     ],
 )

@@ -4,6 +4,7 @@ Jolteon (EX10 #8): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import attract_current, multi_pulse
 
 card = PokemonCardDef(
     guid="bf67c982-eec4-5b5d-b846-de4f0d046e27",
@@ -30,7 +31,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 1},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=attract_current(),
         ),
         Attack(
             title="Multi Pulse",
@@ -39,7 +40,7 @@ card = PokemonCardDef(
             damage=40,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=multi_pulse(40, 20, 3),
         ),
     ],
 )

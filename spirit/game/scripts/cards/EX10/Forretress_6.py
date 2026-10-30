@@ -4,6 +4,7 @@ Forretress (EX10 #6): one or more attacks/abilities use effect=unimplemented unt
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import spiky_shell_delayed, pop_forretress
 
 card = PokemonCardDef(
     guid="5b605d23-b667-5d5a-8cf7-78aecd677596",
@@ -30,7 +31,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=spiky_shell_delayed(3),
         ),
         Attack(
             title="Pop",
@@ -38,7 +39,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.METAL: 1, PokemonTypes.COLORLESS: 3},
             damage=100,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=pop_forretress(7),
         ),
     ],
 )

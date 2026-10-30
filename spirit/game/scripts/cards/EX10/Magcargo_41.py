@@ -5,7 +5,7 @@ Magcargo (EX10 #41): one or more attacks/abilities use effect=unimplemented unti
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import AbilityTypes, PokemonStage, PokemonTypes, Rarities
 from spirit.game.card_effects.attacks_common import smokescreen_attack
-from spirit.game.card_effects.ex import dual_armor_if_energy
+from spirit.game.card_effects.ex import dual_armor_if_energy, extra_vs_ex
 
 
 card = PokemonCardDef(
@@ -47,7 +47,7 @@ card = PokemonCardDef(
             damage=40,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=extra_vs_ex(40, 30),
         ),
     ],
 )

@@ -4,7 +4,7 @@ Unown (EX10 #?): one or more attacks/abilities use effect=unimplemented until a 
 
 from spirit.game.data_utils import Ability, Activations, Attack, PokemonCardDef, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
-from spirit.game.card_effects.ex import unown_shuffle, unown_shuffle_condition
+from spirit.game.card_effects.ex import unown_shuffle, unown_shuffle_condition, unown_q_hidden_power_guess
 
 card = PokemonCardDef(
     guid="b51f84c9-0f26-5938-b8f7-71a156228594",
@@ -37,7 +37,7 @@ card = PokemonCardDef(
             game_text="Choose a card from your hand and put it face down. Your opponent guesses if the card is a Pok\u00e9mon, Trainer, or Energy card. Reveal the card. If your opponent guessed wrong, draw 2 cards. Put the card back into your hand.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=unown_q_hidden_power_guess(),
         ),
     ],
 )

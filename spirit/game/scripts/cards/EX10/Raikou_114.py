@@ -1,10 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Raikou ★ (EX10 #114): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-from spirit.game.card_effects.ex import smash_turn
+from spirit.game.card_effects.ex import star_turn_switch, meta_voltage
 
 card = PokemonCardDef(
     guid="96f6bc55-128e-50bf-b26c-5780d8ba3b4e",
@@ -28,15 +24,14 @@ card = PokemonCardDef(
             game_text="Switch Raikou Star with 1 of your Benched Pok\u00e9mon.",
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
-            effect=smash_turn(),
+            effect=star_turn_switch(20),
         ),
         Attack(
             title="Meta Voltage",
             game_text="If you have less Prize cards left than your opponent, this attack does 40 damage to each of your Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.LIGHTNING: 3},
             damage=70,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=meta_voltage(70, 40),
         ),
     ],
 )

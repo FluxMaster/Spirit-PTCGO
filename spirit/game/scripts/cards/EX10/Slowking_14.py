@@ -2,8 +2,9 @@
 Slowking (EX10 #14): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import Activations, PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import item_search_tool, aftermath_tools
 
 card = PokemonCardDef(
     guid="71ecfa15-40cb-5ef8-95bb-2baa81d36dfc",
@@ -27,8 +28,9 @@ card = PokemonCardDef(
             title="Item Search",
             game_text="Once during your turn (before your attack), you may search your deck for a Pok\u00e9mon Tool card, show it to your opponent, and put it into your hand. Shuffle your deck afterward. This power can't be used if Slowking is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
+            activation=Activations.ONCE_PER_TURN,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=item_search_tool(),
         ),
         Attack(
             title="Aftermath",
@@ -37,7 +39,7 @@ card = PokemonCardDef(
             damage=20,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=aftermath_tools(20, 10, 60),
         ),
     ],
 )

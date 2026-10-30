@@ -2,8 +2,9 @@
 Umbreon ex (EX10 #112): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import Triggers, PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import darker_ring_on_evolve, black_cry_lock
 
 card = PokemonCardDef(
     guid="036787b9-f909-5ef2-b33c-c88639850dce",
@@ -28,8 +29,9 @@ card = PokemonCardDef(
             title="Darker Ring",
             game_text="Once during your turn (before your attack), when you play Umbreon ex from your hand to evolve 1 of your Pok\u00e9mon, switch 1 of your opponent's Benched Pok\u00e9mon with 1 of the Defending Pok\u00e9mon. Your opponent chooses the Defending Pok\u00e9mon to switch.",
             ability_type=AbilityTypes.POKE_POWER,
+            trigger=Triggers.ON_EVOLVE,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=darker_ring_on_evolve(),
         ),
         Attack(
             title="Black Cry",
@@ -37,7 +39,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=black_cry_lock(),
         ),
         Attack(
             title="Darkness Fang",

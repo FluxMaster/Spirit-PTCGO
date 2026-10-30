@@ -4,7 +4,7 @@ Sudowoodo (EX10 #15): one or more attacks/abilities use effect=unimplemented unt
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-from spirit.game.card_effects.ex import karate_chop
+from spirit.game.card_effects.ex import karate_chop, copy_defending_attack
 
 card = PokemonCardDef(
     guid="950ad2e1-8a70-5c4c-8228-b940b52c2b26",
@@ -28,7 +28,7 @@ card = PokemonCardDef(
             game_text="Choose 1 of the Defending Pok\u00e9mon's attacks. Copy copies that attack. This attack does nothing if Sudowoodo doesn't have the Energy necessary to use that attack. (You must still do anything else required for that attack.) Sudowoodo performs that attack.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=copy_defending_attack(),
         ),
         Attack(
             title="Karate Chop",

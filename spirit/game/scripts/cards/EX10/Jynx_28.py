@@ -4,7 +4,7 @@ Jynx (EX10 #28): one or more attacks/abilities use effect=unimplemented until a 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
-from spirit.game.card_effects.ex import scorching_light_flip
+from spirit.game.card_effects.ex import scorching_light_flip, stages_prevent_effects_no_weakness, freeze_light
 
 
 card = PokemonCardDef(
@@ -29,7 +29,7 @@ card = PokemonCardDef(
             game_text="As long as Jynx is an Evolved Pok\u00e9mon, prevent all effects of opponent's attacks, except damage, done to Jynx, and Jynx has no Weakness.",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=stages_prevent_effects_no_weakness(),
         ),
         Attack(
             title="Freeze Light",
@@ -43,7 +43,7 @@ card = PokemonCardDef(
             game_text="Put 4 damage counters on your opponent's Pok\u00e9mon in any way you like.",
             cost={PokemonTypes.WATER: 1, PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=freeze_light(),
         ),
     ],
 )

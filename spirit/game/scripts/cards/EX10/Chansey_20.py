@@ -4,6 +4,7 @@ Chansey (EX10 #20): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import hyper_healing
 
 
 async def double_wing_attack(ctx):
@@ -33,7 +34,7 @@ card = PokemonCardDef(
             game_text="Remove 1 damage counter and all Special Conditions from each of your Active Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=hyper_healing(1),
         ),
         Attack(
             title="Double Tack",

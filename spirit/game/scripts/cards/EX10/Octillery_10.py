@@ -4,7 +4,7 @@ Octillery (EX10 #10): one or more attacks/abilities use effect=unimplemented unt
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
-from spirit.game.card_effects.ex import suction_cups_no_retreat_passive
+from spirit.game.card_effects.ex import suction_cups_no_retreat_passive, standing_by_boost
 
 card = PokemonCardDef(
     guid="513dd1dd-080f-5bee-a43a-30bd9a33692c",
@@ -34,8 +34,7 @@ card = PokemonCardDef(
             title="Standing By",
             game_text="Discard an Energy card attached to Octillery. During your next turn, Octillery's Pulse Blast attack's base damage is 120.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=standing_by_boost("Pulse Blast", 120),
         ),
         Attack(
             title="Pulse Blast",

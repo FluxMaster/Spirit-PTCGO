@@ -4,6 +4,7 @@ Bellossom (EX10 #3): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import green_dance, full_bloom
 
 card = PokemonCardDef(
     guid="9083ad7f-83bf-5f1a-ae59-b33b592ec5eb",
@@ -29,7 +30,7 @@ card = PokemonCardDef(
             game_text="Search your deck for up to 2 Grass Pok\u00e9mon, show them to your opponent, and put them into your hand. Shuffle your deck afterward. If you put any Grass Pok\u00e9mon into your hand, you may switch Bellossom with 1 of your Benched Pok\u00e9mon.",
             cost={PokemonTypes.GRASS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=green_dance(2),
         ),
         Attack(
             title="Full Bloom",
@@ -38,7 +39,7 @@ card = PokemonCardDef(
             damage=50,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=full_bloom(50, 50, "Bellossom"),
         ),
     ],
 )

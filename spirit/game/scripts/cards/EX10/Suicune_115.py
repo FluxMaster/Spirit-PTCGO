@@ -1,10 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Suicune ★ (EX10 #115): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-from spirit.game.card_effects.ex import smash_turn
+from spirit.game.card_effects.ex import star_turn_switch, cross_wind_discard_all_energy
 
 card = PokemonCardDef(
     guid="f0598f18-efd0-5830-9758-4f108b01dbcb",
@@ -28,15 +24,14 @@ card = PokemonCardDef(
             game_text="Switch Suicune Star with 1 of your Benched Pok\u00e9mon.",
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
-            effect=smash_turn(),
+            effect=star_turn_switch(20),
         ),
         Attack(
             title="Cross Wind",
             game_text="If you have less Prize cards left than your opponent, discard all Energy cards attached to all of your Pok\u00e9mon.",
             cost={PokemonTypes.WATER: 3},
             damage=70,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=cross_wind_discard_all_energy(70),
         ),
     ],
 )

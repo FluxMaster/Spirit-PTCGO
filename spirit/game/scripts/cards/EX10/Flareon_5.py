@@ -40,7 +40,7 @@ card = PokemonCardDef(
             damage=40,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=fire_dance(),
         ),
     ],
 )

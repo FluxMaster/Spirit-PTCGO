@@ -4,6 +4,7 @@ Feraligatr ex (EX10 #103): one or more attacks/abilities use effect=unimplemente
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import overpowering_fang_passive, tsunami_bench
 from spirit.game.card_effects.attacks_common import spread_damage
 
 
@@ -30,7 +31,7 @@ card = PokemonCardDef(
             game_text="As long as Feraligatr ex is your Active Pok\u00e9mon, each player's Pok\u00e9mon (excluding Pok\u00e9mon-ex) can't use any Pok\u00e9-Powers or Pok\u00e9-Bodies.",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=overpowering_fang_passive(),
         ),
         Attack(
             title="Tsunami",
@@ -47,7 +48,7 @@ card = PokemonCardDef(
             damage=70,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=tsunami_bench(10),
         ),
     ],
 )

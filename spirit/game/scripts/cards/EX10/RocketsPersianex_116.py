@@ -2,8 +2,9 @@
 Rocket's Persian ex (EX10 #116): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import Activations, PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import night_cry_search, night_cry_condition
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
 
@@ -30,8 +31,10 @@ card = PokemonCardDef(
             title="Night Cry",
             game_text="Once during your turn, if Rocket's Persian ex is on your Bench, you may search your deck for a Pok\u00e9mon with Dark or Rocket's in its name. Show it to your opponent and put it into your hand. Shuffle your deck afterward.",
             ability_type=AbilityTypes.POKE_POWER,
+            activation=Activations.ONCE_PER_TURN,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            condition=night_cry_condition(),
+            effect=night_cry_search(),
         ),
         Attack(
             title="Toxic Claws",

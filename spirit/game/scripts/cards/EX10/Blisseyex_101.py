@@ -2,8 +2,9 @@
 Blissey ex (EX10 #101): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import Triggers, PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import blissful_support_on_evolve, energy_absorption
 
 card = PokemonCardDef(
     guid="6bad01fd-2b72-5826-a1ac-1f3caf05f8b0",
@@ -27,15 +28,16 @@ card = PokemonCardDef(
             title="Blissful Support",
             game_text="Once during your turn, when you play Blissey ex from your hand to evolve 1 of your Pok\u00e9mon, you may discard all Energy cards attached to any number of your Pok\u00e9mon and remove all damage counters from those Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_POWER,
+            trigger=Triggers.ON_EVOLVE,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=blissful_support_on_evolve(),
         ),
         Attack(
             title="Energy Absorption",
             game_text="Attach up to 3 Energy cards from your discard pile to Blissey ex.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=energy_absorption(3),
         ),
         Attack(
             title="Rollout",

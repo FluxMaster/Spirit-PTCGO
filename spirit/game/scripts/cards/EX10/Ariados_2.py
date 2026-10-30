@@ -4,7 +4,7 @@ Ariados (EX10 #2): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-from spirit.game.card_effects.ex import reactive_poison
+from spirit.game.card_effects.ex import reactive_poison, spider_trap
 
 card = PokemonCardDef(
     guid="3d71c266-f70d-5d5d-8d2e-c6acd87368cb",
@@ -37,7 +37,7 @@ card = PokemonCardDef(
             game_text="The Defending Pok\u00e9mon is now Asleep and Poisoned. Before applying this effect, you may switch 1 of your opponent's Benched Pok\u00e9mon with 1 of the Defending Pok\u00e9mon. If you do, the new Defending Pok\u00e9mon is now Asleep and Poisoned. Your opponent chooses the Defending Pok\u00e9mon to switch.",
             cost={PokemonTypes.GRASS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=spider_trap(),
         ),
     ],
 )

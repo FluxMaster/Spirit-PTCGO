@@ -4,6 +4,7 @@ Poliwrath (EX10 #11): one or more attacks/abilities use effect=unimplemented unt
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import spiral_swirl_on_ko_passive, beatdown_vs_dark, hyper_splash
 
 card = PokemonCardDef(
     guid="956db333-5eed-5ca8-a933-39fe5c8a1059",
@@ -28,7 +29,7 @@ card = PokemonCardDef(
             game_text="If Poliwrath is your Active Pok\u00e9mon and is Knocked Out by damage from an opponent's attack, the Attacking Pok\u00e9mon is now Confused.",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=spiral_swirl_on_ko_passive(),
         ),
         Attack(
             title="Beatdown",
@@ -37,7 +38,7 @@ card = PokemonCardDef(
             damage=40,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=beatdown_vs_dark(40, 30),
         ),
         Attack(
             title="Hyper Splash",
@@ -46,7 +47,7 @@ card = PokemonCardDef(
             damage=60,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=hyper_splash(60, 30),
         ),
     ],
 )

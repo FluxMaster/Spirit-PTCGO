@@ -4,7 +4,7 @@ Hitmontop (EX10 #26): one or more attacks/abilities use effect=unimplemented unt
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
-from spirit.game.card_effects.ex import bonus_if_damaged
+from spirit.game.card_effects.ex import bonus_if_damaged, stages_on_damaged_counters
 
 card = PokemonCardDef(
     guid="6c5c3726-3020-5a9a-87e9-1932039bb8bb",
@@ -28,7 +28,7 @@ card = PokemonCardDef(
             game_text="As long as Hitmontop is an Evolved Pok\u00e9mon, is your Active Pok\u00e9mon, and is damaged by an opponent's attack (even if Hitmontop is Knocked Out), put 2 damage counters on the Attacking Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=stages_on_damaged_counters(2),
         ),
         Attack(
             title="Upward Kick",

@@ -4,6 +4,7 @@ Onix (EX10 #65): one or more attacks/abilities use effect=unimplemented until a 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import dig_deep_energy_to_hand
 
 card = PokemonCardDef(
     guid="c9169519-5339-55a7-8aa6-cbb937eceec0",
@@ -27,7 +28,7 @@ card = PokemonCardDef(
             game_text="Search your discard pile for an Energy card, show it to your opponent, and put it into your hand.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=dig_deep_energy_to_hand(),
         ),
         Attack(
             title="Mud Slap",

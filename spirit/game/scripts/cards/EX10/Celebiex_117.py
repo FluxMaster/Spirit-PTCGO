@@ -4,6 +4,7 @@ Celebi ex (EX10 #117): one or more attacks/abilities use effect=unimplemented un
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import spiral_leaf, time_trap
 
 card = PokemonCardDef(
     guid="8b25329c-0668-5742-95b7-89eb26586a76",
@@ -27,7 +28,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, put 1 damage counter on each of your opponent's Pok\u00e9mon. If tails, remove 1 damage counter from each of your Pok\u00e9mon.",
             cost={PokemonTypes.GRASS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=spiral_leaf(),
         ),
         Attack(
             title="Time Trap",
@@ -35,7 +36,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=time_trap(4),
         ),
     ],
 )

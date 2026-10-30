@@ -4,6 +4,7 @@ Quagsire (EX10 #44): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import dense_vs_evolved
 
 
 async def puncture(ctx):
@@ -34,7 +35,7 @@ card = PokemonCardDef(
             game_text="Any damage done to Quagsire by attacks from your opponent's Evolved Pok\u00e9mon is reduced by 20 (after applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=dense_vs_evolved(20),
         ),
         Attack(
             title="Mud Shot",

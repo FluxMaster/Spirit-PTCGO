@@ -4,6 +4,7 @@ Scizor ex (EX10 #108): one or more attacks/abilities use effect=unimplemented un
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import danger_perception_passive, steel_wing_reduce, cross_cut
 
 card = PokemonCardDef(
     guid="c3426a5c-4be4-511b-aebb-f71b92d452df",
@@ -29,7 +30,7 @@ card = PokemonCardDef(
             game_text="As long as Scizor ex's remaining HP is 60 or less, Scizor ex does 40 more damage to the Defending Pok\u00e9mon (before applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=danger_perception_passive(60, 40),
         ),
         Attack(
             title="Steel Wing",
@@ -37,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.METAL: 1, PokemonTypes.COLORLESS: 1},
             damage=40,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=steel_wing_reduce(20),
         ),
         Attack(
             title="Cross-Cut",
@@ -46,7 +47,7 @@ card = PokemonCardDef(
             damage=50,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=cross_cut(50, 30),
         ),
     ],
 )

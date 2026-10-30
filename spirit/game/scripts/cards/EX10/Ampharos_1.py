@@ -4,7 +4,7 @@ Ampharos (EX10 #1): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import Ability, Activations, Attack, PokemonCardDef, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
-from spirit.game.card_effects.ex import energy_connect_basic, energy_connect_condition
+from spirit.game.card_effects.ex import energy_connect_basic, energy_connect_condition, miraculous_thunder
 
 card = PokemonCardDef(
     guid="d3927961-346e-5077-9a8a-c8772bac5ed0",
@@ -39,7 +39,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 2},
             damage=50,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=miraculous_thunder(),
         ),
     ],
 )

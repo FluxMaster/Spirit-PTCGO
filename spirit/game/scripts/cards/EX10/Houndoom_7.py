@@ -4,6 +4,7 @@ Houndoom (EX10 #7): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import lonesome_no_trainers_passive
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
 
@@ -31,7 +32,7 @@ card = PokemonCardDef(
             game_text="As long as you have less Pok\u00e9mon in play than your opponent, your opponent can't play any Trainer cards (except for Supporter cards) from his or her hand.",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=lonesome_no_trainers_passive(),
         ),
         Attack(
             title="Tight Jaw",

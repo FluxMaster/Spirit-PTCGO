@@ -4,7 +4,7 @@ Scyther (EX10 #46): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-from spirit.game.card_effects.ex import flip_agility_protect
+from spirit.game.card_effects.ex import flip_agility_protect, twin_play
 
 card = PokemonCardDef(
     guid="2c6b3f69-0416-5873-b872-76637b6ca60d",
@@ -28,7 +28,7 @@ card = PokemonCardDef(
             game_text="Search your deck for up to 2 in any combination of Scyther and Scyther ex and put them onto your Bench. Shuffle your deck afterward.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=twin_play("Scyther"),
         ),
         Attack(
             title="Agility",

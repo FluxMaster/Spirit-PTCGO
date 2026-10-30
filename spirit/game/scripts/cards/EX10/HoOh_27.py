@@ -4,6 +4,7 @@ Ho-Oh (EX10 #27): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import gust_force_switch
 
 card = PokemonCardDef(
     guid="ddc37b7a-d245-5b4b-ac0e-7b0dd7496e71",
@@ -32,7 +33,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, choose 1 of your opponent's Pok\u00e9mon. This attack does 60 damage to that Pok\u00e9mon. This attack's damage isn't affected by Weakness or Resistance.",
             cost={PokemonTypes.FIRE: 2, PokemonTypes.COLORLESS: 2},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=gust_force_switch(),
         ),
     ],
 )

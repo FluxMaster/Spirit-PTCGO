@@ -4,7 +4,7 @@ Slowbro (EX10 #13): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import AbilityTypes, PokemonStage, PokemonTypes, Rarities
-from spirit.game.card_effects.ex import dual_armor_if_energy
+from spirit.game.card_effects.ex import dual_armor_if_energy, parallel_gain_heal
 
 card = PokemonCardDef(
     guid="b64fc42a-4bd7-53d6-8c65-26ee548c2279",
@@ -36,7 +36,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=parallel_gain_heal(1),
         ),
         Attack(
             title="Rolling Tackle",

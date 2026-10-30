@@ -4,6 +4,7 @@ Poliwhirl (EX10 #68): one or more attacks/abilities use effect=unimplemented unt
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import energy_ball_capped
 
 card = PokemonCardDef(
     guid="238df109-3f94-5fc0-b9ee-0dbf1af34426",
@@ -30,7 +31,7 @@ card = PokemonCardDef(
             damage=30,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=energy_ball_capped(30, 10, 20),
         ),
     ],
 )

@@ -38,7 +38,7 @@ card = PokemonCardDef(
             damage=10,
             damage_operator="x",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=baby_evolution_any("Hitmonlee", "Hitmonchan", "Hitmontop"),
         ),
     ],
 )

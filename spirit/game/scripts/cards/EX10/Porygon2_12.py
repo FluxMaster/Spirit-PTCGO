@@ -2,8 +2,9 @@
 Porygon2 (EX10 #12): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import Activations, PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import data_retrieval, scramble_trip, tool_reset_to_hand, tool_reset_condition
 
 card = PokemonCardDef(
     guid="0d0ab236-5554-533a-96bc-ecccb854ada9",
@@ -27,15 +28,17 @@ card = PokemonCardDef(
             title="3-D Reset",
             game_text="As often as you like during your turn (before your attack), return a Pok\u00e9mon Tool card attached to 1 of your Pok\u00e9mon to your hand. This power can't be used if Porygon2 is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
+            activation=Activations.UNLIMITED,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            condition=tool_reset_condition(),
+            effect=tool_reset_to_hand(),
         ),
         Attack(
             title="Data Retrieval",
             game_text="If you have less than 8 cards in your hand, draw cards until you have 8 cards in your hand.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=data_retrieval(8),
         ),
         Attack(
             title="Scramble Trip",
@@ -44,7 +47,7 @@ card = PokemonCardDef(
             damage=40,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=scramble_trip(40, 20),
         ),
     ],
 )

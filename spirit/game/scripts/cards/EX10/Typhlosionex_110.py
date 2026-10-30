@@ -2,8 +2,9 @@
 Typhlosion ex (EX10 #110): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import Triggers, PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import bursting_up_on_evolve, kindle_discard_both
 
 card = PokemonCardDef(
     guid="19c55d76-8a78-5405-aecb-cb32c97f75a0",
@@ -27,8 +28,9 @@ card = PokemonCardDef(
             title="Bursting Up",
             game_text="Once during your turn when you play Typhlosion ex from your hand to evolve 1 of your Pok\u00e9mon, count the number of your opponent's Benched Pok\u00e9mon. You may search your deck for up to that number of Fire Energy cards and attach them to 1 of your Fire Pok\u00e9mon. Shuffle your deck afterward.",
             ability_type=AbilityTypes.POKE_POWER,
+            trigger=Triggers.ON_EVOLVE,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=bursting_up_on_evolve(),
         ),
         Attack(
             title="Kindle",
@@ -36,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 2, PokemonTypes.COLORLESS: 2},
             damage=80,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=kindle_discard_both(),
         ),
     ],
 )

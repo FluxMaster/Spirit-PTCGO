@@ -4,7 +4,7 @@ Ursaring (EX10 #18): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
-from spirit.game.card_effects.ex import drag_off_optional_ex8
+from spirit.game.card_effects.ex import drag_off_optional_ex8, intimidating_ring_passive
 from spirit.game.card_effects.attacks_common import flip_bonus
 
 
@@ -31,7 +31,7 @@ card = PokemonCardDef(
             game_text="As long as Ursaring is your Active Pok\u00e9mon, your opponent's Basic Pok\u00e9mon can't attack or use any Pok\u00e9-Powers.",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=intimidating_ring_passive(),
         ),
         Attack(
             title="Drag Off",

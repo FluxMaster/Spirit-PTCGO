@@ -4,6 +4,7 @@ Eevee (EX10 #55): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import energy_evolution_passive
 
 card = PokemonCardDef(
     guid="624d2b0f-6dae-53ee-8d27-f72fbd3e6ebb",
@@ -27,7 +28,7 @@ card = PokemonCardDef(
             game_text="Whenever you attach an Energy card from your hand to Eevee, you may search your deck for a card that evolves from Eevee that is the same type as the Energy card you attached to Eevee. Put that card onto Eevee. (This counts as evolving Eevee.) Shuffle your deck afterward. This power can't be used when you attach an Energy card to Eevee as part of an attack's effect.",
             ability_type=AbilityTypes.POKE_POWER,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=energy_evolution_passive(),
         ),
         Attack(
             title="Tail Whap",

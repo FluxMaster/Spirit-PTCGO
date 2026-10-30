@@ -4,6 +4,7 @@ Politoed ex (EX10 #107): one or more attacks/abilities use effect=unimplemented 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import upward_lick, punch_and_run, swallow_up_instead
 
 card = PokemonCardDef(
     guid="9ee40210-93f7-5db7-9500-48e761807025",
@@ -28,7 +29,7 @@ card = PokemonCardDef(
             game_text="Choose 1 of your opponent's Pok\u00e9mon. This attack does 30 damage to that Pok\u00e9mon. If that Pok\u00e9mon is a Stage 2 Evolved Pok\u00e9mon, this attack does 50 damage instead. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=upward_lick(30, 50),
         ),
         Attack(
             title="Punch and Run",
@@ -36,7 +37,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=40,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=punch_and_run(),
         ),
         Attack(
             title="Swallow Up",
@@ -44,7 +45,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 2, PokemonTypes.COLORLESS: 2},
             damage=70,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=swallow_up_instead(70, 120),
         ),
     ],
 )

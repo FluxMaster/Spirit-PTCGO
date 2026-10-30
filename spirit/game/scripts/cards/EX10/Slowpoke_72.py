@@ -4,6 +4,7 @@ Slowpoke (EX10 #72): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import fishing_tail
 from spirit.game.card_effects.attacks_common import flip_bonus
 
 
@@ -29,7 +30,7 @@ card = PokemonCardDef(
             game_text="Search your discard pile for a Basic Pok\u00e9mon, Evolution card, or basic Energy card, show it to your opponent, and put it into your hand.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=fishing_tail(),
         ),
         Attack(
             title="Trip Over",
