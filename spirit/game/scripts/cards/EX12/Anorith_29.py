@@ -2,9 +2,9 @@
 Anorith (EX12 #29): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-from spirit.game.card_effects.ex import search_to_bench_named
+from spirit.game.card_effects.ex import stretch_claws_react, search_to_bench_named
 
 
 card = PokemonCardDef(
@@ -38,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=stretch_claws_react(20),
         ),
     ],
 )

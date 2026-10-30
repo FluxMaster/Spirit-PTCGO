@@ -1,14 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Giant Stump (EX12 #75): trainer effect stubbed.
-
-Card text:
-  - This card stays in play when you play it. Discard this card if another Stadium card comes into play. If another card with the same name is in play, you can't play this card.
-  - Each player can't have more than 3 Benched Pokémon.
-  - When Giant Stump comes into play, each player discards Benched Pokémon and any cards attached to them until he or she has 3 Benched Pokémon. (You discard your Pokémon first.)
+"""EX12 Legend Maker — Giant Stump stadium.
 """
-
-from spirit.game.data_utils import StadiumCardDef, unimplemented
+from spirit.game.data_utils import StadiumCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ex import giant_stump_passive
+
 
 card = StadiumCardDef(
     guid="3fd75fd0-ef97-5631-9870-02e27e2a7fb2",
@@ -20,6 +15,5 @@ card = StadiumCardDef(
     collector_number=75,
     set_code="EX12",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    passive=giant_stump_passive(),
 )

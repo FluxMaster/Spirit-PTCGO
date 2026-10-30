@@ -1,13 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Cursed Stone (EX12 #72): trainer effect stubbed.
-
-Card text:
-  - This card stays in play when you play it. Discard this card if another Stadium card comes into play. If another card with the same name is in play, you can't play this card.
-  - At any time between turns, each player puts 1 damage counter on his or her Pokémon that has a Poké-Power.
+"""EX12 Legend Maker — Cursed Stone stadium.
 """
+from spirit.game.data_utils import StadiumCardDef, Ability, Activations, Triggers
+from spirit.game.attributes import Rarities, AbilityTypes
+from spirit.game.card_effects.ex import cursed_stone_between_turns
 
-from spirit.game.data_utils import StadiumCardDef, unimplemented
-from spirit.game.attributes import Rarities
 
 card = StadiumCardDef(
     guid="e8bf4f78-75fa-56e8-8cf1-386a6fe3710a",
@@ -19,6 +15,11 @@ card = StadiumCardDef(
     collector_number=72,
     set_code="EX12",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    ability=Ability(
+        title="Cursed Stone",
+        game_text="At any time between turns, each player puts 1 damage counter on his or her Pokémon that has a Poké-Power.",
+        ability_type=AbilityTypes.POKE_BODY,
+        effect=cursed_stone_between_turns(),
+        trigger=Triggers.BETWEEN_TURNS,
+    ),
 )

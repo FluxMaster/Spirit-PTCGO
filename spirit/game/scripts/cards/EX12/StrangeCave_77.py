@@ -1,13 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Strange Cave (EX12 #77): trainer effect stubbed.
-
-Card text:
-  - This card stays in play when you play it. Discard this card if another Stadium card comes into play. If another card with the same name is in play, you can't play this card.
-  - Once during each player's turn, that player may put an Omanyte, Kabuto, Aerodactyl, Aerodactyl ex, Lileep, or Anorith onto his or her Bench from his or her hand. Treat the new Benched Pokémon as Basic Pokémon.
+"""EX12 Legend Maker — Strange Cave stadium.
 """
+from spirit.game.data_utils import StadiumCardDef, Ability, Activations
+from spirit.game.attributes import Rarities, AbilityTypes
+from spirit.game.card_effects.ex import strange_cave_effect
 
-from spirit.game.data_utils import StadiumCardDef, unimplemented
-from spirit.game.attributes import Rarities
 
 card = StadiumCardDef(
     guid="63c43f33-e962-5a4d-b257-1681e7abfeef",
@@ -19,6 +15,11 @@ card = StadiumCardDef(
     collector_number=77,
     set_code="EX12",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    ability=Ability(
+        title="Strange Cave",
+        game_text="Once during each player's turn, that player may put an Omanyte, Kabuto, Aerodactyl, Aerodactyl ex, Lileep, or Anorith onto his or her Bench from his or her hand. Treat the new Benched Pokémon as Basic Pokémon.",
+        ability_type=AbilityTypes.POKE_POWER,
+        effect=strange_cave_effect(),
+        activation=Activations.ONCE_PER_TURN,
+    ),
 )

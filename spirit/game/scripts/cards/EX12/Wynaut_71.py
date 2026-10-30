@@ -1,11 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Wynaut (EX12 #71): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
+"""EX12 Legend Maker — Wynaut.
 """
-
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
-from spirit.game.data_utils import Activations
-from spirit.game.card_effects.ex import baby_evolution, baby_evolution_condition
+from spirit.game.card_effects.ex import baby_evolution_ex7, confusion_wave
 
 
 card = PokemonCardDef(
@@ -29,17 +26,13 @@ card = PokemonCardDef(
             title="Baby Evolution",
             game_text="Once during your turn (before your attack), you may put Wobbuffet from your hand onto Wynaut (this counts as evolving Wynaut) and remove all damage counters from Wynaut.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            activation=Activations.ONCE_PER_TURN,
-            condition=baby_evolution_condition('Wobbuffet'),
-            effect=baby_evolution('Wobbuffet'),
+            effect=baby_evolution_ex7("Wobbuffet"),
         ),
         Attack(
             title="Confusion Wave",
-            game_text="Both Wynaut and the Defending Pok\u00e9mon are now Confused.",
+            game_text="Both Wynaut and the Defending Pokémon are now Confused.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=confusion_wave(),
         ),
     ],
 )
