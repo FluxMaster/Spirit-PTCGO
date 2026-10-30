@@ -2,10 +2,11 @@
 Cradily ex (EX4 #90): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.attributes import SpecialConditions
-from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ex import primal_vibes_passive
+from spirit.game.card_effects.attacks_common import condition_attack, primal_vibes_passive
 
 
 card = PokemonCardDef(
@@ -31,7 +32,7 @@ card = PokemonCardDef(
             game_text="As long as Cradily ex is your Active Pok\u00e9mon, your opponent can't play a Pok\u00e9mon from his or her hand to evolve his or her Active Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=primal_vibes_passive(),
         ),
         Attack(
             title="Eerie Light",
@@ -47,7 +48,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 2, PokemonTypes.COLORLESS: 2},
             damage=60,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=condition_attack(SpecialConditions.POISONED, SpecialConditions.BURNED),
         ),
     ],
 )

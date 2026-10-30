@@ -2,8 +2,9 @@
 Team Aqua's Mightyena (EX4 #30): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import aqua_call
 
 card = PokemonCardDef(
     guid="1fc27e8f-6574-56c7-8717-d05dcc42a447",
@@ -29,7 +30,7 @@ card = PokemonCardDef(
             game_text="Search your deck for Pok\u00e9mon that has Team Aqua in its name, show up to 3 of them to your opponent, and put them into your hand. Shuffle your deck afterward.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=aqua_call(),
         ),
         Attack(
             title="Wave Splash",

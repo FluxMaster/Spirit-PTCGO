@@ -2,7 +2,7 @@
 Team Magma's Lairon (EX4 #36): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, SpecialConditions, AttrID
 from spirit.game.card_effects.attacks_common import conditions_if
 

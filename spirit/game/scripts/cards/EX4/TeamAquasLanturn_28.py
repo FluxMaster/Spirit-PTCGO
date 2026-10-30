@@ -2,8 +2,9 @@
 Team Aqua's Lanturn (EX4 #28): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
+from spirit.game.attributes import Activations, PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import auxiliary_light, poke_power_condition
 
 card = PokemonCardDef(
     guid="2740d15d-f303-58be-9d0e-c52f8e91c460",
@@ -28,8 +29,9 @@ card = PokemonCardDef(
             title="Auxiliary Light",
             game_text="Once during your turn (before your attack), you may attach a basic Energy card from your hand to Team Aqua's Lanturn. Put 2 damage counters on Team Aqua's Lanturn. This power can't be used if Team Aqua's Lanturn is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=poke_power_condition(),
+            effect=auxiliary_light(),
         ),
         Attack(
             title="Lightning Ball",

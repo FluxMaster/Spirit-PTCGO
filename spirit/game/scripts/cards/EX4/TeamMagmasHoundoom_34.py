@@ -2,7 +2,7 @@
 Team Magma's Houndoom (EX4 #34): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, SpecialConditions
 from spirit.game.card_effects.ex import bonus_if_damaged, defender_has_team
 from spirit.game.card_effects.attacks_common import conditions_if

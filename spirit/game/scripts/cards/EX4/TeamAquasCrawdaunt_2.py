@@ -2,8 +2,9 @@
 Team Aqua's Crawdaunt (EX4 #2): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import aqua_reverse, deep_impact
 
 card = PokemonCardDef(
     guid="4c23ec59-8282-5dac-99c9-151284b91c41",
@@ -29,7 +30,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.DARKNESS: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=aqua_reverse(),
         ),
         Attack(
             title="Deep Impact",
@@ -37,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 2, PokemonTypes.COLORLESS: 1},
             damage=40,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=deep_impact(),
         ),
     ],
 )

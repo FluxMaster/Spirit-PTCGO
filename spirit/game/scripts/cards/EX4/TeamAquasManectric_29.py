@@ -2,10 +2,10 @@
 Team Aqua's Manectric (EX4 #29): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, SpecialConditions
 from spirit.game.card_effects.attacks_common import conditions_if
-from spirit.game.card_effects.ex import defender_has_team
+from spirit.game.card_effects.ex import chaos_crush, defender_has_team
 
 card = PokemonCardDef(
     guid="4ad12660-3e7c-5b4f-b782-63a259c56b11",
@@ -40,7 +40,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 2},
             damage=50,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=chaos_crush(),
         ),
     ],
 )

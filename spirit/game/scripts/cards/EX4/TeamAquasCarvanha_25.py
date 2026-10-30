@@ -2,8 +2,9 @@
 Team Aqua's Carvanha (EX4 #25): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes, SpecialConditions
+from spirit.game.card_effects.ex import dark_lift_passive, delayed_condition
 
 card = PokemonCardDef(
     guid="9e850cbe-76ae-5685-b5da-83c1d87e7ba9",
@@ -27,7 +28,7 @@ card = PokemonCardDef(
             game_text="If Team Aqua's Carvanha has any Darkness Energy attached to it, the Retreat Cost for Team Aqua's Carvanha is 0.",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=dark_lift_passive(),
         ),
         Attack(
             title="Slow-Acting Poison",
@@ -35,7 +36,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=delayed_condition(SpecialConditions.POISONED),
         ),
     ],
 )

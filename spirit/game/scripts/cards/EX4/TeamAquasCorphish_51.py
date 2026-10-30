@@ -2,8 +2,9 @@
 Team Aqua's Corphish (EX4 #51): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, SpecialConditions
+from spirit.game.card_effects.ex import delayed_condition
 
 card = PokemonCardDef(
     guid="2e158d0b-035d-510a-a36b-911723eeb504",
@@ -33,7 +34,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=10,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=delayed_condition(SpecialConditions.POISONED),
         ),
     ],
 )

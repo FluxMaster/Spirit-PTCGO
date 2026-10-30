@@ -2,8 +2,9 @@
 Team Magma's Torkoal (EX4 #12): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import hot_air, magma_burn
 
 card = PokemonCardDef(
     guid="7b98d2fe-a7e8-596b-9729-7eb2394f929a",
@@ -28,7 +29,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 1},
             damage=10,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=magma_burn(),
         ),
         Attack(
             title="Hot Air",
@@ -36,7 +37,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=hot_air(),
         ),
     ],
 )

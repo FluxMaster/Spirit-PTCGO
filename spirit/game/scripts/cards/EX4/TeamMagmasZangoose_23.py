@@ -2,9 +2,9 @@
 Team Magma's Zangoose (EX4 #23): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-from spirit.game.card_effects.ex import team_play_damage
+from spirit.game.card_effects.ex import call_for_family_typed_or_team, team_play_damage
 
 card = PokemonCardDef(
     guid="2680f85b-01db-5074-acca-164640d7bee2",
@@ -28,7 +28,7 @@ card = PokemonCardDef(
             game_text="Search your deck for a Colorless Basic Pok\u00e9mon or Basic Pok\u00e9mon with Team Magma in its name and put it onto your Bench. Shuffle your deck afterward.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=call_for_family_typed_or_team(PokemonTypes.COLORLESS, "Team Magma"),
         ),
         Attack(
             title="Team Play",
