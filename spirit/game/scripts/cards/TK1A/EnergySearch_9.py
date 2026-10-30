@@ -1,11 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Energy Search (TK1A #9): trainer effect stubbed.
-
-Card text:
-  - Search your deck for a basic Energy card, show it to your opponent, and put it into your hand. Shuffle your deck afterward
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.card_effects.support_common import search_to_hand
+from spirit.game.card_effects.trainers import is_basic_energy_card
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
 
 card = ItemCardDef(
@@ -18,6 +13,6 @@ card = ItemCardDef(
     collector_number=9,
     set_code="TK1A",
     rarity=Rarities.Common,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=search_to_hand(is_basic_energy_card, count=1, minimum=0, reveal=True,
+                           prompt="Choose a basic Energy card to put into your hand."),
 )
