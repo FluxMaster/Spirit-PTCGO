@@ -337,3 +337,21 @@ class HolonEnergyWPPassive(Passive):
         if _has_basic_energy_of_type(pokemon, PokemonTypes.PSYCHIC):
             return 0
         return cost
+
+
+class DeltaRainbowEnergyPassive(Passive):
+    """δ Rainbow Energy: Colorless normally; every type one-at-a-time while
+    attached to a Pokémon that has δ on its card."""
+
+    def modify_energy_provided(self, options, energy, holder, board):
+        d = def_for(energy.archetype_id)
+        if not isinstance(getattr(d, "passive", None), DeltaRainbowEnergyPassive):
+            return options
+        if holder is None:
+            return [[PokemonTypes.COLORLESS.value]]
+        hd = def_for(holder.archetype_id)
+        dn = (getattr(hd, "display_name", None) or "")
+        sb = " ".join(getattr(hd, "searchable_by", None) or [])
+        if "δ" in dn or "δ" in sb or "delta" in dn.lower() or "delta" in sb.lower():
+            return options  # keep provides=ALL_TYPES_ONE_AT_A_TIME from card def
+        return [[PokemonTypes.COLORLESS.value]]
