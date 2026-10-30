@@ -4,6 +4,8 @@ Lopunny (POP9 #9): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import snipe_attack
+
 
 card = PokemonCardDef(
     guid="339e140c-b208-56e7-a848-8e88c0907bc0",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=snipe_attack(20),
         ),
         Attack(
             title="Jazzed",

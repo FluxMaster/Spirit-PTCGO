@@ -4,6 +4,8 @@ Raichu (POP9 #3): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_damage
+
 
 card = PokemonCardDef(
     guid="7c84e04d-4532-56b8-9e97-5678a097a0c9",
@@ -32,7 +34,7 @@ card = PokemonCardDef(
             damage=30,
             damage_operator="x",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(coins=2, per_heads=30),
         ),
         Attack(
             title="High Volt",

@@ -4,6 +4,8 @@ Buizel (POP9 #6): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import may_discard_defender_energy_on_heads
+
 
 card = PokemonCardDef(
     guid="e66125e7-bae4-579a-a10f-6f090c6bf956",
@@ -27,7 +29,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, discard an Energy attached to the Defending Pok\u00e9mon.",
             cost={PokemonTypes.WATER: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=may_discard_defender_energy_on_heads(),
         ),
         Attack(
             title="Super Fast",

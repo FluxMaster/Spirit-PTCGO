@@ -4,6 +4,8 @@ Garchomp (POP9 #1): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import flip_or_nothing
+
 
 card = PokemonCardDef(
     guid="d8043f0f-b94b-561d-a11f-1a10b8192656",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=80,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_or_nothing(coins=2),
         ),
         Attack(
             title="Jet Sword",

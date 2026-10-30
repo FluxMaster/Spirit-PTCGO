@@ -4,6 +4,8 @@ Chimchar (POP9 #13): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import pin_missile
+
 
 card = PokemonCardDef(
     guid="1da86946-0538-5050-ba54-baee23afc99d",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             damage=10,
             damage_operator="x",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=pin_missile(4, 10),
         ),
         Attack(
             title="Sleepy",

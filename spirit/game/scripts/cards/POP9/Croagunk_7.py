@@ -4,6 +4,8 @@ Croagunk (POP9 #7): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import flip_discard_random_from_opponent_hand
+
 
 card = PokemonCardDef(
     guid="b12194de-6831-5eb5-a621-e4c010d81b06",
@@ -27,7 +29,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, choose 1 card from your opponent's hand without looking and discard it.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_discard_random_from_opponent_hand(),
         ),
         Attack(
             title="Nimble",

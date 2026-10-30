@@ -4,6 +4,9 @@ Pichu (POP9 #11): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.data_utils import Activations
+from spirit.game.card_effects.ex import baby_evolution, baby_evolution_condition
+
 
 card = PokemonCardDef(
     guid="39ef82b8-2a87-5f91-a47a-39315b06c493",
@@ -29,7 +32,9 @@ card = PokemonCardDef(
             game_text="Once during your turn (before your attack), you may put Pikachu from your hand onto Pichu (this counts as evolving Pichu) and remove all damage counters from Pichu.",
             ability_type=AbilityTypes.POKE_POWER,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=baby_evolution_condition('Pikachu'),
+            effect=baby_evolution('Pikachu'),
         ),
         Attack(
             title="Find a Friend",
