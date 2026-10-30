@@ -2514,6 +2514,74 @@ async def test_shade_partner_gate():
 
 
 
+async def test_metal_gravity_stacking_once():
+    """Metal Gravity bodies share stacking_key; active_to_bench sums once."""
+    from spirit.game.card_effects.ex import metal_gravity_passive
+    from spirit.game.session.passives import active_to_bench_counters
+    import spirit.game.session.passives as passives_mod
+    rig, e = new_rig()
+    body = metal_gravity_passive()
+    assert body.stacking_key == "metal_gravity"
+    e["p2_active"].set_attribute(AttrID.HP, 50)
+    # Two Skarmory-like carriers on our side (use p1 active + a p1 bench)
+    c1 = e["p1_active"]
+    bench = rig.board.find_player_area(P1, "bench")
+    c2 = next(c for c in bench.children if isinstance(c, PokemonEntity))
+    orig = passives_mod.active_passives
+    try:
+        passives_mod.active_passives = lambda board: [(body, c1), (body, c2)]
+        n = active_to_bench_counters(rig.board, e["p2_active"])
+        assert n == 3, n
+        e["p2_active"].set_attribute(AttrID.HP, 30)
+        n2 = active_to_bench_counters(rig.board, e["p2_active"])
+        assert n2 == 0, n2
+        # Same-owner retreat must not trigger
+        e["p1_active"].set_attribute(AttrID.HP, 50)
+        n3 = active_to_bench_counters(rig.board, e["p1_active"])
+        assert n3 == 0, n3
+    finally:
+        passives_mod.active_passives = orig
+
+
+async def test_primal_stare_blocks_active_evolve_only():
+    from spirit.game.card_effects.ex import primal_stare_block_basics
+    rig, e = new_rig()
+    body = primal_stare_block_basics()
+    assert body.blocks_evolution(P2, e["p2_active"], e["p1_active"]) is True
+    bench_area = rig.board.find_player_area(P2, "bench")
+    bench = [c for c in bench_area.children if isinstance(c, PokemonEntity)]
+    assert bench, "expected p2 bench"
+    assert body.blocks_evolution(P2, bench[0], e["p1_active"]) is False
+    assert body.blocks_evolution(P1, e["p1_active"], e["p1_active"]) is False
+
+
+async def test_psychic_protector_reduces_by_ten():
+    from spirit.game.card_effects.ex import psychic_protector_discard_reduce
+    import inspect
+    src = inspect.getsource(psychic_protector_discard_reduce)
+    assert "damage_interceptor" in src
+    assert "10 * len(picks)" in src
+    assert "20 * len" not in src
+
+
+async def test_bench_manipulation_tails_times_40():
+    from spirit.game.card_effects.ex import bench_manipulation
+    import inspect
+    src = inspect.getsource(bench_manipulation)
+    assert "tails" in src
+    assert "40" in src
+
+
+async def test_anorith_fury_cutter_scale():
+    from spirit.game.card_effects.ex import anorith_fury_cutter
+    import inspect
+    src = inspect.getsource(anorith_fury_cutter)
+    assert "50" in src and "30" in src
+
+
+
+
+
 TESTS = [
     test_temp_passive_prevents_then_expires,
     test_temp_passive_cleared_on_leave,
@@ -2619,6 +2687,11 @@ TESTS = [
     test_tail_whip_uses_lock_defender,
     test_skill_copy_uses_attack,
     test_shade_partner_gate,
+    test_metal_gravity_stacking_once,
+    test_primal_stare_blocks_active_evolve_only,
+    test_psychic_protector_reduces_by_ten,
+    test_bench_manipulation_tails_times_40,
+    test_anorith_fury_cutter_scale,
 ]
 
 

@@ -817,11 +817,24 @@ def supporter_effect_replacement(board: BoardState, card: BoardEntity,
 
 def active_to_bench_counters(board: BoardState, pokemon: PokemonEntity) -> int:
     """Damage counters for an Active that moved to its owner's Bench during
-    the owner's turn (Spikemuth); callers gate on whose turn it is."""
-    return sum(
-        passive.counters_on_active_to_bench(pokemon, carrier)
-        for passive, carrier in active_passives(board)
-    )
+    the owner's turn (Spikemuth); callers gate on whose turn it is.
+
+    Passives that share a ``stacking_key`` contribute at most once (Metal
+    Gravity: "You can't use more than 1 Metal Gravity Poké-Body each turn").
+    """
+    total = 0
+    seen_keys: set = set()
+    for passive, carrier in active_passives(board):
+        n = passive.counters_on_active_to_bench(pokemon, carrier)
+        if n <= 0:
+            continue
+        key = getattr(passive, "stacking_key", None)
+        if key is not None:
+            if key in seen_keys:
+                continue
+            seen_keys.add(key)
+        total += n
+    return total
 
 
 def evolve_heal_amount(board: BoardState, evolved: PokemonEntity,
