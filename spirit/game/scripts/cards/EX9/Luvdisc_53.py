@@ -4,7 +4,7 @@ Luvdisc (EX9 #53): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-from spirit.game.card_effects.ex import call_for_family_basic
+from spirit.game.card_effects.ex import call_for_family_basic, confuse_if_evolved
 
 
 card = PokemonCardDef(
@@ -36,8 +36,7 @@ card = PokemonCardDef(
             game_text="If the Defending Pok\u00e9mon is an Evolved Pok\u00e9mon, the Defending Pok\u00e9mon is now Confused.",
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+                        effect=confuse_if_evolved(),
         ),
     ],
 )

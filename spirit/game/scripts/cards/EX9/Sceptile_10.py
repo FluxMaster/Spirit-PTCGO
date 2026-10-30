@@ -5,6 +5,7 @@ Sceptile (EX9 #10): one or more attacks/abilities use effect=unimplemented until
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import swift_attack
+from spirit.game.card_effects.ex import green_essence_passive
 
 
 card = PokemonCardDef(
@@ -30,8 +31,7 @@ card = PokemonCardDef(
             title="Green Essence",
             game_text="As long as Sceptile is in play, each of your Active Pok\u00e9mon that has Grass Energy attached to it can't be affected by any Special Conditions.",
             ability_type=AbilityTypes.POKE_BODY,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=green_essence_passive(),
         ),
         Attack(
             title="Razor Leaf",

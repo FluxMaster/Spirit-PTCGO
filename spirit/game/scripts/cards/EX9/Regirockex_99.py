@@ -4,6 +4,7 @@ Regirock ex (EX9 #99): one or more attacks/abilities use effect=unimplemented un
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import mend_fighting, metal_crush
 
 card = PokemonCardDef(
     guid="46e5601b-dc81-58f6-8881-81cf6bd73ec8",
@@ -26,8 +27,7 @@ card = PokemonCardDef(
             title="Mend",
             game_text="Search your discard pile for a Fighting Energy card and attach it to Regirock ex. If you do, remove 1 damage counter from Regirock ex.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+                        effect=mend_fighting(1),
         ),
         Attack(
             title="Metal Crush",
@@ -35,8 +35,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 2, PokemonTypes.COLORLESS: 1},
             damage=40,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+                        effect=metal_crush(40, 20),
         ),
     ],
 )
