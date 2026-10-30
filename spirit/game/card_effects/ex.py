@@ -17,7 +17,7 @@ from spirit.game.attributes import (
     AbilityTypes, AttrID, PokemonTypes, SpecialConditions, TrainerType,
 )
 from spirit.game.card_effects.attacks_common import (
-    count_energy, count_prizes_remaining, discard_random_from_hand,
+    count_energy, count_prizes_remaining, damage_per, discard_random_from_hand,
     lock_all_attacks,
 )
 from spirit.game.card_effects.passives_common import (
@@ -2757,3 +2757,107 @@ def energy_recycle_system():
             if picks:
                 await ctx.shuffle_into_deck(picks, ctx.player_id)
     return effect
+
+def has_team_in_name(*teams: str):
+    """True if display_name contains any of the team strings (Team Aqua/Magma)."""
+    def pred(card) -> bool:
+        name = _display_name(card) or ""
+        return any(team in name for team in teams)
+    return pred
+
+
+def defender_has_team(*teams: str):
+    pred = has_team_in_name(*teams)
+    def cond(ctx) -> bool:
+        return ctx.defender is not None and pred(ctx.defender)
+    return cond
+
+
+def second_strike(base: int, bonus: int, counters: int = 2):
+    """base + bonus if Defending already has >= counters damage counters."""
+    async def effect(ctx):
+        dmg = 0
+        if ctx.defender is not None:
+            dmg = max(0, (ctx.max_hp(ctx.defender) - ctx.defender.get_attribute(AttrID.HP, 0)) // 10)
+        await ctx.deal_damage(base + (bonus if dmg >= counters else 0))
+    return effect
+
+
+def bonus_if_damaged(bonus: int, base: Optional[int] = None):
+    """Printed (or base) + bonus if Defending already has damage counters."""
+    async def effect(ctx):
+        printed = base if base is not None else (
+            ctx.ability.damage if ctx.ability and ctx.ability.damage else 0)
+        dmg = 0
+        if ctx.defender is not None:
+            dmg = max(0, (ctx.max_hp(ctx.defender) - ctx.defender.get_attribute(AttrID.HP, 0)) // 10)
+        await ctx.deal_damage(printed + (bonus if dmg > 0 else 0))
+    return effect
+
+
+def bonus_if_ex(bonus: int, base: Optional[int] = None):
+    async def effect(ctx):
+        printed = base if base is not None else (
+            ctx.ability.damage if ctx.ability and ctx.ability.damage else 0)
+        await ctx.deal_damage(printed + (bonus if defender_is_ex(ctx) else 0))
+    return effect
+
+
+def bonus_if_special_condition(bonus: int, base: Optional[int] = None):
+    async def effect(ctx):
+        printed = base if base is not None else (
+            ctx.ability.damage if ctx.ability and ctx.ability.damage else 0)
+        from spirit.game.card_effects.attacks_common import defender_has_any_condition
+        await ctx.deal_damage(
+            printed + (bonus if defender_has_any_condition(ctx) else 0))
+    return effect
+
+
+def force_opponent_switch():
+    """Printed damage then opponent switches Defending (Roar / Kick Away)."""
+    async def effect(ctx):
+        printed = getattr(ctx.ability, "damage", 0) or 0
+        if printed > 0:
+            await ctx.deal_damage()
+        await opponent_switches(ctx)
+    return effect
+
+
+def discard_n_energy_then_damage(n: int = 2, damage: Optional[int] = None):
+    """Discard n Energy from self, then deal damage (Bright Flame)."""
+    async def effect(ctx):
+        await ctx.discard_energy_from(
+            ctx.attacker, n,
+            prompt=f"Discard {n} Energy card(s) attached to this Pokémon")
+        await ctx.deal_damage(damage)
+    return effect
+
+
+def growth_attach(energy_type=PokemonTypes.GRASS):
+    """Attach 1 typed Energy from hand to self (Growth)."""
+    type_value = getattr(energy_type, "value", energy_type)
+    return attach_from_hand(
+        lambda c: is_basic_energy_card(c) and energy_provides_type(c, type_value),
+        target="active",
+        prompt="Choose an Energy card to attach",
+    )
+
+
+def pin_missile(coins: int = 4, per: int = 10):
+    from spirit.game.card_effects.attacks_common import flip_damage
+    return flip_damage(coins=coins, per_heads=per)
+
+
+def team_play_damage(team: str = "Team Magma", per: int = 10):
+    """per * count of in-play Pokémon with team in name (both sides)."""
+    async def effect(ctx):
+        pred = has_team_in_name(team)
+        n = sum(1 for p in ctx.my_pokemon_in_play() + ctx.opponent_pokemon_in_play()
+                if pred(p))
+        await ctx.deal_damage(per * n)
+    return effect
+
+
+def power_blow():
+    """10 + 10 per Energy attached to self."""
+    return damage_per(count_energy("self"), 10, base=10)
