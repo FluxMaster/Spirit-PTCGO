@@ -157,8 +157,13 @@ class Passive:
         pokemon: PokemonEntity,
         carrier: BoardEntity,
         board: BoardState,
+        ability=None,
+        **kwargs,
     ) -> Dict[str, int]:
-        """Returns the (possibly reduced) cost dict, client-name keyed."""
+        """Returns the (possibly reduced) cost dict, client-name keyed.
+
+        Optional `ability` is the Attack being costed (def or PIE dict).
+        """
         return cost
 
     def max_hp_bonus(self, pokemon: PokemonEntity, carrier: BoardEntity) -> int:
@@ -622,11 +627,20 @@ def compute_damage(
 
 
 def effective_attack_cost(
-    board: BoardState, pokemon: PokemonEntity, cost: Dict[str, int]
+    board: BoardState, pokemon: PokemonEntity, cost: Dict[str, int],
+    ability=None,
 ) -> Dict[str, int]:
-    """An attack's cost after cost-modifying passives (e.g. Excited Heart)."""
+    """An attack's cost after cost-modifying passives (e.g. Excited Heart).
+
+    `ability` is the Attack/Ability def or PIE dict being costed so passives
+    can scope reductions to a named attack (Delta Aura).
+    """
     for passive, carrier in active_passives(board):
-        cost = passive.modify_attack_cost(dict(cost), pokemon, carrier, board)
+        try:
+            cost = passive.modify_attack_cost(
+                dict(cost), pokemon, carrier, board, ability=ability)
+        except TypeError:
+            cost = passive.modify_attack_cost(dict(cost), pokemon, carrier, board)
     return cost
 
 
