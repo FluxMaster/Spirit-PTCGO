@@ -5,6 +5,8 @@ Minun (EX8 #41): one or more attacks/abilities use effect=unimplemented until a 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.support_common import recover_from_discard
+from spirit.game.card_effects.ex import spark_vs_bodies
+
 
 
 card = PokemonCardDef(
@@ -36,7 +38,7 @@ card = PokemonCardDef(
             game_text="Does 20 damage to each of your opponent's Pok\u00e9mon that has any Pok\u00e9-Bodies. Don't apply Weakness and Resistance.",
             cost={PokemonTypes.LIGHTNING: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=spark_vs_bodies(),
         ),
     ],
 )

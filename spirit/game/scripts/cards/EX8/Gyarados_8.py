@@ -5,6 +5,8 @@ Gyarados (EX8 #8): one or more attacks/abilities use effect=unimplemented until 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import damage_all_opponents
+from spirit.game.card_effects.ex import full_retaliation_magikarp, pulverize_if_damaged
+
 
 
 card = PokemonCardDef(
@@ -39,7 +41,7 @@ card = PokemonCardDef(
             damage=20,
             damage_operator="x",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=full_retaliation_magikarp(),
         ),
         Attack(
             title="Pulverize",
@@ -48,7 +50,7 @@ card = PokemonCardDef(
             damage=50,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=pulverize_if_damaged(),
         ),
     ],
 )

@@ -3,7 +3,9 @@ Zubat (EX8 #83): one or more attacks/abilities use effect=unimplemented until a 
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes, SpecialConditions
+from spirit.game.card_effects.ex import self_control_immune
+
 
 card = PokemonCardDef(
     guid="4dcc1fe2-60bd-5277-8de2-c27883aece0d",
@@ -27,7 +29,7 @@ card = PokemonCardDef(
             game_text="Zubat can't be Paralyzed.",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=self_control_immune(SpecialConditions.PARALYZED),
         ),
         Attack(
             title="Bite",

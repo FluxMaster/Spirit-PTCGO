@@ -4,6 +4,8 @@ Swablu (EX8 #79): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import fluff_flip_prevent
+
 
 card = PokemonCardDef(
     guid="7ab816ef-58a4-57a6-b0fa-2c1f1fdd7c88",
@@ -28,7 +30,7 @@ card = PokemonCardDef(
             game_text="Whenever Swablu would be damaged or affected by an opponent's attack and already has at least 1 damage counter on it, flip a coin. If heads, prevent all effects of that attack, including damage, done to Swablu.",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=fluff_flip_prevent(),
         ),
         Attack(
             title="Peck",

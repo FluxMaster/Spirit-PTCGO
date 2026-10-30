@@ -4,6 +4,8 @@ Magikarp (EX8 #64): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import leap_out_switch, rage_damage
+
 
 card = PokemonCardDef(
     guid="4937fc54-aa2b-5ca6-9312-5dd3c577d167",
@@ -27,7 +29,7 @@ card = PokemonCardDef(
             game_text="Switch Magikarp with 1 of your Benched Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=leap_out_switch(),
         ),
         Attack(
             title="Rage",
@@ -36,7 +38,7 @@ card = PokemonCardDef(
             damage=10,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=rage_damage(),
         ),
     ],
 )

@@ -4,6 +4,9 @@ Shelgon (EX8 #45): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import hard_protection_vs_own
+from spirit.game.card_effects.attacks_common import flip_bonus
+
 
 card = PokemonCardDef(
     guid="6270e490-7236-5be1-b473-076bbb118544",
@@ -29,7 +32,7 @@ card = PokemonCardDef(
             game_text="Prevent all damage done to Shelgon by attacks from your Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=hard_protection_vs_own(),
         ),
         Attack(
             title="Rock Smash",
@@ -38,7 +41,7 @@ card = PokemonCardDef(
             damage=30,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_bonus(10),
         ),
     ],
 )

@@ -4,6 +4,8 @@ Xatu (EX8 #29): one or more attacks/abilities use effect=unimplemented until a m
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import dazzle_dance_confuse, mirror_coat_reflect_burn_poison, psyloop_trainers
+
 
 card = PokemonCardDef(
     guid="d4fad0fa-02cf-56ce-ab30-f6e9f879f929",
@@ -29,14 +31,14 @@ card = PokemonCardDef(
             game_text="If Xatu is Burned or Poisoned by an opponent's attack (even if Xatu is Knocked Out), the Attacking Pok\u00e9mon is now affected by the same Special Conditions (1 if there is only 1).",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=mirror_coat_reflect_burn_poison(),
         ),
         Attack(
             title="Dazzle Dance",
             game_text="Each Defending Pok\u00e9mon is now Confused.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=dazzle_dance_confuse(),
         ),
         Attack(
             title="Psyloop",
@@ -45,7 +47,7 @@ card = PokemonCardDef(
             damage=30,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=psyloop_trainers(),
         ),
     ],
 )

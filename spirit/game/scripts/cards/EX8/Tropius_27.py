@@ -4,7 +4,7 @@ Tropius (EX8 #27): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
-from spirit.game.card_effects.ex import miracle_powder
+from spirit.game.card_effects.ex import miracle_powder, tropical_motion_no_resist
 from spirit.game.card_effects.attacks_common import flip_bonus
 
 
@@ -30,7 +30,7 @@ card = PokemonCardDef(
             game_text="As long as Tropius is your Active Pok\u00e9mon, your opponent's Active Pok\u00e9mon have no Resistance.",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=tropical_motion_no_resist(),
         ),
         Attack(
             title="Miracle Blow",

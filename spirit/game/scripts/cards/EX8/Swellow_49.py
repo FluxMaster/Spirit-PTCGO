@@ -4,6 +4,8 @@ Swellow (EX8 #49): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import mid_air_crush, nosedive_self
+
 
 card = PokemonCardDef(
     guid="0d52d87a-f04d-5325-bc6f-c83e0acba37e",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             game_text="Choose 1 of your opponent's Pok\u00e9mon. This attack does 20 damage to that Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.) Flip a coin. If heads, your opponent discards 1 Energy card, if any, attached to that Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 2},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=mid_air_crush(),
         ),
         Attack(
             title="Nosedive",
@@ -37,7 +39,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=40,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=nosedive_self(),
         ),
     ],
 )

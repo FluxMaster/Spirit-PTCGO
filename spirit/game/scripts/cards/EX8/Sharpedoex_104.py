@@ -4,6 +4,8 @@ Sharpedo ex (EX8 #104): one or more attacks/abilities use effect=unimplemented u
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import darkness_blast_optional, drag_off_optional_ex8
+
 
 card = PokemonCardDef(
     guid="f637ef3d-cd7e-53a2-84c1-ca16e740be9f",
@@ -30,7 +32,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=drag_off_optional_ex8(),
         ),
         Attack(
             title="Darkness Blast",
@@ -39,7 +41,7 @@ card = PokemonCardDef(
             damage=60,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=darkness_blast_optional(),
         ),
     ],
 )

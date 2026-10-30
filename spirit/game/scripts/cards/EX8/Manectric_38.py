@@ -5,6 +5,8 @@ Manectric (EX8 #38): one or more attacks/abilities use effect=unimplemented unti
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import snipe_attack
+from spirit.game.card_effects.ex import magnetic_tackle_optional
+
 
 
 card = PokemonCardDef(
@@ -40,7 +42,7 @@ card = PokemonCardDef(
             damage=40,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=magnetic_tackle_optional(),
         ),
     ],
 )

@@ -4,6 +4,8 @@ Altaria (EX8 #1): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import safeguard_ex_passive
+
 
 
 async def double_wing_attack(ctx):
@@ -35,7 +37,7 @@ card = PokemonCardDef(
             game_text="Prevent all effects of attacks, including damage, done to Altaria by your opponent's Pok\u00e9mon-ex.",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=safeguard_ex_passive(),
         ),
         Attack(
             title="Double Wing Attack",

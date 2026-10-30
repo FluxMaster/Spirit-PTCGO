@@ -4,6 +4,8 @@ Metagross (EX8 #11): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import link_blast, super_connectivity_attach
+
 
 card = PokemonCardDef(
     guid="a21c8d8d-c984-5940-a49b-184ac54badb8",
@@ -28,7 +30,7 @@ card = PokemonCardDef(
             game_text="Once during your turn (before your attack), you may search your discard pile for a Psychic or Metal Energy card and attach it to your Active Pok\u00e9mon. Then, put 1 damage counter on that Pok\u00e9mon. This power can't be used if Metagross is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=super_connectivity_attach(),
         ),
         Attack(
             title="Link Blast",
@@ -36,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 1},
             damage=70,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=link_blast(70, 40),
         ),
     ],
 )

@@ -4,6 +4,8 @@ Rayquaza ex (EX8 #102): one or more attacks/abilities use effect=unimplemented u
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import dragon_boost_on_bench, spiral_blast_basic_energy
+
 
 card = PokemonCardDef(
     guid="138904b4-d4e7-530c-8a9a-3122476e9e98",
@@ -28,7 +30,7 @@ card = PokemonCardDef(
             game_text="Once during your turn, when you put Rayquaza ex from your hand onto your Bench, you may move any number of basic Energy cards attached to your Pok\u00e9mon to Rayquaza ex.",
             ability_type=AbilityTypes.POKE_POWER,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=dragon_boost_on_bench(),
         ),
         Attack(
             title="Spiral Blast",
@@ -37,7 +39,7 @@ card = PokemonCardDef(
             damage=20,
             damage_operator="x",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=spiral_blast_basic_energy(),
         ),
     ],
 )

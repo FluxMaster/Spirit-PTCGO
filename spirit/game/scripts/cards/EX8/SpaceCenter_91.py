@@ -1,13 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Space Center (EX8 #91): trainer effect stubbed.
-
-Card text:
-  - This card stays in play when you play it. Discard this card if another Stadium card comes into play.
-  - Ignore Poké-Bodies for all Basic Pokémon in play (both yours and your opponent's) (excluding Pokémon-ex and Pokémon that has an owner in its name).
-"""
-
-from spirit.game.data_utils import StadiumCardDef, unimplemented
+from spirit.game.data_utils import StadiumCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ex import space_center_passive
 
 card = StadiumCardDef(
     guid="f4f6c5fa-54c9-547d-a81e-dad8f2747207",
@@ -19,6 +12,5 @@ card = StadiumCardDef(
     collector_number=91,
     set_code="EX8",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    passive=space_center_passive(),
 )

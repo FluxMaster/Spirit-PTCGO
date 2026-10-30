@@ -4,6 +4,8 @@ Solrock (EX8 #47): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import reflected_beam_lunatone, scorching_light_flip, sunbeam_lunatone_hp
+
 
 card = PokemonCardDef(
     guid="dd6904f8-05e9-51d5-82a2-445c95b1d8e9",
@@ -27,21 +29,21 @@ card = PokemonCardDef(
             game_text="The maximum HP for each Lunatone you have in play is now 80.",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=sunbeam_lunatone_hp(),
         ),
         Attack(
             title="Scorching Light",
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon is now Paralyzed. If tails, the Defending Pok\u00e9mon is now Burned.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=scorching_light_flip(),
         ),
         Attack(
             title="Reflected Beam",
             game_text="Choose 1 of your opponent's Benched Pok\u00e9mon. This attack does 10 damage to that Pok\u00e9mon for each Lunatone you have in play. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.PSYCHIC: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=reflected_beam_lunatone(),
         ),
     ],
 )

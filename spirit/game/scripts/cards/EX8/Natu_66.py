@@ -5,6 +5,8 @@ Natu (EX8 #66): one or more attacks/abilities use effect=unimplemented until a m
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import flip_or_nothing
+from spirit.game.card_effects.ex import mirror_coat_reflect_burn_poison
+
 
 
 card = PokemonCardDef(
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             game_text="If Natu is Burned or Poisoned by an opponent's attack (even if Natu is Knocked Out), the Attacking Pok\u00e9mon is now affected by the same Special Conditions (1 if there is only 1).",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=mirror_coat_reflect_burn_poison(),
         ),
         Attack(
             title="Razor Wind",

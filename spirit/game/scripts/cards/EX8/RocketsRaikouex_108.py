@@ -4,6 +4,8 @@ Rocket's Raikou ex (EX8 #108): one or more attacks/abilities use effect=unimplem
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import lightning_burst_on_dark_attach, thunderous_blow
+
 
 card = PokemonCardDef(
     guid="c84144a7-d1c4-551a-b792-fca59c4bb542",
@@ -27,7 +29,7 @@ card = PokemonCardDef(
             game_text="Whenever you attach a Darkness Energy card from your hand to Rocket's Raikou ex, you may choose 1 of the Defending Pok\u00e9mon and switch it with 1 of your opponent's Benched Pok\u00e9mon. Your opponent chooses the Benched Pok\u00e9mon to switch. This power can't be used if Rocket's Raikou ex is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=lightning_burst_on_dark_attach(),
         ),
         Attack(
             title="Thunderous Blow",
@@ -36,7 +38,7 @@ card = PokemonCardDef(
             damage=40,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=thunderous_blow(),
         ),
     ],
 )

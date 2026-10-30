@@ -4,6 +4,8 @@ Silcoon (EX8 #46): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import advanced_armor_vs_evolved
+
 
 card = PokemonCardDef(
     guid="9b2cf73c-152a-5e2b-bea6-8148530f54d7",
@@ -33,7 +35,7 @@ card = PokemonCardDef(
             game_text="During your opponent's next turn, prevent all effects of attacks, including damage, done to Silcoon by your opponent's Evolved Pok\u00e9mon.",
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=advanced_armor_vs_evolved(),
         ),
     ],
 )

@@ -5,6 +5,8 @@ Electrike (EX8 #60): one or more attacks/abilities use effect=unimplemented unti
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_bonus
+from spirit.game.card_effects.ex import recharge_attach_lightning
+
 
 
 card = PokemonCardDef(
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             game_text="Search your deck for a Lightning Energy card and attach it to Electrike. Shuffle your deck afterward.",
             cost={PokemonTypes.LIGHTNING: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=recharge_attach_lightning(),
         ),
         Attack(
             title="Quick Attack",

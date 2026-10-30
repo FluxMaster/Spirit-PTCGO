@@ -4,6 +4,8 @@ Latios ★ (EX8 #106): one or more attacks/abilities use effect=unimplemented un
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import miraculous_light_heal_cure, shining_star_vs_stage2
+
 
 card = PokemonCardDef(
     guid="14aee23b-35f0-5da5-b738-e16c0b3aef1d",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=miraculous_light_heal_cure(),
         ),
         Attack(
             title="Shining Star",
@@ -38,7 +40,7 @@ card = PokemonCardDef(
             damage=50,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=shining_star_vs_stage2(),
         ),
     ],
 )

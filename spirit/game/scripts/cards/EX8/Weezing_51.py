@@ -4,6 +4,8 @@ Weezing (EX8 #51): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import liability_near_ko_self, smogscreen_poison_flip
+
 
 card = PokemonCardDef(
     guid="c8917c5e-b276-5a7f-b612-19ed6145d543",
@@ -28,7 +30,7 @@ card = PokemonCardDef(
             game_text="Put damage counters on the Defending Pok\u00e9mon until it is 10 HP away from being Knocked Out. Weezing does 70 damage to itself.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=liability_near_ko_self(),
         ),
         Attack(
             title="Smogscreen",
@@ -36,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=smogscreen_poison_flip(),
         ),
     ],
 )

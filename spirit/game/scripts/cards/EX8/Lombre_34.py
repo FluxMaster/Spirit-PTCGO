@@ -4,6 +4,8 @@ Lombre (EX8 #34): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import blot_heal, natural_cure_on_water_attach
+
 
 card = PokemonCardDef(
     guid="10e3b03f-bcb6-52ac-b8fd-08689012c6a0",
@@ -28,7 +30,7 @@ card = PokemonCardDef(
             game_text="When you attach a Water Energy card from your hand to Lombre, remove all Special Conditions from Lombre.",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=natural_cure_on_water_attach(),
         ),
         Attack(
             title="Blot",
@@ -36,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=blot_heal(),
         ),
     ],
 )

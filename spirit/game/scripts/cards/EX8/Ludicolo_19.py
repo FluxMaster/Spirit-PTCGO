@@ -4,6 +4,8 @@ Ludicolo (EX8 #19): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import happy_dance_heal_all, water_punch
+
 
 card = PokemonCardDef(
     guid="1e4db9b2-ca86-5b7c-a6c5-6aedd5afe955",
@@ -28,7 +30,7 @@ card = PokemonCardDef(
             game_text="Once during your turn (before your attack), you may remove 1 damage counter from each of your Pok\u00e9mon. You can't use more than 1 Happy Dance Pok\u00e9-Power each turn. This power can't be used if Ludicolo is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=happy_dance_heal_all(),
         ),
         Attack(
             title="Water Punch",
@@ -37,7 +39,7 @@ card = PokemonCardDef(
             damage=40,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=water_punch(40, 20),
         ),
     ],
 )

@@ -4,6 +4,8 @@ Ninjask (EX8 #13): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import fast_protection_vs_basic, swords_dance_next
+
 
 card = PokemonCardDef(
     guid="cf1e90d9-7c9b-5531-88b2-5abd15e500a8",
@@ -28,14 +30,14 @@ card = PokemonCardDef(
             game_text="Prevent all effects, including damage, done to Ninjask by your opponent's attacks from his or her Basic Pok\u00e9mon.",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=fast_protection_vs_basic(),
         ),
         Attack(
             title="Swords Dance",
             game_text="During your next turn, Ninjask's Slash attack's base damage is 80.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=swords_dance_next(),
         ),
         Attack(
             title="Slash",

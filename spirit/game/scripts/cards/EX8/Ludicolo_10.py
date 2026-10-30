@@ -4,6 +4,8 @@ Ludicolo (EX8 #10): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import circular_steps_per_pokemon, healing_steps_discard_heal, swing_dance_draw
+
 
 card = PokemonCardDef(
     guid="ab24f9c6-48ef-5ba6-8d9d-5e05a7d4cf00",
@@ -28,7 +30,7 @@ card = PokemonCardDef(
             game_text="Once during your turn (before your attack), you may draw a card. This power can't be used if Ludicolo is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=swing_dance_draw(),
         ),
         Attack(
             title="Healing Steps",
@@ -36,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=healing_steps_discard_heal(),
         ),
         Attack(
             title="Circular Steps",
@@ -45,7 +47,7 @@ card = PokemonCardDef(
             damage=10,
             damage_operator="x",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=circular_steps_per_pokemon(),
         ),
     ],
 )

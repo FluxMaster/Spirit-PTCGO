@@ -5,6 +5,8 @@ Rayquaza (EX8 #22): one or more attacks/abilities use effect=unimplemented until
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import flip_bonus
+from spirit.game.card_effects.ex import dragon_aura_fire_lightning
+
 
 
 card = PokemonCardDef(
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             game_text="As long as Rayquaza has any basic Fire Energy cards and any basic Lightning Energy cards attached to it, prevent all effects, except damage, by an opponent's attack done to Rayquaza.",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=dragon_aura_fire_lightning(),
         ),
         Attack(
             title="Tumbling Attack",

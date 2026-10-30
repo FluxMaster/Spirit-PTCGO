@@ -4,6 +4,8 @@ Breloom (EX8 #3): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import hustle_punch_next, leaf_poison_if_grass
+
 
 card = PokemonCardDef(
     guid="71c5fa53-2196-59e9-a794-bcd8fe881b81",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=leaf_poison_if_grass(),
         ),
         Attack(
             title="Hustle Punch",
@@ -38,7 +40,7 @@ card = PokemonCardDef(
             damage=70,
             damage_operator="-",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=hustle_punch_next(),
         ),
     ],
 )

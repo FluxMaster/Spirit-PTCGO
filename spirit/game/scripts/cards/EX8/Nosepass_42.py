@@ -4,6 +4,8 @@ Nosepass (EX8 #42): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import magnetic_reversal_switch
+
 
 card = PokemonCardDef(
     guid="67197b45-c8f7-5738-b57c-4bcaab0ad665",
@@ -27,7 +29,7 @@ card = PokemonCardDef(
             game_text="Once during your turn (before your attack), if Nosepass is your Active Pok\u00e9mon, you may flip a coin. If heads, switch 1 of your opponent's Benched Pok\u00e9mon with 1 of the Defending Pok\u00e9mon. Your opponent chooses the Defending Pok\u00e9mon to switch. This power can't be used if Nosepass is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=magnetic_reversal_switch(),
         ),
         Attack(
             title="Sharpen",

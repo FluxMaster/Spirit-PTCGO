@@ -4,6 +4,8 @@ Lunatone (EX8 #36): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import foresight_reorder, moonglow_solrock_retreat, target_beam_solrock
+
 
 card = PokemonCardDef(
     guid="0a8462f6-c6f5-508b-8163-fe7e38a70930",
@@ -27,14 +29,14 @@ card = PokemonCardDef(
             game_text="The Retreat Cost for each Solrock you have in play is 0.",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=moonglow_solrock_retreat(),
         ),
         Attack(
             title="Foresight",
             game_text="Look at the top 5 cards of either player's deck and put them back on top of that player's deck in any order.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=foresight_reorder(),
         ),
         Attack(
             title="Target Beam",
@@ -43,7 +45,7 @@ card = PokemonCardDef(
             damage=20,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=target_beam_solrock(),
         ),
     ],
 )

@@ -4,6 +4,8 @@ Crobat ex (EX8 #96): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import crobat_distortion_counter, cross_attack_flip4, pester_sc_bonus
+
 
 card = PokemonCardDef(
     guid="6c66ec83-1989-57a9-9f40-266ec2aa8997",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             game_text="Once during your turn (before your attack), if Crobat ex is your Active Pok\u00e9mon, you may put 1 damage counter on 1 of your opponent's Pok\u00e9mon. This power can't be used if Crobat ex is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=crobat_distortion_counter(),
         ),
         Attack(
             title="Cross Attack",
@@ -38,7 +40,7 @@ card = PokemonCardDef(
             damage=20,
             damage_operator="x",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=cross_attack_flip4(),
         ),
         Attack(
             title="Pester",
@@ -47,7 +49,7 @@ card = PokemonCardDef(
             damage=60,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=pester_sc_bonus(),
         ),
     ],
 )

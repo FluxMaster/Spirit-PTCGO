@@ -4,6 +4,8 @@ Hariyama ex (EX8 #100): one or more attacks/abilities use effect=unimplemented u
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import commanding_aura_no_stadium, knock_off_random_hand, pivot_throw_takes_more
+
 
 card = PokemonCardDef(
     guid="0c31ce9c-ab41-5988-8bad-e58fe4f82f5d",
@@ -28,7 +30,7 @@ card = PokemonCardDef(
             game_text="As long as Hariyama ex is your Active Pok\u00e9mon, your opponent can't play any Stadium cards from his or her hand.",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=commanding_aura_no_stadium(),
         ),
         Attack(
             title="Knock Off",
@@ -36,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 1},
             damage=40,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=knock_off_random_hand(),
         ),
         Attack(
             title="Pivot Throw",
@@ -44,7 +46,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 2, PokemonTypes.COLORLESS: 1},
             damage=80,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=pivot_throw_takes_more(),
         ),
     ],
 )

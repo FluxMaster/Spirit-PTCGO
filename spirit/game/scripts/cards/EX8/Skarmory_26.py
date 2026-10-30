@@ -5,6 +5,10 @@ Skarmory (EX8 #26): one or more attacks/abilities use effect=unimplemented until
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.support_common import draw_attack
+from spirit.game.card_effects.passives_common import retreat_free_when
+from spirit.game.card_effects.ex import heavy_metal_flip
+from spirit.game.card_effects.pokemon import energy_provides_type
+
 
 
 card = PokemonCardDef(
@@ -30,7 +34,7 @@ card = PokemonCardDef(
             game_text="If Skarmory has any Metal Energy attached to it, the Retreat Cost for Skarmory is 0.",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=retreat_free_when(lambda p, _c: any(energy_provides_type(c, PokemonTypes.METAL.value) for c in p.children)),
         ),
         Attack(
             title="Spearhead",
@@ -46,7 +50,7 @@ card = PokemonCardDef(
             damage=10,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=heavy_metal_flip(),
         ),
     ],
 )

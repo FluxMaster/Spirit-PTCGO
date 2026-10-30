@@ -4,6 +4,8 @@ Electrike (EX8 #59): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import high_voltage_lock_trainers
+
 
 card = PokemonCardDef(
     guid="d65fe02f-7bab-5eb1-a554-0ad891fddc9e",
@@ -28,7 +30,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, your opponent can't play Trainer cards from his or her hand during his or her next turn.",
             cost={PokemonTypes.LIGHTNING: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=high_voltage_lock_trainers(),
         ),
         Attack(
             title="Gnaw",

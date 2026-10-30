@@ -4,6 +4,8 @@ Whiscash (EX8 #28): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import dwindling_wave, raging_tremble
+
 
 card = PokemonCardDef(
     guid="3075b264-07b0-55c1-9896-d28de2f2043c",
@@ -28,7 +30,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, this attack does 10 damage for each damage counter on Whiscash to each Defending Pok\u00e9mon. If tails, this attack does 10 damage for each damage counter on Whiscash to the Defending Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=raging_tremble(),
         ),
         Attack(
             title="Dwindling Wave",
@@ -37,7 +39,7 @@ card = PokemonCardDef(
             damage=70,
             damage_operator="-",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=dwindling_wave(),
         ),
     ],
 )

@@ -4,6 +4,8 @@ Claydol (EX8 #5): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import ancient_mantra, psychic_trace_hand_redraw
+
 
 card = PokemonCardDef(
     guid="18a68364-e1cf-5ccf-ab0b-941adb38da0f",
@@ -28,7 +30,7 @@ card = PokemonCardDef(
             game_text="Once during your turn (before your attack), if Claydol is your Active Pok\u00e9mon, you may shuffle your hand into your deck. Then, draw a number of cards equal to the number of cards in your opponent's hand. This power can't be used if Claydol is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=psychic_trace_hand_redraw(),
         ),
         Attack(
             title="Ancient Mantra",
@@ -37,7 +39,7 @@ card = PokemonCardDef(
             damage=20,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=ancient_mantra(),
         ),
     ],
 )

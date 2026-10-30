@@ -4,6 +4,8 @@ Jirachi (EX8 #9): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import metallic_blow_body_bonus, wishing_star_look5
+
 
 card = PokemonCardDef(
     guid="fd1179f0-b3f9-501a-928d-a8ced9ae0bd6",
@@ -28,7 +30,7 @@ card = PokemonCardDef(
             game_text="Once during your turn (before your attack), if Jirachi is your Active Pok\u00e9mon, you may look at the top 5 cards of your deck, choose 1 of them, and put it into your hand. Shuffle your deck afterward. Jirachi and your other Active Pok\u00e9mon, if any, are now Asleep. This power can't be used if Jirachi is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=wishing_star_look5(),
         ),
         Attack(
             title="Metallic Blow",
@@ -37,7 +39,7 @@ card = PokemonCardDef(
             damage=20,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=metallic_blow_body_bonus(),
         ),
     ],
 )

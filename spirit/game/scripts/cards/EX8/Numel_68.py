@@ -4,6 +4,8 @@ Numel (EX8 #68): one or more attacks/abilities use effect=unimplemented until a 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import dense_vs_evolved
+
 
 card = PokemonCardDef(
     guid="b3daf1b4-5d4b-5b8a-96b9-22161a4e184f",
@@ -27,7 +29,7 @@ card = PokemonCardDef(
             game_text="Any damage done to Numel by attacks from Evolved Pok\u00e9mon (both yours and your opponent's) is reduced by 20 (after applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=dense_vs_evolved(),
         ),
         Attack(
             title="Ram",

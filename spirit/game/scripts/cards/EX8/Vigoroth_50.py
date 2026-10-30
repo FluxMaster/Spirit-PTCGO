@@ -4,6 +4,8 @@ Vigoroth (EX8 #50): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import vigorous_aura_boost
+
 
 card = PokemonCardDef(
     guid="93f4c3dd-800d-537e-8160-71759a6343f4",
@@ -28,7 +30,7 @@ card = PokemonCardDef(
             game_text="As long as Vigoroth is your Active Pok\u00e9mon, attacks by each player's Active Pok\u00e9mon (both if there are 2) do 10 more damage to any Active Pok\u00e9mon (before applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=vigorous_aura_boost(),
         ),
         Attack(
             title="Scratch",

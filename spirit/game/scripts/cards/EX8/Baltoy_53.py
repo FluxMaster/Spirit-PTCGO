@@ -4,6 +4,8 @@ Baltoy (EX8 #53): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import selfdestruct_benches
+
 
 card = PokemonCardDef(
     guid="d4216517-f8d8-5ab2-915f-17e8153047cd",
@@ -33,7 +35,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 1},
             damage=40,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=selfdestruct_benches(),
         ),
     ],
 )

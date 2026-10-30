@@ -4,6 +4,8 @@ Mightyena (EX8 #12): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import pull_away_to_4, seek_out_any
+
 
 card = PokemonCardDef(
     guid="78d78bc4-cccd-5ece-b584-6fc9e1555920",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             game_text="Search your deck for 1 card and put it into your hand. Shuffle your deck afterward.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=seek_out_any(),
         ),
         Attack(
             title="Pull Away",
@@ -37,7 +39,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=pull_away_to_4(),
         ),
     ],
 )

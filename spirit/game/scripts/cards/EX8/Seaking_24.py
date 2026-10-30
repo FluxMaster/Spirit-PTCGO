@@ -4,6 +4,8 @@ Seaking (EX8 #24): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import rend_if_damaged, triple_breach
+
 
 card = PokemonCardDef(
     guid="0d985a68-3e7e-5958-9c11-4813f41f19f9",
@@ -28,7 +30,7 @@ card = PokemonCardDef(
             game_text="Choose 3 of your opponent's Pok\u00e9mon. This attack does 10 damage to each of those Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.WATER: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=triple_breach(),
         ),
         Attack(
             title="Rend",
@@ -37,7 +39,7 @@ card = PokemonCardDef(
             damage=30,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=rend_if_damaged(),
         ),
     ],
 )

@@ -4,6 +4,8 @@ Taillow (EX8 #80): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import fly_flip_protect
+
 
 card = PokemonCardDef(
     guid="4007e330-8fec-5d01-a41b-1cf2c7d3ed62",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=fly_flip_protect(),
         ),
     ],
 )

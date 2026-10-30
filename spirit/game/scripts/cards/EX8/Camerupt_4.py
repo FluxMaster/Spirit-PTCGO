@@ -4,6 +4,8 @@ Camerupt (EX8 #4): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import back_burner_attach, split_bomb_snipe
+
 
 card = PokemonCardDef(
     guid="812a638c-b91c-51ae-8041-114731b4d13e",
@@ -28,14 +30,14 @@ card = PokemonCardDef(
             game_text="Search your discard pile for up to 2 basic Energy cards and attach them to your Pok\u00e9mon in any way you like.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=back_burner_attach(),
         ),
         Attack(
             title="Split Bomb",
             game_text="Choose 2 of your opponent's Pok\u00e9mon. This attack does 30 damage to each of them. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.FIRE: 1, PokemonTypes.COLORLESS: 2},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=split_bomb_snipe(),
         ),
     ],
 )

@@ -3,7 +3,9 @@ Golbat (EX8 #31): one or more attacks/abilities use effect=unimplemented until a
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes, SpecialConditions
+from spirit.game.card_effects.ex import self_control_immune, spiral_drain_heal
+
 
 card = PokemonCardDef(
     guid="e927e0f6-7d32-5656-80dd-df690a321af2",
@@ -28,7 +30,7 @@ card = PokemonCardDef(
             game_text="Golbat can't be Paralyzed.",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=self_control_immune(SpecialConditions.PARALYZED),
         ),
         Attack(
             title="Spiral Drain",
@@ -36,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=spiral_drain_heal(),
         ),
     ],
 )

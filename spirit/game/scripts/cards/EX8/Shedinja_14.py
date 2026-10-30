@@ -4,6 +4,8 @@ Shedinja (EX8 #14): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import empty_shell_no_prize, extra_curse_ex
+
 
 card = PokemonCardDef(
     guid="abff9c36-be6c-577b-ac82-8d34e291888a",
@@ -27,14 +29,14 @@ card = PokemonCardDef(
             game_text="When Shedinja is Knocked Out, your opponent doesn't take any Prize cards.",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=empty_shell_no_prize(),
         ),
         Attack(
             title="Extra Curse",
             game_text="Put 2 damage counters on the Defending Pok\u00e9mon. If the Defending Pok\u00e9mon is Pok\u00e9mon-ex, put 4 damage counters instead.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=extra_curse_ex(),
         ),
     ],
 )

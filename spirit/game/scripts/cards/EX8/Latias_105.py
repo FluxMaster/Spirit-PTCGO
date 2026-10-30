@@ -4,6 +4,8 @@ Latias ★ (EX8 #105): one or more attacks/abilities use effect=unimplemented un
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import healing_light_all, shooting_star_vs_ex
+
 
 card = PokemonCardDef(
     guid="15bfc3c6-c319-5dc9-b721-9754fbd37387",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=healing_light_all(),
         ),
         Attack(
             title="Shooting Star",
@@ -38,7 +40,7 @@ card = PokemonCardDef(
             damage=50,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=shooting_star_vs_ex(),
         ),
     ],
 )

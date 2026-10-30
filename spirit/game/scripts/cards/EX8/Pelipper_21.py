@@ -5,6 +5,8 @@ Pelipper (EX8 #21): one or more attacks/abilities use effect=unimplemented until
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import ignore_resistance_attack
+from spirit.game.card_effects.ex import bay_dance_boost
+
 
 
 card = PokemonCardDef(
@@ -32,7 +34,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bay_dance_boost(),
         ),
         Attack(
             title="Aqua Sonic",

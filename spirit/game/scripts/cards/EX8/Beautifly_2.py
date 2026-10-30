@@ -3,7 +3,9 @@ Beautifly (EX8 #2): one or more attacks/abilities use effect=unimplemented until
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes, SpecialConditions
+from spirit.game.card_effects.ex import hunch_low_hp_boost, luring_antenna
+
 
 card = PokemonCardDef(
     guid="3a485514-8657-5197-80cc-e09ddbf39c17",
@@ -28,7 +30,7 @@ card = PokemonCardDef(
             game_text="As long as Beautifly's remaining HP is 40 or less, Beautifly does 40 more damage to the Defending Pok\u00e9mon (before applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=hunch_low_hp_boost(),
         ),
         Attack(
             title="Luring Antenna",
@@ -36,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=luring_antenna(SpecialConditions.CONFUSED),
         ),
         Attack(
             title="Cutting Wind",

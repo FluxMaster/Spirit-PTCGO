@@ -4,7 +4,7 @@ Slaking (EX8 #15): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
-from spirit.game.card_effects.ex import amnesia
+from spirit.game.card_effects.ex import amnesia, lazy_aura_vs_ex, lazy_headbutt_asleep
 
 
 card = PokemonCardDef(
@@ -30,7 +30,7 @@ card = PokemonCardDef(
             game_text="As long as Slaking is your Active Pok\u00e9mon, any damage done by attacks from your opponent's Pok\u00e9mon-ex is reduced by 30 (before applying Weakness and Resistance).",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=lazy_aura_vs_ex(),
         ),
         Attack(
             title="Amnesia",
@@ -46,7 +46,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 4},
             damage=70,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=lazy_headbutt_asleep(),
         ),
     ],
 )

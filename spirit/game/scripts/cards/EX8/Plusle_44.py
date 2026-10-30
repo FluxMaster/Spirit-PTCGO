@@ -4,7 +4,7 @@ Plusle (EX8 #44): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-from spirit.game.card_effects.ex import call_for_family_basic_n
+from spirit.game.card_effects.ex import call_for_family_basic_n, spark_vs_powers
 
 
 card = PokemonCardDef(
@@ -36,7 +36,7 @@ card = PokemonCardDef(
             game_text="Does 20 damage to each of your opponent's Pok\u00e9mon that has any Pok\u00e9-Powers. Don't apply Weakness and Resistance.",
             cost={PokemonTypes.LIGHTNING: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=spark_vs_powers(),
         ),
     ],
 )

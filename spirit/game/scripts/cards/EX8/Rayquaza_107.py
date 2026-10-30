@@ -4,6 +4,8 @@ Rayquaza ★ (EX8 #107): one or more attacks/abilities use effect=unimplemented 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import holy_star_ex_damage, spiral_rush
+
 
 card = PokemonCardDef(
     guid="5797b371-dd32-57e6-9104-764b157e7eba",
@@ -30,14 +32,14 @@ card = PokemonCardDef(
             damage=30,
             damage_operator="x",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=spiral_rush(),
         ),
         Attack(
             title="Holy Star",
             game_text="Discard all Energy cards attached to Rayquaza Star. This attack does 100 damage to each of your opponent's Pok\u00e9mon-ex. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.FIRE: 2, PokemonTypes.LIGHTNING: 2},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=holy_star_ex_damage(),
         ),
     ],
 )

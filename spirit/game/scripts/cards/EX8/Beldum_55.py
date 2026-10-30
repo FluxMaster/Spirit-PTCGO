@@ -4,6 +4,8 @@ Beldum (EX8 #55): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import flip_over_self
+
 
 card = PokemonCardDef(
     guid="1bf78d61-09f5-56f0-9876-b13d5e72060e",
@@ -28,7 +30,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_over_self(),
         ),
     ],
 )

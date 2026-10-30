@@ -4,6 +4,8 @@ Staryu (EX8 #77): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import rapid_spin
+
 
 card = PokemonCardDef(
     guid="0a7740c8-d79d-599f-bff3-7432c24abf6e",
@@ -28,7 +30,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=rapid_spin(),
         ),
     ],
 )

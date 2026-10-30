@@ -5,6 +5,8 @@ Lombre (EX8 #33): one or more attacks/abilities use effect=unimplemented until a
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import flip_bonus
+from spirit.game.card_effects.passives_common import retreat_free_when
+from spirit.game.card_effects.pokemon import energy_provides_type
 
 
 card = PokemonCardDef(
@@ -30,7 +32,7 @@ card = PokemonCardDef(
             game_text="If Lombre has any Water Energy attached to it, the Retreat Cost for Lombre is 0.",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=retreat_free_when(lambda p, _c: any(energy_provides_type(c, PokemonTypes.WATER.value) for c in p.children)),
         ),
         Attack(
             title="Ambush",

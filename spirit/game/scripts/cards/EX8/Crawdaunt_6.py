@@ -6,6 +6,8 @@ from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemente
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ex import cross_cut_evolved_bonus, dark_protection_passive
+
 
 
 card = PokemonCardDef(
@@ -32,7 +34,7 @@ card = PokemonCardDef(
             game_text="Any damage done to Crawdaunt by your opponent's attacks is reduced by 10 for each Darkness Energy attached to Crawdaunt (after applying Weakness and Resistance). You can't reduce more than 20 damage in this way.",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=dark_protection_passive(),
         ),
         Attack(
             title="Bubblebeam",
@@ -49,7 +51,7 @@ card = PokemonCardDef(
             damage=40,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=cross_cut_evolved_bonus(),
         ),
     ],
 )

@@ -6,6 +6,8 @@ from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemente
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ex import intimidating_pattern_passive
+
 
 
 card = PokemonCardDef(
@@ -32,7 +34,7 @@ card = PokemonCardDef(
             game_text="As long as Masquerain is your Active Pok\u00e9mon, any damage done by an opponent's attack is reduced by 20 (before applying Weakness and Resistance). You can't use more than 1 Intimidating Pattern Pok\u00e9-Body each turn.",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            passive=intimidating_pattern_passive(),
         ),
         Attack(
             title="Stun Spore",

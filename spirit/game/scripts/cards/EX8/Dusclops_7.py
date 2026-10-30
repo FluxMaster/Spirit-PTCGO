@@ -4,6 +4,8 @@ Dusclops (EX8 #7): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import powerful_hand_counters, psychic_removal_all_energy
+
 
 card = PokemonCardDef(
     guid="3e53b946-96e5-5312-af79-665d772d3e0c",
@@ -30,14 +32,14 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 1},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=psychic_removal_all_energy(),
         ),
         Attack(
             title="Powerful Hand",
             game_text="Count the number of cards in your hand. Put that many damage counters on the Defending Pok\u00e9mon. You can't put more than 7 damage counters in this way.",
             cost={PokemonTypes.PSYCHIC: 2, PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=powerful_hand_counters(),
         ),
     ],
 )

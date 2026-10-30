@@ -4,6 +4,8 @@ Deoxys ex (EX8 #97): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import energy_burst_both, form_change_deoxys
+
 
 card = PokemonCardDef(
     guid="a922cfb8-face-5518-9778-f100d3e853a1",
@@ -27,7 +29,7 @@ card = PokemonCardDef(
             game_text="Once during your turn (before your attack), you may search your deck for another Deoxys ex and switch it with Deoxys ex. (Any cards attached to Deoxys ex, damage counters, Special Conditions, and effects on it are now on the new Pok\u00e9mon.) If you do, put Deoxys ex on top of your deck. Shuffle your deck afterward. You can't use more than 1 Form Change Pok\u00e9-Power each turn.",
             ability_type=AbilityTypes.POKE_POWER,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=form_change_deoxys(ex=True),
         ),
         Attack(
             title="Energy Burst",
@@ -36,7 +38,7 @@ card = PokemonCardDef(
             damage=10,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=energy_burst_both(),
         ),
     ],
 )
