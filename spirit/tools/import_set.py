@@ -6,8 +6,14 @@ import uuid
 import argparse
 import unicodedata
 import requests
-from typing import Dict, Any, List, Optional
+from typing import Dict, Any, List, Optional, Tuple
 from concurrent.futures import ThreadPoolExecutor
+
+try:
+    from PIL import Image, ImageDraw
+except ImportError:  # pragma: no cover - Pillow is a runtime dep of the server
+    Image = None
+    ImageDraw = None
 
 # Configuration (defaults, will be dynamically overridden in main)
 SET_CODE = "SWSH12"
@@ -301,15 +307,118 @@ def build_abilities_src(card: Dict[str, Any]) -> tuple:
         lines.append("        ),")
     return lines, uses_unimplemented, uses_ability_types
 
+# Modern BW/XY/SM card art is 734x1024 RGBA with ~28px rounded-corner
+# alpha. pokemon-tcg.io "large" images for WOTC/e-Card/early-EX sets are
+# opaque RGB (often JPEG-sourced) with bright yellow/gold borders filling the
+# full rectangle. The client list view composites against that alpha, so
+# opaque corners read as a bright rectangular highlight; zoom does not.
+# Match the modern silhouette by punching a proportional rounded-rect alpha.
+_MODERN_CARD_WIDTH = 734
+_MODERN_CORNER_RADIUS = 28
+
+
+def card_corner_radius(width: int) -> int:
+    """Rounded-corner radius matching modern 734-wide card art, scaled."""
+    return max(1, round(_MODERN_CORNER_RADIUS * width / _MODERN_CARD_WIDTH))
+
+
+def corners_already_transparent(img: "Image.Image") -> bool:
+    """True when all four corners are already punched out (modern-style art)."""
+    w, h = img.size
+    if w < 2 or h < 2:
+        return False
+    rgba = img if img.mode == "RGBA" else img.convert("RGBA")
+    for xy in ((0, 0), (w - 1, 0), (0, h - 1), (w - 1, h - 1)):
+        if rgba.getpixel(xy)[3] >= 128:
+            return False
+    return True
+
+
+def apply_card_corner_alpha(img: "Image.Image") -> "Image.Image":
+    """RGBA copy with a modern-style rounded-rect alpha mask.
+
+    Leaves already-transparent-corner art unchanged. RGB (and other opaque)
+    sources get a proportional rounded rectangle punched into alpha.
+    """
+    if Image is None or ImageDraw is None:
+        raise RuntimeError("Pillow is required to normalize card art")
+    rgba = img.convert("RGBA")
+    if corners_already_transparent(rgba):
+        return rgba
+    w, h = rgba.size
+    radius = card_corner_radius(w)
+    mask = Image.new("L", (w, h), 0)
+    ImageDraw.Draw(mask).rounded_rectangle((0, 0, w - 1, h - 1), radius=radius, fill=255)
+    out = rgba.copy()
+    out.putalpha(mask)
+    return out
+
+
+def normalize_card_art_file(filepath: str) -> bool:
+    """Normalize one card PNG in place. Returns True when the file changed."""
+    if Image is None:
+        raise RuntimeError("Pillow is required to normalize card art")
+    if not os.path.isfile(filepath) or not filepath.lower().endswith(".png"):
+        return False
+    # Foil masks / pip overlays are not full card faces.
+    stem = os.path.splitext(os.path.basename(filepath))[0]
+    if stem.endswith(("_foil", "_foil_ph", "_foil_pcd", "_foil_secondary",
+                      "_energypip", "_energyicon", "_toolpip")):
+        return False
+    with Image.open(filepath) as img:
+        if img.mode == "RGBA" and corners_already_transparent(img):
+            return False
+        normalized = apply_card_corner_alpha(img)
+    normalized.save(filepath, format="PNG")
+    return True
+
+
+def normalize_card_art_tree(cards_root: str, set_codes: Optional[List[str]] = None) -> Tuple[int, int]:
+    """Normalize card PNGs under spirit/assets/cards. Returns (changed, scanned)."""
+    changed = 0
+    scanned = 0
+    if not os.path.isdir(cards_root):
+        return changed, scanned
+    sets = set_codes or sorted(
+        d for d in os.listdir(cards_root)
+        if os.path.isdir(os.path.join(cards_root, d)) and not d.startswith(".")
+    )
+    for set_code in sets:
+        set_dir = os.path.join(cards_root, set_code)
+        if not os.path.isdir(set_dir):
+            print(f"[normalize-art] skip missing set dir: {set_code}")
+            continue
+        for name in sorted(os.listdir(set_dir)):
+            if not name.lower().endswith(".png"):
+                continue
+            path = os.path.join(set_dir, name)
+            scanned += 1
+            if normalize_card_art_file(path):
+                changed += 1
+    return changed, scanned
+
+
 def download_image(url: str, filepath: str):
     if os.path.exists(filepath):
+        # Re-imported sets often keep opaque RGB downloads; normalize in place.
+        try:
+            if normalize_card_art_file(filepath):
+                print(f"Normalized existing: {filepath}")
+        except Exception as e:
+            print(f"Failed to normalize {filepath}: {e}")
         return
     try:
         response = requests.get(url, timeout=30)
         if response.status_code == 200:
-            with open(filepath, 'wb') as f:
+            os.makedirs(os.path.dirname(filepath) or ".", exist_ok=True)
+            with open(filepath, "wb") as f:
                 f.write(response.content)
             print(f"Downloaded: {filepath}")
+            try:
+                if normalize_card_art_file(filepath):
+                    print(f"Normalized: {filepath}")
+            except Exception as e:
+                print(f"Failed to normalize {filepath}: {e}")
     except Exception as e:
         print(f"Failed to download {url}: {e}")
 
@@ -553,7 +662,24 @@ def main():
         action="store_true",
         help="Do not overwrite card scripts that already exist (keeps hand-written BW stubs).",
     )
+    parser.add_argument(
+        "--normalize-art",
+        nargs="*",
+        metavar="SET",
+        help="Punch modern rounded-corner alpha into existing card PNGs and exit. "
+             "Pass set codes (BASE1 ECARD1 ...) or omit to normalize every set under "
+             "spirit/assets/cards/.",
+    )
     args = parser.parse_args()
+
+    if args.normalize_art is not None:
+        cards_root = "spirit/assets/cards"
+        set_codes = args.normalize_art or None
+        if args.set_code:
+            set_codes = [args.set_code] + list(args.normalize_art or [])
+        changed, scanned = normalize_card_art_tree(cards_root, set_codes)
+        print(f"Normalized {changed}/{scanned} card images under {cards_root}")
+        return
 
     JSON_PATH = args.json_path
     
