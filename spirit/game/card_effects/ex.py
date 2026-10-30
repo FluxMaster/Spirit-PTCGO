@@ -19947,3 +19947,92 @@ def multi_tm_attach_any():
     def check(pokemon) -> bool:
         return True
     return check
+
+
+# --- POP3 helpers -----------------------------------------------------------
+
+def rocket_tackle_recoil_protect(self_dmg: int = 10):
+    """Printed damage; self recoil; flip heads: prevent all attack damage next turn."""
+    from spirit.game.card_effects.passives_common import apply_protection
+    async def effect(ctx):
+        await ctx.deal_damage()
+        if ctx.attacker is not None:
+            await ctx.deal_damage(self_dmg, target=ctx.attacker, apply_modifiers=False)
+        results = await ctx.flip_coins(1, "Rocket Tackle")
+        if results and results[0] and ctx.attacker is not None:
+            await apply_protection(ctx, target=ctx.attacker, prevent=True)
+    return effect
+
+
+def cheer_up_draw(partner_name: str):
+    """Draw 1; draw 2 instead if a Pokémon named `partner_name` is in play."""
+    want = partner_name.lower()
+    async def effect(ctx):
+        has_partner = any(
+            want in _display_name(p).lower()
+            for p in ctx.my_pokemon_in_play()
+        )
+        await ctx.draw_cards(2 if has_partner else 1)
+    return effect
+
+
+def _pokemon_has_ability_type(pokemon, wanted) -> bool:
+    entries = pokemon.get_attribute(AttrID.PIE_ABILITIES) or []
+    wanted_vals = set()
+    for w in wanted:
+        wanted_vals.add(w)
+        wanted_vals.add(getattr(w, "value", w))
+        if hasattr(w, "name"):
+            wanted_vals.add(w.name)
+            # Human labels
+            if w.name == "POKE_POWER":
+                wanted_vals.update(("Poké-Power", "Poke-Power"))
+            if w.name == "POKE_BODY":
+                wanted_vals.update(("Poké-Body", "Poke-Body"))
+    for e in entries:
+        if not isinstance(e, dict):
+            continue
+        at = e.get("abilityType")
+        if at in wanted_vals:
+            return True
+        if isinstance(at, str) and any(
+                isinstance(w, str) and w.lower() in at.lower() for w in wanted_vals):
+            return True
+    # Fallback: card def
+    d = def_for(pokemon.archetype_id)
+    for a in (getattr(d, "abilities", None) or []):
+        if getattr(a, "ability_type", None) in wanted:
+            return True
+    return False
+
+
+def bolt_snipe_by_ability(amount: int = 30, *ability_types):
+    """Choose 1 opponent Pokémon that has any of the given ability types; deal amount."""
+    types = ability_types or (AbilityTypes.POKE_POWER,)
+    async def effect(ctx):
+        candidates = [
+            p for p in ctx.opponent_pokemon_in_play()
+            if _pokemon_has_ability_type(p, types)
+        ]
+        if not candidates:
+            return
+        t = await ctx.choose_pokemon(candidates, "Choose a Pokémon")
+        if t is not None:
+            await ctx.deal_damage(
+                amount, target=t, apply_modifiers=is_in_active_spot(t) or None)
+    return effect
+
+
+def bustle_flip_confuse(coins: int = 2, per_heads: int = 20):
+    """Flip coins; damage = heads * per; if any heads, Defending is Confused."""
+    async def effect(ctx):
+        results = await ctx.flip_coins(coins, "Bustle")
+        heads = sum(1 for r in results if r) if results else 0
+        if heads > 0:
+            await ctx.deal_damage(per_heads * heads)
+            if ctx.defender is not None:
+                await ctx.apply_special_condition(
+                    ctx.defender, SpecialConditions.CONFUSED)
+        else:
+            await ctx.deal_damage(0)
+    return effect
