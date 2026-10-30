@@ -37,7 +37,7 @@ card = PokemonCardDef(
             title="Find a Friend",
             game_text="Flip a coin. If heads, search your deck for a Pok\u00e9mon, show it to your opponent, and put it into your hand. Shuffle your deck afterward.",
             cost={},
-effect=flip_search_pokemon()
+            effect=flip_search_pokemon()
         ),
     ]
 )

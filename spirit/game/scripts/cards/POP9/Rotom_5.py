@@ -28,7 +28,7 @@ card = PokemonCardDef(
             title="Type Shift",
             game_text="Once during your turn (before your attack), you may use this power. Rotom's type is Psychic until the end of your turn.",
             ability_type=AbilityTypes.POKE_POWER,
-activation=Activations.ONCE_PER_TURN,
+            activation=Activations.ONCE_PER_TURN,
             effect=type_shift_to_psychic()
         ),
         Attack(
@@ -37,7 +37,7 @@ activation=Activations.ONCE_PER_TURN,
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
             damage_operator="+",
-effect=poltergeist(30, 10)
+            effect=poltergeist(30, 10)
         ),
     ]
 )

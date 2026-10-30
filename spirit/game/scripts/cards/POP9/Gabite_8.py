@@ -28,14 +28,14 @@ card = PokemonCardDef(
             title="Burrow",
             game_text="Flip a coin. If heads, prevent all damage done to Gabite by attacks during your opponent's next turn.",
             cost={PokemonTypes.COLORLESS: 1},
-effect=flip_protection(prevent=True)
+            effect=flip_protection(prevent=True)
         ),
         Attack(
             title="Distored Wave",
             game_text="Before doing damage, remove 2 damage counters from the Defending Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 3},
             damage=60,
-effect=distorted_wave(2)
+            effect=distorted_wave(2)
         ),
     ]
 )

@@ -37,7 +37,7 @@ card = PokemonCardDef(
             game_text="If Lopunny evolved from Buneary during this turn, remove all damage counters from Lopunny.",
             cost={PokemonTypes.COLORLESS: 3},
             damage=50,
-effect=jazzed_heal_if_evolved()
+            effect=jazzed_heal_if_evolved()
         ),
     ]
 )

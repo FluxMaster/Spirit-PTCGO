@@ -40,7 +40,7 @@ card = PokemonCardDef(
             game_text="If Raichu evolved from Pikachu during this turn, this attack's base damage is 100 instead of 60.",
             cost={PokemonTypes.LIGHTNING: 3},
             damage=60,
-effect=high_volt_if_evolved(60, 100)
+            effect=high_volt_if_evolved(60, 100)
         ),
     ]
 )

@@ -36,7 +36,7 @@ card = PokemonCardDef(
             title="Defense Curl",
             game_text="Flip a coin. If heads, prevent all damage done to Buneary by attacks during your opponent's next turn.",
             cost={PokemonTypes.COLORLESS: 2},
-effect=flip_protection(prevent=True)
+            effect=flip_protection(prevent=True)
         ),
     ]
 )

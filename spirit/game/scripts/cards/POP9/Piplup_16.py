@@ -28,14 +28,14 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1},
             damage=10,
             damage_operator="+",
-effect=less_energy_bonus(10)
+            effect=less_energy_bonus(10)
         ),
         Attack(
             title="Wavelet",
             game_text="If you have Buizel in play, this attack does 10 damage to each of your opponent's Benched Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 2},
             damage=40,
-effect=partner_bench_spread('Buizel', 10)
+            effect=partner_bench_spread('Buizel', 10)
         ),
     ]
 )

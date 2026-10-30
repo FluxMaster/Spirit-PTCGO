@@ -37,7 +37,7 @@ card = PokemonCardDef(
             game_text="Discard 2 Energy attached to Garchomp and this attack does 10 damage to each of your opponent's Benched Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.COLORLESS: 3},
             damage=100,
-effect=discard_energy_bench_spread(2, 10)
+            effect=discard_energy_bench_spread(2, 10)
         ),
     ]
 )
