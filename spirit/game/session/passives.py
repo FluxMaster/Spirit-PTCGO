@@ -177,6 +177,14 @@ class Passive:
         """True to shield `target` from opponents' attack EFFECTS (not damage)."""
         return False
 
+    def blocks_attack_effects_from(
+        self, target: PokemonEntity, carrier: BoardEntity, attacker: BoardEntity
+    ) -> bool:
+        """True to shield `target` from this attacker's attack EFFECTS
+        (Safeguard vs Pokémon-ex). Unconditional shields use
+        ``blocks_attack_effects`` instead."""
+        return False
+
     def blocks_abilities(self, pokemon: PokemonEntity, carrier: BoardEntity) -> bool:
         """True to turn off `pokemon`'s Abilities (Path to the Peak style)."""
         return False
@@ -198,6 +206,10 @@ class Passive:
     def attacks_despite_conditions(self, pokemon: PokemonEntity, carrier: BoardEntity) -> bool:
         """True to let `pokemon` attack even while Asleep/Paralyzed (Windup Arm)."""
         return False
+
+    def asleep_coins_required(self, pokemon: PokemonEntity, carrier: BoardEntity):
+        """Override coin count for Asleep checkup (Deep Sleep); None = no change."""
+        return None
 
     def blocks_special_conditions(
         self, target: PokemonEntity, condition: Any, carrier: BoardEntity
@@ -637,12 +649,18 @@ def effective_max_hp(board: BoardState, pokemon: PokemonEntity) -> int:
     return printed + bonus
 
 
-def attack_effects_blocked(board: BoardState, target: PokemonEntity) -> bool:
+def attack_effects_blocked(
+    board: BoardState, target: PokemonEntity, attacker: Optional[BoardEntity] = None
+) -> bool:
     """Whether a passive shields `target` from opposing attack effects."""
-    return any(
-        passive.blocks_attack_effects(target, carrier)
-        for passive, carrier in active_passives(board)
-    )
+    for passive, carrier in active_passives(board):
+        if passive.blocks_attack_effects(target, carrier):
+            return True
+        if attacker is not None and passive.blocks_attack_effects_from(
+            target, carrier, attacker
+        ):
+            return True
+    return False
 
 
 def retreat_blocked(board: BoardState, pokemon: PokemonEntity) -> bool:
