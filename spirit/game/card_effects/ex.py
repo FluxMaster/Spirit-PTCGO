@@ -20049,3 +20049,61 @@ def reactive_barrier_passive() -> Passive:
                 return False
             return True
     return _P()
+
+
+# --- POP5 helpers -----------------------------------------------------------
+
+def aerowing_optional_flip(base: int = 30, heads: int = 60):
+    """Optional flip before damage: tails = nothing; heads = `heads`; skip = `base`."""
+    async def effect(ctx):
+        if await ctx.ask_yes_no("Flip a coin for Aerowing?"):
+            results = await ctx.flip_coins(1, "Aerowing")
+            if not (results and results[0]):
+                return
+            await ctx.deal_damage(heads)
+        else:
+            await ctx.deal_damage(base)
+    return effect
+
+
+def purple_ray_confuse_actives():
+    """ON_PLAY: may Confuse each Active Pokémon (both sides)."""
+    async def effect(ctx):
+        if not await ctx.ask_yes_no("Use Purple Ray?"):
+            return
+        for pid in ctx.board.player_ids:
+            area = ctx.board.find_player_area(pid, "activePokemonArea")
+            for p in (area.children if area else []):
+                await ctx.apply_special_condition(p, SpecialConditions.CONFUSED)
+    return effect
+
+
+def dark_ray_discard_hand():
+    """ON_PLAY: may discard 1 random card from opponent's hand."""
+    async def effect(ctx):
+        hand = list(ctx.hand(ctx.opponent_id))
+        if not hand:
+            return
+        if not await ctx.ask_yes_no(
+                "Discard 1 card from your opponent's hand without looking?"):
+            return
+        card = random.choice(hand)
+        await ctx.discard_cards([card])
+    return effect
+
+
+def extra_draw_attach_if_ex(count: int = 2):
+    """If opponent has Pokémon-ex, search up to `count` basic Energy and attach to self."""
+    async def effect(ctx):
+        if not any(is_pokemon_ex(p) for p in ctx.opponent_pokemon_in_play()):
+            return
+        src = ctx.attacker or ctx.source
+        if src is None:
+            return
+        picks = await ctx.search_deck(
+            is_basic_energy_card, count=count, minimum=0,
+            prompt=f"Choose up to {count} basic Energy to attach")
+        for card in picks:
+            await ctx.attach_energy(card, src)
+        await ctx.shuffle_deck()
+    return effect
