@@ -646,3 +646,31 @@ def requires_damaged_pokemon(side="mine"):
                    for pid in _side_player_ids(board, player_id, side)
                    for p in board.pokemon_in_play(pid))
     return check
+
+
+# --- Pokémon Ranger (XY11): remove all effects of attacks on each player -------
+
+async def pokemon_ranger(ctx):
+    """Remove all effects of attacks on each player and his or her Pokémon.
+    Mirrors Channeler (exact attack-effect clear) applied to both sides.
+    Special Conditions and damage counters stay."""
+    state = ctx.session.turn_state
+    for pid in (ctx.player_id, ctx.opponent_id):
+        state.play_locks.pop(pid, None)
+        poke = list(ctx.board.pokemon_in_play(pid))
+        ids = {p.entity_id for p in poke}
+        for pokemon in poke:
+            eid = pokemon.entity_id
+            for key in [k for k in state.attack_locks if k[0] == eid]:
+                state.attack_locks.pop(key, None)
+            state.retreat_locks.pop(eid, None)
+            state.attach_restrictions.pop(eid, None)
+            state.attack_flip_checks.pop(eid, None)
+            state.ignore_target_effects_entities.discard(eid)
+        hand = ctx.board.find_player_area(pid, "hand")
+        hand_id = hand.entity_id if hand is not None else None
+        ctx.board.temporary_passives = [
+            tp for tp in ctx.board.temporary_passives
+            if tp.carrier_entity_id not in ids
+            and tp.carrier_entity_id != hand_id
+        ]
