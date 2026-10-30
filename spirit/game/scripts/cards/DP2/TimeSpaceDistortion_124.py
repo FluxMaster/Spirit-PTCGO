@@ -1,12 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Time-Space Distortion (DP2 #124): trainer effect stubbed.
-
-Card text:
-  - Flip 3 coins. For each heads, search your discard pile for a Pokémon, show it to your opponent, and put it into your hand.
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+"""Time-Space Distortion (DP2 #124)."""
 from spirit.game.attributes import Rarities
+from spirit.game.data_utils import ItemCardDef
+from spirit.game.card_effects.dp import time_space_distortion
 
 card = ItemCardDef(
     guid="9de91e32-e439-5bdf-b3b4-ff547d4ddbef",
@@ -18,6 +13,5 @@ card = ItemCardDef(
     collector_number=124,
     set_code="DP2",
     rarity=Rarities.RareSecret,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=time_space_distortion(),
 )

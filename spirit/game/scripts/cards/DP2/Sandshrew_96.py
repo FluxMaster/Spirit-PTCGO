@@ -1,5 +1,4 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Sandshrew (DP2 #96): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
+"""DP2 Mysterious Treasures — wired.
 """
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented

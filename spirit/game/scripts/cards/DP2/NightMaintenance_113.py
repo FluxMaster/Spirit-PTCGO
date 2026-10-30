@@ -1,12 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Night Maintenance (DP2 #113): trainer effect stubbed.
-
-Card text:
-  - Search your discard pile for up to 3 in any combination of Pokémon and basic Energy cards. Show them to your opponent and shuffle them into your deck.
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+"""Night Maintenance (DP2 #113)."""
 from spirit.game.attributes import Rarities
+from spirit.game.data_utils import ItemCardDef
+from spirit.game.card_effects.dp import night_maintenance
 
 card = ItemCardDef(
     guid="352ceac9-0ecf-52dc-9703-0cb90904fa01",
@@ -18,6 +13,5 @@ card = ItemCardDef(
     collector_number=113,
     set_code="DP2",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=night_maintenance(),
 )

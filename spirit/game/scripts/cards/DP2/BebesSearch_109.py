@@ -1,16 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Bebe's Search (DP2 #109): trainer effect stubbed.
-
-Card text:
-  - You can play only one Supporter card each turn. When you play this card, put it next to your Active Pokémon. When your turn ends, discard this card.
-  - Choose a card from your hand and put it on top of your deck. Search your deck for a Pokémon, show it to your opponent, and put it into your hand. Shuffle your deck afterward. (If this is the only card in your hand, you can't play this card.)
-"""
-
-from spirit.game.data_utils import SupporterCardDef, unimplemented
+"""Bebe's Search (DP2 #109)."""
+from spirit.game.data_utils import SupporterCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.dp import bebes_search, bebes_search_condition
 
 card = SupporterCardDef(
-    guid="5a655dd5-62bd-53fc-8770-fda73350f5c2",
+    guid="PLACEHOLDER",
     key="DP2",
     name="com.direwolfdigital.cake.data.archetypes.trainer.BebesSearch.Name",
     display_name="Bebe's Search",
@@ -19,6 +13,6 @@ card = SupporterCardDef(
     collector_number=109,
     set_code="DP2",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=bebes_search(),
+    condition=bebes_search_condition,
 )
