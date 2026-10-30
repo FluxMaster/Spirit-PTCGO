@@ -1,0 +1,45 @@
+"""STUB: effect not implemented — do not guess mechanics.
+Staravia (DP1 #64): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
+"""
+
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+
+card = PokemonCardDef(
+    guid="dcb87214-e2e9-5b13-bf25-792c26d1557d",
+    key="DP1",
+    name="com.direwolfdigital.cake.data.archetypes.pokemon.Staravia.Name",
+    display_name="Staravia",
+    searchable_by=["Staravia", "Stage 1", "Staravia"],
+    subtypes=["Stage 1"],
+    collector_number=64,
+    set_code="DP1",
+    rarity=Rarities.Uncommon,
+    hp=70,
+    elements=[PokemonTypes.COLORLESS],
+    stage=PokemonStage.STAGE1,
+    retreat_cost=0,
+    weakness_type=PokemonTypes.LIGHTNING,
+    resistance_type=PokemonTypes.FIGHTING,
+    resistance_amount=20,
+    evolves_from="com.direwolfdigital.cake.data.archetypes.pokemon.Starly.Name",
+    family_id=396,
+    abilities=[
+        Attack(
+            title="Whirlwind",
+            game_text="Your opponent switches the Defending Pok\u00e9mon with 1 of his or her Benched Pok\u00e9mon.",
+            cost={PokemonTypes.COLORLESS: 2},
+            damage=20,
+            # STUB: attack effect not implemented
+            effect=unimplemented,
+        ),
+        Attack(
+            title="Clutch",
+            game_text="The Defending Pok\u00e9mon can't retreat during your opponent's next turn.",
+            cost={PokemonTypes.COLORLESS: 2},
+            damage=20,
+            # STUB: attack effect not implemented
+            effect=unimplemented,
+        ),
+    ],
+)

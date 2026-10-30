@@ -1,0 +1,40 @@
+"""STUB: effect not implemented — do not guess mechanics.
+Cleffa (DP1 #78): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
+"""
+
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+
+card = PokemonCardDef(
+    guid="3e077416-fb20-56b5-8123-986729d54197",
+    key="DP1",
+    name="com.direwolfdigital.cake.data.archetypes.pokemon.Cleffa.Name",
+    display_name="Cleffa",
+    searchable_by=["Cleffa", "Basic", "Cleffa"],
+    subtypes=["Basic"],
+    collector_number=78,
+    set_code="DP1",
+    rarity=Rarities.Common,
+    hp=40,
+    elements=[PokemonTypes.COLORLESS],
+    stage=PokemonStage.BASIC,
+    retreat_cost=1,
+    weakness_type=PokemonTypes.FIGHTING,
+    family_id=173,
+    abilities=[
+        Ability(
+            title="Baby Evolution",
+            game_text="Once during your turn (before your attack), you may put Clefairy from your hand onto Cleffa (this counts as evolving Cleffa) and remove all damage counters from Cleffa.",
+            ability_type=AbilityTypes.POKE_POWER,
+            # STUB: ability effect not implemented
+            effect=unimplemented,
+        ),
+        Attack(
+            title="Eeek",
+            game_text="Draw a card.",
+            cost={},
+            # STUB: attack effect not implemented
+            effect=unimplemented,
+        ),
+    ],
+)
