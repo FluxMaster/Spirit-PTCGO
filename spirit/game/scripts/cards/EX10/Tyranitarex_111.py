@@ -4,6 +4,8 @@ Tyranitar ex (EX10 #111): one or more attacks/abilities use effect=unimplemented
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import mill_attack
+
 
 card = PokemonCardDef(
     guid="88abb085-b6e1-5658-ba48-99a93a178490",
@@ -54,7 +56,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.DARKNESS: 2, PokemonTypes.COLORLESS: 1},
             damage=120,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=mill_attack(3, opponent=False),
         ),
     ],
 )

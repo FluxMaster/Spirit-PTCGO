@@ -4,6 +4,8 @@ Jynx (EX10 #28): one or more attacks/abilities use effect=unimplemented until a 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import scorching_light_flip
+
 
 card = PokemonCardDef(
     guid="20c16008-2147-56ea-b8a0-7d16f97eb649",
@@ -34,7 +36,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, the Defending Pok\u00e9mon is now Paralyzed. If tails, the Defending Pok\u00e9mon is now Burned.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=scorching_light_flip(),
         ),
         Attack(
             title="Pure Power",

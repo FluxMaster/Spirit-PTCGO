@@ -4,6 +4,8 @@ Hitmonchan (EX10 #24): one or more attacks/abilities use effect=unimplemented un
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import swift_attack
+
 
 card = PokemonCardDef(
     guid="e3a06de7-a1c0-5bcf-9f89-ba88af73e4e5",
@@ -44,7 +46,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 3},
             damage=50,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=swift_attack(),
         ),
     ],
 )

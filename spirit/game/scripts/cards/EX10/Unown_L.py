@@ -4,6 +4,8 @@ Unown (EX10 #L): one or more attacks/abilities use effect=unimplemented until a 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import life_drain
+
 
 card = PokemonCardDef(
     guid="2a7414d2-02ee-5b23-b92c-1dba7e3646f8",
@@ -34,7 +36,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, put damage counters on the Defending Pok\u00e9mon until it is 10 HP away from being Knocked Out.",
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=life_drain(),
         ),
     ],
 )

@@ -4,6 +4,8 @@ Cleffa (EX10 #21): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.support_common import shuffle_hand_into_deck_draw
+
 
 card = PokemonCardDef(
     guid="61da1619-d6c3-5065-8f23-816cb0cbf3a7",
@@ -34,7 +36,7 @@ card = PokemonCardDef(
             game_text="Shuffle your hand into your deck, then draw 6 cards.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=shuffle_hand_into_deck_draw(6),
         ),
     ],
 )

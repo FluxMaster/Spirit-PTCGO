@@ -4,6 +4,8 @@ Unown (EX10 #Q): one or more attacks/abilities use effect=unimplemented until a 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import quick_charge_different_types
+
 
 card = PokemonCardDef(
     guid="a1cab89b-b34b-51c0-aa3b-7167de96680e",
@@ -34,7 +36,7 @@ card = PokemonCardDef(
             game_text="Search your deck for up to 3 different types of basic Energy cards, show them to your opponent, and put them into your hand. Shuffle your deck afterward.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=quick_charge_different_types(3),
         ),
     ],
 )

@@ -4,6 +4,8 @@ Feraligatr ex (EX10 #103): one or more attacks/abilities use effect=unimplemente
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import spread_damage
+
 
 card = PokemonCardDef(
     guid="49e7263c-403a-554f-9e43-fa764e92dbff",
@@ -36,7 +38,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=spread_damage(10, side='opponent', also_base=True),
         ),
         Attack(
             title="Sore Spot",

@@ -4,6 +4,8 @@ Yanma (EX10 #50): one or more attacks/abilities use effect=unimplemented until a
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import flip_spread_all
+
 
 card = PokemonCardDef(
     guid="f718f3e5-17f4-5b84-859c-04adf4e43b4e",
@@ -34,7 +36,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, this attack does 20 damage to each of your opponent's Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_spread_all(20),
         ),
     ],
 )

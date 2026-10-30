@@ -1,12 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Pokémon Reversal (EX10 #88): trainer effect stubbed.
-
-Card text:
-  - Flip a coin. If heads, choose 1 of your opponent's Benched Pokémon and switch it with 1 of the Defending Pokémon. Your opponent chooses the Defending Pokémon to switch.
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.support_common import flip_opponent_switches
+from spirit.game.card_effects.trainers import opponent_has_bench
+
 
 card = ItemCardDef(
     guid="c090317e-e946-50aa-9935-40bb7fbdf094",
@@ -18,6 +14,6 @@ card = ItemCardDef(
     collector_number=88,
     set_code="EX10",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    condition=opponent_has_bench,
+    effect=flip_opponent_switches("Pokémon Reversal"),
 )

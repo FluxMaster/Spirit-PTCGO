@@ -4,6 +4,8 @@ Electabuzz (EX10 #22): one or more attacks/abilities use effect=unimplemented un
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import flip_damage_paralyze_on_heads
+
 
 card = PokemonCardDef(
     guid="8cede604-c67d-5566-952a-93b7f145bd8f",
@@ -36,7 +38,7 @@ card = PokemonCardDef(
             damage=10,
             damage_operator="x",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage_paralyze_on_heads(coins=2, per_heads=10),
         ),
         Attack(
             title="Luster Blast",

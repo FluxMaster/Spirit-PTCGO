@@ -5,6 +5,12 @@ Quagsire (EX10 #44): one or more attacks/abilities use effect=unimplemented unti
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 
+
+async def puncture(ctx):
+    """This attack's damage isn't affected by Resistance."""
+    await ctx.deal_damage(ignore_resistance=True)
+
+
 card = PokemonCardDef(
     guid="2c4319f4-a81c-5608-9899-89883d96000d",
     key="EX10",
@@ -41,7 +47,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 2},
             damage=50,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=puncture,
         ),
     ],
 )

@@ -4,6 +4,8 @@ Unown (EX10 #K): one or more attacks/abilities use effect=unimplemented until a 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import may_discard_stadium_then_damage
+
 
 card = PokemonCardDef(
     guid="8c61bc0f-6d72-5738-ad59-c656f7de4ada",
@@ -35,7 +37,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=may_discard_stadium_then_damage(),
         ),
     ],
 )

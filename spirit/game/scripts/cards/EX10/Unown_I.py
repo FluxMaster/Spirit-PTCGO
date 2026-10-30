@@ -4,6 +4,8 @@ Unown (EX10 #I): one or more attacks/abilities use effect=unimplemented until a 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import intense_glare
+
 
 card = PokemonCardDef(
     guid="6906ff66-d622-57f6-8ec8-aa0b2bf5a723",
@@ -34,7 +36,7 @@ card = PokemonCardDef(
             game_text="Switch 1 of your opponent's Benched Pok\u00e9mon with 1 of the Defending Pok\u00e9mon. Your opponent chooses the Defending Pok\u00e9mon to switch. The new Defending Pok\u00e9mon is now Burned and Confused.",
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=intense_glare(),
         ),
     ],
 )

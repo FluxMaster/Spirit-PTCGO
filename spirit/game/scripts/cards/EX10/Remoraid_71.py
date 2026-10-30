@@ -4,6 +4,8 @@ Remoraid (EX10 #71): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import call_for_family_basic
+
 
 card = PokemonCardDef(
     guid="7b2e133d-8960-5499-84ab-b8a4bc8e0a4a",
@@ -27,7 +29,7 @@ card = PokemonCardDef(
             game_text="Search your deck for a Basic Pok\u00e9mon and put it onto your Bench. Shuffle your deck afterward.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=call_for_family_basic(),
         ),
         Attack(
             title="Splash",

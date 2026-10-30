@@ -1,13 +1,17 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Sitrus Berry (EX10 #91): trainer effect stubbed.
+from spirit.game.data_utils import PokemonToolCardDef, Ability, Triggers
+from spirit.game.attributes import Rarities, AttrID
 
-Card text:
-  - Attach Sitrus Berry to 1 of your Pokémon (excluding Pokémon-ex and Pokémon that has Dark or an owner in its name) that doesn't already have a Pokémon Tool attached to it. If the Pokémon Sitrus Berry is attached to is Pokémon-ex or has Dark or an owner in its name, discard Sitrus Berry.
-  - At any time between turns, if the Pokémon this card is attached to has at least 3 damage counters on it, remove 3 damage counters from it. Then, discard Sitrus Berry.
-"""
 
-from spirit.game.data_utils import PokemonToolCardDef, unimplemented
-from spirit.game.attributes import Rarities
+async def _sitrus_berry(ctx):
+    pokemon = ctx.source
+    counters = (ctx.max_hp(pokemon) - pokemon.get_attribute(AttrID.HP, 0)) // 10
+    if counters < 3:
+        return
+    await ctx.heal(30, target=pokemon)
+    tool = next((t for t, p in ctx.tools_in_play() if p is pokemon), None)
+    if tool is not None:
+        await ctx.discard_cards([tool])
+
 
 card = PokemonToolCardDef(
     guid="87854b57-1540-5037-b0e6-9cd44286a79c",
@@ -19,6 +23,12 @@ card = PokemonToolCardDef(
     collector_number=91,
     set_code="EX10",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    granted_abilities=[
+        Ability(
+            title="Sitrus Berry",
+            game_text="At the end of each turn, if the Pok\u00e9mon this card is attached to has 3 or more damage counters on it, heal 30 damage from it and discard this card.",
+            trigger=Triggers.BETWEEN_TURNS,
+            effect=_sitrus_berry,
+        ),
+    ],
 )

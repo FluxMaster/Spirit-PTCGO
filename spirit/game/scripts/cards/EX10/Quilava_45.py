@@ -4,6 +4,8 @@ Quilava (EX10 #45): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.attacks_common import smokescreen_attack
+
 
 card = PokemonCardDef(
     guid="e5a826ce-3913-5b9b-8681-01ddc852badf",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=smokescreen_attack(),
         ),
         Attack(
             title="Tackle",

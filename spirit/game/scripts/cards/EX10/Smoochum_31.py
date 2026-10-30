@@ -4,6 +4,8 @@ Smoochum (EX10 #31): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import place_counters
+
 
 card = PokemonCardDef(
     guid="46ca6b14-216a-5526-a593-9325b9233539",
@@ -34,7 +36,7 @@ card = PokemonCardDef(
             game_text="Put 1 damage counter on 1 of your opponent's Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=place_counters(1, 'choose_any_opponent'),
         ),
     ],
 )

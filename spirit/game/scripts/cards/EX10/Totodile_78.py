@@ -4,6 +4,8 @@ Totodile (EX10 #78): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import dig_under
+
 
 card = PokemonCardDef(
     guid="a7df9a5d-8e57-5cbb-ac72-b124b2abc7af",
@@ -27,7 +29,7 @@ card = PokemonCardDef(
             game_text="Choose 1 of your opponent's Pok\u00e9mon. This attack does 10 damage to that Pok\u00e9mon. This attack's damage isn't affected by Weakness or Resistance.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=dig_under(),
         ),
     ],
 )

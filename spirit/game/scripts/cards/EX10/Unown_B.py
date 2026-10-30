@@ -4,6 +4,8 @@ Unown (EX10 #B): one or more attacks/abilities use effect=unimplemented until a 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import count_hand, place_counters
+
 
 card = PokemonCardDef(
     guid="f4b7d974-bf90-5546-92db-76376292459b",
@@ -34,7 +36,7 @@ card = PokemonCardDef(
             game_text="Count the number of cards in your opponent's hand. Put that many damage counters on the Defending Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 3},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=place_counters(count_hand('opponent')),
         ),
     ],
 )

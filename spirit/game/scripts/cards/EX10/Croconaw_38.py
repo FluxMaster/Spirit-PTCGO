@@ -5,6 +5,12 @@ Croconaw (EX10 #38): one or more attacks/abilities use effect=unimplemented unti
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 
+
+async def puncture(ctx):
+    """This attack's damage isn't affected by Resistance."""
+    await ctx.deal_damage(ignore_resistance=True)
+
+
 card = PokemonCardDef(
     guid="73e82a87-d345-5e3d-bba5-780d3cc972da",
     key="EX10",
@@ -34,7 +40,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 2, PokemonTypes.COLORLESS: 1},
             damage=50,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=puncture,
         ),
     ],
 )

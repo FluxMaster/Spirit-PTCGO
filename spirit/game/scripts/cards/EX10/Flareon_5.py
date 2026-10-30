@@ -4,6 +4,8 @@ Flareon (EX10 #5): one or more attacks/abilities use effect=unimplemented until 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import fire_dance
+
 
 card = PokemonCardDef(
     guid="28f3d539-ea62-5729-b480-4b826ccb5deb",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 1},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=fire_dance(),
         ),
         Attack(
             title="Multi Burn",

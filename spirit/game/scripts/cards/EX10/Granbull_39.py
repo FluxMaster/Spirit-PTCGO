@@ -4,6 +4,8 @@ Granbull (EX10 #39): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import flip_damage
+
 
 card = PokemonCardDef(
     guid="99603f1a-99be-53fa-b69c-bc3107f48cef",
@@ -45,7 +47,7 @@ card = PokemonCardDef(
             damage=50,
             damage_operator="x",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=flip_damage(coins=2, per_heads=50),
         ),
     ],
 )

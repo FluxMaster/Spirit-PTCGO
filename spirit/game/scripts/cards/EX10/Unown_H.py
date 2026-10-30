@@ -4,6 +4,8 @@ Unown (EX10 #H): one or more attacks/abilities use effect=unimplemented until a 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import hoard_tools
+
 
 card = PokemonCardDef(
     guid="3d6bc198-b4c2-5300-b52f-1349920ff106",
@@ -34,7 +36,7 @@ card = PokemonCardDef(
             game_text="Search your deck for up to 2 Pok\u00e9mon Tool cards and attach them to any of your Pok\u00e9mon (excluding Pok\u00e9mon that already have a Pok\u00e9mon Tool attached to them). Shuffle your deck afterward.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=hoard_tools(),
         ),
     ],
 )

@@ -4,6 +4,8 @@ Sunkern (EX10 #76): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import minor_errand_running
+
 
 card = PokemonCardDef(
     guid="83c51430-03f1-57ce-9955-cb32cf8926ed",
@@ -28,7 +30,7 @@ card = PokemonCardDef(
             game_text="Search your deck for a basic Energy card, show it to your opponent, and put it into your hand. Shuffle your deck afterward.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=minor_errand_running(1),
         ),
         Attack(
             title="Rollout",

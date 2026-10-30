@@ -4,6 +4,8 @@ Unown (EX10 #R): one or more attacks/abilities use effect=unimplemented until a 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import scoop_defending_to_hand
+
 
 card = PokemonCardDef(
     guid="fa84eef8-4338-530a-9995-7e6738b83a9c",
@@ -34,7 +36,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, your opponent returns the Defending Pok\u00e9mon and all cards attached to it to his or her hand. (If your opponent doesn't have any Benched Pok\u00e9mon or other Active Pok\u00e9mon, this attack does nothing.)",
             cost={PokemonTypes.COLORLESS: 2},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=scoop_defending_to_hand(flip=True),
         ),
     ],
 )

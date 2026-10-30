@@ -4,6 +4,8 @@ Unown (EX10 #C): one or more attacks/abilities use effect=unimplemented until a 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import chime_copy_supporter
+
 
 card = PokemonCardDef(
     guid="500d94bf-125d-5d2a-8624-a4b5c3f4d3f0",
@@ -34,7 +36,7 @@ card = PokemonCardDef(
             game_text="Search your opponent's discard pile for a Supporter card and use the effect of that card as the effect of this attack. (The Supporter card remains in your opponent's discard pile.)",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=chime_copy_supporter(),
         ),
     ],
 )

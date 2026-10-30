@@ -5,6 +5,12 @@ Chansey (EX10 #20): one or more attacks/abilities use effect=unimplemented until
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 
+
+async def double_wing_attack(ctx):
+    """Does 20 damage to each Defending Pokémon (no printed damage)."""
+    await ctx.deal_damage(20)
+
+
 card = PokemonCardDef(
     guid="4401c08d-1541-526c-b1cd-3ad66e1de0f8",
     key="EX10",
@@ -34,7 +40,7 @@ card = PokemonCardDef(
             game_text="Does 20 damage to each Defending Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 2},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=double_wing_attack,
         ),
     ],
 )

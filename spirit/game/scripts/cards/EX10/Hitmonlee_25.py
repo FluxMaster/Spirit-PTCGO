@@ -4,6 +4,8 @@ Hitmonlee (EX10 #25): one or more attacks/abilities use effect=unimplemented unt
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.attacks_common import snipe_attack
+
 
 card = PokemonCardDef(
     guid="ea98211c-043a-5f11-be1c-8e360d8690d4",
@@ -34,7 +36,7 @@ card = PokemonCardDef(
             game_text="Choose 1 of your opponent's Benched Pok\u00e9mon. This attack does 10 damage to that Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.FIGHTING: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=snipe_attack(10, also_base=True),
         ),
         Attack(
             title="Mega Kick",

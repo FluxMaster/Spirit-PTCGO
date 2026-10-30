@@ -4,6 +4,8 @@ Unown (EX10 #P): one or more attacks/abilities use effect=unimplemented until a 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import pain_amplifier
+
 
 card = PokemonCardDef(
     guid="dd750bfb-5030-566f-8d0b-c228e0aaf7a8",
@@ -34,7 +36,7 @@ card = PokemonCardDef(
             game_text="Put 1 damage counter on each of your opponent's Pok\u00e9mon that already has damage counters on it.",
             cost={PokemonTypes.COLORLESS: 2},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=pain_amplifier(),
         ),
     ],
 )

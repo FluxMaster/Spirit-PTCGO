@@ -4,6 +4,8 @@ Vaporeon (EX10 #19): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import attach_energy_from_hand, damage_then
+
 
 card = PokemonCardDef(
     guid="28b1f5d4-29eb-546e-98f9-e82527270bb2",
@@ -29,7 +31,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=damage_then(attach_energy_from_hand(count=1)),
         ),
         Attack(
             title="Multi Bubble",

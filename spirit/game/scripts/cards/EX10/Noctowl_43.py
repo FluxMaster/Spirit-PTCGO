@@ -4,6 +4,9 @@ Noctowl (EX10 #43): one or more attacks/abilities use effect=unimplemented until
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.support_common import draw_attack
+from spirit.game.card_effects.ex import shuffle_random_from_opponent_hand
+
 
 card = PokemonCardDef(
     guid="424b08bc-e8ac-53a8-b820-1f8648feaa3a",
@@ -29,7 +32,7 @@ card = PokemonCardDef(
             game_text="Draw 3 cards.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=draw_attack(3),
         ),
         Attack(
             title="Surprise",
@@ -37,7 +40,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 2},
             damage=30,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=shuffle_random_from_opponent_hand(),
         ),
     ],
 )

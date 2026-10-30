@@ -4,6 +4,8 @@ Unown (EX10 #D): one or more attacks/abilities use effect=unimplemented until a 
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import devolution_beam
+
 
 card = PokemonCardDef(
     guid="7f7c392a-bc8c-51c3-b4f0-1fa11493646c",
@@ -34,7 +36,7 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, choose 1 of either player's Evolved Pok\u00e9mon, remove the highest Stage Evolution card from that Pok\u00e9mon, and put it into that player's hand.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=devolution_beam,
         ),
     ],
 )

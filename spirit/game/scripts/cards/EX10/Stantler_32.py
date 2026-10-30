@@ -4,6 +4,8 @@ Stantler (EX10 #32): one or more attacks/abilities use effect=unimplemented unti
 
 from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import confuse_if_evolved
+
 
 card = PokemonCardDef(
     guid="352efb0f-fcad-57a9-bb1a-36a5cf57f6cb",
@@ -28,7 +30,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=confuse_if_evolved(),
         ),
         Attack(
             title="Push Away",
