@@ -536,9 +536,6 @@ def main():
     
     parser = argparse.ArgumentParser(description="Import a Pokemon TCG set from a JSON file.")
     parser.add_argument("json_path", nargs="?", default="spirit/game/scripts/cards/SWSH12/swsh12.json", help="Path to the TCG JSON file to import.")
-<<<<<<< HEAD
-    parser.add_argument("--set-code", help="The set code to use (defaults to upper case of JSON filename).")
-=======
     parser.add_argument(
         "--also", action="append", default=[], metavar="JSON",
         help="Extra JSON files imported into the same set, numbered together "
@@ -558,7 +555,6 @@ def main():
              "Pass set codes (BASE1 ECARD1 ...) or omit to normalize every set under "
              "spirit/assets/cards/.",
     )
->>>>>>> 42a1655f (FIX: punch rounded-corner alpha into opaque card art on import)
     args = parser.parse_args()
 
     if args.normalize_art is not None:
