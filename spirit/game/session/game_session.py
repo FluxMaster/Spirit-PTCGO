@@ -4272,7 +4272,7 @@ class GameSession:
 
     def _pie_ability_entries(self, pokemon: PokemonEntity) -> List[Dict[str, Any]]:
         """`pokemon`'s canonical PIE_ABILITIES: printed entries, every attached
-        tool's granted_abilities (Forest Seal Stone), and passive-granted
+        tool/energy granted_abilities (Forest Seal Stone, Call Energy), and passive-granted
         dynamic attacks (Ditto, Memory Capsule) deduped by title+text."""
         definition = def_for(pokemon.archetype_id)
         entries = [a.to_dict() for a in (getattr(definition, "abilities", None) or [])]
