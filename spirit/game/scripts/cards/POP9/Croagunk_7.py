@@ -1,10 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Croagunk (POP9 #7): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
+"""Croagunk (POP9 #7)."""
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-from spirit.game.card_effects.ex import flip_discard_random_from_opponent_hand
+from spirit.game.card_effects.ex import flip_discard_random_from_opponent_hand, partner_drain_heal
 
 
 card = PokemonCardDef(
@@ -29,15 +27,14 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, choose 1 card from your opponent's hand without looking and discard it.",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=flip_discard_random_from_opponent_hand(),
+            effect=flip_discard_random_from_opponent_hand()
         ),
         Attack(
             title="Nimble",
             game_text="If you have Turtwig in play, remove from Croagunk the number of damage counters equal to the damage you did to the Defending Pok\u00e9mon.",
             cost={PokemonTypes.PSYCHIC: 2},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+effect=partner_drain_heal('Turtwig')
         ),
-    ],
+    ]
 )

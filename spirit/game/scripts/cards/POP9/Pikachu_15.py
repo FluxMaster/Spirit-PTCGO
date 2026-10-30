@@ -1,10 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Pikachu (POP9 #15): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
+"""Pikachu (POP9 #15)."""
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-from spirit.game.card_effects.ex import charm_reduce_defender_next
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, SpecialConditions
+from spirit.game.card_effects.ex import charm_reduce_defender_next, numb_if_evolved
 
 
 card = PokemonCardDef(
@@ -31,15 +29,14 @@ card = PokemonCardDef(
             game_text="During your opponent's next turn, any damage done by attacks from the Defending Pok\u00e9mon is reduced by 20 (before applying Weakness and Resistance).",
             cost={PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
-            effect=charm_reduce_defender_next(20),
+            effect=charm_reduce_defender_next(20)
         ),
         Attack(
             title="Numb",
             game_text="If Pikachu evolved from Pichu during this turn, the Defending Pok\u00e9mon is now Paralyzed.",
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 2},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+effect=numb_if_evolved(SpecialConditions.PARALYZED)
         ),
-    ],
+    ]
 )

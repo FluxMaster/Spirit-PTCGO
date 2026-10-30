@@ -1,10 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Raichu (POP9 #3): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
+"""Raichu (POP9 #3)."""
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_damage
+from spirit.game.card_effects.ex import high_volt_if_evolved
 
 
 card = PokemonCardDef(
@@ -34,15 +33,14 @@ card = PokemonCardDef(
             damage=30,
             damage_operator="x",
             # STUB: attack effect not implemented
-            effect=flip_damage(coins=2, per_heads=30),
+            effect=flip_damage(coins=2, per_heads=30)
         ),
         Attack(
             title="High Volt",
             game_text="If Raichu evolved from Pikachu during this turn, this attack's base damage is 100 instead of 60.",
             cost={PokemonTypes.LIGHTNING: 3},
             damage=60,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+effect=high_volt_if_evolved(60, 100)
         ),
-    ],
+    ]
 )

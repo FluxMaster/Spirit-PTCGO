@@ -20550,3 +20550,193 @@ def flip_lock_supporters():
         if results and results[0]:
             ctx.lock_plays(ctx.opponent_id, is_supporter_card)
     return effect
+
+
+def evolved_this_turn(ctx) -> bool:
+    """True when the attacker entered play / evolved this turn."""
+    a = ctx.attacker
+    if a is None:
+        return False
+    state = ctx.session.turn_state
+    return state.entered_play_turn.get(a.entity_id) == state.turn_number
+
+
+def partner_bonus_condition(partner_name, bonus: int, *conditions, base=None):
+    """If named partner in play: printed+bonus and apply conditions (Sleepy /
+    Poison Berry / Parboil)."""
+    from spirit.game.card_effects.attacks_common import named_in_play, _printed
+    cond = named_in_play(partner_name)
+
+    async def effect(ctx):
+        base_val = base if base is not None else _printed(ctx)
+        met = bool(cond(ctx))
+        amount = base_val + (bonus if met else 0)
+        if amount > 0:
+            await ctx.deal_damage(amount)
+        if met and ctx.defender is not None:
+            for condition in conditions:
+                await ctx.apply_special_condition(ctx.defender, condition)
+    return effect
+
+
+def partner_drain_heal(partner_name):
+    """Printed damage; if partner in play, heal damage dealt (Nimble)."""
+    from spirit.game.card_effects.attacks_common import named_in_play
+    cond = named_in_play(partner_name)
+
+    async def effect(ctx):
+        dealt = await ctx.deal_damage()
+        if cond(ctx) and dealt and ctx.attacker is not None:
+            await ctx.heal(dealt, ctx.attacker)
+    return effect
+
+
+def partner_flip_full_protect(partner_name):
+    """Printed damage; if partner in play, flip: heads prevent all effects
+    including damage next turn (Super Fast)."""
+    from spirit.game.card_effects.attacks_common import named_in_play
+    from spirit.game.card_effects.passives_common import apply_protection
+    cond = named_in_play(partner_name)
+
+    async def effect(ctx):
+        await ctx.deal_damage()
+        if not cond(ctx):
+            return
+        results = await ctx.flip_coins(
+            1, ctx.ability.title if ctx.ability else "")
+        if results and results[0]:
+            await apply_protection(ctx, prevent=True, effects_too=True)
+    return effect
+
+
+def partner_bench_spread(partner_name, amount: int = 10):
+    """Printed damage; if partner in play, amount to each opp Bench (Wavelet)."""
+    from spirit.game.card_effects.attacks_common import named_in_play
+    cond = named_in_play(partner_name)
+
+    async def effect(ctx):
+        await ctx.deal_damage()
+        if not cond(ctx):
+            return
+        for p in list(ctx.opponent_bench()):
+            await ctx.deal_damage(amount, target=p, apply_modifiers=False)
+    return effect
+
+
+def less_energy_bonus(bonus: int = 10, base=None):
+    """+bonus when self has fewer attached Energy cards than Defending
+    (Water Sport)."""
+    from spirit.game.card_effects.attacks_common import count_energy, _printed
+
+    async def effect(ctx):
+        base_val = base if base is not None else _printed(ctx)
+        mine = count_energy("self", cards=True)(ctx)
+        theirs = count_energy("defender", cards=True)(ctx)
+        amount = base_val + (bonus if mine < theirs else 0)
+        if amount > 0:
+            await ctx.deal_damage(amount)
+    return effect
+
+
+def discard_energy_bench_spread(discard: int = 2, bench: int = 10):
+    """Printed damage; discard `discard` Energy from self; bench to each opp
+    Bench (Jet Sword)."""
+    async def effect(ctx):
+        await ctx.deal_damage()
+        if ctx.attacker is not None:
+            await ctx.discard_energy_from(
+                ctx.attacker, discard,
+                prompt="Discard Energy from this Pokémon")
+        for p in list(ctx.opponent_bench()):
+            await ctx.deal_damage(bench, target=p, apply_modifiers=False)
+    return effect
+
+
+def jazzed_heal_if_evolved(base=None):
+    """Printed damage; if evolved this turn, remove all damage counters."""
+    from spirit.game.card_effects.attacks_common import _printed
+
+    async def effect(ctx):
+        base_val = base if base is not None else _printed(ctx)
+        if base_val > 0:
+            await ctx.deal_damage(base_val)
+        if evolved_this_turn(ctx) and ctx.attacker is not None:
+            missing = ctx.max_hp(ctx.attacker) - int(
+                ctx.attacker.get_attribute(AttrID.HP, 0) or 0)
+            if missing > 0:
+                await ctx.heal(missing, ctx.attacker)
+    return effect
+
+
+def high_volt_if_evolved(normal: int = 60, boosted: int = 100):
+    """Base damage is boosted if evolved this turn (High Volt)."""
+    async def effect(ctx):
+        await ctx.deal_damage(boosted if evolved_this_turn(ctx) else normal)
+    return effect
+
+
+def numb_if_evolved(*conditions):
+    """Printed damage; if evolved this turn, apply conditions (Numb)."""
+    async def effect(ctx):
+        await ctx.deal_damage()
+        if evolved_this_turn(ctx) and ctx.defender is not None:
+            for condition in conditions:
+                await ctx.apply_special_condition(ctx.defender, condition)
+    return effect
+
+
+def water_glow_snipe_drain(amount: int = 20):
+    """Snipe any opp Pokémon for amount (no W/R on Bench); heal equal damage
+    dealt (Water Glow)."""
+    async def effect(ctx):
+        pool = list(ctx.opponent_pokemon_in_play())
+        if not pool:
+            return
+        target = await ctx.choose_pokemon(
+            pool, "Choose a Pokémon for Water Glow")
+        if target is None:
+            return
+        is_bench = not is_in_active_spot(target)
+        dealt = await ctx.deal_damage(
+            amount, target=target,
+            apply_modifiers=not is_bench)
+        if dealt and ctx.attacker is not None:
+            await ctx.heal(dealt, ctx.attacker)
+    return effect
+
+
+def flip_search_pokemon():
+    """Flip: heads search deck for a Pokémon into hand (Find a Friend)."""
+    async def effect(ctx):
+        results = await ctx.flip_coins(
+            1, ctx.ability.title if ctx.ability else "")
+        if not (results and results[0]):
+            return
+        picks = await ctx.search_deck(
+            is_pokemon_card, count=1, minimum=0,
+            prompt="Choose a Pokémon to put into your hand")
+        if picks:
+            await ctx.put_in_hand(picks, reveal=True)
+        await ctx.shuffle_deck()
+    return effect
+
+
+def type_shift_to_psychic():
+    """Poké-Power: Rotom's type is Psychic until end of turn."""
+    async def effect(ctx):
+        src = ctx.source
+        if src is None:
+            return
+        src.set_attribute(AttrID.POKEMON_TYPES, [PokemonTypes.PSYCHIC.value])
+        src.set_attribute("TypeShiftPsychicUntilEOT", True)
+    return effect
+
+
+def heal_self_after_damage(counters: int = 1):
+    """Printed damage, then remove `counters` damage counters from self
+    (Absorb)."""
+    async def effect(ctx):
+        await ctx.deal_damage()
+        if ctx.attacker is not None:
+            await ctx.heal(counters * 10, ctx.attacker)
+    return effect

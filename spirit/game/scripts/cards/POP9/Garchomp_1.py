@@ -1,10 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Garchomp (POP9 #1): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
+"""Garchomp (POP9 #1)."""
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_or_nothing
+from spirit.game.card_effects.ex import discard_energy_bench_spread
 
 
 card = PokemonCardDef(
@@ -31,15 +30,14 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=80,
             # STUB: attack effect not implemented
-            effect=flip_or_nothing(coins=2),
+            effect=flip_or_nothing(coins=2)
         ),
         Attack(
             title="Jet Sword",
             game_text="Discard 2 Energy attached to Garchomp and this attack does 10 damage to each of your opponent's Benched Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.COLORLESS: 3},
             damage=100,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+effect=discard_energy_bench_spread(2, 10)
         ),
-    ],
+    ]
 )

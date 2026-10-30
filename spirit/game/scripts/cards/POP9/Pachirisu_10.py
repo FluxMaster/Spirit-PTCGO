@@ -1,11 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Pachirisu (POP9 #10): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
+"""Pachirisu (POP9 #10)."""
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-from spirit.game.attributes import SpecialConditions
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
+from spirit.game.card_effects.ex import partner_bonus_condition
 
 
 card = PokemonCardDef(
@@ -33,7 +31,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 1},
             damage=10,
             # STUB: attack effect not implemented
-            effect=condition_attack(SpecialConditions.PARALYZED, flip=True),
+            effect=condition_attack(SpecialConditions.PARALYZED, flip=True)
         ),
         Attack(
             title="Poison Berry",
@@ -41,8 +39,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+effect=partner_bonus_condition('Croagunk', 20, SpecialConditions.POISONED)
         ),
-    ],
+    ]
 )

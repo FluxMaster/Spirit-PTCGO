@@ -1,10 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Buizel (POP9 #6): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
+"""Buizel (POP9 #6)."""
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-from spirit.game.card_effects.ex import may_discard_defender_energy_on_heads
+from spirit.game.card_effects.ex import may_discard_defender_energy_on_heads, partner_flip_full_protect
 
 
 card = PokemonCardDef(
@@ -29,15 +27,14 @@ card = PokemonCardDef(
             game_text="Flip a coin. If heads, discard an Energy attached to the Defending Pok\u00e9mon.",
             cost={PokemonTypes.WATER: 1},
             # STUB: attack effect not implemented
-            effect=may_discard_defender_energy_on_heads(),
+            effect=may_discard_defender_energy_on_heads()
         ),
         Attack(
             title="Super Fast",
             game_text="If you have Pachirisu in play, flip a coin. If heads, prevent all effects of an attack, including damage, done to Buizel during your opponent's next turn.",
             cost={PokemonTypes.WATER: 2},
             damage=30,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+effect=partner_flip_full_protect('Pachirisu')
         ),
-    ],
+    ]
 )

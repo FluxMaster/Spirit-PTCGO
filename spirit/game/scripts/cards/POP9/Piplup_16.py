@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Piplup (POP9 #16): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
+"""Piplup (POP9 #16)."""
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import less_energy_bonus, partner_bench_spread
+
 
 card = PokemonCardDef(
     guid="27395021-3304-5e2f-8822-46be3e0e2c56",
@@ -28,16 +28,14 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1},
             damage=10,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+effect=less_energy_bonus(10)
         ),
         Attack(
             title="Wavelet",
             game_text="If you have Buizel in play, this attack does 10 damage to each of your opponent's Benched Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 2},
             damage=40,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+effect=partner_bench_spread('Buizel', 10)
         ),
-    ],
+    ]
 )

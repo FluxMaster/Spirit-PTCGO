@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Turtwig (POP9 #17): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
+"""Turtwig (POP9 #17)."""
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, SpecialConditions
+from spirit.game.card_effects.ex import heal_self_after_damage, partner_bonus_condition
+
 
 card = PokemonCardDef(
     guid="74e3b07c-b275-5d6c-b911-ad816cbca154",
@@ -29,8 +29,7 @@ card = PokemonCardDef(
             game_text="Remove 1 damage counter from Turtwig.",
             cost={PokemonTypes.GRASS: 1},
             damage=10,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+effect=heal_self_after_damage(1)
         ),
         Attack(
             title="Parboil",
@@ -38,8 +37,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.GRASS: 1, PokemonTypes.COLORLESS: 2},
             damage=40,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+effect=partner_bonus_condition('Chimchar', 20, SpecialConditions.BURNED)
         ),
-    ],
+    ]
 )

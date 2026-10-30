@@ -1,11 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Pichu (POP9 #11): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
+"""Pichu (POP9 #11)."""
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
-from spirit.game.data_utils import Activations
-from spirit.game.card_effects.ex import baby_evolution, baby_evolution_condition
+from spirit.game.card_effects.ex import baby_evolution, baby_evolution_condition, flip_search_pokemon
 
 
 card = PokemonCardDef(
@@ -34,14 +31,13 @@ card = PokemonCardDef(
             # STUB: ability effect not implemented
             activation=Activations.ONCE_PER_TURN,
             condition=baby_evolution_condition('Pikachu'),
-            effect=baby_evolution('Pikachu'),
+            effect=baby_evolution('Pikachu')
         ),
         Attack(
             title="Find a Friend",
             game_text="Flip a coin. If heads, search your deck for a Pok\u00e9mon, show it to your opponent, and put it into your hand. Shuffle your deck afterward.",
             cost={},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+effect=flip_search_pokemon()
         ),
-    ],
+    ]
 )

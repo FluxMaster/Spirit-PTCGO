@@ -1,9 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Rotom (POP9 #5): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
+"""Rotom (POP9 #5)."""
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability, Activations
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import poltergeist, type_shift_to_psychic
+
 
 card = PokemonCardDef(
     guid="36343edc-1390-5d2f-9538-dc9bbdc8404f",
@@ -28,8 +28,8 @@ card = PokemonCardDef(
             title="Type Shift",
             game_text="Once during your turn (before your attack), you may use this power. Rotom's type is Psychic until the end of your turn.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+activation=Activations.ONCE_PER_TURN,
+            effect=type_shift_to_psychic()
         ),
         Attack(
             title="Poltergeist",
@@ -37,8 +37,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.PSYCHIC: 1, PokemonTypes.COLORLESS: 1},
             damage=30,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+effect=poltergeist(30, 10)
         ),
-    ],
+    ]
 )

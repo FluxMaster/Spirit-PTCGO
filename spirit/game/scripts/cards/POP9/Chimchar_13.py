@@ -1,10 +1,8 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Chimchar (POP9 #13): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
+"""Chimchar (POP9 #13)."""
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-from spirit.game.card_effects.ex import pin_missile
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, SpecialConditions
+from spirit.game.card_effects.ex import partner_bonus_condition, pin_missile
 
 
 card = PokemonCardDef(
@@ -31,7 +29,7 @@ card = PokemonCardDef(
             damage=10,
             damage_operator="x",
             # STUB: attack effect not implemented
-            effect=pin_missile(4, 10),
+            effect=pin_missile(4, 10)
         ),
         Attack(
             title="Sleepy",
@@ -39,8 +37,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIRE: 1, PokemonTypes.COLORLESS: 2},
             damage=40,
             damage_operator="+",
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+effect=partner_bonus_condition('Piplup', 20, SpecialConditions.ASLEEP)
         ),
-    ],
+    ]
 )

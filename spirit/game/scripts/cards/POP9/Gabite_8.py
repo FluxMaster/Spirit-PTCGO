@@ -1,9 +1,10 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Gabite (POP9 #8): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
+"""Gabite (POP9 #8)."""
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import distorted_wave
+from spirit.game.card_effects.passives_common import flip_protection
+
 
 card = PokemonCardDef(
     guid="7f5f8fe4-bf8a-5437-8a02-6954b4bfe6f8",
@@ -27,16 +28,14 @@ card = PokemonCardDef(
             title="Burrow",
             game_text="Flip a coin. If heads, prevent all damage done to Gabite by attacks during your opponent's next turn.",
             cost={PokemonTypes.COLORLESS: 1},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+effect=flip_protection(prevent=True)
         ),
         Attack(
             title="Distored Wave",
             game_text="Before doing damage, remove 2 damage counters from the Defending Pok\u00e9mon.",
             cost={PokemonTypes.COLORLESS: 3},
             damage=60,
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+effect=distorted_wave(2)
         ),
-    ],
+    ]
 )

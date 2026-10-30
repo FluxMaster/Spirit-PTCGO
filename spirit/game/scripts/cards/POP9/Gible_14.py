@@ -1,8 +1,6 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Gible (POP9 #14): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
+"""Gible (POP9 #14)."""
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.support_common import gust_attack
 
@@ -30,7 +28,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.COLORLESS: 1},
             damage=10,
             # STUB: attack effect not implemented
-            effect=gust_attack(opponent_chooses=True),
+            effect=gust_attack(opponent_chooses=True)
         ),
-    ],
+    ]
 )

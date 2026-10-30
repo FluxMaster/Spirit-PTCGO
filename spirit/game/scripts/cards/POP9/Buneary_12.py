@@ -1,10 +1,9 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Buneary (POP9 #12): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
-"""
+"""Buneary (POP9 #12)."""
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
 from spirit.game.card_effects.attacks_common import flip_damage
+from spirit.game.card_effects.passives_common import flip_protection
 
 
 card = PokemonCardDef(
@@ -31,14 +30,13 @@ card = PokemonCardDef(
             damage=10,
             damage_operator="x",
             # STUB: attack effect not implemented
-            effect=flip_damage(coins=2, per_heads=10),
+            effect=flip_damage(coins=2, per_heads=10)
         ),
         Attack(
             title="Defense Curl",
             game_text="Flip a coin. If heads, prevent all damage done to Buneary by attacks during your opponent's next turn.",
             cost={PokemonTypes.COLORLESS: 2},
-            # STUB: attack effect not implemented
-            effect=unimplemented,
+effect=flip_protection(prevent=True)
         ),
-    ],
+    ]
 )
