@@ -2,9 +2,9 @@
 Team Aqua's Walrein (EX4 #6): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
-from spirit.game.card_effects.ex import power_blow
+from spirit.game.card_effects.ex import hydro_reverse, power_blow
 
 card = PokemonCardDef(
     guid="936a9e19-c951-57fa-a9e5-81c389c2f498",
@@ -40,7 +40,7 @@ card = PokemonCardDef(
             damage=50,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=hydro_reverse(),
         ),
     ],
 )

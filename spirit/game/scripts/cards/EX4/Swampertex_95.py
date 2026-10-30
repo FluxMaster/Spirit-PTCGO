@@ -2,8 +2,9 @@
 Swampert ex (EX4 #95): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import crushing_wave, extra_energy_damage
 
 card = PokemonCardDef(
     guid="52669517-e280-58c5-b766-f243f7b6c806",
@@ -30,14 +31,14 @@ card = PokemonCardDef(
             damage=20,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=extra_energy_damage(20, base=20, energy_type=PokemonTypes.WATER),
         ),
         Attack(
             title="Crushing Wave",
             game_text="Choose 1 of your opponent's Pok\u00e9mon. This attack does 40 damage to that Pok\u00e9mon. After doing damage, flip a coin. If heads, your opponent discards an Energy card, if any, attached to that Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 2},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=crushing_wave(),
         ),
     ],
 )

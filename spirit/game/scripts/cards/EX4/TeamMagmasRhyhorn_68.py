@@ -2,8 +2,9 @@
 Team Magma's Rhyhorn (EX4 #68): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import may_discard_stadium_then_damage
 
 card = PokemonCardDef(
     guid="f8ce9e63-fc2d-5634-8e66-8a47ba323f4f",
@@ -33,7 +34,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 1},
             damage=10,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=may_discard_stadium_then_damage(),
         ),
     ],
 )

@@ -2,8 +2,9 @@
 Team Aqua's Sealeo (EX4 #16): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, SpecialConditions
+from spirit.game.card_effects.ex import bonus_if_asleep, delayed_condition
 
 card = PokemonCardDef(
     guid="ab44d892-7de2-5637-b985-92dbb8320a5f",
@@ -29,7 +30,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=delayed_condition(SpecialConditions.ASLEEP),
         ),
         Attack(
             title="Super Hypnoblast",
@@ -38,7 +39,7 @@ card = PokemonCardDef(
             damage=30,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=bonus_if_asleep(20),
         ),
     ],
 )

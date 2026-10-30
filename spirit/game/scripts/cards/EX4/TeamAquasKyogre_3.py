@@ -2,11 +2,11 @@
 Team Aqua's Kyogre (EX4 #3): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.attributes import SpecialConditions
 from spirit.game.card_effects.attacks_common import condition_attack
-from spirit.game.card_effects.ex import bonus_if_special_condition
+from spirit.game.card_effects.ex import bonus_if_special_condition, power_saver_condition
 
 
 card = PokemonCardDef(
@@ -31,7 +31,7 @@ card = PokemonCardDef(
             game_text="As long as the number of Pok\u00e9mon in play (both yours and your opponent's) that has Team Aqua in its name is 3 or less, Team Aqua's Kyogre can't attack.",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=None,
         ),
         Attack(
             title="Aqua Trip",
@@ -39,6 +39,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 1},
             damage=10,
             # STUB: attack effect not implemented
+            condition=power_saver_condition("Team Aqua"),
             effect=condition_attack(SpecialConditions.CONFUSED, flip=True, tails_conditions=(SpecialConditions.ASLEEP,)),
         ),
         Attack(
@@ -48,6 +49,7 @@ card = PokemonCardDef(
             damage=50,
             damage_operator="+",
             # STUB: attack effect not implemented
+            condition=power_saver_condition("Team Aqua"),
             effect=bonus_if_special_condition(20),
         ),
     ],

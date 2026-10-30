@@ -2,9 +2,10 @@
 Team Magma's Claydol (EX4 #8): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
+from spirit.game.attributes import Activations, PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import bonus_if
+from spirit.game.card_effects.ex import magma_switch, poke_power_condition
 
 card = PokemonCardDef(
     guid="2227965d-f845-5ff4-af4b-1284ebe843fd",
@@ -28,8 +29,9 @@ card = PokemonCardDef(
             title="Magma Switch",
             game_text="Once during your turn (before your attack), you may move an Energy card attached to your Pok\u00e9mon with Team Magma in its name to another of your Pok\u00e9mon. This power can't be used if Team Magma's Claydol is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=poke_power_condition(),
+            effect=magma_switch(),
         ),
         Attack(
             title="Dark Hand",

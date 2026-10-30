@@ -2,10 +2,10 @@
 Team Magma's Groudon (EX4 #9): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
 from spirit.game.card_effects.attacks_common import snipe_attack
-from spirit.game.card_effects.ex import second_strike
+from spirit.game.card_effects.ex import power_saver_condition, second_strike
 
 
 card = PokemonCardDef(
@@ -30,13 +30,14 @@ card = PokemonCardDef(
             game_text="As long as the number of Pok\u00e9mon in play (both yours and your opponent's) that has Team Magma in its name is 3 or less, Team Magma's Groudon can't attack.",
             ability_type=AbilityTypes.POKE_BODY,
             # STUB: ability effect not implemented
-            effect=unimplemented,
+            effect=None,
         ),
         Attack(
             title="Linear Attack",
             game_text="Choose 1 of your opponent's Pok\u00e9mon. This attack does 20 damage to that Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.FIGHTING: 1, PokemonTypes.COLORLESS: 1},
             # STUB: attack effect not implemented
+            condition=power_saver_condition("Team Magma"),
             effect=snipe_attack(20, pool='any', count=1),
         ),
         Attack(
@@ -46,6 +47,7 @@ card = PokemonCardDef(
             damage=50,
             damage_operator="+",
             # STUB: attack effect not implemented
+            condition=power_saver_condition("Team Magma"),
             effect=second_strike(50, 20, 2),
         ),
     ],

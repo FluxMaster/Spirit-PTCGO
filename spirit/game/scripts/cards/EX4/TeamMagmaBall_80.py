@@ -1,12 +1,7 @@
-"""STUB: effect not implemented — do not guess mechanics.
-Team Magma Ball (EX4 #80): trainer effect stubbed.
-
-Card text:
-  - Flip a coin. If heads, search your deck for a Pokémon that has Team Magma in its name, show it to your opponent, and put it into your hand. If tails, search your deck for a Basic Pokémon that has Team Magma in its name, show it to your opponent and put it into your hand. Shuffle your deck afterward.
-"""
-
-from spirit.game.data_utils import ItemCardDef, unimplemented
+"""TeamMagmaBall_80 wired."""
+from spirit.game.data_utils import ItemCardDef
 from spirit.game.attributes import Rarities
+from spirit.game.card_effects.ex import team_ball
 
 card = ItemCardDef(
     guid="918dc69a-2573-5528-a2c9-c892c386e373",
@@ -18,6 +13,5 @@ card = ItemCardDef(
     collector_number=80,
     set_code="EX4",
     rarity=Rarities.Uncommon,
-    # STUB: trainer effect not implemented
-    effect=unimplemented
+    effect=team_ball("Team Magma")
 )

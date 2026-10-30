@@ -2,8 +2,9 @@
 Team Aqua's Spheal (EX4 #57): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
+from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, SpecialConditions
+from spirit.game.card_effects.ex import delayed_condition
 
 card = PokemonCardDef(
     guid="ae4f6ce5-6497-526d-975a-6db9ca814241",
@@ -33,7 +34,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.WATER: 1, PokemonTypes.COLORLESS: 1},
             damage=20,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=delayed_condition(SpecialConditions.ASLEEP),
         ),
     ],
 )

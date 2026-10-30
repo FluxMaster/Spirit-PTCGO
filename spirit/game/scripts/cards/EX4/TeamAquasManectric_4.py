@@ -2,8 +2,10 @@
 Team Aqua's Manectric (EX4 #4): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
-from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
+from spirit.game.attributes import Activations, PokemonTypes, PokemonStage, Rarities, AbilityTypes
+from spirit.game.card_effects.ex import thunderspark
+from spirit.game.card_effects.ex import power_shift, poke_power_condition
 
 card = PokemonCardDef(
     guid="52c00b0e-7c65-533e-b315-aeb74d673c53",
@@ -28,8 +30,9 @@ card = PokemonCardDef(
             title="Power Shift",
             game_text="Once during your turn (before your attack), you may move any number of basic Energy cards attached to 1 of your Pok\u00e9mon with Team Aqua in its name to another of your Pok\u00e9mon. This power can't be used if Team Aqua's Manectric is affected by a Special Condition.",
             ability_type=AbilityTypes.POKE_POWER,
-            # STUB: ability effect not implemented
-            effect=unimplemented,
+            activation=Activations.ONCE_PER_TURN,
+            condition=poke_power_condition(),
+            effect=power_shift("Team Aqua"),
         ),
         Attack(
             title="Thunderspark",
@@ -37,7 +40,7 @@ card = PokemonCardDef(
             cost={PokemonTypes.LIGHTNING: 1, PokemonTypes.COLORLESS: 2},
             damage=50,
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=thunderspark(),
         ),
     ],
 )

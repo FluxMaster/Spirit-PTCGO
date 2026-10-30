@@ -2,9 +2,9 @@
 Blaziken ex (EX4 #89): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities, SpecialConditions
-from spirit.game.card_effects.ex import hypno_wave
+from spirit.game.card_effects.ex import hypno_wave, volcanic_ash
 
 card = PokemonCardDef(
     guid="4cd5e3be-d712-5687-b53f-9d3447f39951",
@@ -38,7 +38,7 @@ card = PokemonCardDef(
             game_text="Discard 2 Fire Energy attached to Blaziken ex and then choose 1 of your opponent's Pok\u00e9mon. This attack does 100 damage to that Pok\u00e9mon. (Don't apply Weakness and Resistance for Benched Pok\u00e9mon.)",
             cost={PokemonTypes.FIRE: 2, PokemonTypes.COLORLESS: 2},
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=volcanic_ash(),
         ),
     ],
 )

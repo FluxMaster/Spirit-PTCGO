@@ -2,8 +2,9 @@
 Team Magma's Aggron (EX4 #7): one or more attacks/abilities use effect=unimplemented until a matching prefab or known script exists.
 """
 
-from spirit.game.data_utils import PokemonCardDef, Attack, Ability, unimplemented
+from spirit.game.data_utils import PokemonCardDef, Attack, Ability
 from spirit.game.attributes import PokemonTypes, PokemonStage, Rarities
+from spirit.game.card_effects.ex import crush_per_energy, land_stream
 
 card = PokemonCardDef(
     guid="3db597ad-2bef-5e66-ad50-31c4871c64dd",
@@ -30,7 +31,7 @@ card = PokemonCardDef(
             damage=30,
             damage_operator="x",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=crush_per_energy(30),
         ),
         Attack(
             title="Land Stream",
@@ -39,7 +40,7 @@ card = PokemonCardDef(
             damage=50,
             damage_operator="+",
             # STUB: attack effect not implemented
-            effect=unimplemented,
+            effect=land_stream(),
         ),
     ],
 )
